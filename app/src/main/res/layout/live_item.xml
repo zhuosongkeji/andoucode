@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/dp_10"
+    android:paddingBottom="@dimen/dp_10"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:src="@mipmap/icon_baidu"
+        android:layout_gravity="center"
+        android:id="@+id/img_bgtest"
+        android:layout_width="@dimen/dp_150"
+        android:layout_height="@dimen/dp_150" />
+    <TextView
+        android:id="@+id/tv_bgtest"
+        android:text="sssss"
+        android:layout_gravity="bottom|center_horizontal"
+        android:maxLength="10"
+        android:textColor="@color/grey_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</FrameLayout>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!--<com.example.basedemo.view.TopView-->
+        <!--android:id="@+id/alltopview"-->
+        <!--app:topview_left="@mipmap/back_icon"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/dp_50"/>-->
+    <LinearLayout
+        android:background="@color/colorNavy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.stx.xhb.xbanner.XBanner
+            android:id="@+id/onlinebanner"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            app:AutoPlayTime="3000"
+            app:isAutoPlay="true"
+            app:isShowIndicatorOnlyOne="true"
+            app:pageChangeDuration="800"
+            app:pointNormal="@drawable/shape_noraml"
+            app:pointSelect="@drawable/shape_selected"
+            app:pointsContainerBackground="#442e2e2e"
+            app:pointsPosition="CENTER"
+            app:tipTextSize="12sp" />
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--app:AutoPlayTime="3000"-->
+            <!--app:bannerBottomMargin="30dp"-->
+            <!--app:isAutoPlay="false"-->
+            <!--app:isClipChildrenMode="true"-->
+            <!--app:isHandLoop="true"-->
+            <!--app:isShowIndicatorOnlyOne="true"-->
+            <!--app:isShowNumberIndicator="false"-->
+            <!--app:pageChangeDuration="800"-->
+            <!--app:viewPagerClipChildren="true"-->
+            <!--app:clipChildrenLeftRightMargin="10dp"-->
+            <!--app:pointNormal="@drawable/shape_noraml"-->
+            <!--app:pointSelect="@drawable/shape_selected"-->
+            <!--app:pointsContainerBackground="@android:color/transparent"-->
+            <!--app:pointsPosition="CENTER" -->
+    </LinearLayout>
+</LinearLayout>

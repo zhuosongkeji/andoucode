@@ -1,0 +1,49 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="loading_dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item><!--边框-->
+        <item name="android:windowIsFloating">true</item><!--是否浮现在activity之上-->
+        <item name="android:windowIsTranslucent">false</item><!--半透明-->
+        <item name="android:windowNoTitle">true</item><!--无标题-->
+        <item name="android:windowBackground">@android:color/transparent</item><!--背景透明   去掉背景色边框也就去掉了-->
+        <item name="android:backgroundDimEnabled">false</item><!--模糊-->
+    </style>
+    <!--顶部导航-->
+    <declare-styleable name="TopView">
+        <attr name="topview_title" format="string"/>
+        <attr name="topview_left" format="reference"/>
+        <attr name="topview_right" format="reference"/>
+        <attr name="topview_righttitle" format="string"/>
+    </declare-styleable>
+    <style name="MainTitle.Big">
+        <item name="android:textSize">22sp</item>
+    </style>
+    <style name="MainTitle">
+        <item name="android:textSize">17sp</item>
+    </style>
+    <style name="SubTitle">
+        <item name="android:textSize">15sp</item>
+    </style>
+    <style name="BodyStyle">
+        <item name="android:text">14sp</item>
+    </style>
+    <style name="TipStyle">
+        <item name="android:textSize">12sp</item>
+    </style>
+    <style name="TipStyle.White" parent="TipStyle">
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <!--单选按钮样式-->
+    <style name="CustomRadioTheme" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/radio_style</item>
+
+    </style>
+</resources>

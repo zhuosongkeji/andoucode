@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="updateContent">#1b1b1b</color>
+    <color name="updateCancel">#00b7ee</color>
+    <color name="updateRight">#ff6666</color>
+
+    <color name="homeTitleSelect">#e7394c</color>
+    <color name="homeSelected">#fc2e4f</color>
+    <color name="homeSelect">#555555</color>
+
+    <color name="red">#ff3f3f</color>
+    <color name="line_1">#eaeaea</color>
+    <color name="white">#ffffffff</color>
+    <color name="lightgrey">#D3D3D3</color>
+    <color name="lineColor">#f0f0f0</color>
+    <color name="black_28">#282828</color>
+    <color name="black_alpha_40">#66000000</color>
+
+    <color name="grey_1">#8f8f8f</color>
+    <color name="grey_2">#ACA8A8</color>
+    <color name="holo_blue_bright">#ff22c3be</color>
+    <color name="holo_green_light">#ff99cc00</color>
+    <color name="holo_orange_light">#ffffbb33</color>
+    <color name="holo_red_light">#ffff4444</color>
+    <color name="check_text">#5ED3AE</color>
+    <color name="uncheck_text">#646464</color>
+
+    <color name="colorNavy">#5ed3ae</color>
+    <color name="colorGray">#f7f7f7</color>
+    <color name="colorGrayDark">#cccccc</color>
+    <color name="colorRed">#ff0000</color>
+    <color name="colorPink">#ff406c</color>
+    <color name="colorRedDark">#fc6464</color>
+    <color name="colorOrange">#ff9537</color>
+    <color name="colorOrangeDark">#efa13b</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorWhite">#ffffff</color>
+    <color name="sharebg">#fa632a</color>
+    <color name="black">#000</color>
+    <color name="background">#f1f1f1</color>
+
+    <color name="sred">#ff4141</color>
+    <color name="gold">#d8ab5c</color>
+    <color name="orange">#ffa500</color>
+    <color name="pink">#ffc0cb</color>
+    <color name="transparent">#00000000</color>
+    <color name="green">#FF34A350</color>
+</resources>

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:background="@mipmap/zhuye_beijin_top"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_margin="@dimen/dp_10"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:orientation="horizontal">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center">
+                        <ImageView
+                            android:id="@+id/sha"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:src="@mipmap/ic_saoyisao"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="25dp"
+                        android:background="@drawable/shape_layout">
+                        <EditText
+                            android:id="@+id/search_edittext"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="15dp"
+                            android:background="@null"
+                            android:textSize="@dimen/typeface14sp"
+                            android:hint="@string/chihewanle"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center|right">
+                            <ImageView
+                                android:id="@+id/search_image"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="@dimen/dp_8"
+                                android:src="@mipmap/search" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp" />
+                <!--<include layout="@layout/main_viewpager1"></include>-->
+                <!--<com.stx.xhb.xbanner.XBanner-->
+                    <!--android:id="@+id/bannertopone"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layout_marginTop="10dp"-->
+                    <!--app:AutoPlayTime="3000"-->
+                    <!--app:clipChildrenLeftRightMargin="80dp"-->
+                    <!--app:isAutoPlay="false"-->
+                    <!--app:pointNormal="@drawable/shape_noraml"-->
+                    <!--app:pointSelect="@drawable/shape_selected"-->
+                    <!--app:isClipChildrenMode="true"-->
+                    <!--app:isHandLoop="false"-->
+                    <!--app:isShowIndicatorOnlyOne="true"-->
+                    <!--app:isShowNumberIndicator="false"-->
+                    <!--app:pageChangeDuration="800"-->
+                    <!--app:pointsVisibility="false" />-->
+                <com.stx.xhb.xbanner.XBanner
+                    android:id="@+id/bannertop"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    app:AutoPlayTime="3000"
+                    app:clipChildrenLeftRightMargin="80dp"
+                    app:isAutoPlay="false"
+                    app:isClipChildrenMode="true"
+                    app:isHandLoop="false"
+                    app:isShowIndicatorOnlyOne="true"
+                    app:isShowNumberIndicator="false"
+                    app:pageChangeDuration="800"
+                    app:pointsVisibility="false" />
+            </LinearLayout>
+
+            <!--<include layout="@layout/main_ad_multipicture"></include>-->
+            <TextView
+                android:layout_width="match_parent"
+                android:background="@color/colorGray"
+                android:layout_height="13dp" />
+            <include layout="@layout/main_public_notice"></include>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="13dp"
+                android:background="@color/colorGray" />
+            <include layout="@layout/main_check_in_business"></include>
+            <TextView
+                android:layout_width="match_parent"
+                android:background="@color/colorGray"
+                android:layout_height="13dp" />
+            <include layout="@layout/main_online_broadcast"></include>
+            <TextView
+                android:layout_width="match_parent"
+                android:background="@color/colorGray"
+                android:layout_height="13dp" />
+            <include layout="@layout/main_make_an_appointment"></include>
+            <TextView
+                android:layout_width="match_parent"
+                android:background="@color/colorGray"
+                android:layout_height="13dp" />
+            <include layout="@layout/main_onlinebooking"></include>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_margin="@dimen/dp_15"
+    android:layout_height="235dp"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp_9">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center|left"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/livebroadcast"
+                android:textSize="@dimen/typeface16sp"
+                android:textColor="@color/colorPink"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ONLINE BOOKING"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/onlinebroadcast_see_more_layout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="right"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/see_more"
+                android:textColor="@color/colorPink"/>
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/dp_3"
+                android:src="@mipmap/ic_jiantouright_pink"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginBottom="@dimen/dp_8"
+        android:background="@color/colorGray" />
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/check_in_busiess_image1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@mipmap/onlinebroadcast1"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/check_in_busiess_image1"
+                    android:layout_marginTop="-25dp"
+                    android:layout_marginLeft="@dimen/dp_5"
+                    android:text="@string/broadcasting"
+                    android:textColor="@color/colorWhite" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="12dp"
+                android:layout_height="match_parent" />
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/check_in_busiess_image2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@mipmap/onlinebroadcast2"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/check_in_busiess_image2"
+                    android:layout_marginTop="-25dp"
+                    android:layout_marginLeft="@dimen/dp_5"
+                    android:text="@string/broadcasting"
+                    android:textColor="@color/colorWhite" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="12dp"
+                android:layout_height="match_parent" />
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/check_in_busiess_image3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@mipmap/onlinebroadcast1"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/check_in_busiess_image3"
+                    android:layout_marginTop="-25dp"
+                    android:layout_marginLeft="@dimen/dp_5"
+                    android:text="@string/broadcasting"
+                    android:textColor="@color/colorWhite" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="12dp"
+                android:layout_height="match_parent" />
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/check_in_busiess_image4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@mipmap/onlinebroadcast2"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/check_in_busiess_image4"
+                    android:layout_marginTop="-25dp"
+                    android:layout_marginLeft="@dimen/dp_5"
+                    android:text="@string/broadcasting"
+                    android:textColor="@color/colorWhite" />
+            </RelativeLayout>
+
+        </LinearLayout>
+    </HorizontalScrollView>
+</LinearLayout>
