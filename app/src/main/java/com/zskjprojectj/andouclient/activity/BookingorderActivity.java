@@ -35,7 +35,6 @@ public class BookingorderActivity extends BaseListActivity {
     protected Observable<List> getHttpListObservable() {
         String key="3279cde306e48687bc89cc63e392a135";
         String menu="西红柿";
-
         return HttpRxObservable.getObservable(ApiUtils.getApiService().getinfo(key, menu), this).map(new Function<BaseResult<TestBean.ResultBean>, List>() {
             @Override
             public List apply(BaseResult<TestBean.ResultBean> resultBeanBaseResult) throws Exception {
