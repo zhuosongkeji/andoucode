@@ -1,186 +1,205 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
     <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="60dp">-->
-        <!--<ImageView-->
-            <!--android:id="@+id/registered_back_image"-->
-            <!--android:layout_width="16dp"-->
-            <!--android:layout_height="16dp"-->
-            <!--android:layout_marginTop="@dimen/dp_15"-->
-            <!--android:layout_marginLeft="@dimen/dp_15"-->
-            <!--android:layout_gravity="center"-->
-            <!--android:src="@mipmap/icon_back_black"/>-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="60dp">-->
+    <!--<ImageView-->
+    <!--android:id="@+id/registered_back_image"-->
+    <!--android:layout_width="16dp"-->
+    <!--android:layout_height="16dp"-->
+    <!--android:layout_marginTop="@dimen/dp_15"-->
+    <!--android:layout_marginLeft="@dimen/dp_15"-->
+    <!--android:layout_gravity="center"-->
+    <!--android:src="@mipmap/icon_back_black"/>-->
     <!--</LinearLayout>-->
     <com.zskjprojectj.andouclient.view.TopView
-        app:topview_left="@mipmap/icon_back_black"
         android:id="@+id/alltopview"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/dp_50">
-    </com.zskjprojectj.andouclient.view.TopView>
+        android:layout_height="@dimen/dp_50"
+        app:topview_left="@mipmap/icon_back_black"></com.zskjprojectj.andouclient.view.TopView>
+
     <TextView
-        android:textColor="@color/black_28"
-        android:textSize="@dimen/typeface21sp"
-        android:text="@string/login_registered"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginTop="@dimen/dp_20"
         android:layout_marginBottom="@dimen/dp_10"
-        android:layout_gravity="center"
-        android:layout_height="wrap_content" />
+        android:text="@string/login_registered"
+        android:textColor="@color/black_28"
+        android:textSize="@dimen/typeface21sp" />
+
     <EditText
         android:id="@+id/registered_phonenum_edittext"
-        android:layout_marginTop="@dimen/dp_10"
-        android:drawableLeft="@mipmap/registered_phonenum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp_10"
-        android:padding="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_10"
         android:layout_marginRight="@dimen/dp_10"
         android:background="@drawable/shape_edit"
-        android:layout_width="match_parent"
-        android:textSize="@dimen/typeface12sp"
+        android:drawableLeft="@mipmap/registered_phonenum"
         android:hint="@string/login_phonenum"
-        android:layout_height="wrap_content" />
+        android:padding="@dimen/dp_10"
+        android:textSize="@dimen/typeface12sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_margin="@dimen/dp_10">
+
         <EditText
             android:id="@+id/registered_inputyanzhenma_edittext"
-            android:drawableLeft="@mipmap/verification_code"
-            android:padding="@dimen/dp_10"
-            android:background="@drawable/shape_edit"
-            android:textSize="@dimen/typeface12sp"
-            android:hint="@string/registered_input_yanzhenma"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"/>
+            android:layout_weight="2"
+            android:background="@drawable/shape_edit"
+            android:drawableLeft="@mipmap/verification_code"
+            android:hint="@string/registered_input_yanzhenma"
+            android:padding="@dimen/dp_10"
+            android:textSize="@dimen/typeface12sp" />
+
         <Button
             android:id="@+id/registered_yanzhenma_button"
             android:layout_width="0dp"
             android:layout_height="40dp"
-            android:layout_weight="1"
-            android:padding="@dimen/dp_10"
             android:layout_marginLeft="@dimen/dp_20"
+            android:layout_weight="1"
+            android:background="@drawable/shape_button"
+            android:padding="@dimen/dp_10"
             android:text="@string/registered_yanzhenma"
-            android:textColor="@color/colorWhite"
-            android:background="@drawable/shape_button"/>
+            android:textColor="@color/colorWhite" />
     </LinearLayout>
 
     <EditText
         android:id="@+id/registered_pwd_edittext"
-        android:drawableLeft="@mipmap/editverification_code"
-        android:layout_marginLeft="@dimen/dp_10"
-        android:padding="@dimen/dp_10"
-        android:layout_marginRight="@dimen/dp_10"
-        android:background="@drawable/shape_edit"
-        android:layout_width="match_parent"
-        android:textSize="@dimen/typeface12sp"
-        android:hint="@string/login_pwd"
-        android:layout_height="wrap_content" />
-    <Button
-        android:id="@+id/registered_button"
-        android:layout_marginTop="@dimen/dp_20"
-        android:layout_marginLeft="@dimen/dp_10"
-        android:layout_marginRight="@dimen/dp_10"
-        android:padding="@dimen/dp_10"
-        android:text="@string/login_registered"
-        android:textColor="@color/colorWhite"
-        android:background="@drawable/shape_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_20"
         android:layout_marginLeft="@dimen/dp_10"
         android:layout_marginRight="@dimen/dp_10"
-        android:gravity="center">
+        android:background="@drawable/shape_edit"
+        android:drawableLeft="@mipmap/editverification_code"
+        android:hint="@string/login_pwd"
+        android:padding="@dimen/dp_10"
+        android:textSize="@dimen/typeface12sp" />
+
+    <Button
+        android:id="@+id/registered_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginRight="@dimen/dp_10"
+        android:background="@drawable/shape_button"
+        android:padding="@dimen/dp_10"
+        android:text="@string/login_registered"
+        android:textColor="@color/colorWhite" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginRight="@dimen/dp_10"
+        android:gravity="center"
+        android:orientation="horizontal">
+
         <RadioButton
             android:id="@+id/registered_agree_xieyi_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:button="@null"
             android:checked="true"
-            android:drawableLeft="@drawable/agree_selector"/>
+            android:drawableLeft="@drawable/agree_selector" />
+
         <TextView
             android:layout_width="wrap_content"
-            android:textSize="@dimen/typeface14sp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_5"
             android:text="@string/registered_txt"
-            android:layout_height="wrap_content" />
+            android:textSize="@dimen/typeface14sp" />
+
         <TextView
             android:id="@+id/registered_xieyi_textview"
-            android:textColor="#5ED3AE"
             android:layout_width="wrap_content"
-            android:textSize="@dimen/typeface14sp"
+            android:layout_height="wrap_content"
             android:text="《安抖注册协议》"
-            android:layout_height="wrap_content" />
+            android:textColor="#5ED3AE"
+            android:textSize="@dimen/typeface14sp" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="right">
-        <TextView
-            android:id="@+id/registered_login_textview"
-            android:textColor="#5ED3AE"
-            android:layout_width="wrap_content"
-            android:textSize="@dimen/typeface14sp"
-            android:text="@string/login_txt1"
-            android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/registered_login_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/login_txt1"
+                android:textColor="#5ED3AE"
+                android:textSize="@dimen/typeface14sp" />
         </LinearLayout>
     </LinearLayout>
+
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_20"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
         android:gravity="center"
-        android:layout_height="wrap_content">
+        android:orientation="horizontal">
+
         <View
-            android:background="@color/black_28"
             android:layout_width="120dp"
-            android:layout_height="1dp"/>
+            android:layout_height="1dp"
+            android:background="@color/black_28" />
+
         <TextView
-            android:padding="@dimen/dp_20"
-            android:text="@string/registered_fast"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp_20"
+            android:text="@string/registered_fast" />
+
         <View
-            android:background="@color/black_28"
             android:layout_width="120dp"
-            android:layout_height="1dp"/>
+            android:layout_height="1dp"
+            android:background="@color/black_28" />
     </LinearLayout>
+
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_height="wrap_content">
+        android:orientation="horizontal">
+
         <ImageView
             android:id="@+id/registered_login_fast_qq_image"
-            android:layout_weight="1"
-            android:src="@mipmap/icon_qq"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@mipmap/icon_qq" />
+
         <ImageView
             android:id="@+id/registered_login_fast_weixin_image"
-            android:layout_weight="1"
-            android:src="@mipmap/icon_weixin"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@mipmap/icon_weixin" />
+
         <ImageView
             android:id="@+id/registered_login_fast_weibo_image"
-            android:layout_weight="1"
-            android:src="@mipmap/icon_weibo"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@mipmap/icon_weibo" />
+
         <ImageView
             android:id="@+id/registered_login_fast_baidu_image"
-            android:layout_weight="1"
-            android:src="@mipmap/icon_baidu"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@mipmap/icon_baidu" />
     </LinearLayout>
 </LinearLayout>

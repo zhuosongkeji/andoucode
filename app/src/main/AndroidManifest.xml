@@ -1,55 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.zskjprojectj.andouclient">
+
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
     <application
-        android:allowBackup="true"
         android:name=".base.BaseApplication"
+        android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activity.HotelActivity"></activity>
         <activity android:name=".activity.LoginActivity">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity> <!-- 注册界面 -->
+        <activity android:name=".activity.RegisteredActivity" /> <!-- 主界面 -->
+        <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <!--注册界面-->
-        <activity android:name=".activity.RegisteredActivity"/>
-        <!--主界面-->
-        <activity android:name=".activity.MainActivity"/>
-        <!--商家暂时不需要-->
-        <activity android:name=".activity.MerchantsInfoActivity"/>
-        <!--菜市场模块-->
-        <activity android:name=".activity.VegetableMarketActivity"/>
-        <!--直播界面-->
-        <activity android:name=".activity.LiveActivity"/>
-        <!--外卖板块-->
-        <activity android:name=".activity.BookingorderActivity"/>
-        <!--在线点餐模块-->
-        <activity android:name=".activity.OnlineBookingorderActivity"/>
-        <!--我的发布-->
-        <activity android:name=".activity.MywalletActivity"/>
-        <!--分享有礼-->
-        <activity android:name=".activity.InvitationActivity"/>
-        <!--商城订单-->
-        <activity android:name=".activity.ShoporderActivity"/>
-        <!--酒店订单-->
-        <activity android:name=".activity.HotelorderActivity"/>
-        <!--美食订单-->
-        <activity android:name=".activity.FoodorderActivity"/>
-        <!--我的钱包-->
-        <activity android:name=".activity.MyreleaseActivity"/>
-        <!--余额充值-->
-        <activity android:name=".activity.BalanceofprepaidActivity"/>
-        <!--在线商城-->
-        <activity android:name=".activity.OnlinemallActivity"/>
-        <!--在线商城主页-->
-        <activity android:name=".activity.MallMainActivity"/>
+        </activity> <!-- 商家暂时不需要 -->
+        <activity android:name=".activity.MerchantsInfoActivity" /> <!-- 菜市场模块 -->
+        <activity android:name=".activity.VegetableMarketActivity" /> <!-- 直播界面 -->
+        <activity android:name=".activity.LiveActivity" /> <!-- 外卖板块 -->
+        <activity android:name=".activity.BookingorderActivity" /> <!-- 在线点餐模块 -->
+        <activity android:name=".activity.OnlineBookingorderActivity" /> <!-- 我的发布 -->
+        <activity android:name=".activity.MywalletActivity" /> <!-- 分享有礼 -->
+        <activity android:name=".activity.InvitationActivity" /> <!-- 商城订单 -->
+        <activity android:name=".activity.ShoporderActivity" /> <!-- 酒店订单 -->
+        <activity android:name=".activity.HotelorderActivity" /> <!-- 美食订单 -->
+        <activity android:name=".activity.FoodorderActivity" /> <!-- 我的钱包 -->
+        <activity android:name=".activity.MyreleaseActivity" /> <!-- 余额充值 -->
+        <activity android:name=".activity.BalanceofprepaidActivity" /> <!-- 在线商城 -->
+        <activity android:name=".activity.OnlinemallActivity" /> <!-- 在线商城主页 -->
+        <activity android:name=".activity.MallMainActivity" /> <!-- 全面屏 -->
+        <meta-data
+            android:name="android.max_aspect"
+            android:value="2.4" /> <!-- 适配华为（huawei）刘海屏 -->
+        <meta-data
+            android:name="android.notch_support"
+            android:value="true" /> <!-- 适配小米（xiaomi）刘海屏 -->
+        <meta-data
+            android:name="notch.config"
+            android:value="portrait|landscape" />
     </application>
 
 </manifest>

@@ -4,6 +4,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import android.view.KeyEvent;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -18,6 +20,8 @@ import com.zskjprojectj.andouclient.fragment.InfoPageFragment;
 import com.zskjprojectj.andouclient.fragment.MePageFragment;
 import com.zskjprojectj.andouclient.fragment.MerchantsPageFragment;
 import com.zskjprojectj.andouclient.fragment.TieBaFragment;
+import com.zskjprojectj.andouclient.utils.BarUtils;
+import com.zskjprojectj.andouclient.utils.StatusBarUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,14 +33,15 @@ import java.util.List;
  *     desc   :
  *     version: 1.0
  * </pre>
- *public class MainActivity extends FragmentActivity implements RadioGroup.OnCheckedChangeListener
+ * public class MainActivity extends FragmentActivity implements RadioGroup.OnCheckedChangeListener
+ *
  * @author yizhubao
  */
 public class MainActivity extends BaseActivity {
     private EasyNavigationBar navigationBar;
     //定义字体颜色
-    private int normalTextColor= Color.parseColor("#646464");
-    private int selectTextColor=Color.parseColor("#5ED3AE");
+    private int normalTextColor = Color.parseColor("#646464");
+    private int selectTextColor = Color.parseColor("#5ED3AE");
     private String[] tabText = {"首页", "商家", "信息", "贴吧", "我的"};
     //未选中icon
     private int[] normalIcon = {R.mipmap.home_icon_uncheck, R.mipmap.merchants_icon_uncheck, R.mipmap.info_icon, R.mipmap.tieba_icon_uncheck, R.mipmap.me_icon_uncheck};
@@ -50,6 +55,7 @@ public class MainActivity extends BaseActivity {
 //    private static String homepage = "mHomePageFragment";
 //    protected TextView tvProtruding;
 //    protected ImageView imgProtruding;
+
     /**
      * 创建一个集合，存储碎片
      */
@@ -64,7 +70,7 @@ public class MainActivity extends BaseActivity {
 //    private RadioGroup mRadioButtonRg;
 //    private FragmentTransaction transaction1;
 
-   // @Override
+    // @Override
 //    protected void onCreate(@Nullable Bundle savedInstanceState) {
 //        super.onCreate(savedInstanceState);
 //
@@ -75,7 +81,6 @@ public class MainActivity extends BaseActivity {
 ////            fragmentManager.beginTransaction().replace(R.id.fragment_all, mHomePageFragment, homepage).commit();
 ////        }
 //    }
-
     @Override
     protected void setRootView() {
         setContentView(R.layout.activity_main);
@@ -142,7 +147,9 @@ public class MainActivity extends BaseActivity {
         return null;
     }
 
-//    void initView()
+
+
+    //    void initView()
 //    {
 ////        mRadioButtonRg = (RadioGroup) findViewById(R.id.rg_oper);
 ////        mRadioButtonRg.setOnCheckedChangeListener(MainActivity.this);
@@ -308,6 +315,7 @@ public class MainActivity extends BaseActivity {
 //    }
     /**
      * 按键执行操作，连点两次退出程序
+     *
      * @param keyCode
      * @param event
      * @return
