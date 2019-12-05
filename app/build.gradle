@@ -54,6 +54,7 @@ dependencies {
     //annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1's
     implementation "com.jakewharton:butterknife:10.0.0"
     androidTestImplementation 'com.jakewharton:butterknife-compiler:10.0.0'
+
     implementation   "com.alibaba:fastjson:1.2.54"
     implementation    "com.squareup.okhttp3:okhttp:3.11.0"
     implementation     "com.squareup.okhttp3:logging-interceptor:3.11.0"
@@ -85,5 +86,8 @@ dependencies {
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
     implementation 'com.android.support:recyclerview-v7:28.0.0'
     implementation'com.tbruyelle.rxpermissions2:rxpermissions:0.9.5@aar'
-
+//沉浸式状态栏
+    // 基础依赖包，必须要依赖
+    implementation 'com.gyf.immersionbar:immersionbar:3.0.0'
+    implementation 'com.gyf.immersionbar:immersionbar-components:3.0.0'
 }

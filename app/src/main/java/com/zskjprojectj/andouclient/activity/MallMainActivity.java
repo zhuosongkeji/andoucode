@@ -41,7 +41,7 @@ public class MallMainActivity extends BaseActivity {
     @Override
     protected void initData(Bundle savedInstanceState) {
         topView.setTitle("在线商城");
-    }
+}
 
     @Override
     protected void initViews() {

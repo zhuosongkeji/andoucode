@@ -16,6 +16,8 @@ import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.BookingorderActivity;
+import com.zskjprojectj.andouclient.activity.HotelActivity;
+import com.zskjprojectj.andouclient.activity.HotelorderActivity;
 import com.zskjprojectj.andouclient.activity.LiveActivity;
 import com.zskjprojectj.andouclient.activity.MainActivity;
 import com.zskjprojectj.andouclient.activity.MallMainActivity;
@@ -41,16 +43,27 @@ import okhttp3.Call;
  */
 public class HomePageFragment extends BaseFragment {
     private XBanner bannertops,bannertopone;
-    private  LinearLayout check_in_business_seemore_layout;
+    private  LinearLayout check_in_business_seemore_layout,rootView;
     private LinearLayout onlinebroadcast_see_more_layout,appointment_see_more_layout,onlinebooking_see_more_layout;
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
+
         bannertops=view.findViewById(R.id.bannertop);
+
+//        headView.setPadding(0, BarUtils.getStatusBarHeight(getActivity()),0,0);
      //   bannertopone=view.findViewById(R.id.bannertopone);
+        rootView=view.findViewById(R.id.root_view);
         check_in_business_seemore_layout=view.findViewById(R.id.check_in_business_seemore_layout);
         onlinebroadcast_see_more_layout=view.findViewById(R.id.onlinebroadcast_see_more_layout);
         appointment_see_more_layout=view.findViewById(R.id.appointment_see_more_layout);
         onlinebooking_see_more_layout=view.findViewById(R.id.onlinebooking_see_more_layout);
+
+//        rootView.setPadding(0, BarUtils.getStatusBarHeight(getActivity()),0,0);
+
+//        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, 40);
+//        params.setMargins(10, BarUtils.getStatusBarHeight(getActivity()), 10, 10);
+//        rootView.setLayoutParams(params);
+
     }
 
     /**
@@ -156,8 +169,13 @@ public class HomePageFragment extends BaseFragment {
                         startActivity(new Intent(getContext(), MallMainActivity.class));
                       //  Toast.makeText(mAty, "点击了第" + (position + 1) + "图片", Toast.LENGTH_SHORT).show();
                         break;
-                        //跳转到酒店预订模块
+                        //跳转到酒店预约模块
                     case 1:
+                        startActivity(new Intent(getContext(), HotelActivity.class));
+                        break;
+                        //跳转饭店预约模块
+                    case 2:
+//                        startActivity(new Intent(getContext(),));
                         break;
                 }
 

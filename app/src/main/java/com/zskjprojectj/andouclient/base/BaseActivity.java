@@ -2,9 +2,13 @@ package com.zskjprojectj.andouclient.base;
 
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
+
+import com.gyf.immersionbar.ImmersionBar;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.listener.LifeCycleListener;
@@ -32,9 +36,22 @@ public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatA
             mListener.onCreate(savedInstanceState);
         }
         setRootView();
+        //设置沉浸式状态栏
+//        StatusBarUtil.setTranslucentForImageView(this, 0, );
+        //沉浸式代码配置
+        //当FitsSystemWindows设置 true 时，会在屏幕最上方预留出状态栏高度的 padding
+        //设置状态栏透明
+        //一般的手机的状态栏文字和图标都是白色的, 可如果你的应用也是纯白色的, 或导致状态栏文字看不清
+        //所以如果你是这种情况,请使用以下代码, 设置状态使用深色文字图标风格, 否则你可以选择性注释掉这个if内容
+            //如果不支持设置深色风格 为了兼容总不能让状态栏白白的看不清, 于是设置一个状态栏颜色为半透明,
+            //这样半透明+白=灰, 状态栏的文字能看得清
+        // 所有子类都将继承这些相同的属性,请在设置界面之后设置
+        ImmersionBar.with(this).init();
+
         initViews();
         initData(savedInstanceState);
         getDataFromServer();
+
     }
 
     //设置布局数据
