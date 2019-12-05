@@ -19,6 +19,7 @@ import butterknife.Unbinder;
 import es.dmoral.toasty.Toasty;
 import io.reactivex.annotations.Nullable;
 
+
 public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatActivity {
     private Unbinder mUnBinder;
     protected TopView topView;
