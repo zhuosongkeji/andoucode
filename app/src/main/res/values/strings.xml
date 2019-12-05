@@ -40,7 +40,8 @@
     <string name="center_tobeevaluated">待评价</string>
     <string name="center_returngoods">退货/款</string>
     <string name="center_foodorder">美食订单</string>
-    <string name="center_hotelorder">酒店预订</string>
+    <string name="center_hotelorder">酒店订单</string>
+    <string name="center_restaurant">饭店订单</string>
     <string name="center_vegetablemarket">菜市场</string>
     <string name="center_shoporder">商城订单</string>
     <string name="center_invitation_with_courtesy">邀请有礼</string>

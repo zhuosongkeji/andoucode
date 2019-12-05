@@ -15,6 +15,7 @@ import com.zskjprojectj.andouclient.activity.MywalletActivity;
 import com.zskjprojectj.andouclient.activity.ShoporderActivity;
 import com.zskjprojectj.andouclient.activity.VegetableMarketActivity;
 import com.zskjprojectj.andouclient.base.BaseFragment;
+import com.zskjprojectj.andouclient.view.TopView;
 
 /**
  * <pre>
@@ -27,6 +28,7 @@ import com.zskjprojectj.andouclient.base.BaseFragment;
  * @author yizhubao
  */
 public class MePageFragment extends BaseFragment {
+    private TopView topView;
     //菜市场
     private LinearLayout mycenter_vegetablemarket_layout;
     //美食订单
@@ -50,6 +52,7 @@ public class MePageFragment extends BaseFragment {
         mycenter_invitation_with_courtesy_layout=view.findViewById(R.id.mycenter_invitation_with_courtesy_layout);
         mycenter_mywallet_layout=view.findViewById(R.id.mycenter_mywallet_layout);
         mycenter_myrelease_layout=view.findViewById(R.id.mycenter_myrelease_layout);
+        topView=view.findViewById(R.id.alltopview);
     }
 
     @Override
@@ -64,6 +67,7 @@ public class MePageFragment extends BaseFragment {
 
     @Override
     protected void initData() {
+        topView.setTitle("会员中心");
         /**
          * 菜市场
          */
