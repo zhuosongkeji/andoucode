@@ -66,4 +66,9 @@
     <string name="chongzhifangshi">请选择充值方式</string>
     <string name="yinlianpay">银联支付</string>
     <string name="hotel_stay">酒店住宿</string>
+    <string name="hotel_hight_hotel">高端酒店</string>
+    <string name="hotel_chain_hotel">经济连锁</string>
+    <string name="hotel_boutique_hotel">精品酒店</string>
+    <string name="hotel_today_sale">今夜特价</string>
+    <string name="hotel_hour_home">钟点房</string>
 </resources>

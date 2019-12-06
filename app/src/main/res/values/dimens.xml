@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="typeface8sp">8sp</dimen>
     <dimen name="typeface10sp">10sp</dimen>
     <dimen name="typeface11sp">11sp</dimen>
     <dimen name="typeface12sp">12sp</dimen>
