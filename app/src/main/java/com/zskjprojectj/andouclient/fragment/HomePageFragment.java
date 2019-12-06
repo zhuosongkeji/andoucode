@@ -24,6 +24,7 @@ import com.zskjprojectj.andouclient.activity.MallMainActivity;
 import com.zskjprojectj.andouclient.activity.OnlineBookingorderActivity;
 import com.zskjprojectj.andouclient.base.BaseFragment;
 import com.zskjprojectj.andouclient.entity.TuchongEntity;
+import com.zskjprojectj.andouclient.utils.BarUtils;
 import com.zskjprojectj.andouclient.utils.ScreenUtil;
 
 import java.util.ArrayList;
@@ -53,6 +54,12 @@ public class HomePageFragment extends BaseFragment {
 //        headView.setPadding(0, BarUtils.getStatusBarHeight(getActivity()),0,0);
      //   bannertopone=view.findViewById(R.id.bannertopone);
         rootView=view.findViewById(R.id.root_view);
+
+        //设置状态栏的高度
+        LinearLayout.LayoutParams layoutParams= (LinearLayout.LayoutParams) rootView.getLayoutParams();
+        layoutParams.topMargin= BarUtils.getStatusBarHeight(getActivity())+layoutParams.topMargin;
+        rootView.setLayoutParams(layoutParams);
+
         check_in_business_seemore_layout=view.findViewById(R.id.check_in_business_seemore_layout);
         onlinebroadcast_see_more_layout=view.findViewById(R.id.onlinebroadcast_see_more_layout);
         appointment_see_more_layout=view.findViewById(R.id.appointment_see_more_layout);

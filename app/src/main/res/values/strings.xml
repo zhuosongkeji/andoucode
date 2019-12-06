@@ -65,4 +65,5 @@
     <string name="callphonenum">请输入正确的联系电话</string>
     <string name="chongzhifangshi">请选择充值方式</string>
     <string name="yinlianpay">银联支付</string>
+    <string name="hotel_stay">酒店住宿</string>
 </resources>

@@ -1,6 +1,7 @@
 package com.zskjprojectj.andouclient.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
@@ -15,7 +16,7 @@ import com.zskjprojectj.andouclient.base.BasePresenter;
  */
 public class HotelActivity extends BaseActivity {
 
-
+private RecyclerView mRvRecycler;
 
     @Override
     protected void setRootView() {
@@ -25,12 +26,12 @@ public class HotelActivity extends BaseActivity {
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-        topView.setTitle("在线商城");
     }
 
     @Override
     protected void initViews() {
 
+        mRvRecycler=findViewById(R.id.rv_recycler);
     }
 
     @Override
