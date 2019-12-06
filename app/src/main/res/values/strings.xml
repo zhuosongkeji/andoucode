@@ -13,6 +13,7 @@
     <string name="info_page">信息</string>
     <string name="tieba_page">贴吧</string>
     <string name="me_page">我的</string>
+    <string name="search">输入关键字搜索</string>
 
     <string name="registered_yanzhenma">获取验证码</string>
     <string name="registered_input_yanzhenma">请输入验证码</string>

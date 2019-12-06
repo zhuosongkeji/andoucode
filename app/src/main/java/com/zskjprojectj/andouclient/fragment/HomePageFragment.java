@@ -147,7 +147,7 @@ public class HomePageFragment extends BaseFragment {
             }
         });
         /**
-         * 在线预约订单
+         * 在线预约订单(饭店预订)
          */
         onlinebooking_see_more_layout.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,19 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:layout_height="match_parent">
-    <include layout="@layout/view_top_bar" />
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <!--    <include layout="@layout/view_top_bar" />-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_75"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_gravity="center_vertical"
+            android:src="@mipmap/back_icon"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/shape_layout">
+
+            <EditText
+                android:id="@+id/search_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="35dp"
+                android:background="@null"
+                android:hint="@string/search"
+                android:textSize="@dimen/typeface14sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:gravity="center|right">
+
+                <ImageView
+                    android:id="@+id/search_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/dp_8"
+                    android:src="@mipmap/search" />
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+    <com.wihaohao.PageGridView
+        android:layout_marginTop="@dimen/dp_15"
+        android:id="@+id/vp_grid_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:indicatorPadding="10dp"
+        app:isShowIndicator="true"
+        app:numColumns="4"
+        app:pageSize="8"
+        app:selectedIndicator="@drawable/shape_dot_selected"
+        app:unSelectedIndicator="@drawable/shape_dot_normal" />
     <com.zskjprojectj.andouclient.refresh.MySwipeRefreshLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/swiperefreshlayout"
+        android:layout_marginTop="@dimen/dp_15"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
+            android:layout_height="match_parent" />
     </com.zskjprojectj.andouclient.refresh.MySwipeRefreshLayout>
 </LinearLayout>
