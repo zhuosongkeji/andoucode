@@ -16,20 +16,20 @@
         <activity android:name=".activity.HotelActivity"></activity>
         <activity android:name=".activity.LoginActivity">
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
-        </activity> <!-- 注册界面 -->
-        <activity android:name=".activity.RegisteredActivity" /> <!-- 主界面 -->
-        <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity> <!-- 注册界面 -->
+        <activity android:name=".activity.RegisteredActivity" /> <!-- 主界面 -->
+        <activity android:name=".activity.MainActivity">
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
         </activity> <!-- 商家暂时不需要 -->
         <activity android:name=".activity.MerchantsInfoActivity" /> <!-- 菜市场模块 -->
         <activity android:name=".activity.VegetableMarketActivity" /> <!-- 直播界面 -->

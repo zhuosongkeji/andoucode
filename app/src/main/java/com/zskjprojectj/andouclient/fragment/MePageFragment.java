@@ -43,6 +43,8 @@ public class MePageFragment extends BaseFragment {
     private LinearLayout mycenter_mywallet_layout;
     //我的发布
     private LinearLayout mycenter_myrelease_layout;
+    //购物车
+    private  LinearLayout mycenter_shoppingcart_layout;
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
         mycenter_vegetablemarket_layout=view.findViewById(R.id.mycenter_vegetablemarket_layout);
@@ -52,6 +54,7 @@ public class MePageFragment extends BaseFragment {
         mycenter_invitation_with_courtesy_layout=view.findViewById(R.id.mycenter_invitation_with_courtesy_layout);
         mycenter_mywallet_layout=view.findViewById(R.id.mycenter_mywallet_layout);
         mycenter_myrelease_layout=view.findViewById(R.id.mycenter_myrelease_layout);
+        mycenter_shoppingcart_layout=view.findViewById(R.id.mycenter_shoppingcart_layout);
         topView=view.findViewById(R.id.alltopview);
     }
 
@@ -131,5 +134,8 @@ public class MePageFragment extends BaseFragment {
                 startActivity(new Intent(getContext(), MyreleaseActivity.class));
             }
         });
+        /**
+         * 购物车
+         */
     }
 }
