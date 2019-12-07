@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
     <!--    <include layout="@layout/view_top_bar" />-->
 
@@ -13,18 +13,20 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_gravity="center_vertical"
-            android:src="@mipmap/back_icon"
-            android:layout_marginTop="@dimen/dp_10"
-            android:layout_marginLeft="@dimen/dp_10"
+            android:id="@+id/img_back"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_10"
+            android:src="@mipmap/back_icon" />
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
             android:layout_marginLeft="@dimen/dp_20"
             android:layout_marginTop="@dimen/dp_10"
-            android:layout_gravity="center_vertical"
             android:background="@drawable/shape_layout">
 
             <EditText
@@ -51,27 +53,188 @@
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>
+
     <com.wihaohao.PageGridView
-        android:layout_marginTop="@dimen/dp_15"
         android:id="@+id/vp_grid_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_15"
         app:indicatorPadding="10dp"
         app:isShowIndicator="true"
         app:numColumns="4"
         app:pageSize="8"
         app:selectedIndicator="@drawable/shape_dot_selected"
         app:unSelectedIndicator="@drawable/shape_dot_normal" />
-    <com.zskjprojectj.andouclient.refresh.MySwipeRefreshLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/swiperefreshlayout"
-        android:layout_marginTop="@dimen/dp_15"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerview"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <org.angmarch.views.NiceSpinner
+            android:id="@+id/one_spinner"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:arrowTint="@color/grey_2"
+            app:dropDownListPaddingBottom="60dp"
+            app:textTint="@color/black" />
+        <org.angmarch.views.NiceSpinner
+            android:id="@+id/two_spinner"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_weight="1"
+            app:arrowTint="@color/grey_2"
+            app:dropDownListPaddingBottom="60dp"
+            app:textTint="@color/black" />
+
+        <org.angmarch.views.NiceSpinner
+            android:id="@+id/three_spinner"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_weight="1"
+            app:arrowTint="@color/grey_2"
+            app:dropDownListPaddingBottom="60dp"
+            app:textTint="@color/black" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/dp_20"
+        android:id="@+id/ly_detailspage"
+        android:layout_width="match_parent"
+        android:layout_height="215dp"
+
+        android:orientation="vertical">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </com.zskjprojectj.andouclient.refresh.MySwipeRefreshLayout>
+            android:layout_height="25dp"
+            android:layout_marginBottom="@dimen/dp_5">
+
+            <LinearLayout
+                android:layout_width="170dp"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="渝大师毛肚火锅"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/typeface14sp" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/dp_7"
+                    android:src="@mipmap/ic_v" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="right">
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center"
+                    android:src="@mipmap/ic_zan" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/dp_5"
+                    android:gravity="center"
+                    android:text="1366"
+                    android:textColor="@color/colorNavy"
+                    android:textSize="@dimen/typeface14sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_marginBottom="@dimen/dp_8">
+
+            <ImageView
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:src="@mipmap/ic_plant" />
+
+            <ImageView
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:layout_marginLeft="@dimen/dp_3"
+                android:src="@mipmap/ic_plant" />
+
+            <ImageView
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:layout_marginLeft="@dimen/dp_3"
+                android:src="@mipmap/ic_plant" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="160dp">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:background="@mipmap/ic_food_booking1" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.1" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/dp_3"
+                android:layout_weight="2"
+                android:gravity="right"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="@dimen/dp_6"
+                    android:layout_weight="1"
+                    android:background="@mipmap/ic_food_booking2" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.1" />
+
+                <ImageView
+                    android:id="@+id/booking_food_image23"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:background="@mipmap/ic_food_booking3" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+    <!--    <com.zskjprojectj.andouclient.refresh.MySwipeRefreshLayout-->
+    <!--        xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--        android:id="@+id/swiperefreshlayout"-->
+    <!--        android:layout_marginTop="@dimen/dp_15"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent">-->
+
+    <!--        <androidx.recyclerview.widget.RecyclerView-->
+    <!--            android:id="@+id/recyclerview"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="match_parent" />-->
+    <!--    </com.zskjprojectj.andouclient.refresh.MySwipeRefreshLayout>-->
 </LinearLayout>

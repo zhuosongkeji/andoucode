@@ -21,7 +21,18 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
+    allprojects {
+        repositories {
+            flatDir {
+                dirs 'libs'
+            }
+            google()
+            jcenter()
+            maven{ url 'https://dl.bintray.com/lingguoding/maven/' }
+            maven { url "https://jitpack.io" }
+            maven { url "https://maven.google.com" }
+        }
+    }
     android {
 
         //指定jdk版本
@@ -86,5 +97,7 @@ dependencies {
     implementation 'com.gyf.immersionbar:immersionbar-components:3.0.0'
     //分页导航
     implementation 'com.wihaohao:PageGridView:1.2.1'
-
+//TabLayout
+    //下拉列表
+    implementation 'com.github.arcadefire:nice-spinner:1.3.1'
 }
