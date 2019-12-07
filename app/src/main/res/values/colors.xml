@@ -50,4 +50,8 @@
     <color name="transparent">#00000000</color>
     <color name="green">#FF34A350</color>
     <color name="text_color_normal">#969696</color>
+    <color name="green_bg">#5ED3AE</color>
+    <color name="black_bg">#525252</color>
+
+    <color name="gray_color">#4b4b58</color>
 </resources>

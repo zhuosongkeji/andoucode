@@ -100,7 +100,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="商家评分"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textColor="#323232"/>
 
 
@@ -192,7 +192,19 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_10"
         android:background="#F7F7F7"/>
-
+    <com.shizhefei.view.indicator.FixedIndicatorView
+        android:id="@+id/indicator"
+        android:background="@color/colorWhite"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_10"
+        android:background="#F7F7F7"/>
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 
 </LinearLayout>

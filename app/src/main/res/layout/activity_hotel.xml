@@ -157,6 +157,7 @@
                 android:background="@color/colorGray" />
 
             <LinearLayout
+                android:id="@+id/search_hotel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_20"
@@ -315,7 +316,7 @@
         android:text="猜你喜欢"
         android:textColor="#333333"
         android:textSize="16sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_recycler"
@@ -324,6 +325,7 @@
         android:visibility="gone" />
 
     <LinearLayout
+        android:id="@+id/ll_hotel_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/dp_10">

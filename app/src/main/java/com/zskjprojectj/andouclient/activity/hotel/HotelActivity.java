@@ -3,7 +3,9 @@ package com.zskjprojectj.andouclient.activity.hotel;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
@@ -17,10 +19,11 @@ import com.zskjprojectj.andouclient.utils.BarUtils;
  *  bin
  *  2019/12/5
  */
-public class HotelActivity extends BaseActivity {
+public class HotelActivity extends BaseActivity implements View.OnClickListener {
 
 private RecyclerView mRvRecycler;
-private LinearLayout mTitle;
+private LinearLayout mTitle,mHotel_list,mSearchHotel;
+
 
     @Override
     protected void setRootView() {
@@ -30,7 +33,7 @@ private LinearLayout mTitle;
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-//        topView.setTitle("酒店住宿");
+
     }
 
     @Override
@@ -40,7 +43,12 @@ private LinearLayout mTitle;
         RelativeLayout.LayoutParams layoutParams= (RelativeLayout.LayoutParams) mTitle.getLayoutParams();
         layoutParams.topMargin= BarUtils.getStatusBarHeight(this);
         mTitle.setLayoutParams(layoutParams);
-//        mRvRecycler=findViewById(R.id.rv_recycler);
+
+        mHotel_list=findViewById(R.id.ll_hotel_list);
+        mSearchHotel=findViewById(R.id.search_hotel);
+        mHotel_list.setOnClickListener(this);
+        mSearchHotel.setOnClickListener(this);
+
     }
 
     @Override
@@ -51,5 +59,19 @@ private LinearLayout mTitle;
     @Override
     protected BasePresenter createPresenter() {
         return null;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.ll_hotel_list:
+                Intent hotelListIntent=new Intent(this,HotelDetailActivity.class);
+                startActivity(hotelListIntent);
+                break;
+            case R.id.search_hotel:
+                Intent searchTotelIntent=new Intent(this,HotelFilterActivity.class);
+                startActivity(searchTotelIntent);
+                break;
+        }
     }
 }
