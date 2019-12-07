@@ -1,46 +1,43 @@
-package com.zskjprojectj.andouclient.fragment;
+package com.zskjprojectj.andouclient.fragment.hotel;
 
 import android.os.Bundle;
 import android.view.View;
-
 
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.adapter.MerchantListAdapter;
+import com.zskjprojectj.andouclient.adapter.hotel.CommentAdapter;
 import com.zskjprojectj.andouclient.base.BaseFragment;
-import com.zskjprojectj.andouclient.entity.MerchantListBean;
-import com.zskjprojectj.andouclient.view.TopView;
+import com.zskjprojectj.andouclient.entity.hotel.HotelDetailCommentBean;
 
 import java.util.ArrayList;
 
 /**
- * <pre>
- *     e-mail : 3307501630@qq.com
- *     time   : 2019/10/25
- *     desc   :
- *     version: 1.0
- * </pre>
- *商家信息
- * @author yizhubao
+ * 项目名称： andoucode
+ * 包名：com.zskjprojectj.andouclient.fragment.hotel
+ * author: Bin email:wangdabin2333@163.com
+ * time: 2019/12/7 9:32
+ * des: 酒店详情评论
+ * 修改人：
+ * 修改时间：
+ * 修改备注：
  */
-public class MerchantsPageFragment extends BaseFragment {
-    private TopView mTitle;
+public class HotelDetailCommentFragment extends BaseFragment {
     private RecyclerView mRecycler;
-    private ArrayList<MerchantListBean> mDataList;
+    private ArrayList<HotelDetailCommentBean> mDataList;
+
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
-        mTitle=view.findViewById(R.id.alltopview);
-        mTitle.setTitle("商家");
+
         mRecycler=view.findViewById(R.id.rv_recycler);
         mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
     @Override
     protected int getContentViewRes() {
-        return R.layout.fragment_merchantspage;
+        return R.layout.fragment_hotel_detail_comment;
     }
 
     @Override
@@ -50,16 +47,18 @@ public class MerchantsPageFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-
         mDataList=new ArrayList<>();
+
         for (int i=0;i<20;i++){
-            MerchantListBean databean=new MerchantListBean();
-            databean.setImageResource(R.mipmap.ic_busiess_canting);
-            databean.setName("北平楼涮羊肉");
+            HotelDetailCommentBean databean=new HotelDetailCommentBean();
+            databean.setHeadPic(R.mipmap.ic_touxiang);
+            databean.setComment("酒店环境干净卫生，入住体验非常好");
+            databean.setCommentImage(R.mipmap.hotel_details);
+            databean.setName("暮看日西沉");
             mDataList.add(databean);
         }
 
-        MerchantListAdapter adapter=new MerchantListAdapter(R.layout.merchant_item_view,mDataList);
+        CommentAdapter adapter=new CommentAdapter(R.layout.comment_item_view,mDataList);
         adapter.openLoadAnimation();
         mRecycler.addItemDecoration(new DividerItemDecoration(getActivity(),DividerItemDecoration.VERTICAL));
         mRecycler.setAdapter(adapter);

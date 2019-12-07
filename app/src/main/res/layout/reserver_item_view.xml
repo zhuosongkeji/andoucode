@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:padding="@dimen/dp_20"
+    >
+    <ImageView
+        android:id="@+id/hotel_image"
+        android:src="@mipmap/hotel_details"
+        android:scaleType="centerCrop"
+        android:layout_width="100dp"
+        android:layout_height="100dp"/>
+
+    <TextView
+        android:id="@+id/hotel_name"
+        android:layout_alignTop="@+id/hotel_image"
+        android:layout_toRightOf="@+id/hotel_image"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/typeface18sp"
+        android:textColor="#323232"
+        android:text="阳光大床房"/>
+    <TextView
+        android:id="@+id/hotel_des"
+        android:layout_alignStart="@+id/hotel_name"
+        android:layout_below="@+id/hotel_name"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#646464"
+        android:textSize="@dimen/typeface12sp"
+        android:text="上网WIFI|卫浴 独立"/>
+    <TextView
+        android:id="@+id/flag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/hotel_image"
+        android:layout_toRightOf="@+id/hotel_image"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:textColor="#FF493E"
+        android:text="¥"/>
+    <TextView
+        android:id="@+id/hotel_price"
+        android:layout_toRightOf="@+id/flag"
+        android:layout_alignBottom="@+id/flag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/typeface18sp"
+        android:textColor="#FF493E"
+        android:text="187"/>
+
+    <Button
+        android:id="@+id/online_reserver"
+        android:layout_width="73dp"
+        android:layout_height="27dp"
+        android:layout_alignBottom="@+id/hotel_image"
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/button_style"
+        android:textSize="@dimen/dp_12"
+        android:textColor="@color/white"
+        android:text="在线预订"/>
+
+
+
+</RelativeLayout>

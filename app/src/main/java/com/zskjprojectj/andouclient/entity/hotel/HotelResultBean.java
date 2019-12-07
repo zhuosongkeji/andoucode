@@ -11,13 +11,13 @@ package com.zskjprojectj.andouclient.entity.hotel;
  * 修改备注：
  */
 public class HotelResultBean {
-    String hotelName;
-    String hotelImage;
-    String hotelLikeNumber;
-    String hotelStarNumber;
-    String hotelAdress;
-    String hotelPrice;
-    boolean isVip;
+    private String hotelName;
+    private int hotelImage;
+    private String hotelLikeNumber;
+    private String hotelStarNumber;
+    private String hotelAdress;
+    private String hotelPrice;
+    private boolean isVip;
 
     public String getHotelName() {
         return hotelName;
@@ -27,11 +27,11 @@ public class HotelResultBean {
         this.hotelName = hotelName;
     }
 
-    public String getHotelImage() {
+    public int getHotelImage() {
         return hotelImage;
     }
 
-    public void setHotelImage(String hotelImage) {
+    public void setHotelImage(int hotelImage) {
         this.hotelImage = hotelImage;
     }
 

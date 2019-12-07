@@ -1,50 +1,45 @@
 package com.zskjprojectj.andouclient.activity.hotel;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.text.Layout;
 
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.adapter.hotel.HotelResultAdapter;
+import com.zskjprojectj.andouclient.adapter.hotel.FacilityAdapter;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
-import com.zskjprojectj.andouclient.entity.hotel.HotelResultBean;
+import com.zskjprojectj.andouclient.entity.hotel.HotelDetailFacilityBean;
 
 import java.util.ArrayList;
 
 /**
- * 酒店列表
- * Bin
- * 2019/12/6
+ * 酒店详情-环境设施
  */
-public class HotelFilterActivity extends BaseActivity {
+public class HotelDetailFacilityActivity extends BaseActivity {
 
     private RecyclerView mRecycler;
-    private ArrayList<HotelResultBean> mDataList;
+    private ArrayList<HotelDetailFacilityBean> mDataList;
 
     @Override
     protected void setRootView() {
-        setContentView(R.layout.activity_hotel_filter);
+        setContentView(R.layout.activity_hotel_detail_facility);
     }
 
     @Override
     protected void initData(Bundle savedInstanceState) {
+        topView.setTitle("环境设施");
 
         mDataList=new ArrayList<>();
         for (int i=0;i<20;i++){
-            HotelResultBean databean=new HotelResultBean();
-            databean.setHotelName("精尚来公寓酒店");
+            HotelDetailFacilityBean databean=new HotelDetailFacilityBean();
+            databean.setImageResource(R.mipmap.hotel_details);
             mDataList.add(databean);
         }
-
-        HotelResultAdapter adapter=new HotelResultAdapter(R.layout.hotelresuilt_item_view,mDataList);
-        mRecycler.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
+        FacilityAdapter adapter=new FacilityAdapter(R.layout.facility_item_view,mDataList);
         mRecycler.setAdapter(adapter);
-
-
 
 
     }
@@ -52,7 +47,7 @@ public class HotelFilterActivity extends BaseActivity {
     @Override
     protected void initViews() {
         mRecycler=findViewById(R.id.rv_recycler);
-        mRecycler.setLayoutManager(new LinearLayoutManager(this));
+        mRecycler.setLayoutManager(new GridLayoutManager(this,3));
     }
 
     @Override

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.hotel.HotelDetailFacilityActivity">
+
+    <com.zskjprojectj.andouclient.view.TopView
+        android:id="@+id/alltopview"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        app:topview_left="@mipmap/ic_back" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_20"
+        android:paddingLeft="@dimen/dp_10"
+        android:text="外形"
+        android:textColor="#323232"
+        android:textSize="@dimen/typeface16sp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_20" />
+
+</LinearLayout>
