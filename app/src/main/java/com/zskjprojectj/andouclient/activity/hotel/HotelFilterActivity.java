@@ -30,8 +30,8 @@ public class HotelFilterActivity extends BaseActivity {
 
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
         mRecycler.setLayoutManager(linearLayoutManager);
-        HotelResultAdapter adapter=new HotelResultAdapter();
-        mRecycler.setAdapter(adapter);
+//        HotelResultAdapter adapter=new HotelResultAdapter();
+//        mRecycler.setAdapter(adapter);
     }
 
     @Override

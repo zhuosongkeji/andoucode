@@ -46,7 +46,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatA
             //如果不支持设置深色风格 为了兼容总不能让状态栏白白的看不清, 于是设置一个状态栏颜色为半透明,
             //这样半透明+白=灰, 状态栏的文字能看得清
         // 所有子类都将继承这些相同的属性,请在设置界面之后设置
-        ImmersionBar.with(this).init();
+       ImmersionBar.with(this).init();
 
         initViews();
         initData(savedInstanceState);

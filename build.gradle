@@ -16,9 +16,14 @@ buildscript {
 
 allprojects {
     repositories {
+        flatDir {
+            dirs 'libs'
+        }
         google()
         jcenter()
-        
+        maven{ url 'https://dl.bintray.com/lingguoding/maven/' }
+        maven { url "https://jitpack.io" }
+        maven { url "https://maven.google.com" }
     }
 }
 

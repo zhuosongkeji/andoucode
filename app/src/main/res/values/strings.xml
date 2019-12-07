@@ -13,6 +13,7 @@
     <string name="info_page">信息</string>
     <string name="tieba_page">贴吧</string>
     <string name="me_page">我的</string>
+    <string name="search">输入关键字搜索</string>
 
     <string name="registered_yanzhenma">获取验证码</string>
     <string name="registered_input_yanzhenma">请输入验证码</string>
@@ -40,7 +41,8 @@
     <string name="center_tobeevaluated">待评价</string>
     <string name="center_returngoods">退货/款</string>
     <string name="center_foodorder">美食订单</string>
-    <string name="center_hotelorder">酒店预订</string>
+    <string name="center_hotelorder">酒店订单</string>
+    <string name="center_restaurant">饭店订单</string>
     <string name="center_vegetablemarket">菜市场</string>
     <string name="center_shoporder">商城订单</string>
     <string name="center_invitation_with_courtesy">邀请有礼</string>

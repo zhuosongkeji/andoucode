@@ -15,8 +15,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@mipmap/hotel_home"
-            android:orientation="horizontal">
+            android:background="@mipmap/hotel_home">
 
 <!--            <ImageView-->
 <!--                android:id="@+id/mycenter_back_image"-->

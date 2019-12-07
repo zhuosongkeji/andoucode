@@ -17,6 +17,6 @@ import com.zskjprojectj.andouclient.entity.hotel.HotelResultBean;
  * 修改时间：
  * 修改备注：
  */
-public class HotelResultAdapter {
+public class HotelResultAdapter  {
 
 }

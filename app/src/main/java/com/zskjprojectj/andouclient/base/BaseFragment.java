@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
-import com.gyf.immersionbar.ImmersionBar;
+
 import com.zskjprojectj.andouclient.listener.LifeCycleListener;
 
 import butterknife.ButterKnife;

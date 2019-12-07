@@ -154,6 +154,142 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_recycler"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
+
+
+<!--酒店列表-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_10">
+        <ImageView
+            android:id="@+id/busiess_tupian1_image"
+            android:layout_width="130dp"
+            android:layout_height="107dp"
+            android:layout_marginRight="@dimen/dp_10"
+            android:src="@mipmap/ic_busiess_canting"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <LinearLayout
+                android:id="@+id/hotel_name"
+                android:layout_width="match_parent"
+                android:layout_height="25dp">
+                <LinearLayout
+                    android:layout_width="150dp"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/busiess_name1_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:text="精尚来公寓酒店"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/typeface14sp" />
+                    <ImageView
+                        android:id="@+id/busiess_v1_image"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_marginLeft="@dimen/dp_7"
+                        android:src="@mipmap/ic_v"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/busiess_dianzan1_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:id="@+id/busiess_dianzan1_image"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_gravity="center"
+                        android:src="@mipmap/ic_zan"/>
+                    <TextView
+                        android:id="@+id/busiess_dianzancount1_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:layout_marginLeft="@dimen/dp_5"
+                        android:textColor="@color/colorNavy"
+                        android:text="1366"
+                        android:layout_gravity="center"
+                        android:textSize="@dimen/typeface14sp"/>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/hotel_star"
+                android:layout_centerVertical="true"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="@dimen/dp_5">
+                <ImageView
+                    android:id="@+id/busiess_plant1_image1"
+                    android:layout_width="17dp"
+                    android:layout_height="17dp"
+                    android:src="@mipmap/ic_plant"/>
+                <ImageView
+                    android:id="@+id/busiess_plant1_image2"
+                    android:layout_width="17dp"
+                    android:layout_height="17dp"
+                    android:layout_marginLeft="@dimen/dp_3"
+                    android:src="@mipmap/ic_plant"/>
+                <ImageView
+                    android:id="@+id/busiess_plant1_image3"
+                    android:layout_width="17dp"
+                    android:layout_height="17dp"
+                    android:layout_marginLeft="@dimen/dp_3"
+                    android:src="@mipmap/ic_plant"/>
+                <ImageView
+                    android:id="@+id/busiess_plant1_image4"
+                    android:layout_width="17dp"
+                    android:layout_height="17dp"
+                    android:layout_marginLeft="@dimen/dp_3"
+                    android:src="@mipmap/ic_plant"/>
+                <ImageView
+                    android:id="@+id/busiess_plant1_image5"
+                    android:layout_width="17dp"
+                    android:layout_height="17dp"
+                    android:layout_marginLeft="@dimen/dp_3"
+                    android:src="@mipmap/ic_plant"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="@dimen/dp_2">
+                <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="13dp"
+                    android:layout_gravity="center"
+                    android:src="@mipmap/ic_address_gary"/>
+                <TextView
+                    android:id="@+id/busiess_address1_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_3"
+                    android:maxLines="1"
+                    android:text="重庆市南岸区南坪万达广场"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="¥187"
+                    android:textColor="#FF493E"
+                    android:textSize="20sp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="起"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </LinearLayout>
+
 
 </LinearLayout>

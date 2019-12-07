@@ -21,17 +21,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    allprojects {
-        repositories {
-            flatDir {
-                dirs 'libs'
-            }
-            google()
-            jcenter()
-            maven { url "https://jitpack.io" }
-            maven { url "https://maven.google.com" }
-        }
-    }
+
     android {
 
         //指定jdk版本
@@ -93,4 +83,8 @@ dependencies {
     // 基础依赖包，必须要依赖
     implementation 'com.gyf.immersionbar:immersionbar:3.0.0'
     implementation 'com.gyf.immersionbar:immersionbar-components:3.0.0'
+    //分页导航
+    implementation 'com.wihaohao:PageGridView:1.2.1'
+//TabLayout
+
 }

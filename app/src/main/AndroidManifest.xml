@@ -13,12 +13,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.hotel.HotelFilterActivity">
+        <activity android:name=".activity.hotel.HotelDetailActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".activity.hotel.HotelPaySuccessActivity" />
+        <activity android:name=".activity.hotel.HotelFilterActivity">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
         <activity android:name=".activity.hotel.HotelActivity" />
         <activity android:name=".activity.LoginActivity">
@@ -32,11 +40,13 @@
         </activity> <!-- 注册界面 -->
         <activity android:name=".activity.RegisteredActivity" /> <!-- 主界面 -->
         <activity android:name=".activity.MainActivity">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity> <!-- 商家暂时不需要 -->
         <activity android:name=".activity.MerchantsInfoActivity" /> <!-- 菜市场模块 -->
         <activity android:name=".activity.VegetableMarketActivity" /> <!-- 直播界面 -->

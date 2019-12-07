@@ -4,16 +4,17 @@
     android:orientation="vertical"
     android:layout_height="match_parent">
     <include layout="@layout/view_top_bar" />
-    <com.example.basedemo.refresh.MySwipeRefreshLayout
+    <com.zskjprojectj.andouclient.refresh.MySwipeRefreshLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/swiperefreshlayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             />
-    </com.example.basedemo.refresh.MySwipeRefreshLayout>
+
+    </com.zskjprojectj.andouclient.refresh.MySwipeRefreshLayout>
 </LinearLayout>
