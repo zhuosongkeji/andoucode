@@ -42,6 +42,9 @@
         <activity android:name=".activity.MyreleaseActivity" /> <!-- 余额充值 -->
         <activity android:name=".activity.BalanceofprepaidActivity" /> <!-- 在线商城 -->
         <activity android:name=".activity.OnlinemallActivity" /> <!-- 在线商城主页 -->
+        <activity android:name=".activity.BusinessdetailsActivity"/><!--在线预订详情页-->
+        <activity android:name=".activity.OrederSubmitbooking"/><!--订单提交-->
+        <activity android:name=".activity.OrdersuccessfullyActivity"/><!--订单提交结果-->
         <activity android:name=".activity.MallMainActivity" /> <!-- 全面屏 -->
         <meta-data
             android:name="android.max_aspect"

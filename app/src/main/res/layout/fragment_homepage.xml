@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent">
 
     <ScrollView
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none">
@@ -112,21 +114,22 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="13dp"
-                android:background="@color/colorGray" />
-            <include layout="@layout/main_check_in_business"></include>
+                android:background="@color/white" />
+            <include
+                layout="@layout/main_check_in_business"></include>
             <TextView
                 android:layout_width="match_parent"
-                android:background="@color/colorGray"
+                android:background="@color/white"
                 android:layout_height="13dp" />
             <include layout="@layout/main_online_broadcast"></include>
             <TextView
                 android:layout_width="match_parent"
-                android:background="@color/colorGray"
+                android:background="@color/white"
                 android:layout_height="13dp" />
             <include layout="@layout/main_make_an_appointment"></include>
             <TextView
                 android:layout_width="match_parent"
-                android:background="@color/colorGray"
+                android:background="@color/white"
                 android:layout_height="13dp" />
             <include layout="@layout/main_onlinebooking"></include>
         </LinearLayout>

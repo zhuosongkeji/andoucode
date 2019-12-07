@@ -95,7 +95,8 @@ public class OnlineBookingorderActivity extends BaseActivity {
         ly_detailspage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                // 跳转到商家详情
+                jumpActivity(BusinessdetailsActivity.class);
             }
         });
         img_back.setOnClickListener(new View.OnClickListener() {
