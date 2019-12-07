@@ -17,7 +17,6 @@
         </activity>
         <activity android:name=".activity.hotel.HotelPaySuccessActivity" />
         <activity android:name=".activity.hotel.HotelFilterActivity">
-
         </activity>
         <activity android:name=".activity.hotel.HotelActivity" />
         <activity android:name=".activity.LoginActivity">

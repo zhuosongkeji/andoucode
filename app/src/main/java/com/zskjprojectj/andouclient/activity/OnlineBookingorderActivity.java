@@ -1,7 +1,9 @@
 package com.zskjprojectj.andouclient.activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -19,7 +21,11 @@ import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseResult;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
 
+import org.angmarch.views.NiceSpinner;
+
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -29,9 +35,15 @@ import io.reactivex.functions.Function;
  * 在线预约点餐BaseListActivity
  */
 public class OnlineBookingorderActivity extends BaseActivity {
+    //下拉列表
+    private NiceSpinner one ,two,three;
+    private ImageView img_back;
     List<BookorderBean> mList;
     private String[] proName = {"火锅","自助餐","甜品饮品","小吃快餐","西餐","韩式烤肉",
             "香锅烤鱼","海鲜","水果"};
+    List<String> spinnerDataone = new LinkedList<>(Arrays.asList("全部美食", "水果", "自助餐", "甜品"));
+    List<String> spinnerDatatwo = new LinkedList<>(Arrays.asList("附近", "全城", "推荐商圈", "渝中区"));
+    List<String> spinnerDatathree = new LinkedList<>(Arrays.asList("只能排序", "离我最近", "好评优先", "销量最高"));
     private int[] proicon = {R.mipmap.hg,R.mipmap.zzc,R.mipmap.tp,R.mipmap.xckc,R.mipmap.xc,R.mipmap.kr,
             R.mipmap.xgky,R.mipmap.hx,R.mipmap.hx};
     private PageGridView<BookorderBean> mPageGridView;
@@ -49,6 +61,26 @@ public class OnlineBookingorderActivity extends BaseActivity {
     @Override
     protected void initViews() {
         initDatas();
+        img_back=findViewById(R.id.img_back);
+        one=findViewById(R.id.one_spinner);
+        two=findViewById(R.id.two_spinner);
+        three=findViewById(R.id.three_spinner);
+
+        one.attachDataSource(spinnerDataone);
+        one.setSelectedIndex(0);
+      //  one.setBackgroundResource(R.drawable.textview_round_border);
+        one.setTextColor(Color.BLACK);
+        one.setTextSize(13);
+
+        two.attachDataSource(spinnerDatatwo);
+       // two.setBackgroundResource(R.drawable.textview_round_border);
+        two.setTextColor(Color.BLACK);
+        two.setTextSize(13);
+
+        three.attachDataSource(spinnerDatathree);
+        //three.setBackgroundResource(R.drawable.textview_round_border);
+        three.setTextColor(Color.BLACK);
+        three.setTextSize(13);
         mPageGridView =findViewById(R.id.vp_grid_view);
         mPageGridView.setData(mList);
         mPageGridView.setData(mList);
@@ -64,6 +96,12 @@ public class OnlineBookingorderActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
 
+            }
+        });
+        img_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mAt.finish();
             }
         });
     }
