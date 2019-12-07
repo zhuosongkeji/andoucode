@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".activity.hotel.HotelFilterActivity">
+<!--搜索栏-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="61dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/dp_10">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_14"
+            android:background="@mipmap/back_icon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_14"
+            android:text="重庆"
+            android:textColor="#323232"
+            android:textSize="@dimen/dp_16" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:background="@mipmap/ic_busiess_xiala" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_weight="1"
+            android:background="@drawable/search_background_style"
+            android:gravity="center_vertical">
+
+            <EditText
+                android:id="@+id/edit_search"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="输入关键字搜索"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:maxLines="1"
+                android:textColor="#919191"
+                android:textColorHint="#919191"
+                android:textSize="@dimen/typeface14sp" />
+
+            <ImageButton
+                android:id="@+id/btn_clear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/dp_10"
+                android:background="@color/transparent"
+                android:src="@mipmap/ic_search" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_10"
+        android:background="#F1F1F1"/>
+<!--分类-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_10"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="位置区域"/>
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_marginLeft="@dimen/dp_6"
+                android:src="@mipmap/ic_busiess_xiala"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="价格/星级"/>
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_marginLeft="@dimen/dp_6"
+                android:src="@mipmap/ic_busiess_xiala"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="智能排序"/>
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_marginLeft="@dimen/dp_6"
+                android:src="@mipmap/ic_busiess_xiala"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="筛选"/>
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_marginLeft="@dimen/dp_6"
+                android:src="@mipmap/ic_busiess_xiala"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_2"
+        android:background="#F1F1F1"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
+
+
+<!--酒店列表-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_10">
+        <ImageView
+            android:id="@+id/busiess_tupian1_image"
+            android:layout_width="130dp"
+            android:layout_height="107dp"
+            android:layout_marginRight="@dimen/dp_10"
+            android:src="@mipmap/ic_busiess_canting"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <LinearLayout
+                android:id="@+id/hotel_name"
+                android:layout_width="match_parent"
+                android:layout_height="25dp">
+                <LinearLayout
+                    android:layout_width="150dp"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/busiess_name1_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:text="精尚来公寓酒店"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/typeface14sp" />
+                    <ImageView
+                        android:id="@+id/busiess_v1_image"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_marginLeft="@dimen/dp_7"
+                        android:src="@mipmap/ic_v"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/busiess_dianzan1_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:id="@+id/busiess_dianzan1_image"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_gravity="center"
+                        android:src="@mipmap/ic_zan"/>
+                    <TextView
+                        android:id="@+id/busiess_dianzancount1_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:layout_marginLeft="@dimen/dp_5"
+                        android:textColor="@color/colorNavy"
+                        android:text="1366"
+                        android:layout_gravity="center"
+                        android:textSize="@dimen/typeface14sp"/>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/hotel_star"
+                android:layout_centerVertical="true"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="@dimen/dp_5">
+                <ImageView
+                    android:id="@+id/busiess_plant1_image1"
+                    android:layout_width="17dp"
+                    android:layout_height="17dp"
+                    android:src="@mipmap/ic_plant"/>
+                <ImageView
+                    android:id="@+id/busiess_plant1_image2"
+                    android:layout_width="17dp"
+                    android:layout_height="17dp"
+                    android:layout_marginLeft="@dimen/dp_3"
+                    android:src="@mipmap/ic_plant"/>
+                <ImageView
+                    android:id="@+id/busiess_plant1_image3"
+                    android:layout_width="17dp"
+                    android:layout_height="17dp"
+                    android:layout_marginLeft="@dimen/dp_3"
+                    android:src="@mipmap/ic_plant"/>
+                <ImageView
+                    android:id="@+id/busiess_plant1_image4"
+                    android:layout_width="17dp"
+                    android:layout_height="17dp"
+                    android:layout_marginLeft="@dimen/dp_3"
+                    android:src="@mipmap/ic_plant"/>
+                <ImageView
+                    android:id="@+id/busiess_plant1_image5"
+                    android:layout_width="17dp"
+                    android:layout_height="17dp"
+                    android:layout_marginLeft="@dimen/dp_3"
+                    android:src="@mipmap/ic_plant"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="@dimen/dp_2">
+                <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="13dp"
+                    android:layout_gravity="center"
+                    android:src="@mipmap/ic_address_gary"/>
+                <TextView
+                    android:id="@+id/busiess_address1_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_3"
+                    android:maxLines="1"
+                    android:text="重庆市南岸区南坪万达广场"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="¥187"
+                    android:textColor="#FF493E"
+                    android:textSize="20sp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="起"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

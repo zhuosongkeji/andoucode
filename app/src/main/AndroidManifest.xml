@@ -13,24 +13,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.HotelActivity"></activity>
-        <activity android:name=".activity.LoginActivity">
+        <activity android:name=".activity.hotel.HotelDetailActivity">
+        </activity>
+        <activity android:name=".activity.hotel.HotelPaySuccessActivity" />
+        <activity android:name=".activity.hotel.HotelFilterActivity">
 
+        </activity>
+        <activity android:name=".activity.hotel.HotelActivity" />
+        <activity android:name=".activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity> <!-- 注册界面 -->
         <activity android:name=".activity.RegisteredActivity" /> <!-- 主界面 -->
         <activity android:name=".activity.MainActivity">
-            <!--            <intent-filter>-->
-            <!--                <action android:name="android.intent.action.MAIN" />-->
-
-            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-            <!--            </intent-filter>-->
-        </activity> <!-- 商家暂时不需要 -->
+        </activity> <!-- 注册界面 -->
         <activity android:name=".activity.MerchantsInfoActivity" /> <!-- 菜市场模块 -->
         <activity android:name=".activity.VegetableMarketActivity" /> <!-- 直播界面 -->
         <activity android:name=".activity.LiveActivity" /> <!-- 外卖板块 -->
