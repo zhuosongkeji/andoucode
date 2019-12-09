@@ -10,10 +10,12 @@ import android.widget.Toast;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
 import com.stx.xhb.xbanner.XBanner;
+import com.wihaohao.PageGridView;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.base.BaseFragment;
+import com.zskjprojectj.andouclient.entity.BookorderBean;
 import com.zskjprojectj.andouclient.entity.TuchongEntity;
 import com.zskjprojectj.andouclient.utils.ScreenUtil;
 
@@ -26,10 +28,17 @@ import okhttp3.Call;
  * 在线商城主页
  */
 public class MallHomepageFragment extends BaseFragment {
+    List<BookorderBean> mList;
+    private String[] proName = {"美妆个护","进口尖货","服饰内衣","鞋包配饰","家纺家电","居家百货",
+            "休闲美食","玩具早教",};
+    private int[] proicon = {R.mipmap.icon_meizhuang,R.mipmap.icon_jianhuo,R.mipmap.icon_fushi,R.mipmap.icon_xiebao,R.mipmap.icon_jianfang,R.mipmap.icon_baihuo,
+            R.mipmap.icon_meishi,R.mipmap.icon_zaojiao};
+    private PageGridView<BookorderBean> mPageGridView;
     private XBanner onlinebanner;
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
         onlinebanner=view.findViewById(R.id.onlinebanner);
+        mPageGridView =view.findViewById(R.id.vp_grid_view);
     }
 
     @Override
@@ -71,6 +80,25 @@ public class MallHomepageFragment extends BaseFragment {
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, ScreenUtil.getScreenWidth(mAty) / 2);
         onlinebanner.setLayoutParams(layoutParams);
         initBanner(onlinebanner);
+        initDatas();
+        mPageGridView.setData(mList);
+        mPageGridView.setOnItemClickListener(new PageGridView.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                // Toast.makeText(MainActivity.this,position+"",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+    /**
+     * 初始化导航菜单
+     */
+    private void initDatas() {
+        mList=new ArrayList<>();
+        for(int i=0;i<proName.length;i++){
+            mList.add(new BookorderBean(proName[i],proicon[i]));
+        }
     }
     /**
      * 初始化XBanner

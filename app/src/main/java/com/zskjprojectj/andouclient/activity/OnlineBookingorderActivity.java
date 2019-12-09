@@ -41,11 +41,12 @@ public class OnlineBookingorderActivity extends BaseActivity {
     List<BookorderBean> mList;
     private String[] proName = {"火锅","自助餐","甜品饮品","小吃快餐","西餐","韩式烤肉",
             "香锅烤鱼","海鲜","水果"};
+    private int[] proicon = {R.mipmap.hg,R.mipmap.zzc,R.mipmap.tp,R.mipmap.xckc,R.mipmap.xc,R.mipmap.kr,
+            R.mipmap.xgky,R.mipmap.hx,R.mipmap.hx};
     List<String> spinnerDataone = new LinkedList<>(Arrays.asList("全部美食", "水果", "自助餐", "甜品"));
     List<String> spinnerDatatwo = new LinkedList<>(Arrays.asList("附近", "全城", "推荐商圈", "渝中区"));
     List<String> spinnerDatathree = new LinkedList<>(Arrays.asList("只能排序", "离我最近", "好评优先", "销量最高"));
-    private int[] proicon = {R.mipmap.hg,R.mipmap.zzc,R.mipmap.tp,R.mipmap.xckc,R.mipmap.xc,R.mipmap.kr,
-            R.mipmap.xgky,R.mipmap.hx,R.mipmap.hx};
+
     private PageGridView<BookorderBean> mPageGridView;
     private LinearLayout ly_detailspage;
 
@@ -82,7 +83,6 @@ public class OnlineBookingorderActivity extends BaseActivity {
         three.setTextColor(Color.BLACK);
         three.setTextSize(13);
         mPageGridView =findViewById(R.id.vp_grid_view);
-        mPageGridView.setData(mList);
         mPageGridView.setData(mList);
         mPageGridView.setOnItemClickListener(new PageGridView.OnItemClickListener() {
             @Override
