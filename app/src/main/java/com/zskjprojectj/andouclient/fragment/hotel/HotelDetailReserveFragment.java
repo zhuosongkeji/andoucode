@@ -2,6 +2,7 @@ package com.zskjprojectj.andouclient.fragment.hotel;
 
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,9 +14,11 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zskjprojectj.andouclient.R;
+import com.zskjprojectj.andouclient.activity.hotel.HotelOnlineReserveActivity;
 import com.zskjprojectj.andouclient.adapter.hotel.ReserveAdapter;
 import com.zskjprojectj.andouclient.base.BaseFragment;
 import com.zskjprojectj.andouclient.entity.hotel.HotelDetailReserveBean;
@@ -28,10 +31,12 @@ import java.util.ArrayList;
  * bin
  * 2019/12/7
  */
-public class HotelDetailReserveFragment extends BaseFragment {
+public class HotelDetailReserveFragment extends BaseFragment implements View.OnClickListener {
 
     private RecyclerView mRecycler;
     private ArrayList<HotelDetailReserveBean> mDataList;
+    private View contentView;
+    private Dialog bottomDialog;
 
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
@@ -81,12 +86,17 @@ public class HotelDetailReserveFragment extends BaseFragment {
         mRecycler.setAdapter(adapter);
 
 
+
+
+
     }
 
     private void showDialog() {
 
-        Dialog bottomDialog = new Dialog(getActivity(), R.style.BottomDialog);
-        View contentView = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_hotel_detail, null);
+        bottomDialog = new Dialog(getActivity(), R.style.BottomDialog);
+        contentView = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_hotel_detail, null);
+        TextView mReserve = contentView.findViewById(R.id.tv_reserve);
+        mReserve.setOnClickListener(this);
         bottomDialog.setContentView(contentView);
         ViewGroup.LayoutParams layoutParams = contentView.getLayoutParams();
         layoutParams.width = getResources().getDisplayMetrics().widthPixels;
@@ -96,5 +106,17 @@ public class HotelDetailReserveFragment extends BaseFragment {
         bottomDialog.getWindow().setWindowAnimations(R.style.BottomDialog_Animation);
         bottomDialog.show();
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.tv_reserve:
+//                HotelOnlineReserveActivity
+                Intent intent=new Intent(getActivity(),HotelOnlineReserveActivity.class);
+                startActivity(intent);
+                bottomDialog.dismiss();
+                break;
+        }
     }
 }

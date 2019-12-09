@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.entity.hotel.HotelDetailFacilityBean;
 
 import java.util.List;
@@ -25,6 +26,8 @@ public class FacilityAdapter extends BaseQuickAdapter<HotelDetailFacilityBean, B
 
     @Override
     protected void convert(BaseViewHolder helper, HotelDetailFacilityBean item) {
+
+
 
     }
 }

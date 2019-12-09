@@ -7,10 +7,12 @@ import android.view.ViewGroup;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.adapter.hotel.FacilityAdapter;
 import com.zskjprojectj.andouclient.base.BaseFragment;
 import com.zskjprojectj.andouclient.entity.hotel.HotelDetailFacilityBean;
+import com.zskjprojectj.andouclient.utils.ToastUtil;
 
 import java.util.ArrayList;
 
@@ -58,6 +60,13 @@ public class HotelDetailFacilityFragment extends BaseFragment {
         adapter.openLoadAnimation();
         View footButton = getLayoutInflater().inflate(R.layout.facility_button_foot, (ViewGroup) mRecycler.getParent(), false);
         adapter.addFooterView(footButton);
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                ToastUtil.showToast("sdsafd");
+            }
+        });
+
         mRecycler.setAdapter(adapter);
 
     }

@@ -76,4 +76,16 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="totel_pay_hint1">● 入住前一天12:00之前,如申请退款订金全额退;</string>
+    <string name="hotel_pay_hint2">● 入住前一天12:00之后至入住当天12:00之前，如申请退款，扣除50%订金</string>
+    <string name="hotel_pay_hint3">● 入住后如提前退房，扣除已入住天数房款总额，再扣除未入住天数房款总额的50%</string>
+    <string name="hotel_pay_hint4">● 中午12:00之后默认当天已经入住，申请退款和提前退房时间以七星寓记录的时间为准</string>
+    <string name="hotel_pay_hint5">● 房屋入住时间为15:00，退房时间为12:00。</string>
+    <string name="hotel_pay_hint6">● 房间床单、被套、毛巾一客一换，消毒、清洗，放心使用。</string>
+    <string name="hotel_pay_hint7">● 请爱护房屋设施、损坏照价赔偿。</string>
+    <string name="hotel_pay_hint8">● 开放式阳台、请看管好小孩，严禁攀爬栏杆和在阳台嬉戏打闹，严禁高空抛物。</string>
+    <string name="hotel_pay_hint9">●不要在屋内大声喧哗。</string>
+    <string name="hotel_pay_hint10">●严禁从事黄、赌、毒等违法犯罪活动，一经发现移交公安处理。</string>
+    <string name="hotel_pay_hint11">●用电、用燃气注意安全第一。入住期间安全自负</string>
 </resources>

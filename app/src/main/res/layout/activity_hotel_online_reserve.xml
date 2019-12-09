@@ -1,0 +1,493 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.hotel.HotelOnlineReserveActivity">
+
+    <com.zskjprojectj.andouclient.view.TopView
+        android:id="@+id/alltopview"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        app:topview_left="@mipmap/ic_back" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="@dimen/dp_20">
+
+        <ImageView
+            android:id="@+id/hotel_image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/hotel_details" />
+
+        <TextView
+            android:id="@+id/hotel_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/hotel_image"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_toRightOf="@+id/hotel_image"
+            android:text="精尚来公寓酒店"
+            android:textColor="#323232"
+            android:textSize="@dimen/typeface18sp" />
+
+        <TextView
+            android:id="@+id/hotel_des"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/hotel_name"
+            android:layout_alignStart="@+id/hotel_name"
+            android:layout_marginTop="@dimen/dp_10"
+            android:text="阳光大床房（带大阳台）"
+            android:textColor="#646464"
+            android:textSize="@dimen/typeface12sp" />
+
+        <TextView
+            android:id="@+id/flag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¥"
+            android:layout_toLeftOf="@+id/hotel_price"
+            android:textColor="#FF493E" />
+
+        <TextView
+            android:id="@+id/hotel_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="187"
+            android:textColor="#FF493E"
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_alignParentEnd="true"
+            android:textSize="@dimen/typeface18sp" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:layout_marginRight="@dimen/dp_20"
+        android:layout_height="1dp"
+        android:background="#E7E7E7"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:padding="@dimen/dp_10"
+        android:layout_height="80dp">
+
+        <TextView
+            android:id="@+id/check_in_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/start_time"
+            android:text="入住时间"/>
+        <TextView
+            android:id="@+id/leave_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/end_time"
+            android:text="离开时间"/>
+        <TextView
+            android:id="@+id/start_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/night_numeber"
+            android:layout_alignEnd="@+id/night_numeber"
+            android:layout_marginRight="80dp"
+            android:textSize="@dimen/dp_20"
+            android:textColor="#646464"
+            android:text="07月20日"/>
+        <TextView
+            android:id="@+id/end_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/night_numeber"
+            android:layout_alignStart="@+id/night_numeber"
+            android:layout_marginLeft="80dp"
+            android:textSize="@dimen/dp_20"
+            android:textColor="#646464"
+            android:text="07月21日"/>
+        <TextView
+            android:id="@+id/night_numeber"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_20"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:paddingLeft="@dimen/dp_5"
+            android:paddingRight="@dimen/dp_5"
+            android:background="@drawable/shape_button_reserve"
+            android:textColor="#5ED3AE"
+            android:text="1晚"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textColor="#5ED3AE"
+            android:layout_toLeftOf="@+id/night_numeber"
+            android:text="—"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#5ED3AE"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/night_numeber"
+            android:text="—"/>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_10"
+        android:background="#F7F7F7"/>
+
+    <RelativeLayout
+        android:layout_gravity="center_vertical"
+        android:padding="@dimen/dp_20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/typeface16sp"
+            android:textColor="#555555"
+            android:text="入住人数"
+            />
+
+        <Button
+            android:id="@+id/bt_minus"
+            android:layout_width="@dimen/dp_20"
+            android:layout_height="@dimen/dp_20"
+            android:background="@drawable/button_add"
+            android:layout_toLeftOf="@+id/tv_person_number"
+            android:textColor="#969696"
+            android:layout_marginEnd="@dimen/dp_10"
+            android:text="-"/>
+        <Button
+            android:id="@+id/bt_add"
+            android:layout_width="@dimen/dp_20"
+            android:layout_height="@dimen/dp_20"
+            android:background="@drawable/button_add"
+            android:layout_alignParentEnd="true"
+            android:textColor="#969696"
+            android:text="+"/>
+        <TextView
+            android:id="@+id/tv_person_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/bt_add"
+            android:layout_marginEnd="@dimen/dp_10"
+            android:text="1人"/>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#E7E7E7"/>
+
+
+    <RelativeLayout
+        android:layout_gravity="center_vertical"
+        android:padding="@dimen/dp_20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/typeface16sp"
+            android:textColor="#555555"
+            android:text="联系人"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/typeface16sp"
+            android:layout_alignParentEnd="true"
+            android:textColor="#969696"
+            android:text="请填写真实姓名"/>
+
+
+
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#E7E7E7"/>
+
+
+    <RelativeLayout
+        android:layout_gravity="center_vertical"
+        android:padding="@dimen/dp_20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/typeface16sp"
+            android:textColor="#555555"
+            android:text="手机号"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/typeface16sp"
+            android:layout_alignParentEnd="true"
+            android:textColor="#969696"
+            android:text="请输入手机号"/>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_10"
+        android:background="#F7F7F7"/>
+    <RelativeLayout
+        android:layout_gravity="center_vertical"
+        android:padding="@dimen/dp_20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/typeface16sp"
+            android:textColor="#555555"
+            android:text="预订须知"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/typeface16sp"
+            android:layout_alignParentEnd="true"
+            android:textColor="#969696"
+            android:text="要求及收费"/>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_10"
+        android:background="#F7F7F7"/>
+    <RelativeLayout
+        android:layout_gravity="center_vertical"
+        android:padding="@dimen/dp_20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/typeface16sp"
+            android:textColor="#555555"
+            android:text="使用积分"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/typeface16sp"
+            android:layout_alignParentEnd="true"
+            android:textColor="#969696"
+            android:text="1000"/>
+
+    </RelativeLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_10"
+        android:background="#F7F7F7"/>
+
+
+    <RelativeLayout
+        android:layout_gravity="center_vertical"
+        android:padding="@dimen/dp_20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/typeface16sp"
+            android:textColor="#555555"
+            android:text="请选择支付方式"
+            />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#E7E7E7"/>
+
+    <RelativeLayout
+        android:layout_gravity="center_vertical"
+        android:padding="@dimen/dp_20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/typeface16sp"
+            android:textColor="#555555"
+            android:text="银联支付"
+            />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#E7E7E7"/>
+
+    <RelativeLayout
+        android:layout_gravity="center_vertical"
+        android:padding="@dimen/dp_20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/typeface16sp"
+            android:textColor="#555555"
+            android:text="微信支付"
+            />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#E7E7E7"/>
+
+    <RelativeLayout
+        android:layout_gravity="center_vertical"
+        android:padding="@dimen/dp_20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/typeface16sp"
+            android:textColor="#555555"
+            android:text="支付宝支付"
+            />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#E7E7E7"/>
+
+    <RelativeLayout
+        android:layout_gravity="center_vertical"
+        android:padding="@dimen/dp_20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/typeface16sp"
+            android:textColor="#555555"
+            android:text="余额支付"
+            />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_10"
+        android:background="#F7F7F7"/>
+
+
+    <RelativeLayout
+        android:layout_gravity="center_vertical"
+        android:padding="@dimen/dp_20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/typeface16sp"
+            android:textColor="#555555"
+            android:text="合计"
+            />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_10"
+        android:background="#F7F7F7"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:layout_marginTop="@dimen/dp_10"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="#FF493E"
+                android:textSize="@dimen/typeface18sp"
+                android:text="¥187"/>
+            <TextView
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="订单总额："/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_reserve"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="#5ED3AE"
+            android:textColor="@color/white"
+            android:text="立即订房"/>
+
+
+    </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</LinearLayout>
