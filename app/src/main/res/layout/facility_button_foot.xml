@@ -6,6 +6,7 @@
     android:paddingRight="@dimen/dp_20"
     android:orientation="vertical">
     <Button
+        android:id="@+id/see_more_button"
         android:layout_width="match_parent"
         android:layout_height="34dp"
         android:text="查看更多"

@@ -6,12 +6,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.LinearLayout;
 
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.adapter.hotel.HotelResultAdapter;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
 import com.zskjprojectj.andouclient.entity.hotel.HotelResultBean;
+import com.zskjprojectj.andouclient.utils.ToastUtil;
 
 import java.util.ArrayList;
 
@@ -20,10 +23,11 @@ import java.util.ArrayList;
  * Bin
  * 2019/12/6
  */
-public class HotelFilterActivity extends BaseActivity {
+public class HotelFilterActivity extends BaseActivity implements View.OnClickListener {
 
     private RecyclerView mRecycler;
     private ArrayList<HotelResultBean> mDataList;
+    private LinearLayout mPriceStar;
 
     @Override
     protected void setRootView() {
@@ -53,6 +57,8 @@ public class HotelFilterActivity extends BaseActivity {
     protected void initViews() {
         mRecycler=findViewById(R.id.rv_recycler);
         mRecycler.setLayoutManager(new LinearLayoutManager(this));
+        mPriceStar=findViewById(R.id.ll_price_star);
+        mPriceStar.setOnClickListener(this);
     }
 
     @Override
@@ -63,5 +69,14 @@ public class HotelFilterActivity extends BaseActivity {
     @Override
     protected BasePresenter createPresenter() {
         return null;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.ll_price_star:
+                ToastUtil.showToast("sdds");
+            break;
+        }
     }
 }
