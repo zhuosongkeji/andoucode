@@ -12,6 +12,7 @@ import com.zskjprojectj.andouclient.activity.HotelorderActivity;
 import com.zskjprojectj.andouclient.activity.InvitationActivity;
 import com.zskjprojectj.andouclient.activity.MyreleaseActivity;
 import com.zskjprojectj.andouclient.activity.MywalletActivity;
+import com.zskjprojectj.andouclient.activity.PlatformshoppingcartActivity;
 import com.zskjprojectj.andouclient.activity.ShoporderActivity;
 import com.zskjprojectj.andouclient.activity.VegetableMarketActivity;
 import com.zskjprojectj.andouclient.base.BaseFragment;
@@ -137,5 +138,11 @@ public class MePageFragment extends BaseFragment {
         /**
          * 购物车
          */
+        mycenter_shoppingcart_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), PlatformshoppingcartActivity.class));
+            }
+        });
     }
 }
