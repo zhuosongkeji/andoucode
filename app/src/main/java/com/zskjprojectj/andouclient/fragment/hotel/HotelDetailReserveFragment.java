@@ -86,9 +86,6 @@ public class HotelDetailReserveFragment extends BaseFragment implements View.OnC
         mRecycler.setAdapter(adapter);
 
 
-
-
-
     }
 
     private void showDialog() {

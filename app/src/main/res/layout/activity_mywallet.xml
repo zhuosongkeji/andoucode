@@ -49,4 +49,14 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/dp_40" />
     </RelativeLayout>
+
+    <com.shizhefei.view.indicator.FixedIndicatorView
+        android:id="@+id/indicator"
+        android:background="@color/colorWhite"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"/>
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 </LinearLayout>
