@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="160dp"
+    android:layout_gravity="center"
+    android:layout_marginTop="@dimen/dp_10"
+    android:background="@color/white"
+    android:padding="@dimen/dp_10"
+    android:orientation="horizontal">
+
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:padding="@dimen/dp_10">
+
+        <TextView
+            android:id="@+id/tv_today_new"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="今日上新"
+            android:textColor="#333333"
+            android:textSize="@dimen/typeface16sp" />
+
+        <TextView
+            android:id="@+id/tv_update"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_below="@+id/tv_today_new"
+            android:text="定期更新"
+            android:textColor="#F8D587" />
+
+        <ImageView
+            android:id="@+id/iv_tv_today_new_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:src="@mipmap/gengxin" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="#E7E7E7"/>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:padding="@dimen/dp_10">
+
+            <TextView
+                android:id="@+id/tv_hot_all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="爆款合集"
+                android:textColor="#333333"
+                android:textSize="@dimen/typeface16sp" />
+
+            <TextView
+                android:id="@+id/tv_hot_this"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_hot_all"
+                android:text="想要的爆款都在这里"
+                android:textColor="#F8D587" />
+
+            <ImageView
+                android:id="@+id/iv_hot_image"
+                android:layout_width="90dp"
+                android:layout_height="60dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:src="@mipmap/baokuan" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E7E7E7"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="海外合集"
+                    android:textColor="#333333"
+                    android:textSize="@dimen/typeface16sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@mipmap/biao" />
+
+            </LinearLayout>
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#E7E7E7"/>
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+
+                android:layout_gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="有好货"
+                    android:textColor="#333333"
+                    android:textSize="@dimen/typeface16sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/biao" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

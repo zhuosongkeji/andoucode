@@ -8,15 +8,13 @@ import androidx.fragment.app.Fragment;
 
 
 import com.next.easynavigation.view.EasyNavigationBar;
-import com.wihaohao.PageGridView;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
-import com.zskjprojectj.andouclient.entity.BookorderBean;
 import com.zskjprojectj.andouclient.fragment.ClassificationofgoodsFragment;
 import com.zskjprojectj.andouclient.fragment.MallFocusonFragment;
-import com.zskjprojectj.andouclient.fragment.MallHomepageFragment;
 import com.zskjprojectj.andouclient.fragment.MallInfoFragment;
+import com.zskjprojectj.andouclient.fragment.mall.MallHomepageFragment1;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +48,7 @@ public class MallMainActivity extends BaseActivity {
     @Override
     protected void initViews() {
         navigationBar = findViewById(R.id.navigationBar);
-        fragments.add(new MallHomepageFragment());
+        fragments.add(new MallHomepageFragment1());
         fragments.add(new ClassificationofgoodsFragment());
         fragments.add(new MallFocusonFragment());
         fragments.add(new MallInfoFragment());
