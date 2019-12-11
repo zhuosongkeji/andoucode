@@ -60,7 +60,7 @@ public class HotelorderActivity extends BaseActivity {
         indicatorViewPager = new IndicatorViewPager(indicator, viewPager);
         indicatorViewPager.setAdapter(adapter);
         //设置滑动时的那一项的图形和颜色变化，ColorBar对应的是下划线的形状。
-        indicator.setScrollBar(new ColorBar(getApplicationContext(), Color.parseColor("#00B2EE"), 5));
+        indicator.setScrollBar(new ColorBar(getApplicationContext(), Color.parseColor("#5ed3ae"), 5));
         viewPager.setOffscreenPageLimit(1);//缓存的左右页面的个数都是1
     }
 

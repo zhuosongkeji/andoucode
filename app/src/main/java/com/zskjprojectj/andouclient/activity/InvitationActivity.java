@@ -18,7 +18,7 @@ public class InvitationActivity extends BaseActivity {
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-        topView.setTitle("分享有礼");
+//        topView.setTitle("分享有礼");
     }
 
     @Override
