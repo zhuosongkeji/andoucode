@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.hotel.HotelOnlineReserveActivity"></activity>
+        <activity android:name=".activity.mall.MallGoodsDetailsActivity"></activity>
+        <activity android:name=".activity.hotel.HotelOnlineReserveActivity" />
         <activity android:name=".activity.hotel.HotelDetailFacilityActivity" /> <!-- 酒店详情-环境设施 -->
         <activity android:name=".activity.hotel.HotelDetailActivity" /> <!-- 酒店预约-详情页 -->
         <activity android:name=".activity.hotel.HotelPaySuccessActivity" />
@@ -48,11 +49,11 @@
         <activity android:name=".activity.FoodorderActivity" /> <!-- 我的钱包 -->
         <activity android:name=".activity.MyreleaseActivity" /> <!-- 余额充值 -->
         <activity android:name=".activity.BalanceofprepaidActivity" /> <!-- 在线商城 -->
-        <activity android:name=".activity.OnlinemallActivity" /> <!-- 在线商城主页 -->
+        <!-- 在线商城主页 -->
         <activity android:name=".activity.BusinessdetailsActivity" /> <!-- 在线预订详情页 -->
         <activity android:name=".activity.OrederSubmitbooking" /> <!-- 订单提交 -->
         <activity android:name=".activity.OrdersuccessfullyActivity" /> <!-- 订单提交结果 -->
-        <activity android:name=".activity.PlatformshoppingcartActivity"/><!--购物车-->
+        <activity android:name=".activity.PlatformshoppingcartActivity" /> <!-- 购物车 -->
         <activity android:name=".activity.MallMainActivity" /> <!-- 全面屏 -->
         <meta-data
             android:name="android.max_aspect"

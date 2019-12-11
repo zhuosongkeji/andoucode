@@ -41,7 +41,7 @@ public class PlatformshoppingcartActivity extends BaseActivity {
             databean.setGoodsprice("￥119");
             mDataList.add(databean);
         }
-       PlatformshoppingcartAdapter  adapter=new PlatformshoppingcartAdapter(R.layout.item_platformshoppingcart,mDataList);
+       PlatformshoppingcartAdapter  adapter=new PlatformshoppingcartAdapter(R.layout.fragment_mall_shopping_view,mDataList);
         adapter.openLoadAnimation();
 //        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
 //            @Override

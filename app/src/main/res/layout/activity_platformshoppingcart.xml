@@ -1,48 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:layout_height="match_parent">
-    <include layout="@layout/view_top_bar"/>
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/view_top_bar" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_recycler"
-        android:layout_below="@+id/alltopview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent"
+        android:layout_below="@+id/alltopview" />
+
     <RelativeLayout
-       android:layout_marginTop="@dimen/dp_10"
-        android:background="@color/lightgrey"
-        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_50">
-        <CheckBox
-            android:layout_centerVertical="true"
-            android:id="@+id/platformIconcheckall"
-            android:layout_marginLeft="@dimen/dp_10"
-            android:background="@drawable/shape_selected"
+        android:layout_height="@dimen/dp_50"
+        android:layout_alignParentBottom="true"
+        android:paddingLeft="@dimen/dp_10"
+        android:paddingRight="@dimen/dp_10"
+        android:background="@color/white">
+
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/cb_selectorcb"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <TextView
+            android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:text="全选"
-            android:layout_toRightOf="@id/platformIconcheckall"
             android:layout_marginLeft="@dimen/dp_10"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:background="@null"
+            android:button="@drawable/selector_checkbox"/>
+
         <TextView
-            android:textColor="@color/red"
-            android:text="合计:￥125"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_6"
+            android:layout_toRightOf="@id/cb_selectorcb"
+            android:text="全选" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:layout_gravity="center"
             android:layout_marginLeft="@dimen/dp_10"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:text="合计:￥125"
+            android:textColor="@color/red" />
+
         <Button
-            android:textColor="@color/white"
-            android:text="去结算"
-            android:layout_alignParentRight="true"
-            android:background="@drawable/shape_button_c"
+            android:layout_centerVertical="true"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="36dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/button_circle_green"
+            android:text="去结算"
+            android:textColor="@color/white" />
     </RelativeLayout>
 </RelativeLayout>

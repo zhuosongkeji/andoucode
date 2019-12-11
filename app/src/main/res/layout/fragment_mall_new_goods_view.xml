@@ -4,7 +4,7 @@
     android:layout_height="160dp"
     android:layout_gravity="center"
     android:layout_marginTop="@dimen/dp_10"
-    android:background="@color/white"
+    android:background="?android:attr/selectableItemBackground"
     android:padding="@dimen/dp_10"
     android:orientation="horizontal">
 

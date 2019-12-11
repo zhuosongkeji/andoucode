@@ -6,7 +6,7 @@
     android:layout_marginTop="@dimen/dp_10"
     android:layout_marginBottom="@dimen/dp_10"
     android:orientation="vertical"
-    android:background="@color/white"
+    android:background="?android:attr/selectableItemBackground"
     android:padding="@dimen/dp_10">
 
     <LinearLayout

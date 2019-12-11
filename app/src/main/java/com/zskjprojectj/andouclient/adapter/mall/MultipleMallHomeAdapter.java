@@ -1,13 +1,16 @@
 package com.zskjprojectj.andouclient.adapter.mall;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.stx.xhb.xbanner.XBanner;
 import com.zskjprojectj.andouclient.R;
+import com.zskjprojectj.andouclient.activity.mall.MallGoodsDetailsActivity;
 import com.zskjprojectj.andouclient.entity.mall.MallItemDataBean;
+import com.zskjprojectj.andouclient.utils.ToastUtil;
 
 import java.util.List;
 
@@ -23,8 +26,12 @@ import java.util.List;
  */
 public class MultipleMallHomeAdapter extends BaseMultiItemQuickAdapter<MallItemDataBean, BaseViewHolder> {
 
+    private Context mContext;
+
     public MultipleMallHomeAdapter(Context context, List<MallItemDataBean> data) {
         super(data);
+
+        this.mContext=context;
 
 //        addItemType(MallItemDataBean.BANNER, R.layout.fragment_mall_banner_view);
 //        addItemType(MallItemDataBean.SEARCH, R.layout.fragment_mall_search_view);
@@ -48,10 +55,7 @@ public class MultipleMallHomeAdapter extends BaseMultiItemQuickAdapter<MallItemD
             case MallItemDataBean.RECOMMEND:
                 initRecommend(helper, item);
                 break;
-
         }
-
-
     }
 
 
@@ -59,16 +63,27 @@ public class MultipleMallHomeAdapter extends BaseMultiItemQuickAdapter<MallItemD
     private void initRecommend(BaseViewHolder helper, MallItemDataBean item) {
 
         helper.addOnClickListener(R.id.tv_see_more);
+        helper.addOnClickListener(R.id.tv_recommend_product);
+
 
     }
 
-    private void initMenu(BaseViewHolder helper, MallItemDataBean item) {
 
-//        switch (helper.getLayoutPosition()){
-//            case 0:
-//            helper.setImageResource(R.id.iv_menu_image, R.mipmap.icon_jianhuo);
-//            break;
-//        }
+    /**
+     * 商城首页菜单
+     * @param helper
+     * @param item
+     */
+    private void initMenu(BaseViewHolder helper, MallItemDataBean item) {
+        helper.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(mContext, MallGoodsDetailsActivity.class);
+                mContext.startActivity(intent);
+
+            }
+        });
+
 
     }
 }

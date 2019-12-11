@@ -17,8 +17,8 @@ public class PlatformshoppingcartAdapter extends BaseQuickAdapter<Platformshoppi
 
     @Override
     protected void convert(BaseViewHolder helper, PlatformshoppingcartBean item) {
-        helper.setText(R.id.tv_shopcartname,item.getShopname());
-        helper.setText(R.id.tv_shopcartname,item.getGoodsintroduction());
-        helper.setText(R.id.tv_cartgoodprice,item.getGoodsprice());
+//        helper.setText(R.id.tv_shopcartname,item.getShopname());
+//        helper.setText(R.id.tv_shopcartname,item.getGoodsintroduction());
+//        helper.setText(R.id.tv_cartgoodprice,item.getGoodsprice());
     }
 }

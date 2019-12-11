@@ -1,10 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:text="商城关注碎片"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-</LinearLayout>
+    <com.zskjprojectj.andouclient.view.TopView
+        android:id="@+id/alltopview"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        app:topview_left="@mipmap/back_icon" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_recycler"
+        android:layout_below="@+id/alltopview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:paddingLeft="@dimen/dp_10"
+        android:paddingRight="@dimen/dp_10">
+
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/cb_selectorcb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:background="@null"
+            android:button="@drawable/selector_checkbox" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_6"
+            android:layout_toRightOf="@id/cb_selectorcb"
+            android:text="全选" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:text="合计:￥125"
+            android:textColor="@color/red" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/button_circle_green"
+            android:text="去结算"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+
+
+</RelativeLayout>

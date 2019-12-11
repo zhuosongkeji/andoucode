@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:padding="@dimen/dp_10"
+
+        android:orientation="vertical">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_40"
+            android:src="@mipmap/ic_postbar_picture" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:text="玛莎兰提"
+            android:textColor="#323232"
+            android:textSize="@dimen/typeface16sp" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="#E7E7E7" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10">
+
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/cb_selectorcb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:button="@drawable/selector_checkbox"/>
+
+        <ImageView
+            android:id="@+id/img_cartgoodspic"
+            android:layout_width="@dimen/dp_80"
+            android:layout_height="@dimen/dp_80"
+            android:scaleType="centerCrop"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_toEndOf="@+id/cb_selectorcb"
+            android:src="@mipmap/miaosha" />
+
+        <TextView
+            android:id="@+id/tv_cartgoodsname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dp_20"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_toEndOf="@+id/img_cartgoodspic"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:text="玛莎拉提男士皮带鳄鱼纹"
+            android:textColor="#323232"
+            android:textSize="@dimen/typeface16sp" />
+
+        <ImageView
+            android:layout_alignTop="@+id/tv_cartgoodsname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:src="@mipmap/icon_cart" />
+
+        <TextView
+            android:id="@+id/tv_cartgoodprice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/img_cartgoodspic"
+            android:layout_toRightOf="@+id/img_cartgoodspic"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:text="￥119"
+            android:textColor="@color/red" />
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_alignBottom="@+id/img_cartgoodspic"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/selector_number_add_sub"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_sub"
+                android:layout_width="@dimen/dp_40"
+                android:layout_height="@dimen/dp_30"
+                android:background="@drawable/bg_btn_style_white"
+                android:text="－"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tv_num"
+                android:layout_width="@dimen/dp_40"
+                android:layout_height="@dimen/dp_30"
+                android:gravity="center"
+                android:text="1" />
+
+            <Button
+                android:id="@+id/btn_add"
+                android:layout_width="@dimen/dp_40"
+                android:layout_height="@dimen/dp_30"
+                android:background="@drawable/bg_btn_style_white"
+                android:text="＋"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="#E7E7E7" />
+
+</LinearLayout>

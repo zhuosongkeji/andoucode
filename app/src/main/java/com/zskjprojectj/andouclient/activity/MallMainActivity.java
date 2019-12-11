@@ -12,7 +12,7 @@ import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
 import com.zskjprojectj.andouclient.fragment.ClassificationofgoodsFragment;
-import com.zskjprojectj.andouclient.fragment.MallFocusonFragment;
+import com.zskjprojectj.andouclient.fragment.MallShoppingFragment;
 import com.zskjprojectj.andouclient.fragment.MallInfoFragment;
 import com.zskjprojectj.andouclient.fragment.mall.MallHomepageFragment1;
 
@@ -29,7 +29,7 @@ public class MallMainActivity extends BaseActivity {
     //定义字体颜色
     private int normalTextColor= Color.parseColor("#646464");
     private int selectTextColor=Color.parseColor("#5ED3AE");
-    private String[] tabText = {"首页", "分类", "关注", "消息"};
+    private String[] tabText = {"首页", "分类", "购物车", "我的"};
     //未选中icon
     private int[] normalIcon = {R.mipmap.home_icon_uncheck, R.mipmap.classification_icon_uncheck, R.mipmap.shopping_cart_uncheck, R.mipmap.me_icon_uncheck};
     //选中时icon
@@ -50,7 +50,7 @@ public class MallMainActivity extends BaseActivity {
         navigationBar = findViewById(R.id.navigationBar);
         fragments.add(new MallHomepageFragment1());
         fragments.add(new ClassificationofgoodsFragment());
-        fragments.add(new MallFocusonFragment());
+        fragments.add(new MallShoppingFragment());
         fragments.add(new MallInfoFragment());
         navigationBar.titleItems(tabText)
                 .normalIconItems(normalIcon)

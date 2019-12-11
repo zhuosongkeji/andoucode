@@ -7,7 +7,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="271dp"
         android:background="@mipmap/icon_usiness_details"
         android:orientation="horizontal">
 
@@ -27,59 +27,85 @@
             android:textColor="@color/white" />
     </RelativeLayout>
 
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="@dimen/dp_20">
 
-        <LinearLayout
-            android:id="@+id/ly_busiess_shopname"
+        <TextView
+            android:id="@+id/tv_business_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_alignBottom="@+id/iv_isvip"
+            android:text="渝大师毛肚火锅"
+            android:textColor="#323232"
+            android:textSize="@dimen/typeface16sp" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/iv_isvip"
+            android:layout_width="@dimen/dp_22"
+            android:layout_height="@dimen/dp_22"
+            android:layout_toRightOf="@+id/tv_business_name"
+            android:paddingLeft="@dimen/dp_5"
+            android:src="@mipmap/icon_vip" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:paddingLeft="@dimen/dp_10"
-                    android:paddingTop="@dimen/dp_10"
-                    android:text="渝大师毛肚火锅" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="@dimen/dp_5"
-                    android:paddingTop="@dimen/dp_10"
-                    android:src="@mipmap/icon_vip" />
-            </LinearLayout>
+        <LinearLayout
+            android:id="@+id/hotel_star"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_alignBottom="@+id/ll_like"
+            android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/dp_10"
+                android:id="@+id/busiess_plant1_image1"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:src="@mipmap/ic_plant" />
+
+            <ImageView
+                android:id="@+id/busiess_plant1_image2"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:layout_marginLeft="@dimen/dp_3"
+                android:src="@mipmap/ic_plant" />
+
+            <ImageView
+                android:id="@+id/busiess_plant1_image3"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:layout_marginLeft="@dimen/dp_3"
+                android:src="@mipmap/ic_plant" />
+
+            <ImageView
+                android:id="@+id/busiess_plant1_image4"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:layout_marginLeft="@dimen/dp_3"
+                android:src="@mipmap/ic_plant" />
+
+            <ImageView
+                android:id="@+id/busiess_plant1_image5"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:layout_marginLeft="@dimen/dp_3"
                 android:src="@mipmap/ic_plant" />
         </LinearLayout>
 
 
         <LinearLayout
+            android:id="@+id/ll_like"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerInParent="true"
-            android:layout_marginRight="@dimen/dp_100"
+            android:layout_marginRight="@dimen/dp_20"
+            android:layout_toLeftOf="@+id/ll_collect"
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/dp_18"
+                android:layout_height="@dimen/dp_18"
                 android:layout_gravity="center"
                 android:src="@mipmap/icon_like" />
 
@@ -88,76 +114,108 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|center_horizontal"
                 android:paddingTop="@dimen/dp_10"
-                android:text="1366" />
+                android:text="1366"
+                android:textSize="@dimen/typeface16sp" />
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ll_collect"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_centerInParent="true"
-            android:layout_marginRight="@dimen/dp_50"
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/dp_18"
+                android:layout_height="@dimen/dp_18"
                 android:layout_gravity="center"
-                android:src="@mipmap/icon_like" />
+                android:src="@mipmap/icon_heart" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|center_horizontal"
                 android:paddingTop="@dimen/dp_10"
-                android:text="点赞" />
+                android:text="点赞"
+                android:textSize="@dimen/typeface16sp" />
         </LinearLayout>
 
     </RelativeLayout>
+
     <View
-        android:background="@color/grey_2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
         android:layout_marginLeft="@dimen/dp_10"
         android:layout_marginRight="@dimen/dp_10"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"/>
+        android:background="#F7F7F7" />
+
     <RelativeLayout
+
+        android:padding="@dimen/dp_20"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <TextView
-            android:paddingTop="@dimen/dp_10"
-            android:paddingLeft="@dimen/dp_10"
-            android:text="重庆市南岸区南坪万达广场"
+            android:id="@+id/tv_address"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/typeface14sp"
+            android:textColor="#252525"
+            android:text="重庆市南岸区南坪万达广场" />
+
         <ImageView
-            android:layout_centerInParent="true"
-            android:layout_alignParentRight="true"
-            android:layout_width="wrap_content"
-            android:layout_marginRight="@dimen/dp_100"
-            android:src="@mipmap/icon_map"
-            android:layout_height="wrap_content"/>
+            android:id="@+id/iv_address"
+            android:layout_width="@dimen/dp_18"
+            android:layout_height="@dimen/dp_18"
+            android:layout_toLeftOf="@+id/iv_phone"
+            android:layout_marginRight="@dimen/dp_20"
+            android:src="@mipmap/icon_map" />
+
         <ImageView
-            android:layout_centerInParent="true"
-            android:layout_alignParentRight="true"
+            android:id="@+id/iv_phone"
+            android:layout_width="@dimen/dp_18"
+            android:layout_height="@dimen/dp_18"
+            android:layout_alignParentEnd="true"
+            android:src="@mipmap/icon_phone" />
+
+
+        <TextView
+            android:id="@+id/tv_start"
             android:layout_width="wrap_content"
-            android:layout_marginRight="@dimen/dp_50"
-            android:src="@mipmap/icon_phone"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_address"
+            android:layout_marginTop="@dimen/dp_10"
+            android:text="营业中"
+            android:textColor="#252525"
+            android:textSize="@dimen/typeface14sp" />
+        <TextView
+            android:id="@+id/tv_start_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/tv_start"
+            android:layout_alignBottom="@+id/tv_start"
+            android:text="10:00-22:00"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:textColor="#252525"
+            android:textSize="@dimen/typeface14sp" />
     </RelativeLayout>
-    <TextView
-        android:padding="@dimen/dp_10"
-        android:text="营业中 10:00-12:00"
-        android:textSize="@dimen/typeface15sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-    <com.shizhefei.view.indicator.FixedIndicatorView
-        android:layout_marginTop="@dimen/dp_10"
-        android:id="@+id/indicator"
-        android:background="@color/colorWhite"
+
+    <View
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_50"/>
+        android:layout_height="10dp"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:background="#F7F7F7" />
+
+    <com.shizhefei.view.indicator.FixedIndicatorView
+        android:id="@+id/indicator"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@color/colorWhite" />
+
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 </LinearLayout>

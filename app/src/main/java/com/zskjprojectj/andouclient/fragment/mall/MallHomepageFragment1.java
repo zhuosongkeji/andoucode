@@ -136,20 +136,28 @@ public class MallHomepageFragment1 extends BaseFragment {
 
         mRecycler.setAdapter(adapter);
 
-        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
-//                Toast.makeText(ItemClickActivity.this, "onItemClick" + position, Toast.LENGTH_SHORT).show();
-                ToastUtil.showToast("aaaaa" + position);
-
-            }
-        });
-
+//        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+//
+//                switch (view.getId()){
+//
+//                }
+//            }
+//        });
+//
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                ToastUtil.showToast("dddd");
+
+                switch (view.getId()){
+                    case R.id.tv_recommend_product:
+                        ToastUtil.showToast("文字");
+                        break;
+                    case R.id.tv_see_more:
+                    ToastUtil.showToast("dddd");
+                    break;
+                }
             }
         });
 

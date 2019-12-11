@@ -1,94 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:orientation="vertical"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:orientation="horizontal"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_recycler"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:src="@mipmap/icon_showinfo"
-            android:layout_marginLeft="@dimen/dp_10"
-            android:layout_width="@dimen/dp_75"
-            android:layout_height="@dimen/dp_75"/>
-        <LinearLayout
-            android:layout_marginRight="@dimen/dp_10"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_marginLeft="@dimen/dp_10"
-                android:text="屠宰场毛肚"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:layout_marginTop="@dimen/dp_5"
-                android:layout_marginLeft="@dimen/dp_10"
-                android:text="健脾益胃注消化,降低血糖"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <RelativeLayout
-                android:layout_marginLeft="@dimen/dp_10"
-                android:layout_marginTop="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:text="$48"
-                    android:textColor="@color/red"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-                <RelativeLayout
-                    android:layout_alignParentRight="true"
-                    android:background="@drawable/shape_add"
-                    android:layout_width="@dimen/dp_20"
-                    android:layout_height="@dimen/dp_20">
-                    <TextView
-                        android:layout_width="6dp"
-                       android:layout_centerInParent="true"
-                        android:layout_height="6dp"
-                        android:text="+"
-                        android:textColor="#ffffffff"
-                        android:textSize="11sp" />
-                </RelativeLayout>
-            </RelativeLayout>
-        </LinearLayout>
+        android:layout_height="match_parent"/>
 
-    </LinearLayout>
     <RelativeLayout
-        android:background="@color/black_layout"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_50">
+        android:layout_height="@dimen/dp_50"
+        android:layout_alignParentBottom="true"
+        android:background="@color/black_layout"
+        android:orientation="horizontal">
+
         <LinearLayout
             android:id="@+id/ly_icon"
-            android:gravity="center"
-            android:background="@drawable/shape_add"
             android:layout_width="@dimen/dp_50"
-            android:layout_height="@dimen/dp_50">
+            android:layout_height="@dimen/dp_50"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:background="@drawable/shape_add"
+            android:gravity="center">
+
             <ImageView
-                android:src="@mipmap/icon_cart"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_cart" />
         </LinearLayout>
 
         <TextView
-            android:layout_toRightOf="@id/ly_icon"
-            android:layout_centerVertical="true"
-            android:textColor="@color/white"
-            android:text="$58"
-            android:layout_marginLeft="@dimen/dp_10"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-            <Button
-                android:id="@+id/btn_orderbook_now"
-                android:text="立即预订"
-                android:layout_alignParentRight="true"
-                android:textColor="@color/white"
-                android:background="@drawable/shape_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_toRightOf="@id/ly_icon"
+            android:text="¥58"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/btn_orderbook_now"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/button_circle_green"
+            android:text="立即预订"
+            android:layout_marginRight="@dimen/dp_20"
+            android:textColor="@color/white" />
     </RelativeLayout>
 </RelativeLayout>
