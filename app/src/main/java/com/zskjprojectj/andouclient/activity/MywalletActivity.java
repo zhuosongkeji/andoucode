@@ -19,9 +19,6 @@ import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
 import com.zskjprojectj.andouclient.fragment.BalancesubsidiaryFragment;
-import com.zskjprojectj.andouclient.fragment.MeHotelorderFragment;
-import com.zskjprojectj.andouclient.fragment.MeHotelordercancelledFragment;
-import com.zskjprojectj.andouclient.fragment.MeHotelorderevaluateFragment;
 import com.zskjprojectj.andouclient.fragment.WithdrawalsubsidiaryFragment;
 
 import java.util.ArrayList;

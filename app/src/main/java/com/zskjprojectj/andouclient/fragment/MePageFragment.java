@@ -21,9 +21,11 @@ import com.zskjprojectj.andouclient.activity.MyscoreActivity;
 import com.zskjprojectj.andouclient.activity.MywalletActivity;
 import com.zskjprojectj.andouclient.activity.OperationvideoActivity;
 import com.zskjprojectj.andouclient.activity.PlatformshoppingcartActivity;
+import com.zskjprojectj.andouclient.activity.RestaurantOrderActivity;
 import com.zskjprojectj.andouclient.activity.ShoporderActivity;
 import com.zskjprojectj.andouclient.activity.VegetableMarketActivity;
 import com.zskjprojectj.andouclient.base.BaseFragment;
+import com.zskjprojectj.andouclient.utils.ToastUtil;
 import com.zskjprojectj.andouclient.view.TopView;
 
 /**
@@ -70,6 +72,8 @@ public class MePageFragment extends BaseFragment {
     private LinearLayout mycenter_downloadapp_layout;
     //操作视频
     private LinearLayout mycenter_operationvideo_layout;
+    //饭店预订
+    private LinearLayout mycenter_restaurant_layout;
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
         mycenter_vegetablemarket_layout=view.findViewById(R.id.mycenter_vegetablemarket_layout);
@@ -88,6 +92,7 @@ public class MePageFragment extends BaseFragment {
         mycenter_business_residence_layout=view.findViewById(R.id.mycenter_business_residence_layout);
         mycenter_downloadapp_layout=view.findViewById(R.id.mycenter_downloadapp_layout);
         mycenter_operationvideo_layout=view.findViewById(R.id.mycenter_operationvideo_layout);
+        mycenter_restaurant_layout=view.findViewById(R.id.mycenter_restaurant_layout);
         topView=view.findViewById(R.id.alltopview);
     }
 
@@ -137,7 +142,18 @@ public class MePageFragment extends BaseFragment {
         mycenter_shoporder_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getContext(), ShoporderActivity.class));
+                ToastUtil.showToast("数据链接异常");
+                //startActivity(new Intent(getContext(), ShoporderActivity.class));
+            }
+        });
+        /**
+         * 饭店订单
+         */
+        mycenter_restaurant_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ToastUtil.showToast("数据链接异常");
+                //startActivity(new Intent(getContext(), RestaurantOrderActivity.class));
             }
         });
         /**
