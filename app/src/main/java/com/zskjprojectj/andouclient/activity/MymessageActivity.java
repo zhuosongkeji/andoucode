@@ -9,46 +9,48 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.adapter.BalanceofprepaidPaywayAdapter;
-import com.zskjprojectj.andouclient.adapter.BalancesubsidiaryAdapter;
+import com.zskjprojectj.andouclient.adapter.MymessageAdapter;
+import com.zskjprojectj.andouclient.adapter.MyscoreAdapter;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
-import com.zskjprojectj.andouclient.entity.BalanceofprepaidpaywayBean;
-import com.zskjprojectj.andouclient.entity.BalancesubsidiaryBean;
+import com.zskjprojectj.andouclient.entity.MymessageBean;
+import com.zskjprojectj.andouclient.entity.MyscoreBean;
+import com.zskjprojectj.andouclient.utils.ToastUtil;
 
 import java.util.ArrayList;
 
-
 /**
- *余额充值
+ * 我的消息
  */
-public class BalanceofprepaidActivity extends BaseActivity {
+public class MymessageActivity extends BaseActivity {
     private RecyclerView mRecycler;
-    private ArrayList<BalanceofprepaidpaywayBean> mDataList;
+    private ArrayList<MymessageBean> mDataList;
     @Override
     protected void setRootView() {
-        setContentView(R.layout.activity_balanceofprepaid);
+        setContentView(R.layout.activity_mymessage);
     }
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-        topView.setTitle("余额充值");
-        mDataList = new ArrayList<>();
-        for (int i=0;i<3;i++){
-            BalanceofprepaidpaywayBean databean=new BalanceofprepaidpaywayBean();
-            databean.setPaywayname("微信支付");
+        topView.setTitle("我的消息");
+        mDataList=new ArrayList<>();
+        for (int i=0;i<10;i++){
+            MymessageBean databean=new MymessageBean();
+//            databean.setBrowsingnpic(R.mipmap.ic_busiess_canting);
+//            databean.setBrowsingname("北平楼涮羊肉");
             mDataList.add(databean);
         }
-        BalanceofprepaidPaywayAdapter adapter=new BalanceofprepaidPaywayAdapter(R.layout.item_balanceofprepaidpayway,mDataList);
+        MymessageAdapter adapter=new MymessageAdapter(R.layout.item_mymessage,mDataList);
         adapter.openLoadAnimation();
-        adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                //showDialog();
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                ToastUtil.showToast("数据访问异常");
             }
         });
         mRecycler.addItemDecoration(new DividerItemDecoration(mAt,DividerItemDecoration.VERTICAL));
         mRecycler.setAdapter(adapter);
+
     }
 
     @Override

@@ -8,9 +8,9 @@
     <application
         android:name=".base.BaseApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/andou_icon"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/andou_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activity.hotel.HotelOnlineReserveActivity"></activity>
@@ -28,14 +28,16 @@
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity> <!-- 注册界面 -->
-        <activity android:name=".activity.RegisteredActivity" /> <!-- 主界面 -->
+        <activity android:name=".activity.RegisteredActivity" />
+
+        <!-- 主界面 -->
         <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- 注册界面 -->
+        </activity>
         <activity android:name=".activity.MerchantsInfoActivity" /> <!-- 菜市场模块 -->
         <activity android:name=".activity.VegetableMarketActivity" /> <!-- 直播界面 -->
         <activity android:name=".activity.LiveActivity" /> <!-- 外卖板块 -->
@@ -48,11 +50,22 @@
         <activity android:name=".activity.FoodorderActivity" /> <!-- 我的钱包 -->
         <activity android:name=".activity.MyreleaseActivity" /> <!-- 余额充值 -->
         <activity android:name=".activity.BalanceofprepaidActivity" /> <!-- 在线商城 -->
-        <activity android:name=".activity.OnlinemallActivity" /> <!-- 在线商城主页 -->
+<!--        <activity android:name=".activity.OnlinemallActivity" /> &lt;!&ndash; 在线商城主页 &ndash;&gt;-->
         <activity android:name=".activity.BusinessdetailsActivity" /> <!-- 在线预订详情页 -->
         <activity android:name=".activity.OrederSubmitbooking" /> <!-- 订单提交 -->
         <activity android:name=".activity.OrdersuccessfullyActivity" /> <!-- 订单提交结果 -->
         <activity android:name=".activity.PlatformshoppingcartActivity"/><!--购物车-->
+        <activity android:name=".activity.MycollectionActivity"/><!--我的收藏-->
+        <activity android:name=".activity.BrowsingActivity"/><!--浏览痕迹-->
+        <activity android:name=".activity.MyaddressActivity"/><!--我的地址-->
+        <activity android:name=".activity.MyscoreActivity"/><!--我的积分-->
+        <activity android:name=".activity.MymessageActivity"/><!--我的消息-->
+        <activity android:name=".activity.BusinessresidenceActivity"/><!--商家入驻-->
+        <activity android:name=".activity.RestaurantbusinessinActivity"/><!--在线预订商家-->
+        <activity android:name=".activity.HotelbusinessinActivity"/><!--酒店商家入驻-->
+        <activity android:name=".activity.MallmerchantsbusinessinActivity"/><!--商城商家入驻-->
+        <activity android:name=".activity.DownloadappActivity"/><!--App下载页面-->
+        <activity android:name=".activity.OperationvideoActivity"/><!--操作视频-->
         <activity android:name=".activity.MallMainActivity" /> <!-- 全面屏 -->
         <meta-data
             android:name="android.max_aspect"

@@ -1,24 +1,23 @@
 package com.zskjprojectj.andouclient.activity;
 
+import android.app.Activity;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
 
-/**
- * 分享有礼
- */
-public class InvitationActivity extends BaseActivity {
+public class DownloadappActivity extends BaseActivity {
     @Override
     protected void setRootView() {
-        setContentView(R.layout.activity_invitation);
+        setContentView(R.layout.activity_downloadapp);
     }
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-//        topView.setTitle("分享有礼");
+
     }
 
     @Override

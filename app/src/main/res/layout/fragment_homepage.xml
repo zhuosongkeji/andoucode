@@ -126,7 +126,8 @@
                 android:layout_width="match_parent"
                 android:background="@color/white"
                 android:layout_height="13dp" />
-            <include layout="@layout/main_make_an_appointment"></include>
+            <include layout="@layout/main_make_an_appointment"
+                android:visibility="gone"></include>
             <TextView
                 android:layout_width="match_parent"
                 android:background="@color/white"

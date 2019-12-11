@@ -9,42 +9,39 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.adapter.BalanceofprepaidPaywayAdapter;
-import com.zskjprojectj.andouclient.adapter.BalancesubsidiaryAdapter;
+import com.zskjprojectj.andouclient.adapter.MerchantListAdapter;
+import com.zskjprojectj.andouclient.adapter.MycollectionAdapter;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
-import com.zskjprojectj.andouclient.entity.BalanceofprepaidpaywayBean;
-import com.zskjprojectj.andouclient.entity.BalancesubsidiaryBean;
+import com.zskjprojectj.andouclient.entity.MerchantListBean;
+import com.zskjprojectj.andouclient.entity.MycollectionBean;
 
 import java.util.ArrayList;
 
-
-/**
- *余额充值
- */
-public class BalanceofprepaidActivity extends BaseActivity {
+public class MycollectionActivity extends BaseActivity {
     private RecyclerView mRecycler;
-    private ArrayList<BalanceofprepaidpaywayBean> mDataList;
+    private ArrayList<MycollectionBean> mDataList;
     @Override
     protected void setRootView() {
-        setContentView(R.layout.activity_balanceofprepaid);
+        setContentView(R.layout.activity_mycollection);
     }
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-        topView.setTitle("余额充值");
-        mDataList = new ArrayList<>();
-        for (int i=0;i<3;i++){
-            BalanceofprepaidpaywayBean databean=new BalanceofprepaidpaywayBean();
-            databean.setPaywayname("微信支付");
+        mDataList=new ArrayList<>();
+        for (int i=0;i<20;i++){
+            MycollectionBean databean=new MycollectionBean();
+            databean.setCollectionpic(R.mipmap.ic_busiess_canting);
+            databean.setCollectionname("北平楼涮羊肉");
             mDataList.add(databean);
         }
-        BalanceofprepaidPaywayAdapter adapter=new BalanceofprepaidPaywayAdapter(R.layout.item_balanceofprepaidpayway,mDataList);
+
+        MycollectionAdapter adapter=new MycollectionAdapter(R.layout.item_mycollection,mDataList);
         adapter.openLoadAnimation();
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                //showDialog();
+
             }
         });
         mRecycler.addItemDecoration(new DividerItemDecoration(mAt,DividerItemDecoration.VERTICAL));
@@ -53,6 +50,7 @@ public class BalanceofprepaidActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
+        topView.setTitle("我的收藏");
         mRecycler=findViewById(R.id.rv_recycler);
         mRecycler.setLayoutManager(new LinearLayoutManager(mAt));
     }
