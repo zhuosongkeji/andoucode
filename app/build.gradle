@@ -107,4 +107,6 @@ dependencies {
     //选择框架 PickerView
     implementation 'com.contrarywind:Android-PickerView:4.1.9'
 
+    //屏幕适配 AutoSize
+    implementation 'me.jessyan:autosize:1.1.2'
 }
