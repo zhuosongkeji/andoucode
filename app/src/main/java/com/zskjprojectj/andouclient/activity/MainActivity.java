@@ -1,8 +1,11 @@
 package com.zskjprojectj.andouclient.activity;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -88,6 +91,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initData(Bundle savedInstanceState) {
+
 
     }
 

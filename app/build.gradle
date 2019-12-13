@@ -55,8 +55,8 @@ dependencies {
 //    implementation  "com.jakewharton:butterknife:8.8.1"
 //    implementation  "com.jakewharton:butterknife-compiler:8.8.1"
     //annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1's
-    implementation "com.jakewharton:butterknife:10.0.0"
-    androidTestImplementation 'com.jakewharton:butterknife-compiler:10.0.0'
+    implementation "com.jakewharton:butterknife:10.1.0"
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
 
     implementation "com.alibaba:fastjson:1.2.54"
     implementation "com.squareup.okhttp3:okhttp:3.11.0"
@@ -104,4 +104,7 @@ dependencies {
     implementation 'cn.yhq:android-dialog:2.0.0'
     //视频播放
     implementation 'cn.jzvd:jiaozivideoplayer:7.0.5'
+    //选择框架 PickerView
+    implementation 'com.contrarywind:Android-PickerView:4.1.9'
+
 }

@@ -8,11 +8,13 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_recycler"
+        android:layout_above="@+id/pay_all"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/alltopview" />
 
     <RelativeLayout
+        android:id="@+id/pay_all"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_50"
         android:layout_alignParentBottom="true"

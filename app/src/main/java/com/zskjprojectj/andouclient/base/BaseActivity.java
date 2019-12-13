@@ -21,13 +21,13 @@ import io.reactivex.annotations.Nullable;
 
 
 public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatActivity {
-    private Unbinder mUnBinder;
     protected TopView topView;
     protected Activity mAt;
     /**
      * 回调函数
      */
     public LifeCycleListener mListener;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +36,8 @@ public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatA
             mListener.onCreate(savedInstanceState);
         }
         setRootView();
+        ButterKnife.bind(this);
+
         //设置沉浸式状态栏
 //        StatusBarUtil.setTranslucentForImageView(this, 0, );
         //沉浸式代码配置
@@ -43,10 +45,10 @@ public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatA
         //设置状态栏透明
         //一般的手机的状态栏文字和图标都是白色的, 可如果你的应用也是纯白色的, 或导致状态栏文字看不清
         //所以如果你是这种情况,请使用以下代码, 设置状态使用深色文字图标风格, 否则你可以选择性注释掉这个if内容
-            //如果不支持设置深色风格 为了兼容总不能让状态栏白白的看不清, 于是设置一个状态栏颜色为半透明,
-            //这样半透明+白=灰, 状态栏的文字能看得清
+        //如果不支持设置深色风格 为了兼容总不能让状态栏白白的看不清, 于是设置一个状态栏颜色为半透明,
+        //这样半透明+白=灰, 状态栏的文字能看得清
         // 所有子类都将继承这些相同的属性,请在设置界面之后设置
-       ImmersionBar.with(this).init();
+        ImmersionBar.with(this).init();
 
         initViews();
         initData(savedInstanceState);
@@ -70,7 +72,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatA
     public void setContentView(int layoutResID) {
         super.setContentView(layoutResID);
 
-        mUnBinder = ButterKnife.bind(this);
+
         try {
             int resId = findBar();
             if (resId > 0) {
@@ -80,6 +82,8 @@ public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatA
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+
     }
 
     protected int findBar() {
@@ -99,7 +103,9 @@ public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatA
     public void showToast(String str) {
         Toasty.info(this, str, Toasty.LENGTH_SHORT).show();
     }
+
     protected abstract P createPresenter();
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -143,10 +149,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatA
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mUnBinder.unbind();
-        if (mListener != null) {
-            mListener.onDestroy();
-        }
+
     }
 
 

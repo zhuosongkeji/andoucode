@@ -5,10 +5,12 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.adapter.hotel.HotelResultAdapter;
 import com.zskjprojectj.andouclient.base.BaseActivity;
@@ -45,11 +47,18 @@ public class HotelFilterActivity extends BaseActivity implements View.OnClickLis
         }
 
         HotelResultAdapter adapter=new HotelResultAdapter(R.layout.hotelresuilt_item_view,mDataList);
+        adapter.openLoadAnimation();
         mRecycler.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
         mRecycler.setAdapter(adapter);
 
 
-
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                Intent intent=new Intent(HotelFilterActivity.this,HotelDetailActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
