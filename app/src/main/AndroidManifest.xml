@@ -76,6 +76,9 @@
         <activity android:name=".activity.OperationvideoActivity" /> <!-- 操作视频 -->
         <activity android:name=".activity.RestaurantOrderActivity" /> <!-- 饭店订单 -->
         <activity android:name=".activity.MallMainActivity" /> <!-- 全面屏 -->
+        <!--地址选择-->
+        <activity android:name=".activity.NewaddressActivity"/><!--新增地址-->
+        <activity android:name=".activity.ShareLocationActivity"/><!--添加新地址-->
         <meta-data
             android:name="android.max_aspect"
             android:value="2.4" /> <!-- 适配华为（huawei）刘海屏 -->
@@ -85,6 +88,13 @@
         <meta-data
             android:name="notch.config"
             android:value="portrait|landscape" />
+        <!--高德地图-->
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="9efdb99b9d490c4eda5af7f40cffeccf"/>
+
+        <!-- 高德地图定位 -->
+        <service android:name="com.amap.api.location.APSService"/>
     </application>
 
 </manifest>

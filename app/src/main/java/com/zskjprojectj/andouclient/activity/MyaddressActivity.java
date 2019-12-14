@@ -62,7 +62,7 @@ public class MyaddressActivity extends BaseActivity {
         btn_addressadd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                jumpActivity(NewaddressActivity.class);
             }
         });
 

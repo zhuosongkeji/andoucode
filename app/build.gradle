@@ -109,4 +109,11 @@ dependencies {
 
     //屏幕适配 AutoSize
     implementation 'me.jessyan:autosize:1.1.2'
+    //高德地图api
+    //定位功能
+    implementation 'com.amap.api:location:latest.integration'
+    //搜索功能
+    implementation 'com.amap.api:search:latest.integration'
+
+    implementation 'com.amap.api:map2d:latest.integration'
 }
