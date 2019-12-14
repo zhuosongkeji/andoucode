@@ -2,6 +2,7 @@ package com.zskjprojectj.andouclient.activity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -24,6 +25,7 @@ import java.util.ArrayList;
 public class MyaddressActivity extends BaseActivity {
     private RecyclerView mRecycler;
     private ArrayList<MyaddressBean> mDataList;
+    private Button btn_addressadd;
     @Override
     protected void setRootView() {
         setContentView(R.layout.activity_myaddress);
@@ -56,6 +58,14 @@ public class MyaddressActivity extends BaseActivity {
     protected void initViews() {
         mRecycler=findViewById(R.id.rv_recycler);
         mRecycler.setLayoutManager(new LinearLayoutManager(mAt));
+        btn_addressadd=findViewById(R.id.btn_addressadd);
+        btn_addressadd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
     }
 
     @Override
