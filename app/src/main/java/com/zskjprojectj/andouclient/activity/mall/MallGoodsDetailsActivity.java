@@ -15,6 +15,8 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -22,9 +24,12 @@ import com.shizhefei.view.indicator.FixedIndicatorView;
 import com.shizhefei.view.indicator.IndicatorViewPager;
 import com.shizhefei.view.indicator.slidebar.ColorBar;
 import com.shizhefei.view.indicator.transition.OnTransitionTextListener;
+import com.stx.xhb.xbanner.XBanner;
+import com.stx.xhb.xbanner.entity.LocalImageInfo;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
+import com.zskjprojectj.andouclient.fragment.hotel.CustomViewDialog;
 import com.zskjprojectj.andouclient.fragment.hotel.HotelDetailCommentFragment;
 import com.zskjprojectj.andouclient.fragment.hotel.HotelDetailFacilityFragment;
 import com.zskjprojectj.andouclient.fragment.hotel.HotelDetailMerchantFragment;
@@ -51,6 +56,11 @@ public class MallGoodsDetailsActivity extends BaseActivity {
     @BindView(R.id.bt_mall_goods_discount)
     Button mDiscount;
 
+    @BindView(R.id.bannertop)
+    XBanner mBanner;
+
+
+
 
     private FixedIndicatorView mIndicator;
     private ViewPager mViewPager;
@@ -65,6 +75,8 @@ public class MallGoodsDetailsActivity extends BaseActivity {
 
     @Override
     protected void initData(Bundle savedInstanceState) {
+        initLocalImage();
+
         //商品详情
         list.add(new MallGoodsDetailFragment());
         //商品评论
@@ -82,6 +94,44 @@ public class MallGoodsDetailsActivity extends BaseActivity {
         int unSelectColor = getResources().getColor(R.color.black_bg);//未显示的Title颜色
         mIndicator.setOnTransitionListener(new OnTransitionTextListener().setColor(selectColor, unSelectColor).setSize(unSelectSize, unSelectSize));
     }
+
+    /**
+     * 加载本地图片
+     */
+    private void initLocalImage() {
+        List<LocalImageInfo> data = new ArrayList<>();
+        data.add(new LocalImageInfo(R.drawable.home_mall_pic));
+        data.add(new LocalImageInfo(R.drawable.home_hotel_pic));
+        data.add(new LocalImageInfo(R.drawable.banner_placeholder));
+        data.add(new LocalImageInfo(R.drawable.banner_placeholder));
+        mBanner.setBannerData(data);
+
+        //加载图片
+        mBanner.loadImage(new XBanner.XBannerAdapter() {
+            @Override
+            public void loadBanner(XBanner banner, Object model, View view, int position) {
+//                加载本地图片展示
+                ((ImageView) view).setImageResource(((LocalImageInfo) model).getXBannerUrl());
+            }
+        });
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mBanner.startAutoPlay();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mBanner.stopAutoPlay();
+    }
+
+
+
+
 
     /**
      * 指示器适配器对形象
@@ -131,7 +181,7 @@ public class MallGoodsDetailsActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.tv_buy_now, R.id.rv_shop_home,R.id.bt_mall_goods_discount})
+    @OnClick({R.id.tv_buy_now, R.id.rv_shop_home,R.id.bt_mall_goods_discount,R.id.shared})
     public void clickButNow(View v) {
         switch (v.getId()) {
 
@@ -145,6 +195,37 @@ public class MallGoodsDetailsActivity extends BaseActivity {
 
             case R.id.bt_mall_goods_discount:
                 initDiscount();
+                break;
+
+            case R.id.shared:
+                CustomViewDialog dialog=new CustomViewDialog(this,R.layout.activity_shared_dialog_view,
+                        new int[]{R.id.cancle,R.id.weixin,R.id.friendcircle,R.id.qq,R.id.qqkongjian,R.id.weibo});
+                dialog.setOnCenterItemClickListener(new CustomViewDialog.OnCenterItemClickListener() {
+                    @Override
+                    public void OnCenterItemClick(CustomViewDialog dialog, View view) {
+                        switch (view.getId()){
+                            case R.id.cancle:
+                                dialog.dismiss();
+                                break;
+                            case R.id.weixin:
+                                ToastUtil.showToast("微信");
+                                break;
+                            case R.id.friendcircle:
+                                ToastUtil.showToast("朋友圈");
+                                break;
+                            case R.id.qq:
+                                ToastUtil.showToast("QQ");
+                                break;
+                            case R.id.qqkongjian:
+                                ToastUtil.showToast("QQ空间");
+                                break;
+                            case R.id.weibo:
+                                ToastUtil.showToast("微博");
+                                break;
+                        }
+                    }
+                });
+                dialog.show();
                 break;
         }
 

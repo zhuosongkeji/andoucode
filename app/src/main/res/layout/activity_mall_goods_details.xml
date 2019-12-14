@@ -26,16 +26,25 @@
 
 
                 <LinearLayout
+                    android:id="@+id/ll_goods_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     app:layout_scrollFlags="scroll">
 
 
-                    <ImageView
+
+                    <com.stx.xhb.xbanner.XBanner
+                        android:id="@+id/bannertop"
                         android:layout_width="match_parent"
-                        android:layout_height="360dp"
-                        android:src="@drawable/mall_goods_details_pic" />
+                        android:layout_height="375dp"
+                        android:layout_gravity="center"
+                        app:isAutoPlay="false"
+                        app:isHandLoop="true"
+                        app:isShowNumberIndicator="true"
+                        app:numberIndicatorBacgroud="@color/gray1_color"
+                        app:pointsVisibility="true" />
+
 
                     <TextView
                         android:layout_width="match_parent"
@@ -355,6 +364,20 @@
 
         </LinearLayout>
 
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/shared"
+        android:layout_width="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="65dp"
+        android:layout_marginRight="@dimen/dp_15"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_40"
+            android:src="@mipmap/icon_baidu"/>
     </FrameLayout>
 
 
