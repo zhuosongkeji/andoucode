@@ -34,13 +34,11 @@ public class SectionAdapter extends BaseSectionQuickAdapter<Mysection, BaseViewH
      */
 
     public static int SELECTOR_POSITION=-1;
-    private SparseBooleanArray mSelectedPositions = new SparseBooleanArray();
-    private boolean mIsSelectable = false;
+    public static int SELECTOR_POSITION1=1;
+    public static int SELECTOR_POSITION2=2;
 
-    private List<Mysection> mMyLiveList;
 
-    private static final int MYLIVE_MODE_CHECK = 0;
-    int mEditMode = MYLIVE_MODE_CHECK;
+
 
     public SectionAdapter(int layoutResId, int sectionHeadResId, List<Mysection> data) {
         super(layoutResId, sectionHeadResId, data);
@@ -64,6 +62,24 @@ public class SectionAdapter extends BaseSectionQuickAdapter<Mysection, BaseViewH
             mPrice.setSelected(false);
         }
 
+
+        if (0<p&&p<8){
+            if (SELECTOR_POSITION1==p){
+                mPrice.setSelected(true);
+            }else {
+                mPrice.setSelected(false);
+            }
+        }
+
+
+        if (9<p&&p<14){
+            if (SELECTOR_POSITION2==p){
+                mPrice.setSelected(true);
+            }else {
+                mPrice.setSelected(false);
+            }
+        }
+
     }
 
     public void onChange(int position){
@@ -71,12 +87,19 @@ public class SectionAdapter extends BaseSectionQuickAdapter<Mysection, BaseViewH
         notifyDataSetChanged();
     }
 
-    public void notifyAdapter(List<Mysection> myLiveList, boolean isAdd) {
-        if (!isAdd) {
-            this.mMyLiveList = myLiveList;
-        } else {
-            this.mMyLiveList.addAll(myLiveList);
-        }
+    public void onChange1(int position){
+        SELECTOR_POSITION1=position;
+        notifyDataSetChanged();
+    }
+
+    public void onChange2(int position){
+        SELECTOR_POSITION2=position;
+        notifyDataSetChanged();
+    }
+
+    public  void cancle(int position){
+        SELECTOR_POSITION1=position;
+        SELECTOR_POSITION2=position;
         notifyDataSetChanged();
     }
 
