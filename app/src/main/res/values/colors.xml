@@ -22,6 +22,7 @@
 
     <color name="grey_1">#8f8f8f</color>
     <color name="grey_2">#ACA8A8</color>
+    <color name="line">#DDDDDD</color>
     <color name="holo_blue_bright">#ff22c3be</color>
     <color name="holo_green_light">#ff99cc00</color>
     <color name="holo_orange_light">#ffffbb33</color>
