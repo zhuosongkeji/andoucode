@@ -4,11 +4,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
+import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.shizhefei.view.indicator.FixedIndicatorView;
@@ -24,14 +31,32 @@ import com.zskjprojectj.andouclient.fragment.hotel.HotelDetailMerchantFragment;
 import com.zskjprojectj.andouclient.fragment.hotel.HotelDetailReserveFragment;
 import com.zskjprojectj.andouclient.fragment.mall.MallGoodsCommentFragment;
 import com.zskjprojectj.andouclient.fragment.mall.MallGoodsDetailFragment;
+import com.zskjprojectj.andouclient.utils.DensityUtil;
+import com.zskjprojectj.andouclient.utils.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.OnClick;
+
 public class MallGoodsDetailsActivity extends BaseActivity {
+
+    @BindView(R.id.tv_buy_now)
+    TextView mBuyNow;
+
+    @BindView(R.id.rv_shop_home)
+    RelativeLayout mShopHome;
+
+    @BindView(R.id.bt_mall_goods_discount)
+    Button mDiscount;
+
+
     private FixedIndicatorView mIndicator;
     private ViewPager mViewPager;
-    private List<Fragment> list=new ArrayList<>();
+    private List<Fragment> list = new ArrayList<>();
+    private Dialog bottomDialog;
+    private View contentView;
 
     @Override
     protected void setRootView() {
@@ -46,7 +71,7 @@ public class MallGoodsDetailsActivity extends BaseActivity {
         list.add(new MallGoodsCommentFragment());
 
 
-        IndicatorViewPager indicatorViewPager=new IndicatorViewPager(mIndicator,mViewPager);
+        IndicatorViewPager indicatorViewPager = new IndicatorViewPager(mIndicator, mViewPager);
         indicatorViewPager.setAdapter(adapter);
         //设置滑动时的那一项的图形和颜色变化，ColorBar对应的是下划线的形状。
         mIndicator.setScrollBar(new ColorBar(getApplicationContext(), Color.parseColor("#5ED3AE"), 5));
@@ -61,8 +86,9 @@ public class MallGoodsDetailsActivity extends BaseActivity {
     /**
      * 指示器适配器对形象
      */
-    public IndicatorViewPager.IndicatorFragmentPagerAdapter adapter=new IndicatorViewPager.IndicatorFragmentPagerAdapter(getSupportFragmentManager()){
+    public IndicatorViewPager.IndicatorFragmentPagerAdapter adapter = new IndicatorViewPager.IndicatorFragmentPagerAdapter(getSupportFragmentManager()) {
         private String[] tabNames = {"产品详情", "产品评价"};
+
         @Override
         public int getCount() {
             return list.size();
@@ -90,8 +116,8 @@ public class MallGoodsDetailsActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-        mIndicator=findViewById(R.id.indicator);
-        mViewPager=findViewById(R.id.viewPager);
+        mIndicator = findViewById(R.id.indicator);
+        mViewPager = findViewById(R.id.viewPager);
     }
 
     @Override
@@ -105,5 +131,79 @@ public class MallGoodsDetailsActivity extends BaseActivity {
     }
 
 
+    @OnClick({R.id.tv_buy_now, R.id.rv_shop_home,R.id.bt_mall_goods_discount})
+    public void clickButNow(View v) {
+        switch (v.getId()) {
+
+            case R.id.tv_buy_now:
+                initBuyNow();
+                break;
+
+            case R.id.rv_shop_home:
+                startActivity(new Intent(MallGoodsDetailsActivity.this,MallShoppingHomeActivity.class));
+                break;
+
+            case R.id.bt_mall_goods_discount:
+                initDiscount();
+                break;
+        }
+
+    }
+
+    private void initDiscount() {
+
+        Dialog bottomDialog = new Dialog(this, R.style.BottomDialog);
+
+        Window window = bottomDialog.getWindow();
+        // 把 DecorView 的默认 padding 取消，同时 DecorView 的默认大小也会取消
+        window.getDecorView().setPadding(0, 0, 0, 0);
+        WindowManager.LayoutParams layoutParams = window.getAttributes();
+        // 设置宽度
+        layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
+        window.setAttributes(layoutParams);
+        // 给 DecorView 设置背景颜色，很重要，不然导致 Dialog 内容显示不全，有一部分内容会充当 padding，上面例子有举出
+        window.getDecorView().setBackgroundColor(Color.TRANSPARENT);
+
+
+
+        View contentView = LayoutInflater.from(this).inflate(R.layout.dialog_mall_goods_discount, null);
+        bottomDialog.setContentView(contentView);
+//        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) contentView.getLayoutParams();
+//        params.width = getResources().getDisplayMetrics().widthPixels - DensityUtil.dp2px(this, 16f);
+//        params.bottomMargin = DensityUtil.dp2px(this, 8f);
+//        contentView.setLayoutParams(params);
+        bottomDialog.setCanceledOnTouchOutside(true);
+        bottomDialog.getWindow().setGravity(Gravity.BOTTOM);
+        bottomDialog.getWindow().setWindowAnimations(R.style.BottomDialog_Animation);
+        bottomDialog.show();
+
+    }
+
+    private void initBuyNow() {
+
+        bottomDialog = new Dialog(this, R.style.BottomDialog);
+
+
+        Window window = bottomDialog.getWindow();
+        // 把 DecorView 的默认 padding 取消，同时 DecorView 的默认大小也会取消
+        window.getDecorView().setPadding(0, 0, 0, 0);
+        WindowManager.LayoutParams layoutParams = window.getAttributes();
+        // 设置宽度
+        layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
+        window.setAttributes(layoutParams);
+        // 给 DecorView 设置背景颜色，很重要，不然导致 Dialog 内容显示不全，有一部分内容会充当 padding，上面例子有举出
+        window.getDecorView().setBackgroundColor(Color.TRANSPARENT);
+
+        contentView = LayoutInflater.from(this).inflate(R.layout.dialog_buy_now, null);
+        bottomDialog.setContentView(contentView);
+//        ViewGroup.LayoutParams layoutParams = contentView.getLayoutParams();
+//        layoutParams.width = getResources().getDisplayMetrics().widthPixels;
+//        contentView.setLayoutParams(layoutParams);
+        bottomDialog.getWindow().setGravity(Gravity.BOTTOM);
+        bottomDialog.setCanceledOnTouchOutside(true);
+        bottomDialog.getWindow().setWindowAnimations(R.style.BottomDialog_Animation);
+        bottomDialog.show();
+
+    }
 
 }

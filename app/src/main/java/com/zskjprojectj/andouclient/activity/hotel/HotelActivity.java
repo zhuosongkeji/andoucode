@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -68,7 +69,7 @@ public class HotelActivity extends BaseActivity implements View.OnClickListener 
     private Dialog bottomDialog;
     private RecyclerView mViewRecycler;
     private ArrayList<Mysection> mData;
-
+    private Button mCancle;
 
 
     @Override
@@ -185,12 +186,12 @@ public class HotelActivity extends BaseActivity implements View.OnClickListener 
     }
 
 
-
     private void showDialog() {
 
         bottomDialog = new Dialog(this, R.style.BottomDialog);
         contentView = LayoutInflater.from(this).inflate(R.layout.dialog_hotel_star_price, null);
         mViewRecycler = contentView.findViewById(R.id.rv_recycler);
+        mCancle=contentView.findViewById(R.id.bt_cancle);
         initDialogRecycler();
         bottomDialog.setContentView(contentView);
         ViewGroup.LayoutParams layoutParams = contentView.getLayoutParams();
@@ -204,12 +205,11 @@ public class HotelActivity extends BaseActivity implements View.OnClickListener 
     }
 
     private void initDialogRecycler() {
-
-        mViewRecycler.setLayoutManager(new GridLayoutManager(this,4));
-        mViewRecycler.addItemDecoration(new GridSectionAverageGapItemDecoration(10,10,0,10));
-        SectionAdapter sectionAdapteradapter=new SectionAdapter(R.layout.item_section_content,R.layout.def_section_head,mData);
+        mViewRecycler.setLayoutManager(new GridLayoutManager(this, 4));
+        mViewRecycler.addItemDecoration(new GridSectionAverageGapItemDecoration(10, 10, 0, 10));
+        SectionAdapter sectionAdapteradapter = new SectionAdapter(R.layout.item_section_content, R.layout.def_section_head, mData);
         mViewRecycler.setAdapter(sectionAdapteradapter);
-        mData=new ArrayList<>();
+        mData = new ArrayList<>();
         for (int i = 0; i < 1; i++) {
             mData.add(new Mysection(true, "价格", true));
             mData.add(new Mysection("¥0~100"));
@@ -224,8 +224,6 @@ public class HotelActivity extends BaseActivity implements View.OnClickListener 
             mData.add(new Mysection("舒适三星"));
             mData.add(new Mysection("高档四星"));
             mData.add(new Mysection("豪华五星"));
-
-            sectionAdapteradapter.notifyAdapter(mData,false);
         }
 
 
@@ -234,14 +232,31 @@ public class HotelActivity extends BaseActivity implements View.OnClickListener 
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
 
-//                Mysection mysection = mData.get(position);
-//                TextView mPrice = view.findViewById(R.id.tv_price);
                 sectionAdapteradapter.onChange(position);
+                sectionAdapteradapter.notifyDataSetChanged();
 
+                if (0<position&&position<8){
+                    sectionAdapteradapter.onChange1(position);
+                    sectionAdapteradapter.notifyDataSetChanged();
+                }else if (9<position&&position<14){
+                    sectionAdapteradapter.onChange2(position);
+                    sectionAdapteradapter.notifyDataSetChanged();
+                }
 
 
             }
         });
+
+        mCancle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sectionAdapteradapter.cancle(-1);
+                sectionAdapteradapter.notifyDataSetChanged();
+
+            }
+        });
+
+
 
     }
 
