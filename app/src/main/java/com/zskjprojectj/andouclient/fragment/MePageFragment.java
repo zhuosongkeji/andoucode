@@ -142,8 +142,8 @@ public class MePageFragment extends BaseFragment {
         mycenter_shoporder_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ToastUtil.showToast("数据链接异常");
-                //startActivity(new Intent(getContext(), ShoporderActivity.class));
+               // ToastUtil.showToast("数据链接异常");
+                startActivity(new Intent(getContext(), ShoporderActivity.class));
             }
         });
         /**

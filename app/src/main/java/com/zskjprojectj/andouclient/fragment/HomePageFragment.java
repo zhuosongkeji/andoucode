@@ -46,15 +46,11 @@ import okhttp3.Call;
 public class HomePageFragment extends BaseFragment {
     private XBanner bannertops, bannertopone;
     private LinearLayout check_in_business_seemore_layout, rootView;
-    private LinearLayout onlinebroadcast_see_more_layout, appointment_see_more_layout, onlinebooking_see_more_layout;
-
+    private LinearLayout onlinebroadcast_see_more_layout, appointment_see_more_layout, onlinebooking_see_more_layout,ly_citychoose;
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
 
         bannertops = view.findViewById(R.id.bannertop);
-
-//        headView.setPadding(0, BarUtils.getStatusBarHeight(getActivity()),0,0);
-        //   bannertopone=view.findViewById(R.id.bannertopone);
         rootView = view.findViewById(R.id.root_view);
 
         //设置状态栏的高度
@@ -66,13 +62,7 @@ public class HomePageFragment extends BaseFragment {
         onlinebroadcast_see_more_layout = view.findViewById(R.id.onlinebroadcast_see_more_layout);
         appointment_see_more_layout = view.findViewById(R.id.appointment_see_more_layout);
         onlinebooking_see_more_layout = view.findViewById(R.id.onlinebooking_see_more_layout);
-
-//        rootView.setPadding(0, BarUtils.getStatusBarHeight(getActivity()),0,0);
-
-//        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, 40);
-//        params.setMargins(10, BarUtils.getStatusBarHeight(getActivity()), 10, 10);
-//        rootView.setLayoutParams(params);
-
+        ly_citychoose=view.findViewById(R.id.ly_citychoose);
     }
 
     /**
@@ -158,7 +148,15 @@ public class HomePageFragment extends BaseFragment {
                 startActivity(new Intent(getContext(), OnlineBookingorderActivity.class));
             }
         });
+        /**
+         * 城市选择
+         */
+        ly_citychoose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+            }
+        });
     }
 
     /**

@@ -102,6 +102,8 @@
         <activity android:name=".activity.DownloadappActivity" /> <!-- App下载页面 -->
         <activity android:name=".activity.OperationvideoActivity" /> <!-- 操作视频 -->
         <activity android:name=".activity.RestaurantOrderActivity" /> <!-- 饭店订单 -->
+        <activity android:name=".activity.ShoporderdetailsActivity"/><!--订单详情-->
+        <activity android:name=".activity.CheckthelogisticsActivity"/><!--查看订单详情-->
         <activity android:name=".activity.MallMainActivity" /> <!-- 全面屏 -->
         <!--地址选择-->
         <activity android:name=".activity.NewaddressActivity"/><!--新增地址-->
