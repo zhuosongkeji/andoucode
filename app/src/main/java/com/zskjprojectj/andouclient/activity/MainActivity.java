@@ -1,9 +1,15 @@
 package com.zskjprojectj.andouclient.activity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 
+import android.provider.Settings;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -15,6 +21,8 @@ import androidx.fragment.app.Fragment;
 
 
 import com.next.easynavigation.view.EasyNavigationBar;
+import com.tbruyelle.rxpermissions2.Permission;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
@@ -24,10 +32,13 @@ import com.zskjprojectj.andouclient.fragment.MePageFragment;
 import com.zskjprojectj.andouclient.fragment.MerchantsPageFragment;
 import com.zskjprojectj.andouclient.fragment.TieBaFragment;
 import com.zskjprojectj.andouclient.utils.BarUtils;
+import com.zskjprojectj.andouclient.utils.LogUtil;
 import com.zskjprojectj.andouclient.utils.StatusBarUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.functions.Consumer;
 
 /**
  * <pre>
@@ -52,38 +63,6 @@ public class MainActivity extends BaseActivity {
     private int[] selectIcon = {R.mipmap.home_icon_check, R.mipmap.merchants_icon_check, R.mipmap.info_icon, R.mipmap.tieba_icon_check, R.mipmap.me_icon_check};
 
     private List<Fragment> fragments = new ArrayList<>();
-//    public static final String LOCK = "lock";
-//    public static final String LOCK_KEY = "lock_key";
-//
-//    private static String homepage = "mHomePageFragment";
-//    protected TextView tvProtruding;
-//    protected ImageView imgProtruding;
-
-    /**
-     * 创建一个集合，存储碎片
-     */
-//    private List<Fragment> mFragments = new ArrayList<Fragment>();
-//    private HomePageFragment mHomePageFragment;
-//    private MerchantsPageFragment mMerchantsPageFragment;
-//    private InfoPageFragment mInfoPageFragment;
-//    private TieBaFragment mTieBaFragment;
-//    private MePageFragment mMePageFragment;
-//    private FragmentManager fm;
-//    FragmentTransaction transaction;
-//    private RadioGroup mRadioButtonRg;
-//    private FragmentTransaction transaction1;
-
-    // @Override
-//    protected void onCreate(@Nullable Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//
-////        initView();
-////        if (savedInstanceState == null) {
-////            FragmentManager fragmentManager = getSupportFragmentManager();
-////            mHomePageFragment = new HomePageFragment();
-////            fragmentManager.beginTransaction().replace(R.id.fragment_all, mHomePageFragment, homepage).commit();
-////        }
-//    }
     @Override
     protected void setRootView() {
         setContentView(R.layout.activity_main);
@@ -92,7 +71,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void initData(Bundle savedInstanceState) {
 
-
+        checkRxPermission();
     }
 
     @Override
@@ -115,27 +94,6 @@ public class MainActivity extends BaseActivity {
                 .normalTextColor(normalTextColor)
                 .selectTextColor(selectTextColor)
                 .fragmentManager(getSupportFragmentManager())
-//                .onTabClickListener(new EasyNavigationBar.OnTabClickListener() {
-//                    @Override
-//                    public boolean onTabClickEvent(View view, int position) {
-//                        Log.e("onTabClickEvent", position + "");
-//                        if (position == 2) {
-//                            mHandler.post(new Runnable() {
-//                                @Override
-//                                public void run() {
-//                                    //＋ 旋转动画
-//                                    if (flag) {
-//                                        navigationBar.getAddImage().animate().rotation(45).setDuration(400);
-//                                    } else {
-//                                        navigationBar.getAddImage().animate().rotation(0).setDuration(400);
-//                                    }
-//                                    flag = !flag;
-//                                }
-//                            });
-//                        }
-//                        return false;
-//                    }
-//                })
                 .canScroll(true)
                 .mode(EasyNavigationBar.MODE_ADD)
                 .build();
@@ -151,172 +109,6 @@ public class MainActivity extends BaseActivity {
         return null;
     }
 
-
-
-    //    void initView()
-//    {
-////        mRadioButtonRg = (RadioGroup) findViewById(R.id.rg_oper);
-////        mRadioButtonRg.setOnCheckedChangeListener(MainActivity.this);
-////        fm = getSupportFragmentManager();
-////        transaction = fm.beginTransaction();
-////        //这里就每个界面的碎片对象第一个是首页简单举例，怎么去修改首页的样式
-////        //ctrl+鼠标左键找到这个碎片
-////        mHomePageFragment = (HomePageFragment) fm.findFragmentByTag(homepage);
-////        mMerchantsPageFragment = (MerchantsPageFragment) fm.findFragmentByTag("mMerchantsPageFragment");
-////        mInfoPageFragment = (InfoPageFragment) fm.findFragmentByTag("mInfoPageFragment");
-////        mTieBaFragment = (TieBaFragment) fm.findFragmentByTag("mTieBaFragment");
-////        mMePageFragment = (MePageFragment) fm.findFragmentByTag("mMePageFragment");
-////        imgProtruding = (ImageView) findViewById(R.id.img_protruding);
-//
-////        rg_oper=findViewById(R.id.rg_oper);
-////        home_page=findViewById(R.id.rd_home_page);
-////        info_page=findViewById(R.id.rd_info_page);
-////        merchants_page=findViewById(R.id.rd_merchants_page);
-////        tieba_page=findViewById(R.id.rd_tieba_page);
-////        me_page=findViewById(R.id.rd_me_page);
-////        mViewPager = findViewById(R.id.viewPager);
-////        mViewPager.setOffscreenPageLimit(4);
-////        //初始化碎片对象
-////        List<Fragment> fragments = new ArrayList<>();
-////        fragments.add(new HomePageFragment());
-////        fragments.add(new InfoPageFragment());
-////        fragments.add(new MePageFragment());
-////        fragments.add(new MerchantsPageFragment());
-////        fragments.add(new TieBaFragment());
-////        mViewPager.setAdapter(new MyFragmentPagerAdapter(getSupportFragmentManager(), fragments));
-////        //设置点击事件切换
-////        rg_oper.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-////            @Override
-////            public void onCheckedChanged(RadioGroup group, int checkedId) {
-////
-////                switch (checkedId)
-////                {
-////                    case  R.id.rd_home_page:
-////                        mViewPager.setCurrentItem(0);
-////                        break;
-////                    case R.id.rd_merchants_page:
-////                        mViewPager.setCurrentItem(1);
-////                        break;
-////                    case R.id.rd_info_page:
-////                        mViewPager.setCurrentItem(2);
-////                        break;
-////                    case R.id.rd_tieba_page:
-////                        mViewPager.setCurrentItem(3);
-////                        break;
-////                    case R.id.rd_me_page:
-////                        mViewPager.setCurrentItem(4);
-////                        break;
-////                }
-////            }
-////        });
-////        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-////            @Override
-////            public void onPageScrolled(int i, float v, int i1) {
-////
-////            }
-////
-////            @Override
-////            public void onPageSelected(int i) {
-////                switch (1)
-////                {
-////                    case 0:
-////                        home_page.setChecked(true);
-////                        break;
-////                    case 1:
-////                        merchants_page.setChecked(true);
-////                        break;
-////                    case 2:
-////                        info_page.setChecked(true);
-////                        break;
-////                    case 3:
-////                        tieba_page.setChecked(true);
-////                        break;
-////                    case 4:
-////                        me_page.setChecked(true);
-////                        break;
-////                }
-////            }
-////
-////            @Override
-////            public void onPageScrollStateChanged(int i) {
-////
-////            }
-////        });
-//    }
-
-
-//    /**
-//     *  tab切换事件处理
-//     * @param group
-//     * @param checkedId
-//     */
-//    @Override
-//    public void onCheckedChanged(RadioGroup group, int checkedId) {
-//        transaction1 = fm.beginTransaction();
-//        if (mHomePageFragment != null) {
-//            transaction1.hide(mHomePageFragment);
-//        }
-//        if (mMerchantsPageFragment != null) {
-//            transaction1.hide(mMerchantsPageFragment);
-//        }
-//        if (mInfoPageFragment != null) {
-//            transaction1.hide(mInfoPageFragment);
-//        }
-//        if (mTieBaFragment != null) {
-//            transaction1.hide(mTieBaFragment);
-//        }
-//        if (mMePageFragment != null) {
-//            transaction1.hide(mMePageFragment);
-//        }
-//        //判断当前选中的页面改变底部菜单
-//        if (checkedId==R.id.rd_home_page)
-//        {
-//            if (mHomePageFragment == null) {
-//                mHomePageFragment = new HomePageFragment();
-//                transaction1.add(R.id.fragment_all, mHomePageFragment, homepage);
-//            } else {
-//                transaction1.show(mHomePageFragment);
-//            }
-//            imgProtruding.setImageResource(R.mipmap.info_icon);
-//        }else if (checkedId == R.id.rd_merchants_page) {
-//            if (mMerchantsPageFragment == null) {
-//                mMerchantsPageFragment = new MerchantsPageFragment();
-//                transaction1.add(R.id.fragment_all, mMerchantsPageFragment, "mMerchantsPageFragment");
-//            } else {
-//                transaction1.show(mMerchantsPageFragment);
-//            }
-//            imgProtruding.setImageResource(R.mipmap.info_icon);
-//        }else if (checkedId==R.id.rd_info_page)
-//        {
-//            if (mInfoPageFragment == null) {
-//                mInfoPageFragment = new InfoPageFragment();
-//                transaction1.add(R.id.fragment_all, mInfoPageFragment, "mInfoPageFragment");
-//            } else {
-//                transaction1.show(mInfoPageFragment);
-//            }
-//            imgProtruding.setImageResource(R.mipmap.info_icon);
-//        }else  if (checkedId==R.id.rd_tieba_page)
-//        {
-//            if (mTieBaFragment == null) {
-//                mTieBaFragment = new TieBaFragment();
-//                transaction1.add(R.id.fragment_all, mTieBaFragment, "mTieBaFragment");
-//            } else {
-//                transaction1.show(mTieBaFragment);
-//            }
-//            imgProtruding.setImageResource(R.mipmap.info_icon);
-//        }else  if (checkedId==R.id.rd_me_page)
-//        {
-//            if (mMePageFragment == null) {
-//                mMePageFragment = new MePageFragment();
-//                transaction1.add(R.id.fragment_all, mMePageFragment, "mMePageFragment");
-//            } else {
-//                transaction1.show(mMePageFragment);
-//            }
-//            imgProtruding.setImageResource(R.mipmap.info_icon);
-//        }
-//        transaction1.commit();
-//
-//    }
     /**
      * 按键执行操作，连点两次退出程序
      *
@@ -346,5 +138,72 @@ public class MainActivity extends BaseActivity {
 
     public EasyNavigationBar getNavigationBar() {
         return navigationBar;
+    }
+    //动态申请权限
+    @SuppressLint("CheckResult")
+    private void checkRxPermission() {
+        RxPermissions rxPermissions = new RxPermissions((Activity) mAt);
+        String[] permissionsArr = new String[]{
+                android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                android.Manifest.permission.READ_PHONE_STATE,
+                android.Manifest.permission.ACCESS_FINE_LOCATION,
+                android.Manifest.permission.ACCESS_COARSE_LOCATION,
+                android.Manifest.permission.READ_EXTERNAL_STORAGE,
+                android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                android.Manifest.permission.CAMERA,
+                android.Manifest.permission.RECORD_AUDIO,
+                android.Manifest.permission.CALL_PHONE
+        };
+        rxPermissions
+                .requestEach(
+                        permissionsArr)
+                .subscribe(new Consumer<Permission>() {
+                    @Override
+                    public void accept(Permission permission) throws Exception {
+                        if (permission.granted) {
+                            LogUtil.i("testRxPermission CallBack onPermissionsGranted() : " + permission.name +
+                                    " request granted , to do something...");
+                            //todo somthing
+
+                        } else if (permission.shouldShowRequestPermissionRationale) {
+                            LogUtil.e("testRxPermission CallBack onPermissionsDenied() : " + permission.name + "request denied");
+                            //ToastUtil.showShort(instance, "拒绝权限，等待下次询问哦");
+                            alertDialog(mAt);
+                            //todo request permission again
+                        } else {
+                            LogUtil.e("testRxPermission CallBack onPermissionsDenied() : this " + permission.name + " is denied " +
+                                    "and never ask again");
+                            // ToastUtil.showShort(instance, "拒绝权限，不再弹出询问框，请前往APP应用设置中打开此权限");
+                            //todo nothing
+                        }
+                    }
+                });
+    }
+    /**
+     * 用户拒绝，并且选择不再提示,可以引导用户进入权限设置界面开启权限
+     * 弹窗是否显示根据需求选择调用
+     *
+     * @param context
+     */
+    private static void alertDialog(final Activity context) {
+        if (context != null) {
+            new AlertDialog.Builder(context)
+                    .setCancelable(false)
+                    .setTitle("权限要求")
+                    .setMessage("如果没有请求的权限，此应用程序可能无法正常工作。打开app设置界面修改app权限")
+                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                            Uri uri = Uri.fromParts("package", context.getPackageName(), null);
+                            intent.setData(uri);
+                            context.startActivity(intent);
+                            context.finish();
+                        }
+                    })
+                    .setNegativeButton("取消", null)
+                    .create()
+                    .show();
+        }
     }
 }
