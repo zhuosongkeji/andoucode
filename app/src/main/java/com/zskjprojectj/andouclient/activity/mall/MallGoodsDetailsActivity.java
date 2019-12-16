@@ -276,6 +276,17 @@ public class MallGoodsDetailsActivity extends BaseActivity {
         window.getDecorView().setBackgroundColor(Color.TRANSPARENT);
 
         contentView = LayoutInflater.from(this).inflate(R.layout.dialog_buy_now, null);
+        TextView mBuyNow = contentView.findViewById(R.id.tv_buynow);
+        mBuyNow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MallGoodsDetailsActivity.this,MallOnlineOrderActivity.class);
+                startActivity(intent);
+                bottomDialog.dismiss();
+            }
+        });
+
+
         bottomDialog.setContentView(contentView);
 //        ViewGroup.LayoutParams layoutParams = contentView.getLayoutParams();
 //        layoutParams.width = getResources().getDisplayMetrics().widthPixels;

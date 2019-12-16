@@ -10,8 +10,8 @@
 
     <ImageView
         android:id="@+id/iv_menu_image"
-        android:layout_width="@dimen/dp_30"
-        android:layout_height="@dimen/dp_30"
+        android:layout_width="@dimen/dp_26"
+        android:layout_height="@dimen/dp_28"
         android:src="@mipmap/icon_meizhuang"
         android:layout_gravity="center"
         android:scaleType="centerCrop"/>
@@ -23,7 +23,7 @@
         android:layout_marginTop="@dimen/dp_10"
         android:text="美妆个护"
         android:textColor="#323232"
-        android:textSize="@dimen/typeface14sp"/>
+        android:textSize="@dimen/typeface12sp"/>
 
 
 </LinearLayout>

@@ -10,14 +10,14 @@
     android:padding="@dimen/dp_10">
 
     <LinearLayout
-        android:layout_width="@dimen/dp_150"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:orientation="vertical">
 
     <ImageView
-        android:layout_width="150dp"
-        android:layout_height="180dp"
+        android:layout_width="165dp"
+        android:layout_height="190dp"
         android:layout_gravity="center"
         android:src="@mipmap/tp_mall_goods" />
 
@@ -25,7 +25,7 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_14"
         android:ellipsize="end"
         android:maxLines="2"
         android:text="飞利浦(PHILIPS) 电动牙刷 成人 声波震动钻石系列......."
@@ -35,10 +35,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_14"
         android:text="¥1299"
         android:textColor="#FE5F50"
-        android:textSize="@dimen/typeface12sp" />
+        android:textSize="@dimen/typeface10sp" />
     </LinearLayout>
 
 </LinearLayout>
