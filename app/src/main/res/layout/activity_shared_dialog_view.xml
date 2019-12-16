@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:background="@drawable/bg_shape"
+    android:layout_height="256dp">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/typeface14sp"
+        android:layout_marginTop="@dimen/dp_20"
+        android:textColor="#F73733"
+        android:layout_centerHorizontal="true"
+        android:text="分享到"/>
+    <ImageView
+        android:id="@+id/cancle"
+        android:layout_width="@dimen/dp_13"
+        android:layout_height="@dimen/dp_13"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginRight="@dimen/dp_22"
+        android:src="@mipmap/ic_delete"/>
+
+    <ImageView
+        android:id="@+id/weixin"
+        android:layout_width="41dp"
+        android:layout_height="41dp"
+        android:layout_marginLeft="21dp"
+        android:layout_marginTop="66dp"
+        android:src="@mipmap/icon_shares_weixin"/>
+
+    <ImageView
+        android:id="@+id/friendcircle"
+        android:layout_width="41dp"
+        android:layout_height="41dp"
+        android:layout_alignTop="@+id/weixin"
+        android:layout_toRightOf="@+id/weixin"
+        android:layout_marginLeft="@dimen/dp_30"
+        android:src="@mipmap/icon_shared_friendcircle"/>
+
+    <ImageView
+        android:id="@+id/qq"
+        android:layout_width="41dp"
+        android:layout_height="41dp"
+        android:layout_alignTop="@+id/friendcircle"
+        android:layout_toRightOf="@+id/friendcircle"
+        android:layout_marginLeft="@dimen/dp_30"
+        android:src="@mipmap/icon_shared_qq"/>
+
+    <ImageView
+        android:id="@+id/qqkongjian"
+        android:layout_width="41dp"
+        android:layout_height="41dp"
+        android:layout_alignTop="@+id/qq"
+        android:layout_toRightOf="@+id/qq"
+        android:layout_marginLeft="@dimen/dp_30"
+        android:src="@mipmap/icon_shared_qqkongjian"/>
+
+    <ImageView
+        android:id="@+id/weibo"
+        android:layout_width="41dp"
+        android:layout_height="41dp"
+        android:layout_marginLeft="21dp"
+        android:layout_below="@+id/weixin"
+        android:layout_marginTop="48dp"
+        android:src="@mipmap/icon_shared_weibo"/>
+
+
+
+
+
+
+</RelativeLayout>

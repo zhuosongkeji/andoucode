@@ -90,9 +90,10 @@
                     <!--app:pointsVisibility="false" />-->
                 <com.stx.xhb.xbanner.XBanner
                     android:id="@+id/bannertop"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="345dp"
+                    android:layout_height="200dp"
                     android:layout_marginTop="20dp"
+                    android:layout_gravity="center"
                     app:AutoPlayTime="3000"
                     app:clipChildrenLeftRightMargin="80dp"
                     app:isAutoPlay="false"
