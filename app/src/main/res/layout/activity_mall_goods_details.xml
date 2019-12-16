@@ -377,7 +377,7 @@
         <ImageView
             android:layout_width="@dimen/dp_40"
             android:layout_height="@dimen/dp_40"
-            android:src="@mipmap/icon_baidu"/>
+            android:src="@mipmap/icon_shared_goods"/>
     </FrameLayout>
 
 
