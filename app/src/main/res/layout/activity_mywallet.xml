@@ -42,12 +42,23 @@
             android:textColor="@color/colorWhite"
             android:background="@drawable/shape_chongzhibutton"
             android:text="余额充值"
-            android:layout_marginRight="@dimen/dp_50"
+            android:layout_marginRight="@dimen/dp_105"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="@dimen/dp_10"
             android:layout_alignParentRight="true"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/dp_40" />
+            android:layout_width="80dp"
+            android:layout_height="@dimen/dp_28" />
+        <Button
+            android:id="@+id/btn_withdrawal"
+            android:textColor="@color/colorWhite"
+            android:background="@drawable/shape_chongzhibutton"
+            android:text="提现"
+            android:layout_marginRight="@dimen/dp_15"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:layout_alignParentRight="true"
+            android:layout_width="80dp"
+            android:layout_height="@dimen/dp_28" />
     </RelativeLayout>
 
     <com.shizhefei.view.indicator.FixedIndicatorView

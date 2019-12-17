@@ -2,6 +2,7 @@ package com.zskjprojectj.andouclient.activity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,6 +24,7 @@ import java.util.ArrayList;
  *余额充值
  */
 public class BalanceofprepaidActivity extends BaseActivity {
+    private Button btn_confirm;
     private RecyclerView mRecycler;
     private ArrayList<BalanceofprepaidpaywayBean> mDataList;
     @Override
@@ -55,6 +57,14 @@ public class BalanceofprepaidActivity extends BaseActivity {
     protected void initViews() {
         mRecycler=findViewById(R.id.rv_recycler);
         mRecycler.setLayoutManager(new LinearLayoutManager(mAt));
+        btn_confirm=findViewById(R.id.btn_confirm);
+        btn_confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                jumpActivity(MywalletActivity.class);
+                finish();
+            }
+        });
     }
 
     @Override

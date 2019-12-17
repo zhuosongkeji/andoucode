@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_height="match_parent">
+    <include layout="@layout/view_top_bar"/>
+    <ImageView
+        android:layout_marginTop="94dp"
+        android:src="@mipmap/withdrawalresults_icon"
+        android:layout_gravity="center"
+        android:layout_width="104dp"
+        android:layout_height="54dp"/>
+    <TextView
+        android:textSize="@dimen/typeface17sp"
+        android:layout_marginTop="@dimen/dp_15"
+        android:layout_gravity="center"
+        android:text="提现申请成功"
+        android:textColor="#666666"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:layout_marginTop="@dimen/dp_20"
+        android:textSize="@dimen/typeface12sp"
+        android:layout_gravity="center"
+        android:text="提现申请已成功，请等待后台审核"
+        android:textColor="#969696"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <Button
+        android:id="@+id/btn_gotomywallet"
+        android:textColor="@color/white"
+        android:text="我的钱包"
+        android:background="@drawable/shape_button"
+        android:layout_marginTop="44dp"
+        android:layout_gravity="center"
+        android:layout_width="185dp"
+        android:layout_height="37dp"/>
+</LinearLayout>
