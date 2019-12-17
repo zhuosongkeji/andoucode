@@ -9,13 +9,13 @@
         android:layout_height="wrap_content">
         <ImageView
             android:layout_margin="@dimen/dp_15"
-            android:src="@mipmap/hotelicon"
+            android:src="@mipmap/shop_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <TextView
             android:textSize="@dimen/typeface15sp"
             android:layout_gravity="center"
-            android:text="精尚来公寓酒店"
+            android:text="亲润官方旗舰店"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </LinearLayout>
@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"/>
         <TextView
             android:layout_centerVertical="true"
-            android:text="已入住"
+            android:text="待发货"
             android:textColor="@color/red"
             android:textSize="@dimen/typeface15sp"
             android:layout_marginRight="@dimen/dp_15"
@@ -56,7 +56,7 @@
             android:layout_marginBottom="@dimen/dp_5"
             android:layout_marginLeft="@dimen/dp_15"
             android:layout_marginTop="@dimen/dp_17"
-            android:src="@mipmap/hotelbg"
+            android:src="@mipmap/one_test"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <RelativeLayout
@@ -67,12 +67,12 @@
             <TextView
                 android:layout_marginLeft="@dimen/dp_15"
                 android:layout_marginTop="@dimen/dp_17"
-                android:text="阳光大床房（带大阳台）"
+                android:text="亲润孕妇化妆品套装"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <TextView
                 android:layout_marginLeft="@dimen/dp_15"
-                android:text="X1"
+                android:text="四件套"
                 android:layout_alignParentBottom="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -116,23 +116,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <Button
-            android:textColor="#61C29C"
+            android:id="@+id/btn_ordersenddetails"
+            android:textColor="#969696"
             android:textSize="@dimen/typeface11sp"
             android:layout_marginRight="@dimen/dp_15"
             android:layout_alignParentRight="true"
-            android:background="@mipmap/button_c"
+            android:background="@mipmap/button_n"
             android:layout_width="76dp"
             android:text="订单详情"
             android:layout_height="@dimen/dp_26"/>
-                <Button
-                    android:textColor="#61C29C"
-                    android:layout_alignParentRight="true"
-                    android:textSize="@dimen/typeface11sp"
-                    android:layout_marginRight="101dp"
-                    android:background="@mipmap/button_c"
-                    android:layout_width="76dp"
-                    android:text="去评价"
-                    android:layout_height="@dimen/dp_26"/>
+        <Button
+            android:visibility="gone"
+            android:textColor="#61C29C"
+            android:layout_alignParentRight="true"
+            android:textSize="@dimen/typeface11sp"
+            android:layout_marginRight="@dimen/dp_15"
+            android:layout_gravity="center|right"
+            android:background="@mipmap/button_c"
+            android:layout_width="76dp"
+            android:text="去付款"
+            android:layout_height="@dimen/dp_26"/>
     </RelativeLayout>
     <View
         android:layout_marginTop="@dimen/dp_10"

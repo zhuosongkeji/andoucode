@@ -8,11 +8,14 @@ import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
 
-public class ShoporderdetailsActivity extends BaseActivity {
-    private Button btn_checkthelogistics;
+/**
+ * 待收货商品详情
+ */
+public class ShoporderforthegoodsdetailsActivity extends BaseActivity {
+    private Button btn_checkthelogistics,btn_getgoods;
     @Override
     protected void setRootView() {
-        setContentView(R.layout.activity_shoporderdetails);
+        setContentView(R.layout.activity_shoporderforthegoodsdetails);
     }
 
     @Override
@@ -22,13 +25,13 @@ public class ShoporderdetailsActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-//        btn_checkthelogistics=findViewById(R.id.btn_checkthelogistics);
-//        btn_checkthelogistics.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                jumpActivity(CheckthelogisticsActivity.class);
-//            }
-//        });
+        btn_checkthelogistics=findViewById(R.id.btn_checkthelogistics);
+        btn_checkthelogistics.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                jumpActivity(CheckthelogisticsActivity.class);
+            }
+        });
     }
 
     @Override

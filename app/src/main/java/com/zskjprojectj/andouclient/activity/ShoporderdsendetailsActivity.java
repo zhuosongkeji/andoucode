@@ -1,18 +1,18 @@
 package com.zskjprojectj.andouclient.activity;
 
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
 
-public class ShoporderdetailsActivity extends BaseActivity {
-    private Button btn_checkthelogistics;
+/**
+ * 待发货订单详情页面
+ */
+public class ShoporderdsendetailsActivity extends BaseActivity {
     @Override
     protected void setRootView() {
-        setContentView(R.layout.activity_shoporderdetails);
+        setContentView(R.layout.activity_shoporderdsendetails);
     }
 
     @Override
@@ -22,13 +22,7 @@ public class ShoporderdetailsActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-//        btn_checkthelogistics=findViewById(R.id.btn_checkthelogistics);
-//        btn_checkthelogistics.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                jumpActivity(CheckthelogisticsActivity.class);
-//            }
-//        });
+
     }
 
     @Override

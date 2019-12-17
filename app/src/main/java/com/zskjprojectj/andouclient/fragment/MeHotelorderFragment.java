@@ -1,5 +1,6 @@
 package com.zskjprojectj.andouclient.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -7,7 +8,9 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zskjprojectj.andouclient.R;
+import com.zskjprojectj.andouclient.activity.HotelorderdetailsActivity;
 import com.zskjprojectj.andouclient.adapter.MehotelorderAdapter;
 import com.zskjprojectj.andouclient.adapter.hotel.CommentAdapter;
 import com.zskjprojectj.andouclient.base.BaseFragment;
@@ -51,6 +54,11 @@ public class MeHotelorderFragment extends BaseFragment {
         adapter.openLoadAnimation();
         mRecycler.addItemDecoration(new DividerItemDecoration(getActivity(),DividerItemDecoration.VERTICAL));
         mRecycler.setAdapter(adapter);
-
+        adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                startActivity(new Intent(getContext(), HotelorderdetailsActivity.class));
+            }
+        });
     }
 }

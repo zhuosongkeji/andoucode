@@ -70,7 +70,8 @@ public class ShoporderActivity extends BaseActivity {
         indicatorViewPager.setAdapter(adapter);
         //设置滑动时的那一项的图形和颜色变化，ColorBar对应的是下划线的形状。
         indicator.setScrollBar(new ColorBar(getApplicationContext(), Color.parseColor("#5ed3ae"), 5));
-        viewPager.setOffscreenPageLimit(1);//缓存的左右页面的个数都是1
+        viewPager.setOffscreenPageLimit(5);//缓存的左右页面的个数都是
+        viewPager.setCurrentItem(0, true);
     }
 
     @Override

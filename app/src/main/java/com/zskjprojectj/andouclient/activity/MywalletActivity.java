@@ -34,7 +34,7 @@ public class MywalletActivity extends BaseActivity {
     private ViewPager viewPager;
     //第三方指示器
     private IndicatorViewPager indicatorViewPager;
-    private Button balanceofprepaid;
+    private Button balanceofprepaid,btn_withdrawal;
     @Override
     protected void setRootView() {
         setContentView(R.layout.activity_mywallet);
@@ -48,11 +48,21 @@ public class MywalletActivity extends BaseActivity {
     @Override
     protected void initViews() {
         balanceofprepaid=findViewById(R.id.btn_balanceofprepaid);
+        btn_withdrawal=findViewById(R.id.btn_withdrawal);
         //设置点击事件
         balanceofprepaid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 jumpActivity(BalanceofprepaidActivity.class);
+                finish();
+            }
+        });
+        //余额提现
+        btn_withdrawal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                jumpActivity(WithdrawalActivity.class);
+                finish();
             }
         });
         //这个FixedindicatorView是平分tab的屏幕长度的
