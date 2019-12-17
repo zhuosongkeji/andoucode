@@ -17,6 +17,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -58,6 +59,9 @@ public class MallGoodsDetailsActivity extends BaseActivity {
 
     @BindView(R.id.bannertop)
     XBanner mBanner;
+
+    @BindView(R.id.root_view)
+    RelativeLayout mRootView;
 
 
 
@@ -166,6 +170,8 @@ public class MallGoodsDetailsActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
+        getBarDistance(mRootView);
+        topView.setTitle("商品详情");
         mIndicator = findViewById(R.id.indicator);
         mViewPager = findViewById(R.id.viewPager);
     }
@@ -253,6 +259,13 @@ public class MallGoodsDetailsActivity extends BaseActivity {
 //        params.width = getResources().getDisplayMetrics().widthPixels - DensityUtil.dp2px(this, 16f);
 //        params.bottomMargin = DensityUtil.dp2px(this, 8f);
 //        contentView.setLayoutParams(params);
+        ImageView mCancle = contentView.findViewById(R.id.iv_cancle);
+        mCancle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomDialog.dismiss();
+            }
+        });
         bottomDialog.setCanceledOnTouchOutside(true);
         bottomDialog.getWindow().setGravity(Gravity.BOTTOM);
         bottomDialog.getWindow().setWindowAnimations(R.style.BottomDialog_Animation);
@@ -276,6 +289,7 @@ public class MallGoodsDetailsActivity extends BaseActivity {
         window.getDecorView().setBackgroundColor(Color.TRANSPARENT);
 
         contentView = LayoutInflater.from(this).inflate(R.layout.dialog_buy_now, null);
+
         TextView mBuyNow = contentView.findViewById(R.id.tv_buynow);
         mBuyNow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -283,6 +297,42 @@ public class MallGoodsDetailsActivity extends BaseActivity {
                 Intent intent=new Intent(MallGoodsDetailsActivity.this,MallOnlineOrderActivity.class);
                 startActivity(intent);
                 bottomDialog.dismiss();
+            }
+        });
+
+        ImageView mCancle = contentView.findViewById(R.id.iv_cancle);
+        mCancle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomDialog.dismiss();
+            }
+        });
+        //减
+        Button mSub = contentView.findViewById(R.id.btn_sub);
+        Button mAdd = contentView.findViewById(R.id.btn_add);
+        TextView mNum = contentView.findViewById(R.id.tv_num);
+
+        mAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String number = mNum.getText().toString();
+                int i = Integer.parseInt(number);
+                i+=1;
+                String addNumber = Integer.toString(i);
+                mNum.setText(addNumber);
+            }
+        });
+
+        mSub.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String number = mNum.getText().toString();
+                int i = Integer.parseInt(number);
+                if (i>1){
+                    i-=1;
+                    String addNumber = Integer.toString(i);
+                    mNum.setText(addNumber);
+                }
             }
         });
 

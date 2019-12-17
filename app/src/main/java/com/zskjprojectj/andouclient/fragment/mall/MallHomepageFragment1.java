@@ -4,6 +4,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -27,6 +28,8 @@ import com.zskjprojectj.andouclient.utils.ToastUtil;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.OnClick;
 import okhttp3.Call;
 
 /**
@@ -45,12 +48,17 @@ public class MallHomepageFragment1 extends BaseFragment {
     private ArrayList<MallItemDataBean> dataBeansList;
     private XBanner onlinebanner;
 
+    @BindView(R.id.root_view)
+    RelativeLayout mRootView;
+
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
 
         mRecycler = view.findViewById(R.id.rv_recycler);
 
         onlinebanner = view.findViewById(R.id.onlinebanner);
+
+        getBarDistance(mRootView);
     }
 
     @Override
@@ -199,5 +207,11 @@ public class MallHomepageFragment1 extends BaseFragment {
 //          ((ImageView)view).setImageResource(((LocalImageInfo) model).getXBannerUrl());
             }
         });
+    }
+
+
+    @OnClick(R.id.img_back)
+    public void clickBack(){
+        getActivity().finish();
     }
 }

@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zskjprojectj.andouclient.R;
@@ -23,6 +25,7 @@ import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
 import com.zskjprojectj.andouclient.entity.mall.MallShoppingHomeBean;
 import com.zskjprojectj.andouclient.entity.mall.MallShoppingPopuBean;
+import com.zskjprojectj.andouclient.utils.BarUtils;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
 
 import java.util.ArrayList;
@@ -39,11 +42,15 @@ public class MallShoppingHomeActivity extends BaseActivity implements BaseQuickA
     @BindView(R.id.ll_mall_shopping_classify)
     LinearLayout mShoppingClassify;
 
+    @BindView(R.id.rl_root_view)
+    RelativeLayout mRootView;
+
 
     private ArrayList<MallShoppingHomeBean> dataList;
     private RecyclerView mRecyclerPopu;
     private Button mConfirm;
     private String classify;
+    private PopupWindow mPopWindow;
 
 
     @Override
@@ -69,6 +76,12 @@ public class MallShoppingHomeActivity extends BaseActivity implements BaseQuickA
 
     @Override
     protected void initViews() {
+
+
+        //设置状态栏的高度
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mRootView.getLayoutParams();
+        layoutParams.topMargin = BarUtils.getStatusBarHeight(this);
+        mRootView.setLayoutParams(layoutParams);
 
         mRecycler.setLayoutManager(new GridLayoutManager(this, 2));
 
@@ -99,7 +112,7 @@ public class MallShoppingHomeActivity extends BaseActivity implements BaseQuickA
         mRecyclerPopu = contentView.findViewById(R.id.rv_recycler);
         mConfirm = contentView.findViewById(R.id.confirm);
         initRecycler();
-        PopupWindow mPopWindow = new PopupWindow(contentView,
+        mPopWindow = new PopupWindow(contentView,
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
         mPopWindow.setContentView(contentView);
         //设置背景色
@@ -110,6 +123,8 @@ public class MallShoppingHomeActivity extends BaseActivity implements BaseQuickA
 
         //popupWindow获取焦点
         mPopWindow.setFocusable(true);
+        mPopWindow.setOutsideTouchable(true);
+        mPopWindow.setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         //设置popupWindow消失时的监听
         mPopWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
             //在dismiss中恢复透明度
@@ -161,11 +176,16 @@ public class MallShoppingHomeActivity extends BaseActivity implements BaseQuickA
             public void onClick(View v) {
 
                 ToastUtil.showToast(classify);
-
-
+                mPopWindow.dismiss();
 
             }
         });
 
+    }
+
+
+    @OnClick(R.id.busiess_back_image)
+    public void clickBack(){
+        finish();
     }
 }

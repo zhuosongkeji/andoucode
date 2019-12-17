@@ -55,5 +55,7 @@
     <dimen name="dp_28">28dp</dimen>
     <dimen name="dp_105">105dp</dimen>
     <dimen name="typeface9sp">9sp</dimen>
+    <dimen name="dp_45">45dp</dimen>
+    <dimen name="dp_49">49dp</dimen>
 
 </resources>

@@ -5,6 +5,7 @@ import android.view.View;
 
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.base.BaseFragment;
+import com.zskjprojectj.andouclient.view.TopView;
 
 
 /**
@@ -13,6 +14,9 @@ import com.zskjprojectj.andouclient.base.BaseFragment;
 public class MallInfoFragment extends BaseFragment {
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
+        TopView mTopView = view.findViewById(R.id.alltopview);
+        mTopView.setTitle("我的");
+        getBarDistance(mTopView);
 
     }
 

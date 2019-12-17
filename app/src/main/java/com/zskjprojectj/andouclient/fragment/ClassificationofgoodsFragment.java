@@ -15,6 +15,7 @@ import com.zskjprojectj.andouclient.adapter.HomeAdapter;
 import com.zskjprojectj.andouclient.adapter.MenusAdapter;
 import com.zskjprojectj.andouclient.base.BaseFragment;
 import com.zskjprojectj.andouclient.entity.CategoryBean;
+import com.zskjprojectj.andouclient.view.TopView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -38,8 +39,14 @@ public class ClassificationofgoodsFragment extends BaseFragment {
     private int currentItem;
 
     private TextView tv_title;
+    private TopView mTopVIew;
+
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
+        mTopVIew = view.findViewById(R.id.alltopview);
+        mTopVIew.setTitle("商品分类");
+        getBarDistance(mTopVIew);
+
         lv_menu = (ListView) view.findViewById(R.id.lv_menu);
         tv_title = (TextView) view.findViewById(R.id.tv_titile);
         lv_home = (ListView)view.findViewById(R.id.lv_home);

@@ -53,10 +53,12 @@ public class HomePageFragment extends BaseFragment {
         bannertops = view.findViewById(R.id.bannertop);
         rootView = view.findViewById(R.id.root_view);
 
-        //设置状态栏的高度
-        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) rootView.getLayoutParams();
-        layoutParams.topMargin = BarUtils.getStatusBarHeight(getActivity()) + layoutParams.topMargin;
-        rootView.setLayoutParams(layoutParams);
+        getBarDistance(rootView);
+
+//        //设置状态栏的高度
+//        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) rootView.getLayoutParams();
+//        layoutParams.topMargin = BarUtils.getStatusBarHeight(getActivity()) + layoutParams.topMargin;
+//        rootView.setLayoutParams(layoutParams);
 
         check_in_business_seemore_layout = view.findViewById(R.id.check_in_business_seemore_layout);
         onlinebroadcast_see_more_layout = view.findViewById(R.id.onlinebroadcast_see_more_layout);

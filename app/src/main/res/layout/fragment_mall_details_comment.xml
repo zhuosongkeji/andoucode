@@ -12,8 +12,8 @@
 
         <ImageView
             android:id="@+id/iv_headPic"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:background="@mipmap/ic_touxiang"
             android:scaleType="centerCrop" />
 
@@ -25,7 +25,7 @@
             android:layout_toRightOf="@+id/iv_headPic"
             android:text="暮看日西沉"
             android:textColor="#646464"
-            android:textSize="@dimen/typeface16sp" />
+            android:textSize="@dimen/typeface12sp" />
 
         <TextView
             android:id="@+id/tv_time"
@@ -35,6 +35,7 @@
             android:layout_alignStart="@+id/tv_name"
             android:layout_marginTop="@dimen/dp_4"
             android:text="2019-08-19  10:20"
+            android:textSize="@dimen/typeface11sp"
             android:textColor="#969696" />
 
         <LinearLayout
@@ -88,6 +89,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_20"
         android:text="产品比较好，比较实用"
+        android:textSize="@dimen/typeface12sp"
         android:textColor="#969696" />
 
 

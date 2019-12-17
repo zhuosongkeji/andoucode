@@ -23,6 +23,7 @@
             android:textSize="@dimen/typeface12sp" />
 
         <ImageView
+            android:id="@+id/iv_cancle"
             android:layout_width="@dimen/dp_20"
             android:layout_height="@dimen/dp_20"
             android:layout_alignParentEnd="true"
@@ -113,6 +114,7 @@
             android:background="#EFA13B"
             android:gravity="center"
             android:text="加入购物车"
+            android:textSize="@dimen/typeface13sp"
             android:textColor="@color/white" />
 
         <TextView
@@ -123,6 +125,7 @@
             android:background="#FC6464"
             android:gravity="center"
             android:text="立即购买"
+            android:textSize="@dimen/typeface13sp"
             android:textColor="@color/white" />
 
 

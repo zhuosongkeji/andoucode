@@ -6,12 +6,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 
 
 import com.gyf.immersionbar.ImmersionBar;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.listener.LifeCycleListener;
+import com.zskjprojectj.andouclient.utils.BarUtils;
 import com.zskjprojectj.andouclient.view.TopView;
 
 import butterknife.ButterKnife;
@@ -151,6 +153,14 @@ public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatA
         super.onDestroy();
 
     }
+
+    protected void getBarDistance(View view){
+        //设置状态栏的高度
+        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) view.getLayoutParams();
+        layoutParams.topMargin = BarUtils.getStatusBarHeight(this) + layoutParams.topMargin;
+        view.setLayoutParams(layoutParams);
+    }
+
 
 
 }

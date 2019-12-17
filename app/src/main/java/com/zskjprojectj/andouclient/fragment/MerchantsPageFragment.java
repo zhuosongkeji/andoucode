@@ -34,6 +34,7 @@ public class MerchantsPageFragment extends BaseFragment {
     protected void initViews(View view, Bundle savedInstanceState) {
         mTitle=view.findViewById(R.id.alltopview);
         mTitle.setTitle("商家");
+        getBarDistance(mTitle);
         mRecycler=view.findViewById(R.id.rv_recycler);
         mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
     }

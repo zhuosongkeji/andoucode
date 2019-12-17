@@ -9,12 +9,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 
 import com.zskjprojectj.andouclient.listener.LifeCycleListener;
+import com.zskjprojectj.andouclient.utils.BarUtils;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -94,4 +96,13 @@ public abstract class BaseFragment extends Fragment {
             mUnBinder = null;
         }
     }
+
+    protected void getBarDistance(View view){
+        //设置状态栏的高度
+        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) view.getLayoutParams();
+        layoutParams.topMargin = BarUtils.getStatusBarHeight(getActivity()) + layoutParams.topMargin;
+        view.setLayoutParams(layoutParams);
+    }
+
+
 }

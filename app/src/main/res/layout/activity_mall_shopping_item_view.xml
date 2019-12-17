@@ -23,7 +23,7 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="@dimen/dp_13"
+            android:layout_marginTop="@dimen/dp_14"
             android:ellipsize="end"
             android:maxLines="2"
             android:text="飞利浦(PHILIPS) 电动牙刷 成人 声波震动钻石系列......."
