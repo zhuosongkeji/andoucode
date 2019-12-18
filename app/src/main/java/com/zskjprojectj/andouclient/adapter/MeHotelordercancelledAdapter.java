@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.entity.MeHotelordercancelledBean;
 
 import java.util.List;
@@ -15,6 +16,6 @@ public class MeHotelordercancelledAdapter extends BaseQuickAdapter<MeHotelorderc
 
     @Override
     protected void convert(BaseViewHolder helper, MeHotelordercancelledBean item) {
-
+        helper.addOnClickListener(R.id.btn_hotelordercancledetails);
     }
 }

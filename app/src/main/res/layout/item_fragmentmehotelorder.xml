@@ -60,18 +60,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <RelativeLayout
+            android:layout_marginLeft="@dimen/dp_15"
             android:id="@+id/ry_center"
             android:layout_toRightOf="@id/meshop_pic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <TextView
-                android:layout_marginLeft="@dimen/dp_15"
                 android:layout_marginTop="@dimen/dp_17"
                 android:text="阳光大床房（带大阳台）"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <TextView
-                android:layout_marginLeft="@dimen/dp_15"
                 android:text="X1"
                 android:layout_alignParentBottom="true"
                 android:layout_width="wrap_content"
@@ -87,12 +86,6 @@
                 android:layout_marginLeft="@dimen/dp_15"
                 android:layout_marginTop="@dimen/dp_17"
                 android:text="￥288"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:layout_marginLeft="@dimen/dp_15"
-                android:text="X1"
-                android:layout_alignParentBottom="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         </RelativeLayout>

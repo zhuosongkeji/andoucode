@@ -21,6 +21,7 @@ import com.zskjprojectj.andouclient.base.BasePresenter;
 import com.zskjprojectj.andouclient.fragment.MeHotelorderFragment;
 import com.zskjprojectj.andouclient.fragment.MeHotelordercancelledFragment;
 import com.zskjprojectj.andouclient.fragment.MeHotelorderevaluateFragment;
+import com.zskjprojectj.andouclient.fragment.MeHotelorderstayinFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +54,8 @@ public class HotelorderActivity extends BaseActivity {
         list = new ArrayList<Fragment>();
         Fragment meHotelorderFragment=new MeHotelorderFragment();
         list.add(meHotelorderFragment);
+        Fragment meHotelorderstayinFragment=new MeHotelorderstayinFragment();
+        list.add(meHotelorderstayinFragment);
         Fragment meHotelorderevaluateFragment=new MeHotelorderevaluateFragment();
         list.add(meHotelorderevaluateFragment);
         Fragment meHotelordercancelledFragment=new MeHotelordercancelledFragment();
@@ -78,7 +81,7 @@ public class HotelorderActivity extends BaseActivity {
      */
     public IndicatorViewPager.IndicatorFragmentPagerAdapter adapter=new IndicatorViewPager.IndicatorFragmentPagerAdapter(getSupportFragmentManager())
     {
-        private String[] tabNames = {"全部订单", "待评价","已取消"};
+        private String[] tabNames = {"全部订单", "待入驻","待评价","已取消"};
         @Override
         public int getCount() {
             return list.size();

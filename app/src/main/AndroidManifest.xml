@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.zskjprojectj.andouclient">
 
+    <!-- 拨打电话的权限，这里必须要添加权限，否则当点击电话号码的时候程序会崩溃 -->
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
     <uses-permission android:name="android.permission.INTERNET" /> <!-- 允许程序访问WiFi网络信息 -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> <!-- 允许程序读写手机状态和身份 -->
@@ -17,7 +19,6 @@
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" /> <!-- 用于申请获取蓝牙信息进行室内定位 -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-
     <application
         android:name=".base.BaseApplication"
         android:allowBackup="true"
@@ -97,6 +98,10 @@
         <activity android:name=".activity.ShoporderforthegoodsdetailsActivity"/><!--待收货订单详情-->
         <activity android:name=".activity.ToevaluateActivity"/><!--待评价-->
         <activity android:name=".activity.HotelorderdetailsActivity"/><!--酒店订单详情-->
+        <activity android:name=".activity.HotelordercancleActivity"/><!--订单取消-->
+        <activity android:name=".activity.HotelorderevaluationdetailsActivity"/><!--酒店订单待评价详情界面-->
+        <activity android:name=".activity.HotelordergotoevaluationActivity"/><!--酒店订单待评价-->
+        <activity android:name=".activity.HotelordercancledetailsActivity"/><!--酒店订单取消详情-->
         <activity android:name=".activity.MallMainActivity" /> <!-- 全面屏 -->
         <!-- 地址选择 -->
         <activity android:name=".activity.NewaddressActivity" /> <!-- 新增地址 -->

@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.entity.HotelorderevaluateBean;
 
 import java.util.List;
@@ -15,6 +16,7 @@ public class HotelorderevaluateAdapter extends BaseQuickAdapter<Hotelorderevalua
 
     @Override
     protected void convert(BaseViewHolder helper, HotelorderevaluateBean item) {
-
+        helper.addOnClickListener(R.id.btn_hotelorderevaluationdetails);
+        helper.addOnClickListener(R.id.btn_hotelordergotoevaluation);
     }
 }
