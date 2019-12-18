@@ -1,5 +1,6 @@
 package com.zskjprojectj.andouclient.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -7,7 +8,10 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zskjprojectj.andouclient.R;
+import com.zskjprojectj.andouclient.activity.HotelorderevaluationdetailsActivity;
+import com.zskjprojectj.andouclient.activity.HotelordergotoevaluationActivity;
 import com.zskjprojectj.andouclient.adapter.HotelorderevaluateAdapter;
 import com.zskjprojectj.andouclient.adapter.MehotelorderAdapter;
 import com.zskjprojectj.andouclient.base.BaseFragment;
@@ -46,11 +50,23 @@ public class MeHotelorderevaluateFragment extends BaseFragment {
             HotelorderevaluateBean databean=new HotelorderevaluateBean();
             mDataList.add(databean);
         }
-
         HotelorderevaluateAdapter adapter=new HotelorderevaluateAdapter(R.layout.item_fragmenthotelorderevaluate,mDataList);
         adapter.openLoadAnimation();
         mRecycler.addItemDecoration(new DividerItemDecoration(getActivity(),DividerItemDecoration.VERTICAL));
         mRecycler.setAdapter(adapter);
-
+        adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                switch (view.getId())
+                {
+                    case R.id.btn_hotelorderevaluationdetails:
+                        startActivity(new Intent(getContext(), HotelorderevaluationdetailsActivity.class));
+                        break;
+                    case R.id.btn_hotelordergotoevaluation:
+                        startActivity(new Intent(getContext(), HotelordergotoevaluationActivity.class));
+                        break;
+                }
+            }
+        });
     }
 }
