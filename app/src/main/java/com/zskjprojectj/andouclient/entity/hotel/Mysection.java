@@ -17,7 +17,7 @@ public class Mysection extends SectionEntity {
     private String name;
     public boolean isSelect;
 
-    public Mysection(boolean isHeader, String header, boolean isMroe) {
+    public Mysection(boolean isHeader, String header) {
         super(isHeader, header);
     }
 

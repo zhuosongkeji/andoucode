@@ -207,11 +207,10 @@ public class HotelActivity extends BaseActivity implements View.OnClickListener 
     private void initDialogRecycler() {
         mViewRecycler.setLayoutManager(new GridLayoutManager(this, 4));
         mViewRecycler.addItemDecoration(new GridSectionAverageGapItemDecoration(10, 10, 0, 10));
-        SectionAdapter sectionAdapteradapter = new SectionAdapter(R.layout.item_section_content, R.layout.def_section_head, mData);
-        mViewRecycler.setAdapter(sectionAdapteradapter);
+
         mData = new ArrayList<>();
         for (int i = 0; i < 1; i++) {
-            mData.add(new Mysection(true, "价格", true));
+            mData.add(new Mysection(true, "价格"));
             mData.add(new Mysection("¥0~100"));
             mData.add(new Mysection("¥100~200"));
             mData.add(new Mysection("¥200~300"));
@@ -219,26 +218,28 @@ public class HotelActivity extends BaseActivity implements View.OnClickListener 
             mData.add(new Mysection("¥400~500"));
             mData.add(new Mysection("¥500~600"));
             mData.add(new Mysection("¥600以上"));
-            mData.add(new Mysection(true, "星级", true));
+            mData.add(new Mysection(true, "星级"));
             mData.add(new Mysection("经济型"));
             mData.add(new Mysection("舒适三星"));
             mData.add(new Mysection("高档四星"));
             mData.add(new Mysection("豪华五星"));
         }
-
+        SectionAdapter sectionAdapteradapter = new SectionAdapter(R.layout.item_section_content, R.layout.def_section_head, mData);
+        mViewRecycler.setAdapter(sectionAdapteradapter);
 
 
         sectionAdapteradapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+//
+//                sectionAdapteradapter.onChange(position);
+//                sectionAdapteradapter.notifyDataSetChanged();
 
-                sectionAdapteradapter.onChange(position);
-                sectionAdapteradapter.notifyDataSetChanged();
 
                 if (0<position&&position<8){
                     sectionAdapteradapter.onChange1(position);
                     sectionAdapteradapter.notifyDataSetChanged();
-                }else if (9<position&&position<14){
+                }else if (8<position&&position<13){
                     sectionAdapteradapter.onChange2(position);
                     sectionAdapteradapter.notifyDataSetChanged();
                 }

@@ -56,11 +56,11 @@ public class SectionAdapter extends BaseSectionQuickAdapter<Mysection, BaseViewH
 
         int p = helper.getLayoutPosition();
 
-        if (SELECTOR_POSITION==p){
-            mPrice.setSelected(true);
-        }else {
-            mPrice.setSelected(false);
-        }
+//        if (SELECTOR_POSITION==p){
+//            mPrice.setSelected(true);
+//        }else {
+//            mPrice.setSelected(false);
+//        }
 
 
         if (0<p&&p<8){
@@ -72,7 +72,7 @@ public class SectionAdapter extends BaseSectionQuickAdapter<Mysection, BaseViewH
         }
 
 
-        if (9<p&&p<14){
+        if (8<p&&p<13){
             if (SELECTOR_POSITION2==p){
                 mPrice.setSelected(true);
             }else {
