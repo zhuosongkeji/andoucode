@@ -1,5 +1,6 @@
 package com.zskjprojectj.andouclient.fragment.hotel;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zskjprojectj.andouclient.R;
+import com.zskjprojectj.andouclient.activity.hotel.HotelDetailFacilityActivity;
 import com.zskjprojectj.andouclient.adapter.hotel.FacilityAdapter;
 import com.zskjprojectj.andouclient.base.BaseFragment;
 import com.zskjprojectj.andouclient.entity.hotel.HotelDetailFacilityBean;
@@ -60,6 +62,14 @@ public class HotelDetailFacilityFragment extends BaseFragment {
         adapter.openLoadAnimation();
         View footButton = getLayoutInflater().inflate(R.layout.facility_button_foot, (ViewGroup) mRecycler.getParent(), false);
         adapter.addFooterView(footButton);
+
+        footButton.findViewById(R.id.see_more_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), HotelDetailFacilityActivity.class));
+            }
+        });
+
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {

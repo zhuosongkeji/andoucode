@@ -3,43 +3,45 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
-    android:padding="@dimen/dp_20"
+    android:padding="@dimen/dp_10"
     >
 
     <ImageView
         android:id="@+id/busiess_tupian1_image"
-        android:layout_width="96dp"
-        android:layout_height="69dp"
+        android:layout_width="100dp"
+        android:layout_height="72dp"
         android:src="@mipmap/ic_busiess_canting" />
 
     <TextView
         android:id="@+id/busiess_name1_textview"
         android:layout_width="wrap_content"
-        android:layout_height="20dp"
+        android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/busiess_tupian1_image"
-        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginLeft="@dimen/dp_20"
         android:text="精尚来公寓酒店"
         android:textColor="@color/colorBlack"
-        android:textSize="@dimen/typeface14sp" />
+        android:textSize="@dimen/typeface12sp" />
 
     <ImageView
         android:id="@+id/busiess_v1_image"
-        android:layout_width="18dp"
-        android:layout_height="18dp"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
         android:layout_toRightOf="@+id/busiess_name1_textview"
-        android:layout_marginLeft="@dimen/dp_7"
+        android:layout_marginLeft="@dimen/dp_8"
         android:src="@mipmap/ic_v" />
 
     <LinearLayout
         android:id="@+id/busiess_dianzan1_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_3"
+        android:layout_marginRight="@dimen/dp_14"
         android:layout_alignParentEnd="true">
 
         <ImageView
             android:id="@+id/busiess_dianzan1_image"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
             android:layout_gravity="center"
             android:src="@mipmap/ic_zan" />
 
@@ -51,7 +53,7 @@
             android:layout_marginLeft="@dimen/dp_5"
             android:text="1366"
             android:textColor="@color/colorNavy"
-            android:textSize="@dimen/typeface14sp" />
+            android:textSize="@dimen/typeface12sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -59,7 +61,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/busiess_tupian1_image"
-        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_6"
         android:layout_below="@+id/busiess_name1_textview"
         >
 
@@ -105,7 +108,7 @@
         android:src="@mipmap/ic_address_gary"
         android:layout_toRightOf="@+id/busiess_tupian1_image"
         android:layout_alignBottom="@+id/busiess_tupian1_image"
-        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginLeft="@dimen/dp_20"
         />
 
     <TextView

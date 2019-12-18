@@ -220,6 +220,10 @@
                 android:text="请选择支付方式"
                 android:textColor="#565656"
                 android:textSize="@dimen/typeface13sp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#E7E7E7" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -253,6 +257,10 @@
                     android:background="@null"
                     android:button="@drawable/selector_checkbox" />
             </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#E7E7E7" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -286,6 +294,10 @@
                     android:background="@null"
                     android:button="@drawable/selector_checkbox" />
             </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#E7E7E7" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -319,6 +331,10 @@
                     android:background="@null"
                     android:button="@drawable/selector_checkbox" />
             </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#E7E7E7" />
 
             <RelativeLayout
                 android:layout_width="match_parent"

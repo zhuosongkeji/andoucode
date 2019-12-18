@@ -3,34 +3,34 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
-    android:padding="@dimen/dp_20"
+    android:padding="@dimen/dp_15"
     >
     <ImageView
         android:id="@+id/hotel_image"
         android:src="@mipmap/hotel_details"
         android:scaleType="centerCrop"
         android:layout_width="100dp"
-        android:layout_height="100dp"/>
+        android:layout_height="90dp"/>
 
     <TextView
         android:id="@+id/hotel_name"
         android:layout_alignTop="@+id/hotel_image"
         android:layout_toRightOf="@+id/hotel_image"
-        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginLeft="@dimen/dp_21"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/typeface18sp"
+        android:textSize="@dimen/typeface12sp"
         android:textColor="#323232"
         android:text="阳光大床房"/>
     <TextView
         android:id="@+id/hotel_des"
         android:layout_alignStart="@+id/hotel_name"
         android:layout_below="@+id/hotel_name"
-        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_15"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#646464"
-        android:textSize="@dimen/typeface12sp"
+        android:textSize="@dimen/typeface10sp"
         android:text="上网WIFI|卫浴 独立"/>
     <TextView
         android:id="@+id/flag"
@@ -38,8 +38,9 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/hotel_image"
         android:layout_toRightOf="@+id/hotel_image"
-        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginLeft="@dimen/dp_21"
         android:textColor="#FF493E"
+        android:textSize="@dimen/typeface10sp"
         android:text="¥"/>
     <TextView
         android:id="@+id/hotel_price"
@@ -47,14 +48,14 @@
         android:layout_alignBottom="@+id/flag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/typeface18sp"
+        android:textSize="@dimen/typeface14sp"
         android:textColor="#FF493E"
         android:text="187"/>
 
     <Button
         android:id="@+id/online_reserver"
-        android:layout_width="73dp"
-        android:layout_height="27dp"
+        android:layout_width="76dp"
+        android:layout_height="28dp"
         android:layout_alignBottom="@+id/hotel_image"
         android:layout_alignParentEnd="true"
         android:background="@drawable/button_style"

@@ -57,5 +57,9 @@
     <dimen name="typeface9sp">9sp</dimen>
     <dimen name="dp_45">45dp</dimen>
     <dimen name="dp_49">49dp</dimen>
+    <dimen name="sp_12">12sp</dimen>
+    <dimen name="sp_17">17sp</dimen>
+    <dimen name="dp_24">24dp</dimen>
+    <dimen name="dp_23">23dp</dimen>
 
 </resources>

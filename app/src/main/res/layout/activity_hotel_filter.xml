@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_14"
-            android:background="@mipmap/back_icon" />
+            android:background="@mipmap/icon_back_black" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -60,8 +60,8 @@
 
             <ImageButton
                 android:id="@+id/btn_clear"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/dp_16"
+                android:layout_height="@dimen/dp_15"
                 android:layout_marginRight="@dimen/dp_10"
                 android:background="@color/transparent"
                 android:src="@mipmap/ic_search" />
@@ -113,7 +113,6 @@
                 android:id="@+id/tv_selector_star"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/typeface11sp"
                 android:textColor="@color/color_common_font"
                 android:text="价格/星级" />
 

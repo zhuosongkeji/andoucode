@@ -11,8 +11,8 @@
         android:layout_height="wrap_content" />
     <Button
         android:id="@+id/bt_cancle"
-        android:layout_width="126dp"
-        android:layout_height="37dp"
+        android:layout_width="131dp"
+        android:layout_height="39dp"
         android:layout_below="@+id/rv_recycler"
         android:layout_marginTop="@dimen/dp_10"
         android:layout_marginBottom="@dimen/dp_10"
@@ -21,8 +21,8 @@
         android:text="重置"/>
     <Button
         android:id="@+id/confirm"
-        android:layout_width="189dp"
-        android:layout_height="37dp"
+        android:layout_width="197dp"
+        android:layout_height="39dp"
         android:layout_marginTop="@dimen/dp_10"
         android:layout_marginBottom="@dimen/dp_10"
         android:layout_below="@+id/rv_recycler"

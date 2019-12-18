@@ -1,41 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="@dimen/dp_20"
+    android:layout_height="wrap_content"
     android:background="@color/white"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="@dimen/dp_20">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <TextView
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="阳光大床房（带大阳台）"
             android:textColor="#323232"
-            android:textSize="@dimen/typeface16sp"
-            android:text="阳光大床房（带大阳台）"/>
+            android:textSize="@dimen/typeface12sp" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
+            android:text="¥187"
             android:textColor="#FF493E"
-            android:textSize="@dimen/typeface16sp"
-            android:text="¥187"/>
+            android:textSize="@dimen/typeface12sp" />
 
     </RelativeLayout>
+
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="180dp"
+        android:layout_height="175dp"
+        android:layout_marginTop="@dimen/dp_16"
         android:scaleType="centerCrop"
-        android:src="@mipmap/hotel_details"/>
+        android:src="@mipmap/hotel_details" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_15"
+        android:text="规格参数"
         android:textColor="#323232"
-        android:layout_marginTop="@dimen/dp_10"
-        android:text="规格参数"/>
+        android:textSize="@dimen/typeface11sp" />
 
 
     <LinearLayout
@@ -44,36 +50,45 @@
         android:layout_marginTop="@dimen/dp_10"
         android:orientation="horizontal">
 
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="面积："/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="10㎡"/>
+            android:layout_weight="1"
+            android:orientation="horizontal">
 
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="窗户："/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="有窗"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="面积："
+                android:textSize="@dimen/typeface11sp" />
 
-    </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10㎡"
+                android:textSize="@dimen/typeface11sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="窗户："
+                android:textSize="@dimen/typeface11sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="有窗"
+                android:textSize="@dimen/typeface11sp" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -85,32 +100,41 @@
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:orientation="horizontal">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="WIFI："/>
+                android:text="WIFI："
+                android:textSize="@dimen/typeface11sp" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="WIFI"/>
+                android:text="WIFI"
+                android:textSize="@dimen/typeface11sp" />
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:orientation="horizontal">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="可住："/>
+                android:text="可住："
+                android:textSize="@dimen/typeface11sp" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="两人"/>
+                android:text="两人"
+                android:textSize="@dimen/typeface11sp" />
 
         </LinearLayout>
 
@@ -125,32 +149,41 @@
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:orientation="horizontal">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="早餐："/>
+                android:text="早餐："
+                android:textSize="@dimen/typeface11sp" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="无早操"/>
+                android:text="无早操"
+                android:textSize="@dimen/typeface11sp" />
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:orientation="horizontal">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="床型："/>
+                android:text="床型："
+                android:textSize="@dimen/typeface11sp" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1.5X2.0米"/>
+                android:text="1.5X2.0米"
+                android:textSize="@dimen/typeface11sp" />
 
         </LinearLayout>
 
@@ -161,51 +194,63 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_10"
         android:orientation="horizontal">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="配套设置:"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="高速上网，独立卫生间，24小时热水淋雨，免费洗漱用品"/>
+            android:text="配套设置:"
+            android:textSize="@dimen/typeface11sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="高速上网，独立卫生间，24小时热水淋雨，免费洗漱用品"
+            android:textSize="@dimen/typeface11sp" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_50"
-        android:layout_marginTop="@dimen/dp_10"
+        android:layout_height="@dimen/dp_49"
+        android:layout_marginTop="@dimen/dp_22"
         android:orientation="horizontal">
+
         <LinearLayout
             android:layout_width="140dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="¥187"
                 android:textColor="#FF493E"
-                android:textSize="@dimen/typeface18sp"
-                android:text="¥187"/>
+                android:textSize="@dimen/typeface12sp" />
+
             <TextView
-                android:layout_gravity="center"
+
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="订单总额："/>
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="订单总额："
+                android:textSize="@dimen/typeface10sp" />
         </LinearLayout>
 
         <TextView
             android:id="@+id/tv_reserve"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:gravity="center"
             android:layout_gravity="center"
             android:layout_weight="1"
             android:background="#5ED3AE"
+            android:gravity="center"
+            android:text="立即预订"
             android:textColor="@color/white"
-            android:text="立即预订"/>
+            android:textSize="@dimen/typeface12sp" />
 
 
     </LinearLayout>
