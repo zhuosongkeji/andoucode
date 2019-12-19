@@ -12,12 +12,12 @@
         android:scrollbars="none">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
+                android:layout_height="wrap_content"
                 android:background="@mipmap/zhuye_beijin_top"
                 android:orientation="vertical">
 
@@ -87,22 +87,44 @@
                         android:layout_height="wrap_content"
                         android:src="@mipmap/ic_saoyisao"/>
                 </LinearLayout>
+<!--                <com.stx.xhb.xbanner.XBanner-->
+<!--                    android:id="@+id/bannertop"-->
+<!--                    android:layout_width="345dp"-->
+<!--                    android:layout_height="200dp"-->
+<!--                    android:layout_marginTop="20dp"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    app:AutoPlayTime="3000"-->
+<!--                    app:clipChildrenLeftRightMargin="80dp"-->
+<!--                    app:isAutoPlay="false"-->
+<!--                    app:isClipChildrenMode="true"-->
+<!--                    app:isHandLoop="false"-->
+<!--                    app:isShowIndicatorOnlyOne="true"-->
+<!--                    app:isShowNumberIndicator="false"-->
+<!--                    app:pageChangeDuration="800"-->
+<!--                    app:pointsVisibility="false" />-->
                 <com.stx.xhb.xbanner.XBanner
                     android:id="@+id/bannertop"
-                    android:layout_width="345dp"
+                    android:layout_width="match_parent"
                     android:layout_height="200dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_gravity="center"
                     app:AutoPlayTime="3000"
-                    app:clipChildrenLeftRightMargin="80dp"
-                    app:isAutoPlay="false"
-                    app:isClipChildrenMode="true"
-                    app:isHandLoop="false"
+                    app:isAutoPlay="true"
                     app:isShowIndicatorOnlyOne="true"
-                    app:isShowNumberIndicator="false"
                     app:pageChangeDuration="800"
-                    app:pointsVisibility="false" />
+                    app:pointNormal="@drawable/shape_noraml"
+                    app:pointSelect="@drawable/shape_selected"
+                    android:background="@color/colorNavy"
+                    app:pointsPosition="CENTER"
+                    app:tipTextSize="12sp" />
+
             </LinearLayout>
+
+            <recycler.coverflow.RecyclerCoverFlow
+                android:id="@+id/coverflow"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:layout_marginTop="20dp">
+
+            </recycler.coverflow.RecyclerCoverFlow>
 
             <!--<include layout="@layout/main_ad_multipicture"></include>-->
             <TextView

@@ -41,6 +41,7 @@
             android:layout_centerVertical="true"
             android:drawableRight="@mipmap/ic_jiantouright_orange"
             android:text="查看更多"
+            android:drawablePadding="@dimen/dp_5"
             android:textSize="@dimen/typeface10sp"
             android:textColor="#FF9537" />
 

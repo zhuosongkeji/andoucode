@@ -31,7 +31,7 @@ public class MultipleMallHomeAdapter extends BaseMultiItemQuickAdapter<MallItemD
     public MultipleMallHomeAdapter(Context context, List<MallItemDataBean> data) {
         super(data);
 
-        this.mContext=context;
+        this.mContext = context;
 
 //        addItemType(MallItemDataBean.BANNER, R.layout.fragment_mall_banner_view);
 //        addItemType(MallItemDataBean.SEARCH, R.layout.fragment_mall_search_view);
@@ -52,12 +52,26 @@ public class MultipleMallHomeAdapter extends BaseMultiItemQuickAdapter<MallItemD
             case MallItemDataBean.MENU:
                 initMenu(helper, item);
                 break;
+            case MallItemDataBean.PLAN:
+                initPlan(helper, item);
+                break;
             case MallItemDataBean.RECOMMEND:
                 initRecommend(helper, item);
                 break;
         }
     }
 
+    private void initPlan(BaseViewHolder helper, MallItemDataBean item) {
+        switch (helper.getLayoutPosition() % 2) {
+            case 0:
+                helper.setImageResource(R.id.iv_activity_plan_image,R.mipmap.icon_mall_plan1);
+                break;
+            case 1:
+                helper.setImageResource(R.id.iv_activity_plan_image,R.mipmap.icon_mall_plan2);
+                break;
+
+        }
+    }
 
 
     private void initRecommend(BaseViewHolder helper, MallItemDataBean item) {
@@ -71,14 +85,57 @@ public class MultipleMallHomeAdapter extends BaseMultiItemQuickAdapter<MallItemD
 
     /**
      * 商城首页菜单
+     *
      * @param helper
      * @param item
      */
     private void initMenu(BaseViewHolder helper, MallItemDataBean item) {
+
+//        helper.setImageResource(R.id.iv_menu_image,);
+//        helper.setText(R.id.tv_menu_name,"哈哈");
+        switch (helper.getLayoutPosition() % 8) {
+            case 0:
+                helper.setImageResource(R.id.iv_menu_image, R.mipmap.icon_mall_menu1);
+                helper.setText(R.id.tv_menu_name, "美妆个护");
+                break;
+            case 1:
+                helper.setImageResource(R.id.iv_menu_image, R.mipmap.icon_mall_menu2);
+                helper.setText(R.id.tv_menu_name, "进口尖货");
+                break;
+            case 2:
+                helper.setImageResource(R.id.iv_menu_image, R.mipmap.icon_mall_menu3);
+                helper.setText(R.id.tv_menu_name, "服饰内衣");
+                break;
+            case 3:
+                helper.setImageResource(R.id.iv_menu_image, R.mipmap.icon_mall_menu4);
+                helper.setText(R.id.tv_menu_name, "鞋包配饰");
+                break;
+            case 4:
+                helper.setImageResource(R.id.iv_menu_image, R.mipmap.icon_mall_menu5);
+                helper.setText(R.id.tv_menu_name, "家纺家电");
+                break;
+            case 5:
+                helper.setImageResource(R.id.iv_menu_image, R.mipmap.icon_mall_menu6);
+                helper.setText(R.id.tv_menu_name, "居家百货");
+                break;
+            case 6:
+                helper.setImageResource(R.id.iv_menu_image, R.mipmap.icon_mall_menu7);
+                helper.setText(R.id.tv_menu_name, "休闲美食");
+                break;
+            case 7:
+                helper.setImageResource(R.id.iv_menu_image, R.mipmap.icon_mall_menu8);
+                helper.setText(R.id.tv_menu_name, "玩具早教");
+                break;
+
+            default:
+                break;
+        }
+
+
         helper.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(mContext, MallGoodsDetailsActivity.class);
+                Intent intent = new Intent(mContext, MallGoodsDetailsActivity.class);
                 mContext.startActivity(intent);
 
             }

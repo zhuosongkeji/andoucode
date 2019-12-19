@@ -13,7 +13,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?android:attr/selectableItemBackground"
-        android:padding="@dimen/dp_4"
         android:orientation="vertical">
 
     <ImageView
@@ -21,7 +20,7 @@
         android:layout_width="@dimen/dp_26"
         android:layout_height="@dimen/dp_28"
         android:layout_gravity="center"
-        android:scaleType="centerCrop"
+        android:scaleType="fitXY"
         android:src="@mipmap/icon_meizhuang" />
 
     <TextView

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -22,15 +23,20 @@ import com.zskjprojectj.andouclient.activity.LiveActivity;
 import com.zskjprojectj.andouclient.activity.MainActivity;
 import com.zskjprojectj.andouclient.activity.MallMainActivity;
 import com.zskjprojectj.andouclient.activity.OnlineBookingorderActivity;
+import com.zskjprojectj.andouclient.adapter.CoverFlowAdapter;
 import com.zskjprojectj.andouclient.base.BaseFragment;
 import com.zskjprojectj.andouclient.entity.TuchongEntity;
 import com.zskjprojectj.andouclient.utils.BarUtils;
 import com.zskjprojectj.andouclient.utils.ScreenUtil;
+import com.zskjprojectj.andouclient.utils.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
 import okhttp3.Call;
+import recycler.coverflow.CoverFlowLayoutManger;
+import recycler.coverflow.RecyclerCoverFlow;
 
 /**
  * <pre>
@@ -43,13 +49,17 @@ import okhttp3.Call;
  *
  * @author yizhubao
  */
-public class HomePageFragment extends BaseFragment {
+public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.onItemClick{
+
+    @BindView(R.id.coverflow)
+    RecyclerCoverFlow mCoverFlow;
+
     private XBanner bannertops, bannertopone;
     private LinearLayout check_in_business_seemore_layout, rootView;
     private LinearLayout onlinebroadcast_see_more_layout, appointment_see_more_layout, onlinebooking_see_more_layout,ly_citychoose;
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
-
+        initCoverFlow();
         bannertops = view.findViewById(R.id.bannertop);
         rootView = view.findViewById(R.id.root_view);
 
@@ -67,6 +77,20 @@ public class HomePageFragment extends BaseFragment {
         ly_citychoose=view.findViewById(R.id.ly_citychoose);
     }
 
+    private void initCoverFlow() {
+
+        mCoverFlow.setGreyItem(true); //设置灰度渐变
+        mCoverFlow.setAlphaItem(true); //设置半透渐变
+        mCoverFlow.setAdapter(new CoverFlowAdapter(getActivity(),this));
+        mCoverFlow.smoothScrollToPosition(3);
+        mCoverFlow.setOnItemSelectedListener(new CoverFlowLayoutManger.OnSelected() {
+            @Override
+            public void onItemSelected(int position) {
+//                ((TextView)findViewById(R.id.index)).setText((position+1)+"/"+mList.getLayoutManager().getItemCount());
+            }
+        });
+    }
+
     /**
      * 这里是加载的首页碎片布局,布局是怎么样的页面就是怎么样的
      *
@@ -79,31 +103,31 @@ public class HomePageFragment extends BaseFragment {
 
     @Override
     protected void getDataFromServer() {
-//        String url = "https://api.tuchong.com/2/wall-paper/app";
-//        OkHttpUtils.get().url(url).build().execute(new StringCallback() {
-//            @Override
-//            public void onError(Call call, Exception e, int id) {
-//                Toast.makeText(mAty, "加载广告数据失败", Toast.LENGTH_SHORT).show();
-//            }
-//            @Override
-//            public void onResponse(String response, int id) {
-//                TuchongEntity advertiseEntity = new Gson().fromJson(response, TuchongEntity.class);
-//                List<TuchongEntity.FeedListBean> others = advertiseEntity.getFeedList();
-//                List<TuchongEntity.FeedListBean.EntryBean> data = new ArrayList<>();
-//                for (int i = 0; i < others.size(); i++) {
-//                    TuchongEntity.FeedListBean feedListBean = others.get(i);
-//                    if ("post".equals(feedListBean.getType())) {
-//                        data.add(feedListBean.getEntry());
-//                    }
-//                }
-//
-//                //刷新数据之后，需要重新设置是否支持自动轮播
-//                bannertops.setAutoPlayAble(data.size() > 1);
-//                bannertops.setIsClipChildrenMode(true);
-//                bannertops.setBannerData(R.layout.layout_fresco_imageview, data);
-//
-//            }
-//        });
+        String url = "https://api.tuchong.com/2/wall-paper/app";
+        OkHttpUtils.get().url(url).build().execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                Toast.makeText(mAty, "加载广告数据失败", Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onResponse(String response, int id) {
+                TuchongEntity advertiseEntity = new Gson().fromJson(response, TuchongEntity.class);
+                List<TuchongEntity.FeedListBean> others = advertiseEntity.getFeedList();
+                List<TuchongEntity.FeedListBean.EntryBean> data = new ArrayList<>();
+                for (int i = 0; i < others.size(); i++) {
+                    TuchongEntity.FeedListBean feedListBean = others.get(i);
+                    if ("post".equals(feedListBean.getType())) {
+                        data.add(feedListBean.getEntry());
+                    }
+                }
+
+                //刷新数据之后，需要重新设置是否支持自动轮播
+                bannertops.setAutoPlayAble(data.size() > 1);
+                bannertops.setIsClipChildrenMode(true);
+                bannertops.setBannerData(R.layout.layout_fresco_imageview, data);
+
+            }
+        });
     }
 
     @Override
@@ -114,7 +138,7 @@ public class HomePageFragment extends BaseFragment {
         bannertops.setLayoutParams(layoutParams);
         initBanner(bannertops);
         //加载本地图片
-        initLocalImage();
+//        initLocalImage();
         check_in_business_seemore_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -175,12 +199,12 @@ public class HomePageFragment extends BaseFragment {
                     //跳转到商城模块
                     case 0:
                         // startActivity(new Intent(getContext(), OnlinemallActivity.class));
-                        startActivity(new Intent(getContext(), MallMainActivity.class));
+//                        startActivity(new Intent(getContext(), MallMainActivity.class));
                         //  Toast.makeText(mAty, "点击了第" + (position + 1) + "图片", Toast.LENGTH_SHORT).show();
                         break;
                     //跳转到酒店预约模块
                     case 1:
-                        startActivity(new Intent(getContext(), HotelActivity.class));
+//                        startActivity(new Intent(getContext(), HotelActivity.class));
                         break;
                     //跳转饭店预约模块
                     case 2:
@@ -196,12 +220,12 @@ public class HomePageFragment extends BaseFragment {
             @Override
             public void loadBanner(XBanner banner, Object model, View view, int position) {
                 //此处适用Fresco加载图片，可自行替换自己的图片加载框架
-//                SimpleDraweeView draweeView = (SimpleDraweeView) view;
-//                TuchongEntity.FeedListBean.EntryBean listBean = ((TuchongEntity.FeedListBean.EntryBean) model);
-//                String url = "https://photo.tuchong.com/" + listBean.getImages().get(0).getUser_id() + "/f/" + listBean.getImages().get(0).getImg_id() + ".jpg";
-//                draweeView.setImageURI(Uri.parse(url));
+                SimpleDraweeView draweeView = (SimpleDraweeView) view;
+                TuchongEntity.FeedListBean.EntryBean listBean = ((TuchongEntity.FeedListBean.EntryBean) model);
+                String url = "https://photo.tuchong.com/" + listBean.getImages().get(0).getUser_id() + "/f/" + listBean.getImages().get(0).getImg_id() + ".jpg";
+                draweeView.setImageURI(Uri.parse(url));
 //                加载本地图片展示
-                ((ImageView) view).setImageResource(((LocalImageInfo) model).getXBannerUrl());
+//                ((ImageView) view).setImageResource(((LocalImageInfo) model).getXBannerUrl());
             }
         });
     }
@@ -225,4 +249,35 @@ public class HomePageFragment extends BaseFragment {
     }
 
 
+    @Override
+    public void clickItem(int pos) {
+//        ToastUtil.showToast("图"+pos);
+
+        switch (pos%7){
+            case 0:
+                ToastUtil.showToast("图1");
+                break;
+            case 1:
+                ToastUtil.showToast("图2");
+                break;
+            case 2:
+                ToastUtil.showToast("图3");
+                break;
+            case 3:
+//                ToastUtil.showToast("商城");
+                startActivity(new Intent(getContext(), MallMainActivity.class));
+                break;
+            case 4:
+//                ToastUtil.showToast("酒店");
+                startActivity(new Intent(getContext(), HotelActivity.class));
+                break;
+            case 5:
+                ToastUtil.showToast("图6");
+                break;
+            case 6:
+                ToastUtil.showToast("图7");
+                break;
+
+        }
+    }
 }

@@ -104,6 +104,7 @@ public class MallGoodsDetailsActivity extends BaseActivity {
      */
     private void initLocalImage() {
         List<LocalImageInfo> data = new ArrayList<>();
+        data.add(new LocalImageInfo(R.mipmap.pic_mall_details));
         data.add(new LocalImageInfo(R.drawable.home_mall_pic));
         data.add(new LocalImageInfo(R.drawable.home_hotel_pic));
         data.add(new LocalImageInfo(R.drawable.banner_placeholder));
