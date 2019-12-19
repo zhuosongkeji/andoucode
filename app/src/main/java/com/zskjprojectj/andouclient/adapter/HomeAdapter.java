@@ -1,6 +1,7 @@
 package com.zskjprojectj.andouclient.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zskjprojectj.andouclient.R;
+import com.zskjprojectj.andouclient.activity.ClassificationofgoodsActivity;
 import com.zskjprojectj.andouclient.entity.CategoryBean;
 import com.zskjprojectj.andouclient.view.GridViewForScrollView;
 
@@ -69,7 +71,8 @@ public class HomeAdapter extends BaseAdapter {
         viewHold.gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(context,""+i,Toast.LENGTH_LONG).show();
+//                Toast.makeText(context,""+i,Toast.LENGTH_LONG).show();
+                context.startActivity(new Intent(context, ClassificationofgoodsActivity.class));
             }
         });
         return convertView;

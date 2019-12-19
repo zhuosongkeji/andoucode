@@ -126,6 +126,7 @@
             android:text="订单详情"
             android:layout_height="@dimen/dp_26"/>
         <Button
+            android:id="@+id/btn_gotopayment"
             android:textColor="#61C29C"
             android:layout_alignParentRight="true"
             android:textSize="@dimen/typeface11sp"

@@ -12,7 +12,7 @@ import com.zskjprojectj.andouclient.base.BasePresenter;
  * 待收货商品详情
  */
 public class ShoporderforthegoodsdetailsActivity extends BaseActivity {
-    private Button btn_checkthelogistics,btn_getgoods;
+    private Button btn_checkthelogistics,btn_getgoods,btn_forthegoodsrefund;
     @Override
     protected void setRootView() {
         setContentView(R.layout.activity_shoporderforthegoodsdetails);
@@ -26,6 +26,13 @@ public class ShoporderforthegoodsdetailsActivity extends BaseActivity {
     @Override
     protected void initViews() {
         btn_checkthelogistics=findViewById(R.id.btn_checkthelogistics);
+        btn_forthegoodsrefund=findViewById(R.id.btn_forthegoodsrefund);
+        btn_forthegoodsrefund.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                jumpActivity(ShopordersendetailsrefundActivity.class);
+            }
+        });
         btn_checkthelogistics.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

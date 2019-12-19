@@ -15,9 +15,8 @@ public class MallInfoFragment extends BaseFragment {
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
         TopView mTopView = view.findViewById(R.id.alltopview);
-        mTopView.setTitle("我的");
+        mTopView.setTitle("会员中心");
         getBarDistance(mTopView);
-
     }
 
     @Override

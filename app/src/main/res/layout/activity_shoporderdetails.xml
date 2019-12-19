@@ -127,6 +127,7 @@
                 android:background="#F7F7F7" />
 
             <RelativeLayout
+                android:layout_marginTop="@dimen/dp_10"
                 android:layout_width="345dp"
                 android:layout_height="112dp"
                 android:layout_gravity="center"
@@ -186,6 +187,7 @@
             </RelativeLayout>
 
             <Button
+                android:visibility="gone"
                 android:layout_width="70dp"
                 android:layout_height="25dp"
                 android:layout_gravity="center|right"
@@ -300,6 +302,7 @@
                     android:textSize="@dimen/typeface12sp" />
 
                 <Button
+                    android:id="@+id/btn_gotopaymentdetail"
                     android:layout_width="90dp"
                     android:layout_height="31dp"
                     android:layout_alignParentRight="true"

@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.ShoporderdetailsActivity;
+import com.zskjprojectj.andouclient.activity.mall.MallOnlineOrderActivity;
 import com.zskjprojectj.andouclient.adapter.MeShopFragmentAdapter;
 import com.zskjprojectj.andouclient.adapter.MeShoppaymentAdapter;
 import com.zskjprojectj.andouclient.base.BaseFragment;
@@ -50,7 +51,16 @@ public class MeShoppaymentFragment extends BaseFragment {
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                startActivity(new Intent(getContext(), ShoporderdetailsActivity.class));
+
+                switch (view.getId())
+                {
+                    case R.id.btn_gotopaymentorder:
+                        startActivity(new Intent(getContext(), MallOnlineOrderActivity.class));
+                        break;
+                    case R.id.btn_orderpaydetails:
+                        startActivity(new Intent(getContext(), ShoporderdetailsActivity.class));
+                        break;
+                }
             }
         });
     }

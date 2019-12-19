@@ -20,5 +20,6 @@ public class MeShopFragmentAdapter extends BaseQuickAdapter<MeShopFragmentBean, 
     @Override
     protected void convert(BaseViewHolder helper, MeShopFragmentBean item) {
         helper.addOnClickListener(R.id.btn_orderdetails);
+        helper.addOnClickListener(R.id.btn_gotopayment);
     }
 }
