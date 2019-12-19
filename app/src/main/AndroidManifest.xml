@@ -102,6 +102,8 @@
         <activity android:name=".activity.HotelorderevaluationdetailsActivity"/><!--酒店订单待评价详情界面-->
         <activity android:name=".activity.HotelordergotoevaluationActivity"/><!--酒店订单待评价-->
         <activity android:name=".activity.HotelordercancledetailsActivity"/><!--酒店订单取消详情-->
+        <activity android:name=".activity.ShopordersendetailsrefundActivity"/><!--商城申请退款-->
+        <activity android:name=".activity.ClassificationofgoodsActivity"/><!--分类页详细-->
         <activity android:name=".activity.MallMainActivity" /> <!-- 全面屏 -->
         <!-- 地址选择 -->
         <activity android:name=".activity.NewaddressActivity" /> <!-- 新增地址 -->

@@ -17,5 +17,6 @@ public class MeShoppaymentAdapter extends BaseQuickAdapter<MeShoppaymentBean, Ba
     @Override
     protected void convert(BaseViewHolder helper, MeShoppaymentBean item) {
         helper.addOnClickListener(R.id.btn_orderpaydetails);
+        helper.addOnClickListener(R.id.btn_gotopaymentorder);
     }
 }

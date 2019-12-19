@@ -1,6 +1,7 @@
 package com.zskjprojectj.andouclient.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.zskjprojectj.andouclient.R;
+import com.zskjprojectj.andouclient.activity.ClassificationofgoodsActivity;
 import com.zskjprojectj.andouclient.adapter.HomeAdapter;
 import com.zskjprojectj.andouclient.adapter.MenusAdapter;
 import com.zskjprojectj.andouclient.base.BaseFragment;
@@ -81,7 +83,6 @@ public class ClassificationofgoodsFragment extends BaseFragment {
 
         homeAdapter = new HomeAdapter(mAty, homeList);
         lv_home.setAdapter(homeAdapter);
-
         lv_menu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

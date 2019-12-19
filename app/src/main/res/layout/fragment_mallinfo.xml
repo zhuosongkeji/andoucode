@@ -4,12 +4,12 @@
     android:layout_height="match_parent"
     android:background="@color/colorNavy"
     android:orientation="vertical">
-    <com.zskjprojectj.andouclient.view.TopView
-        android:id="@+id/alltopview"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_50" />
+<!--    <com.zskjprojectj.andouclient.view.TopView-->
+<!--        android:id="@+id/alltopview"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="@dimen/dp_50" />-->
 
-
+    <include layout="@layout/view_top_bar"/>
     <TextView
         android:text="商城信息模块"
         android:layout_width="match_parent"

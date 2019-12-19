@@ -16,7 +16,6 @@ import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
 
 public class HotelordercancleActivity extends BaseActivity {
-   // private ImageView img_chooserefundreason;
     private LinearLayout ly_chooserefundreason;
     private Dialog bottomDialog;
     @Override
