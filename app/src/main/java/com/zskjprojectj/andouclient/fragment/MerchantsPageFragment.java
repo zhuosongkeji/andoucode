@@ -2,6 +2,8 @@ package com.zskjprojectj.andouclient.fragment;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -16,6 +18,9 @@ import com.zskjprojectj.andouclient.view.TopView;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.OnClick;
+
 /**
  * <pre>
  *     e-mail : 3307501630@qq.com
@@ -27,14 +32,19 @@ import java.util.ArrayList;
  * @author yizhubao
  */
 public class MerchantsPageFragment extends BaseFragment {
-    private TopView mTitle;
+
+    @BindView(R.id.tv_header_title)
+    TextView mHeaderTitle;
+
+    @BindView(R.id.header_title_view)
+    RelativeLayout mHeaderTitleView;
+
     private RecyclerView mRecycler;
     private ArrayList<MerchantListBean> mDataList;
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
-        mTitle=view.findViewById(R.id.alltopview);
-        mTitle.setTitle("商家");
-        getBarDistance(mTitle);
+        mHeaderTitle.setText("商家");
+        getBarDistance(mHeaderTitleView);
         mRecycler=view.findViewById(R.id.rv_recycler);
         mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
@@ -65,5 +75,10 @@ public class MerchantsPageFragment extends BaseFragment {
         mRecycler.addItemDecoration(new DividerItemDecoration(getActivity(),DividerItemDecoration.VERTICAL));
         mRecycler.setAdapter(adapter);
 
+    }
+
+    @OnClick(R.id.iv_header_back)
+    public void clickBack(){
+        mAty.finish();
     }
 }

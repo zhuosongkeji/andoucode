@@ -1,8 +1,12 @@
 package com.zskjprojectj.andouclient.fragment;
 
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -16,6 +20,7 @@ import com.zskjprojectj.andouclient.view.TopView;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
@@ -23,14 +28,21 @@ import butterknife.OnClick;
  */
 public class MallShoppingFragment extends BaseFragment {
     private RecyclerView mRecycler;
-    private TopView mTopView;
     private ArrayList<MallShoppingbean> dataList;
+
+    @BindView(R.id.header_title_view)
+    RelativeLayout mHeaderTitleView;
+    @BindView(R.id.tv_header_title)
+    TextView mHeaderTitle;
+    @BindView(R.id.iv_header_back)
+    ImageView mHeaderBack;
 
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
-        mTopView = view.findViewById(R.id.alltopview);
-        mTopView.setTitle("购物车");
-        getBarDistance(mTopView);
+
+        mHeaderTitle.setText("购物车");
+        mHeaderBack.setVisibility(View.GONE);
+        getBarDistance(mHeaderTitleView);
         mRecycler = view.findViewById(R.id.rv_recycler);
         mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
     }

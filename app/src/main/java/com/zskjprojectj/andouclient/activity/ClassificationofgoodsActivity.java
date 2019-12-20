@@ -43,6 +43,8 @@ public class ClassificationofgoodsActivity extends BaseActivity {
     private PopupWindow mPopWindow;
     @BindView(R.id.tv_capacity_sort)
     TextView mCapacitySort;
+    @BindView(R.id.root_view)
+    RelativeLayout mRootView;
     private RecyclerView mRecycler;
     private ArrayList<ClassificationofgoodsBean> mDataList;
     @Override
@@ -70,6 +72,7 @@ public class ClassificationofgoodsActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
+        getBarDistance(mRootView);
         mRecycler=findViewById(R.id.rv_recycler);
         mRecycler.setLayoutManager(new GridLayoutManager(this, 2));
     }
@@ -167,5 +170,10 @@ public class ClassificationofgoodsActivity extends BaseActivity {
     @Override
     protected BasePresenter createPresenter() {
         return null;
+    }
+
+    @OnClick(R.id.img_back)
+    public void clickBack(){
+        finish();
     }
 }

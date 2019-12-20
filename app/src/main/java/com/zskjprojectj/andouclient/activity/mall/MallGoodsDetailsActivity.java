@@ -60,11 +60,10 @@ public class MallGoodsDetailsActivity extends BaseActivity {
     @BindView(R.id.bannertop)
     XBanner mBanner;
 
-    @BindView(R.id.root_view)
-    RelativeLayout mRootView;
-
-
-
+    @BindView(R.id.header_title_view)
+    RelativeLayout mHeaderTitleView;
+    @BindView(R.id.tv_header_title)
+    TextView mHeaderTitle;
 
     private FixedIndicatorView mIndicator;
     private ViewPager mViewPager;
@@ -135,9 +134,6 @@ public class MallGoodsDetailsActivity extends BaseActivity {
     }
 
 
-
-
-
     /**
      * 指示器适配器对形象
      */
@@ -171,8 +167,8 @@ public class MallGoodsDetailsActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-        getBarDistance(mRootView);
-        topView.setTitle("商品详情");
+        getBarDistance(mHeaderTitleView);
+        mHeaderTitle.setText("商品详情");
         mIndicator = findViewById(R.id.indicator);
         mViewPager = findViewById(R.id.viewPager);
     }
@@ -188,7 +184,7 @@ public class MallGoodsDetailsActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.tv_buy_now, R.id.rv_shop_home,R.id.bt_mall_goods_discount,R.id.shared})
+    @OnClick({R.id.tv_buy_now, R.id.rv_shop_home, R.id.bt_mall_goods_discount, R.id.shared})
     public void clickButNow(View v) {
         switch (v.getId()) {
 
@@ -197,7 +193,7 @@ public class MallGoodsDetailsActivity extends BaseActivity {
                 break;
 
             case R.id.rv_shop_home:
-                startActivity(new Intent(MallGoodsDetailsActivity.this,MallShoppingHomeActivity.class));
+                startActivity(new Intent(MallGoodsDetailsActivity.this, MallShoppingHomeActivity.class));
                 break;
 
             case R.id.bt_mall_goods_discount:
@@ -205,12 +201,12 @@ public class MallGoodsDetailsActivity extends BaseActivity {
                 break;
 
             case R.id.shared:
-                CustomViewDialog dialog=new CustomViewDialog(this,R.layout.activity_shared_dialog_view,
-                        new int[]{R.id.cancle,R.id.weixin,R.id.friendcircle,R.id.qq,R.id.qqkongjian,R.id.weibo});
+                CustomViewDialog dialog = new CustomViewDialog(this, R.layout.activity_shared_dialog_view,
+                        new int[]{R.id.cancle, R.id.weixin, R.id.friendcircle, R.id.qq, R.id.qqkongjian, R.id.weibo});
                 dialog.setOnCenterItemClickListener(new CustomViewDialog.OnCenterItemClickListener() {
                     @Override
                     public void OnCenterItemClick(CustomViewDialog dialog, View view) {
-                        switch (view.getId()){
+                        switch (view.getId()) {
                             case R.id.cancle:
                                 dialog.dismiss();
                                 break;
@@ -251,7 +247,6 @@ public class MallGoodsDetailsActivity extends BaseActivity {
         window.setAttributes(layoutParams);
         // 给 DecorView 设置背景颜色，很重要，不然导致 Dialog 内容显示不全，有一部分内容会充当 padding，上面例子有举出
         window.getDecorView().setBackgroundColor(Color.TRANSPARENT);
-
 
 
         View contentView = LayoutInflater.from(this).inflate(R.layout.dialog_mall_goods_discount, null);
@@ -295,7 +290,7 @@ public class MallGoodsDetailsActivity extends BaseActivity {
         mBuyNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(MallGoodsDetailsActivity.this,MallOnlineOrderActivity.class);
+                Intent intent = new Intent(MallGoodsDetailsActivity.this, MallOnlineOrderActivity.class);
                 startActivity(intent);
                 bottomDialog.dismiss();
             }
@@ -318,7 +313,7 @@ public class MallGoodsDetailsActivity extends BaseActivity {
             public void onClick(View v) {
                 String number = mNum.getText().toString();
                 int i = Integer.parseInt(number);
-                i+=1;
+                i += 1;
                 String addNumber = Integer.toString(i);
                 mNum.setText(addNumber);
             }
@@ -329,8 +324,8 @@ public class MallGoodsDetailsActivity extends BaseActivity {
             public void onClick(View v) {
                 String number = mNum.getText().toString();
                 int i = Integer.parseInt(number);
-                if (i>1){
-                    i-=1;
+                if (i > 1) {
+                    i -= 1;
                     String addNumber = Integer.toString(i);
                     mNum.setText(addNumber);
                 }
@@ -347,6 +342,11 @@ public class MallGoodsDetailsActivity extends BaseActivity {
         bottomDialog.getWindow().setWindowAnimations(R.style.BottomDialog_Animation);
         bottomDialog.show();
 
+    }
+
+    @OnClick(R.id.iv_header_back)
+    public void clickBack() {
+        finish();
     }
 
 }

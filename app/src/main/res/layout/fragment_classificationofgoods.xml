@@ -6,11 +6,7 @@
     android:orientation="vertical">
 
 
-    <com.zskjprojectj.andouclient.view.TopView
-        android:id="@+id/alltopview"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_50"
-        />
+    <include layout="@layout/base_title_view"/>
 
 
     <LinearLayout

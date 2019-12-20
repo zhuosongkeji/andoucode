@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
@@ -25,10 +27,20 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+
 /**
  * 在线商城商品分类
  */
 public class ClassificationofgoodsFragment extends BaseFragment {
+
+    @BindView(R.id.header_title_view)
+    RelativeLayout mHeaderTitleView;
+    @BindView(R.id.tv_header_title)
+    TextView mHeaderTitle;
+    @BindView(R.id.iv_header_back)
+    ImageView mHeaderBack;
+
     private List<String> menuList = new ArrayList<>();
     private List<CategoryBean.DataBean> homeList = new ArrayList<>();
     private List<Integer> showTitle;
@@ -39,15 +51,15 @@ public class ClassificationofgoodsFragment extends BaseFragment {
     private MenusAdapter menuAdapter;
     private HomeAdapter homeAdapter;
     private int currentItem;
-
     private TextView tv_title;
-    private TopView mTopVIew;
+
 
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
-        mTopVIew = view.findViewById(R.id.alltopview);
-        mTopVIew.setTitle("商品分类");
-        getBarDistance(mTopVIew);
+        mHeaderTitle.setText("商品分类");
+        mHeaderBack.setVisibility(View.GONE);
+
+        getBarDistance(mHeaderTitleView);
 
         lv_menu = (ListView) view.findViewById(R.id.lv_menu);
         tv_title = (TextView) view.findViewById(R.id.tv_titile);

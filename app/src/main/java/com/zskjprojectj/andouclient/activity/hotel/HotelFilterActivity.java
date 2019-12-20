@@ -1,6 +1,5 @@
 package com.zskjprojectj.andouclient.activity.hotel;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,14 +19,17 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zskjprojectj.andouclient.R;
+import com.zskjprojectj.andouclient.adapter.hotel.Catagory1Adapter;
+import com.zskjprojectj.andouclient.adapter.hotel.Catagory2Adapter;
+import com.zskjprojectj.andouclient.adapter.hotel.Catagory3Adapter;
 import com.zskjprojectj.andouclient.adapter.hotel.HotelResultAdapter;
 import com.zskjprojectj.andouclient.adapter.hotel.SectionAdapter;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
+import com.zskjprojectj.andouclient.entity.hotel.Category1Bean;
 import com.zskjprojectj.andouclient.entity.hotel.HotelResultBean;
 import com.zskjprojectj.andouclient.entity.hotel.Mysection;
 import com.zskjprojectj.andouclient.utils.GridSectionAverageGapItemDecoration;
-import com.zskjprojectj.andouclient.utils.ToastUtil;
 
 import java.util.ArrayList;
 
@@ -49,6 +51,7 @@ public class HotelFilterActivity extends BaseActivity {
     private ArrayList<Mysection> mData;
     private PopupWindow mPopWindow;
 
+
     @BindView(R.id.ll_classify)
     LinearLayout mClassify;
 
@@ -57,6 +60,19 @@ public class HotelFilterActivity extends BaseActivity {
 
     @BindView(R.id.tv_capacity_sort)
     TextView mCapacitySort;
+
+    @BindView(R.id.header_title)
+    LinearLayout mHeaderTitle;
+
+    @BindView(R.id.tv_location)
+    TextView mLocation;
+    private RecyclerView mCatagory2;
+    private RecyclerView mCatagory1;
+    private RecyclerView mCatagory3;
+    private Catagory2Adapter catagory2Adapter;
+    private Catagory3Adapter catagory3Adapter;
+    private Catagory1Adapter catagory1Adapter;
+    private ArrayList<Category1Bean> datalist1;
 
     @Override
     protected void setRootView() {
@@ -91,6 +107,7 @@ public class HotelFilterActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
+        getBarDistance(mHeaderTitle);
         mRecycler = findViewById(R.id.rv_recycler);
         mRecycler.setLayoutManager(new LinearLayoutManager(this));
     }
@@ -111,12 +128,14 @@ public class HotelFilterActivity extends BaseActivity {
         switch (v.getId()) {
             //位置区域
             case R.id.ll_selector_location:
-                initLocation();
+//                initLocation();
+//                if (mPopWindow != null && !mPopWindow.isShowing()) {
+//                    mPopWindow.showAsDropDown(mClassify, 0, 0);
+//                }
                 break;
             //价格星级
             case R.id.ll_price_star:
                 mSelectorStar.setTextColor(getResources().getColor(R.color.colorNavy));
-
                 initPriceStar();
                 if (mPopWindow != null && !mPopWindow.isShowing()) {
                     mPopWindow.showAsDropDown(mClassify, 0, 0);
@@ -144,7 +163,7 @@ public class HotelFilterActivity extends BaseActivity {
 
         View contentView = LayoutInflater.from(this).inflate(R.layout.dialog_hotel_sort, null);
 
-        initPopuWindow(contentView,mCapacitySort);
+        initPopuWindow(contentView, mCapacitySort);
 
     }
 
@@ -152,7 +171,7 @@ public class HotelFilterActivity extends BaseActivity {
 
         View contentView = LayoutInflater.from(this).inflate(R.layout.dialog_hotel_star_price, null);
 
-        initPopuWindow(contentView,mSelectorStar);
+        initPopuWindow(contentView, mSelectorStar);
 
         mViewRecycler = contentView.findViewById(R.id.rv_recycler);
         mCancle = contentView.findViewById(R.id.bt_cancle);
@@ -245,7 +264,126 @@ public class HotelFilterActivity extends BaseActivity {
     }
 
     private void initLocation() {
+        View contentView = LayoutInflater.from(this).inflate(R.layout.dialog_hotel_location, null);
+        initPopuWindow(contentView, mLocation);
 
+        datalist1 = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            Category1Bean databean = new Category1Bean();
+            databean.setContent("A");
+            databean.setContent("B");
+            databean.setContent("C");
+            databean.setContent("D");
+            for (int j = 0; j < 5; j++) {
+                Category1Bean.Category2Bean dataBean2 = new Category1Bean.Category2Bean();
+                dataBean2.setContent2("日");
+                dataBean2.setContent2("神");
+                dataBean2.setContent2("牛");
+                dataBean2.setContent2("逼");
+                for (int k = 0; k < 5; k++) {
+                    Category1Bean.Category2Bean.Category3Bean dataBean3 = new Category1Bean.Category2Bean.Category3Bean();
+                    dataBean3.setContent3("日");
+                    dataBean3.setContent3("神");
+                    dataBean3.setContent3("牛");
+                    dataBean3.setContent3("逼");
+
+                    dataBean2.getCategory3Beans().add(dataBean3);
+                }
+
+                databean.getCategory2Beans().add(dataBean2);
+            }
+            datalist1.add(databean);
+        }
+
+//        ArrayList<Group> one = new ArrayList<>();
+//        for (int i = 0; i < 12; i++) {
+//            Group group1 =new Group("一级"+i);
+//            for (int j = 0; j < 12; j++) {
+//                Group group2 = new Group("二级"+j);
+//                for (int k = 0; k < 12; k++) {
+//                    Group group3 = new Group("三级"+k);
+//                    group2.items.add(group3);
+//                }
+//                group1.items.add(group2);
+//            }
+//            one.add(group1);
+//        }
+//
+//
+//    }
+//
+//    class Group {
+//        private  String title;
+//
+//        public Group(String title) {
+//            this.title = title;
+//        }
+//
+//        ArrayList<Group> items = new ArrayList<>();
+
+        initCatagory1(contentView);
+        initCatagory2(contentView);
+        initCatagory3(contentView);
+    }
+
+    private void initCatagory1(View view) {
+        mCatagory1 = view.findViewById(R.id.catagory1);
+        mCatagory1.setLayoutManager(new LinearLayoutManager(this));
+        catagory1Adapter = new Catagory1Adapter(R.layout.catagory1_item_view, datalist1);
+        catagory1Adapter.openLoadAnimation();
+        mCatagory1.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        mCatagory1.setAdapter(catagory1Adapter);
+
+        catagory1Adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                catagory1Adapter.select(position);
+                catagory2Adapter.select(position);
+
+            }
+        });
+
+    }
+
+    private void initCatagory2(View view) {
+        mCatagory2 = view.findViewById(R.id.catagory2);
+        mCatagory2.setLayoutManager(new LinearLayoutManager(this));
+
+        catagory2Adapter = new Catagory2Adapter(R.layout.catagory2_item_view, datalist1);
+        catagory2Adapter.openLoadAnimation();
+        mCatagory2.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        mCatagory2.setAdapter(catagory2Adapter);
+
+        catagory2Adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                catagory2Adapter.select(position);
+                catagory3Adapter.select(position);
+            }
+        });
+    }
+
+    private void initCatagory3(View view) {
+        mCatagory3 = view.findViewById(R.id.catagory3);
+        mCatagory3.setLayoutManager(new LinearLayoutManager(this));
+
+
+        catagory3Adapter = new Catagory3Adapter(R.layout.catagory3_item_view, datalist1);
+        catagory3Adapter.openLoadAnimation();
+        mCatagory3.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        mCatagory3.setAdapter(catagory3Adapter);
+
+        catagory3Adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                catagory3Adapter.select(position);
+            }
+        });
+    }
+
+    @OnClick(R.id.iv_header_back)
+    public void clickBack() {
+        finish();
     }
 
 }

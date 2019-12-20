@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.text.Layout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.adapter.hotel.FacilityAdapter;
@@ -15,10 +17,18 @@ import com.zskjprojectj.andouclient.entity.hotel.HotelDetailFacilityBean;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.OnClick;
+
 /**
  * 酒店详情-环境设施
  */
 public class HotelDetailFacilityActivity extends BaseActivity {
+
+    @BindView(R.id.header_title_view)
+    RelativeLayout mHeaderTitleView;
+    @BindView(R.id.tv_header_title)
+    TextView mHeaderTitle;
 
     private RecyclerView mRecycler;
     private ArrayList<HotelDetailFacilityBean> mDataList;
@@ -30,7 +40,6 @@ public class HotelDetailFacilityActivity extends BaseActivity {
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-        topView.setTitle("环境设施");
 
         mDataList=new ArrayList<>();
         for (int i=0;i<20;i++){
@@ -46,6 +55,8 @@ public class HotelDetailFacilityActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
+        mHeaderTitle.setText("环境设施");
+        getBarDistance(mHeaderTitleView);
         mRecycler=findViewById(R.id.rv_recycler);
         mRecycler.setLayoutManager(new GridLayoutManager(this,3));
     }
@@ -58,5 +69,9 @@ public class HotelDetailFacilityActivity extends BaseActivity {
     @Override
     protected BasePresenter createPresenter() {
         return null;
+    }
+    @OnClick(R.id.iv_header_back)
+    public void clickBack(){
+        finish();
     }
 }

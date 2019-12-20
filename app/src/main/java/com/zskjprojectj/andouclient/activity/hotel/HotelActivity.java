@@ -261,4 +261,9 @@ public class HotelActivity extends BaseActivity implements View.OnClickListener 
 
     }
 
+    @OnClick(R.id.busiess_back_image)
+    public void clickBack(){
+        finish();
+    }
+
 }

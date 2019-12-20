@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.zskjprojectj.andouclient.R;
@@ -15,7 +16,16 @@ import com.zskjprojectj.andouclient.base.BasePresenter;
 import com.zskjprojectj.andouclient.fragment.hotel.CustomViewDialog;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
 
+import butterknife.BindView;
+import butterknife.OnClick;
+
 public class HotelOnlineReserveActivity extends BaseActivity implements View.OnClickListener {
+
+    @BindView(R.id.header_title_view)
+    RelativeLayout mHeaderTitleView;
+    @BindView(R.id.tv_header_title)
+    TextView mHeaderTitle;
+
 
     private TextView mReserve;
 
@@ -58,8 +68,8 @@ public class HotelOnlineReserveActivity extends BaseActivity implements View.OnC
 
     @Override
     protected void initViews() {
-        topView.setTitle("在线预订");
-
+        getBarDistance(mHeaderTitleView);
+        mHeaderTitle.setText("在线预订");
         mReserve=findViewById(R.id.tv_reserve);
         mReserve.setOnClickListener(this);
     }
@@ -99,6 +109,9 @@ public class HotelOnlineReserveActivity extends BaseActivity implements View.OnC
         }
     }
 
-
+@OnClick(R.id.iv_header_back)
+    public void clickBack(){
+        finish();
+}
 
 }

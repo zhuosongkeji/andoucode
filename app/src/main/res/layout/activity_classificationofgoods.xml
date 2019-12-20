@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:background="@color/color_allbg"
+    android:background="@color/colorNavy"
     android:layout_height="match_parent">
     <RelativeLayout
         android:background="@color/colorNavy"
@@ -130,7 +130,6 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_recycler"
         android:background="@color/white"
-        android:layout_marginTop="@dimen/dp_5"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent"/>
 </LinearLayout>

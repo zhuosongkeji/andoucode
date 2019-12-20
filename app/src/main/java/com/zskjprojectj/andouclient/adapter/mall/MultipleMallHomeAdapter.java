@@ -8,6 +8,7 @@ import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.stx.xhb.xbanner.XBanner;
 import com.zskjprojectj.andouclient.R;
+import com.zskjprojectj.andouclient.activity.ClassificationofgoodsActivity;
 import com.zskjprojectj.andouclient.activity.mall.MallGoodsDetailsActivity;
 import com.zskjprojectj.andouclient.entity.mall.MallItemDataBean;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
@@ -58,16 +59,30 @@ public class MultipleMallHomeAdapter extends BaseMultiItemQuickAdapter<MallItemD
             case MallItemDataBean.RECOMMEND:
                 initRecommend(helper, item);
                 break;
+            case MallItemDataBean.GOODSDETAILS:
+                initGoodsDetails(helper, item);
+                break;
         }
+    }
+
+    private void initGoodsDetails(BaseViewHolder helper, MallItemDataBean item) {
+
+        helper.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, MallGoodsDetailsActivity.class);
+                mContext.startActivity(intent);
+            }
+        });
     }
 
     private void initPlan(BaseViewHolder helper, MallItemDataBean item) {
         switch (helper.getLayoutPosition() % 2) {
             case 0:
-                helper.setImageResource(R.id.iv_activity_plan_image,R.mipmap.icon_mall_plan1);
+                helper.setImageResource(R.id.iv_activity_plan_image, R.mipmap.icon_mall_plan1);
                 break;
             case 1:
-                helper.setImageResource(R.id.iv_activity_plan_image,R.mipmap.icon_mall_plan2);
+                helper.setImageResource(R.id.iv_activity_plan_image, R.mipmap.icon_mall_plan2);
                 break;
 
         }
@@ -135,9 +150,8 @@ public class MultipleMallHomeAdapter extends BaseMultiItemQuickAdapter<MallItemD
         helper.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, MallGoodsDetailsActivity.class);
+                Intent intent = new Intent(mContext, ClassificationofgoodsActivity.class);
                 mContext.startActivity(intent);
-
             }
         });
 

@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.shizhefei.view.indicator.FixedIndicatorView;
@@ -22,9 +24,13 @@ import com.zskjprojectj.andouclient.fragment.hotel.HotelDetailCommentFragment;
 import com.zskjprojectj.andouclient.fragment.hotel.HotelDetailFacilityFragment;
 import com.zskjprojectj.andouclient.fragment.hotel.HotelDetailMerchantFragment;
 import com.zskjprojectj.andouclient.fragment.hotel.HotelDetailReserveFragment;
+import com.zskjprojectj.andouclient.utils.BarUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * 酒店详情页
@@ -33,6 +39,9 @@ import java.util.List;
  */
 
 public class HotelDetailActivity extends BaseActivity {
+
+    @BindView(R.id.titlt_view)
+    LinearLayout mTitleView;
 
     private FixedIndicatorView mIndicator;
     private ViewPager mViewPager;
@@ -104,6 +113,11 @@ public class HotelDetailActivity extends BaseActivity {
     @Override
     protected void initViews() {
 
+        //设置状态栏的高度
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mTitleView.getLayoutParams();
+        layoutParams.topMargin = BarUtils.getStatusBarHeight(this);
+        mTitleView.setLayoutParams(layoutParams);
+
         mIndicator=findViewById(R.id.indicator);
         mViewPager=findViewById(R.id.viewPager);
 
@@ -117,5 +131,10 @@ public class HotelDetailActivity extends BaseActivity {
     @Override
     protected BasePresenter createPresenter() {
         return null;
+    }
+
+    @OnClick(R.id.busiess_back_image)
+    public void clickBack(){
+        finish();
     }
 }

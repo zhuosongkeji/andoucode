@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,17 +7,14 @@
     android:background="@color/colorNavy"
     android:orientation="vertical">
 
+    <include layout="@layout/base_title_view"/>
+
     <RelativeLayout
         android:id="@+id/root_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:ignore="UselessParent">
 
-        <com.zskjprojectj.andouclient.view.TopView
-            android:id="@+id/alltopview"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_50"
-            app:topview_left="@mipmap/back_icon" />
 
         <LinearLayout
             android:layout_width="match_parent"
