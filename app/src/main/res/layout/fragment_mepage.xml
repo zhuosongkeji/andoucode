@@ -255,7 +255,7 @@
         android:id="@+id/alltopview"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/dp_50"
-        app:topview_left="@mipmap/icon_back_black">
+        app:topview_left="@mipmap/back_icon">
 
     </com.zskjprojectj.andouclient.view.TopView>
 
@@ -282,6 +282,7 @@
             android:textColor="@color/white" />
 
         <ImageView
+            android:id="@+id/img_meset"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"

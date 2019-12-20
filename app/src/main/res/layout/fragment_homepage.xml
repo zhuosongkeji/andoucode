@@ -39,6 +39,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
                         <TextView
+                            android:id="@+id/tv_cityinfo"
                             android:text="重庆市"
                             android:layout_marginLeft="@dimen/dp_10"
                             android:textColor="@color/white"

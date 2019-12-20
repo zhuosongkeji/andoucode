@@ -2,6 +2,7 @@ package com.zskjprojectj.andouclient.activity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zskjprojectj.andouclient.R;
+import com.zskjprojectj.andouclient.activity.mall.MallOnlineOrderActivity;
 import com.zskjprojectj.andouclient.adapter.BalancesubsidiaryAdapter;
 import com.zskjprojectj.andouclient.adapter.PlatformshoppingcartAdapter;
 import com.zskjprojectj.andouclient.base.BaseActivity;
@@ -24,7 +26,7 @@ import java.util.ArrayList;
 public class PlatformshoppingcartActivity extends BaseActivity {
     private RecyclerView mRecycler;
     private ArrayList<PlatformshoppingcartBean> mDataList;
-
+    private Button btn_gotoaccounts;
     @Override
     protected void setRootView() {
         setContentView(R.layout.activity_platformshoppingcart);
@@ -65,6 +67,13 @@ public class PlatformshoppingcartActivity extends BaseActivity {
     protected void initViews() {
         mRecycler=findViewById(R.id.rv_recycler);
         mRecycler.setLayoutManager(new LinearLayoutManager(mAt));
+        btn_gotoaccounts=findViewById(R.id.btn_gotoaccounts);
+        btn_gotoaccounts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                jumpActivity(MallOnlineOrderActivity.class);
+            }
+        });
     }
 
     @Override

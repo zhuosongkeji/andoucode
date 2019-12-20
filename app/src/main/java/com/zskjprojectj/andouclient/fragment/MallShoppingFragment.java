@@ -1,9 +1,11 @@
 package com.zskjprojectj.andouclient.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -13,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.zskjprojectj.andouclient.R;
+import com.zskjprojectj.andouclient.activity.mall.MallOnlineOrderActivity;
 import com.zskjprojectj.andouclient.adapter.mall.MallShoppingAdapter;
 import com.zskjprojectj.andouclient.base.BaseFragment;
 import com.zskjprojectj.andouclient.entity.mall.MallShoppingbean;
@@ -37,6 +40,7 @@ public class MallShoppingFragment extends BaseFragment {
     @BindView(R.id.iv_header_back)
     ImageView mHeaderBack;
 
+    private Button btn_settleaccounts;
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
 
@@ -45,6 +49,13 @@ public class MallShoppingFragment extends BaseFragment {
         getBarDistance(mHeaderTitleView);
         mRecycler = view.findViewById(R.id.rv_recycler);
         mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
+        btn_settleaccounts=view.findViewById(R.id.btn_settleaccounts);
+        btn_settleaccounts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), MallOnlineOrderActivity.class));
+            }
+        });
     }
 
     @Override

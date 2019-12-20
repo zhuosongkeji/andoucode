@@ -89,6 +89,12 @@
         <item name="android:windowEnterAnimation">@anim/pop_show_show</item>
         <item name="android:windowExitAnimation">@anim/pop_show_hide</item>
     </style>
-
+    <!-- 仿 ios 开关按钮 -->
+    <declare-styleable name="SwitchButton">
+        <!-- 是否选中 -->
+        <attr name="android:checked" />
+        <!-- 是否禁用 -->
+        <attr name="android:enabled" />
+    </declare-styleable>
 
 </resources>
