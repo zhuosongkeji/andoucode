@@ -9,27 +9,29 @@
     <com.zskjprojectj.andouclient.view.TopView
         android:id="@+id/alltopview"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_50"
-        app:topview_left="@mipmap/ic_back" />
-
+        android:layout_height="@dimen/dp_50" />
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
         android:background="@color/white"
-        >
+        android:id="@+id/ll_classify"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/dp_10">
 
         <LinearLayout
-            android:id="@+id/busiess_busiessclassify_layout"
+            android:id="@+id/ll_merchants_classification"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center">
 
             <TextView
+                android:id="@+id/tv_selector_star"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/busiessclassify" />
+                android:textColor="@color/color_common_font"
+                android:text="商家分类" />
 
             <ImageView
                 android:layout_width="10dp"
@@ -39,27 +41,17 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ll_in_screening"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.01">
-
-            <TextView
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:background="@color/colorGray" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/busiess_address_select_layout"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center">
 
             <TextView
+                android:id="@+id/tv_capacity_sort"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/address_select" />
+                android:text="地区筛选" />
 
             <ImageView
                 android:layout_width="10dp"
@@ -69,27 +61,17 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ll_sorting_way"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.01">
-
-            <TextView
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:background="@color/colorGray" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/busiess_paixufangshi_layout"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center">
 
             <TextView
+                android:id="@+id/tv_screen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/paixufangshi" />
+                android:text="排序方式" />
 
             <ImageView
                 android:layout_width="10dp"
@@ -97,8 +79,8 @@
                 android:layout_marginLeft="@dimen/dp_6"
                 android:src="@mipmap/ic_busiess_xiala" />
         </LinearLayout>
+
     </LinearLayout>
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="13dp"

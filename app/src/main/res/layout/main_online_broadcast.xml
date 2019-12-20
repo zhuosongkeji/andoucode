@@ -60,13 +60,12 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
             <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
                 <ImageView
                     android:id="@+id/check_in_busiess_image1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="125dp"
+                    android:layout_height="@dimen/dp_150"
                     android:background="@mipmap/onlinebroadcast1"/>
                 <TextView
                     android:layout_width="wrap_content"
@@ -82,13 +81,12 @@
                 android:layout_width="12dp"
                 android:layout_height="match_parent" />
             <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
                 <ImageView
                     android:id="@+id/check_in_busiess_image2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="125dp"
+                    android:layout_height="@dimen/dp_150"
                     android:background="@mipmap/onlinebroadcast2"/>
                 <TextView
                     android:layout_width="wrap_content"
@@ -104,13 +102,12 @@
                 android:layout_width="12dp"
                 android:layout_height="match_parent" />
             <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_weight="1"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent">
                 <ImageView
                     android:id="@+id/check_in_busiess_image3"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="125dp"
+                    android:layout_height="@dimen/dp_150"
                     android:background="@mipmap/onlinebroadcast1"/>
                 <TextView
                     android:layout_width="wrap_content"
@@ -126,13 +123,12 @@
                 android:layout_width="12dp"
                 android:layout_height="match_parent" />
             <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
                 <ImageView
                     android:id="@+id/check_in_busiess_image4"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="125dp"
+                    android:layout_height="@dimen/dp_150"
                     android:background="@mipmap/onlinebroadcast2"/>
                 <TextView
                     android:layout_width="wrap_content"
