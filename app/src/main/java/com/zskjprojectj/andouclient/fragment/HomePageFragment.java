@@ -3,6 +3,7 @@ package com.zskjprojectj.andouclient.fragment;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -14,6 +15,12 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
 import com.stx.xhb.xbanner.XBanner;
 import com.stx.xhb.xbanner.entity.LocalImageInfo;
+import com.zaaach.citypicker.CityPicker;
+import com.zaaach.citypicker.adapter.OnPickListener;
+import com.zaaach.citypicker.model.City;
+import com.zaaach.citypicker.model.HotCity;
+import com.zaaach.citypicker.model.LocateState;
+import com.zaaach.citypicker.model.LocatedCity;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 import com.zskjprojectj.andouclient.R;
@@ -49,14 +56,19 @@ import recycler.coverflow.RecyclerCoverFlow;
  *
  * @author yizhubao
  */
-public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.onItemClick{
+public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.onItemClick {
 
     @BindView(R.id.coverflow)
     RecyclerCoverFlow mCoverFlow;
-
-    private XBanner bannertops, bannertopone;
+    private boolean enable;
+    private List<HotCity> hotCities;
+    private int anim;
+    private int theme;
+    private TextView tv_cityinfo;
+    private XBanner bannertops;
     private LinearLayout check_in_business_seemore_layout, rootView;
-    private LinearLayout onlinebroadcast_see_more_layout, appointment_see_more_layout, onlinebooking_see_more_layout,ly_citychoose;
+    private LinearLayout onlinebroadcast_see_more_layout, appointment_see_more_layout, onlinebooking_see_more_layout, ly_citychoose;
+
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
         initCoverFlow();
@@ -74,14 +86,15 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
         onlinebroadcast_see_more_layout = view.findViewById(R.id.onlinebroadcast_see_more_layout);
         appointment_see_more_layout = view.findViewById(R.id.appointment_see_more_layout);
         onlinebooking_see_more_layout = view.findViewById(R.id.onlinebooking_see_more_layout);
-        ly_citychoose=view.findViewById(R.id.ly_citychoose);
+        ly_citychoose = view.findViewById(R.id.ly_citychoose);
+        tv_cityinfo = view.findViewById(R.id.tv_cityinfo);
     }
 
     private void initCoverFlow() {
 
         mCoverFlow.setGreyItem(true); //设置灰度渐变
         mCoverFlow.setAlphaItem(true); //设置半透渐变
-        mCoverFlow.setAdapter(new CoverFlowAdapter(getActivity(),this));
+        mCoverFlow.setAdapter(new CoverFlowAdapter(getActivity(), this));
         mCoverFlow.smoothScrollToPosition(3);
         mCoverFlow.setOnItemSelectedListener(new CoverFlowLayoutManger.OnSelected() {
             @Override
@@ -109,6 +122,7 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
             public void onError(Call call, Exception e, int id) {
                 Toast.makeText(mAty, "加载广告数据失败", Toast.LENGTH_SHORT).show();
             }
+
             @Override
             public void onResponse(String response, int id) {
                 TuchongEntity advertiseEntity = new Gson().fromJson(response, TuchongEntity.class);
@@ -180,7 +194,40 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
         ly_citychoose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                CityPicker.from(getContext())
+                        .enableAnimation(enable)
+                        .setAnimationStyle(anim)
+                        .setLocatedCity(null)
+                        .setHotCities(hotCities)
+                        .setOnPickListener(new OnPickListener() {
+                            @Override
+                            public void onPick(int position, City data) {
+                                tv_cityinfo.setText(String.format("%s", data.getName()));
+                              //  tv_cityinfo.setText(String.format("当前城市：%s，%s", data.getName(), data.getCode()));
+//                                Toast.makeText(
+//                                        getApplicationContext(),
+//                                        String.format("点击的数据：%s，%s", data.getName(), data.getCode()),
+//                                        Toast.LENGTH_SHORT)
+//                                        .show();
+                            }
 
+                            @Override
+                            public void onCancel() {
+                               // Toast.makeText(getApplicationContext(), "取消选择", Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void onLocate() {
+                                //开始定位，这里模拟一下定位
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        CityPicker.from(getContext()).locateComplete(new LocatedCity("重庆", "广东", "101280601"), LocateState.SUCCESS);
+                                    }
+                                }, 3000);
+                            }
+                        })
+                        .show();
             }
         });
     }
@@ -253,7 +300,7 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
     public void clickItem(int pos) {
 //        ToastUtil.showToast("图"+pos);
 
-        switch (pos%7){
+        switch (pos % 7) {
             case 0:
                 ToastUtil.showToast("图1");
                 break;
