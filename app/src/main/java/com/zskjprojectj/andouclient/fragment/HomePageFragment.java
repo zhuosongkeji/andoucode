@@ -185,7 +185,8 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
         onlinebooking_see_more_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getContext(), OnlineBookingorderActivity.class));
+                //startActivity(new Intent(getContext(), OnlineBookingorderActivity.class));
+                ToastUtil.showToast("功能持续完成中......");
             }
         });
         /**

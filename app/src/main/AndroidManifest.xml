@@ -108,6 +108,11 @@
         <!-- 地址选择 -->
         <activity android:name=".activity.NewaddressActivity" /> <!-- 新增地址 -->
         <activity android:name=".activity.ShareLocationActivity" /> <!-- 添加新地址 -->
+        <activity android:name=".activity.MesettingActivity"/><!--个人中心设置界面-->
+        <activity android:name=".activity.ModifyaboutusActivity"/><!--关于我们-->
+        <activity android:name=".activity.ModifyfeedbackActivity"/><!--意见反馈-->
+        <activity android:name=".activity.ModifythepasswordActivity"/><!--忘记密码-->
+        <activity android:name=".activity.ModifythephoneActivity"/><!--手机号码修改-->
         <meta-data
             android:name="android.max_aspect"
             android:value="2.4" /> <!-- 适配华为（huawei）刘海屏 -->

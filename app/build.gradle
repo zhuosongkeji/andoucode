@@ -122,4 +122,5 @@ dependencies {
     //城市定位
     //implementation 'com.zaaach:citypicker:2.0.3'	//必选
     implementation project(':citypicker')
+
 }

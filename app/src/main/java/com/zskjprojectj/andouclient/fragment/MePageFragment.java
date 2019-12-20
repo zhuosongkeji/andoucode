@@ -3,6 +3,7 @@ package com.zskjprojectj.andouclient.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 
@@ -13,6 +14,7 @@ import com.zskjprojectj.andouclient.activity.DownloadappActivity;
 import com.zskjprojectj.andouclient.activity.FoodorderActivity;
 import com.zskjprojectj.andouclient.activity.HotelorderActivity;
 import com.zskjprojectj.andouclient.activity.InvitationActivity;
+import com.zskjprojectj.andouclient.activity.MesettingActivity;
 import com.zskjprojectj.andouclient.activity.MyaddressActivity;
 import com.zskjprojectj.andouclient.activity.MycollectionActivity;
 import com.zskjprojectj.andouclient.activity.MymessageActivity;
@@ -74,6 +76,8 @@ public class MePageFragment extends BaseFragment {
     private LinearLayout mycenter_operationvideo_layout;
     //饭店预订
     private LinearLayout mycenter_restaurant_layout;
+    //设置界面
+    private ImageView img_meset;
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
         mycenter_vegetablemarket_layout=view.findViewById(R.id.mycenter_vegetablemarket_layout);
@@ -93,6 +97,7 @@ public class MePageFragment extends BaseFragment {
         mycenter_downloadapp_layout=view.findViewById(R.id.mycenter_downloadapp_layout);
         mycenter_operationvideo_layout=view.findViewById(R.id.mycenter_operationvideo_layout);
         mycenter_restaurant_layout=view.findViewById(R.id.mycenter_restaurant_layout);
+        img_meset=view.findViewById(R.id.img_meset);
         topView=view.findViewById(R.id.alltopview);
     }
 
@@ -262,6 +267,15 @@ public class MePageFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getContext(), OperationvideoActivity.class));
+            }
+        });
+        /**
+         * 设置界面跳转
+         */
+        img_meset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), MesettingActivity.class));
             }
         });
     }
