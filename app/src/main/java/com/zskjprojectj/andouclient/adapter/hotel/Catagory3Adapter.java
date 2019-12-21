@@ -7,7 +7,7 @@ import androidx.annotation.Nullable;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.entity.hotel.Category1Bean;
+import com.zskjprojectj.andouclient.entity.hotel.CategoryBean;
 
 import java.util.List;
 
@@ -21,25 +21,25 @@ import java.util.List;
  * 修改时间：
  * 修改备注：
  */
-public class Catagory3Adapter extends BaseQuickAdapter<Category1Bean, BaseViewHolder> {
+public class Catagory3Adapter extends BaseQuickAdapter<CategoryBean, BaseViewHolder> {
     private int mSelectedIndex = 0;
-    public Catagory3Adapter(int layoutResId, @Nullable List<Category1Bean> data) {
+    public Catagory3Adapter(int layoutResId, @Nullable List<CategoryBean> data) {
         super(layoutResId, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, Category1Bean item) {
+    protected void convert(BaseViewHolder helper, CategoryBean item) {
 
         if (mSelectedIndex==0){
 
-            List<Category1Bean.Category2Bean.Category3Bean> category3Beans = item.getCategory2Beans().get(0).getCategory3Beans();
+            List<CategoryBean> category3Beans = item.categories.get(0).categories;
             for (int i = 0; i < category3Beans.size(); i++) {
-                helper.setText(R.id.catagory2_content, category3Beans.get(i).getContent3());
+                helper.setText(R.id.catagory2_content, category3Beans.get(i).getContent());
             }
         }else {
-            List<Category1Bean.Category2Bean.Category3Bean> category3Beans = item.getCategory2Beans().get(mSelectedIndex).getCategory3Beans();
+            List<CategoryBean> category3Beans = item.categories.get(mSelectedIndex).categories;
             for (int i = 0; i < category3Beans.size(); i++) {
-                helper.setText(R.id.catagory2_content, category3Beans.get(i).getContent3());
+                helper.setText(R.id.catagory2_content, category3Beans.get(i).getContent());
             }
         }
 

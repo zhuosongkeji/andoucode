@@ -36,6 +36,8 @@ import butterknife.OnClick;
  * @author yizhubao
  */
 public class InfoPageFragment extends BaseFragment {
+    private RecyclerView mRecycler;
+    private ArrayList<InfoFragmentBean> mDataList;
 
     @BindView(R.id.tv_header_title)
     TextView mHeaderTitle;
@@ -43,11 +45,10 @@ public class InfoPageFragment extends BaseFragment {
     RelativeLayout mHeaderTitlrView;
 
 
-    private RecyclerView mRecycler;
-    private ArrayList<InfoFragmentBean> mDataList;
-
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
+        mRecycler=view.findViewById(R.id.rv_recycler);
+        mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         mHeaderTitle.setText("信息");
         getBarDistance(mHeaderTitlrView);
 
@@ -82,7 +83,6 @@ public class InfoPageFragment extends BaseFragment {
                 ToastUtil.showToast("信息功能暂未完善给您带来的不便敬请谅解");
             }
         });
-
     }
 
     @OnClick(R.id.iv_header_back)

@@ -32,6 +32,7 @@ import butterknife.OnClick;
 public class MallShoppingFragment extends BaseFragment {
     private RecyclerView mRecycler;
     private ArrayList<MallShoppingbean> dataList;
+    private Button btn_settleaccounts;
 
     @BindView(R.id.header_title_view)
     RelativeLayout mHeaderTitleView;
@@ -40,7 +41,6 @@ public class MallShoppingFragment extends BaseFragment {
     @BindView(R.id.iv_header_back)
     ImageView mHeaderBack;
 
-    private Button btn_settleaccounts;
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
 

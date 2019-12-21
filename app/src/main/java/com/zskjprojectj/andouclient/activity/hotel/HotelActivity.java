@@ -52,12 +52,14 @@ import butterknife.OnClick;
  */
 public class HotelActivity extends BaseActivity implements View.OnClickListener {
 
+    @BindView(R.id.rv_check_in_time)
+    RelativeLayout mCheckInTime;
     @BindView(R.id.tv_check_in_time)
-    TextView mCheckInTime;
-
+    TextView mTvCheckInTime;
+    @BindView(R.id.rv_check_out_time)
+    RelativeLayout mCheckOutTime;
     @BindView(R.id.tv_check_out_time)
-    TextView mCheckOutTime;
-
+    TextView mTVCheckOutTime;
     @BindView(R.id.et_input_number)
     EditText mInputNumber;
 
@@ -118,6 +120,18 @@ public class HotelActivity extends BaseActivity implements View.OnClickListener 
         mSearchHotel = findViewById(R.id.search_hotel);
         mSearchHotel.setOnClickListener(this);
 
+        mTvCheckInTime.setText(getNowTime());
+        mTVCheckOutTime.setText(getNowTime());
+
+    }
+
+    private String getNowTime() {
+
+        Date now = new Date(); // 创建一个Date对象，获取当前时间
+        // 指定格式化格式
+        SimpleDateFormat f = new SimpleDateFormat("yyyy 年 MM 月 dd 日");
+        // 将当前时间袼式化为指定的格式
+        return f.format(now);
     }
 
     @Override
@@ -140,34 +154,36 @@ public class HotelActivity extends BaseActivity implements View.OnClickListener 
         }
     }
 
-    @OnClick({R.id.tv_check_in_time, R.id.tv_check_out_time, R.id.tv_set_like})
+    @OnClick({R.id.rv_check_in_time, R.id.rv_check_out_time, R.id.tv_set_like, R.id.mycenter_foodorder_layout,
+            R.id.mycenter_hotelorder_layout, R.id.mycenter_vegetablemarket_layout, R.id.mycenter_shoporder_layout, R.id.mycenter_shoporder_layout1})
     public void clickCheckIn(View view) {
         switch (view.getId()) {
-            case R.id.tv_check_in_time:
+            case R.id.rv_check_in_time:
                 //时间选择器
                 TimePickerView pvTime = new TimePickerBuilder(HotelActivity.this, new OnTimeSelectListener() {
                     @Override
                     public void onTimeSelect(Date date, View v) {
-                        if (mCheckInTime != null) {
-                            mCheckInTime.setText("");
-                            mCheckInTime.setText(getTime(date));
+                        if (mTvCheckInTime != null) {
+                            mTvCheckInTime.setText("");
+                            mTvCheckInTime.setText(getTime(date));
                         }
                     }
                 }).build();
 
                 pvTime.show();
                 break;
-            case R.id.tv_check_out_time:
+            case R.id.rv_check_out_time:
                 //时间选择器
                 TimePickerView pvTimeq = new TimePickerBuilder(HotelActivity.this, new OnTimeSelectListener() {
                     @Override
                     public void onTimeSelect(Date date, View v) {
-                        if (mCheckOutTime != null) {
-                            mCheckOutTime.setText("");
-                            mCheckOutTime.setText(getTime(date));
+                        if (mTVCheckOutTime != null) {
+                            mTVCheckOutTime.setText("");
+                            mTVCheckOutTime.setText(getTime(date));
                         }
                     }
-                }).build();
+                })
+                        .build();
 
                 pvTimeq.show();
                 break;
@@ -175,13 +191,23 @@ public class HotelActivity extends BaseActivity implements View.OnClickListener 
             case R.id.tv_set_like:
                 showDialog();
                 break;
+
+            case R.id.mycenter_foodorder_layout:
+            case R.id.mycenter_hotelorder_layout:
+            case R.id.mycenter_vegetablemarket_layout:
+            case R.id.mycenter_shoporder_layout:
+            case R.id.mycenter_shoporder_layout1:
+
+                Intent intent = new Intent(HotelActivity.this, HotelDetailActivity.class);
+                startActivity(intent);
+                break;
         }
     }
 
 
     private String getTime(Date date) {//可根据需要自行截取数据显示
-        Log.d("getTime()", "choice date millis: " + date.getTime());
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        Log.d("getTime()", "choice date millis: " + date.getTime());
+        SimpleDateFormat format = new SimpleDateFormat("yyyy 年 MM 月 dd 日");
         return format.format(date);
     }
 
@@ -191,7 +217,7 @@ public class HotelActivity extends BaseActivity implements View.OnClickListener 
         bottomDialog = new Dialog(this, R.style.BottomDialog);
         contentView = LayoutInflater.from(this).inflate(R.layout.dialog_hotel_star_price, null);
         mViewRecycler = contentView.findViewById(R.id.rv_recycler);
-        mCancle=contentView.findViewById(R.id.bt_cancle);
+        mCancle = contentView.findViewById(R.id.bt_cancle);
         initDialogRecycler();
         bottomDialog.setContentView(contentView);
         ViewGroup.LayoutParams layoutParams = contentView.getLayoutParams();
@@ -236,10 +262,10 @@ public class HotelActivity extends BaseActivity implements View.OnClickListener 
 //                sectionAdapteradapter.notifyDataSetChanged();
 
 
-                if (0<position&&position<8){
+                if (0 < position && position < 8) {
                     sectionAdapteradapter.onChange1(position);
                     sectionAdapteradapter.notifyDataSetChanged();
-                }else if (8<position&&position<13){
+                } else if (8 < position && position < 13) {
                     sectionAdapteradapter.onChange2(position);
                     sectionAdapteradapter.notifyDataSetChanged();
                 }
@@ -258,11 +284,10 @@ public class HotelActivity extends BaseActivity implements View.OnClickListener 
         });
 
 
-
     }
 
     @OnClick(R.id.busiess_back_image)
-    public void clickBack(){
+    public void clickBack() {
         finish();
     }
 

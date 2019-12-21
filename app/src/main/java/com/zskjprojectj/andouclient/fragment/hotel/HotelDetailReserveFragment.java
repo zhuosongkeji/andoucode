@@ -93,7 +93,7 @@ public class HotelDetailReserveFragment extends BaseFragment implements View.OnC
 
     private void showDialog() {
 
-        bottomDialog = new Dialog(getActivity(), R.style.BottomDialog);
+        bottomDialog = new Dialog(mAty, R.style.BottomDialog);
 
         Window window = bottomDialog.getWindow();
         // 把 DecorView 的默认 padding 取消，同时 DecorView 的默认大小也会取消
@@ -107,15 +107,16 @@ public class HotelDetailReserveFragment extends BaseFragment implements View.OnC
 
 
         contentView = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_hotel_detail, null);
+        bottomDialog.setContentView(contentView);
         TextView mReserve = contentView.findViewById(R.id.tv_reserve);
         mReserve.setOnClickListener(this);
-        bottomDialog.setContentView(contentView);
         bottomDialog.getWindow().setGravity(Gravity.BOTTOM);
         bottomDialog.setCanceledOnTouchOutside(true);
         bottomDialog.getWindow().setWindowAnimations(R.style.BottomDialog_Animation);
         bottomDialog.show();
 
     }
+
 
     @Override
     public void onClick(View v) {

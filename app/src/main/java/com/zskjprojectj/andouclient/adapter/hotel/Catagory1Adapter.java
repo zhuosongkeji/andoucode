@@ -7,7 +7,7 @@ import androidx.annotation.Nullable;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.entity.hotel.Category1Bean;
+import com.zskjprojectj.andouclient.entity.hotel.CategoryBean;
 
 import java.util.List;
 
@@ -21,17 +21,17 @@ import java.util.List;
  * 修改时间：
  * 修改备注：
  */
-public class Catagory1Adapter extends BaseQuickAdapter<Category1Bean, BaseViewHolder> {
+public class Catagory1Adapter extends BaseQuickAdapter<CategoryBean, BaseViewHolder> {
 
     private int mSelectedIndex = 0;
 
 
-    public Catagory1Adapter(int layoutResId, @Nullable List<Category1Bean> data) {
+    public Catagory1Adapter(int layoutResId, @Nullable List<CategoryBean> data) {
         super(layoutResId, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, Category1Bean item) {
+    protected void convert(BaseViewHolder helper, CategoryBean item) {
         helper.setText(R.id.catagory1_content,item.getContent());
         helper.addOnClickListener(R.id.catagory1_content);
         int layoutPosition = helper.getLayoutPosition();

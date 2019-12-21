@@ -8,6 +8,7 @@
     <include layout="@layout/base_title_view"/>
 
 
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_recycler"
         android:background="@color/white"

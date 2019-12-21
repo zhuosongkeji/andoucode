@@ -26,7 +26,7 @@ import com.zskjprojectj.andouclient.adapter.hotel.HotelResultAdapter;
 import com.zskjprojectj.andouclient.adapter.hotel.SectionAdapter;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
-import com.zskjprojectj.andouclient.entity.hotel.Category1Bean;
+import com.zskjprojectj.andouclient.entity.hotel.CategoryBean;
 import com.zskjprojectj.andouclient.entity.hotel.HotelResultBean;
 import com.zskjprojectj.andouclient.entity.hotel.Mysection;
 import com.zskjprojectj.andouclient.utils.GridSectionAverageGapItemDecoration;
@@ -69,10 +69,10 @@ public class HotelFilterActivity extends BaseActivity {
     private RecyclerView mCatagory2;
     private RecyclerView mCatagory1;
     private RecyclerView mCatagory3;
-    private Catagory2Adapter catagory2Adapter;
-    private Catagory3Adapter catagory3Adapter;
+    private Catagory1Adapter catagory2Adapter;
+    private Catagory1Adapter catagory3Adapter;
     private Catagory1Adapter catagory1Adapter;
-    private ArrayList<Category1Bean> datalist1;
+    private ArrayList<CategoryBean> datalist1;
 
     @Override
     protected void setRootView() {
@@ -128,10 +128,10 @@ public class HotelFilterActivity extends BaseActivity {
         switch (v.getId()) {
             //位置区域
             case R.id.ll_selector_location:
-//                initLocation();
-//                if (mPopWindow != null && !mPopWindow.isShowing()) {
-//                    mPopWindow.showAsDropDown(mClassify, 0, 0);
-//                }
+                initLocation();
+                if (mPopWindow != null && !mPopWindow.isShowing()) {
+                    mPopWindow.showAsDropDown(mClassify, 0, 0);
+                }
                 break;
             //价格星级
             case R.id.ll_price_star:
@@ -269,28 +269,17 @@ public class HotelFilterActivity extends BaseActivity {
 
         datalist1 = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
-            Category1Bean databean = new Category1Bean();
-            databean.setContent("A");
-            databean.setContent("B");
-            databean.setContent("C");
-            databean.setContent("D");
+            CategoryBean databean = new CategoryBean();
+            databean.setContent("一级" + i);
             for (int j = 0; j < 5; j++) {
-                Category1Bean.Category2Bean dataBean2 = new Category1Bean.Category2Bean();
-                dataBean2.setContent2("日");
-                dataBean2.setContent2("神");
-                dataBean2.setContent2("牛");
-                dataBean2.setContent2("逼");
+                CategoryBean dataBean2 = new CategoryBean();
+                dataBean2.setContent("二级" + i + j);
                 for (int k = 0; k < 5; k++) {
-                    Category1Bean.Category2Bean.Category3Bean dataBean3 = new Category1Bean.Category2Bean.Category3Bean();
-                    dataBean3.setContent3("日");
-                    dataBean3.setContent3("神");
-                    dataBean3.setContent3("牛");
-                    dataBean3.setContent3("逼");
-
-                    dataBean2.getCategory3Beans().add(dataBean3);
+                    CategoryBean dataBean3 = new CategoryBean();
+                    dataBean3.setContent("三级" + i + j + k);
+                    dataBean2.categories.add(dataBean3);
                 }
-
-                databean.getCategory2Beans().add(dataBean2);
+                databean.categories.add(dataBean2);
             }
             datalist1.add(databean);
         }
@@ -338,8 +327,10 @@ public class HotelFilterActivity extends BaseActivity {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 catagory1Adapter.select(position);
-                catagory2Adapter.select(position);
-
+                catagory2Adapter.setNewData(catagory1Adapter.getItem(position).categories);
+                catagory2Adapter.select(0);
+                catagory3Adapter.setNewData(catagory1Adapter.getItem(position).categories.get(0).categories);
+                catagory3Adapter.select(0);
             }
         });
 
@@ -349,7 +340,7 @@ public class HotelFilterActivity extends BaseActivity {
         mCatagory2 = view.findViewById(R.id.catagory2);
         mCatagory2.setLayoutManager(new LinearLayoutManager(this));
 
-        catagory2Adapter = new Catagory2Adapter(R.layout.catagory2_item_view, datalist1);
+        catagory2Adapter = new Catagory1Adapter(R.layout.catagory1_item_view, datalist1.get(0).categories);
         catagory2Adapter.openLoadAnimation();
         mCatagory2.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         mCatagory2.setAdapter(catagory2Adapter);
@@ -358,7 +349,8 @@ public class HotelFilterActivity extends BaseActivity {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 catagory2Adapter.select(position);
-                catagory3Adapter.select(position);
+                catagory3Adapter.setNewData(catagory2Adapter.getItem(position).categories);
+                catagory3Adapter.select(0);
             }
         });
     }
@@ -368,7 +360,7 @@ public class HotelFilterActivity extends BaseActivity {
         mCatagory3.setLayoutManager(new LinearLayoutManager(this));
 
 
-        catagory3Adapter = new Catagory3Adapter(R.layout.catagory3_item_view, datalist1);
+        catagory3Adapter = new Catagory1Adapter(R.layout.catagory1_item_view, datalist1.get(0).categories.get(0).categories);
         catagory3Adapter.openLoadAnimation();
         mCatagory3.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         mCatagory3.setAdapter(catagory3Adapter);

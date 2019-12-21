@@ -1,161 +1,155 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:orientation="vertical"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:scrollbars="none">
 
-    <ScrollView
-        android:background="@color/white"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="none">
+        android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@mipmap/zhuye_beijin_top"
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/root_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@mipmap/zhuye_beijin_top"
-                android:orientation="vertical">
+                android:layout_marginTop="@dimen/dp_10"
+                android:orientation="horizontal">
 
                 <LinearLayout
-                    android:id="@+id/root_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_10"
+                    android:id="@+id/ly_citychoose"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="horizontal">
-                    <LinearLayout
-                        android:id="@+id/ly_citychoose"
-                        android:orientation="horizontal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent">
-                        <ImageView
-                            android:layout_marginLeft="@dimen/dp_15"
-                            android:layout_gravity="center"
-                            android:src="@mipmap/back_icon"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-                        <TextView
-                            android:id="@+id/tv_cityinfo"
-                            android:text="重庆市"
-                            android:layout_marginLeft="@dimen/dp_10"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/typeface14sp"
-                            android:layout_gravity="center"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-                        <ImageView
-                            android:layout_marginLeft="@dimen/dp_6"
-                            android:layout_gravity="center"
-                            android:src="@mipmap/icon_city"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="240dp"
-                        android:layout_height="35dp"
-                        android:layout_marginLeft="@dimen/dp_10"
-                        android:background="@drawable/shape_layout">
-                        <EditText
-                            android:id="@+id/search_edittext"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_marginLeft="15dp"
-                            android:background="@null"
-                            android:textSize="@dimen/typeface14sp"
-                            android:hint="@string/chihewanle"/>
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center|right">
-                            <ImageView
-                                android:id="@+id/search_image"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="@dimen/dp_8"
-                                android:src="@mipmap/search" />
-                        </LinearLayout>
-                    </LinearLayout>
                     <ImageView
-                        android:layout_marginLeft="@dimen/dp_10"
-                        android:layout_gravity="center"
-                        android:id="@+id/sha"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@mipmap/ic_saoyisao"/>
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/dp_15"
+                        android:src="@mipmap/back_icon" />
+
+                    <TextView
+                        android:id="@+id/tv_cityinfo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/dp_10"
+                        android:text="重庆市"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/typeface14sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/dp_6"
+                        android:src="@mipmap/icon_city" />
                 </LinearLayout>
-<!--                <com.stx.xhb.xbanner.XBanner-->
-<!--                    android:id="@+id/bannertop"-->
-<!--                    android:layout_width="345dp"-->
-<!--                    android:layout_height="200dp"-->
-<!--                    android:layout_marginTop="20dp"-->
-<!--                    android:layout_gravity="center"-->
-<!--                    app:AutoPlayTime="3000"-->
-<!--                    app:clipChildrenLeftRightMargin="80dp"-->
-<!--                    app:isAutoPlay="false"-->
-<!--                    app:isClipChildrenMode="true"-->
-<!--                    app:isHandLoop="false"-->
-<!--                    app:isShowIndicatorOnlyOne="true"-->
-<!--                    app:isShowNumberIndicator="false"-->
-<!--                    app:pageChangeDuration="800"-->
-<!--                    app:pointsVisibility="false" />-->
-                <com.stx.xhb.xbanner.XBanner
-                    android:id="@+id/bannertop"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    app:AutoPlayTime="3000"
-                    app:isAutoPlay="true"
-                    app:isShowIndicatorOnlyOne="true"
-                    app:pageChangeDuration="800"
-                    app:pointNormal="@drawable/shape_noraml"
-                    app:pointSelect="@drawable/shape_selected"
-                    android:background="@color/colorNavy"
-                    app:pointsPosition="CENTER"
-                    app:tipTextSize="12sp" />
 
+                <LinearLayout
+                    android:layout_width="240dp"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:background="@drawable/shape_layout">
+
+                    <EditText
+                        android:id="@+id/search_edittext"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="15dp"
+                        android:background="@null"
+                        android:hint="@string/chihewanle"
+                        android:textSize="@dimen/typeface14sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center|right">
+
+                        <ImageView
+                            android:id="@+id/search_image"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/dp_8"
+                            android:src="@mipmap/search" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/sha"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:src="@mipmap/ic_saoyisao" />
             </LinearLayout>
+            <com.stx.xhb.xbanner.XBanner
+                android:id="@+id/bannertop"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@color/colorNavy"
+                app:AutoPlayTime="3000"
+                app:isAutoPlay="true"
+                app:isShowIndicatorOnlyOne="true"
+                app:pageChangeDuration="800"
+                app:pointNormal="@drawable/shape_noraml"
+                app:pointSelect="@drawable/shape_selected"
+                app:pointsPosition="CENTER"
+                app:tipTextSize="12sp" />
 
-            <recycler.coverflow.RecyclerCoverFlow
-                android:id="@+id/coverflow"
-                android:layout_width="match_parent"
-                android:layout_height="180dp"
-                android:layout_marginTop="20dp">
-
-            </recycler.coverflow.RecyclerCoverFlow>
-
-            <!--<include layout="@layout/main_ad_multipicture"></include>-->
-            <TextView
-                android:layout_width="match_parent"
-                android:background="@color/colorGray"
-                android:layout_height="13dp" />
-            <include layout="@layout/main_public_notice"></include>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="13dp"
-                android:background="@color/white" />
-            <include
-                layout="@layout/main_check_in_business"></include>
-            <TextView
-                android:layout_width="match_parent"
-                android:background="@color/white"
-                android:layout_height="13dp" />
-            <include layout="@layout/main_online_broadcast"></include>
-            <TextView
-                android:layout_width="match_parent"
-                android:background="@color/white"
-                android:layout_height="13dp" />
-            <include layout="@layout/main_make_an_appointment"
-                android:visibility="gone"></include>
-            <TextView
-                android:layout_width="match_parent"
-                android:background="@color/white"
-                android:layout_height="13dp" />
-            <include layout="@layout/main_onlinebooking"></include>
         </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+
+        <recycler.coverflow.RecyclerCoverFlow
+            android:id="@+id/coverflow"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:layout_marginTop="20dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="13dp"
+            android:background="@color/colorGray" />
+
+        <include layout="@layout/main_public_notice"></include>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="13dp"
+            android:background="@color/white" />
+
+        <include layout="@layout/main_check_in_business"></include>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="13dp"
+            android:background="@color/white" />
+
+        <include layout="@layout/main_online_broadcast"></include>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="13dp"
+            android:background="@color/white" />
+
+        <include
+            layout="@layout/main_make_an_appointment"
+            android:visibility="gone"></include>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="13dp"
+            android:background="@color/white" />
+
+        <include layout="@layout/main_onlinebooking"></include>
+    </LinearLayout>
+</ScrollView>
