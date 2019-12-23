@@ -2,6 +2,7 @@ package com.zskjprojectj.andouclient.fragment.mall;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -11,7 +12,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
 import com.stx.xhb.xbanner.XBanner;
@@ -21,10 +21,16 @@ import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.adapter.mall.MultipleMallHomeAdapter;
 import com.zskjprojectj.andouclient.base.BaseFragment;
 import com.zskjprojectj.andouclient.entity.TuchongEntity;
+import com.zskjprojectj.andouclient.entity.mall.DataBean;
 import com.zskjprojectj.andouclient.entity.mall.MallItemDataBean;
+import com.zskjprojectj.andouclient.http.ApiException;
+import com.zskjprojectj.andouclient.http.ApiUtils;
+import com.zskjprojectj.andouclient.http.BaseObserver;
+import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.utils.ScreenUtil;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,10 +97,23 @@ public class MallHomepageFragment1 extends BaseFragment {
                 onlinebanner.setAutoPlayAble(data.size() > 1);
                 onlinebanner.setIsClipChildrenMode(true);
                 onlinebanner.setBannerData(R.layout.layout_fresco_imageview, data);
-
             }
         });
 
+
+        HttpRxObservable.getObservable(ApiUtils.getApiService().getMallInfo())
+        .subscribe(new BaseObserver<DataBean>(mAty) {
+
+            @Override
+            public void onHandleSuccess(DataBean bean) {
+
+            }
+
+            @Override
+            public void onHandleError(ApiException apiExc) {
+                super.onHandleError(apiExc);
+            }
+        });
 
     }
 

@@ -1,9 +1,8 @@
 package com.zskjprojectj.andouclient.http;
 
 
-
-
 import com.zskjprojectj.andouclient.entity.TestBean;
+import com.zskjprojectj.andouclient.entity.mall.DataBean;
 
 import io.reactivex.Observable;
 import retrofit2.http.Field;
@@ -16,7 +15,14 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST("cook/query")
-    Observable<BaseResult <TestBean.ResultBean>> getinfo(@Field("key") String key, @Field("menu") String menu);
+    Observable<BaseResult<TestBean.ResultBean>> getinfo(@Field("key") String key, @Field("menu") String menu);
+
+    /**
+     * 获取商城首页数据
+     */
+    @POST("api/goods/index")
+    Observable<BaseResult<DataBean>> getMallInfo();
+
 //    /**
 //     * 注册
 //     *

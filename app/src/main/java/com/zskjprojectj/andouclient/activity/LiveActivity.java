@@ -43,7 +43,7 @@ public class LiveActivity extends BaseListActivity {
             @Override
             public List apply(BaseResult<TestBean.ResultBean> resultBeanBaseResult) throws Exception {
 
-                return resultBeanBaseResult.getResult().getData();
+                return resultBeanBaseResult.getData().getData();
             }
 
         });

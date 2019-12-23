@@ -243,7 +243,7 @@ public abstract class BaseListFragment<D> extends BaseFragment implements BaseQu
 
     protected int getJsonPage(BaseResult<JSONObject> objectBaseResult) {
         try {
-            int i = objectBaseResult.getResult().getInteger("page_limit");
+            int i = objectBaseResult.getData().getInteger("page_limit");
             return i;
         } catch (Exception e) {
             e.printStackTrace();

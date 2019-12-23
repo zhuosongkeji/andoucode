@@ -12,7 +12,7 @@ android {
         javaCompileOptions { annotationProcessorOptions { includeCompileClasspath = true } }
         //  buildConfigField "String", "API_HOST", "\"http://lv.qingheliying.cn\""//API Host
         // buildConfigField "String", "API_HOST", "\"http://apis.juhe.cn/cook/\""
-        buildConfigField "String", "API_HOST", "\"http://apis.juhe.cn/\""
+        buildConfigField "String", "API_HOST", "\"http://192.168.0.110/andou/public/index.php/\""
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

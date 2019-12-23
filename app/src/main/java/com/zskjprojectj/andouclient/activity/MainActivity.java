@@ -31,6 +31,7 @@ import com.zskjprojectj.andouclient.fragment.InfoPageFragment;
 import com.zskjprojectj.andouclient.fragment.MePageFragment;
 import com.zskjprojectj.andouclient.fragment.MerchantsPageFragment;
 import com.zskjprojectj.andouclient.fragment.TieBaFragment;
+import com.zskjprojectj.andouclient.http.RetrofitUtils;
 import com.zskjprojectj.andouclient.utils.BarUtils;
 import com.zskjprojectj.andouclient.utils.LogUtil;
 import com.zskjprojectj.andouclient.utils.StatusBarUtil;
@@ -101,6 +102,8 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void getDataFromServer() {
+
+
 
     }
 

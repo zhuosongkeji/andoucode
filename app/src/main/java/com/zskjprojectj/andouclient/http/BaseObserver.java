@@ -2,6 +2,8 @@ package com.zskjprojectj.andouclient.http;
 
 import android.app.Activity;
 
+import java.io.IOException;
+
 import io.reactivex.disposables.Disposable;
 
 public abstract class BaseObserver<T> extends BaseHandleObserver<BaseResult<T>> implements ProgressCancelListener {
@@ -53,11 +55,11 @@ public abstract class BaseObserver<T> extends BaseHandleObserver<BaseResult<T>> 
 //            } else {
 //                onError(new ApiException(t.getCode(), t.getMsg()));
 //            }
-            if (t.getResultcode().equals("200"))
+            if (t.getCode().equals("200"))
             {
-                onHandleSuccess(t.getResult());
+                onHandleSuccess(t.getData());
             }else {
-                onError(new ApiException(t.getResultcode(), t.getReason()));
+                onError(new ApiException(t.getCode(), t.getMsg()));
             }
         } catch (Exception e) {
             onError(new ApiException(ApiException.TYPE_SYSTEM, e.getMessage()));
@@ -98,7 +100,7 @@ public abstract class BaseObserver<T> extends BaseHandleObserver<BaseResult<T>> 
      *
      * @param t
      */
-    public abstract void onHandleSuccess(T t);
+    public abstract void onHandleSuccess(T t) throws IOException;
 
     public void onHandleSuccess(BaseResult<T> t) {
     }
@@ -107,7 +109,7 @@ public abstract class BaseObserver<T> extends BaseHandleObserver<BaseResult<T>> 
     public String getMsg() {
         if (mData != null) {
             //return mData.getMsg();
-            return mData.getReason();
+            return mData.getMsg();
         }
         return null;
     }

@@ -24,6 +24,7 @@ import es.dmoral.toasty.Toasty;
 
 
 public abstract class BaseFragment extends Fragment {
+    protected static final String TAG = "wangbin";
     private Unbinder mUnBinder;
     protected Activity mAty;
     private LifeCycleListener mListener;
