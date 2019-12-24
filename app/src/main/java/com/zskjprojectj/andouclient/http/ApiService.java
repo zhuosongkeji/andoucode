@@ -4,6 +4,7 @@ package com.zskjprojectj.andouclient.http;
 import com.zskjprojectj.andouclient.entity.TestBean;
 import com.zskjprojectj.andouclient.entity.mall.DataBean;
 import com.zskjprojectj.andouclient.model.Address;
+import com.zskjprojectj.andouclient.model.CartItem;
 import com.zskjprojectj.andouclient.model.User;
 
 import java.util.List;
@@ -76,6 +77,25 @@ public interface ApiService {
     Observable<BaseResult<Object>> defualtAddress(@Field("id") String id,
                                                   @Field("uid") String uid,
                                                   @Field("token") String token);
+
+    /**
+     * 添加购物车
+     */
+    @POST("api/cart/addcar")
+    @FormUrlEncoded
+    Observable<BaseResult<Object>> addCar(@Field("uid") String uid,
+                                          @Field("token") String token,
+                                          @Field("goods_id") String goods_id,
+                                          @Field("merchant_id") String merchant_id,
+                                          @Field("goods_sku_id") String goods_sku_id);
+
+    /**
+     * 购物车列表
+     */
+    @POST("api/cart/index")
+    @FormUrlEncoded
+    Observable<BaseResult<List<CartItem>>> cart(@Field("uid") String uid,
+                                          @Field("token") String token);
 
     /**
      * 登录

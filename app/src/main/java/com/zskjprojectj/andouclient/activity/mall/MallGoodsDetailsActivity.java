@@ -40,9 +40,14 @@ import com.zskjprojectj.andouclient.fragment.hotel.HotelDetailMerchantFragment;
 import com.zskjprojectj.andouclient.fragment.hotel.HotelDetailReserveFragment;
 import com.zskjprojectj.andouclient.fragment.mall.MallGoodsCommentFragment;
 import com.zskjprojectj.andouclient.fragment.mall.MallGoodsDetailFragment;
+import com.zskjprojectj.andouclient.http.ApiUtils;
+import com.zskjprojectj.andouclient.http.BaseObserver;
+import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.utils.DensityUtil;
+import com.zskjprojectj.andouclient.utils.TestUtil;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -197,9 +202,9 @@ public class MallGoodsDetailsActivity extends BaseActivity {
 
             //购物车
             case R.id.tv_mall_shopping:
-            Intent intent=new Intent(MallGoodsDetailsActivity.this, MallMainActivity.class);
-            intent.putExtra("id","MallShopping");
-            startActivity(intent);
+                Intent intent = new Intent(MallGoodsDetailsActivity.this, MallMainActivity.class);
+                intent.putExtra("id", "MallShopping");
+                startActivity(intent);
                 break;
             //客服
             case R.id.tv_Mall_service:
@@ -309,12 +314,20 @@ public class MallGoodsDetailsActivity extends BaseActivity {
         contentView = LayoutInflater.from(this).inflate(R.layout.dialog_buy_now, null);
 
         TextView mTvAddShopping = contentView.findViewById(R.id.tv_add_shopping);
-        mTvAddShopping.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ToastUtil.showToast("加入购物车成功");
-                bottomDialog.dismiss();
-            }
+        mTvAddShopping.setOnClickListener(v -> {
+            HttpRxObservable.getObservable(ApiUtils.getApiService().addCar(
+                    TestUtil.getUid(),
+                    TestUtil.getToken(),
+                    "1",
+                    "1",
+                    "1"
+            )).subscribe(new BaseObserver<Object>(mAt) {
+                @Override
+                public void onHandleSuccess(Object o) throws IOException {
+                    ToastUtil.showToast("加入购物车成功");
+                    bottomDialog.dismiss();
+                }
+            });
         });
         TextView mBuyNow = contentView.findViewById(R.id.tv_buynow);
         mBuyNow.setOnClickListener(new View.OnClickListener() {
