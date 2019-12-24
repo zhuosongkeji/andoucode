@@ -1,13 +1,11 @@
 package com.zskjprojectj.andouclient.fragment.mall;
 
-import android.net.Uri;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,19 +13,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.facebook.drawee.view.SimpleDraweeView;
-import com.google.gson.Gson;
 
 
 import com.stx.xhb.xbanner.XBanner;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.activity.MainActivity;
-import com.zskjprojectj.andouclient.adapter.mall.MultipleMallHomeAdapter;
+import com.zskjprojectj.andouclient.activity.mall.MallGoodsDetailsActivity;
+import com.zskjprojectj.andouclient.adapter.mall.RecommendProductsAdapter;
+import com.zskjprojectj.andouclient.adapter.mall.SpecialProductsAdapter;
 import com.zskjprojectj.andouclient.base.BaseFragment;
 import com.zskjprojectj.andouclient.base.BaseUrl;
-import com.zskjprojectj.andouclient.entity.TuchongEntity;
 import com.zskjprojectj.andouclient.entity.mall.DataBean;
-import com.zskjprojectj.andouclient.entity.mall.MallItemDataBean;
 import com.zskjprojectj.andouclient.http.ApiException;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
@@ -35,13 +30,10 @@ import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.utils.ScreenUtil;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import okhttp3.Call;
 
 /**
  * 项目名称： andoucode
@@ -55,18 +47,25 @@ import okhttp3.Call;
  */
 public class MallHomepageFragment1 extends BaseFragment {
 
-    private ArrayList<MallItemDataBean> dataBeansList;
 
     @BindView(R.id.root_view)
     RelativeLayout mRootView;
 
-    @BindView(R.id.rv_recycler)
-    RecyclerView mRecycler;
 
     @BindView(R.id.onlinebanner)
     XBanner onlinebanner;
 
+    //推荐产品
+    @BindView(R.id.rv_recommend_products)
+    RecyclerView mRecommendProducts;
+
+    //特价产品
+    @BindView(R.id.rv_special_products)
+    RecyclerView mSpecialProducts;
+
     private List<DataBean.BannerBean> banner;
+    private List<DataBean.RecommendGoodsBean> recommend_goods;
+    private List<DataBean.BargainGoodsBean> bargain_goods;
 
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
@@ -88,6 +87,11 @@ public class MallHomepageFragment1 extends BaseFragment {
                     public void onHandleSuccess(DataBean bean) {
 
                         banner = bean.getBanner();
+                        //推荐产品
+                        recommend_goods = bean.getRecommend_goods();
+                        //特价产品
+                        bargain_goods = bean.getBargain_goods();
+
                         //刷新数据之后，需要重新设置是否支持自动轮播
                         onlinebanner.setAutoPlayAble(banner.size() > 1);
                         onlinebanner.setIsClipChildrenMode(true);
@@ -104,64 +108,32 @@ public class MallHomepageFragment1 extends BaseFragment {
 
     @Override
     protected void initData() {
-
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, ScreenUtil.getScreenWidth(mAty) / 2);
         onlinebanner.setLayoutParams(layoutParams);
         initBanner(onlinebanner);
-        dataBeansList = new ArrayList<>();
-        for (int i = 0; i < 1; i++) {
-            dataBeansList.add(new MallItemDataBean(MallItemDataBean.MENU, MallItemDataBean.MENU_SPAN_SIZE));
-            dataBeansList.add(new MallItemDataBean(MallItemDataBean.MENU, MallItemDataBean.MENU_SPAN_SIZE));
-            dataBeansList.add(new MallItemDataBean(MallItemDataBean.MENU, MallItemDataBean.MENU_SPAN_SIZE));
-            dataBeansList.add(new MallItemDataBean(MallItemDataBean.MENU, MallItemDataBean.MENU_SPAN_SIZE));
-            dataBeansList.add(new MallItemDataBean(MallItemDataBean.MENU, MallItemDataBean.MENU_SPAN_SIZE));
-            dataBeansList.add(new MallItemDataBean(MallItemDataBean.MENU, MallItemDataBean.MENU_SPAN_SIZE));
-            dataBeansList.add(new MallItemDataBean(MallItemDataBean.MENU, MallItemDataBean.MENU_SPAN_SIZE));
-            dataBeansList.add(new MallItemDataBean(MallItemDataBean.MENU, MallItemDataBean.MENU_SPAN_SIZE));
-            dataBeansList.add(new MallItemDataBean(MallItemDataBean.PLAN, MallItemDataBean.PLAN_SPAN_SIZE));
-            dataBeansList.add(new MallItemDataBean(MallItemDataBean.PLAN, MallItemDataBean.PLAN_SPAN_SIZE));
-            dataBeansList.add(new MallItemDataBean(MallItemDataBean.NEWGOODS, MallItemDataBean.NEWGOODS_SPAN_SIZE));
-            dataBeansList.add(new MallItemDataBean(MallItemDataBean.RECOMMEND, MallItemDataBean.RECOMMEND_SPAN_SIZE));
-            dataBeansList.add(new MallItemDataBean(MallItemDataBean.GOODSDETAILS, MallItemDataBean.GOODSDETAILS_SPAN_SIZE));
-            dataBeansList.add(new MallItemDataBean(MallItemDataBean.GOODSDETAILS, MallItemDataBean.GOODSDETAILS_SPAN_SIZE));
-            dataBeansList.add(new MallItemDataBean(MallItemDataBean.GOODSDETAILS, MallItemDataBean.GOODSDETAILS_SPAN_SIZE));
-            dataBeansList.add(new MallItemDataBean(MallItemDataBean.GOODSDETAILS, MallItemDataBean.GOODSDETAILS_SPAN_SIZE));
-            dataBeansList.add(new MallItemDataBean(MallItemDataBean.RECOMMEND, MallItemDataBean.RECOMMEND_SPAN_SIZE));
-            dataBeansList.add(new MallItemDataBean(MallItemDataBean.GOODSDETAILS, MallItemDataBean.GOODSDETAILS_SPAN_SIZE));
-            dataBeansList.add(new MallItemDataBean(MallItemDataBean.GOODSDETAILS, MallItemDataBean.GOODSDETAILS_SPAN_SIZE));
-            dataBeansList.add(new MallItemDataBean(MallItemDataBean.GOODSDETAILS, MallItemDataBean.GOODSDETAILS_SPAN_SIZE));
-            dataBeansList.add(new MallItemDataBean(MallItemDataBean.GOODSDETAILS, MallItemDataBean.GOODSDETAILS_SPAN_SIZE));
-        }
 
-
-        MultipleMallHomeAdapter adapter = new MultipleMallHomeAdapter(getActivity(), dataBeansList);
-        GridLayoutManager manager = new GridLayoutManager(getActivity(), 4);
-        mRecycler.setLayoutManager(manager);
-        adapter.setSpanSizeLookup(new BaseQuickAdapter.SpanSizeLookup() {
+        //推荐产品
+        mRecommendProducts.setLayoutManager(new GridLayoutManager(getActivity(),2));
+        RecommendProductsAdapter recommendProductsAdapter=new RecommendProductsAdapter(R.layout.fragment_mall_goods_details_view,recommend_goods);
+        recommendProductsAdapter.openLoadAnimation();
+        recommendProductsAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
-            public int getSpanSize(GridLayoutManager gridLayoutManager, int i) {
-                return dataBeansList.get(i).getSpanSize();
-            }
-        });
-
-        mRecycler.setAdapter(adapter);
-
-        adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-            @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-
-                switch (view.getId()) {
-                    case R.id.tv_recommend_product:
-                        ToastUtil.showToast("文字");
-                        break;
-                    case R.id.tv_see_more:
-                        ToastUtil.showToast("dddd");
-                        break;
-                }
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                startActivity(new Intent(getActivity(), MallGoodsDetailsActivity.class));
             }
         });
 
 
+        //特价产品
+        mSpecialProducts.setLayoutManager(new GridLayoutManager(getActivity(),2));
+        SpecialProductsAdapter specialProductsAdapter=new SpecialProductsAdapter(R.layout.fragment_mall_goods_details_view,bargain_goods);
+        specialProductsAdapter.openLoadAnimation();
+        specialProductsAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                startActivity(new Intent(getActivity(), MallGoodsDetailsActivity.class));
+            }
+        });
     }
 
 

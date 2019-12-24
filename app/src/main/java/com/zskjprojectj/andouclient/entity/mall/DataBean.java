@@ -2,6 +2,7 @@ package com.zskjprojectj.andouclient.entity.mall;
 
 
 
+import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.stx.xhb.xbanner.entity.SimpleBannerInfo;
 
 import java.util.List;
@@ -16,7 +17,9 @@ import java.util.List;
  * 修改时间：
  * 修改备注：
  */
-public class DataBean {
+public class DataBean  {
+
+
     private List<BannerBean> banner;
     private List<CategoryBean> category;
     private List<RecommendGoodsBean> recommend_goods;
