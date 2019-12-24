@@ -1,56 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
     <RelativeLayout
-        android:layout_marginTop="@dimen/dp_10"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10">
+
         <TextView
-            android:text="卓松科技"
-            android:textSize="@dimen/typeface15sp"
-            android:layout_marginLeft="@dimen/dp_10"
+            android:id="@+id/nameTxt"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:text="卓松科技"
+            android:textSize="@dimen/typeface15sp" />
+
         <TextView
-            android:textSize="@dimen/typeface15sp"
-            android:text="18688888888"
+            android:id="@+id/mobileTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/dp_10"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:text="18688888888"
+            android:textSize="@dimen/typeface15sp" />
     </RelativeLayout>
+
     <TextView
-        android:textSize="@dimen/typeface12sp"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="@dimen/dp_10"
-        android:text="重庆市\t南岸区\t南坪\t重庆市南岸区南坪万达广场1号写字楼"
+        android:id="@+id/addressTxt"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-    <RelativeLayout
-        android:layout_marginRight="@dimen/dp_10"
-        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp_10"
-        android:layout_height="wrap_content">
+        android:layout_marginTop="5dp"
+        android:text="重庆市\t南岸区\t南坪\t重庆市南岸区南坪万达广场1号写字楼"
+        android:textSize="@dimen/typeface12sp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10">
+
         <CheckBox
-            android:textColor="@color/colorNavy"
-            android:textSize="@dimen/typeface15sp"
+            android:id="@+id/defaultCkb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="设为默认地址"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:textColor="@color/colorNavy"
+            android:textSize="@dimen/typeface15sp" />
+
         <TextView
-            android:text="编辑"
-            android:layout_centerVertical="true"
+            android:id="@+id/editBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/dp_100"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:text="编辑" />
+
         <TextView
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:text="删除"
+            android:id="@+id/deleteBtn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="删除" />
     </RelativeLayout>
 </LinearLayout>
