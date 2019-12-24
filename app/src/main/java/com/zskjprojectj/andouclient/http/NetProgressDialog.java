@@ -26,7 +26,7 @@ public class NetProgressDialog extends Dialog {
         setCanceledOnTouchOutside(true);
 
         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        View view = LayoutInflater.from(context).inflate(R.layout.dialog_load_view, null);
+        View view = LayoutInflater.from(context).inflate(R.layout.layout_progress_bar, null);
         setContentView(view, params);
         textview_message = view.findViewById(R.id.textview_message);
         Window win = getWindow();

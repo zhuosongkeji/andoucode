@@ -62,12 +62,11 @@ public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatA
 
     //设置布局数据
     protected abstract void setRootView();
+    //findView
+    protected abstract void initViews();
 
     //设置配置数据()比如设置点击事件或者列表里面刷新数据adapter.notify
     protected abstract void initData(Bundle savedInstanceState);
-
-    //findView
-    protected abstract void initViews();
 
     //网络请求绑定适配器用
     public abstract void getDataFromServer();

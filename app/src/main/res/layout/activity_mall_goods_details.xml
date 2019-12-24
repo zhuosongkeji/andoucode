@@ -337,6 +337,7 @@
                     android:paddingTop="@dimen/dp_8">
 
                     <TextView
+                        android:id="@+id/tv_mall_home"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -348,6 +349,7 @@
                         android:textSize="@dimen/typeface11sp" />
 
                     <TextView
+                        android:id="@+id/tv_Mall_service"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -359,6 +361,7 @@
                         android:textSize="@dimen/typeface11sp" />
 
                     <TextView
+                        android:id="@+id/tv_mall_shopping"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -379,6 +382,7 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/add_shopping"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"

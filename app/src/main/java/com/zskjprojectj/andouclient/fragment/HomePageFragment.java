@@ -16,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
+
+
 import com.stx.xhb.xbanner.XBanner;
 import com.stx.xhb.xbanner.entity.LocalImageInfo;
 import com.zaaach.citypicker.CityPicker;

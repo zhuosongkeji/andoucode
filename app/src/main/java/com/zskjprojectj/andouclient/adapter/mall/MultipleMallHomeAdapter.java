@@ -6,7 +6,7 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.stx.xhb.xbanner.XBanner;
+
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.ClassificationofgoodsActivity;
 import com.zskjprojectj.andouclient.activity.mall.MallGoodsDetailsActivity;
@@ -31,18 +31,12 @@ public class MultipleMallHomeAdapter extends BaseMultiItemQuickAdapter<MallItemD
 
     public MultipleMallHomeAdapter(Context context, List<MallItemDataBean> data) {
         super(data);
-
         this.mContext = context;
-
-//        addItemType(MallItemDataBean.BANNER, R.layout.fragment_mall_banner_view);
-//        addItemType(MallItemDataBean.SEARCH, R.layout.fragment_mall_search_view);
         addItemType(MallItemDataBean.MENU, R.layout.fragment_mall_menu_view);
         addItemType(MallItemDataBean.PLAN, R.layout.fragment_mall_activity_plan);
         addItemType(MallItemDataBean.NEWGOODS, R.layout.fragment_mall_new_goods_view);
         addItemType(MallItemDataBean.RECOMMEND, R.layout.fragment_mall_recommend_menu_view);
         addItemType(MallItemDataBean.GOODSDETAILS, R.layout.fragment_mall_goods_details_view);
-
-
     }
 
     @Override

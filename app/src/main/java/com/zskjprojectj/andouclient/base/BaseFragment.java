@@ -78,11 +78,11 @@ public abstract class BaseFragment extends Fragment {
     protected void onFirsLoad() {
         getDataFromServer();
     }
-    protected abstract void initViews(View view, Bundle savedInstanceState);
-
     protected abstract int getContentViewRes();
-    protected abstract void getDataFromServer();
+    protected abstract void initViews(View view, Bundle savedInstanceState);
     protected abstract void initData();
+    protected abstract void getDataFromServer();
+
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     protected void startActivity(Class<?> tClass){

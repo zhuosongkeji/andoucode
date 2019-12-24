@@ -43,7 +43,13 @@ public class MallMainActivity extends BaseActivity {
     @Override
     protected void initData(Bundle savedInstanceState) {
       //  topView.setTitle("在线商城");
-}
+
+        String id = getIntent().getStringExtra("id");
+        if ("MallShopping".equals(id)){
+            navigationBar.selectTab(2);
+
+        }
+    }
 
     @Override
     protected void initViews() {

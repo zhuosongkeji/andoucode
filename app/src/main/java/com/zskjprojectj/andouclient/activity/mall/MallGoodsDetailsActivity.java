@@ -25,9 +25,12 @@ import com.shizhefei.view.indicator.FixedIndicatorView;
 import com.shizhefei.view.indicator.IndicatorViewPager;
 import com.shizhefei.view.indicator.slidebar.ColorBar;
 import com.shizhefei.view.indicator.transition.OnTransitionTextListener;
+
+
 import com.stx.xhb.xbanner.XBanner;
 import com.stx.xhb.xbanner.entity.LocalImageInfo;
 import com.zskjprojectj.andouclient.R;
+import com.zskjprojectj.andouclient.activity.MallMainActivity;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
 import com.zskjprojectj.andouclient.fragment.hotel.CustomViewDialog;
@@ -184,22 +187,38 @@ public class MallGoodsDetailsActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.tv_buy_now, R.id.rv_shop_home, R.id.bt_mall_goods_discount, R.id.shared})
+    @OnClick({R.id.tv_mall_home, R.id.tv_mall_shopping, R.id.tv_Mall_service, R.id.tv_buy_now, R.id.add_shopping, R.id.rv_shop_home, R.id.bt_mall_goods_discount, R.id.shared})
     public void clickButNow(View v) {
         switch (v.getId()) {
 
-            case R.id.tv_buy_now:
-                initBuyNow();
+
+            //购物车
+            case R.id.tv_mall_shopping:
+            Intent intent=new Intent(MallGoodsDetailsActivity.this, MallMainActivity.class);
+            intent.putExtra("id","MallShopping");
+            startActivity(intent);
+                break;
+            //客服
+            case R.id.tv_Mall_service:
+                ToastUtil.showToast("客服");
                 break;
 
+            //立即购买
+            case R.id.tv_buy_now:
+                //加入购物车
+            case R.id.add_shopping:
+                initBuyNow();
+                break;
+            //店铺主页
+            case R.id.tv_mall_home:
             case R.id.rv_shop_home:
                 startActivity(new Intent(MallGoodsDetailsActivity.this, MallShoppingHomeActivity.class));
                 break;
-
+            //优惠券
             case R.id.bt_mall_goods_discount:
                 initDiscount();
                 break;
-
+            //分享
             case R.id.shared:
                 CustomViewDialog dialog = new CustomViewDialog(this, R.layout.activity_shared_dialog_view,
                         new int[]{R.id.cancle, R.id.weixin, R.id.friendcircle, R.id.qq, R.id.qqkongjian, R.id.weibo});
@@ -286,6 +305,14 @@ public class MallGoodsDetailsActivity extends BaseActivity {
 
         contentView = LayoutInflater.from(this).inflate(R.layout.dialog_buy_now, null);
 
+        TextView mTvAddShopping = contentView.findViewById(R.id.tv_add_shopping);
+        mTvAddShopping.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToastUtil.showToast("加入购物车成功");
+                bottomDialog.dismiss();
+            }
+        });
         TextView mBuyNow = contentView.findViewById(R.id.tv_buynow);
         mBuyNow.setOnClickListener(new View.OnClickListener() {
             @Override

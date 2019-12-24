@@ -71,6 +71,8 @@ public class MallShoppingFragment extends BaseFragment {
     @Override
     protected void initData() {
 
+
+
         dataList = new ArrayList<>();
         for (int i = 0; i < 20; i++) {
             MallShoppingbean databean = new MallShoppingbean();
@@ -82,5 +84,11 @@ public class MallShoppingFragment extends BaseFragment {
         adapter.openLoadAnimation();
         mRecycler.setAdapter(adapter);
     }
+
+    @OnClick(R.id.cb_selectorcb)
+    public void clickSelectorAll(){
+
+    }
+
 
 }

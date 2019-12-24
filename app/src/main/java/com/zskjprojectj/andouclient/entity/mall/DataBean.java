@@ -1,5 +1,9 @@
 package com.zskjprojectj.andouclient.entity.mall;
 
+
+
+import com.stx.xhb.xbanner.entity.SimpleBannerInfo;
+
 import java.util.List;
 
 /**
@@ -50,7 +54,7 @@ public class DataBean {
         this.bargain_goods = bargain_goods;
     }
 
-    public static class BannerBean {
+    public static class BannerBean extends SimpleBannerInfo {
         /**
          * id : 12
          * img : /uploads/7bad71d9e8327d8bf1ea49e09e8ac3dd.jpg
@@ -83,6 +87,11 @@ public class DataBean {
 
         public void setUrl(String url) {
             this.url = url;
+        }
+
+        @Override
+        public String getXBannerUrl() {
+            return "http://andou.zhuosongkj.com/index.php";
         }
     }
 

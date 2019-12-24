@@ -4,6 +4,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -11,15 +12,19 @@ import android.widget.Toast;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
+
+
 import com.stx.xhb.xbanner.XBanner;
-import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.callback.StringCallback;
 import com.zskjprojectj.andouclient.R;
+import com.zskjprojectj.andouclient.activity.MainActivity;
 import com.zskjprojectj.andouclient.adapter.mall.MultipleMallHomeAdapter;
 import com.zskjprojectj.andouclient.base.BaseFragment;
+import com.zskjprojectj.andouclient.base.BaseUrl;
 import com.zskjprojectj.andouclient.entity.TuchongEntity;
 import com.zskjprojectj.andouclient.entity.mall.DataBean;
 import com.zskjprojectj.andouclient.entity.mall.MallItemDataBean;
@@ -50,20 +55,21 @@ import okhttp3.Call;
  */
 public class MallHomepageFragment1 extends BaseFragment {
 
-    private RecyclerView mRecycler;
     private ArrayList<MallItemDataBean> dataBeansList;
-    private XBanner onlinebanner;
 
     @BindView(R.id.root_view)
     RelativeLayout mRootView;
 
+    @BindView(R.id.rv_recycler)
+    RecyclerView mRecycler;
+
+    @BindView(R.id.onlinebanner)
+    XBanner onlinebanner;
+
+    private List<DataBean.BannerBean> banner;
+
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
-
-        mRecycler = view.findViewById(R.id.rv_recycler);
-
-        onlinebanner = view.findViewById(R.id.onlinebanner);
-
         getBarDistance(mRootView);
     }
 
@@ -74,46 +80,25 @@ public class MallHomepageFragment1 extends BaseFragment {
 
     @Override
     protected void getDataFromServer() {
-        String url = "https://api.tuchong.com/2/wall-paper/app";
-        OkHttpUtils.get().url(url).build().execute(new StringCallback() {
-            @Override
-            public void onError(Call call, Exception e, int id) {
-                Toast.makeText(mAty, "加载广告数据失败", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onResponse(String response, int id) {
-                TuchongEntity advertiseEntity = new Gson().fromJson(response, TuchongEntity.class);
-                List<TuchongEntity.FeedListBean> others = advertiseEntity.getFeedList();
-                List<TuchongEntity.FeedListBean.EntryBean> data = new ArrayList<>();
-                for (int i = 0; i < others.size(); i++) {
-                    TuchongEntity.FeedListBean feedListBean = others.get(i);
-                    if ("post".equals(feedListBean.getType())) {
-                        data.add(feedListBean.getEntry());
-                    }
-                }
-
-                //刷新数据之后，需要重新设置是否支持自动轮播
-                onlinebanner.setAutoPlayAble(data.size() > 1);
-                onlinebanner.setIsClipChildrenMode(true);
-                onlinebanner.setBannerData(R.layout.layout_fresco_imageview, data);
-            }
-        });
-
 
         HttpRxObservable.getObservable(ApiUtils.getApiService().getMallInfo())
-        .subscribe(new BaseObserver<DataBean>(mAty) {
+                .subscribe(new BaseObserver<DataBean>(mAty) {
 
-            @Override
-            public void onHandleSuccess(DataBean bean) {
+                    @Override
+                    public void onHandleSuccess(DataBean bean) {
 
-            }
+                        banner = bean.getBanner();
+                        //刷新数据之后，需要重新设置是否支持自动轮播
+                        onlinebanner.setAutoPlayAble(banner.size() > 1);
+                        onlinebanner.setIsClipChildrenMode(true);
+                        onlinebanner.setBannerData(banner);
+                    }
 
-            @Override
-            public void onHandleError(ApiException apiExc) {
-                super.onHandleError(apiExc);
-            }
-        });
+                    @Override
+                    public void onHandleError(ApiException apiExc) {
+                        super.onHandleError(apiExc);
+                    }
+                });
 
     }
 
@@ -125,8 +110,6 @@ public class MallHomepageFragment1 extends BaseFragment {
         initBanner(onlinebanner);
         dataBeansList = new ArrayList<>();
         for (int i = 0; i < 1; i++) {
-//            dataBeansList.add(new MallItemDataBean(MallItemDataBean.SEARCH, MallItemDataBean.SEARCH_SPAN_SIZE));
-//            dataBeansList.add(new MallItemDataBean(MallItemDataBean.BANNER, MallItemDataBean.BANNER_SPAN_SIZE));
             dataBeansList.add(new MallItemDataBean(MallItemDataBean.MENU, MallItemDataBean.MENU_SPAN_SIZE));
             dataBeansList.add(new MallItemDataBean(MallItemDataBean.MENU, MallItemDataBean.MENU_SPAN_SIZE));
             dataBeansList.add(new MallItemDataBean(MallItemDataBean.MENU, MallItemDataBean.MENU_SPAN_SIZE));
@@ -163,27 +146,17 @@ public class MallHomepageFragment1 extends BaseFragment {
 
         mRecycler.setAdapter(adapter);
 
-//        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-//
-//                switch (view.getId()){
-//
-//                }
-//            }
-//        });
-//
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
 
-                switch (view.getId()){
+                switch (view.getId()) {
                     case R.id.tv_recommend_product:
                         ToastUtil.showToast("文字");
                         break;
                     case R.id.tv_see_more:
-                    ToastUtil.showToast("dddd");
-                    break;
+                        ToastUtil.showToast("dddd");
+                        break;
                 }
             }
         });
@@ -217,20 +190,20 @@ public class MallHomepageFragment1 extends BaseFragment {
         banner.loadImage(new XBanner.XBannerAdapter() {
             @Override
             public void loadBanner(XBanner banner, Object model, View view, int position) {
-                //此处适用Fresco加载图片，可自行替换自己的图片加载框架
-                SimpleDraweeView draweeView = (SimpleDraweeView) view;
-                TuchongEntity.FeedListBean.EntryBean listBean = ((TuchongEntity.FeedListBean.EntryBean) model);
-                String url = "https://photo.tuchong.com/" + listBean.getImages().get(0).getUser_id() + "/f/" + listBean.getImages().get(0).getImg_id() + ".jpg";
-                draweeView.setImageURI(Uri.parse(url));
-//                加载本地图片展示
-//          ((ImageView)view).setImageResource(((LocalImageInfo) model).getXBannerUrl());
+                //1、此处使用的Glide加载图片，可自行替换自己项目中的图片加载框架
+                //2、返回的图片路径为Object类型，你只需要强转成你传输的类型就行，切记不要胡乱强转！
+                DataBean.BannerBean model1 = (DataBean.BannerBean) model;
+                String url = BaseUrl.BASE_URL + model1.getImg();
+                Glide.with(mAty).load(url).apply(new RequestOptions()
+                        .placeholder(R.drawable.default_image).error(R.drawable.default_image)).into((ImageView) view);
+
             }
         });
     }
 
 
     @OnClick(R.id.img_back)
-    public void clickBack(){
+    public void clickBack() {
         getActivity().finish();
     }
 }
