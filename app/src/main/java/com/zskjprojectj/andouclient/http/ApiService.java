@@ -3,6 +3,10 @@ package com.zskjprojectj.andouclient.http;
 
 import com.zskjprojectj.andouclient.entity.TestBean;
 import com.zskjprojectj.andouclient.entity.mall.DataBean;
+import com.zskjprojectj.andouclient.model.Address;
+import com.zskjprojectj.andouclient.model.User;
+
+import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.http.Field;
@@ -22,6 +26,71 @@ public interface ApiService {
      */
     @POST("api/goods/index")
     Observable<BaseResult<DataBean>> getMallInfo();
+
+    /**
+     * 新增收货地址
+     */
+    @POST("api/Usersaddress/address_add")
+    @FormUrlEncoded
+    Observable<BaseResult<Object>> addAddress(@Field("uid") String uid,
+                                              @Field("token") String token,
+                                              @Field("name") String name,
+                                              @Field("mobile") String mobile,
+                                              @Field("province_id") String province_id,
+                                              @Field("city_id") String city_id,
+                                              @Field("area_id") String area_id,
+                                              @Field("address") String address,
+                                              @Field("is_defualt") String is_defualt);
+
+    /**
+     * 修改收货地址
+     */
+    @POST("api/Usersaddress/address_edit")
+    @FormUrlEncoded
+    Observable<BaseResult<Object>> editAddress(@Field("id") String id,
+                                               @Field("uid") String uid,
+                                               @Field("token") String token,
+                                               @Field("name") String name,
+                                               @Field("mobile") String mobile,
+                                               @Field("province_id") String province_id,
+                                               @Field("city_id") String city_id,
+                                               @Field("area_id") String area_id,
+                                               @Field("address") String address,
+                                               @Field("is_defualt") String is_defualt);
+
+    /**
+     * 设置默认收货地址
+     */
+    @POST("api/Usersaddress/defualt")
+    @FormUrlEncoded
+    Observable<BaseResult<Object>> defualtAddress(@Field("id") String id,
+                                                  @Field("uid") String uid,
+                                                  @Field("token") String token);
+
+    /**
+     * 登录
+     */
+    @POST("api/login/login_p")
+    @FormUrlEncoded
+    Observable<BaseResult<User>> login(@Field("phone") String uid,
+                                       @Field("password") String token);
+
+    /**
+     * 收货地址列表
+     */
+    @POST("api/Usersaddress/address")
+    @FormUrlEncoded
+    Observable<BaseResult<List<Address>>> address(@Field("uid") String uid,
+                                                  @Field("token") String token);
+
+    /**
+     * 删除收货地址
+     */
+    @POST("api/Usersaddress/address_del")
+    @FormUrlEncoded
+    Observable<BaseResult<Object>> delAddress(@Field("uid") String uid,
+                                              @Field("token") String token,
+                                              @Field("id") String id);
 
 //    /**
 //     * 注册

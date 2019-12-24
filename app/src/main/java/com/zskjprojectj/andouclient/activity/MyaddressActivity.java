@@ -1,9 +1,12 @@
 package com.zskjprojectj.andouclient.activity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,16 +19,26 @@ import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
 import com.zskjprojectj.andouclient.entity.BrowsingBean;
 import com.zskjprojectj.andouclient.entity.MyaddressBean;
+import com.zskjprojectj.andouclient.http.ApiUtils;
+import com.zskjprojectj.andouclient.http.BaseObserver;
+import com.zskjprojectj.andouclient.http.HttpRxObservable;
+import com.zskjprojectj.andouclient.model.Address;
+import com.zskjprojectj.andouclient.utils.TestUtil;
+import com.zskjprojectj.andouclient.utils.ToastUtil;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 我的地址
  */
 public class MyaddressActivity extends BaseActivity {
+    public static final String KEY_DATA = "KEY_DATA";
     private RecyclerView mRecycler;
-    private ArrayList<MyaddressBean> mDataList;
     private Button btn_addressadd;
+    MyaddressAdapter adapter = new MyaddressAdapter();
+
     @Override
     protected void setRootView() {
         setContentView(R.layout.activity_myaddress);
@@ -34,43 +47,58 @@ public class MyaddressActivity extends BaseActivity {
     @Override
     protected void initData(Bundle savedInstanceState) {
         topView.setTitle("我的地址");
-        mDataList=new ArrayList<>();
-        for (int i=0;i<3;i++){
-            MyaddressBean databean=new MyaddressBean();
-//            databean.setBrowsingnpic(R.mipmap.ic_busiess_canting);
-//            databean.setBrowsingname("北平楼涮羊肉");
-            mDataList.add(databean);
-        }
-
-        MyaddressAdapter adapter=new MyaddressAdapter(R.layout.item_myaddress,mDataList);
         adapter.openLoadAnimation();
-        adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-            @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-
+        adapter.setOnItemChildClickListener((adapter, view, position) -> {
+            if (view.getId() == R.id.deleteBtn) {
+                HttpRxObservable.getObservable(ApiUtils.getApiService().delAddress(
+                        TestUtil.getUid(),
+                        TestUtil.getToken(),
+                        this.adapter.getItem(position).id
+                )).subscribe(new BaseObserver<Object>(mAt) {
+                    @Override
+                    public void onHandleSuccess(Object o) throws IOException {
+                        ToastUtil.showToast("删除成功!");
+                        getDataFromServer();
+                    }
+                });
+            } else if (view.getId() == R.id.editBtn) {
+                Intent intent = new Intent(mAt, NewaddressActivity.class);
+                intent.putExtra(KEY_DATA, this.adapter.getItem(position));
+                startActivityForResult(intent, 666);
             }
         });
-        mRecycler.addItemDecoration(new DividerItemDecoration(mAt,DividerItemDecoration.VERTICAL));
+        mRecycler.addItemDecoration(new DividerItemDecoration(mAt, DividerItemDecoration.VERTICAL));
         mRecycler.setAdapter(adapter);
     }
 
     @Override
     protected void initViews() {
-        mRecycler=findViewById(R.id.rv_recycler);
+        mRecycler = findViewById(R.id.rv_recycler);
         mRecycler.setLayoutManager(new LinearLayoutManager(mAt));
-        btn_addressadd=findViewById(R.id.btn_addressadd);
-        btn_addressadd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                jumpActivity(NewaddressActivity.class);
-            }
-        });
+        btn_addressadd = findViewById(R.id.btn_addressadd);
+        btn_addressadd.setOnClickListener(view ->
+                startActivityForResult(new Intent(mAt, NewaddressActivity.class), 666));
+    }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            getDataFromServer();
+        }
     }
 
     @Override
     public void getDataFromServer() {
-
+        HttpRxObservable.getObservable(ApiUtils.getApiService().address(
+                TestUtil.getUid()
+                , TestUtil.getToken()
+        )).subscribe(new BaseObserver<List<Address>>(mAt) {
+            @Override
+            public void onHandleSuccess(List<Address> addresses) throws IOException {
+                adapter.setNewData(addresses);
+            }
+        });
     }
 
     @Override

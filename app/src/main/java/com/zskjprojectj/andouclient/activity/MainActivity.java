@@ -31,11 +31,17 @@ import com.zskjprojectj.andouclient.fragment.InfoPageFragment;
 import com.zskjprojectj.andouclient.fragment.MePageFragment;
 import com.zskjprojectj.andouclient.fragment.MerchantsPageFragment;
 import com.zskjprojectj.andouclient.fragment.TieBaFragment;
+import com.zskjprojectj.andouclient.http.ApiUtils;
+import com.zskjprojectj.andouclient.http.BaseObserver;
+import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.http.RetrofitUtils;
+import com.zskjprojectj.andouclient.model.User;
 import com.zskjprojectj.andouclient.utils.BarUtils;
 import com.zskjprojectj.andouclient.utils.LogUtil;
+import com.zskjprojectj.andouclient.utils.SharedPreferencesManager;
 import com.zskjprojectj.andouclient.utils.StatusBarUtil;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,6 +70,7 @@ public class MainActivity extends BaseActivity {
     private int[] selectIcon = {R.mipmap.home_icon_check, R.mipmap.merchants_icon_check, R.mipmap.info_icon, R.mipmap.tieba_icon_check, R.mipmap.me_icon_check};
 
     private List<Fragment> fragments = new ArrayList<>();
+
     @Override
     protected void setRootView() {
         setContentView(R.layout.activity_main);
@@ -102,9 +109,15 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void getDataFromServer() {
-
-
-
+        //模拟登录 拿到数据 调试需要token的接口
+        HttpRxObservable.getObservable(ApiUtils.getApiService().login("123456", "123456"))
+                .subscribe(new BaseObserver<User>(mAt) {
+                    @Override
+                    public void onHandleSuccess(User user) {
+                        SharedPreferencesManager.getInstance().setString(User.KEY_TOKEN, user.token);
+                        SharedPreferencesManager.getInstance().setString(User.KEY_UID, user.id);
+                    }
+                });
     }
 
     @Override
@@ -142,6 +155,7 @@ public class MainActivity extends BaseActivity {
     public EasyNavigationBar getNavigationBar() {
         return navigationBar;
     }
+
     //动态申请权限
     @SuppressLint("CheckResult")
     private void checkRxPermission() {
@@ -182,6 +196,7 @@ public class MainActivity extends BaseActivity {
                     }
                 });
     }
+
     /**
      * 用户拒绝，并且选择不再提示,可以引导用户进入权限设置界面开启权限
      * 弹窗是否显示根据需求选择调用
