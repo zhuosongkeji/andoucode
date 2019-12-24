@@ -314,7 +314,7 @@ public class ShareLocationActivity extends Activity {
 //                            }
 //                            PoiItem poiItem = mList.get(position);
 //                            //发送定位信息
-//                            LoginInfo.DataBean data = UserInfo.getLoginInfo().getData();
+//                            LoginInfo.MallHomeDataBean data = UserInfo.getLoginInfo().getData();
 //                            TaoChatManager.sendAddress(data.getId()+"",poiItem.getLatLonPoint().getLatitude(),poiItem.getLatLonPoint().getLongitude(),poiItem.getSnippet(), savedInstanceStates);
 //                            finish();
 //                           // Toast.makeText(ShareLocationActivity.this, "发送：" + poiItem.getTitle() + "  " + poiItem.getSnippet() + "  " + "纬度：" + poiItem.getLatLonPoint().getLatitude() + "  " + "经度：" + poiItem.getLatLonPoint().getLongitude(), Toast.LENGTH_SHORT).show();

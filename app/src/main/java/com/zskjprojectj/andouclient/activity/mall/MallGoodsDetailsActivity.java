@@ -8,6 +8,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,6 +34,8 @@ import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.MallMainActivity;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
+import com.zskjprojectj.andouclient.entity.mall.MallGoodsDetailsDataBean;
+import com.zskjprojectj.andouclient.entity.mall.MallHomeDataBean;
 import com.zskjprojectj.andouclient.fragment.hotel.CustomViewDialog;
 import com.zskjprojectj.andouclient.fragment.hotel.HotelDetailCommentFragment;
 import com.zskjprojectj.andouclient.fragment.hotel.HotelDetailFacilityFragment;
@@ -40,6 +43,7 @@ import com.zskjprojectj.andouclient.fragment.hotel.HotelDetailMerchantFragment;
 import com.zskjprojectj.andouclient.fragment.hotel.HotelDetailReserveFragment;
 import com.zskjprojectj.andouclient.fragment.mall.MallGoodsCommentFragment;
 import com.zskjprojectj.andouclient.fragment.mall.MallGoodsDetailFragment;
+import com.zskjprojectj.andouclient.http.ApiException;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
@@ -78,7 +82,7 @@ public class MallGoodsDetailsActivity extends BaseActivity {
     private List<Fragment> list = new ArrayList<>();
     private Dialog bottomDialog;
     private View contentView;
-    private int id;
+    private int GoodsId;
     @Override
     protected void setRootView() {
         setContentView(R.layout.activity_mall_goods_details);
@@ -86,7 +90,7 @@ public class MallGoodsDetailsActivity extends BaseActivity {
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-        id = getIntent().getIntExtra("id", 0);
+        GoodsId = getIntent().getIntExtra("id", 0);
         initLocalImage();
 
         //商品详情
@@ -184,8 +188,23 @@ public class MallGoodsDetailsActivity extends BaseActivity {
 
     @Override
     public void getDataFromServer() {
+        String id = String.valueOf(GoodsId);
+        HttpRxObservable.getObservable(ApiUtils.getApiService().mallDetailsShow(id))
+                .subscribe(new BaseObserver<MallGoodsDetailsDataBean>(this) {
+                    @Override
+                    public void onHandleSuccess(MallGoodsDetailsDataBean mallGoodsDetailsDataBean) throws IOException {
+                        String img = mallGoodsDetailsDataBean.getImg();
+                        List<String> album = mallGoodsDetailsDataBean.getAlbum();
+                        Log.d(TAG, "onHandleSuccess: "+img);
 
 
+                    }
+
+                    @Override
+                    public void onHandleError(ApiException apiExc) {
+                        super.onHandleError(apiExc);
+                    }
+                });
 
 
     }

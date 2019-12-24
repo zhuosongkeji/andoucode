@@ -17,7 +17,7 @@ import java.util.List;
  * 修改时间：
  * 修改备注：
  */
-public class DataBean  {
+public class MallHomeDataBean {
 
 
     private List<BannerBean> banner;

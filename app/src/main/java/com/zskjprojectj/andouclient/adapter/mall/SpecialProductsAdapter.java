@@ -10,7 +10,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.base.BaseUrl;
-import com.zskjprojectj.andouclient.entity.mall.DataBean;
+import com.zskjprojectj.andouclient.entity.mall.MallHomeDataBean;
 
 import java.util.List;
 
@@ -24,13 +24,13 @@ import java.util.List;
  * 修改时间：
  * 修改备注：
  */
-public class SpecialProductsAdapter extends BaseQuickAdapter<DataBean.BargainGoodsBean, BaseViewHolder> {
-    public SpecialProductsAdapter(int layoutResId, @Nullable List<DataBean.BargainGoodsBean> data) {
+public class SpecialProductsAdapter extends BaseQuickAdapter<MallHomeDataBean.BargainGoodsBean, BaseViewHolder> {
+    public SpecialProductsAdapter(int layoutResId, @Nullable List<MallHomeDataBean.BargainGoodsBean> data) {
         super(layoutResId, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, DataBean.BargainGoodsBean item) {
+    protected void convert(BaseViewHolder helper, MallHomeDataBean.BargainGoodsBean item) {
 
         // 加载特价产品图片
         Glide.with(mContext).load(BaseUrl.BASE_URL+item.getImg())

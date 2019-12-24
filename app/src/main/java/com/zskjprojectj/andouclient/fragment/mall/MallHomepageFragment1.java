@@ -23,13 +23,12 @@ import com.zskjprojectj.andouclient.adapter.mall.RecommendProductsAdapter;
 import com.zskjprojectj.andouclient.adapter.mall.SpecialProductsAdapter;
 import com.zskjprojectj.andouclient.base.BaseFragment;
 import com.zskjprojectj.andouclient.base.BaseUrl;
-import com.zskjprojectj.andouclient.entity.mall.DataBean;
+import com.zskjprojectj.andouclient.entity.mall.MallHomeDataBean;
 import com.zskjprojectj.andouclient.http.ApiException;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.utils.ScreenUtil;
-import com.zskjprojectj.andouclient.utils.ToastUtil;
 
 import java.util.List;
 
@@ -64,7 +63,7 @@ public class MallHomepageFragment1 extends BaseFragment {
     @BindView(R.id.rv_special_products)
     RecyclerView mSpecialProducts;
 
-    private List<DataBean.BannerBean> banner;
+    private List<MallHomeDataBean.BannerBean> banner;
 
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
@@ -80,17 +79,17 @@ public class MallHomepageFragment1 extends BaseFragment {
     protected void getDataFromServer() {
 
         HttpRxObservable.getObservable(ApiUtils.getApiService().getMallInfo())
-                .subscribe(new BaseObserver<DataBean>(mAty) {
+                .subscribe(new BaseObserver<MallHomeDataBean>(mAty) {
 
                     @Override
-                    public void onHandleSuccess(DataBean bean) {
+                    public void onHandleSuccess(MallHomeDataBean bean) {
 
                         banner = bean.getBanner();
                         //推荐产品
-                        List<DataBean.RecommendGoodsBean> recommend_goods = bean.getRecommend_goods();
+                        List<MallHomeDataBean.RecommendGoodsBean> recommend_goods = bean.getRecommend_goods();
                         initRecommendAdapter(recommend_goods);
                         //特价产品
-                        List<DataBean.BargainGoodsBean> bargain_goods = bean.getBargain_goods();
+                        List<MallHomeDataBean.BargainGoodsBean> bargain_goods = bean.getBargain_goods();
                         initBargainAdapter(bargain_goods);
 
                         //刷新数据之后，需要重新设置是否支持自动轮播
@@ -107,7 +106,7 @@ public class MallHomepageFragment1 extends BaseFragment {
 
     }
 
-    private void initBargainAdapter(List<DataBean.BargainGoodsBean> bargain_goods) {
+    private void initBargainAdapter(List<MallHomeDataBean.BargainGoodsBean> bargain_goods) {
         //特价产品
         mSpecialProducts.setLayoutManager(new GridLayoutManager(getActivity(),2));
         SpecialProductsAdapter specialProductsAdapter=new SpecialProductsAdapter(R.layout.fragment_mall_goods_details_view,bargain_goods);
@@ -122,7 +121,7 @@ public class MallHomepageFragment1 extends BaseFragment {
         mSpecialProducts.setAdapter(specialProductsAdapter);
     }
 
-    private void initRecommendAdapter(List<DataBean.RecommendGoodsBean> recommend_goods) {
+    private void initRecommendAdapter(List<MallHomeDataBean.RecommendGoodsBean> recommend_goods) {
         //推荐产品
         mRecommendProducts.setLayoutManager(new GridLayoutManager(getActivity(),2));
         RecommendProductsAdapter recommendProductsAdapter=new RecommendProductsAdapter(R.layout.fragment_mall_goods_details_view,recommend_goods);
@@ -181,7 +180,7 @@ public class MallHomepageFragment1 extends BaseFragment {
             public void loadBanner(XBanner banner, Object model, View view, int position) {
                 //1、此处使用的Glide加载图片，可自行替换自己项目中的图片加载框架
                 //2、返回的图片路径为Object类型，你只需要强转成你传输的类型就行，切记不要胡乱强转！
-                DataBean.BannerBean model1 = (DataBean.BannerBean) model;
+                MallHomeDataBean.BannerBean model1 = (MallHomeDataBean.BannerBean) model;
                 String url = BaseUrl.BASE_URL + model1.getImg();
                 Glide.with(mAty).load(url).apply(new RequestOptions()
                         .placeholder(R.drawable.default_image).error(R.drawable.default_image)).into((ImageView) view);
