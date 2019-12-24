@@ -36,8 +36,6 @@ public interface ApiService {
     Observable<BaseResult<User>> mallDetailsShow(@Field("id") String id);
 
 
-
-
     /**
      * 新增收货地址
      */
@@ -95,7 +93,16 @@ public interface ApiService {
     @POST("api/cart/index")
     @FormUrlEncoded
     Observable<BaseResult<List<CartItem>>> cart(@Field("uid") String uid,
-                                          @Field("token") String token);
+                                                @Field("token") String token);
+
+    /**
+     * 删除购物车
+     */
+    @POST("api/cart/delcar")
+    @FormUrlEncoded
+    Observable<BaseResult<Object>> delCart(@Field("uid") String uid,
+                                           @Field("token") String token,
+                                           @Field("id") String id);
 
     /**
      * 登录
