@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.mall.MallOnlineOrderActivity;
 import com.zskjprojectj.andouclient.adapter.PlatformshoppingcartAdapter;
@@ -25,6 +26,7 @@ import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.model.CartItem;
 import com.zskjprojectj.andouclient.utils.TestUtil;
+import com.zskjprojectj.andouclient.utils.ToastUtil;
 import com.zskjprojectj.andouclient.view.TopView;
 
 import java.io.IOException;
@@ -60,6 +62,19 @@ public class MallShoppingFragment extends BaseFragment {
         mRecycler = view.findViewById(R.id.rv_recycler);
         mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter.bindToRecyclerView(mRecycler);
+        adapter.setOnItemChildClickListener((adapter, view1, position) -> {
+            HttpRxObservable.getObservable(ApiUtils.getApiService().delCart(
+                    TestUtil.getUid(),
+                    TestUtil.getToken(),
+                    this.adapter.getItem(position).id
+            )).subscribe(new BaseObserver<Object>(mAty) {
+                @Override
+                public void onHandleSuccess(Object o) throws IOException {
+                    ToastUtil.showToast("删除成功");
+                    adapter.remove(position);
+                }
+            });
+        });
         btn_settleaccounts = view.findViewById(R.id.btn_settleaccounts);
         btn_settleaccounts.setOnClickListener(new View.OnClickListener() {
             @Override
