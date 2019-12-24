@@ -78,7 +78,7 @@ public class MallGoodsDetailsActivity extends BaseActivity {
     private List<Fragment> list = new ArrayList<>();
     private Dialog bottomDialog;
     private View contentView;
-
+    private int id;
     @Override
     protected void setRootView() {
         setContentView(R.layout.activity_mall_goods_details);
@@ -86,6 +86,7 @@ public class MallGoodsDetailsActivity extends BaseActivity {
 
     @Override
     protected void initData(Bundle savedInstanceState) {
+        id = getIntent().getIntExtra("id", 0);
         initLocalImage();
 
         //商品详情
@@ -202,9 +203,9 @@ public class MallGoodsDetailsActivity extends BaseActivity {
 
             //购物车
             case R.id.tv_mall_shopping:
-                Intent intent = new Intent(MallGoodsDetailsActivity.this, MallMainActivity.class);
-                intent.putExtra("id", "MallShopping");
-                startActivity(intent);
+            Intent intent=new Intent(MallGoodsDetailsActivity.this, MallMainActivity.class);
+            intent.putExtra("id","MallShopping");
+            startActivity(intent);
                 break;
             //客服
             case R.id.tv_Mall_service:
