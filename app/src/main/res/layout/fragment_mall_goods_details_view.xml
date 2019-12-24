@@ -25,7 +25,7 @@
 
     <TextView
         android:id="@+id/tv_products_des"
-        android:layout_width="150dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/dp_14"
@@ -35,14 +35,30 @@
         android:textColor="#202020"
         android:textSize="@dimen/typeface12sp" />
 
-    <TextView
-        android:id="@+id/tv_products_price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_14"
-        android:text="¥1299"
-        android:textColor="#FE5F50"
-        android:textSize="@dimen/typeface10sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_14"
+                android:text="¥"
+                android:textColor="#FE5F50"
+                android:textSize="@dimen/typeface10sp"/>
+
+
+            <TextView
+                android:id="@+id/tv_products_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_2"
+                android:layout_marginTop="@dimen/dp_14"
+                android:text="1299"
+                android:textColor="#FE5F50"
+                android:textSize="@dimen/typeface10sp" />
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

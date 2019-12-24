@@ -179,6 +179,9 @@ public class MallGoodsDetailsActivity extends BaseActivity {
     @Override
     public void getDataFromServer() {
 
+
+
+
     }
 
     @Override

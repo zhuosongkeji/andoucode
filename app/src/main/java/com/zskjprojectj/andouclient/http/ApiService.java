@@ -28,6 +28,16 @@ public interface ApiService {
     Observable<BaseResult<DataBean>> getMallInfo();
 
     /**
+     * 商城商品详情展示
+     */
+    @POST("api/goods/details")
+    @FormUrlEncoded
+    Observable<BaseResult<User>> mallDetailsShow(@Field("id") String id);
+
+
+
+
+    /**
      * 新增收货地址
      */
     @POST("api/Usersaddress/address_add")

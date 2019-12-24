@@ -2,6 +2,7 @@ package com.zskjprojectj.andouclient.fragment.mall;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -129,7 +130,11 @@ public class MallHomepageFragment1 extends BaseFragment {
         recommendProductsAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                startActivity(new Intent(getActivity(), MallGoodsDetailsActivity.class));
+//                startActivity(new Intent(getActivity(), MallGoodsDetailsActivity.class));
+                Log.d(TAG, "onItemClick: "+recommend_goods.get(position).getId());
+                Intent recommend=new Intent(getActivity(),MallGoodsDetailsActivity.class);
+                recommend.putExtra("id",recommend_goods.get(position).getId());
+                startActivity(recommend);
             }
         });
 
