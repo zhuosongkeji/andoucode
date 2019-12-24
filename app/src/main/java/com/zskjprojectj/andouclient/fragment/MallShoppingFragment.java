@@ -16,12 +16,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.mall.MallOnlineOrderActivity;
+import com.zskjprojectj.andouclient.adapter.PlatformshoppingcartAdapter;
 import com.zskjprojectj.andouclient.adapter.mall.MallShoppingAdapter;
 import com.zskjprojectj.andouclient.base.BaseFragment;
 import com.zskjprojectj.andouclient.entity.mall.MallShoppingbean;
+import com.zskjprojectj.andouclient.http.ApiUtils;
+import com.zskjprojectj.andouclient.http.BaseObserver;
+import com.zskjprojectj.andouclient.http.HttpRxObservable;
+import com.zskjprojectj.andouclient.model.CartItem;
+import com.zskjprojectj.andouclient.utils.TestUtil;
 import com.zskjprojectj.andouclient.view.TopView;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -41,6 +49,8 @@ public class MallShoppingFragment extends BaseFragment {
     @BindView(R.id.iv_header_back)
     ImageView mHeaderBack;
 
+    PlatformshoppingcartAdapter adapter = new PlatformshoppingcartAdapter();
+
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
 
@@ -49,7 +59,8 @@ public class MallShoppingFragment extends BaseFragment {
         getBarDistance(mHeaderTitleView);
         mRecycler = view.findViewById(R.id.rv_recycler);
         mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
-        btn_settleaccounts=view.findViewById(R.id.btn_settleaccounts);
+        adapter.bindToRecyclerView(mRecycler);
+        btn_settleaccounts = view.findViewById(R.id.btn_settleaccounts);
         btn_settleaccounts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -65,28 +76,25 @@ public class MallShoppingFragment extends BaseFragment {
 
     @Override
     protected void getDataFromServer() {
-
+        HttpRxObservable.getObservable(ApiUtils.getApiService().cart(
+                TestUtil.getUid(),
+                TestUtil.getToken()
+        )).subscribe(new BaseObserver<List<CartItem>>(getActivity()) {
+            @Override
+            public void onHandleSuccess(List<CartItem> cartItem) throws IOException {
+                adapter.setNewData(cartItem);
+            }
+        });
     }
 
     @Override
     protected void initData() {
 
 
-
-        dataList = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            MallShoppingbean databean = new MallShoppingbean();
-            databean.setMallShoppingName("玛莎兰提");
-            dataList.add(databean);
-        }
-
-        MallShoppingAdapter adapter = new MallShoppingAdapter(R.layout.fragment_mall_shopping_view, dataList);
-        adapter.openLoadAnimation();
-        mRecycler.setAdapter(adapter);
     }
 
     @OnClick(R.id.cb_selectorcb)
-    public void clickSelectorAll(){
+    public void clickSelectorAll() {
 
     }
 
