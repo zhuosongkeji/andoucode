@@ -64,8 +64,6 @@ public class MallHomepageFragment1 extends BaseFragment {
     RecyclerView mSpecialProducts;
 
     private List<DataBean.BannerBean> banner;
-    private List<DataBean.RecommendGoodsBean> recommend_goods;
-    private List<DataBean.BargainGoodsBean> bargain_goods;
 
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
@@ -88,9 +86,11 @@ public class MallHomepageFragment1 extends BaseFragment {
 
                         banner = bean.getBanner();
                         //推荐产品
-                        recommend_goods = bean.getRecommend_goods();
+                        List<DataBean.RecommendGoodsBean> recommend_goods = bean.getRecommend_goods();
+                        initRecommendAdapter(recommend_goods);
                         //特价产品
-                        bargain_goods = bean.getBargain_goods();
+                        List<DataBean.BargainGoodsBean> bargain_goods = bean.getBargain_goods();
+                        initBargainAdapter(bargain_goods);
 
                         //刷新数据之后，需要重新设置是否支持自动轮播
                         onlinebanner.setAutoPlayAble(banner.size() > 1);
@@ -106,12 +106,22 @@ public class MallHomepageFragment1 extends BaseFragment {
 
     }
 
-    @Override
-    protected void initData() {
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, ScreenUtil.getScreenWidth(mAty) / 2);
-        onlinebanner.setLayoutParams(layoutParams);
-        initBanner(onlinebanner);
+    private void initBargainAdapter(List<DataBean.BargainGoodsBean> bargain_goods) {
+        //特价产品
+        mSpecialProducts.setLayoutManager(new GridLayoutManager(getActivity(),2));
+        SpecialProductsAdapter specialProductsAdapter=new SpecialProductsAdapter(R.layout.fragment_mall_goods_details_view,bargain_goods);
+        specialProductsAdapter.openLoadAnimation();
+        specialProductsAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                startActivity(new Intent(getActivity(), MallGoodsDetailsActivity.class));
+            }
+        });
 
+        mSpecialProducts.setAdapter(specialProductsAdapter);
+    }
+
+    private void initRecommendAdapter(List<DataBean.RecommendGoodsBean> recommend_goods) {
         //推荐产品
         mRecommendProducts.setLayoutManager(new GridLayoutManager(getActivity(),2));
         RecommendProductsAdapter recommendProductsAdapter=new RecommendProductsAdapter(R.layout.fragment_mall_goods_details_view,recommend_goods);
@@ -123,17 +133,19 @@ public class MallHomepageFragment1 extends BaseFragment {
             }
         });
 
+        mRecommendProducts.setAdapter(recommendProductsAdapter);
 
-        //特价产品
-        mSpecialProducts.setLayoutManager(new GridLayoutManager(getActivity(),2));
-        SpecialProductsAdapter specialProductsAdapter=new SpecialProductsAdapter(R.layout.fragment_mall_goods_details_view,bargain_goods);
-        specialProductsAdapter.openLoadAnimation();
-        specialProductsAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                startActivity(new Intent(getActivity(), MallGoodsDetailsActivity.class));
-            }
-        });
+    }
+
+    @Override
+    protected void initData() {
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, ScreenUtil.getScreenWidth(mAty) / 2);
+        onlinebanner.setLayoutParams(layoutParams);
+        initBanner(onlinebanner);
+
+
+
+
     }
 
 
