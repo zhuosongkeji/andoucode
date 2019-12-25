@@ -82,6 +82,7 @@
             android:textSize="@dimen/typeface14sp" />
 
         <TextView
+            android:id="@+id/forgetPasswordBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"

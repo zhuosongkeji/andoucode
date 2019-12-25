@@ -55,6 +55,7 @@
             </intent-filter>
         </activity> <!-- 注册界面 -->
         <activity android:name=".activity.RegisteredActivity" /> <!-- 主界面 -->
+        <activity android:name=".activity.ForgetActivity" /> <!-- 主界面 -->
         <activity
             android:name=".activity.MainActivity"
             android:theme="@style/DefaultCityPickerTheme">

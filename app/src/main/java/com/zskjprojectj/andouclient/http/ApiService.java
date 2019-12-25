@@ -45,7 +45,7 @@ public interface ApiService {
      */
     @POST("api/goods/goods")
     @FormUrlEncoded
-    Observable<BaseResult<Object>> mallGoodsCollection(@Field("id") String id,@Field("uid") String uid,@Field("token") String token,@Field("type") String type);
+    Observable<BaseResult<Object>> mallGoodsCollection(@Field("id") String id, @Field("uid") String uid, @Field("token") String token, @Field("type") String type);
 
     /**
      * 商城商品评论
@@ -59,7 +59,7 @@ public interface ApiService {
      */
     @POST("api/merchant/merchant_goods")
     @FormUrlEncoded
-    Observable<BaseResult<List<MallCommentBean>>> mallMerchant(@Field("id") String id,@Field("uid") String uid);
+    Observable<BaseResult<List<MallCommentBean>>> mallMerchant(@Field("id") String id, @Field("uid") String uid);
 
     /**
      * 新增收货地址
@@ -163,6 +163,15 @@ public interface ApiService {
     Observable<BaseResult<Object>> register(@Field("phone") String uid,
                                             @Field("password") String type,
                                             @Field("verify") String verify);
+
+    /**
+     * 忘记密码
+     */
+    @POST("api/login/forget")
+    @FormUrlEncoded
+    Observable<BaseResult<Object>> forgetPassword(@Field("phone") String uid,
+                                                  @Field("new_password") String type,
+                                                  @Field("verify") String verify);
 
     /**
      * 收货地址列表
