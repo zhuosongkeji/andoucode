@@ -126,6 +126,23 @@ public interface ApiService {
                                        @Field("password") String token);
 
     /**
+     * 发送验证码
+     */
+    @POST("api/login/send")
+    @FormUrlEncoded
+    Observable<BaseResult<Object>> sendCode(@Field("phone") String uid,
+                                            @Field("type") String type);
+
+    /**
+     * 验证码注册
+     */
+    @POST("api/login/reg_p")
+    @FormUrlEncoded
+    Observable<BaseResult<Object>> register(@Field("phone") String uid,
+                                            @Field("password") String type,
+                                            @Field("verify") String verify);
+
+    /**
      * 收货地址列表
      */
     @POST("api/Usersaddress/address")
