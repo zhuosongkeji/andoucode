@@ -105,6 +105,16 @@ public interface ApiService {
                                            @Field("id") String id);
 
     /**
+     * 修改购物车
+     */
+    @POST("api/cart/update_num")
+    @FormUrlEncoded
+    Observable<BaseResult<Object>> editCart(@Field("uid") String uid,
+                                            @Field("token") String token,
+                                            @Field("id") String id,
+                                            @Field("type") String type);
+
+    /**
      * 登录
      */
     @POST("api/login/login_p")
