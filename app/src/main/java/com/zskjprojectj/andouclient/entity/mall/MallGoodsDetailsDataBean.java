@@ -14,6 +14,22 @@ import java.util.List;
  */
 public class MallGoodsDetailsDataBean {
 
+    @Override
+    public String toString() {
+        return "MallGoodsDetailsDataBean{" +
+                "name='" + name + '\'' +
+                ", merchant_id=" + merchant_id +
+                ", weight='" + weight + '\'' +
+                ", img='" + img + '\'' +
+                ", price='" + price + '\'' +
+                ", dilivery='" + dilivery + '\'' +
+                ", store_num='" + store_num + '\'' +
+                ", volume=" + volume +
+                ", is_collection=" + is_collection +
+                ", merchant=" + merchant +
+                ", album=" + album +
+                '}';
+    }
 
     /**
      * name : 安全帽
@@ -29,15 +45,24 @@ public class MallGoodsDetailsDataBean {
      */
 
     private String name;
-    private int merchant_id;
+    private String merchant_id;
     private String weight;
     private String img;
     private String price;
     private String dilivery;
-    private int volume;
-    private int is_collection;
+    private String store_num;
+    private String volume;
+    private String is_collection;
     private MerchantBean merchant;
     private List<String> album;
+
+    public String getStore_num() {
+        return store_num;
+    }
+
+    public void setStore_num(String store_num) {
+        this.store_num = store_num;
+    }
 
     public String getName() {
         return name;
@@ -47,11 +72,11 @@ public class MallGoodsDetailsDataBean {
         this.name = name;
     }
 
-    public int getMerchant_id() {
+    public String getMerchant_id() {
         return merchant_id;
     }
 
-    public void setMerchant_id(int merchant_id) {
+    public void setMerchant_id(String merchant_id) {
         this.merchant_id = merchant_id;
     }
 
@@ -87,19 +112,19 @@ public class MallGoodsDetailsDataBean {
         this.dilivery = dilivery;
     }
 
-    public int getVolume() {
+    public String getVolume() {
         return volume;
     }
 
-    public void setVolume(int volume) {
+    public void setVolume(String volume) {
         this.volume = volume;
     }
 
-    public int getIs_collection() {
+    public String getIs_collection() {
         return is_collection;
     }
 
-    public void setIs_collection(int is_collection) {
+    public void setIs_collection(String is_collection) {
         this.is_collection = is_collection;
     }
 

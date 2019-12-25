@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@color/white"
     android:padding="@dimen/dp_20">
@@ -44,7 +45,8 @@
             android:layout_height="20dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
 
             <ImageView
                 android:id="@+id/busiess_plant1_image1"
@@ -80,6 +82,23 @@
                 android:layout_marginLeft="@dimen/dp_3"
                 android:src="@mipmap/ic_plant" />
         </LinearLayout>
+
+        <com.willy.ratingbar.ScaleRatingBar
+            android:id="@+id/ratingBar"
+            android:layout_alignParentEnd="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srb_clearRatingEnabled="true"
+            app:srb_clickable="true"
+            app:srb_drawableEmpty="@mipmap/ic_plant_gray"
+            app:srb_drawableFilled="@mipmap/ic_plant"
+            app:srb_isIndicator="false"
+            app:srb_minimumStars="1"
+            app:srb_numStars="5"
+            app:srb_starHeight="17dp"
+            app:srb_starPadding="8dp"
+            app:srb_starWidth="19dp"
+            app:srb_stepSize="0.5" />
 
     </RelativeLayout>
 

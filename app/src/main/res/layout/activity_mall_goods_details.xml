@@ -56,6 +56,7 @@
 
 
                         <TextView
+                            android:id="@+id/tv_mall_goods_name"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:paddingLeft="@dimen/dp_14"
@@ -93,6 +94,7 @@
                                 android:textSize="@dimen/typeface17sp" />
 
                             <LinearLayout
+                                android:id="@+id/mall_goods_collection"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
@@ -108,6 +110,7 @@
                                     android:src="@mipmap/ic_heart_mall" />
 
                                 <TextView
+                                    android:id="@+id/tv_mall_goods_collection"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:paddingRight="@dimen/dp_10"
@@ -145,6 +148,7 @@
                                     android:textSize="@dimen/typeface12sp" />
 
                                 <TextView
+                                    android:id="@+id/tv_goods_dilivery"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="免运费"
@@ -167,8 +171,9 @@
                                     android:textSize="@dimen/typeface12sp" />
 
                                 <TextView
+                                    android:id="@+id/tv_goods_volume"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="match_parent"
                                     android:text="2563"
                                     android:textColor="#969696"
                                     android:textSize="@dimen/typeface12sp" />
@@ -189,6 +194,7 @@
                                     android:textSize="@dimen/typeface12sp" />
 
                                 <TextView
+                                    android:id="@+id/tv_goods_store_num"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="22252"

@@ -22,6 +22,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.shizhefei.view.indicator.FixedIndicatorView;
 import com.shizhefei.view.indicator.IndicatorViewPager;
 import com.shizhefei.view.indicator.slidebar.ColorBar;
@@ -34,6 +36,10 @@ import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.MallMainActivity;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
+import com.zskjprojectj.andouclient.base.BaseUrl;
+import com.zskjprojectj.andouclient.entity.TuchongEntity;
+import com.zskjprojectj.andouclient.entity.XBannerBean;
+import com.zskjprojectj.andouclient.entity.mall.MallCommentBean;
 import com.zskjprojectj.andouclient.entity.mall.MallGoodsDetailsDataBean;
 import com.zskjprojectj.andouclient.entity.mall.MallHomeDataBean;
 import com.zskjprojectj.andouclient.fragment.hotel.CustomViewDialog;
@@ -77,12 +83,43 @@ public class MallGoodsDetailsActivity extends BaseActivity {
     @BindView(R.id.tv_header_title)
     TextView mHeaderTitle;
 
+    //商品名称
+    @BindView(R.id.tv_mall_goods_name)
+    TextView mMallGoodsName;
+    //商品价格
+    @BindView(R.id.tv_price)
+    TextView mTvPrice;
+    //商品运费
+    @BindView(R.id.tv_goods_dilivery)
+    TextView mTvGoodsDilivery;
+    //商品销量
+    @BindView(R.id.tv_goods_volume)
+    TextView mTvGoodsVolume;
+    //商品库存
+    @BindView(R.id.tv_goods_store_num)
+    TextView mTvGoodsStoreNum;
+
+    //商品收藏
+    @BindView(R.id.tv_mall_goods_collection)
+    TextView mtvMallGoodsCollection;
+
+    //商家头像
+    @BindView(R.id.iv_headPic)
+    ImageView IvHeadPic;
+    //商家名字
+    @BindView(R.id.tv_name)
+    TextView mTvName;
+
     private FixedIndicatorView mIndicator;
     private ViewPager mViewPager;
     private List<Fragment> list = new ArrayList<>();
     private Dialog bottomDialog;
     private View contentView;
-    private int GoodsId;
+    private int goodsId;
+    private boolean isCollection=false;
+    private String type;
+    private String id;
+
     @Override
     protected void setRootView() {
         setContentView(R.layout.activity_mall_goods_details);
@@ -90,13 +127,13 @@ public class MallGoodsDetailsActivity extends BaseActivity {
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-        GoodsId = getIntent().getIntExtra("id", 0);
+
         initLocalImage();
 
         //商品详情
-        list.add(new MallGoodsDetailFragment());
+        list.add(new MallGoodsDetailFragment(goodsId));
         //商品评论
-        list.add(new MallGoodsCommentFragment());
+        list.add(new MallGoodsCommentFragment(goodsId));
 
 
         IndicatorViewPager indicatorViewPager = new IndicatorViewPager(mIndicator, mViewPager);
@@ -115,20 +152,16 @@ public class MallGoodsDetailsActivity extends BaseActivity {
      * 加载本地图片
      */
     private void initLocalImage() {
-        List<LocalImageInfo> data = new ArrayList<>();
-        data.add(new LocalImageInfo(R.mipmap.pic_mall_details));
-        data.add(new LocalImageInfo(R.drawable.home_mall_pic));
-        data.add(new LocalImageInfo(R.drawable.home_hotel_pic));
-        data.add(new LocalImageInfo(R.drawable.banner_placeholder));
-        data.add(new LocalImageInfo(R.drawable.banner_placeholder));
-        mBanner.setBannerData(data);
 
         //加载图片
         mBanner.loadImage(new XBanner.XBannerAdapter() {
             @Override
             public void loadBanner(XBanner banner, Object model, View view, int position) {
 //                加载本地图片展示
-                ((ImageView) view).setImageResource(((LocalImageInfo) model).getXBannerUrl());
+                XBannerBean urlList = (XBannerBean) model;
+                String url=BaseUrl.BASE_URL+urlList.getImageUrl();
+                Glide.with(MallGoodsDetailsActivity.this).load(url).apply(new RequestOptions()
+                        .placeholder(R.drawable.default_image).error(R.drawable.default_image)).into((ImageView) view);
             }
         });
     }
@@ -180,6 +213,8 @@ public class MallGoodsDetailsActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
+        //商品ID
+        goodsId = getIntent().getIntExtra("id", 0);
         getBarDistance(mHeaderTitleView);
         mHeaderTitle.setText("商品详情");
         mIndicator = findViewById(R.id.indicator);
@@ -188,15 +223,41 @@ public class MallGoodsDetailsActivity extends BaseActivity {
 
     @Override
     public void getDataFromServer() {
-        String id = String.valueOf(GoodsId);
+
+        id = String.valueOf(goodsId);
+
+        //商品详情展示
         HttpRxObservable.getObservable(ApiUtils.getApiService().mallDetailsShow(id))
                 .subscribe(new BaseObserver<MallGoodsDetailsDataBean>(this) {
                     @Override
                     public void onHandleSuccess(MallGoodsDetailsDataBean mallGoodsDetailsDataBean) throws IOException {
+                        List<XBannerBean> urlBanner=new ArrayList<>();
+                        urlBanner.clear();
+                        //轮播图
                         String img = mallGoodsDetailsDataBean.getImg();
+                        urlBanner.add(new XBannerBean(img));
                         List<String> album = mallGoodsDetailsDataBean.getAlbum();
-                        Log.d(TAG, "onHandleSuccess: "+img);
+                        if (album.size()!=0) {
+                            for (String s : album) {
+                                urlBanner.add(new XBannerBean(s));
+                            }
+                        }
 
+                        mBanner.setBannerData(urlBanner);
+
+                        mMallGoodsName.setText(mallGoodsDetailsDataBean.getName());
+                        mTvPrice.setText(mallGoodsDetailsDataBean.getPrice());
+                        mTvGoodsDilivery.setText(mallGoodsDetailsDataBean.getDilivery());
+                        mTvGoodsVolume.setText(mallGoodsDetailsDataBean.getVolume());
+                        mTvGoodsStoreNum.setText(mallGoodsDetailsDataBean.getStore_num());//商品库存
+                        Glide.with(MallGoodsDetailsActivity.this).load(BaseUrl.BASE_URL+mallGoodsDetailsDataBean.getMerchant().getLogo_img()).into(IvHeadPic);
+                        mTvName.setText(mallGoodsDetailsDataBean.getMerchant().getName());
+
+                        if ("0".equals(mallGoodsDetailsDataBean.getIs_collection())){
+                            mtvMallGoodsCollection.setText("收藏");
+                        }else {
+                            mtvMallGoodsCollection.setText("已收藏");
+                        }
 
                     }
 
@@ -207,6 +268,9 @@ public class MallGoodsDetailsActivity extends BaseActivity {
                 });
 
 
+
+
+
     }
 
     @Override
@@ -215,16 +279,39 @@ public class MallGoodsDetailsActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.tv_mall_home, R.id.tv_mall_shopping, R.id.tv_Mall_service, R.id.tv_buy_now, R.id.add_shopping, R.id.rv_shop_home, R.id.bt_mall_goods_discount, R.id.shared})
+    @OnClick({R.id.mall_goods_collection,R.id.tv_mall_home, R.id.tv_mall_shopping, R.id.tv_Mall_service, R.id.tv_buy_now, R.id.add_shopping, R.id.rv_shop_home, R.id.bt_mall_goods_discount, R.id.shared})
     public void clickButNow(View v) {
         switch (v.getId()) {
 
+            case R.id.mall_goods_collection:
+                if (!isCollection) {
+                    mtvMallGoodsCollection.setText("已收藏");
+                    isCollection=true;
+                    type="1";
+                }else {
+                    mtvMallGoodsCollection.setText("收藏");
+                    type="0";
+                }
+
+                HttpRxObservable.getObservable(ApiUtils.getApiService().mallGoodsCollection(
+                        id,
+                        TestUtil.getUid(),
+                        TestUtil.getToken(),
+                        type
+                )).subscribe(new BaseObserver<Object>(this) {
+                    @Override
+                    public void onHandleSuccess(Object o) throws IOException {
+
+                    }
+                });
+
+                break;
 
             //购物车
             case R.id.tv_mall_shopping:
-            Intent intent=new Intent(MallGoodsDetailsActivity.this, MallMainActivity.class);
-            intent.putExtra("id","MallShopping");
-            startActivity(intent);
+                Intent intent = new Intent(MallGoodsDetailsActivity.this, MallMainActivity.class);
+                intent.putExtra("id", "MallShopping");
+                startActivity(intent);
                 break;
             //客服
             case R.id.tv_Mall_service:
