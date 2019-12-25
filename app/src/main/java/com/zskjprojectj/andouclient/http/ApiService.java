@@ -6,6 +6,8 @@ import com.zskjprojectj.andouclient.entity.mall.MallGoodsDetailsDataBean;
 import com.zskjprojectj.andouclient.entity.mall.MallHomeDataBean;
 import com.zskjprojectj.andouclient.model.Address;
 import com.zskjprojectj.andouclient.model.CartItem;
+import com.zskjprojectj.andouclient.model.Merchant;
+import com.zskjprojectj.andouclient.model.MerchantsResponse;
 import com.zskjprojectj.andouclient.model.User;
 
 import java.util.List;
@@ -139,6 +141,19 @@ public interface ApiService {
     Observable<BaseResult<Object>> delAddress(@Field("uid") String uid,
                                               @Field("token") String token,
                                               @Field("id") String id);
+
+    /**
+     * 商户列表
+     */
+    @POST("api/merchant/merchants")
+    Observable<BaseResult<MerchantsResponse>> merchants();
+
+    /**
+     * 商户详情
+     */
+    @POST("api/merchant/merchant_goods")
+    @FormUrlEncoded
+    Observable<BaseResult<Merchant>> merchantDetail(@Field("id") String id);
 
 //    /**
 //     * 注册
