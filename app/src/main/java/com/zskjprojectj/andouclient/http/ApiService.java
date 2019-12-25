@@ -6,6 +6,7 @@ import com.zskjprojectj.andouclient.entity.mall.MallCommentBean;
 import com.zskjprojectj.andouclient.entity.mall.MallGoodsDetailsDataBean;
 import com.zskjprojectj.andouclient.entity.mall.MallHomeDataBean;
 import com.zskjprojectj.andouclient.model.Address;
+import com.zskjprojectj.andouclient.model.BalanceDetail;
 import com.zskjprojectj.andouclient.model.CartItem;
 import com.zskjprojectj.andouclient.model.Merchant;
 import com.zskjprojectj.andouclient.model.MerchantsResponse;
@@ -202,6 +203,29 @@ public interface ApiService {
     @POST("api/merchant/merchant_goods")
     @FormUrlEncoded
     Observable<BaseResult<Merchant>> merchantDetail(@Field("id") String id);
+
+    /**
+     * 余额明细
+     */
+    @POST("api/wallet/index")
+    @FormUrlEncoded
+    Observable<BaseResult<BalanceDetail>> balanceDetail(@Field("uid") String uid,
+                                                        @Field("token") String token);
+ /**
+     * 余额明细
+     */
+    @POST("api/wallet/cash")
+    @FormUrlEncoded
+    Observable<BaseResult<BalanceDetail>> cashDetail(@Field("uid") String uid,
+                                                        @Field("token") String token);
+
+    /**
+     * 余额提现
+     */
+    @POST("api/wallet/cash_withdrawal")
+    @FormUrlEncoded
+    Observable<BaseResult<BalanceDetail>> cash(@Field("uid") String uid,
+                                                        @Field("token") String token);
 
 //    /**
 //     * 注册
