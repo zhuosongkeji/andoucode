@@ -24,12 +24,20 @@ import com.zskjprojectj.andouclient.activity.hotel.HotelDetailActivity;
 import com.zskjprojectj.andouclient.adapter.MerchantListAdapter;
 import com.zskjprojectj.andouclient.base.BaseFragment;
 import com.zskjprojectj.andouclient.entity.MerchantListBean;
+import com.zskjprojectj.andouclient.http.ApiUtils;
+import com.zskjprojectj.andouclient.http.BaseObserver;
+import com.zskjprojectj.andouclient.http.HttpRxObservable;
+import com.zskjprojectj.andouclient.model.Merchant;
+import com.zskjprojectj.andouclient.model.MerchantsResponse;
 import com.zskjprojectj.andouclient.view.TopView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+
+import static com.zskjprojectj.andouclient.activity.MyaddressActivity.KEY_DATA;
 
 /**
  * <pre>
@@ -38,7 +46,8 @@ import butterknife.OnClick;
  *     desc   :
  *     version: 1.0
  * </pre>
- *商家信息
+ * 商家信息
+ *
  * @author yizhubao
  */
 public class MerchantsPageFragment extends BaseFragment {
@@ -55,12 +64,14 @@ public class MerchantsPageFragment extends BaseFragment {
     @BindView(R.id.tv_capacity_sort)
     TextView mCapacitySort;
     private RecyclerView mRecycler;
-    private ArrayList<MerchantListBean> mDataList;
+    MerchantListAdapter adapter = new MerchantListAdapter();
+
+
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
         mHeaderTitle.setText("商家");
         getBarDistance(mHeaderTitleView);
-        mRecycler=view.findViewById(R.id.rv_recycler);
+        mRecycler = view.findViewById(R.id.rv_recycler);
         mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
 
     }
@@ -69,6 +80,7 @@ public class MerchantsPageFragment extends BaseFragment {
     protected int getContentViewRes() {
         return R.layout.fragment_merchantspage;
     }
+
     //初始化popuwindow
     private void initPopuWindow(View contentView, TextView textView) {
         mPopWindow = new PopupWindow(contentView,
@@ -90,22 +102,28 @@ public class MerchantsPageFragment extends BaseFragment {
         mPopWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
             //在dismiss中恢复透明度
             public void onDismiss() {
-                WindowManager.LayoutParams lp =getActivity(). getWindow().getAttributes();
+                WindowManager.LayoutParams lp = getActivity().getWindow().getAttributes();
                 lp.alpha = 1f;
-               getActivity(). getWindow().setAttributes(lp);
+                getActivity().getWindow().setAttributes(lp);
                 textView.setTextColor(getResources().getColor(R.color.color_common_font));
             }
         });
     }
+
     @Override
     protected void getDataFromServer() {
-
+        HttpRxObservable.getObservable(ApiUtils.getApiService().merchants())
+                .subscribe(new BaseObserver<MerchantsResponse>(mAty) {
+                    @Override
+                    public void onHandleSuccess(MerchantsResponse merchantsResponse) throws IOException {
+                        adapter.setNewData(merchantsResponse.merchants);
+                    }
+                });
     }
+
     @OnClick({R.id.ll_merchants_classification, R.id.ll_in_screening, R.id.ll_sorting_way})
-    public void clickSelector(View v)
-    {
-        switch (v.getId())
-        {
+    public void clickSelector(View v) {
+        switch (v.getId()) {
             case R.id.ll_merchants_classification:
                 initclassification();
                 if (mPopWindow != null && !mPopWindow.isShowing()) {
@@ -130,59 +148,53 @@ public class MerchantsPageFragment extends BaseFragment {
     /**
      * 商家分类
      */
-    private void initclassification()
-    {
+    private void initclassification() {
 
         View contentView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_shop_comprehensive, null);
 
-        initPopuWindow(contentView,mCapacitySort);
+        initPopuWindow(contentView, mCapacitySort);
     }
 
     /**
      * 地区筛选
      */
-    private void initscreening()
-    {
+    private void initscreening() {
 
         View contentView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_shop_comprehensive, null);
 
-        initPopuWindow(contentView,mCapacitySort);
+        initPopuWindow(contentView, mCapacitySort);
     }
 
     /**
      * 排序方式
      */
-    private void initsortingway()
-    {
+    private void initsortingway() {
 
         View contentView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_shop_comprehensive, null);
 
-        initPopuWindow(contentView,mCapacitySort);
+        initPopuWindow(contentView, mCapacitySort);
     }
+
     @Override
     protected void initData() {
 
-        mDataList=new ArrayList<>();
-        for (int i=0;i<20;i++){
-            MerchantListBean databean=new MerchantListBean();
-            mDataList.add(databean);
-        }
 
-        MerchantListAdapter adapter=new MerchantListAdapter(R.layout.merchant_item_view,mDataList);
         adapter.openLoadAnimation();
-        mRecycler.addItemDecoration(new DividerItemDecoration(getActivity(),DividerItemDecoration.VERTICAL));
+        mRecycler.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
         mRecycler.setAdapter(adapter);
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                startActivity(new Intent(getContext(), HotelDetailActivity.class));
+            public void onItemClick(BaseQuickAdapter adapter1, View view, int position) {
+                Intent intent = new Intent(getContext(), HotelDetailActivity.class);
+                intent.putExtra(KEY_DATA, adapter.getItem(position));
+                startActivity(intent);
             }
         });
 
     }
 
     @OnClick(R.id.iv_header_back)
-    public void clickBack(){
+    public void clickBack() {
         mAty.finish();
     }
 }

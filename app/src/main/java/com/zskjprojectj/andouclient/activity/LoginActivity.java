@@ -21,8 +21,15 @@ import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
+import com.zskjprojectj.andouclient.http.ApiUtils;
+import com.zskjprojectj.andouclient.http.BaseObserver;
+import com.zskjprojectj.andouclient.http.HttpRxObservable;
+import com.zskjprojectj.andouclient.model.User;
 import com.zskjprojectj.andouclient.utils.LogUtil;
 import com.zskjprojectj.andouclient.utils.PhonenumUtil;
+import com.zskjprojectj.andouclient.utils.SharedPreferencesManager;
+
+import java.io.IOException;
 
 import io.reactivex.functions.Consumer;
 
@@ -39,10 +46,11 @@ import io.reactivex.functions.Consumer;
  */
 public class LoginActivity extends BaseActivity {
 
-   private TextView btnNewregistered;
-   private Button btn_login;
-   private ImageView fingerprint_login;
-   private EditText registered_phonenum,et_loginpwd;
+    private TextView btnNewregistered;
+    private Button btn_login;
+    private ImageView fingerprint_login;
+    private EditText registered_phonenum, et_loginpwd;
+
     @Override
     protected void setRootView() {
         setContentView(R.layout.activity_login);
@@ -55,27 +63,36 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-        btnNewregistered=findViewById(R.id.btn_newregistered);
-        btn_login=findViewById(R.id.btn_login);
-        fingerprint_login=findViewById(R.id.iv_fingerprint_login);
-        registered_phonenum=findViewById(R.id.et_loginphonenum);
-        et_loginpwd=findViewById(R.id.et_loginpwd);
+        btnNewregistered = findViewById(R.id.btn_newregistered);
+        btn_login = findViewById(R.id.btn_login);
+        fingerprint_login = findViewById(R.id.iv_fingerprint_login);
+        registered_phonenum = findViewById(R.id.et_loginphonenum);
+        et_loginpwd = findViewById(R.id.et_loginpwd);
         //这个跳转最好是在网络请求成功过后去调用，现在没得接口请求暂时写在这里
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //跳转
-                if (!PhonenumUtil.isValidPhoneNumber(registered_phonenum.getText().toString().trim())) {
-                    Toast.makeText(mAt, "请输入正确的手机号码",Toast.LENGTH_SHORT).show();
+                String account = registered_phonenum.getText().toString().trim();
+                String password = et_loginpwd.getText().toString();
+                if (account.isEmpty()) {
+                    Toast.makeText(mAt, "请输入正确的手机号码", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (TextUtils.isEmpty(et_loginpwd.getText().toString()))
-                {
-                    Toast.makeText(mAt, "密码不能为空",Toast.LENGTH_SHORT).show();
+                if (TextUtils.isEmpty(password)) {
+                    Toast.makeText(mAt, "密码不能为空", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                jumpActivity(MainActivity.class);
-                finish();
+                HttpRxObservable.getObservable(ApiUtils.getApiService().login(account, password))
+                        .subscribe(new BaseObserver<User>(mAt) {
+                            @Override
+                            public void onHandleSuccess(User user) throws IOException {
+                                SharedPreferencesManager.getInstance().setString(User.KEY_TOKEN, user.token);
+                                SharedPreferencesManager.getInstance().setString(User.KEY_UID, user.id);
+                                jumpActivity(MainActivity.class);
+                                finish();
+                            }
+                        });
             }
         });
         btnNewregistered.setOnClickListener(new View.OnClickListener() {
@@ -83,7 +100,7 @@ public class LoginActivity extends BaseActivity {
             public void onClick(View v) {
                 //跳转
                 jumpActivity(RegisteredActivity.class);
-               // finish();
+                // finish();
             }
         });
         /**
@@ -111,8 +128,7 @@ public class LoginActivity extends BaseActivity {
     /**
      * 手机号码验证正则表达式
      */
-    public  static  boolean isMobileNo(String mobiles)
-    {
+    public static boolean isMobileNo(String mobiles) {
         /*
          * 移动号码段:139、138、137、136、135、134、150、151、152、157、158、159、182、183、184、187、188、147
          * 联通号码段:130、131、132、185、186、145、171/176/175
@@ -133,6 +149,7 @@ public class LoginActivity extends BaseActivity {
             return mobiles.matches(telRegex);
         }
     }
+
     /**
      * 创建文本框监听事件
      */
@@ -204,6 +221,7 @@ public class LoginActivity extends BaseActivity {
                     }
                 });
     }
+
     /**
      * 用户拒绝，并且选择不再提示,可以引导用户进入权限设置界面开启权限
      * 弹窗是否显示根据需求选择调用

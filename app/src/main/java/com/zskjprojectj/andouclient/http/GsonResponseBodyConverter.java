@@ -21,8 +21,9 @@ public class GsonResponseBodyConverter<T> implements Converter<ResponseBody, T> 
     public T convert(ResponseBody value) throws IOException {
         try {
             String response = value.string();
+            response = response.replace(",\"data\":\"\"", "");
             T result = adapter.fromJson(response);
-            String j=result.getClass().getSimpleName();
+            String j = result.getClass().getSimpleName();
             return result;
         } finally {
             value.close();

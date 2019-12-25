@@ -1,11 +1,16 @@
 package com.zskjprojectj.andouclient.adapter.hotel;
 
+import android.widget.ImageView;
+
 import androidx.annotation.Nullable;
 
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.entity.hotel.HotelDetailReserveBean;
+import com.zskjprojectj.andouclient.model.Goods;
+import com.zskjprojectj.andouclient.utils.UrlUtil;
 
 import java.util.HashSet;
 import java.util.List;
@@ -20,13 +25,17 @@ import java.util.List;
  * 修改时间：
  * 修改备注：
  */
-public class ReserveAdapter extends BaseQuickAdapter<HotelDetailReserveBean, BaseViewHolder> {
-    public ReserveAdapter(int layoutResId, @Nullable List<HotelDetailReserveBean> data) {
-        super(layoutResId, data);
+public class ReserveAdapter extends BaseQuickAdapter<Goods, BaseViewHolder> {
+    public ReserveAdapter() {
+        super(R.layout.reserver_item_view);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, HotelDetailReserveBean item) {
-        helper.addOnClickListener(R.id.online_reserver);
+    protected void convert(BaseViewHolder helper, Goods item) {
+        helper.addOnClickListener(R.id.online_reserver)
+                .setText(R.id.hotel_name, item.name)
+                .setText(R.id.hotel_price, item.price + "");
+        Glide.with(helper.itemView).load(UrlUtil.getImageUrl(item.img))
+                .into((ImageView) helper.itemView.findViewById(R.id.hotel_image));
     }
 }

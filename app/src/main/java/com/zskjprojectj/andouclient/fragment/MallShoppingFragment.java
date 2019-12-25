@@ -2,32 +2,27 @@ package com.zskjprojectj.andouclient.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.mall.MallOnlineOrderActivity;
 import com.zskjprojectj.andouclient.adapter.PlatformshoppingcartAdapter;
-import com.zskjprojectj.andouclient.adapter.mall.MallShoppingAdapter;
 import com.zskjprojectj.andouclient.base.BaseFragment;
 import com.zskjprojectj.andouclient.entity.mall.MallShoppingbean;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.model.CartItem;
+import com.zskjprojectj.andouclient.utils.ArrayParamUtil;
 import com.zskjprojectj.andouclient.utils.TestUtil;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
-import com.zskjprojectj.andouclient.view.TopView;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -62,18 +57,48 @@ public class MallShoppingFragment extends BaseFragment {
         mRecycler = view.findViewById(R.id.rv_recycler);
         mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter.bindToRecyclerView(mRecycler);
-        adapter.setOnItemChildClickListener((adapter, view1, position) -> {
-            HttpRxObservable.getObservable(ApiUtils.getApiService().delCart(
-                    TestUtil.getUid(),
-                    TestUtil.getToken(),
-                    this.adapter.getItem(position).id
-            )).subscribe(new BaseObserver<Object>(mAty) {
-                @Override
-                public void onHandleSuccess(Object o) throws IOException {
-                    ToastUtil.showToast("删除成功");
-                    adapter.remove(position);
-                }
-            });
+        adapter.setOnItemChildClickListener((adapter1, view1, position) -> {
+            CartItem item = adapter.getItem(position);
+            if (view1.getId() == R.id.deleteBtn) {
+                HttpRxObservable.getObservable(ApiUtils.getApiService().delCart(
+                        TestUtil.getUid(),
+                        TestUtil.getToken(),
+                        ArrayParamUtil.getParam(new String[]{item.id})
+                )).subscribe(new BaseObserver<Object>(mAty) {
+                    @Override
+                    public void onHandleSuccess(Object o) throws IOException {
+                        ToastUtil.showToast("删除成功");
+                        adapter.remove(position);
+                    }
+                });
+            } else if (view1.getId() == R.id.btn_add) {
+                HttpRxObservable.getObservable(ApiUtils.getApiService().editCart(
+                        TestUtil.getUid(),
+                        TestUtil.getToken(),
+                        item.id,
+                        "1"
+                )).subscribe(new BaseObserver<Object>(mAty) {
+                    @Override
+                    public void onHandleSuccess(Object o) throws IOException {
+                        item.num++;
+                        adapter.notifyItemChanged(position);
+                    }
+                });
+            } else if (view1.getId() == R.id.btn_sub && item.num > 1) {
+                HttpRxObservable.getObservable(ApiUtils.getApiService().editCart(
+                        TestUtil.getUid(),
+                        TestUtil.getToken(),
+                        item.id,
+                        "0"
+                )).subscribe(new BaseObserver<Object>(mAty) {
+                    @Override
+                    public void onHandleSuccess(Object o) throws IOException {
+                        item.num--;
+                        adapter.notifyItemChanged(position);
+                    }
+                });
+            }
+
         });
         btn_settleaccounts = view.findViewById(R.id.btn_settleaccounts);
         btn_settleaccounts.setOnClickListener(new View.OnClickListener() {

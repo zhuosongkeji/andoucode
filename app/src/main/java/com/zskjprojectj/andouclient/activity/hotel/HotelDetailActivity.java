@@ -9,10 +9,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.shizhefei.view.indicator.FixedIndicatorView;
 import com.shizhefei.view.indicator.IndicatorViewPager;
 import com.shizhefei.view.indicator.slidebar.ColorBar;
@@ -24,13 +26,20 @@ import com.zskjprojectj.andouclient.fragment.hotel.HotelDetailCommentFragment;
 import com.zskjprojectj.andouclient.fragment.hotel.HotelDetailFacilityFragment;
 import com.zskjprojectj.andouclient.fragment.hotel.HotelDetailMerchantFragment;
 import com.zskjprojectj.andouclient.fragment.hotel.HotelDetailReserveFragment;
+import com.zskjprojectj.andouclient.http.ApiUtils;
+import com.zskjprojectj.andouclient.http.BaseObserver;
+import com.zskjprojectj.andouclient.http.HttpRxObservable;
+import com.zskjprojectj.andouclient.model.Merchant;
 import com.zskjprojectj.andouclient.utils.BarUtils;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+
+import static com.zskjprojectj.andouclient.activity.MyaddressActivity.KEY_DATA;
 
 /**
  * 酒店详情页
@@ -45,7 +54,8 @@ public class HotelDetailActivity extends BaseActivity {
 
     private FixedIndicatorView mIndicator;
     private ViewPager mViewPager;
-    private List<Fragment> list=new ArrayList<>();
+    private List<Fragment> list = new ArrayList<>();
+    HotelDetailReserveFragment hotelDetailReserveFragment = new HotelDetailReserveFragment();
 
     @Override
     protected void setRootView() {
@@ -56,7 +66,7 @@ public class HotelDetailActivity extends BaseActivity {
     protected void initData(Bundle savedInstanceState) {
 
         //预订
-        list.add(new HotelDetailReserveFragment());
+        list.add(hotelDetailReserveFragment);
         //评论
         list.add(new HotelDetailCommentFragment());
         //商家
@@ -64,7 +74,7 @@ public class HotelDetailActivity extends BaseActivity {
         //环境设施
         list.add(new HotelDetailFacilityFragment());
 
-        IndicatorViewPager indicatorViewPager=new IndicatorViewPager(mIndicator,mViewPager);
+        IndicatorViewPager indicatorViewPager = new IndicatorViewPager(mIndicator, mViewPager);
         indicatorViewPager.setAdapter(adapter);
         //设置滑动时的那一项的图形和颜色变化，ColorBar对应的是下划线的形状。
         mIndicator.setScrollBar(new ColorBar(getApplicationContext(), Color.parseColor("#5ED3AE"), 5));
@@ -81,8 +91,9 @@ public class HotelDetailActivity extends BaseActivity {
     /**
      * 指示器适配器对形象
      */
-    public IndicatorViewPager.IndicatorFragmentPagerAdapter adapter=new IndicatorViewPager.IndicatorFragmentPagerAdapter(getSupportFragmentManager()){
-        private String[] tabNames = {"预订", "评论","商家","环境设施"};
+    public IndicatorViewPager.IndicatorFragmentPagerAdapter adapter = new IndicatorViewPager.IndicatorFragmentPagerAdapter(getSupportFragmentManager()) {
+        private String[] tabNames = {"预订", "评论", "商家", "环境设施"};
+
         @Override
         public int getCount() {
             return list.size();
@@ -109,7 +120,6 @@ public class HotelDetailActivity extends BaseActivity {
     };
 
 
-
     @Override
     protected void initViews() {
 
@@ -118,14 +128,26 @@ public class HotelDetailActivity extends BaseActivity {
         layoutParams.topMargin = BarUtils.getStatusBarHeight(this);
         mTitleView.setLayoutParams(layoutParams);
 
-        mIndicator=findViewById(R.id.indicator);
-        mViewPager=findViewById(R.id.viewPager);
+        mIndicator = findViewById(R.id.indicator);
+        mViewPager = findViewById(R.id.viewPager);
 
     }
 
     @Override
     public void getDataFromServer() {
-
+        Merchant merchant = (Merchant) getIntent().getSerializableExtra(KEY_DATA);
+        HttpRxObservable.getObservable(ApiUtils.getApiService().merchantDetail(merchant.id))
+                .subscribe(new BaseObserver<Merchant>(mAt) {
+                    @Override
+                    public void onHandleSuccess(Merchant merchant) throws IOException {
+                        Glide.with(mAt).load(merchant.banner_img)
+                                .into((ImageView) findViewById(R.id.busiess_back_image));
+                        ((TextView) findViewById(R.id.hotel_name)).setText(merchant.name);
+                        ((TextView) findViewById(R.id.busiess_dianzancount1_textview)).setText(merchant.praise_num + "");
+                        ((TextView) findViewById(R.id.mobileTxt)).setText(merchant.tel);
+                        ((TextView) findViewById(R.id.addressTxt)).setText(merchant.address);
+                    }
+                });
     }
 
     @Override
@@ -134,7 +156,7 @@ public class HotelDetailActivity extends BaseActivity {
     }
 
     @OnClick(R.id.busiess_back_image)
-    public void clickBack(){
+    public void clickBack() {
         finish();
     }
 }
