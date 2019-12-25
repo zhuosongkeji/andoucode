@@ -10,7 +10,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.base.BaseUrl;
-import com.zskjprojectj.andouclient.entity.mall.DataBean;
+import com.zskjprojectj.andouclient.entity.mall.MallHomeDataBean;
 
 import java.util.List;
 
@@ -24,15 +24,15 @@ import java.util.List;
  * 修改时间：
  * 修改备注：
  */
-public class RecommendProductsAdapter extends BaseQuickAdapter<DataBean.RecommendGoodsBean,BaseViewHolder> {
+public class RecommendProductsAdapter extends BaseQuickAdapter<MallHomeDataBean.RecommendGoodsBean,BaseViewHolder> {
 
 
-    public RecommendProductsAdapter(int layoutResId, @Nullable List<DataBean.RecommendGoodsBean> data) {
+    public RecommendProductsAdapter(int layoutResId, @Nullable List<MallHomeDataBean.RecommendGoodsBean> data) {
         super(layoutResId, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, DataBean.RecommendGoodsBean item) {
+    protected void convert(BaseViewHolder helper, MallHomeDataBean.RecommendGoodsBean item) {
 
         // 加载推荐产品图片
         Glide.with(mContext).load(BaseUrl.BASE_URL+item.getImg())

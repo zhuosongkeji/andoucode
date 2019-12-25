@@ -26,6 +26,7 @@ import io.reactivex.annotations.Nullable;
 public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatActivity {
     protected TopView topView;
     protected Activity mAt;
+    protected static final String TAG = "wangbin";
     /**
      * 回调函数
      */

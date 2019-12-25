@@ -2,7 +2,8 @@ package com.zskjprojectj.andouclient.http;
 
 
 import com.zskjprojectj.andouclient.entity.TestBean;
-import com.zskjprojectj.andouclient.entity.mall.DataBean;
+import com.zskjprojectj.andouclient.entity.mall.MallGoodsDetailsDataBean;
+import com.zskjprojectj.andouclient.entity.mall.MallHomeDataBean;
 import com.zskjprojectj.andouclient.model.Address;
 import com.zskjprojectj.andouclient.model.CartItem;
 import com.zskjprojectj.andouclient.model.User;
@@ -26,14 +27,14 @@ public interface ApiService {
      * 获取商城首页数据
      */
     @POST("api/goods/index")
-    Observable<BaseResult<DataBean>> getMallInfo();
+    Observable<BaseResult<MallHomeDataBean>> getMallInfo();
 
     /**
      * 商城商品详情展示
      */
     @POST("api/goods/details")
     @FormUrlEncoded
-    Observable<BaseResult<User>> mallDetailsShow(@Field("id") String id);
+    Observable<BaseResult<MallGoodsDetailsDataBean>> mallDetailsShow(@Field("id") String id);
 
 
     /**
