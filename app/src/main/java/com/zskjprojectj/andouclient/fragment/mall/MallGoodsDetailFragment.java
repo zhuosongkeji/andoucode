@@ -17,6 +17,11 @@ import com.zskjprojectj.andouclient.base.BaseFragment;
  * 修改备注：
  */
 public class MallGoodsDetailFragment extends BaseFragment implements View.OnClickListener {
+    private int id;
+    public MallGoodsDetailFragment(int goodsId) {
+        this.id=goodsId;
+    }
+
     @Override
     public void onClick(View v) {
 

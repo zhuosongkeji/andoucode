@@ -2,6 +2,7 @@ package com.zskjprojectj.andouclient.http;
 
 
 import com.zskjprojectj.andouclient.entity.TestBean;
+import com.zskjprojectj.andouclient.entity.mall.MallCommentBean;
 import com.zskjprojectj.andouclient.entity.mall.MallGoodsDetailsDataBean;
 import com.zskjprojectj.andouclient.entity.mall.MallHomeDataBean;
 import com.zskjprojectj.andouclient.model.Address;
@@ -34,10 +35,31 @@ public interface ApiService {
     /**
      * 商城商品详情展示
      */
-    @POST("api/goods/details")
+    @POST("api/goods/collection")
     @FormUrlEncoded
     Observable<BaseResult<MallGoodsDetailsDataBean>> mallDetailsShow(@Field("id") String id);
 
+
+    /**
+     * 商城商品详情展示
+     */
+    @POST("api/goods/goods")
+    @FormUrlEncoded
+    Observable<BaseResult<Object>> mallGoodsCollection(@Field("id") String id,@Field("uid") String uid,@Field("token") String token,@Field("type") String type);
+
+    /**
+     * 商城商品评论
+     */
+    @POST("api/goods/comment")
+    @FormUrlEncoded
+    Observable<BaseResult<List<MallCommentBean>>> mallComment(@Field("id") String id);
+
+    /**
+     * 商城商户详情
+     */
+    @POST("api/merchant/merchant_goods")
+    @FormUrlEncoded
+    Observable<BaseResult<List<MallCommentBean>>> mallMerchant(@Field("id") String id,@Field("uid") String uid);
 
     /**
      * 新增收货地址

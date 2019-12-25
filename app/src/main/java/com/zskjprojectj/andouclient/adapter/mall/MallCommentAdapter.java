@@ -1,10 +1,17 @@
 package com.zskjprojectj.andouclient.adapter.mall;
 
+import android.util.Log;
+import android.widget.ImageView;
+
 import androidx.annotation.Nullable;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.zskjprojectj.andouclient.entity.mall.MallDetailCommentBean;
+import com.zskjprojectj.andouclient.R;
+import com.zskjprojectj.andouclient.base.BaseUrl;
+import com.zskjprojectj.andouclient.entity.mall.MallCommentBean;
 
 import java.util.List;
 
@@ -18,13 +25,21 @@ import java.util.List;
  * 修改时间：
  * 修改备注：
  */
-public class MallCommentAdapter extends BaseQuickAdapter<MallDetailCommentBean, BaseViewHolder> {
-    public MallCommentAdapter(int layoutResId, @Nullable List<MallDetailCommentBean> data) {
+public class MallCommentAdapter extends BaseQuickAdapter<MallCommentBean, BaseViewHolder> {
+    public MallCommentAdapter(int layoutResId, @Nullable List<MallCommentBean> data) {
         super(layoutResId, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, MallDetailCommentBean item) {
+    protected void convert(BaseViewHolder helper, MallCommentBean item) {
+        Glide.with(mContext).load(BaseUrl.BASE_URL+item.getAvator())
+                .transition(new DrawableTransitionOptions().crossFade())
+                .into((ImageView) helper.getView(R.id.iv_headPic));
+        helper.setText(R.id.tv_name,item.getName());
+        helper.setText(R.id.tv_time,item.getCreated_at());
+        helper.setText(R.id.tv_des,item.getContent());
+        Log.d(TAG, "convert: "+item.getStars());
+
 
     }
 }
