@@ -69,7 +69,7 @@ public class HotelDetailReserveFragment extends BaseFragment implements View.OnC
             databean.setImageResource(R.mipmap.hotel_details);
             mDataList.add(databean);
         }
-        ReserveAdapter adapter=new ReserveAdapter(R.layout.reserver_item_view,mDataList);
+        ReserveAdapter adapter=new ReserveAdapter();
         adapter.openLoadAnimation();
 //        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
 //            @Override

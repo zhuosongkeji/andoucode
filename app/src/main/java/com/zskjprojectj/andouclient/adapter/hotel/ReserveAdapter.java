@@ -26,8 +26,8 @@ import java.util.List;
  * 修改备注：
  */
 public class ReserveAdapter extends BaseQuickAdapter<Goods, BaseViewHolder> {
-    public ReserveAdapter(int layoutResId, @Nullable List<Goods> data) {
-        super(layoutResId, data);
+    public ReserveAdapter() {
+        super(R.layout.reserver_item_view);
     }
 
     @Override
