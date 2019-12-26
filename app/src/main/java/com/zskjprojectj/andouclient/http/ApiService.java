@@ -211,21 +211,25 @@ public interface ApiService {
     @FormUrlEncoded
     Observable<BaseResult<BalanceDetail>> balanceDetail(@Field("uid") String uid,
                                                         @Field("token") String token);
- /**
+
+    /**
      * 余额明细
      */
     @POST("api/wallet/cash")
     @FormUrlEncoded
     Observable<BaseResult<BalanceDetail>> cashDetail(@Field("uid") String uid,
-                                                        @Field("token") String token);
+                                                     @Field("token") String token);
 
     /**
      * 余额提现
      */
     @POST("api/wallet/cash_withdrawal")
     @FormUrlEncoded
-    Observable<BaseResult<BalanceDetail>> cash(@Field("uid") String uid,
-                                                        @Field("token") String token);
+    Observable<BaseResult<Object>> cash(@Field("uid") String uid,
+                                        @Field("token") String token,
+                                        @Field("money") float money,
+                                        @Field("phone") String phone,
+                                        @Field("num") String num);
 
 //    /**
 //     * 注册

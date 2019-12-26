@@ -26,6 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <EditText
+                android:id="@+id/amountEdt"
                 android:textSize="28sp"
                 android:textColor="#333333"
                 android:hint="请输入提现金额"
