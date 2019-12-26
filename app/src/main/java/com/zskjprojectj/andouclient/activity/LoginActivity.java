@@ -103,6 +103,9 @@ public class LoginActivity extends BaseActivity {
                 // finish();
             }
         });
+        findViewById(R.id.forgetPasswordBtn).setOnClickListener(v -> {
+            jumpActivity(ForgetActivity.class);
+        });
         /**
          * 指纹登录
          */

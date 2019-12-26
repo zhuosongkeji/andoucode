@@ -8,6 +8,7 @@ import com.zskjprojectj.andouclient.entity.mall.MallGoodsDetailsDataBean;
 import com.zskjprojectj.andouclient.entity.mall.MallHomeDataBean;
 import com.zskjprojectj.andouclient.entity.mall.MallShoppingHomeBean;
 import com.zskjprojectj.andouclient.model.Address;
+import com.zskjprojectj.andouclient.model.BalanceDetail;
 import com.zskjprojectj.andouclient.model.CartItem;
 import com.zskjprojectj.andouclient.model.Merchant;
 import com.zskjprojectj.andouclient.model.MerchantsResponse;
@@ -161,6 +162,32 @@ public interface ApiService {
                                        @Field("password") String token);
 
     /**
+     * 发送验证码
+     */
+    @POST("api/login/send")
+    @FormUrlEncoded
+    Observable<BaseResult<Object>> sendCode(@Field("phone") String uid,
+                                            @Field("type") String type);
+
+    /**
+     * 验证码注册
+     */
+    @POST("api/login/reg_p")
+    @FormUrlEncoded
+    Observable<BaseResult<Object>> register(@Field("phone") String uid,
+                                            @Field("password") String type,
+                                            @Field("verify") String verify);
+
+    /**
+     * 忘记密码
+     */
+    @POST("api/login/forget")
+    @FormUrlEncoded
+    Observable<BaseResult<Object>> forgetPassword(@Field("phone") String uid,
+                                                  @Field("new_password") String type,
+                                                  @Field("verify") String verify);
+
+    /**
      * 收货地址列表
      */
     @POST("api/Usersaddress/address")
@@ -189,6 +216,33 @@ public interface ApiService {
     @POST("api/merchant/merchant_goods")
     @FormUrlEncoded
     Observable<BaseResult<Merchant>> merchantDetail(@Field("id") String id);
+
+    /**
+     * 余额明细
+     */
+    @POST("api/wallet/index")
+    @FormUrlEncoded
+    Observable<BaseResult<BalanceDetail>> balanceDetail(@Field("uid") String uid,
+                                                        @Field("token") String token);
+
+    /**
+     * 余额明细
+     */
+    @POST("api/wallet/cash")
+    @FormUrlEncoded
+    Observable<BaseResult<BalanceDetail>> cashDetail(@Field("uid") String uid,
+                                                     @Field("token") String token);
+
+    /**
+     * 余额提现
+     */
+    @POST("api/wallet/cash_withdrawal")
+    @FormUrlEncoded
+    Observable<BaseResult<Object>> cash(@Field("uid") String uid,
+                                        @Field("token") String token,
+                                        @Field("money") float money,
+                                        @Field("phone") String phone,
+                                        @Field("num") String num);
 
 //    /**
 //     * 注册

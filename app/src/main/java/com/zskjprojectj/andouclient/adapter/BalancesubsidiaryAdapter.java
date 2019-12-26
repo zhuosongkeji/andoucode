@@ -1,27 +1,20 @@
 package com.zskjprojectj.andouclient.adapter;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.entity.BalancesubsidiaryBean;
-import com.zskjprojectj.andouclient.entity.hotel.HotelDetailReserveBean;
+import com.zskjprojectj.andouclient.model.BalanceLog;
 
-import java.util.List;
+public class BalancesubsidiaryAdapter extends BaseQuickAdapter<BalanceLog, BaseViewHolder> {
 
-public class BalancesubsidiaryAdapter extends BaseQuickAdapter <BalancesubsidiaryBean, BaseViewHolder> {
-
-    public BalancesubsidiaryAdapter(int layoutResId, @Nullable List<BalancesubsidiaryBean> data) {
-        super(layoutResId, data);
+    public BalancesubsidiaryAdapter() {
+        super(R.layout.item_balancesubsidiary);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, BalancesubsidiaryBean item) {
-        helper.setText(R.id.tv_title,item.getTitlename());
-        helper.setText(R.id.tv_price,item.getPrice());
-        helper.setText(R.id.tv_time,item.getTime());
+    protected void convert(BaseViewHolder helper, BalanceLog item) {
+        helper.setText(R.id.tv_title, item.describe);
+        helper.setText(R.id.tv_price, item.state == 1 ? "+" : "-" + item.price + "");
+        helper.setText(R.id.tv_time, item.create_time + "");
     }
 }

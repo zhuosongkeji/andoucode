@@ -20,10 +20,9 @@ import java.util.ArrayList;
  */
 public class WithdrawalsubsidiaryFragment extends BaseFragment {
     private RecyclerView mRecycler;
-    private ArrayList<BalancesubsidiaryBean> mDataList;
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
-        mRecycler=view.findViewById(R.id.rv_recycler);
+        mRecycler = view.findViewById(R.id.rv_recycler);
         mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
@@ -39,15 +38,8 @@ public class WithdrawalsubsidiaryFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-        mDataList = new ArrayList<>();
-        for (int i=0;i<20;i++){
-            BalancesubsidiaryBean databean=new BalancesubsidiaryBean();
-            databean.setTitlename("余额提现");
-            databean.setPrice("+100");
-            databean.setTime("2019-08-26 17:52");
-            mDataList.add(databean);
-        }
-        BalancesubsidiaryAdapter adapter=new BalancesubsidiaryAdapter(R.layout.item_withdrawalsubsidiary,mDataList);
+
+        BalancesubsidiaryAdapter adapter = new BalancesubsidiaryAdapter();
         adapter.openLoadAnimation();
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
@@ -55,7 +47,7 @@ public class WithdrawalsubsidiaryFragment extends BaseFragment {
                 //showDialog();
             }
         });
-        mRecycler.addItemDecoration(new DividerItemDecoration(getActivity(),DividerItemDecoration.VERTICAL));
+        mRecycler.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
         mRecycler.setAdapter(adapter);
     }
 }

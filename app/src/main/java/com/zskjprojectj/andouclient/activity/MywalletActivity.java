@@ -20,7 +20,13 @@ import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
 import com.zskjprojectj.andouclient.fragment.BalancesubsidiaryFragment;
 import com.zskjprojectj.andouclient.fragment.WithdrawalsubsidiaryFragment;
+import com.zskjprojectj.andouclient.http.ApiUtils;
+import com.zskjprojectj.andouclient.http.BaseObserver;
+import com.zskjprojectj.andouclient.http.HttpRxObservable;
+import com.zskjprojectj.andouclient.model.BalanceDetail;
+import com.zskjprojectj.andouclient.utils.TestUtil;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +40,10 @@ public class MywalletActivity extends BaseActivity {
     private ViewPager viewPager;
     //第三方指示器
     private IndicatorViewPager indicatorViewPager;
-    private Button balanceofprepaid,btn_withdrawal;
+    private Button balanceofprepaid, btn_withdrawal;
+    BalancesubsidiaryFragment meBalancesubsidiaryFragment = new BalancesubsidiaryFragment();
+    BalancesubsidiaryFragment meCashFragment = new BalancesubsidiaryFragment();
+
     @Override
     protected void setRootView() {
         setContentView(R.layout.activity_mywallet);
@@ -47,8 +56,8 @@ public class MywalletActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-        balanceofprepaid=findViewById(R.id.btn_balanceofprepaid);
-        btn_withdrawal=findViewById(R.id.btn_withdrawal);
+        balanceofprepaid = findViewById(R.id.btn_balanceofprepaid);
+        btn_withdrawal = findViewById(R.id.btn_withdrawal);
         //设置点击事件
         balanceofprepaid.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,10 +78,8 @@ public class MywalletActivity extends BaseActivity {
         indicator = (FixedIndicatorView) findViewById(R.id.indicator);
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         list = new ArrayList<Fragment>();
-        Fragment meBalancesubsidiaryFragment=new BalancesubsidiaryFragment();
         list.add(meBalancesubsidiaryFragment);
-        Fragment meWithdrawalsubsidiaryFragment=new WithdrawalsubsidiaryFragment();
-        list.add(meWithdrawalsubsidiaryFragment);
+        list.add(meCashFragment);
         indicatorViewPager = new IndicatorViewPager(indicator, viewPager);
         indicatorViewPager.setAdapter(adapter);
         //设置滑动时的那一项的图形和颜色变化，ColorBar对应的是下划线的形状。
@@ -82,19 +89,40 @@ public class MywalletActivity extends BaseActivity {
 
     @Override
     public void getDataFromServer() {
+        HttpRxObservable.getObservable(ApiUtils.getApiService().balanceDetail(
+                TestUtil.getUid(),
+                TestUtil.getToken()
+        )).subscribe(new BaseObserver<BalanceDetail>(mAt) {
+            @Override
+            public void onHandleSuccess(BalanceDetail balanceDetail) throws IOException {
+                ((TextView) findViewById(R.id.tv_balanceofnum)).setText("￥" + balanceDetail.money);
+                meBalancesubsidiaryFragment.addData(balanceDetail.log, true);
+            }
+        });
 
+        HttpRxObservable.getObservable(ApiUtils.getApiService().cashDetail(
+                TestUtil.getUid(),
+                TestUtil.getToken()
+        )).subscribe(new BaseObserver<BalanceDetail>(mAt) {
+            @Override
+            public void onHandleSuccess(BalanceDetail balanceDetail) throws IOException {
+                ((TextView) findViewById(R.id.tv_balanceofnum)).setText("￥" + balanceDetail.money);
+                meCashFragment.addData(balanceDetail.log, true);
+            }
+        });
     }
 
     @Override
     protected BasePresenter createPresenter() {
         return null;
     }
+
     /**
      * 指示器适配器对形象
      */
-    public IndicatorViewPager.IndicatorFragmentPagerAdapter adapter=new IndicatorViewPager.IndicatorFragmentPagerAdapter(getSupportFragmentManager())
-    {
+    public IndicatorViewPager.IndicatorFragmentPagerAdapter adapter = new IndicatorViewPager.IndicatorFragmentPagerAdapter(getSupportFragmentManager()) {
         private String[] tabNames = {"余额明细", "提现明细"};
+
         @Override
         public int getCount() {
             return list.size();

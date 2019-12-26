@@ -14,6 +14,8 @@ import com.zskjprojectj.andouclient.adapter.hotel.ReserveAdapter;
 import com.zskjprojectj.andouclient.base.BaseFragment;
 import com.zskjprojectj.andouclient.entity.BalancesubsidiaryBean;
 import com.zskjprojectj.andouclient.entity.hotel.HotelDetailReserveBean;
+import com.zskjprojectj.andouclient.model.BalanceDetail;
+import com.zskjprojectj.andouclient.model.BalanceLog;
 
 import java.util.ArrayList;
 
@@ -22,11 +24,11 @@ import java.util.ArrayList;
  */
 public class BalancesubsidiaryFragment extends BaseFragment {
     private RecyclerView mRecycler;
-    private ArrayList<BalancesubsidiaryBean> mDataList;
+    BalancesubsidiaryAdapter adapter = new BalancesubsidiaryAdapter();
 
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
-        mRecycler=view.findViewById(R.id.rv_recycler);
+        mRecycler = view.findViewById(R.id.rv_recycler);
         mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
@@ -42,15 +44,6 @@ public class BalancesubsidiaryFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-        mDataList = new ArrayList<>();
-        for (int i=0;i<20;i++){
-            BalancesubsidiaryBean databean=new BalancesubsidiaryBean();
-            databean.setTitlename("外卖订单完成");
-            databean.setPrice("+144");
-            databean.setTime("2019-08-26 17:52");
-            mDataList.add(databean);
-        }
-        BalancesubsidiaryAdapter adapter=new BalancesubsidiaryAdapter(R.layout.item_balancesubsidiary,mDataList);
         adapter.openLoadAnimation();
 //        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
 //            @Override
@@ -66,7 +59,11 @@ public class BalancesubsidiaryFragment extends BaseFragment {
                 //showDialog();
             }
         });
-        mRecycler.addItemDecoration(new DividerItemDecoration(getActivity(),DividerItemDecoration.VERTICAL));
+        mRecycler.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
         mRecycler.setAdapter(adapter);
+    }
+
+    public void addData(ArrayList<BalanceLog> logs, Boolean refresh) {
+        adapter.setNewData(logs);
     }
 }

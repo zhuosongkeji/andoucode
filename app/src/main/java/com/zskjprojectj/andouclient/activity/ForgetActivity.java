@@ -10,7 +10,6 @@ import com.zskjprojectj.andouclient.base.BasePresenter;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
-import com.zskjprojectj.andouclient.utils.PhonenumUtil;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
 import com.zskjprojectj.andouclient.view.TopView;
 
@@ -26,13 +25,13 @@ import java.io.IOException;
  *
  * @author yizhubao
  */
-public class RegisteredActivity extends BaseActivity {
+public class ForgetActivity extends BaseActivity {
     private TopView topView;
 
     //设置布局文件
     @Override
     protected void setRootView() {
-        setContentView(R.layout.activity_registered);
+        setContentView(R.layout.activity_forget);
     }
 
     //设置配置数据可以添加某些权限，这几个方法在使用的时候特别注意执行顺序
@@ -61,7 +60,7 @@ public class RegisteredActivity extends BaseActivity {
                         ToastUtil.showToast("请输入正确的手机号码!");
                         return;
                     }
-                    HttpRxObservable.getObservable(ApiUtils.getApiService().sendCode(mobileStr, "1"))
+                    HttpRxObservable.getObservable(ApiUtils.getApiService().sendCode(mobileStr, "0"))
                             .subscribe(new BaseObserver<Object>(mAt) {
                                 @Override
                                 public void onHandleSuccess(Object o) throws IOException {
@@ -85,14 +84,14 @@ public class RegisteredActivity extends BaseActivity {
                 ToastUtil.showToast("请输入正确的密码!");
                 return;
             }
-            HttpRxObservable.getObservable(ApiUtils.getApiService().register(
+            HttpRxObservable.getObservable(ApiUtils.getApiService().forgetPassword(
                     mobileStr,
                     passwordStr,
                     codeStr
             )).subscribe(new BaseObserver<Object>(mAt) {
                 @Override
                 public void onHandleSuccess(Object o) throws IOException {
-                    ToastUtil.showToast("注册成功,请登录!");
+                    ToastUtil.showToast("修改成功,请登录!");
                     finish();
                 }
             });
