@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="90dp"
+    android:id="@+id/custom_view"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/iv_item_icon"
+        android:layout_width="@dimen/dp_26"
+        android:layout_height="@dimen/dp_28"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/dp_26"
+        android:scaleType="fitXY"
+        android:src="@mipmap/icon_meizhuang" />
+
+    <TextView
+        android:id="@+id/tv_item_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/dp_17"
+        android:text="美妆个护"
+        android:textColor="#323232"
+        android:textSize="@dimen/typeface12sp" />
+
+</LinearLayout>

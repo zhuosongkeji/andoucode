@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.zskjprojectj.andouclient.R;
+import com.zskjprojectj.andouclient.entity.mall.MallShoppingHomeBean;
 import com.zskjprojectj.andouclient.entity.mall.MallShoppingPopuBean;
 
 import java.util.List;
@@ -22,17 +23,20 @@ import java.util.List;
  * 修改时间：
  * 修改备注：
  */
-public class MallShoppingPopuAdapter extends BaseQuickAdapter<MallShoppingPopuBean, BaseViewHolder> {
+public class MallShoppingPopuAdapter extends BaseQuickAdapter<MallShoppingHomeBean.TypeBean, BaseViewHolder> {
 
     public static int SELECTOR_POSITION=-1;
 
 
-    public MallShoppingPopuAdapter(int layoutResId, @Nullable List<MallShoppingPopuBean> data) {
+    public MallShoppingPopuAdapter(int layoutResId, @Nullable List<MallShoppingHomeBean.TypeBean> data) {
         super(layoutResId, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, MallShoppingPopuBean item) {
+    protected void convert(BaseViewHolder helper, MallShoppingHomeBean.TypeBean item) {
+
+        helper.setText(R.id.tv_content,item.getNameX());
+
 
         TextView mContent = helper.getView(R.id.tv_content);
         int position = helper.getLayoutPosition();

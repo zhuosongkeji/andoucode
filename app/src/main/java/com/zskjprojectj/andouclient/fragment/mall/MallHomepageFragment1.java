@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -17,7 +18,9 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 
 
 import com.stx.xhb.xbanner.XBanner;
+import com.wihaohao.PageGridView;
 import com.zskjprojectj.andouclient.R;
+import com.zskjprojectj.andouclient.activity.ClassificationofgoodsActivity;
 import com.zskjprojectj.andouclient.activity.mall.MallGoodsDetailsActivity;
 import com.zskjprojectj.andouclient.adapter.mall.RecommendProductsAdapter;
 import com.zskjprojectj.andouclient.adapter.mall.SpecialProductsAdapter;
@@ -63,6 +66,9 @@ public class MallHomepageFragment1 extends BaseFragment {
     @BindView(R.id.rv_special_products)
     RecyclerView mSpecialProducts;
 
+    @BindView(R.id.vp_grid_view)
+    PageGridView mGridView;
+
     private List<MallHomeDataBean.BannerBean> banner;
 
     @Override
@@ -85,6 +91,12 @@ public class MallHomepageFragment1 extends BaseFragment {
                     public void onHandleSuccess(MallHomeDataBean bean) {
 
                         banner = bean.getBanner();
+                        //分类
+                        List<MallHomeDataBean.CategoryBean> category = bean.getCategory();
+//                        initCategoryRecycler(category);
+
+                        mGridView.setData(category);
+
                         //推荐产品
                         List<MallHomeDataBean.RecommendGoodsBean> recommend_goods = bean.getRecommend_goods();
                         initRecommendAdapter(recommend_goods);
@@ -105,6 +117,7 @@ public class MallHomepageFragment1 extends BaseFragment {
                 });
 
     }
+
 
     private void initBargainAdapter(List<MallHomeDataBean.BargainGoodsBean> bargain_goods) {
         //特价产品
@@ -146,6 +159,12 @@ public class MallHomepageFragment1 extends BaseFragment {
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, ScreenUtil.getScreenWidth(mAty) / 2);
         onlinebanner.setLayoutParams(layoutParams);
         initBanner(onlinebanner);
+        mGridView.setOnItemClickListener(new PageGridView.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                startActivity(new Intent(getActivity(), ClassificationofgoodsActivity.class));
+            }
+        });
 
 
 

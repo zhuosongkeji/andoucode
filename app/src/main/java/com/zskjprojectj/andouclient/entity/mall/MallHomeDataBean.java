@@ -1,9 +1,18 @@
 package com.zskjprojectj.andouclient.entity.mall;
 
 
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.stx.xhb.xbanner.entity.SimpleBannerInfo;
+import com.wihaohao.PageGridView;
+import com.zskjprojectj.andouclient.R;
+import com.zskjprojectj.andouclient.base.BaseUrl;
 
 import java.util.List;
 
@@ -98,7 +107,7 @@ public class MallHomeDataBean {
         }
     }
 
-    public static class CategoryBean {
+    public static class CategoryBean implements PageGridView.ItemModel {
         /**
          * id : 1
          * img : /uploads/c6ff072673d5c35aba145fa71ce5d039.jpg
@@ -131,6 +140,34 @@ public class MallHomeDataBean {
 
         public void setName(String name) {
             this.name = name;
+        }
+
+        @Override
+        public String getItemName() {
+            return null;
+        }
+
+        @Override
+        public void setIcon(ImageView imageView) {
+
+        }
+
+        @Override
+        public void setItemView(View itemView) {
+
+
+//            LayoutInflater.from(itemView.getContext())
+//                    .inflate(R.layout.fragment_category_view, ((ViewGroup) itemView));
+//            TextView tv = itemView.findViewById(R.id.iv_item_icon);
+//            tv.setText(name);
+//            ImageView iv = itemView.findViewById(R.id.tv_item_name);
+//            Glide.with(iv.getContext()).load(BaseUrl.BASE_URL + img).into(iv);
+
+            TextView textView =  itemView.findViewById(R.id.tv_item_name);
+            textView.setText(name);
+
+            ImageView imageView = itemView.findViewById(R.id.iv_item_icon);
+            Glide.with(imageView.getContext()).load(BaseUrl.BASE_URL + img).into(imageView);
         }
     }
 

@@ -2,9 +2,11 @@ package com.zskjprojectj.andouclient.http;
 
 
 import com.zskjprojectj.andouclient.entity.TestBean;
+import com.zskjprojectj.andouclient.entity.mall.MallBuyBean;
 import com.zskjprojectj.andouclient.entity.mall.MallCommentBean;
 import com.zskjprojectj.andouclient.entity.mall.MallGoodsDetailsDataBean;
 import com.zskjprojectj.andouclient.entity.mall.MallHomeDataBean;
+import com.zskjprojectj.andouclient.entity.mall.MallShoppingHomeBean;
 import com.zskjprojectj.andouclient.model.Address;
 import com.zskjprojectj.andouclient.model.CartItem;
 import com.zskjprojectj.andouclient.model.Merchant;
@@ -35,17 +37,17 @@ public interface ApiService {
     /**
      * 商城商品详情展示
      */
-    @POST("api/goods/collection")
+    @POST("api/goods/goods")
     @FormUrlEncoded
-    Observable<BaseResult<MallGoodsDetailsDataBean>> mallDetailsShow(@Field("id") String id);
+    Observable<BaseResult<MallGoodsDetailsDataBean>> mallDetailsShow(@Field("id") String id,@Field("uid") String uid);
 
 
     /**
-     * 商城商品详情展示
+     * 商城商品收藏/取消收藏
      */
-    @POST("api/goods/goods")
+    @POST("api/goods/collection")
     @FormUrlEncoded
-    Observable<BaseResult<Object>> mallGoodsCollection(@Field("id") String id,@Field("uid") String uid,@Field("token") String token,@Field("type") String type);
+    Observable<BaseResult<Object>> mallGoodsCollection(@Field("id") String id, @Field("uid") String uid, @Field("token") String token, @Field("type") String type);
 
     /**
      * 商城商品评论
@@ -55,11 +57,22 @@ public interface ApiService {
     Observable<BaseResult<List<MallCommentBean>>> mallComment(@Field("id") String id);
 
     /**
+     * 商城商品规格
+     */
+    @POST("api/goods/specslist")
+    @FormUrlEncoded
+    Observable<BaseResult<MallBuyBean>> buySpecification(@Field("id") String id);
+
+    /**
      * 商城商户详情
      */
     @POST("api/merchant/merchant_goods")
     @FormUrlEncoded
-    Observable<BaseResult<List<MallCommentBean>>> mallMerchant(@Field("id") String id,@Field("uid") String uid);
+    Observable<BaseResult<MallShoppingHomeBean>>mallMerchant(@Field("id") String id, @Field("uid") String uid,
+                                                             @Field("keyword") String keyword,
+                                                             @Field("type_id") String type_id,
+                                                             @Field("price_sort") String price_sort,
+                                                             @Field("volume_sort") String volume_sort);
 
     /**
      * 新增收货地址
