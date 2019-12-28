@@ -45,6 +45,7 @@ import com.zskjprojectj.andouclient.base.BaseUrl;
 import com.zskjprojectj.andouclient.entity.TuchongEntity;
 import com.zskjprojectj.andouclient.entity.XBannerBean;
 import com.zskjprojectj.andouclient.entity.mall.MallBuyBean;
+import com.zskjprojectj.andouclient.entity.mall.MallBuyNowBean;
 import com.zskjprojectj.andouclient.entity.mall.MallCommentBean;
 import com.zskjprojectj.andouclient.entity.mall.MallGoodsDetailsDataBean;
 import com.zskjprojectj.andouclient.entity.mall.MallHomeDataBean;
@@ -65,6 +66,7 @@ import com.zskjprojectj.andouclient.utils.ToastUtil;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -122,11 +124,24 @@ public class MallGoodsDetailsActivity extends BaseActivity {
     private Dialog bottomDialog;
     private View contentView;
     private int goodsId;
-    private boolean isCollection=false;
+    private boolean isCollection = false;
     private String type;
+    //商品id
     private String id;
     private String merchant_id;
     private ArrayList<MallBuyBean.SpecInfo> res;
+    //商户Id
+    private int merchantId;
+    //购买数量
+    private String num;
+    //商品图片
+    private String goodsImg;
+    //商品名称
+    private String goodsName;
+    //商品价格
+    private String goodsPrice;
+    //商品订单号
+    private String order_sn;
 
     @Override
     protected void setRootView() {
@@ -140,17 +155,17 @@ public class MallGoodsDetailsActivity extends BaseActivity {
 
         //商品详情
 
-        MallGoodsDetailFragment mallGoodsDetailFragment=new MallGoodsDetailFragment();
-        Bundle detailBundle=new Bundle();
-        detailBundle.putInt("id",goodsId);
+        MallGoodsDetailFragment mallGoodsDetailFragment = new MallGoodsDetailFragment();
+        Bundle detailBundle = new Bundle();
+        detailBundle.putInt("id", goodsId);
         mallGoodsDetailFragment.setArguments(detailBundle);
         list.add(mallGoodsDetailFragment);
 
         //商品评论
 
-        MallGoodsCommentFragment mallGoodsCommentFragment=new MallGoodsCommentFragment();
-        Bundle commentBundle=new Bundle();
-        commentBundle.putInt("id",goodsId);
+        MallGoodsCommentFragment mallGoodsCommentFragment = new MallGoodsCommentFragment();
+        Bundle commentBundle = new Bundle();
+        commentBundle.putInt("id", goodsId);
         mallGoodsCommentFragment.setArguments(commentBundle);
         list.add(mallGoodsCommentFragment);
 
@@ -178,7 +193,7 @@ public class MallGoodsDetailsActivity extends BaseActivity {
             public void loadBanner(XBanner banner, Object model, View view, int position) {
 //                加载本地图片展示
                 XBannerBean urlList = (XBannerBean) model;
-                String url=BaseUrl.BASE_URL+urlList.getImageUrl();
+                String url = BaseUrl.BASE_URL + urlList.getImageUrl();
                 Glide.with(MallGoodsDetailsActivity.this).load(url).apply(new RequestOptions()
                         .placeholder(R.drawable.default_image).error(R.drawable.default_image)).into((ImageView) view);
             }
@@ -247,42 +262,43 @@ public class MallGoodsDetailsActivity extends BaseActivity {
         id = String.valueOf(goodsId);
 
         //商品详情展示
-        HttpRxObservable.getObservable(ApiUtils.getApiService().mallDetailsShow(id,TestUtil.getUid()))
+        HttpRxObservable.getObservable(ApiUtils.getApiService().mallDetailsShow(id, TestUtil.getUid()))
                 .subscribe(new BaseObserver<MallGoodsDetailsDataBean>(this) {
                     @Override
                     public void onHandleSuccess(MallGoodsDetailsDataBean mallGoodsDetailsDataBean) throws IOException {
-                        List<XBannerBean> urlBanner=new ArrayList<>();
+                        merchantId = mallGoodsDetailsDataBean.getMerchant().getId();
+                        goodsImg = mallGoodsDetailsDataBean.getImg();
+                        goodsName = mallGoodsDetailsDataBean.getName();
+                        goodsPrice = mallGoodsDetailsDataBean.getPrice();
+
+                        List<XBannerBean> urlBanner = new ArrayList<>();
                         urlBanner.clear();
                         //轮播图
                         String img = mallGoodsDetailsDataBean.getImg();
                         urlBanner.add(new XBannerBean(img));
                         List<String> album = mallGoodsDetailsDataBean.getAlbum();
-                        if (album.size()!=0) {
+                        if (album.size() != 0) {
                             for (String s : album) {
                                 urlBanner.add(new XBannerBean(s));
                             }
                         }
-
                         mBanner.setBannerData(urlBanner);
-
-
-
                         mMallGoodsName.setText(mallGoodsDetailsDataBean.getName());
                         mTvPrice.setText(mallGoodsDetailsDataBean.getPrice());
                         mTvGoodsDilivery.setText(mallGoodsDetailsDataBean.getDilivery());
                         mTvGoodsVolume.setText(mallGoodsDetailsDataBean.getVolume());
                         mTvGoodsStoreNum.setText(mallGoodsDetailsDataBean.getStore_num());//商品库存
 
-                        Glide.with(MallGoodsDetailsActivity.this).load(BaseUrl.BASE_URL+mallGoodsDetailsDataBean.getMerchant().getLogo_img())
+                        Glide.with(MallGoodsDetailsActivity.this).load(BaseUrl.BASE_URL + mallGoodsDetailsDataBean.getMerchant().getLogo_img())
                                 .apply(new RequestOptions()
-                                .placeholder(R.mipmap.ic_default_head_photo).error(R.mipmap.ic_default_head_photo))
+                                        .placeholder(R.mipmap.ic_default_head_photo).error(R.mipmap.ic_default_head_photo))
                                 .into(IvHeadPic);
 
                         mTvName.setText(mallGoodsDetailsDataBean.getMerchant().getName());
 
-                        if ("0".equals(mallGoodsDetailsDataBean.getIs_collection())){
+                        if ("0".equals(mallGoodsDetailsDataBean.getIs_collection())) {
                             mtvMallGoodsCollection.setText("收藏");
-                        }else {
+                        } else {
                             mtvMallGoodsCollection.setText("已收藏");
                         }
 
@@ -297,9 +313,6 @@ public class MallGoodsDetailsActivity extends BaseActivity {
                 });
 
 
-
-
-
     }
 
     @Override
@@ -308,22 +321,22 @@ public class MallGoodsDetailsActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.mall_goods_collection,R.id.tv_mall_home, R.id.tv_mall_shopping, R.id.tv_Mall_service, R.id.tv_buy_now, R.id.add_shopping, R.id.rv_shop_home, R.id.bt_mall_goods_discount, R.id.shared})
+    @OnClick({R.id.mall_goods_collection, R.id.tv_mall_home, R.id.tv_mall_shopping, R.id.tv_Mall_service, R.id.tv_buy_now, R.id.add_shopping, R.id.rv_shop_home, R.id.bt_mall_goods_discount, R.id.shared})
     public void clickButNow(View v) {
         switch (v.getId()) {
 
             case R.id.mall_goods_collection:
                 if (!isCollection) {
                     mtvMallGoodsCollection.setText("已收藏");
-                    isCollection=true;
-                    type="1";
-                }else {
+                    isCollection = true;
+                    type = "1";
+                } else {
                     mtvMallGoodsCollection.setText("收藏");
-                    type="0";
-                    isCollection=false;
+                    type = "0";
+                    isCollection = false;
                 }
 
-                Log.d(TAG, "type: "+type);
+                Log.d(TAG, "type: " + type);
                 HttpRxObservable.getObservable(ApiUtils.getApiService().mallGoodsCollection(
                         id,
                         TestUtil.getUid(),
@@ -355,15 +368,21 @@ public class MallGoodsDetailsActivity extends BaseActivity {
             case R.id.add_shopping:
 
                 HttpRxObservable.getObservable(ApiUtils.getApiService().buySpecification(id))
-                        .subscribe(new BaseObserver<MallBuyBean>(mAt){
+                        .subscribe(new BaseObserver<MallBuyBean>(mAt) {
                             @Override
                             public void onHandleSuccess(MallBuyBean mallBuyBean) throws IOException {
 //                                mallBuyBean.res.get(9).name
 //                                mallBuyBean.res.get(9).value
                                 //获取拼接选择之后的id，sum，price
 //                                mallBuyBean.price.get("").
-                                 res = mallBuyBean.res;
-                                initBuyNow();
+                                res = new ArrayList<>();
+                                for (MallBuyBean.SpecInfo re : mallBuyBean.res) {
+                                    MallBuyBean.SpecInfo info = new MallBuyBean.SpecInfo();
+                                    info.name = re.name;
+                                    res.add(info);
+                                }
+
+                                initBuyNow(mallBuyBean.res, mallBuyBean.price);
                             }
                         });
 
@@ -373,8 +392,8 @@ public class MallGoodsDetailsActivity extends BaseActivity {
             case R.id.tv_mall_home:
             case R.id.rv_shop_home:
 
-                Intent shopHomeIntent=new Intent(MallGoodsDetailsActivity.this, MallShoppingHomeActivity.class);
-                shopHomeIntent.putExtra("merchant_id",merchant_id);
+                Intent shopHomeIntent = new Intent(MallGoodsDetailsActivity.this, MallShoppingHomeActivity.class);
+                shopHomeIntent.putExtra("merchant_id", merchant_id);
                 startActivity(shopHomeIntent);
                 break;
             //优惠券
@@ -451,7 +470,7 @@ public class MallGoodsDetailsActivity extends BaseActivity {
 
     }
 
-    private void initBuyNow() {
+    private void initBuyNow(ArrayList<MallBuyBean.SpecInfo> res, HashMap<String, MallBuyBean.PriceInfo> price) {
 
         bottomDialog = new Dialog(this, R.style.BottomDialog);
 
@@ -470,10 +489,25 @@ public class MallGoodsDetailsActivity extends BaseActivity {
         RecyclerView mBuyRecycler = contentView.findViewById(R.id.rv_buy_recyclerview);
         mBuyRecycler.setLayoutManager(new LinearLayoutManager(mBuyRecycler.getContext()));
 
-        MallBuyAdapter buyAdapter=new MallBuyAdapter(R.layout.mall_buy_item,res);
+
+        MallBuyAdapter buyAdapter = new MallBuyAdapter(R.layout.mall_buy_item, res);
         mBuyRecycler.setAdapter(buyAdapter);
 
+        buyAdapter.setItemClickKind(new MallBuyAdapter.ItemClickKind() {
+            @Override
+            public void getItemKind(String spec, String kind) {
+                Log.d(TAG, "getItemKind: " + spec + " " + kind);
+                for (MallBuyBean.SpecInfo re : MallGoodsDetailsActivity.this.res) {
+                    if (re.name.equals(spec)) {
+                        re.value.clear();
+                        if (kind != null) {
+                            re.value.add(kind);
+                        }
+                    }
+                }
 
+            }
+        });
 
 
         TextView mTvAddShopping = contentView.findViewById(R.id.tv_add_shopping);
@@ -496,9 +530,48 @@ public class MallGoodsDetailsActivity extends BaseActivity {
         mBuyNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MallGoodsDetailsActivity.this, MallOnlineOrderActivity.class);
-                startActivity(intent);
-                bottomDialog.dismiss();
+
+                StringBuffer buffer = new StringBuffer();
+                for (int i = 0; i < MallGoodsDetailsActivity.this.res.size(); i++) {
+                    MallBuyBean.SpecInfo info = MallGoodsDetailsActivity.this.res.get(i);
+                    if (info.value.size() <= 0) {
+                        ToastUtil.showToast("请选择" + info.name);
+                        return;
+                    } else {
+                        buffer.append(info.value.get(0)).append("-");
+                    }
+                }
+                String selectKind = buffer.substring(0, buffer.length() - 1);
+                Log.d(TAG, "onClick: " + selectKind);
+
+                MallBuyBean.PriceInfo priceInfo = price.get(selectKind);
+                Log.d(TAG, "priceInfo" + priceInfo.id + " " + priceInfo.num + " " + priceInfo.price);
+                String goods_sku_id = priceInfo.id;
+
+                String merchant_id = String.valueOf(merchantId);
+
+                HttpRxObservable.getObservable(ApiUtils.getApiService().MallBuyNow(
+                        TestUtil.getUid(),
+                        TestUtil.getToken(),
+                        id,
+                        merchant_id,
+                        goods_sku_id,
+                        num
+                )).subscribe(new BaseObserver<MallBuyNowBean>(mAt) {
+                    @Override
+                    public void onHandleSuccess(MallBuyNowBean mallBuyNowBean) throws IOException {
+                        order_sn = mallBuyNowBean.getOrder_sn();
+
+                        Log.d(TAG, "order_sn: "+TestUtil.getUid()+" "+TestUtil.getToken()+" "+order_sn);
+                        Intent onlineIntent = new Intent(MallGoodsDetailsActivity.this, MallOnlineOrderActivity.class);
+                        onlineIntent.putExtra("order_sn", order_sn);
+                        startActivity(onlineIntent);
+                        bottomDialog.dismiss();
+
+                    }
+                });
+
+
             }
         });
 
@@ -511,8 +584,10 @@ public class MallGoodsDetailsActivity extends BaseActivity {
         });
         //减
         Button mSub = contentView.findViewById(R.id.btn_sub);
+        //加
         Button mAdd = contentView.findViewById(R.id.btn_add);
         TextView mNum = contentView.findViewById(R.id.tv_num);
+        num = mNum.getText().toString();
 
         mAdd.setOnClickListener(new View.OnClickListener() {
             @Override

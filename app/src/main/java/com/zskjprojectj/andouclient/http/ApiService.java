@@ -3,6 +3,7 @@ package com.zskjprojectj.andouclient.http;
 
 import com.zskjprojectj.andouclient.entity.TestBean;
 import com.zskjprojectj.andouclient.entity.mall.MallBuyBean;
+import com.zskjprojectj.andouclient.entity.mall.MallBuyNowBean;
 import com.zskjprojectj.andouclient.entity.mall.MallCommentBean;
 import com.zskjprojectj.andouclient.entity.mall.MallDetailsBean;
 import com.zskjprojectj.andouclient.entity.mall.MallGoodsDetailsDataBean;
@@ -83,6 +84,26 @@ public interface ApiService {
                                                              @Field("type_id") String type_id,
                                                              @Field("price_sort") String price_sort,
                                                              @Field("volume_sort") String volume_sort);
+    /**
+     * 商城立即购买
+     */
+    @POST("order/add_order")
+    @FormUrlEncoded
+    Observable<BaseResult<MallBuyNowBean>> MallBuyNow(@Field("uid") String uid,
+                                                      @Field("token") String token,
+                                                      @Field("goods_id") String goods_id,
+                                                      @Field("merchant_id") String merchant_id,
+                                                      @Field("goods_sku_id") String goods_sku_id,
+                                                      @Field("num") String num);
+
+    /**
+     * 商城购买结算页
+     */
+    @POST("order/settlement")
+    @FormUrlEncoded
+    Observable<BaseResult<MallBuyNowBean>> MallSettlement(@Field("uid") String uid,
+                                                      @Field("token") String token,
+                                                      @Field("order_sn") String order_sn);
 
     /**
      * 新增收货地址

@@ -1,5 +1,6 @@
 package com.zskjprojectj.andouclient.adapter.mall;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -15,7 +16,11 @@ import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.entity.mall.MallBuyBean;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
 
+import java.security.PublicKey;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 项目名称： andoucode
@@ -35,10 +40,10 @@ public class MallBuyAdapter extends BaseQuickAdapter<MallBuyBean.SpecInfo, BaseV
     @Override
     protected void convert(BaseViewHolder helper, MallBuyBean.SpecInfo item) {
 
-        helper.setText(R.id.tv_specification,item.name);
+        helper.setText(R.id.tv_specification, item.name);
 
         //流式布局
-        TagFlowLayout flowLayout  = helper.getView(R.id.id_flowlayout);
+        TagFlowLayout flowLayout = helper.getView(R.id.id_flowlayout);
         final LayoutInflater mInflater = LayoutInflater.from(mContext);
         flowLayout.setAdapter(new TagAdapter<String>(item.value) {
             @Override
@@ -46,7 +51,6 @@ public class MallBuyAdapter extends BaseQuickAdapter<MallBuyBean.SpecInfo, BaseV
 
                 TextView tv = (TextView) mInflater.inflate(R.layout.tv, flowLayout, false);
                 tv.setText(s);
-                tv.setSelected(true);
                 return tv;
             }
         });
@@ -55,13 +59,40 @@ public class MallBuyAdapter extends BaseQuickAdapter<MallBuyBean.SpecInfo, BaseV
             @Override
             public boolean onTagClick(View view, int position, FlowLayout parent) {
 
-                ToastUtil.showToast("选择的是"+item.value.get(position));
+                ToastUtil.showToast("选择的是" + item.value.get(position));
 
                 return true;
             }
         });
 
+        flowLayout.setOnSelectListener(new TagFlowLayout.OnSelectListener() {
+            @Override
+            public void onSelected(Set<Integer> selectPosSet) {
 
+                if (selectPosSet.size() > 0) {
+                    Integer next = selectPosSet.iterator().next();
+                    String s = item.value.get(next);
+                    Log.d("wangbin", "onSelected: " + s);
+                    if (itemClickKind != null) {
+                        itemClickKind.getItemKind(item.name, s);
+                    }
+                } else {
+                    if (itemClickKind != null) {
+                        itemClickKind.getItemKind(item.name, null);
+                    }
+                }
+            }
+        });
 
+    }
+
+    public interface ItemClickKind {
+        void getItemKind(String spec, String kind);
+    }
+
+    private ItemClickKind itemClickKind;
+
+    public void setItemClickKind(ItemClickKind itemClickKind) {
+        this.itemClickKind = itemClickKind;
     }
 }

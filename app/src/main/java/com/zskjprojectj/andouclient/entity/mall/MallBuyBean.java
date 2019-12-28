@@ -26,8 +26,8 @@ public class MallBuyBean {
         public int num;
     }
 
-    public class SpecInfo {
+    public static class SpecInfo {
         public String name;
-        public ArrayList<String> value;
+        public ArrayList<String> value = new ArrayList<>();
     }
 }
