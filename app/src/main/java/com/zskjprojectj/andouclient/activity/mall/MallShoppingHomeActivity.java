@@ -1,11 +1,8 @@
 package com.zskjprojectj.andouclient.activity.mall;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,16 +28,13 @@ import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
 import com.zskjprojectj.andouclient.base.BaseUrl;
 import com.zskjprojectj.andouclient.entity.mall.MallShoppingHomeBean;
-import com.zskjprojectj.andouclient.entity.mall.MallShoppingPopuBean;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.utils.BarUtils;
-import com.zskjprojectj.andouclient.utils.TestUtil;
-import com.zskjprojectj.andouclient.utils.ToastUtil;
+import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -132,11 +126,11 @@ public class MallShoppingHomeActivity extends BaseActivity {
 
     @Override
     public void getDataFromServer() {
-        Log.d(TAG, "sort: "+merchantId+"===="+TestUtil.getUid()+"===="+volume_sort+"===="+price_sort);
+        Log.d(TAG, "sort: "+merchantId+"===="+ LoginInfoUtil.getUid()+"===="+volume_sort+"===="+price_sort);
 
         HttpRxObservable.getObservable(ApiUtils.getApiService().mallMerchant(
                 merchantId,
-                TestUtil.getUid(),
+                LoginInfoUtil.getUid(),
                 keyword,
                 type_id,
                 price_sort,

@@ -21,7 +21,7 @@ import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.model.CartItem;
 import com.zskjprojectj.andouclient.utils.ArrayParamUtil;
-import com.zskjprojectj.andouclient.utils.TestUtil;
+import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
 
 import java.io.IOException;
@@ -61,8 +61,8 @@ public class MallShoppingFragment extends BaseFragment {
             CartItem item = adapter.getItem(position);
             if (view1.getId() == R.id.deleteBtn) {
                 HttpRxObservable.getObservable(ApiUtils.getApiService().delCart(
-                        TestUtil.getUid(),
-                        TestUtil.getToken(),
+                        LoginInfoUtil.getUid(),
+                        LoginInfoUtil.getToken(),
                         ArrayParamUtil.getParam(new String[]{item.id})
                 )).subscribe(new BaseObserver<Object>(mAty) {
                     @Override
@@ -73,8 +73,8 @@ public class MallShoppingFragment extends BaseFragment {
                 });
             } else if (view1.getId() == R.id.btn_add) {
                 HttpRxObservable.getObservable(ApiUtils.getApiService().editCart(
-                        TestUtil.getUid(),
-                        TestUtil.getToken(),
+                        LoginInfoUtil.getUid(),
+                        LoginInfoUtil.getToken(),
                         item.id,
                         "1"
                 )).subscribe(new BaseObserver<Object>(mAty) {
@@ -86,8 +86,8 @@ public class MallShoppingFragment extends BaseFragment {
                 });
             } else if (view1.getId() == R.id.btn_sub && item.num > 1) {
                 HttpRxObservable.getObservable(ApiUtils.getApiService().editCart(
-                        TestUtil.getUid(),
-                        TestUtil.getToken(),
+                        LoginInfoUtil.getUid(),
+                        LoginInfoUtil.getToken(),
                         item.id,
                         "0"
                 )).subscribe(new BaseObserver<Object>(mAty) {
@@ -117,8 +117,8 @@ public class MallShoppingFragment extends BaseFragment {
     @Override
     protected void getDataFromServer() {
         HttpRxObservable.getObservable(ApiUtils.getApiService().cart(
-                TestUtil.getUid(),
-                TestUtil.getToken()
+                LoginInfoUtil.getUid(),
+                LoginInfoUtil.getToken()
         )).subscribe(new BaseObserver<List<CartItem>>(getActivity()) {
             @Override
             public void onHandleSuccess(List<CartItem> cartItem) throws IOException {

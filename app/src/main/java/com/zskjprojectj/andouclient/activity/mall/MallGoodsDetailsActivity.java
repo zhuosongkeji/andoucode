@@ -1,8 +1,6 @@
 package com.zskjprojectj.andouclient.activity.mall;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
@@ -11,7 +9,6 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.provider.FontsContract;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -20,9 +17,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -35,32 +30,23 @@ import com.shizhefei.view.indicator.transition.OnTransitionTextListener;
 
 
 import com.stx.xhb.xbanner.XBanner;
-import com.stx.xhb.xbanner.entity.LocalImageInfo;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.MallMainActivity;
 import com.zskjprojectj.andouclient.adapter.mall.MallBuyAdapter;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
 import com.zskjprojectj.andouclient.base.BaseUrl;
-import com.zskjprojectj.andouclient.entity.TuchongEntity;
 import com.zskjprojectj.andouclient.entity.XBannerBean;
 import com.zskjprojectj.andouclient.entity.mall.MallBuyBean;
-import com.zskjprojectj.andouclient.entity.mall.MallCommentBean;
 import com.zskjprojectj.andouclient.entity.mall.MallGoodsDetailsDataBean;
-import com.zskjprojectj.andouclient.entity.mall.MallHomeDataBean;
 import com.zskjprojectj.andouclient.fragment.hotel.CustomViewDialog;
-import com.zskjprojectj.andouclient.fragment.hotel.HotelDetailCommentFragment;
-import com.zskjprojectj.andouclient.fragment.hotel.HotelDetailFacilityFragment;
-import com.zskjprojectj.andouclient.fragment.hotel.HotelDetailMerchantFragment;
-import com.zskjprojectj.andouclient.fragment.hotel.HotelDetailReserveFragment;
 import com.zskjprojectj.andouclient.fragment.mall.MallGoodsCommentFragment;
 import com.zskjprojectj.andouclient.fragment.mall.MallGoodsDetailFragment;
 import com.zskjprojectj.andouclient.http.ApiException;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
-import com.zskjprojectj.andouclient.utils.DensityUtil;
-import com.zskjprojectj.andouclient.utils.TestUtil;
+import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
 
 import java.io.IOException;
@@ -247,7 +233,7 @@ public class MallGoodsDetailsActivity extends BaseActivity {
         id = String.valueOf(goodsId);
 
         //商品详情展示
-        HttpRxObservable.getObservable(ApiUtils.getApiService().mallDetailsShow(id,TestUtil.getUid()))
+        HttpRxObservable.getObservable(ApiUtils.getApiService().mallDetailsShow(id, LoginInfoUtil.getUid()))
                 .subscribe(new BaseObserver<MallGoodsDetailsDataBean>(this) {
                     @Override
                     public void onHandleSuccess(MallGoodsDetailsDataBean mallGoodsDetailsDataBean) throws IOException {
@@ -326,8 +312,8 @@ public class MallGoodsDetailsActivity extends BaseActivity {
                 Log.d(TAG, "type: "+type);
                 HttpRxObservable.getObservable(ApiUtils.getApiService().mallGoodsCollection(
                         id,
-                        TestUtil.getUid(),
-                        TestUtil.getToken(),
+                        LoginInfoUtil.getUid(),
+                        LoginInfoUtil.getToken(),
                         type
                 )).subscribe(new BaseObserver<Object>(this) {
                     @Override
@@ -479,8 +465,8 @@ public class MallGoodsDetailsActivity extends BaseActivity {
         TextView mTvAddShopping = contentView.findViewById(R.id.tv_add_shopping);
         mTvAddShopping.setOnClickListener(v -> {
             HttpRxObservable.getObservable(ApiUtils.getApiService().addCar(
-                    TestUtil.getUid(),
-                    TestUtil.getToken(),
+                    LoginInfoUtil.getUid(),
+                    LoginInfoUtil.getToken(),
                     "1",
                     "1",
                     "1"

@@ -26,6 +26,7 @@ import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.model.User;
 import com.zskjprojectj.andouclient.utils.LogUtil;
+import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 import com.zskjprojectj.andouclient.utils.PhonenumUtil;
 import com.zskjprojectj.andouclient.utils.SharedPreferencesManager;
 
@@ -65,6 +66,7 @@ public class LoginActivity extends BaseActivity {
     protected void initViews() {
         btnNewregistered = findViewById(R.id.btn_newregistered);
         btn_login = findViewById(R.id.btn_login);
+        findViewById(R.id.login_back_image).setOnClickListener(v -> finish());
         fingerprint_login = findViewById(R.id.iv_fingerprint_login);
         registered_phonenum = findViewById(R.id.et_loginphonenum);
         et_loginpwd = findViewById(R.id.et_loginpwd);
@@ -87,8 +89,7 @@ public class LoginActivity extends BaseActivity {
                         .subscribe(new BaseObserver<User>(mAt) {
                             @Override
                             public void onHandleSuccess(User user) throws IOException {
-                                SharedPreferencesManager.getInstance().setString(User.KEY_TOKEN, user.token);
-                                SharedPreferencesManager.getInstance().setString(User.KEY_UID, user.id);
+                                LoginInfoUtil.saveLoginInfo(user.id, user.token);
                                 jumpActivity(MainActivity.class);
                                 finish();
                             }

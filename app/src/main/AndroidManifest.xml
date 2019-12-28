@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.zskjprojectj.andouclient">
-
     <!-- 拨打电话的权限，这里必须要添加权限，否则当点击电话号码的时候程序会崩溃 -->
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.INTERNET" /> <!-- 允许程序访问WiFi网络信息 -->
@@ -28,7 +27,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.mall.MallOnlineOrderActivity"></activity>
+        <activity android:name=".activity.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.mall.MallOnlineOrderActivity" />
         <activity android:name=".activity.mall.MallShoppingHomeActivity" />
 
         <meta-data
@@ -47,23 +53,13 @@
         <activity android:name=".activity.hotel.HotelActivity" /> <!-- 酒店预约-主页 -->
         <activity android:name=".activity.LoginActivity">
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity> <!-- 注册界面 -->
         <activity android:name=".activity.RegisteredActivity" /> <!-- 主界面 -->
         <activity android:name=".activity.ForgetActivity" /> <!-- 主界面 -->
         <activity
             android:name=".activity.MainActivity"
             android:theme="@style/DefaultCityPickerTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".activity.MerchantsInfoActivity" /> <!-- 菜市场模块 -->
         <activity android:name=".activity.VegetableMarketActivity" /> <!-- 直播界面 -->
@@ -94,29 +90,29 @@
         <activity android:name=".activity.DownloadappActivity" /> <!-- App下载页面 -->
         <activity android:name=".activity.OperationvideoActivity" /> <!-- 操作视频 -->
         <activity android:name=".activity.RestaurantOrderActivity" /> <!-- 饭店订单 -->
-        <activity android:name=".activity.ShoporderdetailsActivity" /><!--订单详情-->
-        <activity android:name=".activity.ShoporderdsendetailsActivity" /><!--待发货订单详情-->
-        <activity android:name=".activity.CheckthelogisticsActivity" /><!--查看物流-->
-        <activity android:name=".activity.WithdrawalActivity" /><!--余额提现-->
-        <activity android:name=".activity.WithdrawalresultsActivity" /><!--提现结果-->
-        <activity android:name=".activity.ShoporderforthegoodsdetailsActivity" /><!--待收货订单详情-->
-        <activity android:name=".activity.ToevaluateActivity" /><!--待评价-->
-        <activity android:name=".activity.HotelorderdetailsActivity" /><!--酒店订单详情-->
-        <activity android:name=".activity.HotelordercancleActivity" /><!--订单取消-->
-        <activity android:name=".activity.HotelorderevaluationdetailsActivity" /><!--酒店订单待评价详情界面-->
-        <activity android:name=".activity.HotelordergotoevaluationActivity" /><!--酒店订单待评价-->
-        <activity android:name=".activity.HotelordercancledetailsActivity" /><!--酒店订单取消详情-->
-        <activity android:name=".activity.ShopordersendetailsrefundActivity" /><!--商城申请退款-->
-        <activity android:name=".activity.ClassificationofgoodsActivity" /><!--分类页详细-->
+        <activity android:name=".activity.ShoporderdetailsActivity" /> <!-- 订单详情 -->
+        <activity android:name=".activity.ShoporderdsendetailsActivity" /> <!-- 待发货订单详情 -->
+        <activity android:name=".activity.CheckthelogisticsActivity" /> <!-- 查看物流 -->
+        <activity android:name=".activity.WithdrawalActivity" /> <!-- 余额提现 -->
+        <activity android:name=".activity.WithdrawalresultsActivity" /> <!-- 提现结果 -->
+        <activity android:name=".activity.ShoporderforthegoodsdetailsActivity" /> <!-- 待收货订单详情 -->
+        <activity android:name=".activity.ToevaluateActivity" /> <!-- 待评价 -->
+        <activity android:name=".activity.HotelorderdetailsActivity" /> <!-- 酒店订单详情 -->
+        <activity android:name=".activity.HotelordercancleActivity" /> <!-- 订单取消 -->
+        <activity android:name=".activity.HotelorderevaluationdetailsActivity" /> <!-- 酒店订单待评价详情界面 -->
+        <activity android:name=".activity.HotelordergotoevaluationActivity" /> <!-- 酒店订单待评价 -->
+        <activity android:name=".activity.HotelordercancledetailsActivity" /> <!-- 酒店订单取消详情 -->
+        <activity android:name=".activity.ShopordersendetailsrefundActivity" /> <!-- 商城申请退款 -->
+        <activity android:name=".activity.ClassificationofgoodsActivity" /> <!-- 分类页详细 -->
         <activity android:name=".activity.MallMainActivity" /> <!-- 全面屏 -->
         <!-- 地址选择 -->
         <activity android:name=".activity.NewaddressActivity" /> <!-- 新增地址 -->
         <activity android:name=".activity.ShareLocationActivity" /> <!-- 添加新地址 -->
-        <activity android:name=".activity.MesettingActivity" /><!--个人中心设置界面-->
-        <activity android:name=".activity.ModifyaboutusActivity" /><!--关于我们-->
-        <activity android:name=".activity.ModifyfeedbackActivity" /><!--意见反馈-->
-        <activity android:name=".activity.ModifythepasswordActivity" /><!--忘记密码-->
-        <activity android:name=".activity.ModifythephoneActivity" /><!--手机号码修改-->
+        <activity android:name=".activity.MesettingActivity" /> <!-- 个人中心设置界面 -->
+        <activity android:name=".activity.ModifyaboutusActivity" /> <!-- 关于我们 -->
+        <activity android:name=".activity.ModifyfeedbackActivity" /> <!-- 意见反馈 -->
+        <activity android:name=".activity.ModifythepasswordActivity" /> <!-- 忘记密码 -->
+        <activity android:name=".activity.ModifythephoneActivity" /> <!-- 手机号码修改 -->
         <meta-data
             android:name="android.max_aspect"
             android:value="2.4" /> <!-- 适配华为（huawei）刘海屏 -->

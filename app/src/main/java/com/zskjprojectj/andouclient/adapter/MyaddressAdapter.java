@@ -1,7 +1,6 @@
 package com.zskjprojectj.andouclient.adapter;
 
 import android.app.Activity;
-import android.widget.CompoundButton;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -10,7 +9,7 @@ import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.model.Address;
-import com.zskjprojectj.andouclient.utils.TestUtil;
+import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 
 import java.io.IOException;
 
@@ -30,8 +29,8 @@ public class MyaddressAdapter extends BaseQuickAdapter<Address, BaseViewHolder> 
                 .setOnCheckedChangeListener(R.id.defaultCkb, (buttonView, isChecked) ->
                         HttpRxObservable.getObservable(ApiUtils.getApiService().defualtAddress(
                                 item.id,
-                                TestUtil.getUid(),
-                                TestUtil.getToken()))
+                                LoginInfoUtil.getUid(),
+                                LoginInfoUtil.getToken()))
                                 .subscribe(new BaseObserver<Object>((Activity) helper.itemView.getContext()) {
                                     @Override
                                     public void onHandleSuccess(Object o) throws IOException {
