@@ -1,5 +1,6 @@
 package com.zskjprojectj.andouclient.adapter.mall;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -42,9 +43,9 @@ public class MallShoppingPopuAdapter extends BaseQuickAdapter<MallShoppingHomeBe
         int position = helper.getLayoutPosition();
         if (SELECTOR_POSITION==position){
             mContent.setSelected(true);
-            String classify = mContent.getText().toString();
+            String typeId = item.getId();
             if (itemListener!=null){
-                itemListener.getContent(classify);
+                itemListener.getContentId(typeId);
             }
 
         }else {
@@ -61,7 +62,7 @@ public class MallShoppingPopuAdapter extends BaseQuickAdapter<MallShoppingHomeBe
 
 
     public interface OnItemListener{
-        void  getContent(String content);
+        void  getContentId(String content);
     }
     private OnItemListener itemListener;
 

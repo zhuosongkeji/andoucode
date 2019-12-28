@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,7 +46,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class MallShoppingHomeActivity extends BaseActivity implements BaseQuickAdapter.OnItemClickListener {
+public class MallShoppingHomeActivity extends BaseActivity {
 
     //商户名字
     @BindView(R.id.tv_shopping_name)
@@ -70,12 +71,30 @@ public class MallShoppingHomeActivity extends BaseActivity implements BaseQuickA
     @BindView(R.id.search_edittext)
     EditText mSearchEdittext;
 
+    //销量
+    @BindView(R.id.tv_volume)
+    TextView mTvVolume;
+
+    //销量图标
+    @BindView(R.id.iv_volume)
+    ImageView mIvVolume;
+
+    //价格
+    @BindView(R.id.tv_price)
+    TextView mTvPrice;
+
+    //价格图标
+    @BindView(R.id.iv_price)
+    ImageView mIvPrice;
+
+
+
     private RecyclerView mRecyclerPopu;
     private Button mConfirm;
-    private String classify;
     private PopupWindow mPopWindow;
     private String merchantId;
-    private boolean flag=false;
+    private boolean volumeflag=false;
+    private boolean priceflag=false;
 
     //关键字查询
     private String keyword;
@@ -113,6 +132,8 @@ public class MallShoppingHomeActivity extends BaseActivity implements BaseQuickA
 
     @Override
     public void getDataFromServer() {
+        Log.d(TAG, "sort: "+merchantId+"===="+TestUtil.getUid()+"===="+volume_sort+"===="+price_sort);
+
         HttpRxObservable.getObservable(ApiUtils.getApiService().mallMerchant(
                 merchantId,
                 TestUtil.getUid(),
@@ -147,7 +168,12 @@ public class MallShoppingHomeActivity extends BaseActivity implements BaseQuickA
         MallShoppingHomeAdapter adapter = new MallShoppingHomeAdapter(R.layout.activity_mall_shopping_item_view, goods);
         adapter.openLoadAnimation();
         mRecycler.setAdapter(adapter);
-        adapter.setOnItemClickListener(this);
+        adapter.setItemListener(new MallShoppingHomeAdapter.OnItemGetIdListener() {
+            @Override
+            public void getGoodsId(String content) {
+
+            }
+        });
     }
 
     @Override
@@ -155,12 +181,11 @@ public class MallShoppingHomeActivity extends BaseActivity implements BaseQuickA
         return null;
     }
 
-    @Override
-    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-        startActivity(new Intent(MallShoppingHomeActivity.this, MallGoodsDetailsActivity.class));
-    }
 
 
+    /**
+     * 分类
+     */
     @OnClick(R.id.ll_mall_shopping_classify)
     public void clickClassify() {
         //设置contentView
@@ -201,7 +226,8 @@ public class MallShoppingHomeActivity extends BaseActivity implements BaseQuickA
         mRecyclerPopu.setLayoutManager(new GridLayoutManager(this, 2));
         MallShoppingPopuAdapter adapter1 = new MallShoppingPopuAdapter(R.layout.activity_mall_shopping_popu_view, typeBeanList);
         mRecyclerPopu.setAdapter(adapter1);
-
+        //重置选项菜单
+        adapter1.onChange(-1);
         adapter1.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -213,8 +239,8 @@ public class MallShoppingHomeActivity extends BaseActivity implements BaseQuickA
 
         adapter1.setItemListener(new MallShoppingPopuAdapter.OnItemListener() {
             @Override
-            public void getContent(String content) {
-                classify = content;
+            public void getContentId(String contentId) {
+                type_id = contentId;
             }
         });
 
@@ -223,7 +249,7 @@ public class MallShoppingHomeActivity extends BaseActivity implements BaseQuickA
             @Override
             public void onClick(View v) {
 
-                ToastUtil.showToast(classify);
+                getDataFromServer();
                 mPopWindow.dismiss();
 
             }
@@ -232,29 +258,37 @@ public class MallShoppingHomeActivity extends BaseActivity implements BaseQuickA
     }
 
 
-    @OnClick({R.id.busiess_back_image,R.id.tv_volume,R.id.iv_Goods_search})
+    @OnClick({R.id.busiess_back_image,R.id.tv_volume,R.id.tv_price,R.id.iv_Goods_search})
     public void clickView(View view) {
         switch (view.getId()){
             case R.id.busiess_back_image:
                 finish();
                 break;
+                //销量
             case R.id.tv_volume:
-                if(!flag){
+                price_sort="0";
+                if(!volumeflag){
                     volume_sort="1";
                     getDataFromServer();
+
+                    volumeflag=true;
                 }else {
-                    volume_sort="0";
+                    volume_sort="2";
                     getDataFromServer();
+                    volumeflag=false;
                 }
                 break;
+                //价格
             case R.id.tv_price:
-
-                if(!flag){
+                volume_sort="0";
+                if(!priceflag){
                     price_sort="1";
                     getDataFromServer();
+                    priceflag=true;
                 }else {
-                    price_sort="0";
+                    price_sort="2";
                     getDataFromServer();
+                    priceflag=false;
                 }
                 break;
 

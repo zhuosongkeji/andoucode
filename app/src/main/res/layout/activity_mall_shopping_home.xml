@@ -138,6 +138,7 @@
                 android:textSize="@dimen/typeface11sp" />
 
             <ImageView
+                android:id="@+id/iv_volume"
                 android:layout_width="@dimen/dp_6"
                 android:layout_height="@dimen/dp_3"
                 android:layout_marginLeft="@dimen/dp_5"
@@ -160,6 +161,7 @@
                 android:textSize="@dimen/typeface11sp" />
 
             <ImageView
+                android:id="@+id/iv_price"
                 android:layout_width="@dimen/dp_6"
                 android:layout_height="@dimen/dp_3"
                 android:layout_marginLeft="@dimen/dp_5"

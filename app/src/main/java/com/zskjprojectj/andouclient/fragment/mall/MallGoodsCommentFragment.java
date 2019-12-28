@@ -38,9 +38,6 @@ public class MallGoodsCommentFragment extends BaseFragment implements View.OnCli
     //商品id
     private int id;
 
-    public MallGoodsCommentFragment(int goodsId) {
-        this.id=goodsId;
-    }
 
     @Override
     public void onClick(View v) {
@@ -60,15 +57,14 @@ public class MallGoodsCommentFragment extends BaseFragment implements View.OnCli
 
     @Override
     protected void getDataFromServer() {
-
         String goodId = String.valueOf(id);
-        Log.d(TAG, "getDataFromServer: "+goodId);
+        Log.d(TAG, "getDataFromServer:bundle " + goodId);
         //商品评论
         HttpRxObservable.getObservable(ApiUtils.getApiService().mallComment(goodId))
                 .subscribe(new BaseObserver<List<MallCommentBean>>(mAty) {
                     @Override
                     public void onHandleSuccess(List<MallCommentBean> mallCommentBeans) throws IOException {
-                      initAdapter(mallCommentBeans);
+                        initAdapter(mallCommentBeans);
 
 
                     }
@@ -82,15 +78,16 @@ public class MallGoodsCommentFragment extends BaseFragment implements View.OnCli
     }
 
     private void initAdapter(List<MallCommentBean> mallCommentBeans) {
-        MallCommentAdapter adapter=new MallCommentAdapter(R.layout.fragment_mall_details_comment,mallCommentBeans);
+        MallCommentAdapter adapter = new MallCommentAdapter(R.layout.fragment_mall_details_comment, mallCommentBeans);
         adapter.openLoadAnimation();
-        mRecycler.addItemDecoration(new DividerItemDecoration(getActivity(),DividerItemDecoration.VERTICAL));
+        mRecycler.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
         mRecycler.setAdapter(adapter);
     }
 
     @Override
     protected void initData() {
-
+        Bundle bundle = getArguments();
+        id = bundle.getInt("id");
 
 
     }

@@ -139,9 +139,20 @@ public class MallGoodsDetailsActivity extends BaseActivity {
         initLocalImage();
 
         //商品详情
-        list.add(new MallGoodsDetailFragment(goodsId));
+
+        MallGoodsDetailFragment mallGoodsDetailFragment=new MallGoodsDetailFragment();
+        Bundle detailBundle=new Bundle();
+        detailBundle.putInt("id",goodsId);
+        mallGoodsDetailFragment.setArguments(detailBundle);
+        list.add(mallGoodsDetailFragment);
+
         //商品评论
-        list.add(new MallGoodsCommentFragment(goodsId));
+
+        MallGoodsCommentFragment mallGoodsCommentFragment=new MallGoodsCommentFragment();
+        Bundle commentBundle=new Bundle();
+        commentBundle.putInt("id",goodsId);
+        mallGoodsCommentFragment.setArguments(commentBundle);
+        list.add(mallGoodsCommentFragment);
 
 
         IndicatorViewPager indicatorViewPager = new IndicatorViewPager(mIndicator, mViewPager);
@@ -254,6 +265,8 @@ public class MallGoodsDetailsActivity extends BaseActivity {
 
                         mBanner.setBannerData(urlBanner);
 
+
+
                         mMallGoodsName.setText(mallGoodsDetailsDataBean.getName());
                         mTvPrice.setText(mallGoodsDetailsDataBean.getPrice());
                         mTvGoodsDilivery.setText(mallGoodsDetailsDataBean.getDilivery());
@@ -350,13 +363,11 @@ public class MallGoodsDetailsActivity extends BaseActivity {
                                 //获取拼接选择之后的id，sum，price
 //                                mallBuyBean.price.get("").
                                  res = mallBuyBean.res;
-
+                                initBuyNow();
                             }
                         });
 
 
-
-                initBuyNow();
                 break;
             //店铺主页
             case R.id.tv_mall_home:

@@ -4,6 +4,7 @@ package com.zskjprojectj.andouclient.http;
 import com.zskjprojectj.andouclient.entity.TestBean;
 import com.zskjprojectj.andouclient.entity.mall.MallBuyBean;
 import com.zskjprojectj.andouclient.entity.mall.MallCommentBean;
+import com.zskjprojectj.andouclient.entity.mall.MallDetailsBean;
 import com.zskjprojectj.andouclient.entity.mall.MallGoodsDetailsDataBean;
 import com.zskjprojectj.andouclient.entity.mall.MallHomeDataBean;
 import com.zskjprojectj.andouclient.entity.mall.MallShoppingHomeBean;
@@ -36,7 +37,7 @@ public interface ApiService {
     Observable<BaseResult<MallHomeDataBean>> getMallInfo();
 
     /**
-     * 商城商品详情展示
+     * 商城商品主页展示
      */
     @POST("api/goods/goods")
     @FormUrlEncoded
@@ -49,6 +50,13 @@ public interface ApiService {
     @POST("api/goods/collection")
     @FormUrlEncoded
     Observable<BaseResult<Object>> mallGoodsCollection(@Field("id") String id, @Field("uid") String uid, @Field("token") String token, @Field("type") String type);
+
+    /**
+     * 商城商品详情
+     */
+    @POST("api/goods/details")
+    @FormUrlEncoded
+    Observable<BaseResult<MallDetailsBean>> mallDetails(@Field("id") String id);
 
     /**
      * 商城商品评论
@@ -69,6 +77,7 @@ public interface ApiService {
      */
     @POST("api/merchant/merchant_goods")
     @FormUrlEncoded
+
     Observable<BaseResult<MallShoppingHomeBean>>mallMerchant(@Field("id") String id, @Field("uid") String uid,
                                                              @Field("keyword") String keyword,
                                                              @Field("type_id") String type_id,

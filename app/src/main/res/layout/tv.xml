@@ -3,9 +3,10 @@
     android:id="@+id/tv_content"
     android:layout_width="wrap_content"
     android:layout_height="@dimen/dp_28"
-    android:background="@drawable/selector_menu_bg"
+    android:background="@drawable/bg_flowlayout_style"
     android:gravity="center"
     android:text="四件套"
     android:textColor="#999999"
+    android:layout_margin="5dp"
     android:padding="@dimen/dp_6"
     android:textSize="@dimen/typeface12sp" />

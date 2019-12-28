@@ -13,6 +13,7 @@ import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.entity.mall.MallBuyBean;
+import com.zskjprojectj.andouclient.utils.ToastUtil;
 
 import java.util.List;
 
@@ -45,7 +46,18 @@ public class MallBuyAdapter extends BaseQuickAdapter<MallBuyBean.SpecInfo, BaseV
 
                 TextView tv = (TextView) mInflater.inflate(R.layout.tv, flowLayout, false);
                 tv.setText(s);
+                tv.setSelected(true);
                 return tv;
+            }
+        });
+
+        flowLayout.setOnTagClickListener(new TagFlowLayout.OnTagClickListener() {
+            @Override
+            public boolean onTagClick(View view, int position, FlowLayout parent) {
+
+                ToastUtil.showToast("选择的是"+item.value.get(position));
+
+                return true;
             }
         });
 

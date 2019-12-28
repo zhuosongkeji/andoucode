@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/dp_10"
-        zhy:max_select="-1"/>
+        zhy:max_select="1"/>
 
 
 </LinearLayout>
