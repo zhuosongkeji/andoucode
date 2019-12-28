@@ -3,7 +3,6 @@ package com.zskjprojectj.andouclient.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 
 import androidx.annotation.Nullable;
@@ -11,23 +10,18 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.adapter.BrowsingAdapter;
 import com.zskjprojectj.andouclient.adapter.MyaddressAdapter;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
-import com.zskjprojectj.andouclient.entity.BrowsingBean;
-import com.zskjprojectj.andouclient.entity.MyaddressBean;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.model.Address;
-import com.zskjprojectj.andouclient.utils.TestUtil;
+import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -51,8 +45,8 @@ public class MyaddressActivity extends BaseActivity {
         adapter.setOnItemChildClickListener((adapter, view, position) -> {
             if (view.getId() == R.id.deleteBtn) {
                 HttpRxObservable.getObservable(ApiUtils.getApiService().delAddress(
-                        TestUtil.getUid(),
-                        TestUtil.getToken(),
+                        LoginInfoUtil.getUid(),
+                        LoginInfoUtil.getToken(),
                         this.adapter.getItem(position).id
                 )).subscribe(new BaseObserver<Object>(mAt) {
                     @Override
@@ -91,8 +85,8 @@ public class MyaddressActivity extends BaseActivity {
     @Override
     public void getDataFromServer() {
         HttpRxObservable.getObservable(ApiUtils.getApiService().address(
-                TestUtil.getUid()
-                , TestUtil.getToken()
+                LoginInfoUtil.getUid()
+                , LoginInfoUtil.getToken()
         )).subscribe(new BaseObserver<List<Address>>(mAt) {
             @Override
             public void onHandleSuccess(List<Address> addresses) throws IOException {

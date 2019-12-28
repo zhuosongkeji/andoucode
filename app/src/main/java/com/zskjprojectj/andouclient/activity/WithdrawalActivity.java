@@ -1,7 +1,6 @@
 package com.zskjprojectj.andouclient.activity;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -11,7 +10,7 @@ import com.zskjprojectj.andouclient.base.BasePresenter;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
-import com.zskjprojectj.andouclient.utils.TestUtil;
+import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
 
 import java.io.IOException;
@@ -43,8 +42,8 @@ public class WithdrawalActivity extends BaseActivity {
                 return;
             }
             HttpRxObservable.getObservable(ApiUtils.getApiService().cash(
-                    TestUtil.getUid(),
-                    TestUtil.getToken(),
+                    LoginInfoUtil.getUid(),
+                    LoginInfoUtil.getToken(),
                     amount,
                     "13888888888",
                     "6222031300255596882"

@@ -38,6 +38,7 @@
         android:background="@drawable/shape_edit"
         android:drawableLeft="@mipmap/registered_phonenum"
         android:hint="@string/login_phonenum"
+        android:text="123456"
         android:padding="@dimen/dp_10"
         android:textSize="@dimen/typeface12sp" />
 
@@ -52,6 +53,7 @@
         android:drawableLeft="@mipmap/editverification_code"
         android:hint="@string/login_pwd"
         android:padding="@dimen/dp_10"
+        android:text="123456"
         android:textSize="@dimen/typeface12sp" />
 
     <Button

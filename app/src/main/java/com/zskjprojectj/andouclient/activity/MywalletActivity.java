@@ -19,12 +19,11 @@ import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
 import com.zskjprojectj.andouclient.fragment.BalancesubsidiaryFragment;
-import com.zskjprojectj.andouclient.fragment.WithdrawalsubsidiaryFragment;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.model.BalanceDetail;
-import com.zskjprojectj.andouclient.utils.TestUtil;
+import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -90,8 +89,8 @@ public class MywalletActivity extends BaseActivity {
     @Override
     public void getDataFromServer() {
         HttpRxObservable.getObservable(ApiUtils.getApiService().balanceDetail(
-                TestUtil.getUid(),
-                TestUtil.getToken()
+                LoginInfoUtil.getUid(),
+                LoginInfoUtil.getToken()
         )).subscribe(new BaseObserver<BalanceDetail>(mAt) {
             @Override
             public void onHandleSuccess(BalanceDetail balanceDetail) throws IOException {
@@ -101,8 +100,8 @@ public class MywalletActivity extends BaseActivity {
         });
 
         HttpRxObservable.getObservable(ApiUtils.getApiService().cashDetail(
-                TestUtil.getUid(),
-                TestUtil.getToken()
+                LoginInfoUtil.getUid(),
+                LoginInfoUtil.getToken()
         )).subscribe(new BaseObserver<BalanceDetail>(mAt) {
             @Override
             public void onHandleSuccess(BalanceDetail balanceDetail) throws IOException {

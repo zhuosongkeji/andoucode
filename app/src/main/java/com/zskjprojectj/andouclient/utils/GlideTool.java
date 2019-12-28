@@ -101,7 +101,7 @@ public class GlideTool {
      * @param view
      */
     public static void glideHead(Context context, String uri, ImageView view) {
-        glideBuilder(context, uri, false, NONE, R.mipmap.ic_launcher, 0.6f, NONE, null).into(view);
+//        glideBuilder(context, uri, false, NONE, R.mipmap.ic_launcher, 0.6f, NONE, null).into(view);
     }
 
     public static String getPath(String path, ImageView view) {

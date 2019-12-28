@@ -109,15 +109,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void getDataFromServer() {
-        //模拟登录 拿到数据 调试需要token的接口
-        HttpRxObservable.getObservable(ApiUtils.getApiService().login("123456", "123456"))
-                .subscribe(new BaseObserver<User>(mAt) {
-                    @Override
-                    public void onHandleSuccess(User user) {
-                        SharedPreferencesManager.getInstance().setString(User.KEY_TOKEN, user.token);
-                        SharedPreferencesManager.getInstance().setString(User.KEY_UID, user.id);
-                    }
-                });
+
     }
 
     @Override

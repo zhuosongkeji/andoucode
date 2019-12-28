@@ -8,23 +8,18 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.mall.MallOnlineOrderActivity;
-import com.zskjprojectj.andouclient.adapter.BalancesubsidiaryAdapter;
 import com.zskjprojectj.andouclient.adapter.PlatformshoppingcartAdapter;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
-import com.zskjprojectj.andouclient.entity.BalancesubsidiaryBean;
-import com.zskjprojectj.andouclient.entity.PlatformshoppingcartBean;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.model.CartItem;
-import com.zskjprojectj.andouclient.utils.TestUtil;
+import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -64,8 +59,8 @@ public class PlatformshoppingcartActivity extends BaseActivity {
     @Override
     public void getDataFromServer() {
         HttpRxObservable.getObservable(ApiUtils.getApiService().cart(
-                TestUtil.getUid(),
-                TestUtil.getToken()
+                LoginInfoUtil.getUid(),
+                LoginInfoUtil.getToken()
         )).subscribe(new BaseObserver<List<CartItem>>(mAt) {
             @Override
             public void onHandleSuccess(List<CartItem> cartItem) throws IOException {

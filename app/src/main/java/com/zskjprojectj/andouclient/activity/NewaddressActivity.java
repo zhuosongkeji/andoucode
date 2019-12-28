@@ -2,7 +2,6 @@ package com.zskjprojectj.andouclient.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -14,7 +13,7 @@ import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.model.Address;
-import com.zskjprojectj.andouclient.utils.TestUtil;
+import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
 
 import java.io.IOException;
@@ -72,8 +71,8 @@ public class NewaddressActivity extends BaseActivity {
             }
             if (address == null) {
                 HttpRxObservable.getObservable(ApiUtils.getApiService().addAddress(
-                        TestUtil.getUid(),
-                        TestUtil.getToken()
+                        LoginInfoUtil.getUid(),
+                        LoginInfoUtil.getToken()
                         , nameStr
                         , mobileStr
                         , "11"
@@ -92,8 +91,8 @@ public class NewaddressActivity extends BaseActivity {
             } else {
                 HttpRxObservable.getObservable(ApiUtils.getApiService().editAddress(
                         address.id,
-                        TestUtil.getUid(),
-                        TestUtil.getToken()
+                        LoginInfoUtil.getUid(),
+                        LoginInfoUtil.getToken()
                         , nameStr
                         , mobileStr
                         , "11"
