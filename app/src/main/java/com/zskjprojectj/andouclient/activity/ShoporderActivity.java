@@ -54,18 +54,16 @@ public class ShoporderActivity extends BaseActivity {
         indicator = (FixedIndicatorView) findViewById(R.id.indicator);
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         list = new ArrayList<Fragment>();
-        Fragment meShopFragment=new MeShopFragment();
-        list.add(meShopFragment);
-        Fragment meShoppaymentFragment=new MeShoppaymentFragment();
-        list.add(meShoppaymentFragment);
-        Fragment meShopsendgoodsFragment=new MeShopsendgoodsFragment();
-        list.add(meShopsendgoodsFragment);
-        Fragment meShopforthegoodsFragment=new MeShopforthegoodsFragment();
-        list.add(meShopforthegoodsFragment);
-        Fragment meShoptoevaluateFragment=new MeShoptoevaluateFragment();
-        list.add(meShoptoevaluateFragment);
-//        Fragment meShopreturngoodsFragment=new MeShopreturngoodsFragment();
-//        list.add(meShopreturngoodsFragment);
+        Fragment meShopFragment1=new MeShopFragment("");
+        Fragment meShopFragment2=new MeShopFragment("10");
+        Fragment meShopFragment3=new MeShopFragment("20");
+        Fragment meShopFragment4=new MeShopFragment("40");
+        Fragment meShopFragment5=new MeShopFragment("50");
+        list.add(meShopFragment1);
+        list.add(meShopFragment2);
+        list.add(meShopFragment3);
+        list.add(meShopFragment4);
+        list.add(meShopFragment5);
         indicatorViewPager = new IndicatorViewPager(indicator, viewPager);
         indicatorViewPager.setAdapter(adapter);
         //设置滑动时的那一项的图形和颜色变化，ColorBar对应的是下划线的形状。
