@@ -60,6 +60,9 @@
             android:name=".activity.QrCodeActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".activity.WebViewActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".activity.hotel.HotelOnlineReserveActivity"
             android:screenOrientation="portrait" />
         <activity

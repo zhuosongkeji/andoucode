@@ -34,6 +34,7 @@ import com.zhy.http.okhttp.callback.StringCallback;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.BookingorderActivity;
 import com.zskjprojectj.andouclient.activity.QrCodeActivity;
+import com.zskjprojectj.andouclient.activity.WebViewActivity;
 import com.zskjprojectj.andouclient.activity.hotel.HotelActivity;
 import com.zskjprojectj.andouclient.activity.LiveActivity;
 import com.zskjprojectj.andouclient.activity.MainActivity;
@@ -76,7 +77,7 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
     private int theme;
     private TextView tv_cityinfo;
     private XBanner bannertops;
-    private LinearLayout check_in_business_seemore_layout, rootView;
+    private LinearLayout check_in_business_seemore_layout, check_in_business_seemore_layout_1, rootView;
     private LinearLayout onlinebroadcast_see_more_layout, appointment_see_more_layout, onlinebooking_see_more_layout, ly_citychoose;
 
     @Override
@@ -251,7 +252,8 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
         banner.setOnItemClickListener(new XBanner.OnItemClickListener() {
             @Override
             public void onItemClick(XBanner banner, Object model, View view, int position) {
-
+                TuchongEntity.FeedListBean.EntryBean listBean = ((TuchongEntity.FeedListBean.EntryBean) model);
+                WebViewActivity.start(listBean.getUrl());
                 //判断是点击了那个选项
                 switch (position) {
                     //跳转到商城模块
