@@ -555,6 +555,7 @@ public class MallGoodsDetailsActivity extends BaseActivity {
                         order_sn = mallBuyNowBean.getOrder_sn();
 
                         Log.d(TAG, "order_sn: "+LoginInfoUtil.getUid()+" "+LoginInfoUtil.getToken()+" "+order_sn+" "+num);
+                        Log.d(TAG, "order_sn: "+LoginInfoUtil.getUid()+" "+LoginInfoUtil.getToken()+" "+order_sn);
                         Intent onlineIntent = new Intent(MallGoodsDetailsActivity.this, MallOnlineOrderActivity.class);
                         onlineIntent.putExtra("order_sn", order_sn);
                         startActivity(onlineIntent);

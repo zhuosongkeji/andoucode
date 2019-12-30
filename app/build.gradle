@@ -127,5 +127,8 @@ dependencies {
 
     //流式布局
     implementation 'com.hyman:flowlayout-lib:1.1.2'
+
     implementation 'com.blankj:utilcodex:1.26.0'
+
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
 }

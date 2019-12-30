@@ -34,7 +34,7 @@ public class WXPayBean {
     private String return_msg;
     private String sign;
     private String trade_type;
-    private int timestamp;
+    private String timestamp;
 
     public String getAppid() {
         return appid;
@@ -108,11 +108,11 @@ public class WXPayBean {
         this.trade_type = trade_type;
     }
 
-    public int getTimestamp() {
+    public String getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(int timestamp) {
+    public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
     }
 }

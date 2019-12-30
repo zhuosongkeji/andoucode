@@ -118,8 +118,14 @@ public interface ApiService {
     /**
      * 微信支付
      */
+    @FormUrlEncoded
     @POST("api/order/pay")
-    Observable<BaseResult<WXPayBean>> MallWXPayWays();
+    Observable<BaseResult<WXPayBean>> MallWXPayWays(@Field("uid") String uid,
+                                                    @Field("token") String token,
+                                                    @Field("sNo") String sNo,
+                                                    @Field("pay_id") String pay_id,
+                                                    @Field("is_integral") String is_integral
+                                                    );
 
 
 

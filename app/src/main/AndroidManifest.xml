@@ -112,7 +112,16 @@
         <activity android:name=".activity.ModifyaboutusActivity" /> <!-- 关于我们 -->
         <activity android:name=".activity.ModifyfeedbackActivity" /> <!-- 意见反馈 -->
         <activity android:name=".activity.ModifythepasswordActivity" /> <!-- 忘记密码 -->
-        <activity android:name=".activity.ModifythephoneActivity" /> <!-- 手机号码修改 -->
+        <activity android:name=".activity.ModifythephoneActivity" />
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:exported="true"
+            android:taskAffinity="com.zskjprojectj.andouclient"
+            android:launchMode="singleTask">
+        </activity>
+
         <meta-data
             android:name="android.max_aspect"
             android:value="2.4" /> <!-- 适配华为（huawei）刘海屏 -->

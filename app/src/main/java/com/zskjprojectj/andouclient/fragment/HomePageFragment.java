@@ -1,6 +1,7 @@
 package com.zskjprojectj.andouclient.fragment;
 
 import android.content.Intent;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
@@ -39,6 +41,7 @@ import com.zskjprojectj.andouclient.adapter.CoverFlowAdapter;
 import com.zskjprojectj.andouclient.base.BaseFragment;
 import com.zskjprojectj.andouclient.entity.TuchongEntity;
 import com.zskjprojectj.andouclient.utils.BarUtils;
+import com.zskjprojectj.andouclient.utils.GlideTool;
 import com.zskjprojectj.andouclient.utils.ScreenUtil;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
 
@@ -209,7 +212,7 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
                             @Override
                             public void onPick(int position, City data) {
                                 tv_cityinfo.setText(String.format("%s", data.getName()));
-                              //  tv_cityinfo.setText(String.format("当前城市：%s，%s", data.getName(), data.getCode()));
+                                //  tv_cityinfo.setText(String.format("当前城市：%s，%s", data.getName(), data.getCode()));
 //                                Toast.makeText(
 //                                        getApplicationContext(),
 //                                        String.format("点击的数据：%s，%s", data.getName(), data.getCode()),
@@ -219,7 +222,7 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
 
                             @Override
                             public void onCancel() {
-                               // Toast.makeText(getApplicationContext(), "取消选择", Toast.LENGTH_SHORT).show();
+                                // Toast.makeText(getApplicationContext(), "取消选择", Toast.LENGTH_SHORT).show();
                             }
 
                             @Override
@@ -273,10 +276,11 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
             @Override
             public void loadBanner(XBanner banner, Object model, View view, int position) {
                 //此处适用Fresco加载图片，可自行替换自己的图片加载框架
-                SimpleDraweeView draweeView = (SimpleDraweeView) view;
+                ImageView draweeView = (ImageView) view;
                 TuchongEntity.FeedListBean.EntryBean listBean = ((TuchongEntity.FeedListBean.EntryBean) model);
                 String url = "https://photo.tuchong.com/" + listBean.getImages().get(0).getUser_id() + "/f/" + listBean.getImages().get(0).getImg_id() + ".jpg";
                 draweeView.setImageURI(Uri.parse(url));
+                GlideTool.glideRoundImg(getActivity(), url, draweeView, ScreenUtil.dp2px(getActivity(), 8));
 //                加载本地图片展示
 //                ((ImageView) view).setImageResource(((LocalImageInfo) model).getXBannerUrl());
             }

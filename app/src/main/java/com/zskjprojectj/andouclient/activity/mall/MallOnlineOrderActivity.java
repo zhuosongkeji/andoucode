@@ -11,6 +11,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.tencent.mm.opensdk.modelpay.PayReq;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.adapter.mall.PayWaysAdapter;
 import com.zskjprojectj.andouclient.base.BaseActivity;
@@ -80,6 +83,8 @@ public class MallOnlineOrderActivity extends BaseActivity {
 
 
     private String order_sn;
+    private String payId;
+
     @Override
     protected void setRootView() {
         setContentView(R.layout.activity_mall_online_order);
@@ -151,9 +156,7 @@ public class MallOnlineOrderActivity extends BaseActivity {
                 adapter.setItemPayWays(new PayWaysAdapter.ItemPayWays() {
                     @Override
                     public void getPayWays(String payWays, int position) {
-                        if(mallPayWaysBeans.get(position).getPay_way().equals(payWays)){
-                            clickBuyPay();
-                        }
+                        payId = mallPayWaysBeans.get(position).getId();
                     }
                 });
             }
@@ -169,30 +172,37 @@ public class MallOnlineOrderActivity extends BaseActivity {
     @OnClick(R.id.ll_buy_pay)
     public void clickBuyPay(){
 
-//        HttpRxObservable.getObservable(ApiUtils.getApiService().MallWXPayWays()).subscribe(new BaseObserver<WXPayBean>(mAt) {
-//            @Override
-//            public void onHandleSuccess(WXPayBean wxPayBean) throws IOException {
-//                startWXPay(wxPayBean);
-//            }
-//        });
+        HttpRxObservable.getObservable(ApiUtils.getApiService().MallWXPayWays(
+                LoginInfoUtil.getUid(),
+                LoginInfoUtil.getToken(),
+                order_sn,
+                payId,
+                "0"
+
+        )).subscribe(new BaseObserver<WXPayBean>(mAt) {
+            @Override
+            public void onHandleSuccess(WXPayBean wxPayBean) throws IOException {
+                startWXPay(wxPayBean);
+            }
+        });
 
     }
 
-//    private void startWXPay(WXPayBean wxPayBean){
-//        final IWXAPI msgApi = WXAPIFactory.createWXAPI(MallOnlineOrderActivity.this, null);
-//        //将该app注册到微信
-//        msgApi.registerApp(wxPayBean.getAppid());
-//
-//        //创建支付请求对象
-//        PayReq req=new PayReq();
-//        req.appId = wxPayBean.getAppid();
-//        req.partnerId = wxPayBean.getMch_id();
-//        req.prepayId= wxPayBean.getPrepay_id();
-//        req.packageValue = "Sign=WXPay";
-//        req.nonceStr= wxPayBean.getNonce_str();
-//        req.timeStamp=wxPayBean.getTimestamp();
-//        req.sign= wxPayBean.getSign();
-//        msgApi.sendReq(req);
-//    }
+    private void startWXPay(WXPayBean wxPayBean){
+        final IWXAPI msgApi = WXAPIFactory.createWXAPI(MallOnlineOrderActivity.this, wxPayBean.getAppid());
+        //将该app注册到微信
+        msgApi.registerApp(wxPayBean.getAppid());
+
+        //创建支付请求对象
+        PayReq req=new PayReq();
+        req.appId = wxPayBean.getAppid();
+        req.partnerId = wxPayBean.getMch_id();
+        req.prepayId= wxPayBean.getPrepay_id();
+        req.packageValue = "Sign=WXPay";
+        req.nonceStr= wxPayBean.getNonce_str();
+        req.timeStamp=wxPayBean.getTimestamp();
+        req.sign= wxPayBean.getSign();
+        msgApi.sendReq(req);
+    }
 
 }
