@@ -249,6 +249,15 @@
         <activity
             android:name=".activity.ModifythephoneActivity"
             android:screenOrientation="portrait" /> <!-- 手机号码修改 -->
+        <activity
+            android:name=".wxapi.WXPayEntryActivity"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:exported="true"
+            android:taskAffinity="com.zskjprojectj.andouclient"
+            android:launchMode="singleTask">
+        </activity>
+
         <meta-data
             android:name="android.max_aspect"
             android:value="2.4" /> <!-- 适配华为（huawei）刘海屏 -->

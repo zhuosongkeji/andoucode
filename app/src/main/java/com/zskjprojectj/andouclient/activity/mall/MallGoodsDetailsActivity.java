@@ -119,8 +119,7 @@ public class MallGoodsDetailsActivity extends BaseActivity {
     private ArrayList<MallBuyBean.SpecInfo> res;
     //商户Id
     private int merchantId;
-    //购买数量
-    private String num;
+
     //商品图片
     private String goodsImg;
     //商品名称
@@ -323,7 +322,7 @@ public class MallGoodsDetailsActivity extends BaseActivity {
                     isCollection = false;
                 }
 
-                Log.d(TAG, "type: " + type);
+                Log.d(TAG, "type: "+type);
                 HttpRxObservable.getObservable(ApiUtils.getApiService().mallGoodsCollection(
                         id,
                         LoginInfoUtil.getUid(),
@@ -495,6 +494,11 @@ public class MallGoodsDetailsActivity extends BaseActivity {
 
             }
         });
+        //减
+        Button mSub = contentView.findViewById(R.id.btn_sub);
+        //加
+        Button mAdd = contentView.findViewById(R.id.btn_add);
+        TextView mNum = contentView.findViewById(R.id.tv_num);
 
 
         TextView mTvAddShopping = contentView.findViewById(R.id.tv_add_shopping);
@@ -517,7 +521,8 @@ public class MallGoodsDetailsActivity extends BaseActivity {
         mBuyNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                //购买数量
+                String num = mNum.getText().toString();
                 StringBuffer buffer = new StringBuffer();
                 for (int i = 0; i < MallGoodsDetailsActivity.this.res.size(); i++) {
                     MallBuyBean.SpecInfo info = MallGoodsDetailsActivity.this.res.get(i);
@@ -549,6 +554,7 @@ public class MallGoodsDetailsActivity extends BaseActivity {
                     public void onHandleSuccess(MallBuyNowBean mallBuyNowBean) throws IOException {
                         order_sn = mallBuyNowBean.getOrder_sn();
 
+                        Log.d(TAG, "order_sn: "+LoginInfoUtil.getUid()+" "+LoginInfoUtil.getToken()+" "+order_sn+" "+num);
                         Log.d(TAG, "order_sn: "+LoginInfoUtil.getUid()+" "+LoginInfoUtil.getToken()+" "+order_sn);
                         Intent onlineIntent = new Intent(MallGoodsDetailsActivity.this, MallOnlineOrderActivity.class);
                         onlineIntent.putExtra("order_sn", order_sn);
@@ -569,12 +575,7 @@ public class MallGoodsDetailsActivity extends BaseActivity {
                 bottomDialog.dismiss();
             }
         });
-        //减
-        Button mSub = contentView.findViewById(R.id.btn_sub);
-        //加
-        Button mAdd = contentView.findViewById(R.id.btn_add);
-        TextView mNum = contentView.findViewById(R.id.tv_num);
-        num = mNum.getText().toString();
+
 
         mAdd.setOnClickListener(new View.OnClickListener() {
             @Override

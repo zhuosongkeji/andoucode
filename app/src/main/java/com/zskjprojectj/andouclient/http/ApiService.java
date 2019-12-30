@@ -2,12 +2,15 @@ package com.zskjprojectj.andouclient.http;
 
 
 import com.zskjprojectj.andouclient.entity.TestBean;
+import com.zskjprojectj.andouclient.entity.WXPayBean;
 import com.zskjprojectj.andouclient.entity.mall.MallBuyBean;
 import com.zskjprojectj.andouclient.entity.mall.MallBuyNowBean;
 import com.zskjprojectj.andouclient.entity.mall.MallCommentBean;
 import com.zskjprojectj.andouclient.entity.mall.MallDetailsBean;
 import com.zskjprojectj.andouclient.entity.mall.MallGoodsDetailsDataBean;
 import com.zskjprojectj.andouclient.entity.mall.MallHomeDataBean;
+import com.zskjprojectj.andouclient.entity.mall.MallPayWaysBean;
+import com.zskjprojectj.andouclient.entity.mall.MallSettlementBean;
 import com.zskjprojectj.andouclient.entity.mall.MallShoppingHomeBean;
 import com.zskjprojectj.andouclient.model.Address;
 import com.zskjprojectj.andouclient.model.BalanceDetail;
@@ -87,7 +90,7 @@ public interface ApiService {
     /**
      * 商城立即购买
      */
-    @POST("order/add_order")
+    @POST("api/order/add_order")
     @FormUrlEncoded
     Observable<BaseResult<MallBuyNowBean>> MallBuyNow(@Field("uid") String uid,
                                                       @Field("token") String token,
@@ -99,11 +102,32 @@ public interface ApiService {
     /**
      * 商城购买结算页
      */
-    @POST("order/settlement")
+    @POST("api/order/settlement")
     @FormUrlEncoded
-    Observable<BaseResult<MallBuyNowBean>> MallSettlement(@Field("uid") String uid,
-                                                      @Field("token") String token,
-                                                      @Field("order_sn") String order_sn);
+    Observable<BaseResult<MallSettlementBean>> MallSettlement(@Field("uid") String uid,
+                                                              @Field("token") String token,
+                                                              @Field("order_sn") String order_sn);
+
+    /**
+     * 获取支付方式
+     */
+    @POST("api/common/pay_ways")
+    Observable<BaseResult<List<MallPayWaysBean>>> getMallPayWays();
+
+
+    /**
+     * 微信支付
+     */
+    @FormUrlEncoded
+    @POST("api/order/pay")
+    Observable<BaseResult<WXPayBean>> MallWXPayWays(@Field("uid") String uid,
+                                                    @Field("token") String token,
+                                                    @Field("sNo") String sNo,
+                                                    @Field("pay_id") String pay_id,
+                                                    @Field("is_integral") String is_integral
+                                                    );
+
+
 
     /**
      * 新增收货地址
