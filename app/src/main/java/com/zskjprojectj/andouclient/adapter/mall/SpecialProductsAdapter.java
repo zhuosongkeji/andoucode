@@ -6,6 +6,7 @@ import androidx.annotation.Nullable;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.zskjprojectj.andouclient.R;
@@ -33,16 +34,15 @@ public class SpecialProductsAdapter extends BaseQuickAdapter<MallHomeDataBean.Ba
     protected void convert(BaseViewHolder helper, MallHomeDataBean.BargainGoodsBean item) {
 
         // 加载特价产品图片
-        Glide.with(mContext).load(BaseUrl.BASE_URL+item.getImg())
+        Glide.with(mContext).load(BaseUrl.BASE_URL + item.getImg())
                 .transition(new DrawableTransitionOptions().crossFade())
+                .apply(new RequestOptions().placeholder(R.drawable.default_image))
                 .into((ImageView) helper.getView(R.id.iv_products_image));
 
         //特价产品介绍
-        helper.setText(R.id.tv_products_des,item.getName());
+        helper.setText(R.id.tv_products_des, item.getName());
         //特价产品价格
-        helper.setText(R.id.tv_products_price,item.getPrice());
-
-
+        helper.setText(R.id.tv_products_price, item.getPrice());
 
 
     }

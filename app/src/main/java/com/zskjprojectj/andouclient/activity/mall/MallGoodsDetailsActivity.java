@@ -538,8 +538,8 @@ public class MallGoodsDetailsActivity extends BaseActivity {
                 String merchant_id = String.valueOf(merchantId);
 
                 HttpRxObservable.getObservable(ApiUtils.getApiService().MallBuyNow(
-                        TestUtil.getUid(),
-                        TestUtil.getToken(),
+                        LoginInfoUtil.getUid(),
+                        LoginInfoUtil.getToken(),
                         id,
                         merchant_id,
                         goods_sku_id,
@@ -549,7 +549,7 @@ public class MallGoodsDetailsActivity extends BaseActivity {
                     public void onHandleSuccess(MallBuyNowBean mallBuyNowBean) throws IOException {
                         order_sn = mallBuyNowBean.getOrder_sn();
 
-                        Log.d(TAG, "order_sn: "+TestUtil.getUid()+" "+TestUtil.getToken()+" "+order_sn);
+                        Log.d(TAG, "order_sn: "+LoginInfoUtil.getUid()+" "+LoginInfoUtil.getToken()+" "+order_sn);
                         Intent onlineIntent = new Intent(MallGoodsDetailsActivity.this, MallOnlineOrderActivity.class);
                         onlineIntent.putExtra("order_sn", order_sn);
                         startActivity(onlineIntent);
