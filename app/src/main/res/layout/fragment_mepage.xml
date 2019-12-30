@@ -335,7 +335,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_5"
-                android:text="@string/center_hotelorder" />
+                android:text="@string/center_hotelorder"
+                android:textColor="#646464" />
         </LinearLayout>
 
         <LinearLayout
@@ -356,7 +357,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_5"
-                android:text="@string/center_vegetablemarket" />
+                android:text="@string/center_vegetablemarket"
+                android:textColor="#646464" />
         </LinearLayout>
 
         <LinearLayout
@@ -376,7 +378,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_5"
-                android:text="@string/center_shoporder" />
+                android:text="@string/center_shoporder"
+                android:textColor="#646464" />
         </LinearLayout>
 
         <LinearLayout
@@ -396,14 +399,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_5"
-                android:text="@string/center_restaurant" />
+                android:text="@string/center_restaurant"
+                android:textColor="#646464" />
         </LinearLayout>
     </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="13dp"
-        android:background="@color/colorGray" />
+        android:background="@color/colorGray"
+        android:textColor="#646464" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -437,7 +442,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_5"
-                        android:text="@string/center_invitation_with_courtesy" />
+                        android:text="@string/center_invitation_with_courtesy"
+                        android:textColor="#646464" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -457,7 +463,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_5"
-                        android:text="@string/center_mywallet" />
+                        android:text="@string/center_mywallet"
+                        android:textColor="#646464" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -478,7 +485,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_5"
-                        android:text="@string/center_myrelease" />
+                        android:text="@string/center_myrelease"
+                        android:textColor="#646464" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -498,7 +506,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_5"
-                        android:text="@string/center_shoppingcart" />
+                        android:text="@string/center_shoppingcart"
+                        android:textColor="#646464" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -519,7 +528,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_5"
-                        android:text="@string/center_mypatch" />
+                        android:text="@string/center_mypatch"
+                        android:textColor="#646464" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -547,7 +557,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_5"
-                        android:text="@string/center_mycollection" />
+                        android:text="@string/center_mycollection"
+                        android:textColor="#646464" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -567,7 +578,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_5"
-                        android:text="@string/center_browsing_traces" />
+                        android:text="@string/center_browsing_traces"
+                        android:textColor="#646464" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -587,7 +599,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_5"
-                        android:text="@string/center_myaddress" />
+                        android:text="@string/center_myaddress"
+                        android:textColor="#646464" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -614,7 +627,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_5"
-                        android:text="@string/center_myscore" />
+                        android:text="@string/center_myscore"
+                        android:textColor="#646464" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -634,7 +648,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_5"
-                        android:text="@string/center_mymessage" />
+                        android:text="@string/center_mymessage"
+                        android:textColor="#646464" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -654,7 +669,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_5"
-                        android:text="@string/center_business_residence" />
+                        android:text="@string/center_business_residence"
+                        android:textColor="#646464" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -675,7 +691,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_5"
-                        android:text="@string/center_becomedistributior" />
+                        android:text="@string/center_becomedistributior"
+                        android:textColor="#646464" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -703,7 +720,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_5"
-                        android:text="@string/center_mylivebroadcast" />
+                        android:text="@string/center_mylivebroadcast"
+                        android:textColor="#646464" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -723,7 +741,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_5"
-                        android:text="@string/center_downloadapp" />
+                        android:text="@string/center_downloadapp"
+                        android:textColor="#646464" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -743,7 +762,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_5"
-                        android:text="@string/center_operationvideo" />
+                        android:text="@string/center_operationvideo"
+                        android:textColor="#646464" />
                 </LinearLayout>
 
                 <LinearLayout
