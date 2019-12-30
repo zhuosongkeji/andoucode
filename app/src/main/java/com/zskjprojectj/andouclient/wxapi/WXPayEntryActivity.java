@@ -32,7 +32,6 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
     private IWXAPI api;
 
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,21 +62,16 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 
     @Override
     public void onResp(BaseResp baseResp) {
-        if (baseResp.getType()==ConstantsAPI.COMMAND_LAUNCH_BY_WX)
-        {
-            if (baseResp.errCode==0){
+        if (baseResp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
+            if (baseResp.errCode == 0) {
                 ToastUtil.showToast("支付成功");
-            }else if (baseResp.errCode==-1){
-                final AlertDialog.Builder ab=new AlertDialog.Builder(this);
-                ab.setMessage("支付错误!")
-                        .setCancelable(false)
-                        .setPositiveButton("好的",(dialog, which) -> {
-                            dialog.dismiss();
-                        }).show();
-            }else if (baseResp.errCode==-2){
+            } else if (baseResp.errCode == -1) {
+                ToastUtil.showToast("支付错误" + baseResp.errStr);
+            } else if (baseResp.errCode == -2) {
                 ToastUtil.showToast("取消支付");
             }
+        } else {
+            ToastUtil.showToast(baseResp.errStr);
         }
-        finish();
     }
 }
