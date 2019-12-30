@@ -26,7 +26,7 @@ import com.zskjprojectj.andouclient.utils.ToastUtil;
  * 修改时间：
  * 修改备注：
  */
-public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
+public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 
 
     private IWXAPI api;

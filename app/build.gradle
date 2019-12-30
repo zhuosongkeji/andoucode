@@ -131,4 +131,7 @@ dependencies {
     implementation 'com.blankj:utilcodex:1.26.0'
 
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
+
+    //二维码扫描
+    implementation 'com.king.zxing:zxing-lite:1.1.5-androidx'
 }

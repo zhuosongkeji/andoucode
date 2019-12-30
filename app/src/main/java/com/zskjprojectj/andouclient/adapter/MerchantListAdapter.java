@@ -5,6 +5,7 @@ import android.widget.ImageView;
 import androidx.annotation.Nullable;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.zskjprojectj.andouclient.R;
@@ -32,6 +33,7 @@ public class MerchantListAdapter extends BaseQuickAdapter<Merchant, BaseViewHold
     protected void convert(BaseViewHolder helper, Merchant item) {
         Glide.with(helper.itemView)
                 .load(item.logo_img)
+                .apply(new RequestOptions().placeholder(R.drawable.default_image))
                 .into((ImageView) helper.itemView.findViewById(R.id.busiess_tupian1_image));
         helper.setText(R.id.busiess_name1_textview, item.name)
                 .setText(R.id.busiess_dianzancount1_textview, item.praise_num + "")
