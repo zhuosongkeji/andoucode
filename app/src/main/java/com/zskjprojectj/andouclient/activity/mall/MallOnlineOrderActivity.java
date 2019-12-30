@@ -11,6 +11,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
+import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
+import com.tencent.mm.opensdk.modelmsg.WXTextObject;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
@@ -81,7 +84,6 @@ public class MallOnlineOrderActivity extends BaseActivity {
     RecyclerView mRvPayWAys;
 
 
-
     private String order_sn;
     private String payId;
 
@@ -116,18 +118,18 @@ public class MallOnlineOrderActivity extends BaseActivity {
             @Override
             public void onHandleSuccess(MallSettlementBean mallSettlementBean) throws IOException {
                 MallSettlementBean.DetailsBean detailsBean = mallSettlementBean.getDetails().get(0);
-                Glide.with(mAt).load(BaseUrl.BASE_URL+detailsBean.getImg()).into(mIvOnlinOrderImage);
+                Glide.with(mAt).load(BaseUrl.BASE_URL + detailsBean.getImg()).into(mIvOnlinOrderImage);
                 mTvOnlineOrderName.setText(detailsBean.getName());
-                TvOnlineOrderPrice.setText("¥"+detailsBean.getPrice());
+                TvOnlineOrderPrice.setText("¥" + detailsBean.getPrice());
 
-                StringBuffer buffer=new StringBuffer();
+                StringBuffer buffer = new StringBuffer();
                 List<String> attr_value = detailsBean.getAttr_value();
                 for (String s : attr_value) {
                     buffer.append(s).append("-");
                 }
                 String stringOption = buffer.substring(0, buffer.length() - 1);
                 TvOnlineOrderOption.setText(stringOption);
-                TvOnlineOrderNumber.setText("X"+detailsBean.getNum());
+                TvOnlineOrderNumber.setText("X" + detailsBean.getNum());
                 //收货信息
                 MallSettlementBean.UserinfoBean userinfo = mallSettlementBean.getUserinfo();
 
@@ -137,7 +139,7 @@ public class MallOnlineOrderActivity extends BaseActivity {
                 String shippingAddress = userinfo.getProvince() + " " + userinfo.getCity() + " " + userinfo.getArea() + " " + userinfo.getAddress();
                 mTvClientAddress.setText(shippingAddress);
                 mShippingFree.setText(mallSettlementBean.getShipping_free());
-                Log.d(TAG, "购买结算页: "+mallSettlementBean.getShipping_free());
+                Log.d(TAG, "购买结算页: " + mallSettlementBean.getShipping_free());
 
                 mTvOrderMoney.setText(mallSettlementBean.getOrder_money());
                 mMallOrderMoney.setText(mallSettlementBean.getOrder_money());
@@ -150,7 +152,7 @@ public class MallOnlineOrderActivity extends BaseActivity {
             @Override
             public void onHandleSuccess(List<MallPayWaysBean> mallPayWaysBeans) throws IOException {
                 mRvPayWAys.setLayoutManager(new LinearLayoutManager(mAt));
-                PayWaysAdapter adapter=new PayWaysAdapter(R.layout.pay_ways_item,mallPayWaysBeans);
+                PayWaysAdapter adapter = new PayWaysAdapter(R.layout.pay_ways_item, mallPayWaysBeans);
                 mRvPayWAys.addItemDecoration(new DividerItemDecoration(mAt, DividerItemDecoration.VERTICAL));
                 mRvPayWAys.setAdapter(adapter);
                 adapter.setItemPayWays(new PayWaysAdapter.ItemPayWays() {
@@ -170,7 +172,7 @@ public class MallOnlineOrderActivity extends BaseActivity {
     }
 
     @OnClick(R.id.ll_buy_pay)
-    public void clickBuyPay(){
+    public void clickBuyPay() {
 
         HttpRxObservable.getObservable(ApiUtils.getApiService().MallWXPayWays(
                 LoginInfoUtil.getUid(),
@@ -188,12 +190,12 @@ public class MallOnlineOrderActivity extends BaseActivity {
 
     }
 
-    private void startWXPay(WXPayBean wxPayBean){
+    private void startWXPay(WXPayBean wxPayBean) {
         final IWXAPI msgApi = WXAPIFactory.createWXAPI(MallOnlineOrderActivity.this, wxPayBean.getAppid());
         //将该app注册到微信
         msgApi.registerApp(wxPayBean.getAppid());
 
-        //创建支付请求对象
+//        创建支付请求对象
         PayReq req=new PayReq();
         req.appId = wxPayBean.getAppid();
         req.partnerId = wxPayBean.getMch_id();
@@ -203,6 +205,19 @@ public class MallOnlineOrderActivity extends BaseActivity {
         req.timeStamp=wxPayBean.getTimestamp();
         req.sign= wxPayBean.getSign();
         msgApi.sendReq(req);
+//        WXTextObject textObj = new WXTextObject();
+//        textObj.text = "测试分享";
+//
+////用 WXTextObject 对象初始化一个 WXMediaMessage 对象
+//        WXMediaMessage msg = new WXMediaMessage();
+//        msg.mediaObject = textObj;
+//        msg.description = "测试分享";
+//
+//        SendMessageToWX.Req req = new SendMessageToWX.Req();
+//        req.transaction = "text";
+//        req.message = msg;
+//        req.scene = SendMessageToWX.Req.WXSceneSession;
+////调用api接口，发送数据到微信
+//        msgApi.sendReq(req);
     }
-
 }
