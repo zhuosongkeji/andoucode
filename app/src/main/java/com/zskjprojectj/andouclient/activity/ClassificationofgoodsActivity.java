@@ -38,6 +38,11 @@ import butterknife.OnClick;
  *
  */
 public class ClassificationofgoodsActivity extends BaseActivity {
+    //推荐产品
+    private final static int recommend=1;
+
+
+
     @BindView(R.id.ll_classify)
     LinearLayout mClassify;
     private PopupWindow mPopWindow;

@@ -7,6 +7,7 @@ import com.zskjprojectj.andouclient.entity.mall.MallBuyBean;
 import com.zskjprojectj.andouclient.entity.mall.MallBuyNowBean;
 import com.zskjprojectj.andouclient.entity.mall.MallCommentBean;
 import com.zskjprojectj.andouclient.entity.mall.MallDetailsBean;
+import com.zskjprojectj.andouclient.entity.mall.MallGoodsCateBean;
 import com.zskjprojectj.andouclient.entity.mall.MallGoodsDetailsDataBean;
 import com.zskjprojectj.andouclient.entity.mall.MallHomeDataBean;
 import com.zskjprojectj.andouclient.entity.mall.MallPayWaysBean;
@@ -46,6 +47,14 @@ public interface ApiService {
     @POST("api/goods/goods")
     @FormUrlEncoded
     Observable<BaseResult<MallGoodsDetailsDataBean>> mallDetailsShow(@Field("id") String id,@Field("uid") String uid);
+
+
+    /**
+     * 获取商城商品分类
+     */
+    @POST("api/goods/goods_cate")
+    Observable<BaseResult<List<MallGoodsCateBean>>> getMallGoodsCate();
+
 
 
     /**

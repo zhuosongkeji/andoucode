@@ -12,6 +12,7 @@
         android:background="#DCDBDB"
         android:gravity="center_vertical"
         android:paddingLeft="20dp"
+        android:textColor="#000000"
         android:text="" />
 
     <com.zskjprojectj.andouclient.view.GridViewForScrollView

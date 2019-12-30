@@ -30,6 +30,7 @@
         android:usesCleartextTraffic="true"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning"
         tools:targetApi="m">
+        <activity android:name=".activity.mall.MallPaySuccessActivity"></activity>
         <activity
             android:name=".activity.SplashActivity"
             android:screenOrientation="portrait">
@@ -82,9 +83,7 @@
             android:screenOrientation="portrait" /> <!-- 酒店预约-主页 -->
         <activity
             android:name=".activity.LoginActivity"
-            android:screenOrientation="portrait">
-
-        </activity> <!-- 注册界面 -->
+            android:screenOrientation="portrait"></activity> <!-- 注册界面 -->
         <activity
             android:name=".activity.RegisteredActivity"
             android:screenOrientation="portrait" /> <!-- 主界面 -->
@@ -94,9 +93,7 @@
         <activity
             android:name=".activity.MainActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/DefaultCityPickerTheme">
-
-        </activity>
+            android:theme="@style/DefaultCityPickerTheme"></activity>
         <activity
             android:name=".activity.MerchantsInfoActivity"
             android:screenOrientation="portrait" /> <!-- 菜市场模块 -->
@@ -251,12 +248,11 @@
             android:screenOrientation="portrait" /> <!-- 手机号码修改 -->
         <activity
             android:name=".wxapi.WXPayEntryActivity"
-            android:label="@string/app_name"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:exported="true"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
             android:taskAffinity="com.zskjprojectj.andouclient"
-            android:launchMode="singleTask">
-        </activity>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
 
         <meta-data
             android:name="android.max_aspect"

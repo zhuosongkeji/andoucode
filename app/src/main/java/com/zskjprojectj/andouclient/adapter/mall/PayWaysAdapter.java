@@ -32,6 +32,8 @@ import java.util.Map;
  */
 public class PayWaysAdapter extends BaseQuickAdapter<MallPayWaysBean, BaseViewHolder> {
 
+
+
     private Map<Integer, Boolean> map = new HashMap<>();
     private boolean onBind;
     private int checkedPosition = -1;
@@ -54,7 +56,6 @@ public class PayWaysAdapter extends BaseQuickAdapter<MallPayWaysBean, BaseViewHo
                     map.put(helper.getLayoutPosition(),true);
                     checkedPosition=helper.getLayoutPosition();
                     ToastUtil.showToast("选择"+item.getPay_way());
-
                     itemPayWays.getPayWays(item.getPay_way(),helper.getLayoutPosition());
                 }else {
                     map.remove(helper.getLayoutPosition());

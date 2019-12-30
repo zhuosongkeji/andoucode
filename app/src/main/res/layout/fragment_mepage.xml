@@ -335,6 +335,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_5"
+                android:textColor="@color/font_normal_mepage"
                 android:text="@string/center_hotelorder" />
         </LinearLayout>
 
@@ -356,6 +357,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_5"
+                android:textColor="@color/font_normal_mepage"
                 android:text="@string/center_vegetablemarket" />
         </LinearLayout>
 
@@ -376,6 +378,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_5"
+                android:textColor="@color/font_normal_mepage"
                 android:text="@string/center_shoporder" />
         </LinearLayout>
 
@@ -396,6 +399,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_5"
+                android:textColor="@color/font_normal_mepage"
                 android:text="@string/center_restaurant" />
         </LinearLayout>
     </LinearLayout>
@@ -437,6 +441,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_5"
+                        android:textColor="@color/font_normal_mepage"
                         android:text="@string/center_invitation_with_courtesy" />
                 </LinearLayout>
 
@@ -457,6 +462,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_5"
+                        android:textColor="@color/font_normal_mepage"
                         android:text="@string/center_mywallet" />
                 </LinearLayout>
 
@@ -498,6 +504,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_5"
+                        android:textColor="@color/font_normal_mepage"
                         android:text="@string/center_shoppingcart" />
                 </LinearLayout>
 
@@ -547,6 +554,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_5"
+                        android:textColor="@color/font_normal_mepage"
                         android:text="@string/center_mycollection" />
                 </LinearLayout>
 
@@ -567,6 +575,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_5"
+                        android:textColor="@color/font_normal_mepage"
                         android:text="@string/center_browsing_traces" />
                 </LinearLayout>
 
@@ -587,6 +596,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_5"
+                        android:textColor="@color/font_normal_mepage"
                         android:text="@string/center_myaddress" />
                 </LinearLayout>
             </LinearLayout>
@@ -614,6 +624,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_5"
+                        android:textColor="@color/font_normal_mepage"
                         android:text="@string/center_myscore" />
                 </LinearLayout>
 
@@ -634,6 +645,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_5"
+                        android:textColor="@color/font_normal_mepage"
                         android:text="@string/center_mymessage" />
                 </LinearLayout>
 
@@ -654,6 +666,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_5"
+                        android:textColor="@color/font_normal_mepage"
                         android:text="@string/center_business_residence" />
                 </LinearLayout>
 
@@ -723,6 +736,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_5"
+                        android:textColor="@color/font_normal_mepage"
                         android:text="@string/center_downloadapp" />
                 </LinearLayout>
 
@@ -743,6 +757,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_5"
+                        android:textColor="@color/font_normal_mepage"
                         android:text="@string/center_operationvideo" />
                 </LinearLayout>
 

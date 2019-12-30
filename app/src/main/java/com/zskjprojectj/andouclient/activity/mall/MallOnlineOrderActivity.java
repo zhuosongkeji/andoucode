@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
@@ -84,6 +85,9 @@ public class MallOnlineOrderActivity extends BaseActivity {
 
     private String order_sn;
     private String payId;
+    private MallPayWaysBean mallPayWaysBean;
+    private final static int WXPAY=1;
+    private final static int YUEPAY=4;
 
     @Override
     protected void setRootView() {
@@ -153,9 +157,12 @@ public class MallOnlineOrderActivity extends BaseActivity {
                 PayWaysAdapter adapter=new PayWaysAdapter(R.layout.pay_ways_item,mallPayWaysBeans);
                 mRvPayWAys.addItemDecoration(new DividerItemDecoration(mAt, DividerItemDecoration.VERTICAL));
                 mRvPayWAys.setAdapter(adapter);
+
+
                 adapter.setItemPayWays(new PayWaysAdapter.ItemPayWays() {
                     @Override
                     public void getPayWays(String payWays, int position) {
+                        mallPayWaysBean = mallPayWaysBeans.get(position);
                         payId = mallPayWaysBeans.get(position).getId();
                     }
                 });
@@ -171,20 +178,47 @@ public class MallOnlineOrderActivity extends BaseActivity {
 
     @OnClick(R.id.ll_buy_pay)
     public void clickBuyPay(){
+        int id = Integer.parseInt(payId);
+        switch (id){
+            case WXPAY:
+                HttpRxObservable.getObservable(ApiUtils.getApiService().MallWXPayWays(
+                        LoginInfoUtil.getUid(),
+                        LoginInfoUtil.getToken(),
+                        order_sn,
+                        payId,
+                        "0"
 
-        HttpRxObservable.getObservable(ApiUtils.getApiService().MallWXPayWays(
-                LoginInfoUtil.getUid(),
-                LoginInfoUtil.getToken(),
-                order_sn,
-                payId,
-                "0"
+                )).subscribe(new BaseObserver<WXPayBean>(mAt) {
+                    @Override
+                    public void onHandleSuccess(WXPayBean wxPayBean) throws IOException {
+                        startWXPay(wxPayBean);
+                    }
+                });
 
-        )).subscribe(new BaseObserver<WXPayBean>(mAt) {
-            @Override
-            public void onHandleSuccess(WXPayBean wxPayBean) throws IOException {
-                startWXPay(wxPayBean);
-            }
-        });
+                break;
+            case YUEPAY:
+                HttpRxObservable.getObservable(ApiUtils.getApiService().MallWXPayWays(
+                        LoginInfoUtil.getUid(),
+                        LoginInfoUtil.getToken(),
+                        order_sn,
+                        payId,
+                        "0"
+
+                )).subscribe(new BaseObserver<WXPayBean>(mAt) {
+                    @Override
+                    public void onHandleSuccess(WXPayBean wxPayBean) throws IOException {
+
+
+                    startActivity(new Intent(MallOnlineOrderActivity.this,MallPaySuccessActivity.class));
+
+                    }
+                });
+
+                break;
+
+        }
+
+
 
     }
 

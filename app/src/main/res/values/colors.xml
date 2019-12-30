@@ -58,4 +58,5 @@
     <color name="gray1_color">#7D7D7D</color>
     <color name="color_common_font">#646464</color>
     <color name="color_allbg">#F7F7F7</color>
+    <color name="font_normal_mepage">#646464</color>
 </resources>
