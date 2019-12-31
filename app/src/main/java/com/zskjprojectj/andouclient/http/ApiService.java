@@ -9,6 +9,7 @@ import com.zskjprojectj.andouclient.entity.mall.MallCommentBean;
 import com.zskjprojectj.andouclient.entity.mall.MallDetailsBean;
 import com.zskjprojectj.andouclient.entity.mall.MallGoodsCateBean;
 import com.zskjprojectj.andouclient.entity.mall.MallGoodsDetailsDataBean;
+import com.zskjprojectj.andouclient.entity.mall.MallGoodsListBean;
 import com.zskjprojectj.andouclient.entity.mall.MallHomeDataBean;
 import com.zskjprojectj.andouclient.entity.mall.MallPayWaysBean;
 import com.zskjprojectj.andouclient.entity.mall.MallSettlementBean;
@@ -54,6 +55,19 @@ public interface ApiService {
      */
     @POST("api/goods/goods_cate")
     Observable<BaseResult<List<MallGoodsCateBean>>> getMallGoodsCate();
+
+
+    /**
+     * 商城产品列表
+     */
+    @POST("api/goods/good_list")
+    @FormUrlEncoded
+    Observable<BaseResult<List<MallGoodsListBean>>> mallGoodsList(@Field("keyword") String keyword,
+                                                            @Field("cate_id") String uid,
+                                                            @Field("is_recommend") String is_recommend,
+                                                            @Field("is_bargain") String is_bargain,
+                                                            @Field("price_sort") String price_sort,
+                                                            @Field("volume_sort") String volume_sort);
 
 
 

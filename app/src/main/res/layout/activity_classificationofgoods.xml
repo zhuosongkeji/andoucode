@@ -4,6 +4,7 @@
     android:orientation="vertical"
     android:background="@color/colorNavy"
     android:layout_height="match_parent">
+
     <RelativeLayout
         android:background="@color/colorNavy"
         android:id="@+id/root_view"
@@ -34,20 +35,22 @@
                 android:id="@+id/search_edittext"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="35dp"
+                android:gravity="center_vertical"
                 android:background="@null"
+                android:layout_marginLeft="@dimen/dp_18"
                 android:hint="@string/search"
+                android:textColorHint="#919191"
                 android:textColor="#919191"
                 android:textSize="@dimen/typeface12sp" />
 
             <LinearLayout
+                android:id="@+id/search_image"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
                 android:gravity="center|right">
 
                 <ImageView
-                    android:id="@+id/search_image"
                     android:layout_width="@dimen/dp_16"
                     android:layout_height="@dimen/dp_15"
                     android:layout_marginRight="@dimen/dp_8"
@@ -80,6 +83,7 @@
                 android:text="综合" />
 
             <ImageView
+                android:id="@+id/iv_selector_star_img"
                 android:layout_width="10dp"
                 android:layout_height="10dp"
                 android:layout_marginLeft="@dimen/dp_6"
@@ -97,9 +101,11 @@
                 android:id="@+id/tv_capacity_sort"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/color_common_font"
                 android:text="销量" />
 
             <ImageView
+                android:id="@+id/iv_capacity_sort"
                 android:layout_width="10dp"
                 android:layout_height="10dp"
                 android:layout_marginLeft="@dimen/dp_6"
@@ -117,9 +123,11 @@
                 android:id="@+id/tv_screen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/color_common_font"
                 android:text="价格" />
 
             <ImageView
+                android:id="@+id/iv_screen"
                 android:layout_width="10dp"
                 android:layout_height="10dp"
                 android:layout_marginLeft="@dimen/dp_6"
@@ -127,6 +135,12 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_5"
+        android:background="#F7F7F7"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_recycler"
         android:background="@color/white"

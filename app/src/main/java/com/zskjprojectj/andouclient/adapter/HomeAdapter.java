@@ -73,14 +73,8 @@ public class HomeAdapter extends BaseAdapter {
         viewHold.gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                Toast.makeText(context,""+i,Toast.LENGTH_LONG).show();
                 //商品分类跳转到商品列表
-
-                Intent intent=new Intent(context, ClassificationofgoodsActivity.class);
-                intent.putExtra("cata",towcate.get(position).getId());
-                context.startActivity(intent);
-
-//                context.startActivity(new Intent(context, ClassificationofgoodsActivity.class));
+                ClassificationofgoodsActivity.getCataId(towcate.get(position).getId());
             }
         });
         return convertView;

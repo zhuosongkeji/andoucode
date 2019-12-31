@@ -34,7 +34,7 @@ public class MallGoodsDetailFragment extends BaseFragment implements View.OnClic
     WebView mWvDetailsView;
 
 
-    private int id;
+    private String goodId;
 
 
     @Override
@@ -54,7 +54,7 @@ public class MallGoodsDetailFragment extends BaseFragment implements View.OnClic
 
     @Override
     protected void getDataFromServer() {
-        String goodId = String.valueOf(id);
+
         Log.d(TAG, "getDataFromServer:bundle " + goodId);
         //商品详情
         HttpRxObservable.getObservable(ApiUtils.getApiService().mallDetails(goodId)).subscribe(new BaseObserver<MallDetailsBean>(mAty) {
@@ -97,7 +97,7 @@ public class MallGoodsDetailFragment extends BaseFragment implements View.OnClic
     @Override
     protected void initData() {
         Bundle bundle = getArguments();
-        id = bundle.getInt("id");
+        goodId = bundle.getString("id");
 
 
     }

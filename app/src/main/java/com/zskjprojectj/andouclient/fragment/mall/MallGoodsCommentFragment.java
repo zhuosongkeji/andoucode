@@ -36,7 +36,7 @@ public class MallGoodsCommentFragment extends BaseFragment implements View.OnCli
     private RecyclerView mRecycler;
     private List<MallCommentBean> mallCommentBeans;
     //商品id
-    private int id;
+    private String goodId;
 
 
     @Override
@@ -57,7 +57,6 @@ public class MallGoodsCommentFragment extends BaseFragment implements View.OnCli
 
     @Override
     protected void getDataFromServer() {
-        String goodId = String.valueOf(id);
         Log.d(TAG, "getDataFromServer:bundle " + goodId);
         //商品评论
         HttpRxObservable.getObservable(ApiUtils.getApiService().mallComment(goodId))
@@ -87,7 +86,7 @@ public class MallGoodsCommentFragment extends BaseFragment implements View.OnCli
     @Override
     protected void initData() {
         Bundle bundle = getArguments();
-        id = bundle.getInt("id");
+        goodId = bundle.getString("id");
 
 
     }

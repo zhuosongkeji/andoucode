@@ -162,12 +162,13 @@ public class MallShoppingHomeActivity extends BaseActivity {
         MallShoppingHomeAdapter adapter = new MallShoppingHomeAdapter(R.layout.activity_mall_shopping_item_view, goods);
         adapter.openLoadAnimation();
         mRecycler.setAdapter(adapter);
-        adapter.setItemListener(new MallShoppingHomeAdapter.OnItemGetIdListener() {
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
-            public void getGoodsId(String content) {
-
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                MallGoodsDetailsActivity.start(goods.get(position).getId());
             }
         });
+
     }
 
     @Override

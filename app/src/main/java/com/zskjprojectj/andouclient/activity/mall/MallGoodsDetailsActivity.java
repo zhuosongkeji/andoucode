@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ActivityUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.shizhefei.view.indicator.FixedIndicatorView;
@@ -61,6 +62,7 @@ import butterknife.OnClick;
 
 public class MallGoodsDetailsActivity extends BaseActivity {
 
+    private static final String GOODS_ID = "goodsId";
     @BindView(R.id.tv_buy_now)
     TextView mBuyNow;
 
@@ -110,11 +112,9 @@ public class MallGoodsDetailsActivity extends BaseActivity {
     private List<Fragment> list = new ArrayList<>();
     private Dialog bottomDialog;
     private View contentView;
-    private int goodsId;
+    private String goodsId;
     private boolean isCollection = false;
     private String type;
-    //商品id
-    private String id;
     private String merchant_id;
     private ArrayList<MallBuyBean.SpecInfo> res;
     //商户Id
@@ -128,6 +128,10 @@ public class MallGoodsDetailsActivity extends BaseActivity {
     private String goodsPrice;
     //商品订单号
     private String order_sn;
+    //订单图片
+    private String orderImg;
+    //订单标题
+    private String orderName;
 
     @Override
     protected void setRootView() {
@@ -143,7 +147,7 @@ public class MallGoodsDetailsActivity extends BaseActivity {
 
         MallGoodsDetailFragment mallGoodsDetailFragment = new MallGoodsDetailFragment();
         Bundle detailBundle = new Bundle();
-        detailBundle.putInt("id", goodsId);
+        detailBundle.putString("id", goodsId);
         mallGoodsDetailFragment.setArguments(detailBundle);
         list.add(mallGoodsDetailFragment);
 
@@ -151,7 +155,7 @@ public class MallGoodsDetailsActivity extends BaseActivity {
 
         MallGoodsCommentFragment mallGoodsCommentFragment = new MallGoodsCommentFragment();
         Bundle commentBundle = new Bundle();
-        commentBundle.putInt("id", goodsId);
+        commentBundle.putString("id", goodsId);
         mallGoodsCommentFragment.setArguments(commentBundle);
         list.add(mallGoodsCommentFragment);
 
@@ -234,7 +238,8 @@ public class MallGoodsDetailsActivity extends BaseActivity {
     @Override
     protected void initViews() {
         //商品ID
-        goodsId = getIntent().getIntExtra("id", 0);
+        goodsId=getIntent().getStringExtra(GOODS_ID);
+
 
         getBarDistance(mHeaderTitleView);
         mHeaderTitle.setText("商品详情");
@@ -245,10 +250,9 @@ public class MallGoodsDetailsActivity extends BaseActivity {
     @Override
     public void getDataFromServer() {
 
-        id = String.valueOf(goodsId);
 
-        //商品详情展示
-        HttpRxObservable.getObservable(ApiUtils.getApiService().mallDetailsShow(id, LoginInfoUtil.getUid()))
+        //商品详情
+        HttpRxObservable.getObservable(ApiUtils.getApiService().mallDetailsShow(goodsId, LoginInfoUtil.getUid()))
                 .subscribe(new BaseObserver<MallGoodsDetailsDataBean>(this) {
                     @Override
                     public void onHandleSuccess(MallGoodsDetailsDataBean mallGoodsDetailsDataBean) throws IOException {
@@ -290,6 +294,10 @@ public class MallGoodsDetailsActivity extends BaseActivity {
 
                         merchant_id = mallGoodsDetailsDataBean.getMerchant_id();
 
+                         orderImg = mallGoodsDetailsDataBean.getImg();
+                         orderName = mallGoodsDetailsDataBean.getName();
+
+
                     }
 
                     @Override
@@ -324,7 +332,7 @@ public class MallGoodsDetailsActivity extends BaseActivity {
 
                 Log.d(TAG, "type: "+type);
                 HttpRxObservable.getObservable(ApiUtils.getApiService().mallGoodsCollection(
-                        id,
+                        goodsId,
                         LoginInfoUtil.getUid(),
                         LoginInfoUtil.getToken(),
                         type
@@ -353,7 +361,7 @@ public class MallGoodsDetailsActivity extends BaseActivity {
                 //加入购物车
             case R.id.add_shopping:
 
-                HttpRxObservable.getObservable(ApiUtils.getApiService().buySpecification(id))
+                HttpRxObservable.getObservable(ApiUtils.getApiService().buySpecification(goodsId))
                         .subscribe(new BaseObserver<MallBuyBean>(mAt) {
                             @Override
                             public void onHandleSuccess(MallBuyBean mallBuyBean) throws IOException {
@@ -472,6 +480,11 @@ public class MallGoodsDetailsActivity extends BaseActivity {
 
         contentView = LayoutInflater.from(this).inflate(R.layout.dialog_buy_now, null);
 
+        ImageView mOrderImg = contentView.findViewById(R.id.iv_online_order_image);
+        Glide.with(mOrderImg.getContext()).load(BaseUrl.BASE_URL+orderImg).apply(new RequestOptions()
+                .placeholder(R.drawable.default_image).error(R.drawable.default_image)).into(mOrderImg);
+        TextView mOrderName = contentView.findViewById(R.id.tv_order_name);
+        mOrderName.setText(orderName);
         RecyclerView mBuyRecycler = contentView.findViewById(R.id.rv_buy_recyclerview);
         mBuyRecycler.setLayoutManager(new LinearLayoutManager(mBuyRecycler.getContext()));
 
@@ -500,15 +513,31 @@ public class MallGoodsDetailsActivity extends BaseActivity {
         Button mAdd = contentView.findViewById(R.id.btn_add);
         TextView mNum = contentView.findViewById(R.id.tv_num);
 
-
+        //加入购物车
         TextView mTvAddShopping = contentView.findViewById(R.id.tv_add_shopping);
         mTvAddShopping.setOnClickListener(v -> {
+
+            StringBuffer buffer = new StringBuffer();
+            for (int i = 0; i < MallGoodsDetailsActivity.this.res.size(); i++) {
+                MallBuyBean.SpecInfo info = MallGoodsDetailsActivity.this.res.get(i);
+                if (info.value.size() <= 0) {
+                    ToastUtil.showToast("请选择" + info.name);
+                    return;
+                } else {
+                    buffer.append(info.value.get(0)).append("-");
+                }
+            }
+            String selectKind = buffer.substring(0, buffer.length() - 1);
+            MallBuyBean.PriceInfo priceInfo = price.get(selectKind);
+            String goods_sku_id = priceInfo.id;
+
+
             HttpRxObservable.getObservable(ApiUtils.getApiService().addCar(
                     LoginInfoUtil.getUid(),
                     LoginInfoUtil.getToken(),
-                    "1",
-                    "1",
-                    "1"
+                    goodsId,
+                    merchant_id,
+                    goods_sku_id
             )).subscribe(new BaseObserver<Object>(mAt) {
                 @Override
                 public void onHandleSuccess(Object o) throws IOException {
@@ -545,7 +574,7 @@ public class MallGoodsDetailsActivity extends BaseActivity {
                 HttpRxObservable.getObservable(ApiUtils.getApiService().MallBuyNow(
                         LoginInfoUtil.getUid(),
                         LoginInfoUtil.getToken(),
-                        id,
+                        goodsId,
                         merchant_id,
                         goods_sku_id,
                         num
@@ -618,4 +647,9 @@ public class MallGoodsDetailsActivity extends BaseActivity {
         finish();
     }
 
+    public static void start(String id){
+        Bundle intent=new Bundle();
+        intent.putString(GOODS_ID,id);
+        ActivityUtils.startActivity(intent,MallGoodsDetailsActivity.class);
+    }
 }

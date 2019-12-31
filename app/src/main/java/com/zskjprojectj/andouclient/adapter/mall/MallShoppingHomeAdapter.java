@@ -36,27 +36,6 @@ public class MallShoppingHomeAdapter extends BaseQuickAdapter<MallShoppingHomeBe
         Glide.with(mContext).load(BaseUrl.BASE_URL+item.getImg()).into((ImageView) helper.getView(R.id.iv_goods_img));
         helper.setText(R.id.tv_goods_name,item.getNameX());
         helper.setText(R.id.tv_goods_price,"¥"+item.getPrice());
-
-
-
-        String id = item.getId();
-//        Intent detailsIntent=new Intent(mContext, MallGoodsDetailsActivity.class);
-//        detailsIntent.putExtra("id",id);
-//        mContext.startActivity(detailsIntent);
-        if (itemListener!=null){
-            itemListener.getGoodsId(id);
-        }
-
     }
 
-
-
-    public interface OnItemGetIdListener{
-        void  getGoodsId(String content);
-    }
-    private OnItemGetIdListener itemListener;
-
-    public void setItemListener(OnItemGetIdListener itemListener) {
-        this.itemListener = itemListener;
-    }
 }

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -69,7 +70,15 @@ public class MallHomepageFragment1 extends BaseFragment {
     @BindView(R.id.vp_grid_view)
     PageGridView mGridView;
 
+    //搜索内容
+    @BindView(R.id.search_edittext)
+    EditText mSearchEditText;
+
     private List<MallHomeDataBean.BannerBean> banner;
+    //推荐产品
+    private String recommend="1";
+    //特价产品
+    private String special="1";
 
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
@@ -96,6 +105,14 @@ public class MallHomepageFragment1 extends BaseFragment {
 //                        initCategoryRecycler(category);
 
                         mGridView.setData(category);
+                        mGridView.setOnItemClickListener(new PageGridView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(int position) {
+                                ClassificationofgoodsActivity.getCataId(category.get(position).getId());
+
+
+                            }
+                        });
 
                         //推荐产品
                         List<MallHomeDataBean.RecommendGoodsBean> recommend_goods = bean.getRecommend_goods();
@@ -142,11 +159,8 @@ public class MallHomepageFragment1 extends BaseFragment {
         recommendProductsAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-//                startActivity(new Intent(getActivity(), MallGoodsDetailsActivity.class));
-                Log.d(TAG, "onItemClick: "+recommend_goods.get(position).getId());
-                Intent recommend=new Intent(getActivity(),MallGoodsDetailsActivity.class);
-                recommend.putExtra("id",recommend_goods.get(position).getId());
-                startActivity(recommend);
+
+                MallGoodsDetailsActivity.start(recommend_goods.get(position).getId());
             }
         });
 
@@ -159,15 +173,6 @@ public class MallHomepageFragment1 extends BaseFragment {
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, ScreenUtil.getScreenWidth(mAty) / 2);
         onlinebanner.setLayoutParams(layoutParams);
         initBanner(onlinebanner);
-        mGridView.setOnItemClickListener(new PageGridView.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-                startActivity(new Intent(getActivity(), ClassificationofgoodsActivity.class));
-            }
-        });
-
-
-
 
     }
 
@@ -209,8 +214,31 @@ public class MallHomepageFragment1 extends BaseFragment {
     }
 
 
-    @OnClick(R.id.img_back)
-    public void clickBack() {
-        getActivity().finish();
+    @OnClick({R.id.img_back,R.id.tv_recommend_see_more,R.id.tv_special_see_more,R.id.search_image})
+    public void clickBack(View view) {
+
+        switch (view.getId()){
+
+            case R.id.img_back:
+                mAty.finish();
+                break;
+            //推荐
+            case R.id.tv_recommend_see_more:
+                Intent recommenIntent=new Intent(mAty,ClassificationofgoodsActivity.class);
+                recommenIntent.putExtra("recommend",recommend);
+                mAty.startActivity(recommenIntent);
+                break;
+            //特价
+            case R.id.tv_special_see_more:
+                Intent specialIntent=new Intent(mAty,ClassificationofgoodsActivity.class);
+                specialIntent.putExtra("special",special);
+                mAty.startActivity(specialIntent);
+                break;
+            //搜索按钮
+            case R.id.search_image:
+                break;
+        }
+
+
     }
 }

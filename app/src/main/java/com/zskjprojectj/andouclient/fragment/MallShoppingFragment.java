@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -45,6 +46,9 @@ public class MallShoppingFragment extends BaseFragment {
     TextView mHeaderTitle;
     @BindView(R.id.iv_header_back)
     ImageView mHeaderBack;
+
+    @BindView(R.id.cb_selectorcb)
+    AppCompatCheckBox mCheckBox;
 
     PlatformshoppingcartAdapter adapter = new PlatformshoppingcartAdapter();
 
@@ -123,6 +127,7 @@ public class MallShoppingFragment extends BaseFragment {
             @Override
             public void onHandleSuccess(List<CartItem> cartItem) throws IOException {
                 adapter.setNewData(cartItem);
+                adapter.notifyDataSetChanged();
             }
         });
     }
@@ -133,9 +138,17 @@ public class MallShoppingFragment extends BaseFragment {
 
     }
 
-    @OnClick(R.id.cb_selectorcb)
+    @OnClick({R.id.cb_selectorcb})
     public void clickSelectorAll() {
 
+        if(mCheckBox.isChecked()){
+
+            adapter.isSelector(true);
+            adapter.notifyDataSetChanged();
+        }else {
+            adapter.isSelector(false);
+            adapter.notifyDataSetChanged();
+        }
     }
 
 

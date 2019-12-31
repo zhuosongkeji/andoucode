@@ -112,6 +112,7 @@
                     android:layout_height="@dimen/dp_30"
                     android:background="@drawable/bg_btn_style_white"
                     android:text="－"
+                    android:textColor="#666666"
                     android:textSize="20sp" />
 
                 <TextView
@@ -119,6 +120,7 @@
                     android:layout_width="@dimen/dp_40"
                     android:layout_height="@dimen/dp_30"
                     android:gravity="center"
+                    android:textColor="#333333"
                     android:text="1" />
 
                 <Button
@@ -127,6 +129,7 @@
                     android:layout_height="@dimen/dp_30"
                     android:background="@drawable/bg_btn_style_white"
                     android:text="＋"
+                    android:textColor="#666666"
                     android:textSize="20sp" />
 
             </LinearLayout>

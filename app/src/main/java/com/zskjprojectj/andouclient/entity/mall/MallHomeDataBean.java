@@ -114,15 +114,15 @@ public class MallHomeDataBean {
          * name : 生活类
          */
 
-        private int id;
+        private String id;
         private String img;
         private String name;
 
-        public int getId() {
+        public String getId() {
             return id;
         }
 
-        public void setId(int id) {
+        public void setId(String id) {
             this.id = id;
         }
 
@@ -179,16 +179,16 @@ public class MallHomeDataBean {
          * price : 15.00
          */
 
-        private int id;
+        private String id;
         private String img;
         private String name;
         private String price;
 
-        public int getId() {
+        public String getId() {
             return id;
         }
 
-        public void setId(int id) {
+        public void setId(String id) {
             this.id = id;
         }
 

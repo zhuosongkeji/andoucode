@@ -78,6 +78,7 @@ public class MallOnlineOrderActivity extends BaseActivity {
     //合计钱数
     @BindView(R.id.tv_order_money)
     TextView mTvOrderMoney;
+
     @BindView(R.id.mall_order_money)
     TextView mMallOrderMoney;
 
@@ -88,8 +89,8 @@ public class MallOnlineOrderActivity extends BaseActivity {
     private String order_sn;
     private String payId;
     private MallPayWaysBean mallPayWaysBean;
-    private final static int WXPAY=1;
-    private final static int YUEPAY=4;
+    private final static int WXPAY = 1;
+    private final static int YUEPAY = 4;
 
     @Override
     protected void setRootView() {
@@ -145,8 +146,8 @@ public class MallOnlineOrderActivity extends BaseActivity {
                 mShippingFree.setText(mallSettlementBean.getShipping_free());
                 Log.d(TAG, "购买结算页: " + mallSettlementBean.getShipping_free());
 
-                mTvOrderMoney.setText(mallSettlementBean.getOrder_money());
-                mMallOrderMoney.setText(mallSettlementBean.getOrder_money());
+                mTvOrderMoney.setText("¥"+mallSettlementBean.getOrder_money());
+                mMallOrderMoney.setText("¥"+mallSettlementBean.getOrder_money());
             }
         });
 
@@ -179,7 +180,7 @@ public class MallOnlineOrderActivity extends BaseActivity {
     }
 
     @OnClick(R.id.ll_buy_pay)
-    public void clickBuyPay() {
+    public void clickBuyPay(){
         int id = Integer.parseInt(payId);
         switch (id){
             case WXPAY:
@@ -194,6 +195,7 @@ public class MallOnlineOrderActivity extends BaseActivity {
             @Override
             public void onHandleSuccess(WXPayBean wxPayBean) throws IOException {
                 startWXPay(wxPayBean);
+                finish();
             }
         });
 
@@ -211,18 +213,18 @@ public class MallOnlineOrderActivity extends BaseActivity {
                     public void onHandleSuccess(WXPayBean wxPayBean) throws IOException {
 
 
-                    startActivity(new Intent(MallOnlineOrderActivity.this,MallPaySuccessActivity.class));
-
+                        startActivity(new Intent(MallOnlineOrderActivity.this, MallPaySuccessActivity.class));
+                        finish();
                     }
                 });
 
                 break;
-
         }
 
 
 
     }
+
 
     private void startWXPay(WXPayBean wxPayBean) {
         final IWXAPI msgApi = WXAPIFactory.createWXAPI(MallOnlineOrderActivity.this, wxPayBean.getAppid());
@@ -230,14 +232,14 @@ public class MallOnlineOrderActivity extends BaseActivity {
         msgApi.registerApp(wxPayBean.getAppid());
 
 //        创建支付请求对象
-        PayReq req=new PayReq();
+        PayReq req = new PayReq();
         req.appId = wxPayBean.getAppid();
         req.partnerId = wxPayBean.getMch_id();
-        req.prepayId= wxPayBean.getPrepay_id();
+        req.prepayId = wxPayBean.getPrepay_id();
         req.packageValue = "Sign=WXPay";
-        req.nonceStr= wxPayBean.getNonce_str();
-        req.timeStamp=wxPayBean.getTimestamp();
-        req.sign= wxPayBean.getSign();
+        req.nonceStr = wxPayBean.getNonce_str();
+        req.timeStamp = wxPayBean.getTimestamp();
+        req.sign = wxPayBean.getSign();
         msgApi.sendReq(req);
 //        WXTextObject textObj = new WXTextObject();
 //        textObj.text = "测试分享";

@@ -14,6 +14,7 @@ import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.zskjprojectj.andouclient.R;
+import com.zskjprojectj.andouclient.activity.mall.MallPaySuccessActivity;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
 
 /**
@@ -64,7 +65,8 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
     public void onResp(BaseResp baseResp) {
         if (baseResp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
             if (baseResp.errCode == 0) {
-                ToastUtil.showToast("支付成功");
+              startActivity(new Intent(WXPayEntryActivity.this, MallPaySuccessActivity.class));
+              finish();
             } else if (baseResp.errCode == -1) {
                 ToastUtil.showToast("支付错误" + baseResp.errStr);
             } else if (baseResp.errCode == -2) {

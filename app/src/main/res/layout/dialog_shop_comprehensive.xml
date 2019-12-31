@@ -7,7 +7,9 @@
     android:orientation="vertical">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/tv_popu_unlimited"
+        android:layout_width="match_parent"
+        android:gravity="center"
         android:layout_height="wrap_content"
         android:textSize="@dimen/typeface12sp"
         android:textColor="#969696"
@@ -23,7 +25,9 @@
         android:background="#F3F3F3" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/tv_popu_credit"
+        android:layout_width="match_parent"
+        android:gravity="center"
         android:layout_height="wrap_content"
         android:textSize="@dimen/typeface12sp"
         android:textColor="#969696"
@@ -39,7 +43,9 @@
         android:background="#F3F3F3" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/tv_popu_price"
+        android:layout_width="match_parent"
+        android:gravity="center"
         android:layout_height="wrap_content"
         android:textSize="@dimen/typeface12sp"
         android:textColor="#969696"

@@ -1,8 +1,10 @@
 package com.zskjprojectj.andouclient.adapter;
 
+import android.view.View;
 import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatCheckBox;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -16,6 +18,9 @@ import com.zskjprojectj.andouclient.utils.UrlUtil;
 import java.util.List;
 
 public class PlatformshoppingcartAdapter extends BaseQuickAdapter<CartItem, BaseViewHolder> {
+
+    private boolean isCheck;
+
     public PlatformshoppingcartAdapter() {
         super(R.layout.fragment_mall_shopping_view);
     }
@@ -30,10 +35,22 @@ public class PlatformshoppingcartAdapter extends BaseQuickAdapter<CartItem, Base
                 .into((ImageView) helper.itemView.findViewById(R.id.img_cartgoodspic));
         helper.setText(R.id.shopNameTxt, item.merchant_name)
                 .setText(R.id.tv_cartgoodsname, item.goods_name)
+                //价格
                 .setText(R.id.tv_cartgoodprice, "￥" + item.price)
+                //数量
                 .setText(R.id.tv_num, item.num + "")
                 .addOnClickListener(R.id.btn_add)
                 .addOnClickListener(R.id.btn_sub)
                 .addOnClickListener(R.id.deleteBtn);
+
+        AppCompatCheckBox checkBox = helper.getView(R.id.cb_selectorcb);
+        checkBox.setChecked(isCheck);
+
+
     }
+
+    public void isSelector(boolean isCheck){
+        this.isCheck=isCheck;
+    }
+
 }
