@@ -30,6 +30,7 @@
         android:usesCleartextTraffic="true"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning"
         tools:targetApi="m">
+        <activity android:name=".activity.mall.MallPaySuccessActivity"></activity>
         <activity
             android:name=".activity.SplashActivity"
             android:screenOrientation="portrait">

@@ -46,6 +46,11 @@ public class ShoporderActivity extends BaseActivity {
     @Override
     protected void initData(Bundle savedInstanceState) {
         topView.setTitle("商城订单");
+
+        String flag = getIntent().getStringExtra("flag");
+        if ("MallPaySuccess".equals(flag)){
+            viewPager.setCurrentItem(2, true);
+        }
     }
 
     @Override

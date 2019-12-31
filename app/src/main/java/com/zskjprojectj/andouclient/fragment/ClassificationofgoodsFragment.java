@@ -19,6 +19,10 @@ import com.zskjprojectj.andouclient.adapter.HomeAdapter;
 import com.zskjprojectj.andouclient.adapter.MenusAdapter;
 import com.zskjprojectj.andouclient.base.BaseFragment;
 import com.zskjprojectj.andouclient.entity.CategoryBean;
+import com.zskjprojectj.andouclient.entity.mall.MallGoodsCateBean;
+import com.zskjprojectj.andouclient.http.ApiUtils;
+import com.zskjprojectj.andouclient.http.BaseObserver;
+import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.view.TopView;
 
 import java.io.BufferedReader;
@@ -42,7 +46,7 @@ public class ClassificationofgoodsFragment extends BaseFragment {
     ImageView mHeaderBack;
 
     private List<String> menuList = new ArrayList<>();
-    private List<CategoryBean.DataBean> homeList = new ArrayList<>();
+    private List<MallGoodsCateBean> homeList = new ArrayList<>();
     private List<Integer> showTitle;
 
     private ListView lv_menu;
@@ -74,18 +78,38 @@ public class ClassificationofgoodsFragment extends BaseFragment {
 
     @Override
     protected void getDataFromServer() {
-        String json = getJson(mAty, "category.json");
-        CategoryBean categoryBean = JSONObject.parseObject(json, CategoryBean.class);
-        showTitle = new ArrayList<>();
-        for (int i = 0; i < categoryBean.getData().size(); i++) {
-            CategoryBean.DataBean dataBean = categoryBean.getData().get(i);
-            menuList.add(dataBean.getModuleTitle());
-            showTitle.add(i);
-            homeList.add(dataBean);
-        }
-        tv_title.setText(categoryBean.getData().get(0).getModuleTitle());
-        menuAdapter.notifyDataSetChanged();
-        homeAdapter.notifyDataSetChanged();
+//        String json = getJson(mAty, "category.json");
+//        CategoryBean categoryBean = JSONObject.parseObject(json, CategoryBean.class);
+//        showTitle = new ArrayList<>();
+//        for (int i = 0; i < categoryBean.getData().size(); i++) {
+//            CategoryBean.DataBean dataBean = categoryBean.getData().get(i);
+//            menuList.add(dataBean.getModuleTitle());
+//            showTitle.add(i);
+//            homeList.add(dataBean);
+//        }
+//        tv_title.setText(categoryBean.getData().get(0).getModuleTitle());
+//        menuAdapter.notifyDataSetChanged();
+//        homeAdapter.notifyDataSetChanged();
+
+
+        //请求商品分类
+        HttpRxObservable.getObservable(ApiUtils.getApiService().getMallGoodsCate()).subscribe(new BaseObserver<List<MallGoodsCateBean>>(mAty) {
+            @Override
+            public void onHandleSuccess(List<MallGoodsCateBean> mallGoodsCateBeans) throws IOException {
+                showTitle = new ArrayList<>();
+                for (int i = 0; i < mallGoodsCateBeans.size(); i++) {
+                    menuList.add(mallGoodsCateBeans.get(i).getName());
+                    showTitle.add(i);
+                    MallGoodsCateBean mallGoodsCateBean = mallGoodsCateBeans.get(i);
+                    homeList.add(mallGoodsCateBean);
+                }
+                tv_title.setText(mallGoodsCateBeans.get(0).getName());
+                menuAdapter.notifyDataSetChanged();
+                homeAdapter.notifyDataSetChanged();
+            }
+        });
+
+
     }
 
     @Override

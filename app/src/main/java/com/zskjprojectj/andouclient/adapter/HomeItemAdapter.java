@@ -8,9 +8,13 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 
+import com.bumptech.glide.Glide;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.zskjprojectj.andouclient.R;
+import com.zskjprojectj.andouclient.activity.MainActivity;
+import com.zskjprojectj.andouclient.base.BaseUrl;
 import com.zskjprojectj.andouclient.entity.CategoryBean;
+import com.zskjprojectj.andouclient.entity.mall.MallGoodsCateBean;
 
 import java.util.List;
 
@@ -24,9 +28,9 @@ import java.util.List;
 public class HomeItemAdapter extends BaseAdapter {
 
     private Context context;
-    private List<CategoryBean.DataBean.DataListBean> foodDatas;
+    private List<MallGoodsCateBean.TowcateBean> foodDatas;
 
-    public HomeItemAdapter(Context context, List<CategoryBean.DataBean.DataListBean> foodDatas) {
+    public HomeItemAdapter(Context context, List<MallGoodsCateBean.TowcateBean> foodDatas) {
         this.context = context;
         this.foodDatas = foodDatas;
     }
@@ -54,7 +58,7 @@ public class HomeItemAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        CategoryBean.DataBean.DataListBean subcategory = foodDatas.get(position);
+        MallGoodsCateBean.TowcateBean towcateBean = foodDatas.get(position);
         ViewHold viewHold = null;
         if (convertView == null) {
             convertView = View.inflate(context, R.layout.item_home_category, null);
@@ -65,9 +69,10 @@ public class HomeItemAdapter extends BaseAdapter {
         } else {
             viewHold = (ViewHold) convertView.getTag();
         }
-        viewHold.tv_name.setText(subcategory.getTitle());
-        Uri uri = Uri.parse(subcategory.getImgURL());
-        viewHold.iv_icon.setImageURI(uri);
+        viewHold.tv_name.setText(towcateBean.getName());
+
+        Glide.with(context).load(BaseUrl.BASE_URL+towcateBean.getImg()).into(viewHold.iv_icon);
+
         return convertView;
 
 

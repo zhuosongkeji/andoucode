@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorNavy"
+    tools:context=".activity.mall.MallPaySuccessActivity">
+
+    <include layout="@layout/base_title_view"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="104dp"
+            android:layout_height="54dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="94dp"
+            android:src="@mipmap/bg_pay_success"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="支付成功"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp_18"
+            android:textColor="#666666"
+            android:textSize="@dimen/typeface17sp"/>
+
+        <Button
+            android:id="@+id/btn_see_order"
+            android:layout_width="185dp"
+            android:layout_height="37dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="79dp"
+            android:background="@drawable/pay_syccess"
+            android:text="查看订单"
+            android:textSize="@dimen/typeface15sp"/>
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

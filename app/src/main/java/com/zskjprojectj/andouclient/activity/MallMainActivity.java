@@ -29,11 +29,11 @@ public class MallMainActivity extends BaseActivity {
     //定义字体颜色
     private int normalTextColor= Color.parseColor("#646464");
     private int selectTextColor=Color.parseColor("#5ED3AE");
-    private String[] tabText = {"首页", "分类", "购物车", "我的"};
+    private String[] tabText = {"首页", "分类", "购物车"};//我的
     //未选中icon
-    private int[] normalIcon = {R.mipmap.home_icon_uncheck, R.mipmap.classification_icon_uncheck, R.mipmap.shopping_cart_uncheck, R.mipmap.me_icon_uncheck};
+    private int[] normalIcon = {R.mipmap.home_icon_uncheck, R.mipmap.classification_icon_uncheck, R.mipmap.shopping_cart_uncheck};//, R.mipmap.me_icon_uncheck
     //选中时icon
-    private int[] selectIcon = {R.mipmap.home_icon_check, R.mipmap.classification_icon_check,  R.mipmap.shopping_cart_check, R.mipmap.me_icon_check};
+    private int[] selectIcon = {R.mipmap.home_icon_check, R.mipmap.classification_icon_check,  R.mipmap.shopping_cart_check};//, R.mipmap.me_icon_check
     private List<Fragment> fragments = new ArrayList<>();
     @Override
     protected void setRootView() {
@@ -57,7 +57,7 @@ public class MallMainActivity extends BaseActivity {
         fragments.add(new MallHomepageFragment1());
         fragments.add(new ClassificationofgoodsFragment());
         fragments.add(new MallShoppingFragment());
-        fragments.add(new MallInfoFragment());
+//        fragments.add(new MallInfoFragment());
         navigationBar.titleItems(tabText)
                 .normalIconItems(normalIcon)
                 .selectIconItems(selectIcon)

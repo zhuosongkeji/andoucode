@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.ClassificationofgoodsActivity;
 import com.zskjprojectj.andouclient.entity.CategoryBean;
+import com.zskjprojectj.andouclient.entity.mall.MallGoodsCateBean;
 import com.zskjprojectj.andouclient.view.GridViewForScrollView;
 
 import java.util.List;
@@ -24,9 +25,9 @@ import java.util.List;
 public class HomeAdapter extends BaseAdapter {
 
     private Context context;
-    private List<CategoryBean.DataBean> foodDatas;
+    private List<MallGoodsCateBean> foodDatas;
 
-    public HomeAdapter(Context context, List<CategoryBean.DataBean> foodDatas) {
+    public HomeAdapter(Context context, List<MallGoodsCateBean> foodDatas) {
         this.context = context;
         this.foodDatas = foodDatas;
     }
@@ -53,8 +54,9 @@ public class HomeAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        CategoryBean.DataBean dataBean = foodDatas.get(position);
-        List<CategoryBean.DataBean.DataListBean> dataList = dataBean.getDataList();
+        MallGoodsCateBean mallGoodsCateBean = foodDatas.get(position);
+        List<MallGoodsCateBean.TowcateBean> towcate = mallGoodsCateBean.getTowcate();
+//        List<CategoryBean.DataBean.DataListBean> dataList = dataBean.getDataList();
         ViewHold viewHold = null;
         if (convertView == null) {
             convertView = View.inflate(context, R.layout.item_home, null);
@@ -65,14 +67,20 @@ public class HomeAdapter extends BaseAdapter {
         } else {
             viewHold = (ViewHold) convertView.getTag();
         }
-        HomeItemAdapter adapter = new HomeItemAdapter(context, dataList);
-        viewHold.blank.setText(dataBean.getModuleTitle());
+        HomeItemAdapter adapter = new HomeItemAdapter(context, towcate);
+        viewHold.blank.setText(mallGoodsCateBean.getName());
         viewHold.gridView.setAdapter(adapter);
         viewHold.gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 //                Toast.makeText(context,""+i,Toast.LENGTH_LONG).show();
-                context.startActivity(new Intent(context, ClassificationofgoodsActivity.class));
+                //商品分类跳转到商品列表
+
+                Intent intent=new Intent(context, ClassificationofgoodsActivity.class);
+                intent.putExtra("cata",towcate.get(position).getId());
+                context.startActivity(intent);
+
+//                context.startActivity(new Intent(context, ClassificationofgoodsActivity.class));
             }
         });
         return convertView;
