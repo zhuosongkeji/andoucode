@@ -37,7 +37,8 @@ public class RetrofitUtils {
                 .connectTimeout(OUT_TIME, TimeUnit.SECONDS)
                 .writeTimeout(READ_WRITE_TIME, TimeUnit.SECONDS)
                 .readTimeout(READ_WRITE_TIME, TimeUnit.SECONDS)
-                .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+                .addInterceptor(new HttpLoggingInterceptor(
+                        new HttpLogger()).setLevel(HttpLoggingInterceptor.Level.BODY))
                 .addInterceptor(new HeaderInterceptors());
         return builder.build();
     }

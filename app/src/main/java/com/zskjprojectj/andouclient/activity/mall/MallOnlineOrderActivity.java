@@ -11,6 +11,7 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ActivityUtils;
 import com.bumptech.glide.Glide;
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
@@ -111,6 +112,12 @@ public class MallOnlineOrderActivity extends BaseActivity {
 
     }
 
+    public static void start(String order_sn) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("order_sn", order_sn);
+        ActivityUtils.startActivity(bundle, MallOnlineOrderActivity.class);
+    }
+
     @Override
     public void getDataFromServer() {
 
@@ -182,14 +189,14 @@ public class MallOnlineOrderActivity extends BaseActivity {
     @OnClick(R.id.ll_buy_pay)
     public void clickBuyPay(){
         int id = Integer.parseInt(payId);
-        switch (id){
+        switch (id) {
             case WXPAY:
-        HttpRxObservable.getObservable(ApiUtils.getApiService().MallWXPayWays(
-                LoginInfoUtil.getUid(),
-                LoginInfoUtil.getToken(),
-                order_sn,
-                payId,
-                "0"
+                HttpRxObservable.getObservable(ApiUtils.getApiService().MallWXPayWays(
+                        LoginInfoUtil.getUid(),
+                        LoginInfoUtil.getToken(),
+                        order_sn,
+                        payId,
+                        "0"
 
         )).subscribe(new BaseObserver<WXPayBean>(mAt) {
             @Override
@@ -220,7 +227,6 @@ public class MallOnlineOrderActivity extends BaseActivity {
 
                 break;
         }
-
 
 
     }

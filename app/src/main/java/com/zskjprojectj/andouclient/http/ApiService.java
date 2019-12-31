@@ -19,6 +19,8 @@ import com.zskjprojectj.andouclient.model.BalanceDetail;
 import com.zskjprojectj.andouclient.model.CartItem;
 import com.zskjprojectj.andouclient.model.Merchant;
 import com.zskjprojectj.andouclient.model.MerchantsResponse;
+import com.zskjprojectj.andouclient.model.Order;
+import com.zskjprojectj.andouclient.model.OrderDetail;
 import com.zskjprojectj.andouclient.model.User;
 
 import java.util.List;
@@ -47,7 +49,7 @@ public interface ApiService {
      */
     @POST("api/goods/goods")
     @FormUrlEncoded
-    Observable<BaseResult<MallGoodsDetailsDataBean>> mallDetailsShow(@Field("id") String id,@Field("uid") String uid);
+    Observable<BaseResult<MallGoodsDetailsDataBean>> mallDetailsShow(@Field("id") String id, @Field("uid") String uid);
 
 
     /**
@@ -104,12 +106,12 @@ public interface ApiService {
      */
     @POST("api/merchant/merchant_goods")
     @FormUrlEncoded
+    Observable<BaseResult<MallShoppingHomeBean>> mallMerchant(@Field("id") String id, @Field("uid") String uid,
+                                                              @Field("keyword") String keyword,
+                                                              @Field("type_id") String type_id,
+                                                              @Field("price_sort") String price_sort,
+                                                              @Field("volume_sort") String volume_sort);
 
-    Observable<BaseResult<MallShoppingHomeBean>>mallMerchant(@Field("id") String id, @Field("uid") String uid,
-                                                             @Field("keyword") String keyword,
-                                                             @Field("type_id") String type_id,
-                                                             @Field("price_sort") String price_sort,
-                                                             @Field("volume_sort") String volume_sort);
     /**
      * 商城立即购买
      */
@@ -148,8 +150,7 @@ public interface ApiService {
                                                     @Field("sNo") String sNo,
                                                     @Field("pay_id") String pay_id,
                                                     @Field("is_integral") String is_integral
-                                                    );
-
+    );
 
 
     /**
@@ -320,6 +321,24 @@ public interface ApiService {
                                         @Field("money") float money,
                                         @Field("phone") String phone,
                                         @Field("num") String num);
+
+    /**
+     * 订单列表
+     */
+    @POST("api/order/index")
+    @FormUrlEncoded
+    Observable<BaseResult<List<Order>>> orderList(@Field("uid") String uid,
+                                                  @Field("token") String token,
+                                                  @Field("type") String type);
+
+    /**
+     * 订单详情
+     */
+    @POST("api/order/details")
+    @FormUrlEncoded
+    Observable<BaseResult<OrderDetail>> orderDetail(@Field("uid") String uid,
+                                                    @Field("token") String token,
+                                                    @Field("order_sn") String order_sn);
 
 //    /**
 //     * 注册

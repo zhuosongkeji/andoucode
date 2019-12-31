@@ -3,6 +3,7 @@ package com.zskjprojectj.andouclient.base;
 import android.app.Application;
 import android.widget.ImageView;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.zskjprojectj.andouclient.BuildConfig;

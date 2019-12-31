@@ -1,13 +1,18 @@
 package com.zskjprojectj.andouclient.http;
 
 import android.app.Activity;
+import android.os.Bundle;
 
 import com.blankj.utilcode.util.ActivityUtils;
+import com.google.gson.stream.MalformedJsonException;
 import com.zskjprojectj.andouclient.activity.LoginActivity;
+import com.zskjprojectj.andouclient.utils.ToastUtil;
 
 import java.io.IOException;
 
 import io.reactivex.disposables.Disposable;
+
+import static com.zskjprojectj.andouclient.activity.LoginActivity.KEY_FOR_RESULT;
 
 public abstract class BaseObserver<T> extends BaseHandleObserver<BaseResult<T>> implements ProgressCancelListener {
     private static final String TAG = "BaseObserver";
@@ -53,15 +58,10 @@ public abstract class BaseObserver<T> extends BaseHandleObserver<BaseResult<T>> 
     public void onNext(BaseResult<T> t) {
         mData = t;
         try {
-//            if (t.getCode().equals("200")) { // 请求成功
-//                onHandleSuccess(t.getData());
-//            } else {
-//                onError(new ApiException(t.getCode(), t.getMsg()));
-//            }
             if (t.getCode().equals("200")) {
                 onHandleSuccess(t.getData());
             } else if (t.getCode().equals("202")) {
-                ActivityUtils.startActivityForResult(context, LoginActivity.class, REQUEST_CODE_LOGIN);
+                LoginActivity.start(context);
             } else {
                 onError(new ApiException(t.getCode(), t.getMsg()));
             }
@@ -71,12 +71,6 @@ public abstract class BaseObserver<T> extends BaseHandleObserver<BaseResult<T>> 
         }
     }
 
-    @Override
-    public void onError(Throwable e) {
-        dismissProgressDialog();
-        super.onError(e);
-        onFinish();
-    }
 
     @Override
     public void onComplete() {
@@ -117,4 +111,23 @@ public abstract class BaseObserver<T> extends BaseHandleObserver<BaseResult<T>> 
         }
         return null;
     }
+
+    @Override
+    public void onError(Throwable e) {
+        super.onError(e);
+        dismissProgressDialog();
+        if (e instanceof ApiException) {
+            onFailure(((ApiException) e).getErrorCode() + " " + e.getMessage());
+        } else if (e instanceof MalformedJsonException) {
+            onFailure("500 服务器数据格式错误");
+        } else {
+            onFailure(e.getLocalizedMessage());
+        }
+    }
+
+
+    public void onFailure(String msg) {
+        ToastUtil.showToast(msg);
+    }
+
 }

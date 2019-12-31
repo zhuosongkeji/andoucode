@@ -1,5 +1,7 @@
 package com.zskjprojectj.andouclient.fragment;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -19,20 +21,49 @@ import com.zskjprojectj.andouclient.adapter.hotel.ReserveAdapter;
 import com.zskjprojectj.andouclient.base.BaseFragment;
 import com.zskjprojectj.andouclient.entity.MeShopFragmentBean;
 import com.zskjprojectj.andouclient.entity.hotel.HotelDetailReserveBean;
+import com.zskjprojectj.andouclient.http.ApiUtils;
+import com.zskjprojectj.andouclient.http.BaseObserver;
+import com.zskjprojectj.andouclient.http.HttpRxObservable;
+import com.zskjprojectj.andouclient.model.Order;
+import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 我的商城全部订单
  */
 public class MeShopFragment extends BaseFragment {
     private RecyclerView mRecycler;
-    private ArrayList<MeShopFragmentBean> mDataList;
+    MeShopFragmentAdapter adapter = new MeShopFragmentAdapter();
+    String state;
+
+    public MeShopFragment(String state) {
+        this.state = state;
+    }
+
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
-        mRecycler=view.findViewById(R.id.rv_recycler);
+        mRecycler = view.findViewById(R.id.rv_recycler);
         mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
+        adapter.setOnItemChildClickListener((adapter1, view1, position) -> {
+            if (view1.getId() == R.id.btn_orderdetails) {
+                ShoporderdetailsActivity.start(adapter.getItem(position));
+            } else if (view1.getId() == R.id.btn_gotopayment) {
+                MallOnlineOrderActivity.start(adapter.getItem(position).order_id);
+            } else if (view1.getId() == R.id.btn_getgoods) {
+                new AlertDialog.Builder(mAty)
+                        .setTitle("确认收货")
+                        .setMessage("确认已经收到货品")
+                        .setNegativeButton("取消", null)
+                        .setPositiveButton("确认", (dialog, which) -> {
+
+                        })
+                        .show();
+            }
+        });
     }
 
     @Override
@@ -42,30 +73,20 @@ public class MeShopFragment extends BaseFragment {
 
     @Override
     protected void getDataFromServer() {
-        mDataList = new ArrayList<>();
-        for (int i=0;i<4;i++){
-            MeShopFragmentBean databean=new MeShopFragmentBean();
-            mDataList.add(databean);
-        }
-        MeShopFragmentAdapter adapter=new MeShopFragmentAdapter(R.layout.item_meshop,mDataList);
-        adapter.openLoadAnimation();
-        mRecycler.setAdapter(adapter);
-
-        adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+        HttpRxObservable.getObservable(ApiUtils.getApiService().orderList(
+                LoginInfoUtil.getUid(),
+                LoginInfoUtil.getToken(),
+                state
+        )).subscribe(new BaseObserver<List<Order>>(mAty) {
             @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-
-                switch (view.getId())
-                {
-                    case R.id.btn_gotopayment:
-                        startActivity(new Intent(getContext(), MallOnlineOrderActivity.class));
-                        break;
-                    case R.id.btn_orderdetails:
-                        startActivity(new Intent(getContext(), ShoporderdetailsActivity.class));
-                        break;
-                }
+            public void onHandleSuccess(List<Order> data) throws IOException {
+                adapter.setNewData(data);
             }
         });
+
+
+        adapter.openLoadAnimation();
+        mRecycler.setAdapter(adapter);
     }
 
     @Override
