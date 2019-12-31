@@ -18,42 +18,7 @@
             android:orientation="vertical">
 
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_100"
-                android:background="@color/colorNavy">
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dp_15"
-                        android:text="待收货"
-                        android:textColor="#FFFFFF"
-                        android:textSize="@dimen/typeface18sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dp_15"
-                        android:text="等待买家收货"
-                        android:textColor="#FFFFFF"
-                        android:textSize="@dimen/typeface13sp" />
-                </LinearLayout>
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_margin="@dimen/dp_30"
-                    android:src="@mipmap/icon_getgoods" />
-            </RelativeLayout>
 
             <View
                 android:layout_width="match_parent"

@@ -19,6 +19,7 @@ import com.zskjprojectj.andouclient.model.CartItem;
 import com.zskjprojectj.andouclient.model.Merchant;
 import com.zskjprojectj.andouclient.model.MerchantsResponse;
 import com.zskjprojectj.andouclient.model.Order;
+import com.zskjprojectj.andouclient.model.OrderDetail;
 import com.zskjprojectj.andouclient.model.User;
 
 import java.util.List;
@@ -55,7 +56,6 @@ public interface ApiService {
      */
     @POST("api/goods/goods_cate")
     Observable<BaseResult<List<MallGoodsCateBean>>> getMallGoodsCate();
-
 
 
     /**
@@ -315,6 +315,15 @@ public interface ApiService {
     Observable<BaseResult<List<Order>>> orderList(@Field("uid") String uid,
                                                   @Field("token") String token,
                                                   @Field("type") String type);
+
+    /**
+     * 订单详情
+     */
+    @POST("api/order/details")
+    @FormUrlEncoded
+    Observable<BaseResult<OrderDetail>> orderDetail(@Field("uid") String uid,
+                                                    @Field("token") String token,
+                                                    @Field("order_sn") String order_sn);
 
 //    /**
 //     * 注册

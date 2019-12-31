@@ -13,9 +13,9 @@ public class Order implements Serializable {
     public String logo_img;
     public int num;
     public int id;
-    public float shipping_free;
+    public String shipping_free;
     public String express_id;
     public String courier_num;
     public float price;
-    public float pay_money;
+    public String pay_money;
 }

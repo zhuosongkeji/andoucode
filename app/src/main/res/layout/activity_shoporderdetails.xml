@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -19,9 +20,12 @@
 
 
             <RelativeLayout
+                android:id="@+id/daifukuanContainer"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_100"
-                android:background="@color/colorNavy">
+                android:background="@color/colorNavy"
+                android:visibility="gone"
+                tools:visibility="visible">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -55,12 +59,93 @@
                     android:src="@mipmap/icon_paywait" />
             </RelativeLayout>
 
+            <RelativeLayout
+                android:id="@+id/daifahuoContainer"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_100"
+                android:background="@color/colorNavy"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_15"
+                        android:text="待发货"
+                        android:textColor="#FFFFFF"
+                        android:textSize="@dimen/typeface18sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_15"
+                        android:text="商家正在积极的给您发货哦"
+                        android:textColor="#FFFFFF"
+                        android:textSize="@dimen/typeface13sp" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="@dimen/dp_30"
+                    android:src="@mipmap/icon_orderbox" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/daishouhuoContainer"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_100"
+                android:background="@color/colorNavy"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_15"
+                        android:text="待收货"
+                        android:textColor="#FFFFFF"
+                        android:textSize="@dimen/typeface18sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_15"
+                        android:text="等待买家收货"
+                        android:textColor="#FFFFFF"
+                        android:textSize="@dimen/typeface13sp" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="@dimen/dp_30"
+                    android:src="@mipmap/icon_getgoods" />
+            </RelativeLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_10"
                 android:background="#F7F7F7" />
 
             <TextView
+                android:id="@+id/orderNumTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_15"
@@ -70,6 +155,7 @@
                 android:textSize="@dimen/typeface13sp" />
 
             <TextView
+                android:id="@+id/dateTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_15"
@@ -103,12 +189,14 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/receiverName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="收货人:王杨"
                         android:textColor="#646464" />
 
                     <TextView
+                        android:id="@+id/addressTxt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="收货地址:重庆市南岸区南坪万达广场"
@@ -116,6 +204,7 @@
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/mobileTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -131,68 +220,11 @@
                 android:layout_marginTop="@dimen/dp_10"
                 android:background="#F7F7F7" />
 
-            <RelativeLayout
-                android:layout_width="345dp"
-                android:layout_height="112dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/dp_10"
-                android:background="@mipmap/shopbg">
-
-                <ImageView
-                    android:id="@+id/meshop_pic"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_15"
-                    android:layout_marginTop="@dimen/dp_17"
-                    android:layout_marginBottom="@dimen/dp_5"
-                    android:src="@mipmap/one_test" />
-
-                <RelativeLayout
-                    android:id="@+id/ry_center"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/meshop_pic">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dp_15"
-                        android:layout_marginTop="@dimen/dp_17"
-                        android:text="亲润孕妇化妆品套装"
-                        android:textColor="#646464" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginLeft="@dimen/dp_15"
-                        android:text="四件套"
-                        android:textColor="#646464" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/ry_center">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dp_15"
-                        android:layout_marginTop="@dimen/dp_17"
-                        android:text="￥288"
-                        android:textColor="@color/red"
-                        android:textSize="@dimen/typeface15sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginLeft="@dimen/dp_15"
-                        android:text="X1"
-                        android:textColor="#646464" />
-                </RelativeLayout>
-            </RelativeLayout>
+            <LinearLayout
+                android:id="@+id/goodsContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
 
             <Button
                 android:layout_width="70dp"
@@ -217,6 +249,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/totalCountTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
@@ -226,6 +259,7 @@
                     android:textSize="@dimen/typeface12sp" />
 
                 <TextView
+                    android:id="@+id/totalTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -250,6 +284,7 @@
                     android:textSize="@dimen/typeface12sp" />
 
                 <TextView
+                    android:id="@+id/freightTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -274,6 +309,7 @@
                     android:textSize="@dimen/typeface12sp" />
 
                 <TextView
+                    android:id="@+id/costTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -319,7 +355,9 @@
                     android:background="@mipmap/button_c"
                     android:text="去付款"
                     android:textColor="#61C29C"
-                    android:textSize="@dimen/typeface12sp" />
+                    android:textSize="@dimen/typeface12sp"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>

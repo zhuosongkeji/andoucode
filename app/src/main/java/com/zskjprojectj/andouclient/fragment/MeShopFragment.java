@@ -46,11 +46,11 @@ public class MeShopFragment extends BaseFragment {
     protected void initViews(View view, Bundle savedInstanceState) {
         mRecycler = view.findViewById(R.id.rv_recycler);
         mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
-        adapter.setOnItemChildClickListener((adapter, view1, position) -> {
+        adapter.setOnItemChildClickListener((adapter1, view1, position) -> {
             if (view1.getId() == R.id.btn_orderdetails) {
-                ShoporderdetailsActivity.start((Order) adapter.getItem(position));
+                ShoporderdetailsActivity.start(adapter.getItem(position));
             } else if (view1.getId() == R.id.btn_gotopayment) {
-                startActivity(new Intent(getContext(), MallOnlineOrderActivity.class));
+                MallOnlineOrderActivity.start(adapter.getItem(position).order_id);
             }
         });
     }
