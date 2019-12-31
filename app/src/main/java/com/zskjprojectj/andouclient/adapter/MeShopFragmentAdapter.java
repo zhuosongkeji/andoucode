@@ -10,6 +10,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.base.BaseUrl;
 import com.zskjprojectj.andouclient.model.Order;
+import com.zskjprojectj.andouclient.model.OrderStatus;
 
 /**
  * 个人中心商城订单全部订单适配器对象
@@ -29,8 +30,10 @@ public class MeShopFragmentAdapter extends BaseQuickAdapter<Order, BaseViewHolde
                 .setText(R.id.statusTxt, getStatusStr(item.status))
                 .setText(R.id.total, "￥" + item.pay_money)
                 .addOnClickListener(R.id.btn_orderdetails)
-                .addOnClickListener(R.id.btn_gotopayment);
-        helper.setGone(R.id.btn_gotopayment, item.status.equals("10"));
+                .addOnClickListener(R.id.btn_gotopayment)
+                .addOnClickListener(R.id.btn_getgoods);
+        helper.setGone(R.id.btn_gotopayment, OrderStatus.DAI_FU_KUAN.status.equals(item.status));
+        helper.setGone(R.id.btn_getgoods, OrderStatus.DAI_SHOU_HUO.status.equals(item.status));
         Glide.with(mContext).load(BaseUrl.BASE_URL + item.img)
                 .transition(new DrawableTransitionOptions().crossFade())
                 .apply(new RequestOptions().placeholder(R.drawable.default_image))

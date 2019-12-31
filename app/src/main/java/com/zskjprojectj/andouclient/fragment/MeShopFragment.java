@@ -1,5 +1,7 @@
 package com.zskjprojectj.andouclient.fragment;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -51,6 +53,15 @@ public class MeShopFragment extends BaseFragment {
                 ShoporderdetailsActivity.start(adapter.getItem(position));
             } else if (view1.getId() == R.id.btn_gotopayment) {
                 MallOnlineOrderActivity.start(adapter.getItem(position).order_id);
+            } else if (view1.getId() == R.id.btn_getgoods) {
+                new AlertDialog.Builder(mAty)
+                        .setTitle("确认收货")
+                        .setMessage("确认已经收到货品")
+                        .setNegativeButton("取消", null)
+                        .setPositiveButton("确认", (dialog, which) -> {
+
+                        })
+                        .show();
             }
         });
     }

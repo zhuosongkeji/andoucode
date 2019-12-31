@@ -185,6 +185,20 @@
             android:textSize="@dimen/typeface11sp"
             android:visibility="gone"
             tools:visibility="visible" />
+
+        <Button
+            android:id="@+id/btn_getgoods"
+            android:layout_width="90dp"
+            android:layout_height="26dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="11dp"
+            android:background="@mipmap/button_c"
+            android:text="确认收货"
+            android:textColor="#61C29C"
+            android:textSize="@dimen/typeface12sp"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
     </LinearLayout>
 
     <View

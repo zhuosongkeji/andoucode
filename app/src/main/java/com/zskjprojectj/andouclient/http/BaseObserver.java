@@ -1,6 +1,7 @@
 package com.zskjprojectj.andouclient.http;
 
 import android.app.Activity;
+import android.os.Bundle;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.google.gson.stream.MalformedJsonException;
@@ -10,6 +11,8 @@ import com.zskjprojectj.andouclient.utils.ToastUtil;
 import java.io.IOException;
 
 import io.reactivex.disposables.Disposable;
+
+import static com.zskjprojectj.andouclient.activity.LoginActivity.KEY_FOR_RESULT;
 
 public abstract class BaseObserver<T> extends BaseHandleObserver<BaseResult<T>> implements ProgressCancelListener {
     private static final String TAG = "BaseObserver";
@@ -58,7 +61,7 @@ public abstract class BaseObserver<T> extends BaseHandleObserver<BaseResult<T>> 
             if (t.getCode().equals("200")) {
                 onHandleSuccess(t.getData());
             } else if (t.getCode().equals("202")) {
-                ActivityUtils.startActivityForResult(context, LoginActivity.class, REQUEST_CODE_LOGIN);
+                LoginActivity.start(context);
             } else {
                 onError(new ApiException(t.getCode(), t.getMsg()));
             }

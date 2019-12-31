@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blankj.utilcode.util.ActivityUtils;
 import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.zskjprojectj.andouclient.R;
@@ -34,6 +35,8 @@ import java.io.IOException;
 
 import io.reactivex.functions.Consumer;
 
+import static com.zskjprojectj.andouclient.http.BaseObserver.REQUEST_CODE_LOGIN;
+
 
 /**
  * <pre>
@@ -47,6 +50,7 @@ import io.reactivex.functions.Consumer;
  */
 public class LoginActivity extends BaseActivity {
 
+    public static final String KEY_FOR_RESULT = "KEY_FOR_RESULT";
     private TextView btnNewregistered;
     private Button btn_login;
     private ImageView fingerprint_login;
@@ -90,7 +94,9 @@ public class LoginActivity extends BaseActivity {
                             @Override
                             public void onHandleSuccess(User user) throws IOException {
                                 LoginInfoUtil.saveLoginInfo(user.id, user.token);
-                                jumpActivity(MainActivity.class);
+                                if (!getIntent().getBooleanExtra(KEY_FOR_RESULT, false)) {
+                                    jumpActivity(MainActivity.class);
+                                }
                                 finish();
                             }
                         });
@@ -252,5 +258,11 @@ public class LoginActivity extends BaseActivity {
                     .create()
                     .show();
         }
+    }
+
+    public static void start(Activity activity) {
+        Bundle bundle = new Bundle();
+        bundle.putBoolean(KEY_FOR_RESULT, true);
+        ActivityUtils.startActivityForResult(bundle, activity, LoginActivity.class, REQUEST_CODE_LOGIN);
     }
 }
