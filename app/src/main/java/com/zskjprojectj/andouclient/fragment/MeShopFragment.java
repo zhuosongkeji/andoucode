@@ -49,6 +49,8 @@ public class MeShopFragment extends BaseFragment {
         adapter.setOnItemChildClickListener((adapter, view1, position) -> {
             if (view1.getId() == R.id.btn_orderdetails) {
                 ShoporderdetailsActivity.start((Order) adapter.getItem(position));
+            } else if (view1.getId() == R.id.btn_gotopayment) {
+                startActivity(new Intent(getContext(), MallOnlineOrderActivity.class));
             }
         });
     }
