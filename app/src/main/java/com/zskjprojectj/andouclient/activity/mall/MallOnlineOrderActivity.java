@@ -226,8 +226,8 @@ public class MallOnlineOrderActivity extends BaseActivity {
                 });
 
                 break;
-        }
 
+        }
 
     }
 
