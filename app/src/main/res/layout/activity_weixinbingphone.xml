@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <include layout="@layout/view_top_bar" />
+    <EditText
+        android:id="@+id/et_bindphonenum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:background="@drawable/shape_edit"
+        android:drawableLeft="@mipmap/registered_phonenum"
+        android:textColorHint="@color/alltextcolor"
+        android:textColor="@color/alltextcolor"
+        android:hint="@string/login_phonenum"
+        android:padding="@dimen/dp_10"
+        android:textSize="@dimen/typeface12sp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="@dimen/dp_10">
+
+        <EditText
+            android:id="@+id/bind_inputyanzhenma_edittext"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:background="@drawable/shape_edit"
+            android:drawableLeft="@mipmap/verification_code"
+            android:hint="@string/registered_input_yanzhenma"
+            android:textColor="@color/alltextcolor"
+            android:textColorHint="@color/alltextcolor"
+            android:padding="@dimen/dp_10"
+            android:textSize="@dimen/typeface12sp" />
+
+        <Button
+            android:id="@+id/bind_yanzhenma_button"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_weight="1"
+            android:background="@drawable/shape_button"
+            android:padding="@dimen/dp_10"
+            android:text="@string/registered_yanzhenma"
+            android:textColor="@color/colorWhite" />
+    </LinearLayout>
+    <EditText
+        android:id="@+id/bind_pwd_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:background="@drawable/shape_edit"
+        android:drawableLeft="@mipmap/editverification_code"
+        android:hint="@string/login_pwd"
+        android:textColor="@color/alltextcolor"
+        android:textColorHint="@color/alltextcolor"
+        android:padding="@dimen/dp_10"
+        android:textSize="@dimen/typeface12sp" />
+    <Button
+        android:id="@+id/bind_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginRight="@dimen/dp_10"
+        android:background="@drawable/shape_button"
+        android:padding="@dimen/dp_10"
+        android:text="确定绑定"
+        android:textColor="@color/colorWhite" />
+
+</LinearLayout>

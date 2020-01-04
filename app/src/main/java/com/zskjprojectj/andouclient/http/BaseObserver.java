@@ -58,7 +58,7 @@ public abstract class BaseObserver<T> extends BaseHandleObserver<BaseResult<T>> 
     public void onNext(BaseResult<T> t) {
         mData = t;
         try {
-            if (t.getCode().equals("200")) {
+            if (t.getCode().equals("200")||t.getCode().equals("203")) {
                 onHandleSuccess(t.getData());
             } else if (t.getCode().equals("202")) {
                 LoginActivity.start(context);

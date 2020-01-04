@@ -15,6 +15,7 @@ import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.mall.MallPaySuccessActivity;
+import com.zskjprojectj.andouclient.utils.Constants;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
 
 /**
@@ -37,7 +38,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        api = WXAPIFactory.createWXAPI(this, "wxa2ea994d7f5b42e9", false);
+        api = WXAPIFactory.createWXAPI(this, Constants.APP_ID, false);
 
 
         try {

@@ -7,4 +7,6 @@ public class User {
     public String name;
     public String token;
     public String id;
+    public String openid;
+    public String avator;
 }

@@ -65,12 +65,11 @@ public interface ApiService {
     @POST("api/goods/good_list")
     @FormUrlEncoded
     Observable<BaseResult<List<MallGoodsListBean>>> mallGoodsList(@Field("keyword") String keyword,
-                                                            @Field("cate_id") String uid,
-                                                            @Field("is_recommend") String is_recommend,
-                                                            @Field("is_bargain") String is_bargain,
-                                                            @Field("price_sort") String price_sort,
-                                                            @Field("volume_sort") String volume_sort);
-
+                                                                  @Field("cate_id") String uid,
+                                                                  @Field("is_recommend") String is_recommend,
+                                                                  @Field("is_bargain") String is_bargain,
+                                                                  @Field("price_sort") String price_sort,
+                                                                  @Field("volume_sort") String volume_sort);
 
 
     /**
@@ -240,6 +239,16 @@ public interface ApiService {
                                        @Field("password") String token);
 
     /**
+     * 微信登录
+     *
+     * @param code
+     * @return
+     */
+    @POST("api/login/wxlogin")
+    @FormUrlEncoded
+    Observable<BaseResult<User>> loginweixin(@Field("code") String code);
+
+    /**
      * 发送验证码
      */
     @POST("api/login/send")
@@ -339,6 +348,18 @@ public interface ApiService {
     Observable<BaseResult<OrderDetail>> orderDetail(@Field("uid") String uid,
                                                     @Field("token") String token,
                                                     @Field("order_sn") String order_sn);
+
+    /**
+     * 绑定手机号
+     */
+    @POST("api/login/bindmobile")
+    @FormUrlEncoded
+    Observable<BaseResult<User>> bindlogin(@Field("phone") String uid,
+                                           @Field("password") String token,
+                                           @Field("verify") String verify,
+                                           @Field("name") String name,
+                                           @Field("openid") String openid,
+                                           @Field("avator") String avator);
 
 //    /**
 //     * 注册
