@@ -52,12 +52,16 @@ public class HotelorderActivity extends BaseActivity {
         indicator = (FixedIndicatorView) findViewById(R.id.indicator);
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         list = new ArrayList<Fragment>();
+        //全部订单
         Fragment meHotelorderFragment=new MeHotelorderFragment();
         list.add(meHotelorderFragment);
+        //待入驻
         Fragment meHotelorderstayinFragment=new MeHotelorderstayinFragment();
         list.add(meHotelorderstayinFragment);
+        //待评价
         Fragment meHotelorderevaluateFragment=new MeHotelorderevaluateFragment();
         list.add(meHotelorderevaluateFragment);
+        //已取消
         Fragment meHotelordercancelledFragment=new MeHotelordercancelledFragment();
         list.add(meHotelordercancelledFragment);
         indicatorViewPager = new IndicatorViewPager(indicator, viewPager);

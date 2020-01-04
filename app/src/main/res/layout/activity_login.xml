@@ -37,8 +37,11 @@
         android:layout_marginRight="@dimen/dp_10"
         android:background="@drawable/shape_edit"
         android:drawableLeft="@mipmap/registered_phonenum"
+        android:drawablePadding="@dimen/dp_5"
         android:hint="@string/login_phonenum"
+        android:textColorHint="#919191"
         android:text="123456"
+        android:textColor="#919191"
         android:padding="@dimen/dp_10"
         android:textSize="@dimen/typeface12sp" />
 
@@ -53,6 +56,8 @@
         android:drawableLeft="@mipmap/editverification_code"
         android:hint="@string/login_pwd"
         android:padding="@dimen/dp_10"
+        android:textColorHint="#919191"
+        android:textColor="#919191"
         android:text="123456"
         android:textSize="@dimen/typeface12sp" />
 

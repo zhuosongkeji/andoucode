@@ -20,6 +20,7 @@ import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.zskjprojectj.andouclient.R;
+import com.zskjprojectj.andouclient.adapter.mall.MallBuyInfoAdapter;
 import com.zskjprojectj.andouclient.adapter.mall.PayWaysAdapter;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
@@ -40,25 +41,6 @@ import butterknife.OnClick;
 
 public class MallOnlineOrderActivity extends BaseActivity {
 
-    //结算图片
-    @BindView(R.id.iv_online_order_image)
-    ImageView mIvOnlinOrderImage;
-
-    //结算名称
-    @BindView(R.id.tv_online_order_name)
-    TextView mTvOnlineOrderName;
-
-    //结算价格
-    @BindView(R.id.tv_online_order_price)
-    TextView TvOnlineOrderPrice;
-
-    //结算规格
-    @BindView(R.id.tv_online_order_option)
-    TextView TvOnlineOrderOption;
-
-    //结算数量
-    @BindView(R.id.tv_online_order_number)
-    TextView TvOnlineOrderNumber;
 
     //结算收货人
     @BindView(R.id.tv_client_name)
@@ -86,10 +68,12 @@ public class MallOnlineOrderActivity extends BaseActivity {
     @BindView(R.id.rv_pay_ways)
     RecyclerView mRvPayWAys;
 
+    @BindView(R.id.rv_info_recycler)
+    RecyclerView mRvInfoRecycler;
+
 
     private String order_sn;
     private String payId;
-    private MallPayWaysBean mallPayWaysBean;
     private final static int WXPAY = 1;
     private final static int YUEPAY = 4;
 
@@ -110,6 +94,9 @@ public class MallOnlineOrderActivity extends BaseActivity {
         topView.setTitle("在线下单");
         getBarDistance(topView);
 
+        mRvInfoRecycler.setLayoutManager(new LinearLayoutManager(this));
+
+
     }
 
     public static void start(String order_sn) {
@@ -129,19 +116,9 @@ public class MallOnlineOrderActivity extends BaseActivity {
         )).subscribe(new BaseObserver<MallSettlementBean>(mAt) {
             @Override
             public void onHandleSuccess(MallSettlementBean mallSettlementBean) throws IOException {
-                MallSettlementBean.DetailsBean detailsBean = mallSettlementBean.getDetails().get(0);
-                Glide.with(mAt).load(BaseUrl.BASE_URL + detailsBean.getImg()).into(mIvOnlinOrderImage);
-                mTvOnlineOrderName.setText(detailsBean.getName());
-                TvOnlineOrderPrice.setText("¥" + detailsBean.getPrice());
 
-                StringBuffer buffer = new StringBuffer();
-                List<String> attr_value = detailsBean.getAttr_value();
-                for (String s : attr_value) {
-                    buffer.append(s).append("-");
-                }
-                String stringOption = buffer.substring(0, buffer.length() - 1);
-                TvOnlineOrderOption.setText(stringOption);
-                TvOnlineOrderNumber.setText("X" + detailsBean.getNum());
+                MallBuyInfoAdapter adapter=new MallBuyInfoAdapter(R.layout.buy_info_item,mallSettlementBean.getDetails());
+                mRvInfoRecycler.setAdapter(adapter);
                 //收货信息
                 MallSettlementBean.UserinfoBean userinfo = mallSettlementBean.getUserinfo();
 
@@ -167,12 +144,9 @@ public class MallOnlineOrderActivity extends BaseActivity {
                 PayWaysAdapter adapter = new PayWaysAdapter(R.layout.pay_ways_item, mallPayWaysBeans);
                 mRvPayWAys.addItemDecoration(new DividerItemDecoration(mAt, DividerItemDecoration.VERTICAL));
                 mRvPayWAys.setAdapter(adapter);
-
-
                 adapter.setItemPayWays(new PayWaysAdapter.ItemPayWays() {
                     @Override
                     public void getPayWays(String payWays, int position) {
-                        mallPayWaysBean = mallPayWaysBeans.get(position);
                         payId = mallPayWaysBeans.get(position).getId();
                     }
                 });
@@ -262,4 +236,6 @@ public class MallOnlineOrderActivity extends BaseActivity {
 ////调用api接口，发送数据到微信
 //        msgApi.sendReq(req);
     }
+
+
 }

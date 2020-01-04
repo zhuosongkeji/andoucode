@@ -1,7 +1,6 @@
 package com.zskjprojectj.andouclient.fragment;
 
 import android.content.Intent;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,14 +9,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ViewFlipper;
 
-import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.facebook.drawee.backends.pipeline.Fresco;
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
 
 
@@ -39,15 +39,19 @@ import com.zskjprojectj.andouclient.activity.hotel.HotelActivity;
 import com.zskjprojectj.andouclient.activity.LiveActivity;
 import com.zskjprojectj.andouclient.activity.MainActivity;
 import com.zskjprojectj.andouclient.activity.MallMainActivity;
-import com.zskjprojectj.andouclient.activity.OnlineBookingorderActivity;
 import com.zskjprojectj.andouclient.adapter.CoverFlowAdapter;
+import com.zskjprojectj.andouclient.adapter.merchantsCategoryAdapter;
 import com.zskjprojectj.andouclient.base.BaseFragment;
-import com.zskjprojectj.andouclient.entity.TuchongEntity;
-import com.zskjprojectj.andouclient.utils.BarUtils;
+import com.zskjprojectj.andouclient.base.BaseUrl;
+import com.zskjprojectj.andouclient.entity.IndexHomeBean;
+import com.zskjprojectj.andouclient.http.ApiUtils;
+import com.zskjprojectj.andouclient.http.BaseObserver;
+import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.utils.GlideTool;
 import com.zskjprojectj.andouclient.utils.ScreenUtil;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,14 +75,25 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
 
     @BindView(R.id.coverflow)
     RecyclerCoverFlow mCoverFlow;
+
+    @BindView(R.id.rv_merchants)
+    RecyclerView mRvMerchants;
+
+
+    @BindView(R.id.view_flipper)
+    ViewFlipper view_flipper;
+
     private boolean enable;
     private List<HotCity> hotCities;
     private int anim;
     private int theme;
     private TextView tv_cityinfo;
     private XBanner bannertops;
-    private LinearLayout check_in_business_seemore_layout, check_in_business_seemore_layout_1, rootView;
+    private LinearLayout  rootView;
     private LinearLayout onlinebroadcast_see_more_layout, appointment_see_more_layout, onlinebooking_see_more_layout, ly_citychoose;
+    private CoverFlowAdapter adapter;
+    private merchantsCategoryAdapter merchantsAdapter=new merchantsCategoryAdapter();
+
 
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
@@ -93,20 +108,26 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
 //        layoutParams.topMargin = BarUtils.getStatusBarHeight(getActivity()) + layoutParams.topMargin;
 //        rootView.setLayoutParams(layoutParams);
 
-        check_in_business_seemore_layout = view.findViewById(R.id.check_in_business_seemore_layout);
         onlinebroadcast_see_more_layout = view.findViewById(R.id.onlinebroadcast_see_more_layout);
         appointment_see_more_layout = view.findViewById(R.id.appointment_see_more_layout);
         onlinebooking_see_more_layout = view.findViewById(R.id.onlinebooking_see_more_layout);
         ly_citychoose = view.findViewById(R.id.ly_citychoose);
         tv_cityinfo = view.findViewById(R.id.tv_cityinfo);
+
+        LinearLayoutManager layoutManager=new LinearLayoutManager(getActivity());
+        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        mRvMerchants.setLayoutManager(layoutManager);
+        mRvMerchants.setAdapter(merchantsAdapter);
+
+
+
     }
 
     private void initCoverFlow() {
-
+        adapter = new CoverFlowAdapter(getActivity(), this);
         mCoverFlow.setGreyItem(true); //设置灰度渐变
         mCoverFlow.setAlphaItem(true); //设置半透渐变
-        mCoverFlow.setAdapter(new CoverFlowAdapter(getActivity(), this));
-        mCoverFlow.smoothScrollToPosition(3);
+//        mCoverFlow.smoothScrollToPosition(3);
         mCoverFlow.setOnItemSelectedListener(new CoverFlowLayoutManger.OnSelected() {
             @Override
             public void onItemSelected(int position) {
@@ -127,51 +148,50 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
 
     @Override
     protected void getDataFromServer() {
-        String url = "https://api.tuchong.com/2/wall-paper/app";
-        OkHttpUtils.get().url(url).build().execute(new StringCallback() {
-            @Override
-            public void onError(Call call, Exception e, int id) {
-                Toast.makeText(mAty, "加载广告数据失败", Toast.LENGTH_SHORT).show();
-            }
 
+        HttpRxObservable.getObservable(ApiUtils.getApiService().index()).subscribe(new BaseObserver<IndexHomeBean>(mAty) {
             @Override
-            public void onResponse(String response, int id) {
-                TuchongEntity advertiseEntity = new Gson().fromJson(response, TuchongEntity.class);
-                List<TuchongEntity.FeedListBean> others = advertiseEntity.getFeedList();
-                List<TuchongEntity.FeedListBean.EntryBean> data = new ArrayList<>();
-                for (int i = 0; i < others.size(); i++) {
-                    TuchongEntity.FeedListBean feedListBean = others.get(i);
-                    if ("post".equals(feedListBean.getType())) {
-                        data.add(feedListBean.getEntry());
-                    }
-                }
+            public void onHandleSuccess(IndexHomeBean indexHomeBean) throws IOException {
 
+                List<IndexHomeBean.BannerBean> banner = indexHomeBean.getBanner();
                 //刷新数据之后，需要重新设置是否支持自动轮播
-                bannertops.setAutoPlayAble(data.size() > 1);
+                bannertops.setAutoPlayAble(banner.size() > 1);
                 bannertops.setIsClipChildrenMode(true);
-                bannertops.setBannerData(R.layout.layout_fresco_imageview, data);
+                bannertops.setBannerData(banner);
+
+                List<IndexHomeBean.MerchantTypeBean> merchant_type = indexHomeBean.getMerchant_type();
+                adapter.setNewData(merchant_type);
+                mCoverFlow.setAdapter(adapter);
+
+                List<IndexHomeBean.MerchantsBean> merchants = indexHomeBean.getMerchants();
+                merchantsAdapter.setNewData(merchants);
+
+
+                List<IndexHomeBean.NoticeBean> notice = indexHomeBean.getNotice();
+                for(int i=0;i<notice.size();i++){
+                    View view = getLayoutInflater().inflate(R.layout.text_view,null);
+                    TextView content = view.findViewById(R.id.tv_index_notice);
+                    content.setText(notice.get(i).getContent());
+                    view_flipper.addView(view);
+                }
+                view_flipper.setFlipInterval(2000);
+                view_flipper.startFlipping();
 
             }
         });
+
+
     }
 
     @Override
     protected void initData() {
-        //Fresco初始化
-        Fresco.initialize(mAty);
+
+
+
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, ScreenUtil.getScreenWidth(mAty) / 2);
         bannertops.setLayoutParams(layoutParams);
         initBanner(bannertops);
-        //加载本地图片
-//        initLocalImage();
-        check_in_business_seemore_layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (getActivity() instanceof MainActivity) {
-                    ((MainActivity) getActivity()).getNavigationBar().selectTab(1);
-                }
-            }
-        });
+
         /**
          *在线直播
          */
@@ -252,21 +272,13 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
         banner.setOnItemClickListener(new XBanner.OnItemClickListener() {
             @Override
             public void onItemClick(XBanner banner, Object model, View view, int position) {
-                TuchongEntity.FeedListBean.EntryBean listBean = ((TuchongEntity.FeedListBean.EntryBean) model);
-                WebViewActivity.start(listBean.getUrl());
                 //判断是点击了那个选项
                 switch (position) {
-                    //跳转到商城模块
                     case 0:
-                        // startActivity(new Intent(getContext(), OnlinemallActivity.class));
-//                        startActivity(new Intent(getContext(), MallMainActivity.class));
-                        //  Toast.makeText(mAty, "点击了第" + (position + 1) + "图片", Toast.LENGTH_SHORT).show();
                         break;
-                    //跳转到酒店预约模块
                     case 1:
 //                        startActivity(new Intent(getContext(), HotelActivity.class));
                         break;
-                    //跳转饭店预约模块
                     case 2:
 //                        startActivity(new Intent(getContext(),));
                         break;
@@ -279,66 +291,34 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
         banner.loadImage(new XBanner.XBannerAdapter() {
             @Override
             public void loadBanner(XBanner banner, Object model, View view, int position) {
-                //此处适用Fresco加载图片，可自行替换自己的图片加载框架
-                ImageView draweeView = (ImageView) view;
-                TuchongEntity.FeedListBean.EntryBean listBean = ((TuchongEntity.FeedListBean.EntryBean) model);
-                String url = "https://photo.tuchong.com/" + listBean.getImages().get(0).getUser_id() + "/f/" + listBean.getImages().get(0).getImg_id() + ".jpg";
-                draweeView.setImageURI(Uri.parse(url));
-                GlideTool.glideRoundImg(getActivity(), url, draweeView, ScreenUtil.dp2px(getActivity(), 8));
-//                加载本地图片展示
-//                ((ImageView) view).setImageResource(((LocalImageInfo) model).getXBannerUrl());
+                IndexHomeBean.BannerBean model1 = (IndexHomeBean.BannerBean) model;
+                Glide.with(mAty).load(BaseUrl.BASE_URL + model1.getImg()).apply(new RequestOptions()
+                        .placeholder(R.drawable.default_image).error(R.drawable.default_image)).into((ImageView) view);
             }
         });
-    }
-
-    /**
-     * 加载本地图片
-     */
-    private void initLocalImage() {
-        List<LocalImageInfo> data = new ArrayList<>();
-        data.add(new LocalImageInfo(R.drawable.home_mall_pic));
-        data.add(new LocalImageInfo(R.drawable.home_hotel_pic));
-        data.add(new LocalImageInfo(R.drawable.banner_placeholder));
-        data.add(new LocalImageInfo(R.drawable.banner_placeholder));
-
-        bannertops.setAutoPlayAble(true);
-        //刷新数据之后，需要重新设置是否支持自动轮播
-        bannertops.setAutoPlayAble(data.size() > 1);
-        bannertops.setIsClipChildrenMode(true);
-        bannertops.setBannerData(data);
-//                bannertops.setBannerData(R.layout.layout_fresco_imageview, data);
     }
 
 
     @Override
     public void clickItem(int pos) {
-//        ToastUtil.showToast("图"+pos);
 
-        switch (pos % 7) {
+        switch (pos) {
             case 0:
-                ToastUtil.showToast("图1");
-                break;
-            case 1:
-                ToastUtil.showToast("图2");
-                break;
-            case 2:
-                ToastUtil.showToast("图3");
-                break;
-            case 3:
-//                ToastUtil.showToast("商城");
                 startActivity(new Intent(getContext(), MallMainActivity.class));
                 break;
-            case 4:
-//                ToastUtil.showToast("酒店");
+            case 1:
                 startActivity(new Intent(getContext(), HotelActivity.class));
                 break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
             case 5:
-                ToastUtil.showToast("图6");
                 break;
             case 6:
-                ToastUtil.showToast("图7");
                 break;
-
         }
     }
 }

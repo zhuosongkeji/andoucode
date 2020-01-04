@@ -20,6 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="精尚来公寓酒店"
+            android:textColor="#323232"
             android:textSize="@dimen/typeface15sp" />
     </LinearLayout>
 
@@ -41,6 +42,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/dp_15"
             android:text="订单编号:2019061417459987"
+            android:textColor="#646464"
             android:textSize="@dimen/typeface12sp" />
 
         <TextView
@@ -80,14 +82,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_15"
                 android:layout_marginTop="@dimen/dp_17"
-                android:text="阳光大床房（带大阳台）" />
+                android:text="阳光大床房（带大阳台）"
+                android:textColor="#646464" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_marginLeft="@dimen/dp_15"
-                android:text="X1" />
+                android:text="X1"
+                android:textColor="#646464" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -112,7 +116,8 @@
         android:layout_gravity="center|right"
         android:layout_marginTop="@dimen/dp_15"
         android:layout_marginRight="15dp"
-        android:text="合计:￥288" />
+        android:text="合计:￥288"
+        android:textColor="@color/red" />
 
     <View
         android:layout_width="wrap_content"

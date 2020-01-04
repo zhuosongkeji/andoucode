@@ -2,7 +2,9 @@ package com.zskjprojectj.andouclient.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Button;
 import android.widget.RelativeLayout;
@@ -16,6 +18,7 @@ import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.mall.MallOnlineOrderActivity;
 import com.zskjprojectj.andouclient.adapter.PlatformshoppingcartAdapter;
 import com.zskjprojectj.andouclient.base.BaseFragment;
+import com.zskjprojectj.andouclient.entity.mall.MallCarBean;
 import com.zskjprojectj.andouclient.entity.mall.MallShoppingbean;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
@@ -24,6 +27,8 @@ import com.zskjprojectj.andouclient.model.CartItem;
 import com.zskjprojectj.andouclient.utils.ArrayParamUtil;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
+
+import org.json.JSONArray;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -104,13 +109,7 @@ public class MallShoppingFragment extends BaseFragment {
             }
 
         });
-        btn_settleaccounts = view.findViewById(R.id.btn_settleaccounts);
-        btn_settleaccounts.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getContext(), MallOnlineOrderActivity.class));
-            }
-        });
+
     }
 
     @Override
@@ -138,17 +137,67 @@ public class MallShoppingFragment extends BaseFragment {
 
     }
 
-    @OnClick({R.id.cb_selectorcb})
-    public void clickSelectorAll() {
+    @OnClick({R.id.cb_selectorcb,R.id.btn_settleaccounts})
+    public void clickSelectorAll(View view) {
 
-        if(mCheckBox.isChecked()){
+        switch (view.getId()){
+            case R.id.cb_selectorcb:
+                if (mCheckBox.isChecked()) {
 
-            adapter.isSelector(true);
-            adapter.notifyDataSetChanged();
-        }else {
-            adapter.isSelector(false);
-            adapter.notifyDataSetChanged();
+                    adapter.isSelector(true);
+                    adapter.notifyDataSetChanged();
+                } else {
+                    adapter.isSelector(false);
+                    adapter.notifyDataSetChanged();
+                }
+                break;
+            case R.id.btn_settleaccounts:
+                List<String> strings = adapter.CarId();
+//                JSONArray jsonArray=new JSONArray(strings);
+//                String jsonCarId = jsonArray.toString();
+
+                StringBuilder result = new StringBuilder();
+                boolean first = true;
+
+                //第一个前面不拼接","
+                for(String string :strings) {
+                    if(first) {
+                        first=false;
+                    }else{
+                        result.append(",");
+                    }
+                    result.append(string);
+                }
+
+                String jsonCarId = result.toString();
+                Log.d(TAG, "jsonCarId: "+jsonCarId);
+                Log.d(TAG, "order_sn: "+" "+LoginInfoUtil.getUid()+" "+ LoginInfoUtil.getToken());
+
+                HttpRxObservable.getObservable(ApiUtils.getApiService().OrderBuyCar(
+                        LoginInfoUtil.getUid(),
+                        LoginInfoUtil.getToken(),
+                        jsonCarId
+                )).subscribe(new BaseObserver<MallCarBean>(mAty) {
+
+
+
+                    @Override
+                    public void onHandleSuccess(MallCarBean mallCarBean) throws IOException {
+                        String order_sn = mallCarBean.getOrder_sn();
+
+                        Log.d(TAG, "order_sn: "+" "+LoginInfoUtil.getUid()+" "+ LoginInfoUtil.getToken()+order_sn);
+                        MallOnlineOrderActivity.start(order_sn);
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                    }
+                });
+                break;
         }
+
     }
 
 

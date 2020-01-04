@@ -69,6 +69,7 @@
                     android:layout_height="wrap_content"
                     android:background="@null"
                     android:hint="请输入酒店名称"
+                    android:textColorHint="#969696"
                     android:paddingLeft="@dimen/dp_15"
                     android:paddingTop="@dimen/dp_22"
                     android:paddingBottom="@dimen/dp_22"
@@ -160,6 +161,8 @@
                     android:drawableRight="@mipmap/me_icon_uncheck"
                     android:hint="入住人数"
                     android:maxLines="1"
+                    android:textColorHint="#969696"
+                    android:layout_marginRight="@dimen/dp_15"
                     android:paddingLeft="@dimen/dp_15"
                     android:paddingTop="@dimen/dp_20"
                     android:paddingBottom="@dimen/dp_20"
@@ -177,6 +180,7 @@
                     android:layout_height="wrap_content"
                     android:drawableRight="@mipmap/ic_jiantouright_gary"
                     android:paddingLeft="@dimen/dp_15"
+                    android:layout_marginRight="@dimen/dp_15"
                     android:paddingTop="@dimen/dp_17"
                     android:paddingBottom="@dimen/dp_17"
                     android:text="设置我喜欢的星级/价格"
@@ -227,7 +231,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_26"
             android:paddingLeft="@dimen/dp_18"
-            android:paddingRight="@dimen/dp_18">
+            android:paddingRight="@dimen/dp_18"
+            android:visibility="gone">
 
             <LinearLayout
                 android:id="@+id/mycenter_foodorder_layout"
@@ -339,6 +344,11 @@
                     android:textSize="@dimen/typeface14sp" />
             </LinearLayout>
         </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_hotel_category"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
         <TextView
             android:layout_width="wrap_content"

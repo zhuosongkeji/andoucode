@@ -8,12 +8,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,19 +31,26 @@ import com.bigkoo.pickerview.view.TimePickerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.MainActivity;
+import com.zskjprojectj.andouclient.adapter.hotel.HotelCateGoryAdapter;
 import com.zskjprojectj.andouclient.adapter.hotel.HotelHomeAdapter;
 import com.zskjprojectj.andouclient.adapter.hotel.SectionAdapter;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
+import com.zskjprojectj.andouclient.entity.hotel.HotelCategoryBean;
 import com.zskjprojectj.andouclient.entity.hotel.HotelHomeBean;
 import com.zskjprojectj.andouclient.entity.hotel.Mysection;
+import com.zskjprojectj.andouclient.http.ApiUtils;
+import com.zskjprojectj.andouclient.http.BaseObserver;
+import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.utils.BarUtils;
 import com.zskjprojectj.andouclient.utils.GridSectionAverageGapItemDecoration;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -63,6 +73,9 @@ public class HotelActivity extends BaseActivity implements View.OnClickListener 
     @BindView(R.id.et_input_number)
     EditText mInputNumber;
 
+    @BindView(R.id.rv_hotel_category)
+    RecyclerView mHotelCategory;
+
 
     private RecyclerView mRvRecycler;
     private LinearLayout mTitle, mSearchHotel;
@@ -72,7 +85,7 @@ public class HotelActivity extends BaseActivity implements View.OnClickListener 
     private RecyclerView mViewRecycler;
     private ArrayList<Mysection> mData;
     private Button mCancle;
-
+    private HotelCateGoryAdapter adapter=new HotelCateGoryAdapter();
 
     @Override
     protected void setRootView() {
@@ -123,6 +136,12 @@ public class HotelActivity extends BaseActivity implements View.OnClickListener 
         mTvCheckInTime.setText(getNowTime());
         mTVCheckOutTime.setText(getNowTime());
 
+        LinearLayoutManager layoutManager=new LinearLayoutManager(this);
+        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        mHotelCategory.setLayoutManager(layoutManager);
+        mHotelCategory.setAdapter(adapter);
+
+
     }
 
     private String getNowTime() {
@@ -136,6 +155,13 @@ public class HotelActivity extends BaseActivity implements View.OnClickListener 
 
     @Override
     public void getDataFromServer() {
+
+        HttpRxObservable.getObservable(ApiUtils.getApiService().hotelCategory()).subscribe(new BaseObserver<List<HotelCategoryBean>>(mAt) {
+            @Override
+            public void onHandleSuccess(List<HotelCategoryBean> hotelCategoryBeans) throws IOException {
+                adapter.setNewData(hotelCategoryBeans);
+            }
+        });
 
     }
 
@@ -154,8 +180,7 @@ public class HotelActivity extends BaseActivity implements View.OnClickListener 
         }
     }
 
-    @OnClick({R.id.rv_check_in_time, R.id.rv_check_out_time, R.id.tv_set_like, R.id.mycenter_foodorder_layout,
-            R.id.mycenter_hotelorder_layout, R.id.mycenter_vegetablemarket_layout, R.id.mycenter_shoporder_layout, R.id.mycenter_shoporder_layout1})
+    @OnClick({R.id.rv_check_in_time, R.id.rv_check_out_time, R.id.tv_set_like})
     public void clickCheckIn(View view) {
         switch (view.getId()) {
             case R.id.rv_check_in_time:
@@ -191,16 +216,6 @@ public class HotelActivity extends BaseActivity implements View.OnClickListener 
             case R.id.tv_set_like:
                 showDialog();
                 break;
-
-            case R.id.mycenter_foodorder_layout:
-            case R.id.mycenter_hotelorder_layout:
-            case R.id.mycenter_vegetablemarket_layout:
-            case R.id.mycenter_shoporder_layout:
-            case R.id.mycenter_shoporder_layout1:
-
-                Intent intent = new Intent(HotelActivity.this, HotelDetailActivity.class);
-                startActivity(intent);
-                break;
         }
     }
 
@@ -220,9 +235,18 @@ public class HotelActivity extends BaseActivity implements View.OnClickListener 
         mCancle = contentView.findViewById(R.id.bt_cancle);
         initDialogRecycler();
         bottomDialog.setContentView(contentView);
-        ViewGroup.LayoutParams layoutParams = contentView.getLayoutParams();
-        layoutParams.width = getResources().getDisplayMetrics().widthPixels;
-        contentView.setLayoutParams(layoutParams);
+
+        Window window = bottomDialog.getWindow();
+        // 把 DecorView 的默认 padding 取消，同时 DecorView 的默认大小也会取消
+        window.getDecorView().setPadding(0, 0, 0, 0);
+        WindowManager.LayoutParams layoutParams = window.getAttributes();
+        // 设置宽度
+        layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
+        window.setAttributes(layoutParams);
+        // 给 DecorView 设置背景颜色，很重要，不然导致 Dialog 内容显示不全，有一部分内容会充当 padding，上面例子有举出
+        window.getDecorView().setBackgroundColor(Color.TRANSPARENT);
+
+
         bottomDialog.getWindow().setGravity(Gravity.BOTTOM);
         bottomDialog.setCanceledOnTouchOutside(true);
         bottomDialog.getWindow().setWindowAnimations(R.style.BottomDialog_Animation);

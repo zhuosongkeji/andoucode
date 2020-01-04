@@ -7,21 +7,22 @@ import androidx.annotation.Nullable;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.zskjprojectj.andouclient.R;
+import com.zskjprojectj.andouclient.entity.CheckLogisticsBean;
 import com.zskjprojectj.andouclient.entity.CheckthelogisticsBean;
 
 import java.util.List;
 
-public class CheckthelogisticsAdapter extends BaseQuickAdapter<CheckthelogisticsBean, BaseViewHolder> {
+public class CheckthelogisticsAdapter extends BaseQuickAdapter<CheckLogisticsBean.WuliuMsgBean.DataBean, BaseViewHolder> {
     private Context context;
-    private List<CheckthelogisticsBean> data;
-    public CheckthelogisticsAdapter(Context context,int layoutResId, @Nullable List<CheckthelogisticsBean> data) {
+    private List<CheckLogisticsBean.WuliuMsgBean.DataBean> data;
+    public CheckthelogisticsAdapter(Context context,int layoutResId, @Nullable List<CheckLogisticsBean.WuliuMsgBean.DataBean> data) {
         super(layoutResId, data);
         this.context = context;
         this.data = data;
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, CheckthelogisticsBean item) {
+    protected void convert(BaseViewHolder helper, CheckLogisticsBean.WuliuMsgBean.DataBean item) {
         //获取物流信息和物流时间的字体颜色, 最新的一条物流数据字体为绿色
         int newInfoColor = context.getResources().getColor(helper.getLayoutPosition() == 0 ? R.color.green : R.color.grey_1);
         //当前item的索引==0 && 物流数据的数量大于1条   ->  显示绿色大圆圈
@@ -37,9 +38,9 @@ public class CheckthelogisticsAdapter extends BaseQuickAdapter<Checkthelogistics
                 .setTextColor(R.id.tv_info, newInfoColor)
                 .setTextColor(R.id.tv_date, newInfoColor)
                 //物流信息
-                .setText(R.id.tv_info, item.getAcceptStation())
+                .setText(R.id.tv_info, item.getContext())
                 //物流时间
-                .setText(R.id.tv_date, item.getAcceptTime());
+                .setText(R.id.tv_date, item.getTime());
 
     }
 }

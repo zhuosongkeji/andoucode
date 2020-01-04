@@ -1,6 +1,7 @@
 package com.zskjprojectj.andouclient.adapter;
 
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
@@ -15,11 +16,13 @@ import com.zskjprojectj.andouclient.model.CartItem;
 import com.zskjprojectj.andouclient.utils.GlideTool;
 import com.zskjprojectj.andouclient.utils.UrlUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PlatformshoppingcartAdapter extends BaseQuickAdapter<CartItem, BaseViewHolder> {
 
     private boolean isCheck;
+    private List<String> carId = new ArrayList<>();
 
     public PlatformshoppingcartAdapter() {
         super(R.layout.fragment_mall_shopping_view);
@@ -41,16 +44,30 @@ public class PlatformshoppingcartAdapter extends BaseQuickAdapter<CartItem, Base
                 .setText(R.id.tv_num, item.num + "")
                 .addOnClickListener(R.id.btn_add)
                 .addOnClickListener(R.id.btn_sub)
-                .addOnClickListener(R.id.deleteBtn);
+                .addOnClickListener(R.id.deleteBtn)
+                .addOnClickListener(R.id.cb_selectorcb);
 
         AppCompatCheckBox checkBox = helper.getView(R.id.cb_selectorcb);
         checkBox.setChecked(isCheck);
 
 
+
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    carId.add(item.id);
+                }
+            }
+        });
+
     }
 
-    public void isSelector(boolean isCheck){
-        this.isCheck=isCheck;
+    public void isSelector(boolean isCheck) {
+        this.isCheck = isCheck;
     }
 
+    public List<String> CarId(){
+        return carId;
+    }
 }

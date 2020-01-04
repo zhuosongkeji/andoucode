@@ -101,6 +101,8 @@
             android:layout_height="match_parent"
             android:background="#F1F1F1"
             android:hint="关键字搜索商品"
+            android:textColorHint="#919191"
+            android:textColor="#919191"
             android:paddingLeft="@dimen/dp_17"
             android:textSize="@dimen/typeface14sp" />
 

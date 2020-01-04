@@ -117,6 +117,7 @@ public class ClassificationofgoodsActivity extends BaseActivity {
         lp.alpha = 0.8f;
 //        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         getWindow().setAttributes(lp);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
 
         //popupWindow获取焦点
         mPopWindow.setFocusable(true);

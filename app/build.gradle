@@ -150,4 +150,7 @@ dependencies {
 
     //二维码扫描
     implementation 'com.king.zxing:zxing-lite:1.1.5-androidx'
+
+    //图片选择
+    implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.4.2'
 }

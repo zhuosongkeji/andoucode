@@ -96,11 +96,15 @@
                 app:itemView="@layout/fragment_category_view"
                 app:numColumns="4"
                 app:pageSize="8" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_10"
+                android:background="#F7F7F7"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="?android:attr/selectableItemBackground"
+                android:background="#F7F7F7"
                 android:orientation="horizontal"
                 android:padding="@dimen/dp_4">
 
@@ -122,13 +126,17 @@
 
 
             </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_10"
+                android:background="#F7F7F7"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/dp_10"
-                android:background="?android:attr/selectableItemBackground"
+                android:background="#F7F7F7"
                 android:orientation="horizontal"
                 android:paddingLeft="@dimen/dp_15"
                 android:paddingRight="@dimen/dp_15">
@@ -296,7 +304,10 @@
                 </LinearLayout>
 
             </LinearLayout>
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_10"
+                android:background="#F7F7F7"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -329,6 +340,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tv_recommend_product"
                         android:text="HOT PRODUCTS"
+                        android:textColor="#FF9537"
                         android:textSize="@dimen/typeface9sp" />
 
                     <TextView
@@ -384,6 +396,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tv_special_product"
                         android:text="HOT PRODUCTS"
+                        android:textColor="#FF9537"
                         android:textSize="@dimen/typeface9sp" />
 
                     <TextView

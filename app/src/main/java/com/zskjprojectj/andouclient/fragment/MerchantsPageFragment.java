@@ -90,7 +90,7 @@ public class MerchantsPageFragment extends BaseFragment {
         //设置背景色
         WindowManager.LayoutParams lp = getActivity().getWindow().getAttributes();
         lp.alpha = 0.8f;
-//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         getActivity().getWindow().setAttributes(lp);
 
         //popupWindow获取焦点
