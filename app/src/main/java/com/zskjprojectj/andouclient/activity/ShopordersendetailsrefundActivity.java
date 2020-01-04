@@ -10,17 +10,43 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.blankj.utilcode.util.ActivityUtils;
+import com.yhao.floatwindow.FloatWindow;
 import com.zskjprojectj.andouclient.R;
+import com.zskjprojectj.andouclient.adapter.CauseRecyclerAdapter;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
+import com.zskjprojectj.andouclient.entity.RefundReasonBean;
+import com.zskjprojectj.andouclient.http.ApiUtils;
+import com.zskjprojectj.andouclient.http.BaseObserver;
+import com.zskjprojectj.andouclient.http.HttpRxObservable;
+
+import java.io.IOException;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * 申请退款
  */
 public class ShopordersendetailsrefundActivity extends BaseActivity {
+
+    @BindView(R.id.tv_header_title)
+    TextView mHeaderTitle;
+
+
     private LinearLayout ly_refundreason;
     private Dialog bottomDialog;
+    private String type;
+
     @Override
     protected void setRootView() {
         setContentView(R.layout.activity_shopordersendetailsrefund);
@@ -28,16 +54,31 @@ public class ShopordersendetailsrefundActivity extends BaseActivity {
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-        topView.setTitle("申请退款");
+        type = getIntent().getStringExtra("type");
+
+        if ("sales_return".equals(type)){
+            mHeaderTitle.setText("申请退货");
+        }else if ("refund".equals(type)){
+            mHeaderTitle.setText("申请退款");
+        }
+
+
     }
 
     @Override
     protected void initViews() {
-        ly_refundreason=findViewById(R.id.ly_refundreason);
+        ly_refundreason = findViewById(R.id.ly_refundreason);
         ly_refundreason.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                initBuyNow();
+                HttpRxObservable.getObservable(ApiUtils.getApiService().refundreason()).subscribe(new BaseObserver<List<RefundReasonBean>>(mAt) {
+                    @Override
+                    public void onHandleSuccess(List<RefundReasonBean> refundReasonBeans) throws IOException {
+                        initBuyNow(refundReasonBeans);
+                    }
+                });
+
+
             }
         });
     }
@@ -46,12 +87,13 @@ public class ShopordersendetailsrefundActivity extends BaseActivity {
     public void getDataFromServer() {
 
     }
+
     /**
      * 弹出窗口
+     *
      * @return
      */
-    private  void initBuyNow()
-    {
+    private void initBuyNow(List<RefundReasonBean> refundReasonBeans) {
         bottomDialog = new Dialog(this, R.style.BottomDialog);
         Window window = bottomDialog.getWindow();
         // 把 DecorView 的默认 padding 取消，同时 DecorView 的默认大小也会取消
@@ -71,16 +113,44 @@ public class ShopordersendetailsrefundActivity extends BaseActivity {
                 bottomDialog.dismiss();
             }
         });
-//        ViewGroup.LayoutParams layoutParams = contentView.getLayoutParams();
-//        layoutParams.width = getResources().getDisplayMetrics().widthPixels;
-//        contentView.setLayoutParams(layoutParams);
+
+        RecyclerView mRvCauseRecycler = contentView.findViewById(R.id.rv_cause_recycler);
+
+        mRvCauseRecycler.setLayoutManager(new LinearLayoutManager(mRvCauseRecycler.getContext()));
+        CauseRecyclerAdapter adapter=new CauseRecyclerAdapter();
+        adapter.setNewData(refundReasonBeans);
+        mRvCauseRecycler.setAdapter(adapter);
+        mRvCauseRecycler.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+
         bottomDialog.getWindow().setGravity(Gravity.BOTTOM);
         bottomDialog.setCanceledOnTouchOutside(true);
         bottomDialog.getWindow().setWindowAnimations(R.style.BottomDialog_Animation);
         bottomDialog.show();
     }
+
     @Override
     protected BasePresenter createPresenter() {
         return null;
+    }
+
+
+    public static void start(String type) {
+
+        Bundle bundle = new Bundle();
+        bundle.putString("type", type);
+        ActivityUtils.startActivity(bundle, ShopordersendetailsrefundActivity.class);
+
+    }
+
+
+    @OnClick({R.id.iv_header_back})
+    public void clickView(View view) {
+        switch (view.getId()) {
+            case R.id.iv_header_back:
+                finish();
+                break;
+
+
+        }
     }
 }

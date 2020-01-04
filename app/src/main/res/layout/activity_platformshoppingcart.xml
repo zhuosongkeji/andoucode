@@ -1,17 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@color/white"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical">
 
-    <include layout="@layout/view_top_bar" />
+    <LinearLayout
+        android:id="@+id/alltopview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorNavy">
+
+        <include layout="@layout/base_title_view" />
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_recycler"
-        android:layout_above="@+id/pay_all"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/pay_all"
         android:layout_below="@+id/alltopview" />
 
     <RelativeLayout
@@ -19,9 +26,9 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_50"
         android:layout_alignParentBottom="true"
+        android:background="@color/white"
         android:paddingLeft="@dimen/dp_10"
-        android:paddingRight="@dimen/dp_10"
-        android:background="@color/white">
+        android:paddingRight="@dimen/dp_10">
 
         <androidx.appcompat.widget.AppCompatCheckBox
             android:id="@+id/cb_selectorcb"
@@ -30,7 +37,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/dp_10"
             android:background="@null"
-            android:button="@drawable/selector_checkbox"/>
+            android:button="@drawable/selector_checkbox" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -50,10 +57,10 @@
 
         <Button
             android:id="@+id/btn_gotoaccounts"
-            android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="36dp"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:background="@drawable/button_circle_green"
             android:text="去结算"
             android:textColor="@color/white" />

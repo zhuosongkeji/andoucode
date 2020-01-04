@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -24,10 +26,19 @@ import com.zskjprojectj.andouclient.utils.ToastUtil;
 import java.io.IOException;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.OnClick;
+
 /**
  * 我的地址
  */
 public class MyaddressActivity extends BaseActivity {
+
+    @BindView(R.id.header_title_view)
+    RelativeLayout mTitleView;
+    @BindView(R.id.tv_header_title)
+    TextView mHeaderTitle;
+
     public static final String KEY_DATA = "KEY_DATA";
     private RecyclerView mRecycler;
     private Button btn_addressadd;
@@ -40,7 +51,9 @@ public class MyaddressActivity extends BaseActivity {
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-        topView.setTitle("我的地址");
+
+        getBarDistance(mTitleView);
+        mHeaderTitle.setText("我的地址");
         adapter.openLoadAnimation();
         adapter.setOnItemChildClickListener((adapter, view, position) -> {
             if (view.getId() == R.id.deleteBtn) {
@@ -98,5 +111,10 @@ public class MyaddressActivity extends BaseActivity {
     @Override
     protected BasePresenter createPresenter() {
         return null;
+    }
+
+    @OnClick(R.id.iv_header_back)
+    public void clickView() {
+        finish();
     }
 }

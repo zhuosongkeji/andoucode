@@ -4,17 +4,26 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * 个人中心设置界面
  */
 public class MesettingActivity extends BaseActivity {
+
+
+    @BindView(R.id.header_title_view)
+    RelativeLayout mTitleView;
+    @BindView(R.id.tv_header_title)
+    TextView mHeaderTitle;
+
    private RelativeLayout rl_modifythephone,rl_modifythepassword,rl_modifyfeedback,rl_modifyaboutus;
    private Button btn_exit;
     @Override
@@ -24,7 +33,8 @@ public class MesettingActivity extends BaseActivity {
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-        topView.setTitle("设置");
+        getBarDistance(mTitleView);
+        mHeaderTitle.setText("设置");
     }
 
     @Override
@@ -86,5 +96,10 @@ public class MesettingActivity extends BaseActivity {
     @Override
     protected BasePresenter createPresenter() {
         return null;
+    }
+
+    @OnClick(R.id.iv_header_back)
+    public void clickView() {
+        finish();
     }
 }

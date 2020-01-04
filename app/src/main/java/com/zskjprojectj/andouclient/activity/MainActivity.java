@@ -102,7 +102,7 @@ public class MainActivity extends BaseActivity {
                 .normalTextColor(normalTextColor)
                 .selectTextColor(selectTextColor)
                 .fragmentManager(getSupportFragmentManager())
-                .canScroll(true)
+                .canScroll(false)
                 .mode(EasyNavigationBar.MODE_ADD)
                 .build();
     }

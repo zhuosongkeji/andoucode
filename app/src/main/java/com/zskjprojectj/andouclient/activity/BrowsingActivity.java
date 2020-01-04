@@ -2,6 +2,8 @@ package com.zskjprojectj.andouclient.activity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,10 +20,20 @@ import com.zskjprojectj.andouclient.entity.MycollectionBean;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.OnClick;
+
 /**
  * 浏览痕迹
  */
 public class BrowsingActivity extends BaseActivity {
+
+    @BindView(R.id.header_title_view)
+    RelativeLayout mTitleView;
+
+    @BindView(R.id.tv_header_title)
+    TextView mHeaderTitle;
+
     private RecyclerView mRecycler;
     private ArrayList<BrowsingBean> mDataList;
     @Override
@@ -31,7 +43,9 @@ public class BrowsingActivity extends BaseActivity {
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-        topView.setTitle("浏览痕迹");
+        getBarDistance(mTitleView);
+        mHeaderTitle.setText("浏览痕迹");
+
         mDataList=new ArrayList<>();
         for (int i=0;i<10;i++){
             BrowsingBean databean=new BrowsingBean();
@@ -66,5 +80,10 @@ public class BrowsingActivity extends BaseActivity {
     @Override
     protected BasePresenter createPresenter() {
         return null;
+    }
+
+    @OnClick(R.id.iv_header_back)
+    public void clickView() {
+        finish();
     }
 }

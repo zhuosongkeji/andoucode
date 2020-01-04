@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 
 import com.zskjprojectj.andouclient.R;
@@ -30,6 +32,8 @@ import com.zskjprojectj.andouclient.base.BaseFragment;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
 import com.zskjprojectj.andouclient.view.TopView;
 
+import butterknife.BindView;
+
 /**
  * <pre>
  *     e-mail : 3307501630@qq.com
@@ -41,7 +45,13 @@ import com.zskjprojectj.andouclient.view.TopView;
  * @author yizhubao
  */
 public class MePageFragment extends BaseFragment {
-    private TopView topView;
+
+    @BindView(R.id.tv_header_title)
+    TextView mHeaderTitle;
+
+    @BindView(R.id.header_title_view)
+    RelativeLayout mTitleView;
+
     //菜市场
     private LinearLayout mycenter_vegetablemarket_layout;
     //美食订单
@@ -98,7 +108,6 @@ public class MePageFragment extends BaseFragment {
         mycenter_operationvideo_layout=view.findViewById(R.id.mycenter_operationvideo_layout);
         mycenter_restaurant_layout=view.findViewById(R.id.mycenter_restaurant_layout);
         img_meset=view.findViewById(R.id.img_meset);
-        topView=view.findViewById(R.id.alltopview);
     }
 
     @Override
@@ -113,7 +122,9 @@ public class MePageFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-        topView.setTitle("会员中心");
+
+        getBarDistance(mTitleView);
+        mHeaderTitle.setText("会员中心");
         /**
          * 菜市场
          */

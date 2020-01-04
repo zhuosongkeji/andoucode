@@ -26,6 +26,8 @@ import com.zskjprojectj.andouclient.utils.UrlUtil;
 
 import java.io.IOException;
 
+import butterknife.OnClick;
+
 import static com.zskjprojectj.andouclient.activity.MyaddressActivity.KEY_DATA;
 
 public class ShoporderdetailsActivity extends BaseActivity {
@@ -73,6 +75,7 @@ public class ShoporderdetailsActivity extends BaseActivity {
             findViewById(R.id.btn_gotopaymentdetail).setVisibility(View.VISIBLE);
             findViewById(R.id.btn_gotopaymentdetail).setOnClickListener(v ->
                     MallOnlineOrderActivity.start(order.order_sn));
+            findViewById(R.id.btn_refund).setVisibility(View.GONE);
         } else if (OrderStatus.DAI_FA_HUO.status.equals(order.status)) {
             findViewById(R.id.daifahuoContainer).setVisibility(View.VISIBLE);
         } else if (OrderStatus.DAI_SHOU_HUO.status.equals(order.status)) {
@@ -103,6 +106,29 @@ public class ShoporderdetailsActivity extends BaseActivity {
         ((TextView) findViewById(R.id.totalCountTxt)).setText("共" + order.allnum + "个商品(合计)");
         ((TextView) findViewById(R.id.freightTxt)).setText("+￥" + order.shipping_free);
         ((TextView) findViewById(R.id.costTxt)).setText("￥" + order.pay_money);
+
+
+        //退货退款
+        if (OrderStatus.DAI_FA_HUO.status.equals(order.status)){
+            findViewById(R.id.btn_refund).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ShopordersendetailsrefundActivity.start("sales_return");
+                }
+            });
+
+        }else {
+
+            findViewById(R.id.btn_refund).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ShopordersendetailsrefundActivity.start("refund");
+                }
+            });
+
+        }
+
+
     }
 
     private String getSpec(String[] attr_value) {
@@ -123,4 +149,6 @@ public class ShoporderdetailsActivity extends BaseActivity {
         bundle.putSerializable(KEY_DATA, order);
         ActivityUtils.startActivity(bundle, ShoporderdetailsActivity.class);
     }
+
+
 }

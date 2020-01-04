@@ -1,33 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@color/white"
-    android:orientation="vertical"
-    android:layout_height="match_parent">
-    <include layout="@layout/view_top_bar"/>
-    <RelativeLayout
-        android:background="@color/colorNavy"
+    android:orientation="vertical">
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_100">
+        android:layout_height="wrap_content"
+        android:background="@color/colorNavy">
+
+        <include layout="@layout/base_title_view" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_100"
+        android:background="@color/colorNavy">
+
         <TextView
             android:id="@+id/tv_jfnum"
-            android:layout_centerInParent="true"
-            android:textSize="@dimen/dp_20"
-            android:textColor="@color/white"
-            android:text="365"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="365"
+            android:textColor="@color/white"
+            android:textSize="@dimen/dp_20" />
+
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_below="@id/tv_jfnum"
             android:layout_centerInParent="true"
-            android:textSize="@dimen/dp_20"
-            android:textColor="@color/white"
             android:text="当前积分"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:textColor="@color/white"
+            android:textSize="@dimen/dp_20" />
     </RelativeLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_recycler"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 </LinearLayout>

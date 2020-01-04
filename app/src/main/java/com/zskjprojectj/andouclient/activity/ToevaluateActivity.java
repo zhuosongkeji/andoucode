@@ -1,5 +1,6 @@
 package com.zskjprojectj.andouclient.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -122,7 +123,7 @@ public class ToevaluateActivity extends BaseActivity {
         )).subscribe(new BaseObserver<Object>(mAt) {
             @Override
             public void onHandleSuccess(Object o) throws IOException {
-                ToastUtil.showToast("发表评论成功");
+                startActivity(new Intent(mAt,CommentSuccessActivity.class));
             }
         });
 

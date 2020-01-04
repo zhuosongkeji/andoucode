@@ -316,7 +316,7 @@
                 android:layout_marginTop="@dimen/dp_11"
                 android:background="@color/white"
                 android:orientation="vertical"
-                android:paddingTop="26dp">
+                android:paddingTop="15dp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -343,17 +343,33 @@
                         android:textColor="#FF9537"
                         android:textSize="@dimen/typeface9sp" />
 
-                    <TextView
+
+                    <LinearLayout
                         android:id="@+id/tv_recommend_see_more"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
-                        android:drawableRight="@mipmap/ic_jiantouright_orange"
-                        android:drawablePadding="@dimen/dp_5"
-                        android:text="查看更多"
-                        android:textColor="#FF9537"
-                        android:textSize="@dimen/typeface10sp" />
+                        android:layout_marginRight="@dimen/dp_15"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="@dimen/dp_8"
+                            android:gravity="center"
+                            android:text="@string/see_more"
+                            android:textColor="@color/colorOrange"
+                            android:textSize="@dimen/typeface14sp" />
+
+                        <ImageView
+                            android:id="@+id/iv_more"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:layout_gravity="center"
+                            android:src="@mipmap/ic_jiantouright_orange" />
+                    </LinearLayout>
 
                 </RelativeLayout>
             </LinearLayout>
@@ -372,7 +388,7 @@
                 android:layout_marginTop="@dimen/dp_11"
                 android:background="@color/white"
                 android:orientation="vertical"
-                android:paddingTop="26dp">
+                android:paddingTop="@dimen/dp_15">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -399,17 +415,33 @@
                         android:textColor="#FF9537"
                         android:textSize="@dimen/typeface9sp" />
 
-                    <TextView
+
+                    <LinearLayout
                         android:id="@+id/tv_special_see_more"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
-                        android:drawableRight="@mipmap/ic_jiantouright_orange"
-                        android:drawablePadding="@dimen/dp_5"
-                        android:text="查看更多"
-                        android:textColor="#FF9537"
-                        android:textSize="@dimen/typeface10sp" />
+                        android:layout_marginRight="@dimen/dp_15"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="@dimen/dp_8"
+                            android:gravity="center"
+                            android:text="@string/see_more"
+                            android:textColor="@color/colorOrange"
+                            android:textSize="@dimen/typeface14sp" />
+
+                        <ImageView
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:layout_gravity="center"
+                            android:src="@mipmap/ic_jiantouright_orange" />
+                    </LinearLayout>
+
 
                 </RelativeLayout>
             </LinearLayout>

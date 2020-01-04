@@ -1,106 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:orientation="vertical"
-    android:scrollbars="none">
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:background="@color/colorNavy">
 
         <LinearLayout
+            android:id="@+id/root_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@mipmap/zhuye_beijin_top"
-            android:orientation="vertical">
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:orientation="horizontal">
 
             <LinearLayout
-                android:id="@+id/root_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_10"
+                android:id="@+id/ly_citychoose"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="horizontal">
 
-                <LinearLayout
-                    android:id="@+id/ly_citychoose"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="@dimen/dp_15"
-                        android:src="@mipmap/back_icon"
-                        android:visibility="gone" />
-
-                    <TextView
-                        android:id="@+id/tv_cityinfo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="@dimen/dp_10"
-                        android:text="重庆市"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/typeface14sp" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="@dimen/dp_6"
-                        android:src="@mipmap/icon_city" />
-                </LinearLayout>
-
-                <RelativeLayout
-                    android:layout_width="240dp"
-                    android:layout_height="35dp"
-                    android:layout_marginLeft="@dimen/dp_10"
-                    android:background="@drawable/shape_layout">
-
-                    <EditText
-                        android:id="@+id/search_edittext"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="15dp"
-                        android:background="@null"
-                        android:hint="@string/chihewanle"
-                        android:textColor="#919191"
-                        android:textColorHint="#919191"
-                        android:textSize="@dimen/typeface14sp" />
-
-
-                    <ImageView
-                        android:id="@+id/search_image"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="@dimen/dp_8"
-                        android:src="@mipmap/search" />
-                </RelativeLayout>
-
                 <ImageView
-                    android:id="@+id/sha"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/dp_15"
+                    android:src="@mipmap/back_icon"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/tv_cityinfo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="@dimen/dp_10"
-                    android:src="@mipmap/ic_saoyisao" />
+                    android:text="重庆市"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/typeface14sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/dp_6"
+                    android:src="@mipmap/icon_city" />
             </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="240dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:background="@drawable/shape_layout">
+
+                <EditText
+                    android:id="@+id/search_edittext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="15dp"
+                    android:background="@null"
+                    android:hint="@string/chihewanle"
+                    android:textColor="#919191"
+                    android:textColorHint="#919191"
+                    android:textSize="@dimen/typeface14sp" />
+
+
+                <ImageView
+                    android:id="@+id/search_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/dp_8"
+                    android:src="@mipmap/search" />
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/sha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:src="@mipmap/ic_saoyisao" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <com.stx.xhb.xbanner.XBanner
                 android:id="@+id/bannertop"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:background="@color/colorNavy"
                 app:AutoPlayTime="3000"
                 app:isAutoPlay="true"
+                android:background="@mipmap/zhuye_beijin_top"
                 app:isShowIndicatorOnlyOne="true"
                 app:pageChangeDuration="800"
                 app:pointNormal="@drawable/shape_noraml"
@@ -108,123 +114,119 @@
                 app:pointsPosition="CENTER"
                 app:tipTextSize="12sp" />
 
-        </LinearLayout>
 
-        <recycler.coverflow.RecyclerCoverFlow
-            android:id="@+id/coverflow"
-            android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:layout_marginTop="20dp" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="10dp"
-            android:background="@color/colorGray" />
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_45"
-            android:layout_gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="56dp"
-                android:layout_height="13dp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="16dp"
-                android:src="@mipmap/ic_notice" />
-
-
-            <ViewFlipper
-                android:id="@+id/view_flipper"
+            <recycler.coverflow.RecyclerCoverFlow
+                android:id="@+id/coverflow"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/dp_10"
-                android:inAnimation="@anim/anim_in"
-                android:outAnimation="@anim/anim_out" />
+                android:layout_height="180dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="@dimen/dp_30"
+                />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/colorGray" />
 
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="10dp"
-            android:background="@color/colorGray" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:layout_width="56dp"
-                android:layout_height="14dp"
-                android:layout_marginLeft="@dimen/dp_16"
-                android:layout_marginTop="@dimen/dp_20"
-                android:layout_marginBottom="@dimen/dp_20"
-                android:src="@mipmap/ic_check_in_busiess" />
 
             <LinearLayout
-                android:id="@+id/ll_see_more"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/dp_15"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_45"
+                android:layout_gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_centerVertical="true"
-                    android:gravity="center"
-                    android:text="@string/see_more"
-                    android:textColor="@color/colorOrange"
-                    android:textSize="@dimen/typeface10sp" />
-
                 <ImageView
-                    android:id="@+id/iv_more"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
+                    android:layout_width="56dp"
+                    android:layout_height="13dp"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="@dimen/dp_3"
-                    android:layout_marginRight="@dimen/dp_15"
-                    android:src="@mipmap/ic_jiantouright_orange" />
+                    android:layout_marginLeft="16dp"
+                    android:src="@mipmap/ic_notice" />
+
+
+                <ViewFlipper
+                    android:id="@+id/view_flipper"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:inAnimation="@anim/anim_in"
+                    android:outAnimation="@anim/anim_out" />
+
 
             </LinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/colorGray" />
 
-        </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_merchants"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_15"
-            android:layout_marginBottom="@dimen/dp_20" />
+                <ImageView
+                    android:layout_width="56dp"
+                    android:layout_height="14dp"
+                    android:layout_marginLeft="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:layout_marginBottom="@dimen/dp_20"
+                    android:src="@mipmap/ic_check_in_busiess" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="10dp"
-            android:background="@color/colorGray" />
+                <LinearLayout
+                    android:id="@+id/ll_see_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/dp_15"
+                    android:orientation="horizontal">
 
-        <include layout="@layout/main_online_broadcast"></include>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/dp_8"
+                        android:gravity="center"
+                        android:text="@string/see_more"
+                        android:textColor="@color/colorOrange"
+                        android:textSize="@dimen/typeface14sp" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="13dp"
-            android:background="@color/white" />
+                    <ImageView
+                        android:id="@+id/iv_more"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_gravity="center"
+                        android:src="@mipmap/ic_jiantouright_orange" />
+                </LinearLayout>
 
-        <include
-            layout="@layout/main_make_an_appointment"
-            android:visibility="gone"></include>
+            </RelativeLayout>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="13dp"
-            android:background="@color/white" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_merchants"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/dp_15"
+                android:paddingBottom="@dimen/dp_20" />
 
-        <include layout="@layout/main_onlinebooking"></include>
-    </LinearLayout>
-</ScrollView>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/colorGray" />
+
+            <include layout="@layout/main_online_broadcast" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="#F7F7F7" />
+
+            <include
+                layout="@layout/main_make_an_appointment"
+                android:visibility="gone" />
+
+            <include layout="@layout/main_onlinebooking" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
+

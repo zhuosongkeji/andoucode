@@ -102,9 +102,9 @@ public class MeShopFragment extends BaseFragment {
                 intent.putExtras(bundle);
                 startActivity(intent);
                 //发表评论
-            }else if (view1.getId()==R.id.btn_comment){
+            } else if (view1.getId() == R.id.btn_comment) {
 
-                ToevaluateActivity.start(""+adapter.getItem(position).goods_id,adapter.getItem(position).order_id,""+adapter.getItem(position).merchant_id,adapter.getItem(position).img);
+                ToevaluateActivity.start("" + adapter.getItem(position).goods_id, adapter.getItem(position).order_id, "" + adapter.getItem(position).merchant_id, adapter.getItem(position).img);
 
             }
         });

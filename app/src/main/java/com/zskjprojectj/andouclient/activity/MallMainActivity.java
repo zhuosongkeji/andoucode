@@ -49,6 +49,11 @@ public class MallMainActivity extends BaseActivity {
             navigationBar.selectTab(2);
 
         }
+
+        String tag = getIntent().getStringExtra("tag");
+        if ("backHome".equals(tag)){
+            navigationBar.selectTab(0);
+        }
     }
 
     @Override

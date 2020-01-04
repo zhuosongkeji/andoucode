@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -28,10 +29,21 @@ import com.zskjprojectj.andouclient.fragment.MeShoptoevaluateFragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.OnClick;
+
 /**
  * 商城订单
  */
 public class ShoporderActivity extends BaseActivity {
+
+    @BindView(R.id.header_title_view)
+    RelativeLayout mHeaderView;
+
+    @BindView(R.id.tv_header_title)
+    TextView mHeaderTitle;
+
+
     private FixedIndicatorView indicator;
     //碎片集合
     private List<Fragment> list;
@@ -45,7 +57,9 @@ public class ShoporderActivity extends BaseActivity {
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-        topView.setTitle("商城订单");
+
+        getBarDistance(mHeaderView);
+        mHeaderTitle.setText("商城订单");
 
         String flag = getIntent().getStringExtra("flag");
         if ("MallPaySuccess".equals(flag)){
@@ -116,4 +130,9 @@ public class ShoporderActivity extends BaseActivity {
             return fragment;
         }
     };
+
+    @OnClick(R.id.iv_header_back)
+    public void clickView(){
+        finish();
+    }
 }
