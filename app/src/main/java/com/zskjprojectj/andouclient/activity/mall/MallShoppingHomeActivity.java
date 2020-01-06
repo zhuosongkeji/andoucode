@@ -146,7 +146,7 @@ public class MallShoppingHomeActivity extends BaseActivity {
                         .into(mIvShoppingHeadpic);
 
                 Glide.with(MallShoppingHomeActivity.this).load(BaseUrl.BASE_URL + mallShoppingHomeBean.getBanner_img()).into(mIvShoppingBackground);
-
+                Log.d(TAG, "onHandleSuccess: "+mallShoppingHomeBean.getBanner_img());
                 initMallShoppingHomeAdapter(mallShoppingHomeBean.getGoods());
 
                 typeBeanList = mallShoppingHomeBean.getType();
@@ -195,8 +195,9 @@ public class MallShoppingHomeActivity extends BaseActivity {
         //设置背景色
         WindowManager.LayoutParams lp = getWindow().getAttributes();
         lp.alpha = 0.8f;
-//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         getWindow().setAttributes(lp);
+
 
         //popupWindow获取焦点
         mPopWindow.setFocusable(true);

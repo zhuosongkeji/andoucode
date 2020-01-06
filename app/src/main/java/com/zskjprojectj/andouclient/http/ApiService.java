@@ -1,10 +1,16 @@
 package com.zskjprojectj.andouclient.http;
 
 
+import com.zskjprojectj.andouclient.entity.BrowsingBean;
+import com.zskjprojectj.andouclient.entity.CheckLogisticsBean;
+import com.zskjprojectj.andouclient.entity.IndexHomeBean;
+import com.zskjprojectj.andouclient.entity.PersonalBean;
 import com.zskjprojectj.andouclient.entity.TestBean;
 import com.zskjprojectj.andouclient.entity.WXPayBean;
+import com.zskjprojectj.andouclient.entity.hotel.HotelCategoryBean;
 import com.zskjprojectj.andouclient.entity.mall.MallBuyBean;
 import com.zskjprojectj.andouclient.entity.mall.MallBuyNowBean;
+import com.zskjprojectj.andouclient.entity.mall.MallCarBean;
 import com.zskjprojectj.andouclient.entity.mall.MallCommentBean;
 import com.zskjprojectj.andouclient.entity.mall.MallDetailsBean;
 import com.zskjprojectj.andouclient.entity.mall.MallGoodsCateBean;
@@ -72,6 +78,7 @@ public interface ApiService {
                                                                   @Field("volume_sort") String volume_sort);
 
 
+
     /**
      * 商城商品收藏/取消收藏
      */
@@ -99,6 +106,17 @@ public interface ApiService {
     @POST("api/goods/specslist")
     @FormUrlEncoded
     Observable<BaseResult<MallBuyBean>> buySpecification(@Field("id") String id);
+
+
+    /**
+     * 购物车购买
+     */
+    @POST("api/order/add_order_car")
+    @FormUrlEncoded
+    Observable<BaseResult<MallCarBean>> OrderBuyCar(@Field("uid") String uid,
+                                                    @Field("token") String token,
+                                                    @Field("id") String id);
+
 
     /**
      * 商城商户详情
@@ -131,6 +149,19 @@ public interface ApiService {
     Observable<BaseResult<MallSettlementBean>> MallSettlement(@Field("uid") String uid,
                                                               @Field("token") String token,
                                                               @Field("order_sn") String order_sn);
+
+
+    /**
+     * 快递查询
+     */
+    @POST("api/order/express")
+    @FormUrlEncoded
+    Observable<BaseResult<CheckLogisticsBean>> CheckLogistics(@Field("uid") String uid,
+                                                              @Field("token") String token,
+                                                              @Field("express_id") String express_id,
+                                                              @Field("courier_num") String courier_num);
+
+
 
     /**
      * 获取支付方式
@@ -349,6 +380,46 @@ public interface ApiService {
                                                     @Field("token") String token,
                                                     @Field("order_sn") String order_sn);
 
+
+
+    /**
+     * 确认收货
+     */
+    @POST("api/order/confirm")
+    @FormUrlEncoded
+    Observable<BaseResult<Object>> confirm (@Field("uid") String uid,
+                                                    @Field("token") String token,
+                                                    @Field("id") String id);
+
+
+    /**
+     * 添加商品评论
+     */
+    @POST("api/order/addcomment")
+    @FormUrlEncoded
+    Observable<BaseResult<Object>> addcomment (@Field("uid") String uid,
+                                            @Field("token") String token,
+                                            @Field("goods_id") String goods_id,
+                                            @Field("order_id") String order_id,
+                                            @Field("merchants_id") String merchants_id,
+                                            @Field("content") String content,
+                                            @Field("stars") String stars);
+
+    /**
+     * 首页
+     */
+    @POST("api/index/index")
+    Observable<BaseResult<IndexHomeBean>> index();
+
+
+
+
+    /**
+     * 酒店分类
+     */
+    @POST("api/hotel/cate")
+    Observable<BaseResult<List<HotelCategoryBean>>> hotelCategory();
+
     /**
      * 绑定手机号
      */
@@ -360,6 +431,20 @@ public interface ApiService {
                                            @Field("name") String name,
                                            @Field("openid") String openid,
                                            @Field("avator") String avator);
+    /**
+     * 个人中心
+     */
+    @POST("api/wallet/personal")
+    @FormUrlEncoded
+    Observable<BaseResult<PersonalBean>> getpersonal(@Field("uid") String uid,
+                                                     @Field("token") String token);
+    /**
+     * 浏览痕迹
+     */
+    @POST("api/users/merchant_record")
+    @FormUrlEncoded
+    Observable<BaseResult<List<BrowsingBean>>> merchantrecord(@Field("uid") String uid,
+                                                               @Field("token") String token);
 
 //    /**
 //     * 注册

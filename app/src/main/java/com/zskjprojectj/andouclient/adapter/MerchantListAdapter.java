@@ -9,6 +9,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.zskjprojectj.andouclient.R;
+import com.zskjprojectj.andouclient.base.BaseUrl;
 import com.zskjprojectj.andouclient.entity.MerchantListBean;
 import com.zskjprojectj.andouclient.model.Merchant;
 
@@ -32,7 +33,7 @@ public class MerchantListAdapter extends BaseQuickAdapter<Merchant, BaseViewHold
     @Override
     protected void convert(BaseViewHolder helper, Merchant item) {
         Glide.with(helper.itemView)
-                .load(item.logo_img)
+                .load(BaseUrl.BASE_URL+item.logo_img)
                 .apply(new RequestOptions().placeholder(R.drawable.default_image))
                 .into((ImageView) helper.itemView.findViewById(R.id.busiess_tupian1_image));
         helper.setText(R.id.busiess_name1_textview, item.name)

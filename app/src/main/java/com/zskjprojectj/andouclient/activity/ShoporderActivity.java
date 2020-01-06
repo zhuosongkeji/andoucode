@@ -91,7 +91,7 @@ public class ShoporderActivity extends BaseActivity {
      */
     public IndicatorViewPager.IndicatorFragmentPagerAdapter adapter=new IndicatorViewPager.IndicatorFragmentPagerAdapter(getSupportFragmentManager())
     {
-        private String[] tabNames = {"全部订单", "待付款","待发货","待收货","待评价","'退货/款"};
+        private String[] tabNames = {"全部订单", "待付款","待发货","待收货","待评价"};
         @Override
         public int getCount() {
             return list.size();

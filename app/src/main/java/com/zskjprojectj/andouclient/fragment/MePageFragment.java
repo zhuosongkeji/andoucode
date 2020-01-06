@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 
+import com.bumptech.glide.Glide;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.BrowsingActivity;
 import com.zskjprojectj.andouclient.activity.BusinessresidenceActivity;
@@ -27,8 +29,17 @@ import com.zskjprojectj.andouclient.activity.RestaurantOrderActivity;
 import com.zskjprojectj.andouclient.activity.ShoporderActivity;
 import com.zskjprojectj.andouclient.activity.VegetableMarketActivity;
 import com.zskjprojectj.andouclient.base.BaseFragment;
+import com.zskjprojectj.andouclient.base.BaseUrl;
+import com.zskjprojectj.andouclient.entity.PersonalBean;
+import com.zskjprojectj.andouclient.http.ApiUtils;
+import com.zskjprojectj.andouclient.http.BaseObserver;
+import com.zskjprojectj.andouclient.http.HttpRxObservable;
+import com.zskjprojectj.andouclient.utils.GlideTool;
+import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
 import com.zskjprojectj.andouclient.view.TopView;
+
+import java.io.IOException;
 
 /**
  * <pre>
@@ -78,6 +89,9 @@ public class MePageFragment extends BaseFragment {
     private LinearLayout mycenter_restaurant_layout;
     //设置界面
     private ImageView img_meset;
+    //个人信息
+    private  ImageView img_touxiang;
+    private TextView tv_nickname,tv_isvip;
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
         mycenter_vegetablemarket_layout=view.findViewById(R.id.mycenter_vegetablemarket_layout);
@@ -98,6 +112,9 @@ public class MePageFragment extends BaseFragment {
         mycenter_operationvideo_layout=view.findViewById(R.id.mycenter_operationvideo_layout);
         mycenter_restaurant_layout=view.findViewById(R.id.mycenter_restaurant_layout);
         img_meset=view.findViewById(R.id.img_meset);
+        img_touxiang=view.findViewById(R.id.img_touxiang);
+        tv_nickname=view.findViewById(R.id.tv_nickname);
+        tv_isvip=view.findViewById(R.id.tv_isvip);
         topView=view.findViewById(R.id.alltopview);
     }
 
@@ -108,7 +125,14 @@ public class MePageFragment extends BaseFragment {
 
     @Override
     protected void getDataFromServer() {
-
+        HttpRxObservable.getObservable(ApiUtils.getApiService().getpersonal(LoginInfoUtil.getUid(),LoginInfoUtil.getToken())).subscribe(new BaseObserver<PersonalBean>(mAty) {
+            @Override
+            public void onHandleSuccess(PersonalBean personalBean) throws IOException {
+                tv_isvip.setText(personalBean.getGrade());
+                tv_nickname.setText(personalBean.getName());
+                Glide.with(mAty).load(BaseUrl.BASE_URL+personalBean.getAvator()).into(img_touxiang);
+            }
+        });
     }
 
     @Override

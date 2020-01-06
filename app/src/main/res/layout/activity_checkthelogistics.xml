@@ -1,48 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:background="@color/white"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <include layout="@layout/view_top_bar"/>
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/view_top_bar" />
+
     <com.amap.api.maps2d.MapView
         android:id="@+id/map"
         android:layout_width="match_parent"
-        android:layout_height="300dp"/>
+        android:layout_height="300dp"
+        android:visibility="gone"
+        />
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="90dp">
+        android:layout_height="90dp"
+        android:orientation="horizontal">
+
         <ImageView
-            android:layout_marginBottom="@dimen/dp_26"
-            android:layout_marginTop="22dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_13"
-            android:src="@mipmap/icon_wuliu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_marginTop="22dp"
+            android:layout_marginBottom="@dimen/dp_26"
+            android:src="@mipmap/icon_wuliu" />
+
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
             <TextView
+                android:id="@+id/tv_express_company"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/dp_20"
                 android:layout_marginTop="24dp"
-                android:layout_marginLeft="@dimen/dp_20"
-                android:layout_centerVertical="true"
                 android:text="承运公司:中通快递"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:textColor="#323232"
+                android:textSize="@dimen/typeface12sp" />
+
             <TextView
-                android:layout_marginTop="@dimen/dp_10"
-                android:layout_marginLeft="@dimen/dp_20"
-                android:layout_centerVertical="true"
-                android:text="快递单号:75123465465121"
+                android:id="@+id/tv_express_number"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_10"
+                android:text="快递单号:75123465465121"
+                android:textColor="#323232"
+                android:textSize="@dimen/typeface12sp" />
         </LinearLayout>
     </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_recycler"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 </LinearLayout>

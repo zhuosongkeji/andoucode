@@ -38,7 +38,6 @@ public abstract class BaseHandleObserver<T> implements Observer<T> {
      * @param apiExc
      */
     public void onHandleError(ApiException apiExc) {
-        if (!apiExc.getErrorCode().equals(ApiException.TYPE_SYSTEM))
             ToastUtil.showToast(apiExc.getMessage());
 
         switch (apiExc.getErrorCode()) {

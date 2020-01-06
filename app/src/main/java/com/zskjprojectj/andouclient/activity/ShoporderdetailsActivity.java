@@ -81,8 +81,7 @@ public class ShoporderdetailsActivity extends BaseActivity {
             findViewById(R.id.daishouhuoContainer).setVisibility(View.VISIBLE);
         }
         ((TextView) findViewById(R.id.orderNumTxt)).setText("订单编号：" + order.order_sn);
-        ((TextView) findViewById(R.id.orderNumTxt)).setText("支付时间：" + order.pay_time);
-        ((TextView) findViewById(R.id.orderNumTxt)).setText("支付时间：" + order.pay_time);
+        ((TextView) findViewById(R.id.dateTxt)).setText("支付时间：" + order.pay_time);
         ((TextView) findViewById(R.id.receiverName)).setText("收件人：" + order.userinfo.name);
         ((TextView) findViewById(R.id.addressTxt)).setText("收货地址：" +
                 order.userinfo.province +

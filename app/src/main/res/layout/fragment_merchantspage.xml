@@ -49,6 +49,7 @@
                 android:id="@+id/tv_capacity_sort"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="#323232"
                 android:text="地区筛选" />
 
             <ImageView
@@ -69,6 +70,7 @@
                 android:id="@+id/tv_screen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="#323232"
                 android:text="排序方式" />
 
             <ImageView

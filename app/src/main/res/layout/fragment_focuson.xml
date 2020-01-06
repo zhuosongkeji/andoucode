@@ -43,6 +43,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/dp_6"
                 android:layout_toRightOf="@id/cb_selectorcb"
+                android:textColor="#5ED3AE"
                 android:text="全选" />
 
             <TextView

@@ -267,24 +267,39 @@
 
         <ImageView
             android:id="@+id/img_touxiang"
+            android:layout_centerVertical="true"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:paddingLeft="@dimen/dp_10"
             android:src="@mipmap/ic_touxiang" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/dp_20"
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_centerVertical="true"
             android:layout_toRightOf="@id/img_touxiang"
-            android:gravity="center_vertical"
-            android:text="@string/chongzhijine"
-            android:textColor="@color/white" />
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_nickname"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/chongzhijine"
+                android:textColor="@color/white" />
+            <TextView
+                android:id="@+id/tv_isvip"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/chongzhijine"
+                android:textColor="@color/white" />
+        </LinearLayout>
+
 
         <ImageView
             android:id="@+id/img_meset"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/dp_20"
             android:src="@mipmap/distributor_center_settings" />

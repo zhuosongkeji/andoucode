@@ -401,6 +401,7 @@ public class MallGoodsDetailsActivity extends BaseActivity {
                 dialog.setOnCenterItemClickListener(new CustomViewDialog.OnCenterItemClickListener() {
                     @Override
                     public void OnCenterItemClick(CustomViewDialog dialog, View view) {
+
                         switch (view.getId()) {
                             case R.id.cancle:
                                 dialog.dismiss();
@@ -582,12 +583,7 @@ public class MallGoodsDetailsActivity extends BaseActivity {
                     @Override
                     public void onHandleSuccess(MallBuyNowBean mallBuyNowBean) throws IOException {
                         order_sn = mallBuyNowBean.getOrder_sn();
-
-                        Log.d(TAG, "order_sn: "+LoginInfoUtil.getUid()+" "+LoginInfoUtil.getToken()+" "+order_sn+" "+num);
-                        Log.d(TAG, "order_sn: "+LoginInfoUtil.getUid()+" "+LoginInfoUtil.getToken()+" "+order_sn);
-                        Intent onlineIntent = new Intent(MallGoodsDetailsActivity.this, MallOnlineOrderActivity.class);
-                        onlineIntent.putExtra("order_sn", order_sn);
-                        startActivity(onlineIntent);
+                        MallOnlineOrderActivity.start(order_sn);
                         bottomDialog.dismiss();
 
                     }
