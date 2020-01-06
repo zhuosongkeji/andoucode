@@ -269,6 +269,12 @@
             android:name="com.amap.api.v2.apikey"
             android:value="9efdb99b9d490c4eda5af7f40cffeccf" /> <!-- 高德地图定位 -->
         <service android:name="com.amap.api.location.APSService" />
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:exported="true"
+            android:theme="@android:style/Theme.Translucent"/><!--微信登录  -->
+        <activity android:name=".activity.WeixinbingphoneActivity"
+            android:screenOrientation="portrait" /><!--绑定手机-->
     </application>
 
 </manifest>

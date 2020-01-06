@@ -30,39 +30,21 @@
         android:layout_toRightOf="@+id/busiess_tupian1_image"
         android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/busiess_plant1_image1"
-            android:layout_width="17dp"
-            android:layout_height="17dp"
-            android:src="@mipmap/ic_plant" />
-
-        <ImageView
-            android:id="@+id/busiess_plant1_image2"
-            android:layout_width="17dp"
-            android:layout_height="17dp"
-            android:layout_marginLeft="@dimen/dp_3"
-            android:src="@mipmap/ic_plant" />
-
-        <ImageView
-            android:id="@+id/busiess_plant1_image3"
-            android:layout_width="17dp"
-            android:layout_height="17dp"
-            android:layout_marginLeft="@dimen/dp_3"
-            android:src="@mipmap/ic_plant" />
-
-        <ImageView
-            android:id="@+id/busiess_plant1_image4"
-            android:layout_width="17dp"
-            android:layout_height="17dp"
-            android:layout_marginLeft="@dimen/dp_3"
-            android:src="@mipmap/ic_plant" />
-
-        <ImageView
-            android:id="@+id/busiess_plant1_image5"
-            android:layout_width="17dp"
-            android:layout_height="17dp"
-            android:layout_marginLeft="@dimen/dp_3"
-            android:src="@mipmap/ic_plant" />
+        <com.willy.ratingbar.ScaleRatingBar xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/simpleRatingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_20"
+            app:srb_clearRatingEnabled="true"
+            app:srb_clickable="true"
+            app:srb_drawableEmpty="@mipmap/ic_plant_gray"
+            app:srb_drawableFilled="@mipmap/ic_plant"
+            app:srb_isIndicator="false"
+            app:srb_numStars="5"
+            app:srb_scrollable="true"
+            app:srb_starHeight="17dp"
+            app:srb_starWidth="19dp"
+            app:srb_stepSize="0.5" />
     </LinearLayout>
 
     <ImageView
@@ -106,7 +88,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_3"
             android:maxLines="1"
-            android:text="重庆市南岸区南坪万达广场" />
+            android:text="重庆市南岸区南坪万达广场"
+            android:textColor="#969696" />
     </LinearLayout>
 
     <LinearLayout
@@ -123,6 +106,7 @@
             android:src="@mipmap/ic_phone_gary" />
 
         <TextView
+            android:id="@+id/tv_browsingnum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_5"
@@ -132,5 +116,6 @@
             android:textSize="14sp" />
 
     </LinearLayout>
+
 
 </RelativeLayout>

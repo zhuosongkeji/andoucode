@@ -88,4 +88,9 @@
     <string name="hotel_pay_hint9">●不要在屋内大声喧哗。</string>
     <string name="hotel_pay_hint10">●严禁从事黄、赌、毒等违法犯罪活动，一经发现移交公安处理。</string>
     <string name="hotel_pay_hint11">●用电、用燃气注意安全第一。入住期间安全自负</string>
+    <string name="errcode_success">发送成功</string>
+    <string name="errcode_cancel">发送取消</string>
+    <string name="errcode_deny">发送被拒绝</string>
+    <string name="errcode_unsupported">不支持错误</string>
+    <string name="errcode_unknown">发送返回</string>
 </resources>

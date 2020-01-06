@@ -3,12 +3,16 @@ package com.zskjprojectj.andouclient.activity;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,6 +23,9 @@ import android.widget.Toast;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
+import com.tencent.mm.opensdk.modelmsg.SendAuth;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
@@ -26,12 +33,17 @@ import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.model.User;
+import com.zskjprojectj.andouclient.utils.Constants;
 import com.zskjprojectj.andouclient.utils.LogUtil;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 import com.zskjprojectj.andouclient.utils.PhonenumUtil;
 import com.zskjprojectj.andouclient.utils.SharedPreferencesManager;
 
+import org.json.JSONObject;
+
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import io.reactivex.functions.Consumer;
 
@@ -53,9 +65,11 @@ public class LoginActivity extends BaseActivity {
     public static final String KEY_FOR_RESULT = "KEY_FOR_RESULT";
     private TextView btnNewregistered;
     private Button btn_login;
-    private ImageView fingerprint_login;
+    private ImageView fingerprint_login,img_weixinlogin;
     private EditText registered_phonenum, et_loginpwd;
-
+    private IWXAPI api;
+    Receiver receiver;
+    IntentFilter intentFilter;
     @Override
     protected void setRootView() {
         setContentView(R.layout.activity_login);
@@ -68,10 +82,15 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
+        receiver = new Receiver();
+        intentFilter = new IntentFilter();
+        intentFilter.addAction("wxdl");
+        registerReceiver(receiver, intentFilter);
         btnNewregistered = findViewById(R.id.btn_newregistered);
         btn_login = findViewById(R.id.btn_login);
         findViewById(R.id.login_back_image).setOnClickListener(v -> finish());
         fingerprint_login = findViewById(R.id.iv_fingerprint_login);
+        img_weixinlogin=findViewById(R.id.img_weixinlogin);
         registered_phonenum = findViewById(R.id.et_loginphonenum);
         et_loginpwd = findViewById(R.id.et_loginpwd);
         //这个跳转最好是在网络请求成功过后去调用，现在没得接口请求暂时写在这里
@@ -114,16 +133,78 @@ public class LoginActivity extends BaseActivity {
             jumpActivity(ForgetActivity.class);
         });
         /**
-         * 指纹登录
+         * 微信登录
          */
-        fingerprint_login.setOnClickListener(new View.OnClickListener() {
+        img_weixinlogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (api == null) {
+                    api = WXAPIFactory.createWXAPI(LoginActivity.this, Constants.APP_ID, true);
 
+                }
+                if (!api.isWXAppInstalled()) {
+
+                    showToast("您手机尚未安装微信，请安装后再登录");
+
+                    return;
+
+                }
+                api.registerApp(Constants.APP_ID);
+                SendAuth.Req req = new SendAuth.Req();
+                req.scope = "snsapi_userinfo";
+                req.state = "wechat_sdk_jj_login_state";
+                api.sendReq(req);
             }
         });
     }
+    //        /**
+//         * 指纹登录
+//         */
+//        fingerprint_login.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//            }
+//        });
+    public class Receiver extends BroadcastReceiver {
 
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String code = intent.getStringExtra("code");
+            Log.d("ASd_sdx", code);
+            // getAccessToken(code);
+            Map<String, Object> map = new HashMap<>();
+            map.put("code", code);
+            HttpRxObservable.getObservable(ApiUtils.getApiService().loginweixin(code))
+                    .subscribe(new BaseObserver<User>(mAt) {
+                        @Override
+                        public void onHandleSuccess(User user) throws IOException {
+                            LoginInfoUtil.saveLoginInfo(user.id, user.token);
+                            if (!TextUtils.isEmpty(user.token))
+                            {
+                                if (!getIntent().getBooleanExtra(KEY_FOR_RESULT, false)) {
+                                    jumpActivity(MainActivity.class);
+                                }
+                                finish();
+                            }else {
+                                Intent bindintent=new Intent();
+                                bindintent.putExtra("nickname",user.name);
+                                bindintent.putExtra("avatorpic",user.avator);
+                                bindintent.putExtra("openid",user.openid);
+                                bindintent.setClass(mAt, WeixinbingphoneActivity.class);
+                                startActivity(bindintent);
+                                finish();
+                            }
+
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            super.onError(e);
+                        }
+                    });
+        }
+    }
     @Override
     public void getDataFromServer() {
         //登录请求的逻辑在这里写

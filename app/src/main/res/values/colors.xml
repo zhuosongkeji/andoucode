@@ -43,7 +43,7 @@
     <color name="sharebg">#fa632a</color>
     <color name="black">#000</color>
     <color name="background">#f1f1f1</color>
-
+    <color name="alltextcolor">#B6B6B6</color>
     <color name="sred">#ff4141</color>
     <color name="gold">#d8ab5c</color>
     <color name="orange">#ffa500</color>

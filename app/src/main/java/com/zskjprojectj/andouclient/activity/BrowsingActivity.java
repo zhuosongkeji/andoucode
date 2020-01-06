@@ -17,8 +17,14 @@ import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
 import com.zskjprojectj.andouclient.entity.BrowsingBean;
 import com.zskjprojectj.andouclient.entity.MycollectionBean;
+import com.zskjprojectj.andouclient.http.ApiUtils;
+import com.zskjprojectj.andouclient.http.BaseObserver;
+import com.zskjprojectj.andouclient.http.HttpRxObservable;
+import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -35,7 +41,7 @@ public class BrowsingActivity extends BaseActivity {
     TextView mHeaderTitle;
 
     private RecyclerView mRecycler;
-    private ArrayList<BrowsingBean> mDataList;
+    BrowsingAdapter adapter=new BrowsingAdapter();
     @Override
     protected void setRootView() {
         setContentView(R.layout.activity_browsing);
@@ -43,27 +49,14 @@ public class BrowsingActivity extends BaseActivity {
 
     @Override
     protected void initData(Bundle savedInstanceState) {
+        topView.setTitle("浏览痕迹");
         getBarDistance(mTitleView);
         mHeaderTitle.setText("浏览痕迹");
 
-        mDataList=new ArrayList<>();
-        for (int i=0;i<10;i++){
-            BrowsingBean databean=new BrowsingBean();
-            databean.setBrowsingnpic(R.mipmap.ic_busiess_canting);
-            databean.setBrowsingname("北平楼涮羊肉");
-            mDataList.add(databean);
-        }
 
-        BrowsingAdapter adapter=new BrowsingAdapter(R.layout.item_browsing,mDataList);
         adapter.openLoadAnimation();
-        adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-            @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-
-            }
-        });
-        mRecycler.addItemDecoration(new DividerItemDecoration(mAt,DividerItemDecoration.VERTICAL));
         mRecycler.setAdapter(adapter);
+        mRecycler.addItemDecoration(new DividerItemDecoration(mAt,DividerItemDecoration.VERTICAL));
     }
 
     @Override
@@ -74,7 +67,12 @@ public class BrowsingActivity extends BaseActivity {
 
     @Override
     public void getDataFromServer() {
-
+        HttpRxObservable.getObservable(ApiUtils.getApiService().merchantrecord(LoginInfoUtil.getUid(),LoginInfoUtil.getToken())).subscribe(new BaseObserver<List<BrowsingBean>>(mAt) {
+            @Override
+            public void onHandleSuccess(List<BrowsingBean> browsingBeans) throws IOException {
+                adapter.setNewData(browsingBeans);
+            }
+        });
     }
 
     @Override
