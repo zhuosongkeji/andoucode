@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="@dimen/dp_20">
@@ -20,32 +21,20 @@
         android:textColor="@color/colorBlack"
         android:textSize="@dimen/typeface14sp" />
 
-    <LinearLayout
-        android:id="@+id/hotel_star"
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:layout_below="@+id/busiess_name1_textview"
-        android:layout_gravity="center_vertical"
-        android:layout_marginTop="@dimen/dp_10"
-        android:layout_toRightOf="@+id/busiess_tupian1_image"
-        android:orientation="horizontal">
-
-        <com.willy.ratingbar.ScaleRatingBar xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/simpleRatingBar"
+        <com.willy.ratingbar.ScaleRatingBar
+            android:id="@+id/simpleRatingBars"
             android:layout_width="wrap_content"
+            android:layout_below="@+id/busiess_name1_textview"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_20"
+            android:layout_toRightOf="@+id/busiess_tupian1_image"
             app:srb_clearRatingEnabled="true"
-            app:srb_clickable="true"
             app:srb_drawableEmpty="@mipmap/ic_plant_gray"
             app:srb_drawableFilled="@mipmap/ic_plant"
-            app:srb_isIndicator="false"
+            app:srb_isIndicator="true"
             app:srb_numStars="5"
-            app:srb_scrollable="true"
             app:srb_starHeight="17dp"
             app:srb_starWidth="19dp"
             app:srb_stepSize="0.5" />
-    </LinearLayout>
 
     <ImageView
         android:id="@+id/busiess_dianzan1_image"
@@ -70,9 +59,8 @@
         android:id="@+id/hotel_address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/hotel_star"
-        android:layout_marginTop="@dimen/dp_10"
-        android:layout_marginBottom="@dimen/dp_2"
+        android:layout_below="@+id/simpleRatingBars"
+
         android:layout_toRightOf="@+id/busiess_tupian1_image"
         android:orientation="horizontal">
 

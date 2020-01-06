@@ -7,10 +7,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.TextView;
 
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.request.RequestOptions;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.BrowsingActivity;
 import com.zskjprojectj.andouclient.activity.BusinessresidenceActivity;
@@ -139,14 +140,13 @@ public class MePageFragment extends BaseFragment {
             public void onHandleSuccess(PersonalBean personalBean) throws IOException {
                 tv_isvip.setText(personalBean.getGrade());
                 tv_nickname.setText(personalBean.getName());
-                Glide.with(mAty).load(BaseUrl.BASE_URL+personalBean.getAvator()).into(img_touxiang);
+                Glide.with(mAty).load(BaseUrl.BASE_URL+personalBean.getAvator()).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(img_touxiang);
             }
         });
     }
 
     @Override
     protected void initData() {
-
         getBarDistance(mTitleView);
         mHeaderTitle.setText("会员中心");
         /**
@@ -192,7 +192,7 @@ public class MePageFragment extends BaseFragment {
         mycenter_restaurant_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ToastUtil.showToast("数据链接异常");
+                ToastUtil.showToast("当前功能持续完善中.....");
                 //startActivity(new Intent(getContext(), RestaurantOrderActivity.class));
             }
         });

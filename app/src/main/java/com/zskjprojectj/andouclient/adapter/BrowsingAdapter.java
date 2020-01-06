@@ -24,11 +24,12 @@ public class BrowsingAdapter extends BaseQuickAdapter<BrowsingBean, BaseViewHold
 
     @Override
     protected void convert(BaseViewHolder helper, BrowsingBean item) {
-        helper.setText(R.id.busiess_name1_textview, item.getName()).setText(R.id.busiess_address1_textview, item.getAddress()).setText(R.id.tv_browsingnum, item.getTel());
+        helper.setText(R.id.busiess_name1_textview, item.getName()).setText(R.id.busiess_address1_textview, item.getAddress()).setText(R.id.tv_browsingnum, item.getTel()).setText(R.id.busiess_dianzancount1_textview,item.getPraise_num());
         Glide.with(mContext).load(BaseUrl.BASE_URL + item.getLogo_img()).into((ImageView) helper.getView(R.id.busiess_tupian1_image));
-        ScaleRatingBar scaleRatingBar=  helper.getView(R.id.simpleRatingBar);
+        ScaleRatingBar scaleRatingBar=  helper.getView(R.id.simpleRatingBars);
         String stars_all = item.getStars_all();
         float starNum = Float.parseFloat(stars_all);
         scaleRatingBar.setRating(starNum);
     }
 }
+

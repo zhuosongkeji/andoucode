@@ -17,7 +17,17 @@ import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
 import com.zskjprojectj.andouclient.entity.BrowsingBean;
 import com.zskjprojectj.andouclient.entity.MyscoreBean;
+import com.zskjprojectj.andouclient.http.ApiUtils;
+import com.zskjprojectj.andouclient.http.BaseHandleObserver;
+import com.zskjprojectj.andouclient.http.BaseObserver;
+import com.zskjprojectj.andouclient.http.BaseResult;
+import com.zskjprojectj.andouclient.http.HttpRxObservable;
+import com.zskjprojectj.andouclient.model.BalanceDetail;
+import com.zskjprojectj.andouclient.model.IntegralDetail;
+import com.zskjprojectj.andouclient.model.IntegralLog;
+import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -36,7 +46,7 @@ public class MyscoreActivity extends BaseActivity {
 
     private RecyclerView mRecycler;
     private ArrayList<MyscoreBean> mDataList;
-
+    MyscoreAdapter adapter = new MyscoreAdapter();
     @Override
     protected void setRootView() {
         setContentView(R.layout.activity_myscore);
@@ -45,16 +55,7 @@ public class MyscoreActivity extends BaseActivity {
     @Override
     protected void initData(Bundle savedInstanceState) {
         getBarDistance(mTitleView);
-        mHeaderTitle.setText("我的积分");
-        mDataList = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            MyscoreBean databean = new MyscoreBean();
-//            databean.setBrowsingnpic(R.mipmap.ic_busiess_canting);
-//            databean.setBrowsingname("北平楼涮羊肉");
-            mDataList.add(databean);
-        }
-
-        MyscoreAdapter adapter = new MyscoreAdapter(R.layout.item_myscore, mDataList);
+        mHeaderTitle.setText("我的感恩币");
         adapter.openLoadAnimation();
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
@@ -75,7 +76,16 @@ public class MyscoreActivity extends BaseActivity {
 
     @Override
     public void getDataFromServer() {
-
+        HttpRxObservable.getObservable(ApiUtils.getApiService().integralDetail(
+                LoginInfoUtil.getUid(),
+                LoginInfoUtil.getToken()
+        )).subscribe(new BaseObserver<IntegralDetail>(mAt) {
+            @Override
+            public void onHandleSuccess(IntegralDetail integralDetail) throws IOException {
+                ((TextView) findViewById(R.id.tv_jfnum)).setText("￥" + integralDetail.integral);
+                adapter.setNewData(integralDetail.log);
+            }
+        });
     }
 
     @Override

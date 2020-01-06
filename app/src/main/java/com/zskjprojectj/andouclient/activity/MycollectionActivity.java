@@ -64,7 +64,7 @@ public class MycollectionActivity extends BaseActivity {
     @Override
     protected void initViews() {
         getBarDistance(mTitleView);
-        mHeaderTitle.setText("我的收藏");
+        mHeaderTitle.setText("商品收藏");
 
         mRecycler = findViewById(R.id.rv_recycler);
         mRecycler.setLayoutManager(new LinearLayoutManager(mAt));

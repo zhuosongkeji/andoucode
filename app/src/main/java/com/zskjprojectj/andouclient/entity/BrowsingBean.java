@@ -17,7 +17,7 @@ public class BrowsingBean {
     private String address;
     private String tel;
     private String stars_all;
-    private int praise_num;
+    private String praise_num;
     private String name;
     private String logo_img;
 
@@ -53,11 +53,11 @@ public class BrowsingBean {
         this.stars_all = stars_all;
     }
 
-    public int getPraise_num() {
+    public String getPraise_num() {
         return praise_num;
     }
 
-    public void setPraise_num(int praise_num) {
+    public void setPraise_num(String praise_num) {
         this.praise_num = praise_num;
     }
 
