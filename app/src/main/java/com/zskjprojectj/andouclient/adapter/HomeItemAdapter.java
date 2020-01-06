@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
@@ -64,7 +65,7 @@ public class HomeItemAdapter extends BaseAdapter {
             convertView = View.inflate(context, R.layout.item_home_category, null);
             viewHold = new ViewHold();
             viewHold.tv_name = (TextView) convertView.findViewById(R.id.item_home_name);
-            viewHold.iv_icon = (SimpleDraweeView) convertView.findViewById(R.id.item_album);
+            viewHold.iv_icon = (ImageView) convertView.findViewById(R.id.item_album);
             convertView.setTag(viewHold);
         } else {
             viewHold = (ViewHold) convertView.getTag();
@@ -80,7 +81,7 @@ public class HomeItemAdapter extends BaseAdapter {
 
     private static class ViewHold {
         private TextView tv_name;
-        private SimpleDraweeView iv_icon;
+        private ImageView iv_icon;
     }
 
 }

@@ -4,6 +4,7 @@ package com.zskjprojectj.andouclient.http;
 import com.zskjprojectj.andouclient.entity.BrowsingBean;
 import com.zskjprojectj.andouclient.entity.CheckLogisticsBean;
 import com.zskjprojectj.andouclient.entity.IndexHomeBean;
+import com.zskjprojectj.andouclient.entity.RefundReasonBean;
 import com.zskjprojectj.andouclient.entity.PersonalBean;
 import com.zskjprojectj.andouclient.entity.TestBean;
 import com.zskjprojectj.andouclient.entity.WXPayBean;
@@ -412,6 +413,32 @@ public interface ApiService {
     Observable<BaseResult<IndexHomeBean>> index();
 
 
+    /**
+     * 退款
+     */
+    @POST("api/refund/apply")
+    @FormUrlEncoded
+    Observable<BaseResult<Object>> refundapply (@Field("uid") String uid,
+                                               @Field("token") String token,
+                                               @Field("order_goods_id") String order_goods_id,
+                                               @Field("reason_id") String reason_id,
+                                               @Field("content") String content);
+
+
+    /**
+     * 退货
+     */
+    @POST("api/refund/return_goods")
+    @FormUrlEncoded
+    Observable<BaseResult<Object>> refundgoods (@Field("uid") String uid,
+                                                @Field("token") String token,
+                                                @Field("order_goods_id") String order_goods_id);
+
+    /**
+     * 退款原因
+     */
+    @POST("api/refund/reason")
+    Observable<BaseResult<List<RefundReasonBean>>> refundreason();
 
 
     /**

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -56,6 +57,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import okhttp3.Call;
 import recycler.coverflow.CoverFlowLayoutManger;
 import recycler.coverflow.RecyclerCoverFlow;
@@ -127,7 +129,15 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
         adapter = new CoverFlowAdapter(getActivity(), this);
         mCoverFlow.setGreyItem(true); //设置灰度渐变
         mCoverFlow.setAlphaItem(true); //设置半透渐变
-//        mCoverFlow.smoothScrollToPosition(3);
+
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mCoverFlow.smoothScrollToPosition(2);
+            }
+        },500);
+
         mCoverFlow.setOnItemSelectedListener(new CoverFlowLayoutManger.OnSelected() {
             @Override
             public void onItemSelected(int position) {
@@ -168,10 +178,12 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
 
 
                 List<IndexHomeBean.NoticeBean> notice = indexHomeBean.getNotice();
+                Log.d(TAG, "oaaaaaaaa: "+notice.size());
                 for(int i=0;i<notice.size();i++){
                     View view = getLayoutInflater().inflate(R.layout.text_view,null);
                     TextView content = view.findViewById(R.id.tv_index_notice);
                     content.setText(notice.get(i).getContent());
+                    Log.d(TAG, "notice"+notice.get(i).getContent());
                     view_flipper.addView(view);
                 }
                 view_flipper.setFlipInterval(2000);
@@ -198,7 +210,7 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
         onlinebroadcast_see_more_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getContext(), LiveActivity.class));
+                ToastUtil.showToast("功能持续完成中......");
             }
         });
         /**
@@ -319,6 +331,13 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
                 break;
             case 6:
                 break;
+        }
+    }
+
+    @OnClick(R.id.ll_see_more)
+    public void clickSeeMore(){
+        if (getActivity() instanceof MainActivity) {
+            ((MainActivity) getActivity()).getNavigationBar().selectTab(1);
         }
     }
 }

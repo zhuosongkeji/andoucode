@@ -3,6 +3,8 @@ package com.zskjprojectj.andouclient.activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -22,10 +24,20 @@ import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 import java.io.IOException;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.OnClick;
+
 /**
  * 个人中心购物车
  */
 public class PlatformshoppingcartActivity extends BaseActivity {
+
+    @BindView(R.id.header_title_view)
+    RelativeLayout mTitleView;
+
+    @BindView(R.id.tv_header_title)
+    TextView mHeaderTitle;
+
     private RecyclerView mRecycler;
     private Button btn_gotoaccounts;
     PlatformshoppingcartAdapter adapter = new PlatformshoppingcartAdapter();
@@ -37,7 +49,8 @@ public class PlatformshoppingcartActivity extends BaseActivity {
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-        topView.setTitle("购物车");
+        getBarDistance(mTitleView);
+        mHeaderTitle.setText("购物车");
         adapter.openLoadAnimation();
         mRecycler.addItemDecoration(new DividerItemDecoration(mAt, DividerItemDecoration.VERTICAL));
         mRecycler.setAdapter(adapter);
@@ -72,5 +85,10 @@ public class PlatformshoppingcartActivity extends BaseActivity {
     @Override
     protected BasePresenter createPresenter() {
         return null;
+    }
+
+    @OnClick(R.id.iv_header_back)
+    public void clickView() {
+        finish();
     }
 }

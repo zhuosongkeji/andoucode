@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
@@ -29,10 +30,20 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.OnClick;
+
 /**
  * 我的发布
  */
 public class MywalletActivity extends BaseActivity {
+
+    @BindView(R.id.header_title_view)
+    RelativeLayout mTitleView;
+
+    @BindView(R.id.tv_header_title)
+    TextView mHeaderTitle;
+
     private FixedIndicatorView indicator;
     //碎片集合
     private List<Fragment> list;
@@ -50,7 +61,9 @@ public class MywalletActivity extends BaseActivity {
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-        topView.setTitle("我的钱包");
+
+        getBarDistance(mTitleView);
+        mHeaderTitle.setText("我的钱包");
     }
 
     @Override
@@ -146,4 +159,10 @@ public class MywalletActivity extends BaseActivity {
             return fragment;
         }
     };
+
+    @OnClick(R.id.iv_header_back)
+    public void clickView(){
+        finish();
+    }
+
 }

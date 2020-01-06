@@ -227,6 +227,7 @@
                 android:orientation="vertical" />
 
             <Button
+                android:id="@+id/btn_refund"
                 android:layout_width="70dp"
                 android:layout_height="25dp"
                 android:layout_gravity="center|right"

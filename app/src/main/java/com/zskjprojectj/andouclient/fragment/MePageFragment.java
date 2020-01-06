@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.TextView;
 
 
@@ -39,6 +41,8 @@ import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
 import com.zskjprojectj.andouclient.view.TopView;
 
+import butterknife.BindView;
+
 import java.io.IOException;
 
 /**
@@ -52,7 +56,13 @@ import java.io.IOException;
  * @author yizhubao
  */
 public class MePageFragment extends BaseFragment {
-    private TopView topView;
+
+    @BindView(R.id.tv_header_title)
+    TextView mHeaderTitle;
+
+    @BindView(R.id.header_title_view)
+    RelativeLayout mTitleView;
+
     //菜市场
     private LinearLayout mycenter_vegetablemarket_layout;
     //美食订单
@@ -115,7 +125,6 @@ public class MePageFragment extends BaseFragment {
         img_touxiang=view.findViewById(R.id.img_touxiang);
         tv_nickname=view.findViewById(R.id.tv_nickname);
         tv_isvip=view.findViewById(R.id.tv_isvip);
-        topView=view.findViewById(R.id.alltopview);
     }
 
     @Override
@@ -137,7 +146,9 @@ public class MePageFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-        topView.setTitle("会员中心");
+
+        getBarDistance(mTitleView);
+        mHeaderTitle.setText("会员中心");
         /**
          * 菜市场
          */
