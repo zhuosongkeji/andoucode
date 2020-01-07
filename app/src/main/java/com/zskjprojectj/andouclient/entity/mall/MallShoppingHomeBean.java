@@ -25,6 +25,16 @@ public class MallShoppingHomeBean {
 
     private String banner_img;
     private String logo_img;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    private String status;
     private List<GoodsBean> goods;
     private List<TypeBean> type;
 

@@ -20,6 +20,7 @@ import com.zskjprojectj.andouclient.activity.FoodorderActivity;
 import com.zskjprojectj.andouclient.activity.HotelorderActivity;
 import com.zskjprojectj.andouclient.activity.InvitationActivity;
 import com.zskjprojectj.andouclient.activity.MesettingActivity;
+import com.zskjprojectj.andouclient.activity.MyFocusonActivity;
 import com.zskjprojectj.andouclient.activity.MyaddressActivity;
 import com.zskjprojectj.andouclient.activity.MycollectionActivity;
 import com.zskjprojectj.andouclient.activity.MymessageActivity;
@@ -98,6 +99,8 @@ public class MePageFragment extends BaseFragment {
     private LinearLayout mycenter_operationvideo_layout;
     //饭店预订
     private LinearLayout mycenter_restaurant_layout;
+    //我的关注
+    private LinearLayout mycenter_myfocuson_layout;
     //设置界面
     private ImageView img_meset;
     //个人信息
@@ -122,6 +125,7 @@ public class MePageFragment extends BaseFragment {
         mycenter_downloadapp_layout=view.findViewById(R.id.mycenter_downloadapp_layout);
         mycenter_operationvideo_layout=view.findViewById(R.id.mycenter_operationvideo_layout);
         mycenter_restaurant_layout=view.findViewById(R.id.mycenter_restaurant_layout);
+        mycenter_myfocuson_layout=view.findViewById(R.id.mycenter_myfocuson_layout);
         img_meset=view.findViewById(R.id.img_meset);
         img_touxiang=view.findViewById(R.id.img_touxiang);
         tv_nickname=view.findViewById(R.id.tv_nickname);
@@ -302,6 +306,15 @@ public class MePageFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getContext(), OperationvideoActivity.class));
+            }
+        });
+        /**
+         * 关注
+         */
+        mycenter_myfocuson_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), MyFocusonActivity.class));
             }
         });
         /**

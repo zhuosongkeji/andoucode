@@ -336,7 +336,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/ly_lefttwo"
+                android:id="@+id/mycenter_myfocuson_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/dp_50"
                 android:layout_marginBottom="@dimen/dp_15"
@@ -367,7 +367,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/dp_50"
                 android:layout_marginBottom="@dimen/dp_15"
-                android:layout_toRightOf="@id/ly_lefttwo"
+                android:layout_toRightOf="@id/mycenter_myfocuson_layout"
                 android:layout_weight="1"
                 android:orientation="vertical">
 

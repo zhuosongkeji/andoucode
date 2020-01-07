@@ -5,6 +5,8 @@ import com.zskjprojectj.andouclient.entity.BrowsingBean;
 import com.zskjprojectj.andouclient.entity.BrowsingBean;
 import com.zskjprojectj.andouclient.entity.CheckLogisticsBean;
 import com.zskjprojectj.andouclient.entity.IndexHomeBean;
+import com.zskjprojectj.andouclient.entity.MyFocusonBean;
+import com.zskjprojectj.andouclient.entity.MycollectionBean;
 import com.zskjprojectj.andouclient.entity.RefundReasonBean;
 import com.zskjprojectj.andouclient.entity.PersonalBean;
 import com.zskjprojectj.andouclient.entity.RefundReasonBean;
@@ -92,6 +94,17 @@ public interface ApiService {
     @FormUrlEncoded
     Observable<BaseResult<Object>> mallGoodsCollection(@Field("id") String id, @Field("uid") String uid, @Field("token") String token, @Field("type") String type);
 
+    /**
+     * 店铺收藏/取消收藏
+     * @param id
+     * @param uid
+     * @param token
+     * @param type
+     * @return
+     */
+    @POST("api/goods/follow")
+    @FormUrlEncoded
+    Observable<BaseResult<Object>> mallgoodsfollow(@Field("id") String id, @Field("uid") String uid, @Field("token") String token, @Field("type") String type);
     /**
      * 商城商品详情
      */
@@ -489,6 +502,20 @@ public interface ApiService {
     Observable<BaseResult<IntegralDetail>> integralDetail(@Field("uid") String uid,
                                                         @Field("token") String token);
 
+    /**
+     * 我的收藏
+     * @param uid
+     * @param token
+     * @return
+     */
+    @POST("api/users/collection")
+    @FormUrlEncoded
+    Observable<BaseResult<List<MycollectionBean>>> usercollection(@Field("uid") String uid,
+                                                            @Field("token") String token);
+    @POST("api/users/follow")
+    @FormUrlEncoded
+    Observable<BaseResult<List<MyFocusonBean>>> usersfollow(@Field("uid") String uid,
+                                                               @Field("token") String token);
 //    /**
 //     * 注册
 //     *
