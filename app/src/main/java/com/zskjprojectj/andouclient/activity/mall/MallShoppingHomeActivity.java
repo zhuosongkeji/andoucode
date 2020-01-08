@@ -169,6 +169,7 @@ public class MallShoppingHomeActivity extends BaseActivity {
 
 
 
+
     private void initMallShoppingHomeAdapter(List<MallShoppingHomeBean.GoodsBean> goods) {
         MallShoppingHomeAdapter adapter = new MallShoppingHomeAdapter(R.layout.activity_mall_shopping_item_view, goods);
         adapter.openLoadAnimation();

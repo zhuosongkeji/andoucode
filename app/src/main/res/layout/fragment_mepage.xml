@@ -308,7 +308,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true">
 
-
             <LinearLayout
                 android:id="@+id/mycenter_mycollection_layout"
                 android:layout_width="wrap_content"
@@ -318,6 +317,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tv_collectionnum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -345,6 +345,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tv_focusonnum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -363,7 +364,6 @@
             </LinearLayout>
 
             <LinearLayout
-
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/dp_50"
                 android:layout_marginBottom="@dimen/dp_15"
@@ -372,6 +372,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tv_lovenum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -399,6 +400,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tv_browsenum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -432,6 +434,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tv_moneynum"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:textColor="@color/black"
@@ -454,7 +457,7 @@
 
             <TextView
                 android:textSize="@dimen/typeface16sp"
-              android:textColor="@color/black"
+                android:textColor="@color/black"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:text="23" />
@@ -475,6 +478,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tv_integralnumm"
                 android:textSize="@dimen/typeface16sp"
                 android:textColor="@color/black"
                 android:layout_width="25dp"

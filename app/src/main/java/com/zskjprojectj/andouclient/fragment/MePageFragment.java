@@ -2,6 +2,7 @@ package com.zskjprojectj.andouclient.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -105,7 +106,7 @@ public class MePageFragment extends BaseFragment {
     private ImageView img_meset;
     //个人信息
     private  ImageView img_touxiang;
-    private TextView tv_nickname,tv_isvip;
+    private TextView tv_nickname,tv_isvip,tv_collectionnum,tv_focusonnum,tv_lovenum,tv_browsenum,tv_moneynum,tv_integralnumm;
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
         mycenter_vegetablemarket_layout=view.findViewById(R.id.mycenter_vegetablemarket_layout);
@@ -130,6 +131,12 @@ public class MePageFragment extends BaseFragment {
         img_touxiang=view.findViewById(R.id.img_touxiang);
         tv_nickname=view.findViewById(R.id.tv_nickname);
         tv_isvip=view.findViewById(R.id.tv_isvip);
+        tv_collectionnum=view.findViewById(R.id.tv_collectionnum);
+        tv_focusonnum=view.findViewById(R.id.tv_focusonnum);
+       // tv_lovenum=view.findViewById(R.id.tv_lovenum);
+        tv_browsenum=view.findViewById(R.id.tv_browsenum);
+        tv_moneynum=view.findViewById(R.id.tv_moneynum);
+        tv_integralnumm=view.findViewById(R.id.tv_integralnumm);
     }
 
     @Override
@@ -144,6 +151,11 @@ public class MePageFragment extends BaseFragment {
             public void onHandleSuccess(PersonalBean personalBean) throws IOException {
                 tv_isvip.setText(personalBean.getGrade());
                 tv_nickname.setText(personalBean.getName());
+                tv_collectionnum.setText(personalBean.getCollect());
+                tv_focusonnum.setText(personalBean.getFocus());
+                tv_browsenum.setText(personalBean.getRecord());
+                tv_moneynum.setText(personalBean.getMoney());
+                tv_integralnumm.setText(personalBean.getIntegral());
                 Glide.with(mAty).load(BaseUrl.BASE_URL+personalBean.getAvator()).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(img_touxiang);
             }
         });
