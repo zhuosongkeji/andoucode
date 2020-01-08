@@ -1,13 +1,11 @@
 package com.zskjprojectj.andouclient.adapter.hotel;
 
-import android.util.SparseBooleanArray;
-import android.view.View;
-import android.widget.TextView;
+import androidx.annotation.Nullable;
 
-import com.chad.library.adapter.base.BaseSectionQuickAdapter;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.entity.hotel.Mysection;
+import com.zskjprojectj.andouclient.entity.hotel.HotelSearchConditionBean;
 
 import java.util.List;
 
@@ -21,7 +19,7 @@ import java.util.List;
  * 修改时间：
  * 修改备注：
  */
-public class SectionAdapter extends BaseSectionQuickAdapter<Mysection, BaseViewHolder> {
+public class HotelPriceAdapter extends BaseQuickAdapter<HotelSearchConditionBean.PriceRangeBean, BaseViewHolder> {
     /**
      * Same as QuickAdapter#QuickAdapter(Context,int) but with
      * some initialization data.
@@ -37,48 +35,39 @@ public class SectionAdapter extends BaseSectionQuickAdapter<Mysection, BaseViewH
     public static int SELECTOR_POSITION1=1;
     public static int SELECTOR_POSITION2=2;
 
-
-
-
-    public SectionAdapter(int layoutResId, int sectionHeadResId, List<Mysection> data) {
-        super(layoutResId, sectionHeadResId, data);
+    public HotelPriceAdapter(int layoutResId, @Nullable List<HotelSearchConditionBean.PriceRangeBean> data) {
+        super(layoutResId, data);
     }
 
-    @Override
-    protected void convertHead(BaseViewHolder helper, Mysection item) {
-
-    }
 
     @Override
-    protected void convert(BaseViewHolder helper, Mysection item) {
-
-        TextView mPrice = helper.getView(R.id.tv_price);
-
-        int p = helper.getLayoutPosition();
-
-//        if (SELECTOR_POSITION==p){
-//            mPrice.setSelected(true);
-//        }else {
-//            mPrice.setSelected(false);
+    protected void convert(BaseViewHolder helper, HotelSearchConditionBean.PriceRangeBean item) {
+        String price = item.getStart() + "~" + item.getEnd();
+        helper.setText(R.id.tv_price,price);
+//
+//        TextView mPrice = helper.getView(R.id.tv_price);
+//
+//        int p = helper.getLayoutPosition();
+//
+//
+//
+//
+//        if (0<p&&p<8){
+//            if (SELECTOR_POSITION1==p){
+//                mPrice.setSelected(true);
+//            }else {
+//                mPrice.setSelected(false);
+//            }
 //        }
-
-
-        if (0<p&&p<8){
-            if (SELECTOR_POSITION1==p){
-                mPrice.setSelected(true);
-            }else {
-                mPrice.setSelected(false);
-            }
-        }
-
-
-        if (8<p&&p<13){
-            if (SELECTOR_POSITION2==p){
-                mPrice.setSelected(true);
-            }else {
-                mPrice.setSelected(false);
-            }
-        }
+//
+//
+//        if (8<p&&p<13){
+//            if (SELECTOR_POSITION2==p){
+//                mPrice.setSelected(true);
+//            }else {
+//                mPrice.setSelected(false);
+//            }
+//        }
 
     }
 

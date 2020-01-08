@@ -20,17 +20,20 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.adapter.hotel.Catagory1Adapter;
-import com.zskjprojectj.andouclient.adapter.hotel.Catagory2Adapter;
-import com.zskjprojectj.andouclient.adapter.hotel.Catagory3Adapter;
+import com.zskjprojectj.andouclient.adapter.hotel.HotelPriceAdapter;
 import com.zskjprojectj.andouclient.adapter.hotel.HotelResultAdapter;
-import com.zskjprojectj.andouclient.adapter.hotel.SectionAdapter;
+import com.zskjprojectj.andouclient.adapter.hotel.HotelStarAdapter;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
 import com.zskjprojectj.andouclient.entity.hotel.CategoryBean;
 import com.zskjprojectj.andouclient.entity.hotel.HotelResultBean;
-import com.zskjprojectj.andouclient.entity.hotel.Mysection;
+import com.zskjprojectj.andouclient.entity.hotel.HotelSearchConditionBean;
+import com.zskjprojectj.andouclient.http.ApiUtils;
+import com.zskjprojectj.andouclient.http.BaseObserver;
+import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.utils.GridSectionAverageGapItemDecoration;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -46,9 +49,9 @@ public class HotelFilterActivity extends BaseActivity {
     private RecyclerView mRecycler;
     private ArrayList<HotelResultBean> mDataList;
     private LinearLayout mPriceStar;
-    private RecyclerView mViewRecycler;
+    private RecyclerView mPriceRecycler;
+    private RecyclerView mStarRecycler;
     private Button mCancle;
-    private ArrayList<Mysection> mData;
     private PopupWindow mPopWindow;
 
 
@@ -73,6 +76,9 @@ public class HotelFilterActivity extends BaseActivity {
     private Catagory1Adapter catagory3Adapter;
     private Catagory1Adapter catagory1Adapter;
     private ArrayList<CategoryBean> datalist1;
+
+    private HotelPriceAdapter priceAdapter;
+    private HotelStarAdapter starAdapter;
 
     @Override
     protected void setRootView() {
@@ -172,8 +178,10 @@ public class HotelFilterActivity extends BaseActivity {
         View contentView = LayoutInflater.from(this).inflate(R.layout.dialog_hotel_star_price, null);
 
         initPopuWindow(contentView, mSelectorStar);
-
-        mViewRecycler = contentView.findViewById(R.id.rv_recycler);
+        //价格
+        mPriceRecycler = contentView.findViewById(R.id.rv_price_recycler);
+        //星级
+        mStarRecycler = contentView.findViewById(R.id.rv_star_recycler);
         mCancle = contentView.findViewById(R.id.bt_cancle);
         initDialogRecycler();
     }
@@ -208,55 +216,47 @@ public class HotelFilterActivity extends BaseActivity {
     }
 
     private void initDialogRecycler() {
-        mViewRecycler.setLayoutManager(new GridLayoutManager(this, 4));
-        mViewRecycler.addItemDecoration(new GridSectionAverageGapItemDecoration(10, 10, 0, 10));
+        //价格
+        mPriceRecycler.setLayoutManager(new GridLayoutManager(this, 4));
+        mPriceRecycler.addItemDecoration(new GridSectionAverageGapItemDecoration(10, 10, 0, 10));
 
-        mData = new ArrayList<>();
-        for (int i = 0; i < 1; i++) {
-            mData.add(new Mysection(true, "价格"));
-            mData.add(new Mysection("¥0~100"));
-            mData.add(new Mysection("¥100~200"));
-            mData.add(new Mysection("¥200~300"));
-            mData.add(new Mysection("¥300~400"));
-            mData.add(new Mysection("¥400~500"));
-            mData.add(new Mysection("¥500~600"));
-            mData.add(new Mysection("¥600以上"));
-            mData.add(new Mysection(true, "星级"));
-            mData.add(new Mysection("经济型"));
-            mData.add(new Mysection("舒适三星"));
-            mData.add(new Mysection("高档四星"));
-            mData.add(new Mysection("豪华五星"));
-        }
-        SectionAdapter sectionAdapteradapter = new SectionAdapter(R.layout.item_section_content, R.layout.def_section_head, mData);
-        mViewRecycler.setAdapter(sectionAdapteradapter);
+        //星级
+        mStarRecycler.setLayoutManager(new GridLayoutManager(this, 4));
+        mStarRecycler.addItemDecoration(new GridSectionAverageGapItemDecoration(10, 10, 0, 10));
+
+        HttpRxObservable.getObservable(ApiUtils.getApiService().hotelSearchCondition()).subscribe(new BaseObserver<HotelSearchConditionBean>(mAt) {
+            @Override
+            public void onHandleSuccess(HotelSearchConditionBean hotelSearchConditionBean) throws IOException {
+                //价格
+                priceAdapter = new HotelPriceAdapter(R.layout.item_section_content, hotelSearchConditionBean.getPrice_range());
+                mPriceRecycler.setAdapter(priceAdapter);
+                //星级
+                starAdapter = new HotelStarAdapter(R.layout.item_section_content, hotelSearchConditionBean.getStar());
+                mStarRecycler.setAdapter(starAdapter);
+            }
+        });
 
 
-        sectionAdapteradapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+
+        priceAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-//
-//                sectionAdapteradapter.onChange(position);
-//                sectionAdapteradapter.notifyDataSetChanged();
 
-
-                if (0 < position && position < 8) {
-                    sectionAdapteradapter.onChange1(position);
-                    sectionAdapteradapter.notifyDataSetChanged();
-                } else if (8 < position && position < 13) {
-                    sectionAdapteradapter.onChange2(position);
-                    sectionAdapteradapter.notifyDataSetChanged();
-                }
-
-
+//                if (0 < position && position < 8) {
+//                    priceAdapter.onChange1(position);
+//                    priceAdapter.notifyDataSetChanged();
+//                } else if (8 < position && position < 13) {
+//                    priceAdapter.onChange2(position);
+//                    priceAdapter.notifyDataSetChanged();
+//                }
             }
         });
 
         mCancle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sectionAdapteradapter.cancle(-1);
-                sectionAdapteradapter.notifyDataSetChanged();
-
+//                priceAdapter.cancle(-1);
+//                priceAdapter.notifyDataSetChanged();
             }
         });
 

@@ -9,6 +9,13 @@ import com.zskjprojectj.andouclient.entity.PersonalBean;
 import com.zskjprojectj.andouclient.entity.TestBean;
 import com.zskjprojectj.andouclient.entity.WXPayBean;
 import com.zskjprojectj.andouclient.entity.hotel.HotelCategoryBean;
+import com.zskjprojectj.andouclient.entity.hotel.HotelDetailCommentBean;
+import com.zskjprojectj.andouclient.entity.hotel.HotelDetailReserveBean;
+import com.zskjprojectj.andouclient.entity.hotel.HotelDetailsBean;
+import com.zskjprojectj.andouclient.entity.hotel.HotelHomeBean;
+import com.zskjprojectj.andouclient.entity.hotel.HotelHomeDetailsBean;
+import com.zskjprojectj.andouclient.entity.hotel.HotelSearchConditionBean;
+import com.zskjprojectj.andouclient.entity.hotel.HotelSettlementBean;
 import com.zskjprojectj.andouclient.entity.mall.MallBuyBean;
 import com.zskjprojectj.andouclient.entity.mall.MallBuyNowBean;
 import com.zskjprojectj.andouclient.entity.mall.MallCarBean;
@@ -446,6 +453,68 @@ public interface ApiService {
      */
     @POST("api/hotel/cate")
     Observable<BaseResult<List<HotelCategoryBean>>> hotelCategory();
+
+
+    /**
+     * 酒店商家列表
+     */
+    @POST("api/hotel/hotellist")
+    Observable<BaseResult<HotelHomeBean>> hotelHomeList();
+
+
+    /**
+     * 酒店搜索配置
+     */
+    @POST("api/hotel/condition")
+    Observable<BaseResult<HotelSearchConditionBean>> hotelSearchCondition ();
+
+
+    /**
+     * list - 酒店商家详情
+     */
+    @POST("api/details/list")
+    @FormUrlEncoded
+    Observable<BaseResult<HotelDetailsBean>> hotelDetails (@Field("id") String id);
+
+
+
+    /**
+     * list - 酒店商家房间列表
+     */
+    @POST("api/details/room_list")
+    @FormUrlEncoded
+    Observable<BaseResult<HotelDetailReserveBean>> hotelDetailsHomeList (@Field("merchant_id") int merchant_id);
+
+
+    /**
+     * list - 酒店商家房间详情
+     */
+    @POST("api/details/hotelSel")
+    @FormUrlEncoded
+    Observable<BaseResult<HotelHomeDetailsBean>> hotelHomeDetails (@Field("id") String id);
+
+
+
+    /**
+     * list - 酒店商家评论列表
+     */
+    @POST("api/details/commnets")
+    @FormUrlEncoded
+    Observable<BaseResult<List<HotelDetailCommentBean>>> hotelDetailsCommentList (@Field("id") String id, @Field("page") String page);
+
+
+    /**
+     * list - 酒店结算页
+     */
+    @POST("api/htorder/settlement")
+    @FormUrlEncoded
+    Observable<BaseResult<HotelSettlementBean>> hotelSettlement  (@Field("uid") String uid,
+                                                                  @Field("token") String token,
+                                                                  @Field("start") String start,
+                                                                  @Field("end") String end,
+                                                                  @Field("id") String id);
+
+
 
     /**
      * 绑定手机号

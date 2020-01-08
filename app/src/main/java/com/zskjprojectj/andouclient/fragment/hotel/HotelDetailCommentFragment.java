@@ -11,8 +11,13 @@ import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.adapter.hotel.CommentAdapter;
 import com.zskjprojectj.andouclient.base.BaseFragment;
 import com.zskjprojectj.andouclient.entity.hotel.HotelDetailCommentBean;
+import com.zskjprojectj.andouclient.http.ApiUtils;
+import com.zskjprojectj.andouclient.http.BaseObserver;
+import com.zskjprojectj.andouclient.http.HttpRxObservable;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 项目名称： andoucode
@@ -26,7 +31,7 @@ import java.util.ArrayList;
  */
 public class HotelDetailCommentFragment extends BaseFragment {
     private RecyclerView mRecycler;
-    private ArrayList<HotelDetailCommentBean> mDataList;
+    private  CommentAdapter adapter=new CommentAdapter();
 
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
@@ -43,22 +48,24 @@ public class HotelDetailCommentFragment extends BaseFragment {
     @Override
     protected void getDataFromServer() {
 
+        Bundle bundle = getArguments();
+        String hotelMerchantId = bundle.getString("hotelMerchantId");
+
+        HttpRxObservable.getObservable(ApiUtils.getApiService().hotelDetailsCommentList(hotelMerchantId,"1"))
+                .subscribe(new BaseObserver<List<HotelDetailCommentBean>>(mAty) {
+                    @Override
+                    public void onHandleSuccess(List<HotelDetailCommentBean> hotelDetailCommentBeans) throws IOException {
+                        adapter.setNewData(hotelDetailCommentBeans);
+                    }
+                });
+
     }
 
     @Override
     protected void initData() {
-        mDataList=new ArrayList<>();
 
-        for (int i=0;i<20;i++){
-            HotelDetailCommentBean databean=new HotelDetailCommentBean();
-            databean.setHeadPic(R.mipmap.ic_touxiang);
-            databean.setComment("酒店环境干净卫生，入住体验非常好");
-            databean.setCommentImage(R.mipmap.hotel_details);
-            databean.setName("暮看日西沉");
-            mDataList.add(databean);
-        }
 
-        CommentAdapter adapter=new CommentAdapter(R.layout.comment_item_view,mDataList);
+
         adapter.openLoadAnimation();
         mRecycler.addItemDecoration(new DividerItemDecoration(getActivity(),DividerItemDecoration.VERTICAL));
         mRecycler.setAdapter(adapter);
