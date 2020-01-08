@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_jfnum"
             android:layout_centerInParent="true"
-            android:text="当前积分"
+            android:text="感恩币"
             android:textColor="@color/white"
             android:textSize="@dimen/dp_20" />
     </RelativeLayout>

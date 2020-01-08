@@ -23,7 +23,7 @@ public class MyaddressAdapter extends BaseQuickAdapter<Address, BaseViewHolder> 
         helper.setText(R.id.nameTxt, item.name)
                 .setText(R.id.mobileTxt, item.mobile)
                 .setText(R.id.addressTxt, item.province + item.city + item.area + item.address)
-                .setVisible(R.id.defaultCkb, !item.is_defualt.equals("1"))
+//                .setVisible(R.id.defaultCkb, !item.is_defualt.equals("1"))
                 .setOnCheckedChangeListener(R.id.defaultCkb, null)
                 .setChecked(R.id.defaultCkb, item.is_defualt.equals("1"))
                 .setOnCheckedChangeListener(R.id.defaultCkb, (buttonView, isChecked) ->

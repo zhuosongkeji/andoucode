@@ -2,10 +2,16 @@ package com.zskjprojectj.andouclient.http;
 
 
 import com.zskjprojectj.andouclient.entity.BrowsingBean;
+import com.zskjprojectj.andouclient.entity.BrowsingBean;
 import com.zskjprojectj.andouclient.entity.CheckLogisticsBean;
 import com.zskjprojectj.andouclient.entity.IndexHomeBean;
+import com.zskjprojectj.andouclient.entity.MyFocusonBean;
+import com.zskjprojectj.andouclient.entity.MycollectionBean;
 import com.zskjprojectj.andouclient.entity.RefundReasonBean;
 import com.zskjprojectj.andouclient.entity.PersonalBean;
+import com.zskjprojectj.andouclient.entity.RefundReasonBean;
+import com.zskjprojectj.andouclient.entity.PersonalBean;
+import com.zskjprojectj.andouclient.entity.RefundReasonBean;
 import com.zskjprojectj.andouclient.entity.TestBean;
 import com.zskjprojectj.andouclient.entity.WXPayBean;
 import com.zskjprojectj.andouclient.entity.hotel.HotelCategoryBean;
@@ -31,6 +37,7 @@ import com.zskjprojectj.andouclient.entity.mall.MallShoppingHomeBean;
 import com.zskjprojectj.andouclient.model.Address;
 import com.zskjprojectj.andouclient.model.BalanceDetail;
 import com.zskjprojectj.andouclient.model.CartItem;
+import com.zskjprojectj.andouclient.model.IntegralDetail;
 import com.zskjprojectj.andouclient.model.Merchant;
 import com.zskjprojectj.andouclient.model.MerchantsResponse;
 import com.zskjprojectj.andouclient.model.Order;
@@ -94,6 +101,17 @@ public interface ApiService {
     @FormUrlEncoded
     Observable<BaseResult<Object>> mallGoodsCollection(@Field("id") String id, @Field("uid") String uid, @Field("token") String token, @Field("type") String type);
 
+    /**
+     * 店铺收藏/取消收藏
+     * @param id
+     * @param uid
+     * @param token
+     * @param type
+     * @return
+     */
+    @POST("api/goods/follow")
+    @FormUrlEncoded
+    Observable<BaseResult<Object>> mallgoodsfollow(@Field("id") String id, @Field("uid") String uid, @Field("token") String token, @Field("type") String type);
     /**
      * 商城商品详情
      */
@@ -540,8 +558,33 @@ public interface ApiService {
     @POST("api/users/merchant_record")
     @FormUrlEncoded
     Observable<BaseResult<List<BrowsingBean>>> merchantrecord(@Field("uid") String uid,
-                                                               @Field("token") String token);
+                                                              @Field("token") String token);
 
+    /**
+     * 我的平台币
+     * @param uid
+     * @param token
+     * @return
+     */
+    @POST("api/wallet/integral")
+    @FormUrlEncoded
+    Observable<BaseResult<IntegralDetail>> integralDetail(@Field("uid") String uid,
+                                                        @Field("token") String token);
+
+    /**
+     * 我的收藏
+     * @param uid
+     * @param token
+     * @return
+     */
+    @POST("api/users/collection")
+    @FormUrlEncoded
+    Observable<BaseResult<List<MycollectionBean>>> usercollection(@Field("uid") String uid,
+                                                            @Field("token") String token);
+    @POST("api/users/follow")
+    @FormUrlEncoded
+    Observable<BaseResult<List<MyFocusonBean>>> usersfollow(@Field("uid") String uid,
+                                                               @Field("token") String token);
 //    /**
 //     * 注册
 //     *

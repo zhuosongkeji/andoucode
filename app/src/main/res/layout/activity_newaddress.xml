@@ -15,6 +15,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="#646464"
             android:layout_centerVertical="true"
             android:layout_gravity="center"
             android:layout_marginLeft="11dp"
@@ -22,6 +23,7 @@
             android:textSize="@dimen/typeface13sp" />
 
         <EditText
+            android:textColor="#646464"
             android:id="@+id/nameEdt"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
@@ -39,6 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_gravity="center"
+            android:textColor="#646464"
             android:layout_marginLeft="11dp"
             android:text="联系电话:"
             android:textSize="@dimen/typeface13sp" />
@@ -46,6 +49,7 @@
         <EditText
             android:id="@+id/mobileEdt"
             android:layout_width="200dp"
+            android:textColor="#646464"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@null" />
@@ -58,6 +62,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="#646464"
             android:layout_centerVertical="true"
             android:layout_marginLeft="11dp"
             android:text="所在地区:" />
@@ -76,6 +81,7 @@
                 android:src="@mipmap/icon_map" />
 
             <TextView
+                android:textColor="#646464"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -102,9 +108,11 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="11dp"
+            android:textColor="#646464"
             android:text="街道:" />
 
         <TextView
+            android:textColor="#646464"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -128,6 +136,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:textColor="#646464"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_11"
@@ -135,6 +144,7 @@
             android:text="详细地址:" />
 
         <EditText
+            android:textColor="#646464"
             android:id="@+id/detailEdt"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -146,6 +156,7 @@
         android:layout_height="55dp">
 
         <TextView
+            android:textColor="#646464"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"

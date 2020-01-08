@@ -1,51 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="@dimen/dp_20">
 
     <ImageView
-        android:id="@+id/busiess_tupian1_image"
+        android:id="@+id/focuson_tupian1_image"
         android:layout_width="130dp"
         android:layout_height="107dp"
         android:layout_marginRight="@dimen/dp_10"
         android:src="@mipmap/ic_busiess_canting" />
 
     <TextView
-        android:id="@+id/busiess_name1_textview"
+        android:id="@+id/focuson_name1_textview"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
-        android:layout_toRightOf="@+id/busiess_tupian1_image"
-        android:text="艳娇泼辣火锅"
+        android:layout_toRightOf="@+id/focuson_tupian1_image"
+        android:text="北平楼涮羊肉"
         android:textColor="@color/colorBlack"
         android:textSize="@dimen/typeface14sp" />
 
-        <com.willy.ratingbar.ScaleRatingBar
-            android:id="@+id/simpleRatingBars"
-            android:layout_width="wrap_content"
-            android:layout_below="@+id/busiess_name1_textview"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/busiess_tupian1_image"
-            app:srb_clearRatingEnabled="true"
-            app:srb_drawableEmpty="@mipmap/ic_plant_gray"
-            app:srb_drawableFilled="@mipmap/ic_plant"
-            app:srb_isIndicator="true"
-            app:srb_numStars="5"
-            app:srb_starHeight="17dp"
-            app:srb_starWidth="19dp"
-            app:srb_stepSize="0.5" />
+    <com.willy.ratingbar.ScaleRatingBar xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/simpleRatingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/focuson_name1_textview"
+        android:layout_toRightOf="@+id/focuson_tupian1_image"
+        app:srb_drawableEmpty="@mipmap/ic_plant_gray"
+        app:srb_drawableFilled="@mipmap/ic_plant"
+        app:srb_isIndicator="true"
+        app:srb_numStars="5"
+        app:srb_starHeight="13dp"
+        app:srb_starPadding="4dp"
+        app:srb_starWidth="14dp" />
 
     <ImageView
         android:id="@+id/busiess_dianzan1_image"
         android:layout_width="15dp"
         android:layout_height="15dp"
         android:layout_gravity="center"
-        android:layout_toLeftOf="@+id/busiess_dianzancount1_textview"
+        android:layout_toLeftOf="@+id/focuson_dianzancount1_textview"
         android:src="@mipmap/ic_zan" />
 
     <TextView
-        android:id="@+id/busiess_dianzancount1_textview"
+        android:id="@+id/focuson_dianzancount1_textview"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:layout_alignParentEnd="true"
@@ -59,9 +57,10 @@
         android:id="@+id/hotel_address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/simpleRatingBars"
-
-        android:layout_toRightOf="@+id/busiess_tupian1_image"
+        android:layout_below="@+id/simpleRatingBar"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginBottom="@dimen/dp_2"
+        android:layout_toRightOf="@+id/focuson_tupian1_image"
         android:orientation="horizontal">
 
         <ImageView
@@ -83,8 +82,8 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/busiess_tupian1_image"
-        android:layout_toRightOf="@+id/busiess_tupian1_image"
+        android:layout_alignBottom="@+id/focuson_tupian1_image"
+        android:layout_toRightOf="@+id/focuson_tupian1_image"
         android:orientation="horizontal">
 
         <ImageView
@@ -94,7 +93,7 @@
             android:src="@mipmap/ic_phone_gary" />
 
         <TextView
-            android:id="@+id/tv_browsingnum"
+            android:id="@+id/tv_focusonnum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_5"
@@ -105,5 +104,12 @@
 
     </LinearLayout>
 
-
+    <Button
+        android:id="@+id/btn_focusoncheckmerchants"
+        android:layout_width="70dp"
+        android:layout_height="@dimen/dp_25"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="85dp"
+        android:background="@mipmap/btn_zhutiyanse"
+        android:text="查看商家" />
 </RelativeLayout>

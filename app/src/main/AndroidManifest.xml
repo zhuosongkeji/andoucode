@@ -247,6 +247,8 @@
         <activity
             android:name=".activity.ModifythephoneActivity"
             android:screenOrientation="portrait" /> <!-- 手机号码修改 -->
+        <activity android:name=".activity.MyFocusonActivity"
+            android:screenOrientation="portrait" /><!--店铺收藏-->
         <activity
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"

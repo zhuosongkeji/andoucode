@@ -99,7 +99,9 @@ public class MallGoodsDetailsActivity extends BaseActivity {
     //商品收藏
     @BindView(R.id.tv_mall_goods_collection)
     TextView mtvMallGoodsCollection;
-
+    //商品收藏图标
+    @BindView(R.id.iv_iscollection)
+    ImageView iviscollection;
     //商家头像
     @BindView(R.id.iv_headPic)
     ImageView IvHeadPic;
@@ -288,8 +290,10 @@ public class MallGoodsDetailsActivity extends BaseActivity {
 
                         if ("0".equals(mallGoodsDetailsDataBean.getIs_collection())) {
                             mtvMallGoodsCollection.setText("收藏");
+                            iviscollection.setImageResource(R.mipmap.uncollectionicon);
                         } else {
                             mtvMallGoodsCollection.setText("已收藏");
+                            iviscollection.setImageResource(R.mipmap.ic_heart_mall);
                         }
 
                         merchant_id = mallGoodsDetailsDataBean.getMerchant_id();
@@ -322,10 +326,12 @@ public class MallGoodsDetailsActivity extends BaseActivity {
             case R.id.mall_goods_collection:
                 if (!isCollection) {
                     mtvMallGoodsCollection.setText("已收藏");
+                    iviscollection.setImageResource(R.mipmap.ic_heart_mall);
                     isCollection = true;
                     type = "1";
                 } else {
                     mtvMallGoodsCollection.setText("收藏");
+                    iviscollection.setImageResource(R.mipmap.uncollectionicon);
                     type = "0";
                     isCollection = false;
                 }
@@ -385,10 +391,7 @@ public class MallGoodsDetailsActivity extends BaseActivity {
             //店铺主页
             case R.id.tv_mall_home:
             case R.id.rv_shop_home:
-
-                Intent shopHomeIntent = new Intent(MallGoodsDetailsActivity.this, MallShoppingHomeActivity.class);
-                shopHomeIntent.putExtra("merchant_id", merchant_id);
-                startActivity(shopHomeIntent);
+                MallShoppingHomeActivity.start(merchant_id);
                 break;
             //优惠券
             case R.id.bt_mall_goods_discount:

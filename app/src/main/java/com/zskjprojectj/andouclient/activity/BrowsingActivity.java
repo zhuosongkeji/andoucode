@@ -4,6 +4,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,6 +22,8 @@ import com.zskjprojectj.andouclient.base.BasePresenter;
 import com.zskjprojectj.andouclient.entity.BrowsingBean;
 import com.zskjprojectj.andouclient.entity.MycollectionBean;
 import com.zskjprojectj.andouclient.http.ApiUtils;
+import com.zskjprojectj.andouclient.http.HttpRxObservable;
+import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
@@ -25,6 +31,10 @@ import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.OnClick;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -49,11 +59,8 @@ public class BrowsingActivity extends BaseActivity {
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-        topView.setTitle("浏览痕迹");
         getBarDistance(mTitleView);
         mHeaderTitle.setText("浏览痕迹");
-
-
         adapter.openLoadAnimation();
         mRecycler.setAdapter(adapter);
         mRecycler.addItemDecoration(new DividerItemDecoration(mAt,DividerItemDecoration.VERTICAL));

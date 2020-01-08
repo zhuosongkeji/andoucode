@@ -53,6 +53,8 @@
     <string name="center_mycollection">我的收藏</string>
     <string name="center_browsing_traces">浏览痕迹</string>
     <string name="center_myaddress">我的地址</string>
+    <string name="center_qrcode">我的二维码</string>
+    <string name="center_release">我的发布</string>
     <string name="center_myscore">我的积分</string>
     <string name="center_mymessage">我的消息</string>
     <string name="center_business_residence">商家入驻</string>
