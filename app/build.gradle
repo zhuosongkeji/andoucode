@@ -152,6 +152,9 @@ dependencies {
 
     //图片选择
     implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.4.2'
+    implementation project(path: ':library')
+    //通知
+    implementation 'org.greenrobot:eventbus:3.1.1'
 
     //酒店选择日期
     implementation 'com.github.atuan07:CustomHotelCalender:V1.0.2'
