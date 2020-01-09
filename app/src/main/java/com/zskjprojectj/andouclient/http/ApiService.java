@@ -1,6 +1,5 @@
 package com.zskjprojectj.andouclient.http;
 
-
 import com.zhuosongkj.android.library.model.ListData;
 import com.zskjprojectj.andouclient.entity.BrowsingBean;
 import com.zskjprojectj.andouclient.entity.CheckLogisticsBean;
@@ -11,6 +10,7 @@ import com.zskjprojectj.andouclient.entity.RefundReasonBean;
 import com.zskjprojectj.andouclient.entity.PersonalBean;
 import com.zskjprojectj.andouclient.entity.TestBean;
 import com.zskjprojectj.andouclient.entity.WXPayBean;
+import com.zskjprojectj.andouclient.entity.WalletrecharBean;
 import com.zskjprojectj.andouclient.entity.hotel.HotelCategoryBean;
 import com.zskjprojectj.andouclient.entity.hotel.HotelDetailCommentBean;
 import com.zskjprojectj.andouclient.entity.hotel.HotelDetailReserveBean;
@@ -195,7 +195,13 @@ public interface ApiService {
     @POST("api/common/pay_ways")
     Observable<BaseResult<List<MallPayWaysBean>>> getMallPayWays();
 
-
+    /**
+     * 获取充值方式
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api/wallet/payWays")
+    Observable<BaseResult<List<MallPayWaysBean>>> getWalletPayWays(@Field("uid") String uid, @Field("token") String token);
     /**
      * 微信支付
      */
@@ -208,7 +214,20 @@ public interface ApiService {
                                                     @Field("is_integral") String is_integral
     );
 
-
+    /**
+     * 微信充值
+     * @param uid
+     * @param token
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api/wallet/recharge")
+    Observable<BaseResult<WXPayBean>> MallWXPayWaysrecharge(@Field("uid") String uid,
+                                                    @Field("token") String token,
+                                                    @Field("money") String money,
+                                                    @Field("mobile") String mobile,
+                                                    @Field("method") String method
+    );
     /**
      * 新增收货地址
      */
@@ -407,6 +426,7 @@ public interface ApiService {
                                                     @Field("order_sn") String order_sn);
 
 
+
     /**
      * 确认收货
      */
@@ -523,12 +543,28 @@ public interface ApiService {
      */
     @POST("api/htorder/settlement")
     @FormUrlEncoded
-    Observable<BaseResult<HotelSettlementBean>> hotelSettlement(@Field("uid") String uid,
-                                                                @Field("token") String token,
-                                                                @Field("start") String start,
-                                                                @Field("end") String end,
-                                                                @Field("id") String id);
-
+    Observable<BaseResult<HotelSettlementBean>> hotelSettlement  (@Field("uid") String uid,
+                                                                  @Field("token") String token,
+                                                                  @Field("start") String start,
+                                                                  @Field("end") String end,
+                                                                  @Field("id") String id);
+    /**
+     * list - 酒店预订
+     */
+    @POST("api/htorder/add_order")
+    @FormUrlEncoded
+    Observable<BaseResult<WXPayBean>> hotelOrder  (@Field("uid") String uid,
+                                                                  @Field("token") String token,
+                                                                  @Field("id") String id,
+                                                                  @Field("merchant_id") String merchant_id,
+                                                                  @Field("start_time") String start_time,
+                                                                  @Field("end_time") String end_time,
+                                                                  @Field("real_name") String real_name,
+                                                                  @Field("mobile") String mobile,
+                                                                  @Field("num") String num,
+                                                                  @Field("day_num") String day_num,
+                                                                  @Field("pay_way") String pay_way,
+                                                                  @Field("is_integral") String is_integral);
 
     /**
      * 绑定手机号
@@ -582,12 +618,32 @@ public interface ApiService {
     Observable<BaseResult<List<MycollectionBean>>> usercollection(@Field("uid") String uid,
                                                                   @Field("token") String token);
 
+
+    /**
+     *
+     * @param uid
+     * @param token
+     * @return
+     */
     @POST("api/users/follow")
     @FormUrlEncoded
     Observable<BaseResult<List<MyFocusonBean>>> usersfollow(@Field("uid") String uid,
                                                             @Field("token") String token);
 
     //    /**
+
+
+    /**
+     * 获取充值详细信息
+     * @param uid
+     * @param token
+     * @return
+     */
+    @POST("api/wallet/rechar")
+    @FormUrlEncoded
+    Observable<BaseResult<WalletrecharBean>> walletrechar(@Field("uid") String uid,
+                                                          @Field("token") String token);
+//    /**
 //     * 注册
 //     *
 //     * @param code    设备码
@@ -722,7 +778,7 @@ public interface ApiService {
 //    @FormUrlEncoded
 //    @POST("/pfminfo")
 //    Observable<BaseResult<PlatformBean>> getPlatformData(@Field("page") int page, @Field("pid") String id);
-//
+
     @POST("api/gourmet/delicious")
     Observable<com.zhuosongkj.android.library.model.BaseResult<List<RestaurantCategory>>> getFoodCategory();
 

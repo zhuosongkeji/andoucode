@@ -14,6 +14,9 @@ import com.zskjprojectj.andouclient.activity.MainActivity;
 import com.zskjprojectj.andouclient.activity.ShoporderActivity;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
+import com.zskjprojectj.andouclient.utils.PaySuccessEvent;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -62,10 +65,11 @@ public class MallPaySuccessActivity extends BaseActivity {
             case R.id.btn_see_order:
 //                startActivity(new Intent(MallPaySuccessActivity.this,));
 
-                Intent intent=new Intent(MallPaySuccessActivity.this, ShoporderActivity.class);
-                intent.putExtra("flag","MallPaySuccess");
-                startActivity(intent);
+//                Intent intent=new Intent(MallPaySuccessActivity.this, ShoporderActivity.class);
+//                intent.putExtra("flag","MallPaySuccess");
+//                startActivity(intent);
                 finish();
+                EventBus.getDefault().post(new PaySuccessEvent());
                 break;
 
             default:

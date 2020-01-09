@@ -221,7 +221,6 @@ public class HotelActivity extends BaseActivity implements View.OnClickListener 
 
 
     private String getTime(Date date) {//可根据需要自行截取数据显示
-//        Log.d("getTime()", "choice date millis: " + date.getTime());
         SimpleDateFormat format = new SimpleDateFormat("yyyy 年 MM 月 dd 日");
         return format.format(date);
     }

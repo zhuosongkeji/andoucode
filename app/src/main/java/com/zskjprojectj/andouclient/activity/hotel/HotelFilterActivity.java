@@ -26,7 +26,7 @@ import com.zskjprojectj.andouclient.adapter.hotel.HotelStarAdapter;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
 import com.zskjprojectj.andouclient.entity.hotel.CategoryBean;
-import com.zskjprojectj.andouclient.entity.hotel.HotelResultBean;
+import com.zskjprojectj.andouclient.entity.hotel.HotelHomeBean;
 import com.zskjprojectj.andouclient.entity.hotel.HotelSearchConditionBean;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
@@ -35,6 +35,7 @@ import com.zskjprojectj.andouclient.utils.GridSectionAverageGapItemDecoration;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -47,7 +48,6 @@ import butterknife.OnClick;
 public class HotelFilterActivity extends BaseActivity {
 
     private RecyclerView mRecycler;
-    private ArrayList<HotelResultBean> mDataList;
     private LinearLayout mPriceStar;
     private RecyclerView mPriceRecycler;
     private RecyclerView mStarRecycler;
@@ -88,24 +88,25 @@ public class HotelFilterActivity extends BaseActivity {
     @Override
     protected void initData(Bundle savedInstanceState) {
 
-        mDataList = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            HotelResultBean databean = new HotelResultBean();
-            databean.setHotelName("精尚来公寓酒店");
-            mDataList.add(databean);
-        }
-
-        HotelResultAdapter adapter = new HotelResultAdapter(R.layout.hotelresuilt_item_view, mDataList);
-        adapter.openLoadAnimation();
-        mRecycler.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-        mRecycler.setAdapter(adapter);
-
-
-        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+        HttpRxObservable.getObservable(ApiUtils.getApiService().hotelHomeList()).subscribe(new BaseObserver<HotelHomeBean>(mAt) {
             @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Intent intent = new Intent(HotelFilterActivity.this, HotelDetailActivity.class);
-                startActivity(intent);
+            public void onHandleSuccess(HotelHomeBean hotelHomeBean) throws IOException {
+
+                List<HotelHomeBean.MerchantsBean> merchants = hotelHomeBean.getMerchants();
+
+                HotelResultAdapter adapter = new HotelResultAdapter(R.layout.hotelresuilt_item_view, merchants);
+                adapter.openLoadAnimation();
+                mRecycler.addItemDecoration(new DividerItemDecoration(mAt, DividerItemDecoration.VERTICAL));
+                mRecycler.setAdapter(adapter);
+
+
+                adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                        HotelDetailActivity.start(merchants.get(position).getId());
+                    }
+                });
+
             }
         });
 
