@@ -1,7 +1,6 @@
 package com.zskjprojectj.andouclient.http;
 
-
-import com.zskjprojectj.andouclient.entity.BrowsingBean;
+import com.zhuosongkj.android.library.model.ListData;
 import com.zskjprojectj.andouclient.entity.BrowsingBean;
 import com.zskjprojectj.andouclient.entity.CheckLogisticsBean;
 import com.zskjprojectj.andouclient.entity.IndexHomeBean;
@@ -426,6 +425,7 @@ public interface ApiService {
                                                     @Field("order_sn") String order_sn);
 
 
+
     /**
      * 确认收货
      */
@@ -613,6 +613,8 @@ public interface ApiService {
     Observable<BaseResult<List<MyFocusonBean>>> usersfollow(@Field("uid") String uid,
                                                             @Field("token") String token);
 
+    //    /**
+
 
     /**
      * 获取充值详细信息
@@ -760,5 +762,9 @@ public interface ApiService {
 //    @POST("/pfminfo")
 //    Observable<BaseResult<PlatformBean>> getPlatformData(@Field("page") int page, @Field("pid") String id);
 
+    @POST("api/gourmet/delicious")
+    Observable<com.zhuosongkj.android.library.model.BaseResult<List<RestaurantCategory>>> getFoodCategory();
 
+    @POST("api/gourmet/list")
+    Observable<com.zhuosongkj.android.library.model.BaseResult<ListData<Restaurant>>> getRestaurants();
 }
