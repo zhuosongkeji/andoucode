@@ -1,6 +1,5 @@
 package com.zskjprojectj.andouclient.activity.hotel;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -10,11 +9,9 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
@@ -23,28 +20,26 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.activity.MainActivity;
 import com.zskjprojectj.andouclient.adapter.hotel.HotelCateGoryAdapter;
 import com.zskjprojectj.andouclient.adapter.hotel.HotelHomeAdapter;
-import com.zskjprojectj.andouclient.adapter.hotel.SectionAdapter;
+import com.zskjprojectj.andouclient.adapter.hotel.HotelPriceAdapter;
+import com.zskjprojectj.andouclient.adapter.hotel.HotelStarAdapter;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
 import com.zskjprojectj.andouclient.entity.hotel.HotelCategoryBean;
 import com.zskjprojectj.andouclient.entity.hotel.HotelHomeBean;
-import com.zskjprojectj.andouclient.entity.hotel.Mysection;
+import com.zskjprojectj.andouclient.entity.hotel.HotelSearchConditionBean;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.utils.BarUtils;
 import com.zskjprojectj.andouclient.utils.GridSectionAverageGapItemDecoration;
-import com.zskjprojectj.andouclient.utils.ToastUtil;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -79,13 +74,15 @@ public class HotelActivity extends BaseActivity implements View.OnClickListener 
 
     private RecyclerView mRvRecycler;
     private LinearLayout mTitle, mSearchHotel;
-    private ArrayList<HotelHomeBean> dataList;
     private View contentView;
     private Dialog bottomDialog;
-    private RecyclerView mViewRecycler;
-    private ArrayList<Mysection> mData;
+    private RecyclerView mPriceRecycler;
+    private RecyclerView mStarRecycler;
     private Button mCancle;
     private HotelCateGoryAdapter adapter=new HotelCateGoryAdapter();
+    private HotelHomeAdapter hoteladapter = new HotelHomeAdapter();
+    private HotelPriceAdapter priceAdapter;
+    private HotelStarAdapter starAdapter;
 
     @Override
     protected void setRootView() {
@@ -95,26 +92,29 @@ public class HotelActivity extends BaseActivity implements View.OnClickListener 
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-        dataList = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            HotelHomeBean databean = new HotelHomeBean();
-            databean.setName("精尚来公寓酒店");
-            dataList.add(databean);
 
-        }
-
-        HotelHomeAdapter adapter = new HotelHomeAdapter(R.layout.activity_hotel_home_view, dataList);
-        adapter.openLoadAnimation();
-        mRvRecycler.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-        mRvRecycler.setAdapter(adapter);
-
-        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+        HttpRxObservable.getObservable(ApiUtils.getApiService().hotelHomeList()).subscribe(new BaseObserver<HotelHomeBean>(mAt) {
             @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Intent intent = new Intent(HotelActivity.this, HotelDetailActivity.class);
-                startActivity(intent);
+            public void onHandleSuccess(HotelHomeBean hotelHomeBean) throws IOException {
+
+                List<HotelHomeBean.MerchantsBean> merchants = hotelHomeBean.getMerchants();
+
+                hoteladapter.setNewData(merchants);
+                hoteladapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                        HotelDetailActivity.start(merchants.get(position).getId());
+                    }
+                });
             }
         });
+
+
+        hoteladapter.openLoadAnimation();
+        mRvRecycler.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        mRvRecycler.setAdapter(hoteladapter);
+
+
 
     }
 
@@ -231,7 +231,10 @@ public class HotelActivity extends BaseActivity implements View.OnClickListener 
 
         bottomDialog = new Dialog(this, R.style.BottomDialog);
         contentView = LayoutInflater.from(this).inflate(R.layout.dialog_hotel_star_price, null);
-        mViewRecycler = contentView.findViewById(R.id.rv_recycler);
+        //弹窗 价格展示
+        mPriceRecycler = contentView.findViewById(R.id.rv_price_recycler);
+        //弹窗 星级展示
+        mStarRecycler = contentView.findViewById(R.id.rv_star_recycler);
         mCancle = contentView.findViewById(R.id.bt_cancle);
         initDialogRecycler();
         bottomDialog.setContentView(contentView);
@@ -255,44 +258,40 @@ public class HotelActivity extends BaseActivity implements View.OnClickListener 
     }
 
     private void initDialogRecycler() {
-        mViewRecycler.setLayoutManager(new GridLayoutManager(this, 4));
-        mViewRecycler.addItemDecoration(new GridSectionAverageGapItemDecoration(10, 10, 0, 10));
+        //价格
+        mPriceRecycler.setLayoutManager(new GridLayoutManager(this, 4));
+        mPriceRecycler.addItemDecoration(new GridSectionAverageGapItemDecoration(10, 10, 0, 10));
+        //星级
+        mStarRecycler.setLayoutManager(new GridLayoutManager(this, 4));
+        mStarRecycler.addItemDecoration(new GridSectionAverageGapItemDecoration(10, 10, 0, 10));
 
-        mData = new ArrayList<>();
-        for (int i = 0; i < 1; i++) {
-            mData.add(new Mysection(true, "价格"));
-            mData.add(new Mysection("¥0~100"));
-            mData.add(new Mysection("¥100~200"));
-            mData.add(new Mysection("¥200~300"));
-            mData.add(new Mysection("¥300~400"));
-            mData.add(new Mysection("¥400~500"));
-            mData.add(new Mysection("¥500~600"));
-            mData.add(new Mysection("¥600以上"));
-            mData.add(new Mysection(true, "星级"));
-            mData.add(new Mysection("经济型"));
-            mData.add(new Mysection("舒适三星"));
-            mData.add(new Mysection("高档四星"));
-            mData.add(new Mysection("豪华五星"));
-        }
-        SectionAdapter sectionAdapteradapter = new SectionAdapter(R.layout.item_section_content, R.layout.def_section_head, mData);
-        mViewRecycler.setAdapter(sectionAdapteradapter);
+        HttpRxObservable.getObservable(ApiUtils.getApiService().hotelSearchCondition()).subscribe(new BaseObserver<HotelSearchConditionBean>(mAt) {
+            @Override
+            public void onHandleSuccess(HotelSearchConditionBean hotelSearchConditionBean) throws IOException {
+                //价格
+                priceAdapter = new HotelPriceAdapter(R.layout.item_section_content, hotelSearchConditionBean.getPrice_range());
+                mPriceRecycler.setAdapter(priceAdapter);
+                //星级
+                starAdapter = new HotelStarAdapter(R.layout.item_section_content, hotelSearchConditionBean.getStar());
+                mStarRecycler.setAdapter(starAdapter);
+            }
+        });
 
 
-        sectionAdapteradapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+
+
+        priceAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-//
-//                sectionAdapteradapter.onChange(position);
-//                sectionAdapteradapter.notifyDataSetChanged();
 
 
-                if (0 < position && position < 8) {
-                    sectionAdapteradapter.onChange1(position);
-                    sectionAdapteradapter.notifyDataSetChanged();
-                } else if (8 < position && position < 13) {
-                    sectionAdapteradapter.onChange2(position);
-                    sectionAdapteradapter.notifyDataSetChanged();
-                }
+//                if (0 < position && position < 8) {
+//                    priceAdapter.onChange1(position);
+//                    priceAdapter.notifyDataSetChanged();
+//                } else if (8 < position && position < 13) {
+//                    priceAdapter.onChange2(position);
+//                    priceAdapter.notifyDataSetChanged();
+//                }
 
 
             }
@@ -301,8 +300,8 @@ public class HotelActivity extends BaseActivity implements View.OnClickListener 
         mCancle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sectionAdapteradapter.cancle(-1);
-                sectionAdapteradapter.notifyDataSetChanged();
+//                priceAdapter.cancle(-1);
+//                priceAdapter.notifyDataSetChanged();
 
             }
         });

@@ -1,9 +1,17 @@
 package com.zskjprojectj.andouclient.adapter.hotel;
 
+import android.view.View;
+import android.widget.ImageView;
+
 import androidx.annotation.Nullable;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.willy.ratingbar.ScaleRatingBar;
+import com.zskjprojectj.andouclient.R;
+import com.zskjprojectj.andouclient.base.BaseUrl;
 import com.zskjprojectj.andouclient.entity.hotel.HotelDetailCommentBean;
 
 import java.util.List;
@@ -20,12 +28,24 @@ import java.util.List;
  */
 public class CommentAdapter extends BaseQuickAdapter<HotelDetailCommentBean, BaseViewHolder> {
 
-    public CommentAdapter(int layoutResId, @Nullable List<HotelDetailCommentBean> data) {
-        super(layoutResId, data);
+    public CommentAdapter() {
+        super(R.layout.comment_item_view);
     }
 
     @Override
     protected void convert(BaseViewHolder helper, HotelDetailCommentBean item) {
+
+        Glide.with(mContext).load(BaseUrl.BASE_URL+item.getAvator()).apply(new RequestOptions()
+        .placeholder(R.drawable.default_image).error(R.drawable.default_image)).into((ImageView) helper.getView(R.id.iv_headPic));
+
+        helper.setText(R.id.tv_name,item.getName())
+                .setText(R.id.tv_time,item.getCreated_at())
+                .setText(R.id.tv_des,item.getContent());
+        ScaleRatingBar scaleRatingBar= helper.getView(R.id.simpleRatingBar);
+        String stars = item.getStars();
+        float parseFloat = Float.parseFloat(stars);
+        scaleRatingBar.setRating(parseFloat);
+
 
     }
 }

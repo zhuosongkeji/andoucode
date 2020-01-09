@@ -9,13 +9,17 @@ import com.zskjprojectj.andouclient.entity.MyFocusonBean;
 import com.zskjprojectj.andouclient.entity.MycollectionBean;
 import com.zskjprojectj.andouclient.entity.RefundReasonBean;
 import com.zskjprojectj.andouclient.entity.PersonalBean;
-import com.zskjprojectj.andouclient.entity.RefundReasonBean;
-import com.zskjprojectj.andouclient.entity.PersonalBean;
-import com.zskjprojectj.andouclient.entity.RefundReasonBean;
 import com.zskjprojectj.andouclient.entity.TestBean;
 import com.zskjprojectj.andouclient.entity.WXPayBean;
 import com.zskjprojectj.andouclient.entity.WalletrecharBean;
 import com.zskjprojectj.andouclient.entity.hotel.HotelCategoryBean;
+import com.zskjprojectj.andouclient.entity.hotel.HotelDetailCommentBean;
+import com.zskjprojectj.andouclient.entity.hotel.HotelDetailReserveBean;
+import com.zskjprojectj.andouclient.entity.hotel.HotelDetailsBean;
+import com.zskjprojectj.andouclient.entity.hotel.HotelHomeBean;
+import com.zskjprojectj.andouclient.entity.hotel.HotelHomeDetailsBean;
+import com.zskjprojectj.andouclient.entity.hotel.HotelSearchConditionBean;
+import com.zskjprojectj.andouclient.entity.hotel.HotelSettlementBean;
 import com.zskjprojectj.andouclient.entity.mall.MallBuyBean;
 import com.zskjprojectj.andouclient.entity.mall.MallBuyNowBean;
 import com.zskjprojectj.andouclient.entity.mall.MallCarBean;
@@ -31,6 +35,8 @@ import com.zskjprojectj.andouclient.entity.mall.MallShoppingHomeBean;
 import com.zskjprojectj.andouclient.model.Address;
 import com.zskjprojectj.andouclient.model.BalanceDetail;
 import com.zskjprojectj.andouclient.model.CartItem;
+import com.zskjprojectj.andouclient.model.Restaurant;
+import com.zskjprojectj.andouclient.model.RestaurantCategory;
 import com.zskjprojectj.andouclient.model.IntegralDetail;
 import com.zskjprojectj.andouclient.model.Merchant;
 import com.zskjprojectj.andouclient.model.MerchantsResponse;
@@ -87,7 +93,6 @@ public interface ApiService {
                                                                   @Field("volume_sort") String volume_sort);
 
 
-
     /**
      * 商城商品收藏/取消收藏
      */
@@ -97,6 +102,7 @@ public interface ApiService {
 
     /**
      * 店铺收藏/取消收藏
+     *
      * @param id
      * @param uid
      * @param token
@@ -106,6 +112,7 @@ public interface ApiService {
     @POST("api/goods/follow")
     @FormUrlEncoded
     Observable<BaseResult<Object>> mallgoodsfollow(@Field("id") String id, @Field("uid") String uid, @Field("token") String token, @Field("type") String type);
+
     /**
      * 商城商品详情
      */
@@ -180,7 +187,6 @@ public interface ApiService {
                                                               @Field("token") String token,
                                                               @Field("express_id") String express_id,
                                                               @Field("courier_num") String courier_num);
-
 
 
     /**
@@ -420,15 +426,14 @@ public interface ApiService {
                                                     @Field("order_sn") String order_sn);
 
 
-
     /**
      * 确认收货
      */
     @POST("api/order/confirm")
     @FormUrlEncoded
-    Observable<BaseResult<Object>> confirm (@Field("uid") String uid,
-                                                    @Field("token") String token,
-                                                    @Field("id") String id);
+    Observable<BaseResult<Object>> confirm(@Field("uid") String uid,
+                                           @Field("token") String token,
+                                           @Field("id") String id);
 
 
     /**
@@ -436,13 +441,13 @@ public interface ApiService {
      */
     @POST("api/order/addcomment")
     @FormUrlEncoded
-    Observable<BaseResult<Object>> addcomment (@Field("uid") String uid,
-                                            @Field("token") String token,
-                                            @Field("goods_id") String goods_id,
-                                            @Field("order_id") String order_id,
-                                            @Field("merchants_id") String merchants_id,
-                                            @Field("content") String content,
-                                            @Field("stars") String stars);
+    Observable<BaseResult<Object>> addcomment(@Field("uid") String uid,
+                                              @Field("token") String token,
+                                              @Field("goods_id") String goods_id,
+                                              @Field("order_id") String order_id,
+                                              @Field("merchants_id") String merchants_id,
+                                              @Field("content") String content,
+                                              @Field("stars") String stars);
 
     /**
      * 首页
@@ -456,7 +461,7 @@ public interface ApiService {
      */
     @POST("api/refund/apply")
     @FormUrlEncoded
-    Observable<BaseResult<Object>> refundapply (@Field("uid") String uid,
+    Observable<BaseResult<Object>> refundapply(@Field("uid") String uid,
                                                @Field("token") String token,
                                                @Field("order_goods_id") String order_goods_id,
                                                @Field("reason_id") String reason_id,
@@ -468,9 +473,9 @@ public interface ApiService {
      */
     @POST("api/refund/return_goods")
     @FormUrlEncoded
-    Observable<BaseResult<Object>> refundgoods (@Field("uid") String uid,
-                                                @Field("token") String token,
-                                                @Field("order_goods_id") String order_goods_id);
+    Observable<BaseResult<Object>> refundgoods(@Field("uid") String uid,
+                                               @Field("token") String token,
+                                               @Field("order_goods_id") String order_goods_id);
 
     /**
      * 退款原因
@@ -485,6 +490,65 @@ public interface ApiService {
     @POST("api/hotel/cate")
     Observable<BaseResult<List<HotelCategoryBean>>> hotelCategory();
 
+
+    /**
+     * 酒店商家列表
+     */
+    @POST("api/hotel/hotellist")
+    Observable<BaseResult<HotelHomeBean>> hotelHomeList();
+
+
+    /**
+     * 酒店搜索配置
+     */
+    @POST("api/hotel/condition")
+    Observable<BaseResult<HotelSearchConditionBean>> hotelSearchCondition();
+
+
+    /**
+     * list - 酒店商家详情
+     */
+    @POST("api/details/list")
+    @FormUrlEncoded
+    Observable<BaseResult<HotelDetailsBean>> hotelDetails(@Field("id") String id);
+
+
+    /**
+     * list - 酒店商家房间列表
+     */
+    @POST("api/details/room_list")
+    @FormUrlEncoded
+    Observable<BaseResult<HotelDetailReserveBean>> hotelDetailsHomeList(@Field("merchant_id") int merchant_id);
+
+
+    /**
+     * list - 酒店商家房间详情
+     */
+    @POST("api/details/hotelSel")
+    @FormUrlEncoded
+    Observable<BaseResult<HotelHomeDetailsBean>> hotelHomeDetails(@Field("id") String id);
+
+
+    /**
+     * list - 酒店商家评论列表
+     */
+    @POST("api/details/commnets")
+    @FormUrlEncoded
+    Observable<BaseResult<List<HotelDetailCommentBean>>> hotelDetailsCommentList(@Field("id") String id, @Field("page") String page);
+
+
+    /**
+     * list - 酒店结算页
+     */
+    @POST("api/htorder/settlement")
+    @FormUrlEncoded
+    Observable<BaseResult<HotelSettlementBean>> hotelSettlement(@Field("uid") String uid,
+                                                                @Field("token") String token,
+                                                                @Field("start") String start,
+                                                                @Field("end") String end,
+                                                                @Field("id") String id);
+
+
     /**
      * 绑定手机号
      */
@@ -496,6 +560,7 @@ public interface ApiService {
                                            @Field("name") String name,
                                            @Field("openid") String openid,
                                            @Field("avator") String avator);
+
     /**
      * 个人中心
      */
@@ -503,6 +568,7 @@ public interface ApiService {
     @FormUrlEncoded
     Observable<BaseResult<PersonalBean>> getpersonal(@Field("uid") String uid,
                                                      @Field("token") String token);
+
     /**
      * 浏览痕迹
      */
@@ -513,6 +579,7 @@ public interface ApiService {
 
     /**
      * 我的平台币
+     *
      * @param uid
      * @param token
      * @return
@@ -520,10 +587,11 @@ public interface ApiService {
     @POST("api/wallet/integral")
     @FormUrlEncoded
     Observable<BaseResult<IntegralDetail>> integralDetail(@Field("uid") String uid,
-                                                        @Field("token") String token);
+                                                          @Field("token") String token);
 
     /**
      * 我的收藏
+     *
      * @param uid
      * @param token
      * @return
@@ -531,7 +599,8 @@ public interface ApiService {
     @POST("api/users/collection")
     @FormUrlEncoded
     Observable<BaseResult<List<MycollectionBean>>> usercollection(@Field("uid") String uid,
-                                                            @Field("token") String token);
+                                                                  @Field("token") String token);
+
 
     /**
      *
@@ -542,7 +611,8 @@ public interface ApiService {
     @POST("api/users/follow")
     @FormUrlEncoded
     Observable<BaseResult<List<MyFocusonBean>>> usersfollow(@Field("uid") String uid,
-                                                               @Field("token") String token);
+                                                            @Field("token") String token);
+
 
     /**
      * 获取充值详细信息

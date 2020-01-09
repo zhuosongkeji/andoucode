@@ -5,24 +5,50 @@ package com.zskjprojectj.andouclient.entity.hotel;
  * 包名：com.zskjprojectj.andouclient.entity.hotel
  * author: Bin email:wangdabin2333@163.com
  * time: 2019/12/7 11:07
- * des:
+ * des: 酒店商家评论
  * 修改人：
  * 修改时间：
  * 修改备注：
  */
 public class HotelDetailCommentBean {
 
-    private int headPic;
-    private String name;
-    private String comment;
-    private int commentImage;
 
-    public int getHeadPic() {
-        return headPic;
+    /**
+     * stars : 评星
+     * created_at : 评论时间
+     * content : 评论内容
+     * name : 用户名
+     * avator : 用户头像
+     */
+
+    private String stars;
+    private String created_at;
+    private String content;
+    private String name;
+    private String avator;
+
+    public String getStars() {
+        return stars;
     }
 
-    public void setHeadPic(int headPic) {
-        this.headPic = headPic;
+    public void setStars(String stars) {
+        this.stars = stars;
+    }
+
+    public String getCreated_at() {
+        return created_at;
+    }
+
+    public void setCreated_at(String created_at) {
+        this.created_at = created_at;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public String getName() {
@@ -33,19 +59,11 @@ public class HotelDetailCommentBean {
         this.name = name;
     }
 
-    public String getComment() {
-        return comment;
+    public String getAvator() {
+        return avator;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
-    public int getCommentImage() {
-        return commentImage;
-    }
-
-    public void setCommentImage(int commentImage) {
-        this.commentImage = commentImage;
+    public void setAvator(String avator) {
+        this.avator = avator;
     }
 }
