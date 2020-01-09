@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="@drawable/sl_bg_food_category"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+    <View
+        android:id="@+id/indicatorImg"
+        android:layout_width="2dp"
+        android:layout_height="match_parent"
+        android:background="#5ED3AE" />
+
+    <TextView
+        android:id="@+id/nameTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="商家招牌"
+        android:textColor="@drawable/sl_food_category_name"
+        android:textSize="12sp" />
+</LinearLayout>

@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#F7F7F7"
+            app:elevation="0dp">
+
+            <FrameLayout
+                android:id="@+id/collapsing_toobar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_scrollFlags="scroll">
+
+                    <ImageView
+                        android:id="@+id/bannerImg"
+                        android:layout_width="match_parent"
+                        android:layout_height="226dp"
+                        android:scaleType="fitXY"
+                        tools:src="@mipmap/ic_placeholder" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"
+                        android:layout_marginTop="220dp"
+                        android:background="@drawable/bg_restaurant_info"
+                        android:orientation="vertical"
+                        android:paddingStart="15dp"
+                        android:paddingTop="20dp"
+                        android:paddingEnd="15dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="40dp"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_vertical">
+
+                                    <TextView
+                                        android:id="@+id/nameTxt"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:ellipsize="end"
+                                        android:lines="1"
+                                        android:textColor="#ff323232"
+                                        android:textSize="13sp"
+                                        tools:text="渝大师毛肚火锅" />
+
+                                    <ImageView
+                                        android:id="@+id/vipImg"
+                                        android:layout_width="16dp"
+                                        android:layout_height="16dp"
+                                        android:layout_marginStart="7dp"
+                                        android:scaleType="fitCenter"
+                                        android:src="@mipmap/ic_restaurant_vip" />
+                                </LinearLayout>
+
+                                <com.willy.ratingbar.ScaleRatingBar
+                                    android:id="@+id/ratingBar"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="-4dp"
+                                    android:layout_marginTop="5dp"
+                                    app:srb_drawableEmpty="@mipmap/ic_restaurant_rating_empty"
+                                    app:srb_drawableFilled="@mipmap/ic_restaurant_rating"
+                                    app:srb_isIndicator="true"
+                                    app:srb_starHeight="13dp"
+                                    app:srb_starPadding="4dp"
+                                    app:srb_starWidth="14dp" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:layout_width="15dp"
+                                    android:layout_height="15dp"
+                                    android:src="@mipmap/ic_restaurant_detail_like" />
+
+                                <TextView
+                                    android:id="@+id/likeTxt"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="9dp"
+                                    android:gravity="center"
+                                    android:minWidth="80dp"
+                                    android:text="0"
+                                    android:textColor="#ff808080"
+                                    android:textSize="12sp" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:layout_width="15dp"
+                                    android:layout_height="15dp"
+                                    android:src="@mipmap/ic_restaurant_detail_collect" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="9dp"
+                                    android:text="收藏"
+                                    android:textColor="#ff808080"
+                                    android:textSize="12sp" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"
+                            android:layout_marginTop="15dp"
+                            android:background="#F7F7F7" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/addressTxt"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:textColor="#ff252525"
+                                android:textSize="11sp"
+                                tools:text="重庆市南岸区南坪万达广场" />
+
+                            <FrameLayout
+                                android:id="@+id/locationBtn"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <ImageView
+                                    android:layout_width="16dp"
+                                    android:layout_height="16dp"
+                                    android:layout_marginStart="10dp"
+                                    android:layout_marginTop="15dp"
+                                    android:layout_marginEnd="10dp"
+                                    android:layout_marginBottom="15dp"
+                                    android:scaleType="fitCenter"
+                                    android:src="@mipmap/ic_restaurant_detail_location" />
+                            </FrameLayout>
+
+                            <FrameLayout
+                                android:id="@+id/callBtn"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <ImageView
+                                    android:layout_width="16dp"
+                                    android:layout_height="16dp"
+                                    android:layout_marginStart="10dp"
+                                    android:layout_marginTop="15dp"
+                                    android:layout_marginEnd="10dp"
+                                    android:layout_marginBottom="15dp"
+                                    android:scaleType="fitCenter"
+                                    android:src="@mipmap/ic_restaurant_detail_call" />
+                            </FrameLayout>
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </RelativeLayout>
+            </FrameLayout>
+
+            <LinearLayout
+                android:id="@+id/tabLayoutContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#F7F7F7" />
+
+                <FrameLayout
+                    android:id="@+id/fixContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#FFFFFF"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="15dp">
+
+                    <TextView
+                        android:id="@+id/openTimeTxt"
+                        android:layout_width="match_parent"
+                        android:layout_height="38dp"
+                        android:text="营业中    10:00-22:00"
+                        android:textColor="#ff252525"
+                        android:textSize="11sp" />
+                </FrameLayout>
+
+                <com.flyco.tablayout.SlidingTabLayout
+                    android:id="@+id/tabLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#FFFFFF"
+                    app:tl_indicator_color="#5ED3AE"
+                    app:tl_indicator_corner_radius="1.5dp"
+                    app:tl_indicator_height="3dp"
+                    app:tl_indicator_width_equal_title="true"
+                    app:tl_tab_space_equal="true"
+                    app:tl_textBold="NONE"
+                    app:tl_textSelectColor="#5ED3AE"
+                    app:tl_textUnselectColor="#323232"
+                    app:tl_textsize="13sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#F7F7F7" />
+            </LinearLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_gravity="bottom">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_gravity="bottom"
+            android:background="@drawable/bg_cart"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="75dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="￥"
+                    android:textColor="#fff5f6f8"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="53"
+                    android:textColor="#fff5f6f8"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <LinearLayout
+                android:layout_width="120dp"
+                android:layout_height="35dp"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/bg_buy_btn"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="13dp"
+                    android:layout_height="18dp"
+                    android:scaleType="fitCenter"
+                    android:src="@mipmap/ic_restaurant_detail_buy" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="立即预订"
+                    android:textColor="#ffffffff"
+                    android:textSize="13sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginBottom="5dp">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/bg_cart_btn"
+                android:padding="15dp"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/ic_restaurant_detail_cart" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/bg_badge"
+                android:gravity="center"
+                android:minWidth="15dp"
+                android:minHeight="15dp"
+                android:text="0"
+                android:textColor="#fff5f6f8"
+                android:textSize="10sp" />
+        </FrameLayout>
+    </FrameLayout>
+</FrameLayout>

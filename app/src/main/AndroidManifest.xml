@@ -30,7 +30,8 @@
         android:usesCleartextTraffic="true"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning"
         tools:targetApi="m">
-        <activity android:name=".activity.restaurant.RestaurantHomeActivity"></activity>
+        <activity android:name=".activity.restaurant.RestaurantDetailActivity"></activity>
+        <activity android:name=".activity.restaurant.RestaurantHomeActivity" />
         <activity android:name=".activity.CommentSuccessActivity" />
         <activity android:name=".activity.mall.MallPaySuccessActivity" />
         <activity

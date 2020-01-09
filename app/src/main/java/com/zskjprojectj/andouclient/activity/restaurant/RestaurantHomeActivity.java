@@ -3,10 +3,12 @@ package com.zskjprojectj.andouclient.activity.restaurant;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.View;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.blankj.utilcode.util.BarUtils;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zhuosongkj.android.library.ui.HeaderItemDecoration;
 import com.zhuosongkj.android.library.util.PageLoadUtil;
@@ -43,6 +45,8 @@ public class RestaurantHomeActivity extends BaseActivity {
                 LayoutInflater.from(mActivity).inflate(R.layout.layout_restaurant_header_view, null));
         adapter.bindToRecyclerView(homeAdapter.getHeaderLayout().findViewById(R.id.recyclerView));
         homeRecyclerView.addItemDecoration(new HeaderItemDecoration(homeRecyclerView, homeAdapter));
+        homeAdapter.setOnItemClickListener((adapter, view, position)
+                -> RestaurantDetailActivity.start(homeAdapter.getItem(position)));
         RequestUtil.request(mActivity, true, true,
                 () -> ApiUtils.getApiService().getFoodCategory()
                 , result -> adapter.setNewData(result.data));
