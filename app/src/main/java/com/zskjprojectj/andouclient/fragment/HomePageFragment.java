@@ -40,6 +40,7 @@ import com.zskjprojectj.andouclient.activity.hotel.HotelActivity;
 import com.zskjprojectj.andouclient.activity.LiveActivity;
 import com.zskjprojectj.andouclient.activity.MainActivity;
 import com.zskjprojectj.andouclient.activity.MallMainActivity;
+import com.zskjprojectj.andouclient.activity.restaurant.RestaurantHomeActivity;
 import com.zskjprojectj.andouclient.adapter.CoverFlowAdapter;
 import com.zskjprojectj.andouclient.adapter.merchantsCategoryAdapter;
 import com.zskjprojectj.andouclient.base.BaseFragment;
@@ -91,10 +92,10 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
     private int theme;
     private TextView tv_cityinfo;
     private XBanner bannertops;
-    private LinearLayout  rootView;
+    private LinearLayout rootView;
     private LinearLayout onlinebroadcast_see_more_layout, appointment_see_more_layout, onlinebooking_see_more_layout, ly_citychoose;
     private CoverFlowAdapter adapter;
-    private merchantsCategoryAdapter merchantsAdapter=new merchantsCategoryAdapter();
+    private merchantsCategoryAdapter merchantsAdapter = new merchantsCategoryAdapter();
 
 
     @Override
@@ -116,11 +117,10 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
         ly_citychoose = view.findViewById(R.id.ly_citychoose);
         tv_cityinfo = view.findViewById(R.id.tv_cityinfo);
 
-        LinearLayoutManager layoutManager=new LinearLayoutManager(getActivity());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         mRvMerchants.setLayoutManager(layoutManager);
         mRvMerchants.setAdapter(merchantsAdapter);
-
 
 
     }
@@ -136,7 +136,7 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
             public void run() {
                 mCoverFlow.smoothScrollToPosition(2);
             }
-        },500);
+        }, 500);
 
         mCoverFlow.setOnItemSelectedListener(new CoverFlowLayoutManger.OnSelected() {
             @Override
@@ -178,12 +178,12 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
 
 
                 List<IndexHomeBean.NoticeBean> notice = indexHomeBean.getNotice();
-                Log.d(TAG, "oaaaaaaaa: "+notice.size());
-                for(int i=0;i<notice.size();i++){
-                    View view = getLayoutInflater().inflate(R.layout.text_view,null);
+                Log.d(TAG, "oaaaaaaaa: " + notice.size());
+                for (int i = 0; i < notice.size(); i++) {
+                    View view = getLayoutInflater().inflate(R.layout.text_view, null);
                     TextView content = view.findViewById(R.id.tv_index_notice);
                     content.setText(notice.get(i).getContent());
-                    Log.d(TAG, "notice"+notice.get(i).getContent());
+                    Log.d(TAG, "notice" + notice.get(i).getContent());
                     view_flipper.addView(view);
                 }
                 view_flipper.setFlipInterval(2000);
@@ -197,7 +197,6 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
 
     @Override
     protected void initData() {
-
 
 
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, ScreenUtil.getScreenWidth(mAty) / 2);
@@ -228,8 +227,7 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
         onlinebooking_see_more_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //startActivity(new Intent(getContext(), OnlineBookingorderActivity.class));
-                ToastUtil.showToast("功能持续完成中......");
+                ActivityUtils.startActivity(RestaurantHomeActivity.class);
             }
         });
         /**
@@ -335,7 +333,7 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
     }
 
     @OnClick(R.id.ll_see_more)
-    public void clickSeeMore(){
+    public void clickSeeMore() {
         if (getActivity() instanceof MainActivity) {
             ((MainActivity) getActivity()).getNavigationBar().selectTab(1);
         }

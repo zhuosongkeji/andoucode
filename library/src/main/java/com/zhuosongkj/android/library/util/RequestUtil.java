@@ -43,12 +43,12 @@ public class RequestUtil {
                     @Override
                     public void onNext(BaseResult<T> result) {
                         dismissProgressDialog(activity);
-                        if (result.getCode().equals("200")) {
+                        if (result.code.equals("200")) {
                             onSuccessListener.onSuccess(result);
-                        } else if (result.getCode().equals("202")) {
+                        } else if (result.code.equals("202")) {
 //                            LoginActivity.start(activity);
                         } else {
-                            throw Exceptions.propagate(new ApiException(result.getCode(), result.getMsg()));
+                            throw Exceptions.propagate(new ApiException(result.code, result.msg));
                         }
                     }
 

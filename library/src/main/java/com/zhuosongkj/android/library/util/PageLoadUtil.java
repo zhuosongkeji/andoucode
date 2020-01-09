@@ -16,6 +16,8 @@ import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zhuosongkj.android.library.model.ListData;
 import com.zhuosongkj.android.library.ui.RefreshHeaderView;
 
+import java.util.List;
+
 public class PageLoadUtil<T> {
     public int page;
     private BaseQuickAdapter<T, BaseViewHolder> adapter;
@@ -23,6 +25,7 @@ public class PageLoadUtil<T> {
     private BaseActivity activity;
     private RequestUtil.ObservableProvider<ListData<T>> observableProvider;
     private View loadingView;
+    private OnLoadListener<T> onLoadListener;
 
     private PageLoadUtil(BaseActivity activity, RecyclerView recyclerView, BaseQuickAdapter<T, BaseViewHolder> adapter
             , SmartRefreshLayout refreshLayout) {
@@ -74,6 +77,7 @@ public class PageLoadUtil<T> {
         }
         RequestUtil.request(activity, false, false, observableProvider
                 , result -> {
+                    onLoadListener.onLoad(needRefresh, result.data.getDataList());
                     adapter.setEmptyView(R.layout.layout_empty_view);
                     page += 1;
                     if (needRefresh) {
@@ -103,12 +107,21 @@ public class PageLoadUtil<T> {
     }
 
     public void load(RequestUtil.ObservableProvider<ListData<T>> observableProvider) {
+        load(observableProvider, null);
+    }
+
+    public void load(RequestUtil.ObservableProvider<ListData<T>> observableProvider, OnLoadListener<T> onLoadListener) {
         this.observableProvider = observableProvider;
+        this.onLoadListener = onLoadListener;
         loadData(true);
     }
 
     public static <T> PageLoadUtil<T> get(BaseActivity activity, RecyclerView recyclerView
             , BaseQuickAdapter<T, BaseViewHolder> adapter, SmartRefreshLayout refreshLayout) {
         return new PageLoadUtil<>(activity, recyclerView, adapter, refreshLayout);
+    }
+
+    public interface OnLoadListener<T> {
+        void onLoad(boolean refresh, List<T> data);
     }
 }
