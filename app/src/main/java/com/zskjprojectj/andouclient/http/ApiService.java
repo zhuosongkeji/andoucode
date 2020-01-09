@@ -36,6 +36,7 @@ import com.zskjprojectj.andouclient.entity.mall.MallShoppingHomeBean;
 import com.zskjprojectj.andouclient.model.Address;
 import com.zskjprojectj.andouclient.model.BalanceDetail;
 import com.zskjprojectj.andouclient.model.CartItem;
+import com.zskjprojectj.andouclient.model.FoodCategory;
 import com.zskjprojectj.andouclient.model.Restaurant;
 import com.zskjprojectj.andouclient.model.RestaurantCategory;
 import com.zskjprojectj.andouclient.model.IntegralDetail;
@@ -806,4 +807,12 @@ public interface ApiService {
 
     @POST("api/gourmet/list")
     Observable<com.zhuosongkj.android.library.model.BaseResult<ListData<Restaurant>>> getRestaurants();
+
+    @FormUrlEncoded
+    @POST("api/gourmet/details")
+    Observable<com.zhuosongkj.android.library.model.BaseResult<Restaurant>> getRestaurantDetail(@Field("id") String id);
+
+    @FormUrlEncoded
+    @POST("api/gourmet/dishtype")
+    Observable<com.zhuosongkj.android.library.model.BaseResult<List<FoodCategory>>> getFoodCategory(@Field("merchants_id") String merchants_id);
 }

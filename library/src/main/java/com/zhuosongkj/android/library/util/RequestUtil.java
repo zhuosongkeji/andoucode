@@ -48,7 +48,7 @@ public class RequestUtil {
                         } else if (result.code.equals("202")) {
 //                            LoginActivity.start(activity);
                         } else {
-                            throw Exceptions.propagate(new ApiException(result.code, result.msg));
+                            onError(new ApiException(result.code, result.msg));
                         }
                     }
 

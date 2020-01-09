@@ -9,6 +9,7 @@ public class Restaurant implements Serializable {
     public String door_img;
     public String name;
     public String praise_num;
+    public String address;
     public int stars_all;
     public List<Food> cai;
     public boolean isHeader;

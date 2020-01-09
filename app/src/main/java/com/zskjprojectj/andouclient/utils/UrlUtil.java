@@ -4,6 +4,9 @@ import com.zskjprojectj.andouclient.base.BaseUrl;
 
 public class UrlUtil {
     public static String getImageUrl(String path) {
-        return (BaseUrl.BASE_URL + path).replace("//","/");
+        if (!path.startsWith("/")) {
+            path += "/";
+        }
+        return (BaseUrl.BASE_URL + path);
     }
 }

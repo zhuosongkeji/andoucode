@@ -45,9 +45,9 @@ public class BalancesubsidiaryFragment extends BaseFragment {
     @Override
     protected void initData() {
         adapter.openLoadAnimation();
-//        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+//        categoryAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
 //            @Override
-//            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+//            public void onItemClick(BaseQuickAdapter categoryAdapter, View view, int position) {
 ////                ToastUtil.showToast("点击了第"+position);
 //                showDialog();
 //

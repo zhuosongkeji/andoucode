@@ -2,7 +2,9 @@ package com.zskjprojectj.andouclient.adapter.restaurant;
 
 import android.app.Activity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.blankj.utilcode.util.SizeUtils;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -56,34 +58,41 @@ public class HomeAdapter extends BaseAdapter<Restaurant> implements HeaderItemDe
     }
 
     private void changeImageLayout(BaseViewHolder helper, int size) {
-        int itemViewWidth = ScreenUtil.getScreenWidth(helper.itemView.getContext()) - SizeUtils.dp2px(30);
-        ImageView img1 = helper.itemView.findViewById(R.id.img1);
-        img1.getLayoutParams().width = 0;
-        img1.getLayoutParams().height = 0;
-        img1.setPadding(0, 0, 0, 0);
-        ImageView img2 = helper.itemView.findViewById(R.id.img2);
-        img2.getLayoutParams().width = 0;
-        img2.getLayoutParams().height = 0;
-        ImageView img3 = helper.itemView.findViewById(R.id.img3);
-        img3.getLayoutParams().width = 0;
-        img3.getLayoutParams().height = 0;
+        View itemContainer = helper.itemView.findViewById(R.id.itemContainer);
+        int itemViewWidth = ScreenUtil.getScreenWidth(helper.itemView.getContext())
+                - itemContainer.getPaddingLeft() - itemContainer.getPaddingRight();
+        int margin = SizeUtils.dp2px(5);
+        ViewGroup.LayoutParams img1layoutParams = helper.itemView.findViewById(R.id.img1).getLayoutParams();
+        img1layoutParams.width = 0;
+        img1layoutParams.height = 0;
+        ((LinearLayout.LayoutParams) img1layoutParams).setMarginEnd(0);
+        ViewGroup.LayoutParams img2LayoutParams = helper.itemView.findViewById(R.id.img2).getLayoutParams();
+        img2LayoutParams.width = 0;
+        img2LayoutParams.height = 0;
+        ((LinearLayout.LayoutParams) img2LayoutParams).bottomMargin = 0;
+        ViewGroup.LayoutParams img3LayoutParams = helper.itemView.findViewById(R.id.img3).getLayoutParams();
+        img3LayoutParams.width = 0;
+        img3LayoutParams.height = 0;
         if (size == 1) {
-            img1.getLayoutParams().width = itemViewWidth;
-            img1.getLayoutParams().height = img1.getLayoutParams().width * 3 / 7;
+            img1layoutParams.width = itemViewWidth;
+            img1layoutParams.height = img1layoutParams.width * 3 / 7;
         } else if (size == 2) {
-            img1.getLayoutParams().width = itemViewWidth / 2;
-            img1.getLayoutParams().height = img1.getLayoutParams().width * 3 / 7;
-            img1.setPadding(SizeUtils.dp2px(5), 0, 0, 0);
-            img2.getLayoutParams().width = itemViewWidth / 2;
-            img2.getLayoutParams().height = img1.getLayoutParams().width * 3 / 7;
+            itemViewWidth -= margin;
+            img1layoutParams.width = itemViewWidth / 2;
+            img1layoutParams.height = img1layoutParams.width * 3 / 7;
+            ((LinearLayout.LayoutParams) img1layoutParams).setMarginEnd(margin);
+            img2LayoutParams.width = itemViewWidth / 2;
+            img2LayoutParams.height = img1layoutParams.width * 3 / 7;
         } else if (size >= 3) {
-            img1.getLayoutParams().width = itemViewWidth * 21 / 34;
-            img1.getLayoutParams().height = img1.getLayoutParams().width * 16 / 21;
-            img2.getLayoutParams().width = itemViewWidth * 13 / 34;
-            img2.getLayoutParams().height = img1.getLayoutParams().height / 2;
-            img2.setPadding(0, SizeUtils.dp2px(5), 0, 0);
-            img3.getLayoutParams().width = img2.getLayoutParams().width;
-            img3.getLayoutParams().height = img2.getLayoutParams().height;
+            itemViewWidth -= margin;
+            ((LinearLayout.LayoutParams) img1layoutParams).setMarginEnd(margin);
+            img1layoutParams.width = itemViewWidth * 21 / 34;
+            img1layoutParams.height = img1layoutParams.width * 16 / 21;
+            img2LayoutParams.width = itemViewWidth * 13 / 34;
+            img2LayoutParams.height = img1layoutParams.height / 2 - margin;
+            ((LinearLayout.LayoutParams) img2LayoutParams).bottomMargin = margin;
+            img3LayoutParams.width = img2LayoutParams.width;
+            img3LayoutParams.height = img2LayoutParams.height;
         }
     }
 
