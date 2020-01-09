@@ -14,6 +14,7 @@ import com.zskjprojectj.andouclient.entity.PersonalBean;
 import com.zskjprojectj.andouclient.entity.RefundReasonBean;
 import com.zskjprojectj.andouclient.entity.TestBean;
 import com.zskjprojectj.andouclient.entity.WXPayBean;
+import com.zskjprojectj.andouclient.entity.WalletrecharBean;
 import com.zskjprojectj.andouclient.entity.hotel.HotelCategoryBean;
 import com.zskjprojectj.andouclient.entity.mall.MallBuyBean;
 import com.zskjprojectj.andouclient.entity.mall.MallBuyNowBean;
@@ -188,7 +189,13 @@ public interface ApiService {
     @POST("api/common/pay_ways")
     Observable<BaseResult<List<MallPayWaysBean>>> getMallPayWays();
 
-
+    /**
+     * 获取充值方式
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api/wallet/payWays")
+    Observable<BaseResult<List<MallPayWaysBean>>> getWalletPayWays(@Field("uid") String uid, @Field("token") String token);
     /**
      * 微信支付
      */
@@ -201,7 +208,20 @@ public interface ApiService {
                                                     @Field("is_integral") String is_integral
     );
 
-
+    /**
+     * 微信充值
+     * @param uid
+     * @param token
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api/wallet/recharge")
+    Observable<BaseResult<WXPayBean>> MallWXPayWaysrecharge(@Field("uid") String uid,
+                                                    @Field("token") String token,
+                                                    @Field("money") String money,
+                                                    @Field("mobile") String mobile,
+                                                    @Field("method") String method
+    );
     /**
      * 新增收货地址
      */
@@ -512,10 +532,28 @@ public interface ApiService {
     @FormUrlEncoded
     Observable<BaseResult<List<MycollectionBean>>> usercollection(@Field("uid") String uid,
                                                             @Field("token") String token);
+
+    /**
+     *
+     * @param uid
+     * @param token
+     * @return
+     */
     @POST("api/users/follow")
     @FormUrlEncoded
     Observable<BaseResult<List<MyFocusonBean>>> usersfollow(@Field("uid") String uid,
                                                                @Field("token") String token);
+
+    /**
+     * 获取充值详细信息
+     * @param uid
+     * @param token
+     * @return
+     */
+    @POST("api/wallet/rechar")
+    @FormUrlEncoded
+    Observable<BaseResult<WalletrecharBean>> walletrechar(@Field("uid") String uid,
+                                                          @Field("token") String token);
 //    /**
 //     * 注册
 //     *

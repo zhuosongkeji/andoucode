@@ -25,6 +25,11 @@ import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.model.BalanceDetail;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
+import com.zskjprojectj.andouclient.utils.PaySuccessEvent;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -34,7 +39,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
- * 我的发布
+ * 我的钱包
  */
 public class MywalletActivity extends BaseActivity {
 
@@ -70,12 +75,14 @@ public class MywalletActivity extends BaseActivity {
     protected void initViews() {
         balanceofprepaid = findViewById(R.id.btn_balanceofprepaid);
         btn_withdrawal = findViewById(R.id.btn_withdrawal);
+        EventBus.getDefault().register(this);
         //设置点击事件
         balanceofprepaid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 jumpActivity(BalanceofprepaidActivity.class);
-                finish();
+
+               // finish();
             }
         });
         //余额提现
@@ -83,7 +90,7 @@ public class MywalletActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 jumpActivity(WithdrawalActivity.class);
-                finish();
+               // finish();
             }
         });
         //这个FixedindicatorView是平分tab的屏幕长度的
@@ -164,5 +171,9 @@ public class MywalletActivity extends BaseActivity {
     public void clickView(){
         finish();
     }
-
+    @Subscribe (threadMode = ThreadMode.MAIN)
+   public void  initnewData(PaySuccessEvent paySuccessEvent)
+    {
+        getDataFromServer();
+    }
 }
