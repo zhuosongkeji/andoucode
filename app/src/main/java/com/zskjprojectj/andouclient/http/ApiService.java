@@ -531,7 +531,23 @@ public interface ApiService {
                                                                   @Field("start") String start,
                                                                   @Field("end") String end,
                                                                   @Field("id") String id);
-
+    /**
+     * list - 酒店预订
+     */
+    @POST("api/htorder/add_order")
+    @FormUrlEncoded
+    Observable<BaseResult<WXPayBean>> hotelOrder  (@Field("uid") String uid,
+                                                                  @Field("token") String token,
+                                                                  @Field("id") String id,
+                                                                  @Field("merchant_id") String merchant_id,
+                                                                  @Field("start_time") String start_time,
+                                                                  @Field("end_time") String end_time,
+                                                                  @Field("real_name") String real_name,
+                                                                  @Field("mobile") String mobile,
+                                                                  @Field("num") String num,
+                                                                  @Field("day_num") String day_num,
+                                                                  @Field("pay_way") String pay_way,
+                                                                  @Field("is_integral") String is_integral);
 
 
     /**
