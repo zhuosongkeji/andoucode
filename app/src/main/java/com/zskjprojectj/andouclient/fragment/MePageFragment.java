@@ -106,7 +106,7 @@ public class MePageFragment extends BaseFragment {
     private ImageView img_meset;
     //个人信息
     private  ImageView img_touxiang;
-    private TextView tv_nickname,tv_isvip,tv_collectionnum,tv_focusonnum,tv_lovenum,tv_browsenum,tv_moneynum,tv_integralnumm;
+    private TextView tv_nickname,tv_viplevel,tv_collectionnum,tv_focusonnum,tv_browsenum,tv_moneynum,tv_integralnumm;
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
         mycenter_vegetablemarket_layout=view.findViewById(R.id.mycenter_vegetablemarket_layout);
@@ -130,7 +130,7 @@ public class MePageFragment extends BaseFragment {
         img_meset=view.findViewById(R.id.img_meset);
         img_touxiang=view.findViewById(R.id.img_touxiang);
         tv_nickname=view.findViewById(R.id.tv_nickname);
-        tv_isvip=view.findViewById(R.id.tv_isvip);
+        tv_viplevel=view.findViewById(R.id.tv_viplevel);
         tv_collectionnum=view.findViewById(R.id.tv_collectionnum);
         tv_focusonnum=view.findViewById(R.id.tv_focusonnum);
        // tv_lovenum=view.findViewById(R.id.tv_lovenum);
@@ -149,7 +149,7 @@ public class MePageFragment extends BaseFragment {
         HttpRxObservable.getObservable(ApiUtils.getApiService().getpersonal(LoginInfoUtil.getUid(),LoginInfoUtil.getToken())).subscribe(new BaseObserver<PersonalBean>(mAty) {
             @Override
             public void onHandleSuccess(PersonalBean personalBean) throws IOException {
-                tv_isvip.setText(personalBean.getGrade());
+                tv_viplevel.setText(personalBean.getGrade());
                 tv_nickname.setText(personalBean.getName());
                 tv_collectionnum.setText(personalBean.getCollect());
                 tv_focusonnum.setText(personalBean.getFocus());

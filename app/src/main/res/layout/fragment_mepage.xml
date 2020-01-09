@@ -258,7 +258,6 @@
 
         <include layout="@layout/base_title_view" />
     </LinearLayout>
-    我的积分
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="190dp"
@@ -293,13 +292,28 @@
                     android:text="@string/chongzhijine"
                     android:textColor="@color/white" />
 
-                <TextView
-                    android:id="@+id/tv_isvip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <LinearLayout
                     android:layout_marginTop="@dimen/dp_10"
-                    android:text="我的积分"
-                    android:textColor="@color/white" />
+                    android:gravity="center"
+                    android:layout_width="@dimen/dp_50"
+                    android:background="@mipmap/vipbgicon"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_marginLeft="@dimen/dp_9"
+                        android:id="@+id/iv_vipicon"
+                        android:src="@mipmap/vipicon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:text="1"
+                        android:layout_marginRight="@dimen/dp_9"
+                        android:textSize="@dimen/typeface14sp"
+                        android:textColor="#5ED3AE"
+                        android:id="@+id/tv_viplevel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
             </LinearLayout>
         </LinearLayout>
 
@@ -376,7 +390,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="57"
+                    android:text="0"
                     android:textColor="@color/white"
                     android:textSize="@dimen/typeface16sp" />
 
@@ -435,8 +449,8 @@
 
             <TextView
                 android:id="@+id/tv_moneynum"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:text="299" />
 
@@ -458,8 +472,8 @@
             <TextView
                 android:textSize="@dimen/typeface16sp"
                 android:textColor="@color/black"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="23" />
 
             <TextView
@@ -481,8 +495,8 @@
                 android:id="@+id/tv_integralnumm"
                 android:textSize="@dimen/typeface16sp"
                 android:textColor="@color/black"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="833" />
 
             <TextView

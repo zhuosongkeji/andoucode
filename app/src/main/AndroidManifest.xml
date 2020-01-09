@@ -30,7 +30,8 @@
         android:usesCleartextTraffic="true"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning"
         tools:targetApi="m">
-        <activity android:name=".activity.CommentSuccessActivity"></activity>
+        <activity android:name=".activity.restaurant.RestaurantHomeActivity"></activity>
+        <activity android:name=".activity.CommentSuccessActivity" />
         <activity android:name=".activity.mall.MallPaySuccessActivity" />
         <activity
             android:name=".activity.SplashActivity"
@@ -84,7 +85,7 @@
             android:screenOrientation="portrait" /> <!-- 酒店预约-主页 -->
         <activity
             android:name=".activity.LoginActivity"
-            android:screenOrientation="portrait"></activity> <!-- 注册界面 -->
+            android:screenOrientation="portrait" /> <!-- 注册界面 -->
         <activity
             android:name=".activity.RegisteredActivity"
             android:screenOrientation="portrait" /> <!-- 主界面 -->
@@ -94,7 +95,7 @@
         <activity
             android:name=".activity.MainActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/DefaultCityPickerTheme"></activity>
+            android:theme="@style/DefaultCityPickerTheme" />
         <activity
             android:name=".activity.MerchantsInfoActivity"
             android:screenOrientation="portrait" /> <!-- 菜市场模块 -->
@@ -247,8 +248,9 @@
         <activity
             android:name=".activity.ModifythephoneActivity"
             android:screenOrientation="portrait" /> <!-- 手机号码修改 -->
-        <activity android:name=".activity.MyFocusonActivity"
-            android:screenOrientation="portrait" /><!--店铺收藏-->
+        <activity
+            android:name=".activity.MyFocusonActivity"
+            android:screenOrientation="portrait" /> <!-- 店铺收藏 -->
         <activity
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"
@@ -271,12 +273,14 @@
             android:name="com.amap.api.v2.apikey"
             android:value="9efdb99b9d490c4eda5af7f40cffeccf" /> <!-- 高德地图定位 -->
         <service android:name="com.amap.api.location.APSService" />
+
         <activity
             android:name=".wxapi.WXEntryActivity"
             android:exported="true"
-            android:theme="@android:style/Theme.Translucent"/><!--微信登录  -->
-        <activity android:name=".activity.WeixinbingphoneActivity"
-            android:screenOrientation="portrait" /><!--绑定手机-->
+            android:theme="@android:style/Theme.Translucent" /> <!-- 微信登录 -->
+        <activity
+            android:name=".activity.WeixinbingphoneActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

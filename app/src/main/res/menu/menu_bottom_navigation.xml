@@ -4,17 +4,17 @@
     <!--<item-->
         <!--android:id="@+id/menu_main"-->
         <!--android:checked="true"-->
-        <!--android:icon="@drawable/foot_auction"-->
+        <!--android:img="@drawable/foot_auction"-->
         <!--android:title="首页" />-->
 
-    <!--&lt;!&ndash;因为需要覆盖view 此处省略android:icon&ndash;&gt;-->
+    <!--&lt;!&ndash;因为需要覆盖view 此处省略android:img&ndash;&gt;-->
     <!--<item-->
         <!--android:id="@+id/menu_empty"-->
         <!--android:title="" />-->
 
     <!--<item-->
         <!--android:id="@+id/menu_me"-->
-        <!--android:icon="@drawable/foot_me"-->
+        <!--android:img="@drawable/foot_me"-->
         <!--android:title="我的" />-->
 
 
