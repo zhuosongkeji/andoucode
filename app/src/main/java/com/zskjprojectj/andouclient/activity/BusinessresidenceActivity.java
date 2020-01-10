@@ -54,15 +54,17 @@ public class BusinessresidenceActivity extends BaseActivity {
         restaurant_businessin_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               jumpActivity(RestaurantbusinessinActivity.class);
-
+              // jumpActivity(RestaurantbusinessinActivity.class);
+                MallmerchantsbusinessinActivity.start(mAt, UserIn.Role.Type.RESTAURANT,REQUEST_CODE_JOIN);
             }
         });
         //酒店商家
         hotel_businessin_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                jumpActivity(HotelbusinessinActivity.class);
+
+               // jumpActivity(HotelbusinessinActivity.class);
+                MallmerchantsbusinessinActivity.start(mAt, UserIn.Role.Type.HOTEL,REQUEST_CODE_JOIN);
             }
         });
         //商城商家

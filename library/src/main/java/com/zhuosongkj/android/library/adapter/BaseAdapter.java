@@ -40,15 +40,6 @@ public abstract class BaseAdapter<T> extends BaseQuickAdapter<T, BaseViewHolder>
     }
 
     public void setSelected(T data, boolean selected) {
-        setSelected(data, selected, false);
-    }
-
-    public void setSelected(T data, boolean selected, boolean isSingle) {
-        if (isSingle && selected) {
-            for (T dataTemp : getData()) {
-                setSelected(dataTemp, false);
-            }
-        }
         selectMap.put(data, selected);
         notifyItemChanged(getData().indexOf(data));
         isSelectedAll = selected && isLoadMoreEnd && !selectMap.containsValue(false);

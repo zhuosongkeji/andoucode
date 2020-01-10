@@ -95,7 +95,6 @@ public class MallmerchantsbusinessinActivity extends BaseActivity {
     int type;
 
     final List<ADProvince> adProvincess = new ArrayList<>();
-
     @Override
     protected void setRootView() {
         setContentView(R.layout.activity_mallmerchantsbusinessin);
@@ -109,22 +108,22 @@ public class MallmerchantsbusinessinActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-        type = getIntent().getIntExtra(KEY_TYPE, UserIn.Role.Type.HOTEL.typeInt);
-//        if (type == UserIn.Role.Type.HOTEL.typeInt) {
-//            ActionBarUtil.setTitle(MallmerchantsbusinessinActivity.this, "酒店商家入驻");
-//        } else if (type == UserIn.Role.Type.MALL.typeInt) {
-//            ActionBarUtil.setTitle(MallmerchantsbusinessinActivity.this, "商城商家入驻");
-//        } else if (type == UserIn.Role.Type.RESTAURANT.typeInt) {
-//            ActionBarUtil.setTitle(MallmerchantsbusinessinActivity.this, "饭店商家入驻");
-//            findViewById(R.id.restaurantTypeContainer).setVisibility(View.VISIBLE);
-//            findViewById(R.id.restaurantLicenseContainer).setVisibility(View.VISIBLE);
-//        }
-        HttpRxObservable.getObservable(ApiUtils.getApiService().districts()).subscribe(new BaseObserver<List<ADProvince>>(mAt) {
-            @Override
-            public void onHandleSuccess(List<ADProvince> adProvinces) throws IOException {
-                adProvincess.addAll(adProvinces);
-            }
-        });
+          type = getIntent().getIntExtra(KEY_TYPE, UserIn.Role.Type.MALL.typeInt);
+        if (type == UserIn.Role.Type.HOTEL.typeInt) {
+            mHeaderTitle.setText("酒店商家入驻");
+        } else if (type == UserIn.Role.Type.MALL.typeInt) {
+           // ActionBarUtil.setTitle(MallmerchantsbusinessinActivity.this, "商城商家入驻");
+            mHeaderTitle.setText("商城商家入驻");
+        } else if (type == UserIn.Role.Type.RESTAURANT.typeInt) {
+
+            mHeaderTitle.setText("饭店商家入驻");
+        }
+       HttpRxObservable.getObservable(ApiUtils.getApiService().districts()).subscribe(new BaseObserver<List<ADProvince>>(mAt) {
+           @Override
+           public void onHandleSuccess(List<ADProvince> adProvinces) throws IOException {
+               adProvincess.addAll(adProvinces);
+           }
+       });
         addressTxt.setOnClickListener(v -> {
             AddressBottomDialog dialog = AddressBottomDialog.show(this);
             dialog.setAddressProvider(new AddressProvider() {
@@ -237,25 +236,25 @@ public class MallmerchantsbusinessinActivity extends BaseActivity {
         } else if (TextUtils.isEmpty((String) licenseImg.getTag())) {
             ToastUtil.showToast("请添加营业执照!");
         } else {
-            HttpRxObservable.getObservable(ApiUtils.getApiService().uploadMerchantsInfo(LoginInfoUtil.getUid(),
-                    LoginInfoUtil.getToken(),
-                    type,
-                    name,
-                    contactName,
-                    contactMobile,
-                    address.province.id,
-                    address.city.id,
-                    address.county.id,
-                    addressStr,
-                    description,
-                    "banner_img",
-                    "logo_img",
-                    "management_img")).subscribe(new BaseObserver<Object>(mAt) {
-                @Override
-                public void onHandleSuccess(Object o) throws IOException {
-                    jumpActivity(ApplyforsuccessfulActivity.class);
-                    finish();
-                }
+                HttpRxObservable.getObservable(ApiUtils.getApiService().uploadMerchantsInfo(  LoginInfoUtil.getUid(),
+                        LoginInfoUtil.getToken(),
+                        type,
+                        name,
+                        contactName,
+                        contactMobile,
+                        address.province.id,
+                        address.city.id,
+                        address.county.id,
+                        addressStr,
+                        description,
+                        (String) bannerImg.getTag(),
+                        (String) logoImg.getTag(),
+                        (String) licenseImg.getTag())).subscribe(new BaseObserver<Object>(mAt) {
+                    @Override
+                    public void onHandleSuccess(Object o) throws IOException {
+                        jumpActivity(ApplyforsuccessfulActivity.class);
+                        finish();
+                    }
 
                 @Override
                 public void onError(Throwable e) {
@@ -269,9 +268,9 @@ public class MallmerchantsbusinessinActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != Activity.RESULT_OK) return;
-        StringBuilder path = new StringBuilder(PictureSelector.obtainMultipleResult(data).get(0).getAndroidQToPath());
-        if (TextUtils.isEmpty(path.toString())) {
-            path.append(PictureSelector.obtainMultipleResult(data).get(0).getPath());
+        String path = PictureSelector.obtainMultipleResult(data).get(0).getAndroidQToPath();
+        if (TextUtils.isEmpty(path)) {
+            path = PictureSelector.obtainMultipleResult(data).get(0).getPath();
         }
         ImageView imageView = null;
         switch (requestCode) {
@@ -288,26 +287,27 @@ public class MallmerchantsbusinessinActivity extends BaseActivity {
 //        imageView.setTag(path);
 //        BitmapUtil.recycle(imageView);
 //        imageView.setImageBitmap(BitmapFactory.decodeFile(path));
-        File file = new File(path.toString());
+        File file = new File(path);
         RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpg"), file);
         MultipartBody.Part body = MultipartBody.Part.createFormData("img", file.getName(), requestFile);
         RequestBody uid = RequestBody.create(MediaType.parse("multipart/form-data"), LoginInfoUtil.getUid());
         RequestBody token = RequestBody.create(MediaType.parse("multipart/form-data"), LoginInfoUtil.getToken());
         ImageView finalImageView = imageView;
-        HttpRxObservable.getObservable(ApiUtils.getApiService().uploadImg(uid, body)).subscribe(new BaseObserver<String>(mAt) {
+        String finalPath = path;
+        HttpRxObservable.getObservable(ApiUtils.getApiService().uploadImg(uid,token,body)).subscribe(new BaseObserver<String>(mAt) {
 
             @Override
             public void onHandleSuccess(String s) throws IOException {
-                finalImageView.setTag(path.toString());
+                finalImageView.setTag(s);
                 BitmapUtil.recycle(finalImageView);
-                finalImageView.setImageBitmap(BitmapFactory.decodeFile(path.toString()));
+                finalImageView.setImageBitmap(BitmapFactory.decodeFile(finalPath));
             }
 
             @Override
             public void onError(Throwable e) {
                 super.onError(e);
             }
-        });
+       });
     }
 
     @Override
