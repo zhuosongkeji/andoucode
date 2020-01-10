@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -21,10 +22,13 @@
         android:orientation="horizontal"
         android:padding="15dp">
 
-        <ImageView
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/img"
             android:layout_width="80dp"
             android:layout_height="75dp"
-            android:src="@mipmap/ic_placeholder" />
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_placeholder"
+            app:riv_corner_radius="2dp" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -33,16 +37,20 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/nameTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="屠宰场毛肚"
                 android:textColor="#ff323232"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                tools:text="屠宰场毛肚" />
 
             <TextView
+                android:id="@+id/descriptionTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
+                android:ellipsize="end"
+                android:lines="2"
                 android:text="健脾益胃助消化 滋肾益精 降低血糖 延年益寿......"
                 android:textColor="#ff969696"
                 android:textSize="10sp" />
@@ -60,6 +68,7 @@
                     android:textSize="12sp" />
 
                 <TextView
+                    android:id="@+id/priceTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="48"

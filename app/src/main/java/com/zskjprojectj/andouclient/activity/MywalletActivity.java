@@ -82,7 +82,7 @@ public class MywalletActivity extends BaseActivity {
             public void onClick(View view) {
                 jumpActivity(BalanceofprepaidActivity.class);
 
-               // finish();
+                // finish();
             }
         });
         //余额提现
@@ -90,7 +90,7 @@ public class MywalletActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 jumpActivity(WithdrawalActivity.class);
-               // finish();
+                // finish();
             }
         });
         //这个FixedindicatorView是平分tab的屏幕长度的
@@ -168,12 +168,12 @@ public class MywalletActivity extends BaseActivity {
     };
 
     @OnClick(R.id.iv_header_back)
-    public void clickView(){
+    public void clickView() {
         finish();
     }
-    @Subscribe (threadMode = ThreadMode.MAIN)
-   public void  initnewData(PaySuccessEvent paySuccessEvent)
-    {
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void initnewData(PaySuccessEvent paySuccessEvent) {
         getDataFromServer();
     }
 }

@@ -1,13 +1,18 @@
 package com.zskjprojectj.andouclient.activity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
+import com.zskjprojectj.andouclient.model.UserIn;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -16,7 +21,7 @@ import butterknife.OnClick;
  * 商家入驻
  */
 public class BusinessresidenceActivity extends BaseActivity {
-
+    public static final int REQUEST_CODE_JOIN = 666;
     @BindView(R.id.header_title_view)
     RelativeLayout mTitleView;
     @BindView(R.id.tv_header_title)
@@ -49,7 +54,8 @@ public class BusinessresidenceActivity extends BaseActivity {
         restaurant_businessin_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                jumpActivity(RestaurantbusinessinActivity.class);
+               jumpActivity(RestaurantbusinessinActivity.class);
+
             }
         });
         //酒店商家
@@ -63,7 +69,8 @@ public class BusinessresidenceActivity extends BaseActivity {
         mallmerchants_businessin_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                jumpActivity(MallmerchantsbusinessinActivity.class);
+              //  jumpActivity(MallmerchantsbusinessinActivity.class);
+                MallmerchantsbusinessinActivity.start(mAt, UserIn.Role.Type.MALL,REQUEST_CODE_JOIN);
             }
         });
     }
@@ -74,6 +81,14 @@ public class BusinessresidenceActivity extends BaseActivity {
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_JOIN && resultCode == Activity.RESULT_OK) {
+            setResult(Activity.RESULT_OK);
+            finish();
+        }
+    }
+    @Override
     protected BasePresenter createPresenter() {
         return null;
     }
@@ -82,4 +97,5 @@ public class BusinessresidenceActivity extends BaseActivity {
     public void clickView() {
         finish();
     }
+
 }

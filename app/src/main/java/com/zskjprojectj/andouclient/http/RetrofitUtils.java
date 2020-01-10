@@ -1,10 +1,12 @@
 package com.zskjprojectj.andouclient.http;
 
 import com.google.gson.GsonBuilder;
+import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -37,9 +39,18 @@ public class RetrofitUtils {
                 .connectTimeout(OUT_TIME, TimeUnit.SECONDS)
                 .writeTimeout(READ_WRITE_TIME, TimeUnit.SECONDS)
                 .readTimeout(READ_WRITE_TIME, TimeUnit.SECONDS)
+                .addInterceptor(chain -> {
+                    Request request = chain.request()
+                            .newBuilder()
+                            .addHeader("token", LoginInfoUtil.getToken())
+                            .build();
+                    return chain.proceed(request);
+                })
                 .addInterceptor(new HttpLoggingInterceptor(
                         new HttpLogger()).setLevel(HttpLoggingInterceptor.Level.BODY))
                 .addInterceptor(new HeaderInterceptors());
+
+
         return builder.build();
     }
 

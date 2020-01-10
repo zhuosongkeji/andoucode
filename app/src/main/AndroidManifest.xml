@@ -283,6 +283,9 @@
         <activity
             android:name=".activity.WeixinbingphoneActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".activity.ApplyforsuccessfulActivity"
+            android:screenOrientation="portrait"
+            /><!--申请成功界面-->
     </application>
 
 </manifest>

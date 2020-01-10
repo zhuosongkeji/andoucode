@@ -11,89 +11,6 @@
 
         <include layout="@layout/base_title_view" />
     </LinearLayout>
-
-    <RelativeLayout
-        android:id="@+id/restaurant_businessin_layout"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_80"
-        android:layout_marginLeft="@dimen/dp_10"
-        android:layout_marginTop="@dimen/dp_10"
-        android:layout_marginRight="@dimen/dp_10"
-        android:background="@drawable/shape_layout_5">
-
-        <ImageView
-            android:id="@+id/img_left"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_10"
-            android:src="@mipmap/restaurantbusinessin_icon" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_15"
-            android:layout_toRightOf="@id/img_left"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="饭店商家入驻"
-                android:textSize="@dimen/typeface18sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_15"
-                android:text="申请成为饭店商家"
-                android:textColor="@color/lightgrey"
-                android:textSize="@dimen/typeface12sp" />
-        </LinearLayout>
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/hotel_businessin_layout"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_80"
-        android:layout_marginLeft="@dimen/dp_10"
-        android:layout_marginTop="@dimen/dp_10"
-        android:layout_marginRight="@dimen/dp_10"
-        android:background="@drawable/shape_layout_5">
-
-        <ImageView
-            android:id="@+id/img_lefttwo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_10"
-            android:src="@mipmap/hotelbusinessin_icon" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_15"
-            android:layout_toRightOf="@id/img_lefttwo"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="酒店商家入驻"
-                android:textSize="@dimen/typeface18sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_15"
-                android:text="申请成为酒店商家"
-                android:textColor="@color/lightgrey"
-                android:textSize="@dimen/typeface12sp" />
-        </LinearLayout>
-    </RelativeLayout>
-
     <RelativeLayout
         android:id="@+id/mallmerchants_businessin_layout"
         android:layout_width="match_parent"
@@ -120,6 +37,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:textColor="#646464"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="商城商家入驻"
@@ -134,4 +52,88 @@
                 android:textSize="@dimen/typeface12sp" />
         </LinearLayout>
     </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/restaurant_businessin_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_80"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:background="@drawable/shape_layout_5">
+
+        <ImageView
+            android:id="@+id/img_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:src="@mipmap/restaurantbusinessin_icon" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_15"
+            android:layout_toRightOf="@id/img_left"
+            android:orientation="vertical">
+
+            <TextView
+                android:textColor="#646464"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="饭店商家入驻"
+                android:textSize="@dimen/typeface18sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_15"
+                android:text="申请成为饭店商家"
+                android:textColor="@color/lightgrey"
+                android:textSize="@dimen/typeface12sp" />
+        </LinearLayout>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/hotel_businessin_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_80"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:background="@drawable/shape_layout_5">
+
+        <ImageView
+            android:id="@+id/img_lefttwo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:src="@mipmap/hotelbusinessin_icon" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_15"
+            android:layout_toRightOf="@id/img_lefttwo"
+            android:orientation="vertical">
+
+            <TextView
+                android:textColor="#646464"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="酒店商家入驻"
+                android:textSize="@dimen/typeface18sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_15"
+                android:text="申请成为酒店商家"
+                android:textColor="@color/lightgrey"
+                android:textSize="@dimen/typeface12sp" />
+        </LinearLayout>
+    </RelativeLayout>
+
+
 </LinearLayout>
