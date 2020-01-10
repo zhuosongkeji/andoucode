@@ -116,7 +116,7 @@ public class HotelorderdetailsActivity extends BaseActivity {
             findViewById(R.id.btn_hotelordercall).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ToastUtil.showToast("联系商家");
+                    call(meHotelDetailsBean.getMobile());
                 }
             });
 
@@ -135,7 +135,7 @@ public class HotelorderdetailsActivity extends BaseActivity {
             findViewById(R.id.btn_hotelordercall1).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ToastUtil.showToast("联系商家");
+                    call(meHotelDetailsBean.getMobile());
                 }
             });
         } else if (HotelOrderStatus.YI_QU_XIAO.status.equals(meHotelDetailsBean.getStatus())) {
@@ -144,7 +144,7 @@ public class HotelorderdetailsActivity extends BaseActivity {
             findViewById(R.id.btn_hotelordercall_Cancle).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ToastUtil.showToast("联系商家");
+                    call(meHotelDetailsBean.getMobile());
                 }
             });
         }
@@ -182,5 +182,11 @@ public class HotelorderdetailsActivity extends BaseActivity {
         Bundle bundle = new Bundle();
         bundle.putSerializable("MeHotelBean", meHotelBean);
         ActivityUtils.startActivity(bundle, HotelorderdetailsActivity.class);
+    }
+
+    private void call(String phoneNumber){
+        Intent myCallIntent = new Intent(Intent.ACTION_DIAL,
+                Uri.parse("tel:" + phoneNumber));
+        startActivity(myCallIntent);
     }
 }

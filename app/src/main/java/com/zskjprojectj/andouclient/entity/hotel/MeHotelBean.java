@@ -31,6 +31,24 @@ public class MeHotelBean implements Serializable {
     private String img;
     private String house_name;
     private String price;
+    private String merchants_id;
+    private String hotel_room_id;
+
+    public String getHotel_room_id() {
+        return hotel_room_id;
+    }
+
+    public void setHotel_room_id(String hotel_room_id) {
+        this.hotel_room_id = hotel_room_id;
+    }
+
+    public String getMerchants_id() {
+        return merchants_id;
+    }
+
+    public void setMerchants_id(String merchants_id) {
+        this.merchants_id = merchants_id;
+    }
 
     public String getBook_sn() {
         return book_sn;

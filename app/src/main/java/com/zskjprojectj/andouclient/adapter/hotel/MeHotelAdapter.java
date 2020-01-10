@@ -36,16 +36,16 @@ public class MeHotelAdapter extends BaseQuickAdapter<MeHotelBean, BaseViewHolder
                 .setText(R.id.tv_order_name, item.getMerchants_name())
                 .setText(R.id.tv_house_name, item.getHouse_name())
                 .setText(R.id.tv_house_price, "¥" + item.getPrice())
-        .setText(R.id.tv_house_all_price,item.getPrice())
-        .setText(R.id.tv_status,getStatusStr(item.getStatus()))
-        .addOnClickListener(R.id.btn_hotelorderdetails)
-        .addOnClickListener(R.id.btn_evaluate);
+                .setText(R.id.tv_house_all_price, item.getPrice())
+                .setText(R.id.tv_status, getStatusStr(item.getStatus()))
+                .addOnClickListener(R.id.btn_hotelorderdetails)
+                .addOnClickListener(R.id.btn_evaluate);
 
-        Glide.with(mContext).load(BaseUrl.BASE_URL+item.getLogo_img()).apply(new RequestOptions()
-        .placeholder(R.drawable.default_image).error(R.drawable.default_image)).into((ImageView) helper.getView(R.id.iv_order_img));
+        Glide.with(mContext).load(BaseUrl.BASE_URL + item.getLogo_img()).apply(new RequestOptions()
+                .placeholder(R.drawable.default_image).error(R.drawable.default_image)).into((ImageView) helper.getView(R.id.iv_order_img));
 
-        Glide.with(mContext).load(BaseUrl.BASE_URL+item.getImg()).apply(new RequestOptions()
-        .placeholder(R.drawable.default_image).error(R.drawable.default_image)).into((ImageView) helper.getView(R.id.iv_house_img));
+        Glide.with(mContext).load(BaseUrl.BASE_URL + item.getImg()).apply(new RequestOptions()
+                .placeholder(R.drawable.default_image).error(R.drawable.default_image)).into((ImageView) helper.getView(R.id.iv_house_img));
         helper.setGone(R.id.btn_evaluate, HotelOrderStatus.DAI_PING_JIA.status.equals(item.getStatus()));
 
     }

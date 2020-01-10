@@ -79,7 +79,7 @@ public class HotelActivity extends BaseActivity implements View.OnClickListener 
     private RecyclerView mPriceRecycler;
     private RecyclerView mStarRecycler;
     private Button mCancle;
-    private HotelCateGoryAdapter adapter=new HotelCateGoryAdapter();
+    private HotelCateGoryAdapter adapter = new HotelCateGoryAdapter();
     private HotelHomeAdapter hoteladapter = new HotelHomeAdapter();
     private HotelPriceAdapter priceAdapter;
     private HotelStarAdapter starAdapter;
@@ -115,7 +115,6 @@ public class HotelActivity extends BaseActivity implements View.OnClickListener 
         mRvRecycler.setAdapter(hoteladapter);
 
 
-
     }
 
     @Override
@@ -136,7 +135,7 @@ public class HotelActivity extends BaseActivity implements View.OnClickListener 
         mTvCheckInTime.setText(getNowTime());
         mTVCheckOutTime.setText(getNowTime());
 
-        LinearLayoutManager layoutManager=new LinearLayoutManager(this);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         mHotelCategory.setLayoutManager(layoutManager);
         mHotelCategory.setAdapter(adapter);
@@ -275,8 +274,6 @@ public class HotelActivity extends BaseActivity implements View.OnClickListener 
                 mStarRecycler.setAdapter(starAdapter);
             }
         });
-
-
 
 
         priceAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {

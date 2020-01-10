@@ -7,7 +7,13 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <include layout="@layout/view_top_bar" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorNavy">
+        <include layout="@layout/base_title_view" />
+    </LinearLayout>
+
 
     <ScrollView
         android:layout_width="match_parent"
@@ -179,7 +185,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/dp_13"
-                    android:src="@mipmap/icon_map" />
+                    android:src="@mipmap/weizhi_icon" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
