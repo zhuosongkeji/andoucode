@@ -48,7 +48,7 @@ public class RequestUtil {
                         } else if (result.code.equals("202")) {
 //                            LoginActivity.start(activity);
                         } else {
-                            throw Exceptions.propagate(new ApiException(result.code, result.msg));
+                            onError(new ApiException(result.code, result.msg));
                         }
                     }
 
@@ -97,7 +97,7 @@ public class RequestUtil {
                 return "500 服务器内部错误";
             }
         }
-        return "400 访问错误,请稍后重试!";
+        return throwable.getLocalizedMessage() + "访问错误,请稍后重试!";
     }
 
     public interface OnSuccessListener<T> {

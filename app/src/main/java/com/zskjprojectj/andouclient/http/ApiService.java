@@ -19,6 +19,8 @@ import com.zskjprojectj.andouclient.entity.hotel.HotelHomeBean;
 import com.zskjprojectj.andouclient.entity.hotel.HotelHomeDetailsBean;
 import com.zskjprojectj.andouclient.entity.hotel.HotelSearchConditionBean;
 import com.zskjprojectj.andouclient.entity.hotel.HotelSettlementBean;
+import com.zskjprojectj.andouclient.entity.hotel.MeHotelBean;
+import com.zskjprojectj.andouclient.entity.hotel.MeHotelDetailsBean;
 import com.zskjprojectj.andouclient.entity.mall.MallBuyBean;
 import com.zskjprojectj.andouclient.entity.mall.MallBuyNowBean;
 import com.zskjprojectj.andouclient.entity.mall.MallCarBean;
@@ -35,6 +37,7 @@ import com.zskjprojectj.andouclient.model.ADProvince;
 import com.zskjprojectj.andouclient.model.Address;
 import com.zskjprojectj.andouclient.model.BalanceDetail;
 import com.zskjprojectj.andouclient.model.CartItem;
+import com.zskjprojectj.andouclient.model.FoodCategory;
 import com.zskjprojectj.andouclient.model.Restaurant;
 import com.zskjprojectj.andouclient.model.RestaurantCategory;
 import com.zskjprojectj.andouclient.model.IntegralDetail;
@@ -550,11 +553,48 @@ public interface ApiService {
      */
     @POST("api/htorder/settlement")
     @FormUrlEncoded
-    Observable<BaseResult<HotelSettlementBean>> hotelSettlement(@Field("uid") String uid,
-                                                                @Field("token") String token,
-                                                                @Field("start") String start,
-                                                                @Field("end") String end,
-                                                                @Field("id") String id);
+    Observable<BaseResult<HotelSettlementBean>> hotelSettlement  (@Field("uid") String uid,
+                                                                  @Field("token") String token,
+                                                                  @Field("start") String start,
+                                                                  @Field("end") String end,
+                                                                  @Field("id") String id);
+    /**
+     * list - 酒店预订
+     */
+    @POST("api/htorder/add_order")
+    @FormUrlEncoded
+    Observable<BaseResult<WXPayBean>> hotelOrder  (@Field("uid") String uid,
+                                                                  @Field("token") String token,
+                                                                  @Field("id") String id,
+                                                                  @Field("merchant_id") String merchant_id,
+                                                                  @Field("start_time") String start_time,
+                                                                  @Field("end_time") String end_time,
+                                                                  @Field("real_name") String real_name,
+                                                                  @Field("mobile") String mobile,
+                                                                  @Field("num") String num,
+                                                                  @Field("day_num") String day_num,
+                                                                  @Field("pay_way") String pay_way,
+                                                                  @Field("is_integral") String is_integral);
+
+    /**
+     * list - 酒店订单
+     */
+    @POST("api/hotel/order")
+    @FormUrlEncoded
+    Observable<BaseResult<List<MeHotelBean>>> mehotelOrder  (@Field("uid") String uid,
+                                                       @Field("token") String token,
+                                                       @Field("type") String type,
+                                                       @Field("page") String page);
+
+    /**
+     * list - 酒店预订详情
+     */
+    @POST("api/htorder/orderdatails")
+    @FormUrlEncoded
+    Observable<BaseResult<MeHotelDetailsBean>> mehotelOrderDetails  (@Field("uid") String uid,
+                                                                     @Field("token") String token,
+                                                                     @Field("book_sn") String book_sn);
+
 
 
     /**
@@ -826,4 +866,12 @@ public interface ApiService {
 
     @POST("api/gourmet/list")
     Observable<com.zhuosongkj.android.library.model.BaseResult<ListData<Restaurant>>> getRestaurants();
+
+    @FormUrlEncoded
+    @POST("api/gourmet/details")
+    Observable<com.zhuosongkj.android.library.model.BaseResult<Restaurant>> getRestaurantDetail(@Field("id") String id);
+
+    @FormUrlEncoded
+    @POST("api/gourmet/dishtype")
+    Observable<com.zhuosongkj.android.library.model.BaseResult<List<FoodCategory>>> getFoodCategory(@Field("merchants_id") String merchants_id);
 }
