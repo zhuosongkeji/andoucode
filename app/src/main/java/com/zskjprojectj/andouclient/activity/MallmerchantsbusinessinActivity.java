@@ -61,8 +61,8 @@ public class MallmerchantsbusinessinActivity extends BaseActivity {
     private static final int REQUEST_CODE_SELECT_LOGO = 666;
     private static final int REQUEST_CODE_SELECT_BANNER = 667;
     private static final int REQUEST_CODE_SELECT_LICENSE = 668;
-    @BindView(R.id.header_title_view)
-    RelativeLayout mTitleView;
+//    @BindView(R.id.header_title_view)
+//    RelativeLayout mTitleView;
     @BindView(R.id.tv_header_title)
     TextView mHeaderTitle;
 
@@ -102,22 +102,22 @@ public class MallmerchantsbusinessinActivity extends BaseActivity {
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-        getBarDistance(mTitleView);
-        mHeaderTitle.setText("商城商家入驻");
+     // getBarDistance(mTitleView);
+   //  mHeaderTitle.setText("商城商家入驻");
     }
 
     @Override
     protected void initViews() {
-          type = getIntent().getIntExtra(KEY_TYPE, UserIn.Role.Type.HOTEL.typeInt);
-//        if (type == UserIn.Role.Type.HOTEL.typeInt) {
-//            ActionBarUtil.setTitle(MallmerchantsbusinessinActivity.this, "酒店商家入驻");
-//        } else if (type == UserIn.Role.Type.MALL.typeInt) {
-//            ActionBarUtil.setTitle(MallmerchantsbusinessinActivity.this, "商城商家入驻");
-//        } else if (type == UserIn.Role.Type.RESTAURANT.typeInt) {
-//            ActionBarUtil.setTitle(MallmerchantsbusinessinActivity.this, "饭店商家入驻");
-//            findViewById(R.id.restaurantTypeContainer).setVisibility(View.VISIBLE);
-//            findViewById(R.id.restaurantLicenseContainer).setVisibility(View.VISIBLE);
-//        }
+          type = getIntent().getIntExtra(KEY_TYPE, UserIn.Role.Type.MALL.typeInt);
+        if (type == UserIn.Role.Type.HOTEL.typeInt) {
+            mHeaderTitle.setText("酒店商家入驻");
+        } else if (type == UserIn.Role.Type.MALL.typeInt) {
+           // ActionBarUtil.setTitle(MallmerchantsbusinessinActivity.this, "商城商家入驻");
+            mHeaderTitle.setText("商城商家入驻");
+        } else if (type == UserIn.Role.Type.RESTAURANT.typeInt) {
+
+            mHeaderTitle.setText("饭店商家入驻");
+        }
        HttpRxObservable.getObservable(ApiUtils.getApiService().districts()).subscribe(new BaseObserver<List<ADProvince>>(mAt) {
            @Override
            public void onHandleSuccess(List<ADProvince> adProvinces) throws IOException {
@@ -245,9 +245,9 @@ public class MallmerchantsbusinessinActivity extends BaseActivity {
                         address.county.id,
                         addressStr,
                         description,
-                        "banner_img",
-                        "logo_img",
-                        "management_img")).subscribe(new BaseObserver<Object>(mAt) {
+                        (String) bannerImg.getTag(),
+                        (String) logoImg.getTag(),
+                        (String) licenseImg.getTag())).subscribe(new BaseObserver<Object>(mAt) {
                     @Override
                     public void onHandleSuccess(Object o) throws IOException {
                         jumpActivity(ApplyforsuccessfulActivity.class);
@@ -266,7 +266,10 @@ public class MallmerchantsbusinessinActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != Activity.RESULT_OK) return;
-        String path = PictureSelector.obtainMultipleResult(data).get(0).getPath();
+        String path = PictureSelector.obtainMultipleResult(data).get(0).getAndroidQToPath();
+        if (TextUtils.isEmpty(path)) {
+            path = PictureSelector.obtainMultipleResult(data).get(0).getPath();
+        }
         ImageView imageView = null;
         switch (requestCode) {
             case REQUEST_CODE_SELECT_LOGO:
@@ -288,20 +291,21 @@ public class MallmerchantsbusinessinActivity extends BaseActivity {
         RequestBody uid = RequestBody.create(MediaType.parse("multipart/form-data"), LoginInfoUtil.getUid());
         RequestBody token = RequestBody.create(MediaType.parse("multipart/form-data"), LoginInfoUtil.getToken());
         ImageView finalImageView = imageView;
+        String finalPath = path;
         HttpRxObservable.getObservable(ApiUtils.getApiService().uploadImg(uid,token,body)).subscribe(new BaseObserver<String>(mAt) {
 
             @Override
             public void onHandleSuccess(String s) throws IOException {
-                finalImageView.setTag(path);
+                finalImageView.setTag(s);
                 BitmapUtil.recycle(finalImageView);
-                finalImageView.setImageBitmap(BitmapFactory.decodeFile(path));
+                finalImageView.setImageBitmap(BitmapFactory.decodeFile(finalPath));
             }
 
             @Override
             public void onError(Throwable e) {
                 super.onError(e);
             }
-        });
+       });
     }
 
     @Override
