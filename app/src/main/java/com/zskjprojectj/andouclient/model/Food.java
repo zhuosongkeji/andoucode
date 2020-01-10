@@ -1,6 +1,7 @@
 package com.zskjprojectj.andouclient.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 public class Food implements Serializable {
     public String id;
@@ -8,7 +9,12 @@ public class Food implements Serializable {
     public String name;
     public String remark;
     public String price;
+    public int num;
     public boolean isHeader;
     public int headerPosition = -1;
     public FoodCategory category = new FoodCategory();
+
+    public double getAmount() {
+        return new BigDecimal(price).multiply(new BigDecimal(num)).doubleValue();
+    }
 }
