@@ -15,6 +15,8 @@ import com.zskjprojectj.andouclient.model.Food;
 import com.zskjprojectj.andouclient.model.FoodCategory;
 import com.zskjprojectj.andouclient.model.Restaurant;
 
+import java.util.ArrayList;
+
 public class FoodListFragment extends BaseFragment {
 
     private Restaurant restaurant;
@@ -38,41 +40,35 @@ public class FoodListFragment extends BaseFragment {
             if (categoryAdapter.selectMap.get(category)) return;
             categoryAdapter.setSelectedAll(false);
             categoryAdapter.setSelected(category, true);
-            foodRecyclerView.getLayoutManager().scrollToPosition(category.index);
+            foodRecyclerView.smoothScrollToPosition(category.index);
         });
         RequestUtil.request(mActivity, true, true,
                 () -> ApiUtils.getApiService().getFoodCategory(restaurant.id),
                 result -> {
+                    ArrayList<Food> foods = new ArrayList<>();
                     categoryAdapter.setNewData(result.data);
                     categoryAdapter.setSelected(categoryAdapter.getItem(0), true);
                     for (int i = 0; i < categoryAdapter.getData().size(); i++) {
                         FoodCategory foodCategory = categoryAdapter.getData().get(i);
-                        foodAdapter.getItem(i * 5).isHeader = true;
-                        foodAdapter.getItem(i * 5).category = foodCategory;
-                        foodCategory.index = i * 5;
-                        foodAdapter.notifyDataSetChanged();
+                        foodCategory.index = foods.size();
+                        Food food = new Food();
+                        food.isHeader = true;
+                        food.category = foodCategory;
+                        foodCategory.foods.add(food);
+                        foodCategory.foods.add(new Food());
+                        foodCategory.foods.add(new Food());
+                        foodCategory.foods.add(new Food());
+                        foodCategory.foods.add(new Food());
+                        foodCategory.foods.add(new Food());
+                        foodCategory.foods.add(new Food());
+                        foodCategory.foods.add(new Food());
+                        foodCategory.foods.add(new Food());
+                        foodCategory.foods.add(new Food());
+                        foodCategory.foods.add(new Food());
+                        foods.addAll(foodCategory.foods);
                     }
+                    foodAdapter.setNewData(foods);
                 });
-        foodAdapter.addData(new Food());
-        foodAdapter.addData(new Food());
-        foodAdapter.addData(new Food());
-        foodAdapter.addData(new Food());
-        foodAdapter.addData(new Food());
-        foodAdapter.addData(new Food());
-        foodAdapter.addData(new Food());
-        foodAdapter.addData(new Food());
-        foodAdapter.addData(new Food());
-        foodAdapter.addData(new Food());
-        foodAdapter.addData(new Food());
-        foodAdapter.addData(new Food());
-        foodAdapter.addData(new Food());
-        foodAdapter.addData(new Food());
-        foodAdapter.addData(new Food());
-        foodAdapter.addData(new Food());
-        foodAdapter.addData(new Food());
-        foodAdapter.addData(new Food());
-        foodAdapter.addData(new Food());
-        foodAdapter.addData(new Food());
     }
 
     @Override
