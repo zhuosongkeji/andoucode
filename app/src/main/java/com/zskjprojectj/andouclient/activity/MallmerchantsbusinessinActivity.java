@@ -95,6 +95,7 @@ public class MallmerchantsbusinessinActivity extends BaseActivity {
     int type;
 
     final List<ADProvince> adProvincess = new ArrayList<>();
+
     @Override
     protected void setRootView() {
         setContentView(R.layout.activity_mallmerchantsbusinessin);
@@ -108,7 +109,7 @@ public class MallmerchantsbusinessinActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-          type = getIntent().getIntExtra(KEY_TYPE, UserIn.Role.Type.HOTEL.typeInt);
+        type = getIntent().getIntExtra(KEY_TYPE, UserIn.Role.Type.HOTEL.typeInt);
 //        if (type == UserIn.Role.Type.HOTEL.typeInt) {
 //            ActionBarUtil.setTitle(MallmerchantsbusinessinActivity.this, "酒店商家入驻");
 //        } else if (type == UserIn.Role.Type.MALL.typeInt) {
@@ -118,12 +119,12 @@ public class MallmerchantsbusinessinActivity extends BaseActivity {
 //            findViewById(R.id.restaurantTypeContainer).setVisibility(View.VISIBLE);
 //            findViewById(R.id.restaurantLicenseContainer).setVisibility(View.VISIBLE);
 //        }
-       HttpRxObservable.getObservable(ApiUtils.getApiService().districts()).subscribe(new BaseObserver<List<ADProvince>>(mAt) {
-           @Override
-           public void onHandleSuccess(List<ADProvince> adProvinces) throws IOException {
-               adProvincess.addAll(adProvinces);
-           }
-       });
+        HttpRxObservable.getObservable(ApiUtils.getApiService().districts()).subscribe(new BaseObserver<List<ADProvince>>(mAt) {
+            @Override
+            public void onHandleSuccess(List<ADProvince> adProvinces) throws IOException {
+                adProvincess.addAll(adProvinces);
+            }
+        });
         addressTxt.setOnClickListener(v -> {
             AddressBottomDialog dialog = AddressBottomDialog.show(this);
             dialog.setAddressProvider(new AddressProvider() {
@@ -192,6 +193,7 @@ public class MallmerchantsbusinessinActivity extends BaseActivity {
         bannerImg.setOnClickListener(v -> startSelectPic(REQUEST_CODE_SELECT_BANNER));
         licenseImg.setOnClickListener(v -> startSelectPic(REQUEST_CODE_SELECT_LICENSE));
     }
+
     private void startSelectPic(int requestCode) {
         PictureSelector.create(this)
                 .openGallery(PictureMimeType.ofImage())
@@ -200,13 +202,14 @@ public class MallmerchantsbusinessinActivity extends BaseActivity {
                 .loadImageEngine(GlideEngine.createGlideEngine())
                 .forResult(requestCode);
     }
+
     @Override
     public void getDataFromServer() {
 
     }
+
     @OnClick(R.id.confirmBtn)
-    void onConfirmBtn()
-    {
+    void onConfirmBtn() {
         String name = nameEdt.getText().toString();
         String contactName = contactNameEdt.getText().toString();
         String contactMobile = contactMobileEdt.getText().toString();
@@ -234,31 +237,31 @@ public class MallmerchantsbusinessinActivity extends BaseActivity {
         } else if (TextUtils.isEmpty((String) licenseImg.getTag())) {
             ToastUtil.showToast("请添加营业执照!");
         } else {
-                HttpRxObservable.getObservable(ApiUtils.getApiService().uploadMerchantsInfo(  LoginInfoUtil.getUid(),
-                        LoginInfoUtil.getToken(),
-                        type,
-                        name,
-                        contactName,
-                        contactMobile,
-                        address.province.id,
-                        address.city.id,
-                        address.county.id,
-                        addressStr,
-                        description,
-                        "banner_img",
-                        "logo_img",
-                        "management_img")).subscribe(new BaseObserver<Object>(mAt) {
-                    @Override
-                    public void onHandleSuccess(Object o) throws IOException {
-                        jumpActivity(ApplyforsuccessfulActivity.class);
-                        finish();
-                    }
+            HttpRxObservable.getObservable(ApiUtils.getApiService().uploadMerchantsInfo(LoginInfoUtil.getUid(),
+                    LoginInfoUtil.getToken(),
+                    type,
+                    name,
+                    contactName,
+                    contactMobile,
+                    address.province.id,
+                    address.city.id,
+                    address.county.id,
+                    addressStr,
+                    description,
+                    "banner_img",
+                    "logo_img",
+                    "management_img")).subscribe(new BaseObserver<Object>(mAt) {
+                @Override
+                public void onHandleSuccess(Object o) throws IOException {
+                    jumpActivity(ApplyforsuccessfulActivity.class);
+                    finish();
+                }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        super.onError(e);
-                    }
-                });
+                @Override
+                public void onError(Throwable e) {
+                    super.onError(e);
+                }
+            });
         }
     }
 
@@ -266,7 +269,10 @@ public class MallmerchantsbusinessinActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != Activity.RESULT_OK) return;
-        String path = PictureSelector.obtainMultipleResult(data).get(0).getPath();
+        StringBuilder path = new StringBuilder(PictureSelector.obtainMultipleResult(data).get(0).getAndroidQToPath());
+        if (TextUtils.isEmpty(path.toString())) {
+            path.append(PictureSelector.obtainMultipleResult(data).get(0).getPath());
+        }
         ImageView imageView = null;
         switch (requestCode) {
             case REQUEST_CODE_SELECT_LOGO:
@@ -282,19 +288,19 @@ public class MallmerchantsbusinessinActivity extends BaseActivity {
 //        imageView.setTag(path);
 //        BitmapUtil.recycle(imageView);
 //        imageView.setImageBitmap(BitmapFactory.decodeFile(path));
-        File file = new File(path);
+        File file = new File(path.toString());
         RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpg"), file);
         MultipartBody.Part body = MultipartBody.Part.createFormData("img", file.getName(), requestFile);
         RequestBody uid = RequestBody.create(MediaType.parse("multipart/form-data"), LoginInfoUtil.getUid());
         RequestBody token = RequestBody.create(MediaType.parse("multipart/form-data"), LoginInfoUtil.getToken());
         ImageView finalImageView = imageView;
-        HttpRxObservable.getObservable(ApiUtils.getApiService().uploadImg(uid,token,body)).subscribe(new BaseObserver<String>(mAt) {
+        HttpRxObservable.getObservable(ApiUtils.getApiService().uploadImg(uid, body)).subscribe(new BaseObserver<String>(mAt) {
 
             @Override
             public void onHandleSuccess(String s) throws IOException {
-                finalImageView.setTag(path);
+                finalImageView.setTag(path.toString());
                 BitmapUtil.recycle(finalImageView);
-                finalImageView.setImageBitmap(BitmapFactory.decodeFile(path));
+                finalImageView.setImageBitmap(BitmapFactory.decodeFile(path.toString()));
             }
 
             @Override
@@ -316,11 +322,13 @@ public class MallmerchantsbusinessinActivity extends BaseActivity {
     protected BasePresenter createPresenter() {
         return null;
     }
+
     public static void start(Activity activity, UserIn.Role.Type type, int requestCode) {
         Bundle bundle = new Bundle();
         bundle.putInt(KEY_TYPE, type.typeInt);
         ActivityUtils.startActivityForResult(bundle, activity, MallmerchantsbusinessinActivity.class, requestCode);
     }
+
     @OnClick(R.id.iv_header_back)
     public void clickView() {
         finish();

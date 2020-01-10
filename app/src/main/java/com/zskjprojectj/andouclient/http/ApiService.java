@@ -724,7 +724,7 @@ public interface ApiService {
      */
     @POST("api/goods/uploads")
     @Multipart
-    Observable<BaseResult<String>> uploadImg(@Part("uid") RequestBody uid, @Part("token") RequestBody token, @Part MultipartBody.Part file);
+    Observable<BaseResult<String>> uploadImg(@Part("uid") RequestBody uid, @Part MultipartBody.Part file);
 //    /**
 //     * 注册
 //     *
