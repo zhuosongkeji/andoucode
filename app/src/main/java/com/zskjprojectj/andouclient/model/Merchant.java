@@ -11,6 +11,9 @@ public class Merchant implements Serializable {
     public String id;
     public String banner_img;
     public String tel;
+    public String merchant_type_id;
+    public String price;
+    public String stars_all;
 
     public ArrayList<Goods> goods = new ArrayList<>();
 }

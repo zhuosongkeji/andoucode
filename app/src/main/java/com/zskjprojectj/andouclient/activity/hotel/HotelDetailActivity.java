@@ -133,6 +133,8 @@ public class HotelDetailActivity extends BaseActivity {
         //商家ID
         String merchantId = getIntent().getStringExtra("merchantId");
 
+        Log.d(TAG, "initViews:===== "+merchantId);
+
 
         HttpRxObservable.getObservable(ApiUtils.getApiService().hotelDetails(merchantId))
                 .subscribe(new BaseObserver<HotelDetailsBean>(mAt) {

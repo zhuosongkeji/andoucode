@@ -1,5 +1,7 @@
 package com.zskjprojectj.andouclient.entity.hotel;
 
+import java.util.List;
+
 /**
  * 项目名称： andoucode
  * 包名：com.zskjprojectj.andouclient.entity.hotel
@@ -12,28 +14,51 @@ package com.zskjprojectj.andouclient.entity.hotel;
  */
 public class HotelDetailsBean {
 
-
     /**
-     * door_img : 商家门头图
-     * stars_all : 商家星级
-     * address : 详细地址
-     * praise_num : 点赞数量
-     * name : 商家名称
-     * tel : 商家电话
-     * id : 商户id
-     * desc : 商家简介
-     * facilities : 商家环境设施
+     * id : 4
+     * name : 希尔顿酒店
+     * tel : 18323899463
+     * door_img :
+     * stars_all : 4
+     * address : 重庆
+     * praise_num : 0
+     * desc : 这是重庆市希尔顿酒店的介绍
+     * facilities : ["/shop/shopImage/201912201729155674.jpg","/shop/shopImage/201912201729157091.jpg"]
      */
 
+    private String id;
+    private String name;
+    private String tel;
     private String door_img;
     private String stars_all;
     private String address;
     private String praise_num;
-    private String name;
-    private String tel;
-    private String id;
     private String desc;
-    private String facilities;
+    private List<String> facilities;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getTel() {
+        return tel;
+    }
+
+    public void setTel(String tel) {
+        this.tel = tel;
+    }
 
     public String getDoor_img() {
         return door_img;
@@ -67,30 +92,6 @@ public class HotelDetailsBean {
         this.praise_num = praise_num;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getTel() {
-        return tel;
-    }
-
-    public void setTel(String tel) {
-        this.tel = tel;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getDesc() {
         return desc;
     }
@@ -99,11 +100,11 @@ public class HotelDetailsBean {
         this.desc = desc;
     }
 
-    public String getFacilities() {
+    public List<String> getFacilities() {
         return facilities;
     }
 
-    public void setFacilities(String facilities) {
+    public void setFacilities(List<String> facilities) {
         this.facilities = facilities;
     }
 }

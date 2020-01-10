@@ -40,6 +40,7 @@ import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.utils.BarUtils;
 import com.zskjprojectj.andouclient.utils.GridSectionAverageGapItemDecoration;
+import com.zskjprojectj.andouclient.utils.ToastUtil;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -70,6 +71,8 @@ public class HotelActivity extends BaseActivity implements View.OnClickListener 
 
     @BindView(R.id.rv_hotel_category)
     RecyclerView mHotelCategory;
+    @BindView(R.id.tv_set_like)
+    TextView mTvSetLike;
 
 
     private RecyclerView mRvRecycler;
@@ -83,6 +86,9 @@ public class HotelActivity extends BaseActivity implements View.OnClickListener 
     private HotelHomeAdapter hoteladapter = new HotelHomeAdapter();
     private HotelPriceAdapter priceAdapter;
     private HotelStarAdapter starAdapter;
+    private Button mConfirm;
+    private String hotelPrice;
+    private String hotelStar;
 
     @Override
     protected void setRootView() {
@@ -93,17 +99,14 @@ public class HotelActivity extends BaseActivity implements View.OnClickListener 
     @Override
     protected void initData(Bundle savedInstanceState) {
 
-        HttpRxObservable.getObservable(ApiUtils.getApiService().hotelHomeList()).subscribe(new BaseObserver<HotelHomeBean>(mAt) {
+        HttpRxObservable.getObservable(ApiUtils.getApiService().hotelHomeList()).subscribe(new BaseObserver<List<HotelHomeBean>>(mAt) {
             @Override
-            public void onHandleSuccess(HotelHomeBean hotelHomeBean) throws IOException {
-
-                List<HotelHomeBean.MerchantsBean> merchants = hotelHomeBean.getMerchants();
-
-                hoteladapter.setNewData(merchants);
+            public void onHandleSuccess(List<HotelHomeBean> hotelHomeBeans) throws IOException {
+                hoteladapter.setNewData(hotelHomeBeans);
                 hoteladapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                        HotelDetailActivity.start(merchants.get(position).getId());
+                        HotelDetailActivity.start(hotelHomeBeans.get(position).getId());
                     }
                 });
             }
@@ -139,8 +142,6 @@ public class HotelActivity extends BaseActivity implements View.OnClickListener 
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         mHotelCategory.setLayoutManager(layoutManager);
         mHotelCategory.setAdapter(adapter);
-
-
     }
 
     private String getNowTime() {
@@ -159,6 +160,12 @@ public class HotelActivity extends BaseActivity implements View.OnClickListener 
             @Override
             public void onHandleSuccess(List<HotelCategoryBean> hotelCategoryBeans) throws IOException {
                 adapter.setNewData(hotelCategoryBeans);
+                adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                        HotelFilterActivity.start(hotelCategoryBeans.get(position).getId());
+                    }
+                });
             }
         });
 
@@ -234,6 +241,7 @@ public class HotelActivity extends BaseActivity implements View.OnClickListener 
         //弹窗 星级展示
         mStarRecycler = contentView.findViewById(R.id.rv_star_recycler);
         mCancle = contentView.findViewById(R.id.bt_cancle);
+        mConfirm = contentView.findViewById(R.id.confirm);
         initDialogRecycler();
         bottomDialog.setContentView(contentView);
 
@@ -256,6 +264,8 @@ public class HotelActivity extends BaseActivity implements View.OnClickListener 
     }
 
     private void initDialogRecycler() {
+
+
         //价格
         mPriceRecycler.setLayoutManager(new GridLayoutManager(this, 4));
         mPriceRecycler.addItemDecoration(new GridSectionAverageGapItemDecoration(10, 10, 0, 10));
@@ -269,41 +279,66 @@ public class HotelActivity extends BaseActivity implements View.OnClickListener 
                 //价格
                 priceAdapter = new HotelPriceAdapter(R.layout.item_section_content, hotelSearchConditionBean.getPrice_range());
                 mPriceRecycler.setAdapter(priceAdapter);
+                priceAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                        priceAdapter.onChange(position);
+                        priceAdapter.notifyDataSetChanged();
+                    }
+                });
+                priceAdapter.setOnItemGetContent(new HotelPriceAdapter.onItemGetContent() {
+                    @Override
+                    public void content(String content) {
+                        hotelPrice = content;
+                    }
+                });
+
+
                 //星级
                 starAdapter = new HotelStarAdapter(R.layout.item_section_content, hotelSearchConditionBean.getStar());
                 mStarRecycler.setAdapter(starAdapter);
+                starAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                        starAdapter.onChange(position);
+                        starAdapter.notifyDataSetChanged();
+                    }
+                });
+
+                starAdapter.setOnItemGetContent(new HotelStarAdapter.onItemGetContent() {
+                    @Override
+                    public void content(String content) {
+                        hotelStar = content;
+                    }
+                });
+
+
             }
         });
 
-
-        priceAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
-
-//                if (0 < position && position < 8) {
-//                    priceAdapter.onChange1(position);
-//                    priceAdapter.notifyDataSetChanged();
-//                } else if (8 < position && position < 13) {
-//                    priceAdapter.onChange2(position);
-//                    priceAdapter.notifyDataSetChanged();
-//                }
-
-
-            }
-        });
 
         mCancle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                priceAdapter.cancle(-1);
-//                priceAdapter.notifyDataSetChanged();
+                priceAdapter.cancle(-1);
+                priceAdapter.notifyDataSetChanged();
+                starAdapter.cancle(-1);
+                starAdapter.notifyDataSetChanged();
 
+            }
+        });
+
+        mConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomDialog.dismiss();
+                mTvSetLike.setText(hotelPrice + "/" + hotelStar);
             }
         });
 
 
     }
+
 
     @OnClick(R.id.busiess_back_image)
     public void clickBack() {

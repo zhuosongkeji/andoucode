@@ -21,6 +21,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.hotel.HotelDetailActivity;
+import com.zskjprojectj.andouclient.activity.mall.MallShoppingHomeActivity;
+import com.zskjprojectj.andouclient.activity.restaurant.RestaurantDetailActivity;
+import com.zskjprojectj.andouclient.activity.restaurant.RestaurantHomeActivity;
 import com.zskjprojectj.andouclient.adapter.MerchantListAdapter;
 import com.zskjprojectj.andouclient.base.BaseFragment;
 import com.zskjprojectj.andouclient.entity.MerchantListBean;
@@ -29,6 +32,7 @@ import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.model.Merchant;
 import com.zskjprojectj.andouclient.model.MerchantsResponse;
+import com.zskjprojectj.andouclient.model.Restaurant;
 import com.zskjprojectj.andouclient.view.TopView;
 
 import java.io.IOException;
@@ -117,9 +121,49 @@ public class MerchantsPageFragment extends BaseFragment {
                     @Override
                     public void onHandleSuccess(MerchantsResponse merchantsResponse) throws IOException {
                         adapter.setNewData(merchantsResponse.merchants);
+                        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                                //TODO
+                                getMerchantType(merchantsResponse.merchants.get(position).merchant_type_id);
+                            }
+                        });
                     }
                 });
     }
+
+    private void getMerchantType(String type) {
+        switch (type) {
+            //商家商城
+            case "2":
+                MallShoppingHomeActivity.start(type);
+                break;
+            //酒店商家
+            case "3":
+                HotelDetailActivity.start(type);
+                break;
+            //饭店商家
+            case "4":
+                Restaurant restaurant  =new Restaurant();
+                restaurant.id = type;
+                RestaurantDetailActivity.start(restaurant);
+                break;
+            //农家乐
+            case "5":
+                break;
+            //旅游
+            case "6":
+                break;
+            //美食预订
+            case "7":
+                break;
+            //农家乐民宿
+            case "8":
+                break;
+        }
+
+    }
+
 
     @OnClick({R.id.ll_merchants_classification, R.id.ll_in_screening, R.id.ll_sorting_way})
     public void clickSelector(View v) {

@@ -49,9 +49,6 @@ public class RestaurantDetailActivity extends BaseActivity {
                                 .setAlpha(Math.abs(verticalOffset) * 0.01f));
         fixContainer.setPadding(fixContainer.getPaddingLeft(), BarUtils.getStatusBarHeight(), fixContainer.getPaddingEnd(), 0);
         Restaurant restaurant = (Restaurant) getIntent().getSerializableExtra(KEY_DATA);
-        fragments.add(new FoodListFragment(restaurant));
-        fragments.add(new ReviewListFragment());
-        fragments.add(new RestaurantInfoFragment());
         RequestUtil.request(mActivity, true, true,
                 () -> ApiUtils.getApiService().getRestaurantDetail(restaurant.id),
                 result -> bindRestaurant(result.data));
@@ -63,6 +60,9 @@ public class RestaurantDetailActivity extends BaseActivity {
     }
 
     private void bindRestaurant(Restaurant restaurant) {
+        fragments.add(new FoodListFragment(restaurant));
+        fragments.add(new ReviewListFragment());
+        fragments.add(new RestaurantInfoFragment());
         ViewUtil.setText(mActivity, R.id.nameTxt, restaurant.name);
         ViewUtil.setText(mActivity, R.id.likeTxt, restaurant.praise_num);
         ViewUtil.setText(mActivity, R.id.addressTxt, restaurant.address);
@@ -84,4 +84,6 @@ public class RestaurantDetailActivity extends BaseActivity {
         bundle.putSerializable(KEY_DATA, restaurant);
         ActivityUtils.startActivity(bundle, RestaurantDetailActivity.class);
     }
+
+
 }
