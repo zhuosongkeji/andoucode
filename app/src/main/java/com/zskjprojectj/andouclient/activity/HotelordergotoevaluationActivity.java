@@ -1,6 +1,7 @@
 package com.zskjprojectj.andouclient.activity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -49,6 +50,7 @@ public class HotelordergotoevaluationActivity extends BaseActivity {
     private String merchant_id;
     private String id;
     private String book_sn;
+    private String likeStatus="0";
 
 
     @OnClick({R.id.iv_header_back, R.id.iv_like,R.id.btn_evaluate})
@@ -59,9 +61,12 @@ public class HotelordergotoevaluationActivity extends BaseActivity {
                 break;
             case R.id.iv_like:
                 if (mIvLike.isSelected()){
+                    likeStatus="0";
                     mIvLike.setSelected(false);
                 }else {
                     mIvLike.setSelected(true);
+
+                    likeStatus="1";
                 }
 //                HttpRxObservable.getObservable(ApiUtils.getApiService().addhotelfabulous(
 //                        LoginInfoUtil.getUid(),
@@ -75,7 +80,11 @@ public class HotelordergotoevaluationActivity extends BaseActivity {
 //                });
                 break;
             case R.id.btn_evaluate:
-                String rating = String.valueOf(mSimpleRatingBar.getRating());
+                float rating1 = mSimpleRatingBar.getRating();
+                int rat= (int) rating1;
+
+                String rating = String.valueOf(rat);
+                Log.d(TAG, "clickView: "+likeStatus+" "+rating);
                 HttpRxObservable.getObservable(ApiUtils.getApiService().addhotelcomment(
                         LoginInfoUtil.getUid(),
                         LoginInfoUtil.getToken(),
@@ -83,11 +92,13 @@ public class HotelordergotoevaluationActivity extends BaseActivity {
                         book_sn,
                         merchant_id,
                         mEtEvaluateContent.getText().toString(),
-                        rating
+                        rating,
+                        likeStatus
                 )).subscribe(new BaseObserver<Object>(mAt) {
                     @Override
                     public void onHandleSuccess(Object o) throws IOException {
                         ToastUtil.showToast("评价成功");
+                        finish();
                     }
                 });
                 break;
@@ -120,7 +131,7 @@ public class HotelordergotoevaluationActivity extends BaseActivity {
         merchant_id = getIntent().getStringExtra("merchant_id");
         id = getIntent().getStringExtra("id");
         book_sn = getIntent().getStringExtra("book_sn");
-        mIvLike.setSelected(false);
+
     }
 
     @Override

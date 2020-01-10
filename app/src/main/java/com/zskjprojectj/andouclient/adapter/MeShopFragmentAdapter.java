@@ -1,5 +1,6 @@
 package com.zskjprojectj.andouclient.adapter;
 
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -12,6 +13,8 @@ import com.zskjprojectj.andouclient.base.BaseUrl;
 import com.zskjprojectj.andouclient.model.Order;
 import com.zskjprojectj.andouclient.model.OrderStatus;
 
+import java.util.List;
+
 /**
  * 个人中心商城订单全部订单适配器对象
  */
@@ -22,6 +25,8 @@ public class MeShopFragmentAdapter extends BaseQuickAdapter<Order, BaseViewHolde
 
     @Override
     protected void convert(BaseViewHolder helper, Order item) {
+        Log.d("wangbin", "convert: "+item.num);
+
         helper.setText(R.id.shopNameTxt, item.mname)
                 .setText(R.id.orderNumTxt, "订单编号:" + item.order_id)
                 .setText(R.id.titleTxt, item.name)
@@ -29,6 +34,7 @@ public class MeShopFragmentAdapter extends BaseQuickAdapter<Order, BaseViewHolde
                 .setText(R.id.countTxt, "x " + item.num)
                 .setText(R.id.statusTxt, getStatusStr(item.status))
                 .setText(R.id.total, "￥" + item.pay_money)
+                .setText(R.id.specTxt,getSpec(item.attr_value))
                 .addOnClickListener(R.id.btn_orderdetails)
                 .addOnClickListener(R.id.btn_gotopayment)
                 .addOnClickListener(R.id.btn_getgoods)
@@ -62,5 +68,13 @@ public class MeShopFragmentAdapter extends BaseQuickAdapter<Order, BaseViewHolde
             default:
                 return "";
         }
+    }
+
+    private String getSpec(String[] attr_value) {
+        StringBuilder builder = new StringBuilder();
+        for (String s : attr_value) {
+            builder.append(s).append("+");
+        }
+        return builder.substring(0, builder.length() - 1);
     }
 }

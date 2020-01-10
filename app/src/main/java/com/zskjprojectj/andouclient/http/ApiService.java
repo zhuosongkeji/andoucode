@@ -607,16 +607,17 @@ public interface ApiService {
                                                    @Field("order_id") String order_id,
                                                    @Field("merchants_id") String merchants_id,
                                                    @Field("content") String content,
-                                                   @Field("stars") String stars);
+                                                   @Field("stars") String stars,
+                                                   @Field("dianzhan") String dianzhan);
 
     /**
      * 添加酒店点赞
      */
     @POST("api/users/fabulous")
     @FormUrlEncoded
-    Observable<BaseResult<Object>> addhotelfabulous (@Field("uid") String uid,
-                                                   @Field("token") String token,
-                                                   @Field("id") String id);
+    Observable<BaseResult<Object>> addhotelfabulous(@Field("uid") String uid,
+                                                    @Field("token") String token,
+                                                    @Field("id") String id);
 
     /**
      * 绑定手机号

@@ -1,6 +1,7 @@
 package com.zskjprojectj.andouclient.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Order implements Serializable {
     public String img;
@@ -18,4 +19,6 @@ public class Order implements Serializable {
     public String courier_num;
     public float price;
     public String pay_money;
+    public String[] attr_value;
+
 }
