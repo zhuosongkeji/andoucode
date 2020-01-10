@@ -55,19 +55,7 @@ public class MeHotelFragment extends BaseFragment {
     protected void initViews(View view, Bundle savedInstanceState) {
 
         mRvRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
-        adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-            @Override
-            public void onItemChildClick(BaseQuickAdapter adapter1, View view, int position) {
-                //查看详情
-                if (view.getId() == R.id.btn_hotelorderdetails) {
-                    HotelorderdetailsActivity.start(adapter.getItem(position));
-                }else if (view.getId()==R.id.btn_evaluate){
 
-//                    HotelordergotoevaluationActivity.start(meHotelDetailsBean.getMerchant_id(),
-//                            meHotelDetailsBean.getId(), meHotelDetailsBean.getBook_sn());
-                }
-            }
-        });
     }
 
     @Override
@@ -88,6 +76,19 @@ public class MeHotelFragment extends BaseFragment {
             @Override
             public void onHandleSuccess(List<MeHotelBean> meHotelBeans) throws IOException {
                 adapter.setNewData(meHotelBeans);
+                adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+                    @Override
+                    public void onItemChildClick(BaseQuickAdapter adapter1, View view, int position) {
+                        //查看详情
+                        if (view.getId() == R.id.btn_hotelorderdetails) {
+                            HotelorderdetailsActivity.start(adapter.getItem(position));
+                        }else if (view.getId()==R.id.btn_evaluate){
+
+                    HotelordergotoevaluationActivity.start(meHotelBeans.get(position).getMerchants_id(),
+                            meHotelBeans.get(position).getHotel_room_id(), meHotelBeans.get(position).getBook_sn());
+                        }
+                    }
+                });
             }
         });
 

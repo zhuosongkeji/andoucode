@@ -61,8 +61,8 @@ public class MallmerchantsbusinessinActivity extends BaseActivity {
     private static final int REQUEST_CODE_SELECT_LOGO = 666;
     private static final int REQUEST_CODE_SELECT_BANNER = 667;
     private static final int REQUEST_CODE_SELECT_LICENSE = 668;
-//    @BindView(R.id.header_title_view)
-//    RelativeLayout mTitleView;
+    @BindView(R.id.header_title_view)
+    RelativeLayout mTitleView;
     @BindView(R.id.tv_header_title)
     TextView mHeaderTitle;
 
@@ -102,8 +102,8 @@ public class MallmerchantsbusinessinActivity extends BaseActivity {
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-     // getBarDistance(mTitleView);
-   //  mHeaderTitle.setText("商城商家入驻");
+        getBarDistance(mTitleView);
+        mHeaderTitle.setText("商城商家入驻");
     }
 
     @Override
@@ -192,6 +192,7 @@ public class MallmerchantsbusinessinActivity extends BaseActivity {
         bannerImg.setOnClickListener(v -> startSelectPic(REQUEST_CODE_SELECT_BANNER));
         licenseImg.setOnClickListener(v -> startSelectPic(REQUEST_CODE_SELECT_LICENSE));
     }
+
     private void startSelectPic(int requestCode) {
         PictureSelector.create(this)
                 .openGallery(PictureMimeType.ofImage())
@@ -200,13 +201,14 @@ public class MallmerchantsbusinessinActivity extends BaseActivity {
                 .loadImageEngine(GlideEngine.createGlideEngine())
                 .forResult(requestCode);
     }
+
     @Override
     public void getDataFromServer() {
 
     }
+
     @OnClick(R.id.confirmBtn)
-    void onConfirmBtn()
-    {
+    void onConfirmBtn() {
         String name = nameEdt.getText().toString();
         String contactName = contactNameEdt.getText().toString();
         String contactMobile = contactMobileEdt.getText().toString();
@@ -254,11 +256,11 @@ public class MallmerchantsbusinessinActivity extends BaseActivity {
                         finish();
                     }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        super.onError(e);
-                    }
-                });
+                @Override
+                public void onError(Throwable e) {
+                    super.onError(e);
+                }
+            });
         }
     }
 
@@ -320,11 +322,13 @@ public class MallmerchantsbusinessinActivity extends BaseActivity {
     protected BasePresenter createPresenter() {
         return null;
     }
+
     public static void start(Activity activity, UserIn.Role.Type type, int requestCode) {
         Bundle bundle = new Bundle();
         bundle.putInt(KEY_TYPE, type.typeInt);
         ActivityUtils.startActivityForResult(bundle, activity, MallmerchantsbusinessinActivity.class, requestCode);
     }
+
     @OnClick(R.id.iv_header_back)
     public void clickView() {
         finish();

@@ -2,7 +2,10 @@ package com.zskjprojectj.andouclient.fragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.zhuosongkj.android.library.app.BaseFragment;
@@ -40,7 +43,37 @@ public class FoodListFragment extends BaseFragment {
             if (categoryAdapter.selectMap.get(category)) return;
             categoryAdapter.setSelectedAll(false);
             categoryAdapter.setSelected(category, true);
-            foodRecyclerView.smoothScrollToPosition(category.index);
+            RecyclerView.SmoothScroller smoothScroller = new LinearSmoothScroller(mActivity) {
+                @Override
+                protected int getVerticalSnapPreference() {
+                    return LinearSmoothScroller.SNAP_TO_START;
+                }
+            };
+            smoothScroller.setTargetPosition(category.index);
+            foodRecyclerView.getLayoutManager().startSmoothScroll(smoothScroller);
+        });
+        foodRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                Food food = foodAdapter.getItem(((LinearLayoutManager) foodRecyclerView.getLayoutManager()).findFirstVisibleItemPosition());
+                if (food != null && food.headerPosition != -1) {
+                    RecyclerView.SmoothScroller smoothScroller = new LinearSmoothScroller(mActivity) {
+                        @Override
+                        protected int getVerticalSnapPreference() {
+                            return LinearSmoothScroller.SNAP_TO_START;
+                        }
+                    };
+                    smoothScroller.setTargetPosition(food.headerPosition);
+                    categoryRecyclerView.getLayoutManager().startSmoothScroll(smoothScroller);
+                    categoryAdapter.setSelected(food.category, true, true);
+                }
+            }
         });
         RequestUtil.request(mActivity, true, true,
                 () -> ApiUtils.getApiService().getFoodCategory(restaurant.id),
@@ -51,20 +84,14 @@ public class FoodListFragment extends BaseFragment {
                     for (int i = 0; i < categoryAdapter.getData().size(); i++) {
                         FoodCategory foodCategory = categoryAdapter.getData().get(i);
                         foodCategory.index = foods.size();
-                        Food food = new Food();
-                        food.isHeader = true;
-                        food.category = foodCategory;
-                        foodCategory.foods.add(food);
-                        foodCategory.foods.add(new Food());
-                        foodCategory.foods.add(new Food());
-                        foodCategory.foods.add(new Food());
-                        foodCategory.foods.add(new Food());
-                        foodCategory.foods.add(new Food());
-                        foodCategory.foods.add(new Food());
-                        foodCategory.foods.add(new Food());
-                        foodCategory.foods.add(new Food());
-                        foodCategory.foods.add(new Food());
-                        foodCategory.foods.add(new Food());
+                        for (int x = 0; x < foodCategory.foods.size(); x++) {
+                            Food food = foodCategory.foods.get(x);
+                            if (x == 0) {
+                                food.isHeader = true;
+                            }
+                            food.headerPosition = i;
+                            food.category = foodCategory;
+                        }
                         foods.addAll(foodCategory.foods);
                     }
                     foodAdapter.setNewData(foods);

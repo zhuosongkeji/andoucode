@@ -553,49 +553,70 @@ public interface ApiService {
      */
     @POST("api/htorder/settlement")
     @FormUrlEncoded
-    Observable<BaseResult<HotelSettlementBean>> hotelSettlement  (@Field("uid") String uid,
-                                                                  @Field("token") String token,
-                                                                  @Field("start") String start,
-                                                                  @Field("end") String end,
-                                                                  @Field("id") String id);
+    Observable<BaseResult<HotelSettlementBean>> hotelSettlement(@Field("uid") String uid,
+                                                                @Field("token") String token,
+                                                                @Field("start") String start,
+                                                                @Field("end") String end,
+                                                                @Field("id") String id);
+
     /**
      * list - 酒店预订
      */
     @POST("api/htorder/add_order")
     @FormUrlEncoded
-    Observable<BaseResult<WXPayBean>> hotelOrder  (@Field("uid") String uid,
-                                                                  @Field("token") String token,
-                                                                  @Field("id") String id,
-                                                                  @Field("merchant_id") String merchant_id,
-                                                                  @Field("start_time") String start_time,
-                                                                  @Field("end_time") String end_time,
-                                                                  @Field("real_name") String real_name,
-                                                                  @Field("mobile") String mobile,
-                                                                  @Field("num") String num,
-                                                                  @Field("day_num") String day_num,
-                                                                  @Field("pay_way") String pay_way,
-                                                                  @Field("is_integral") String is_integral);
+    Observable<BaseResult<WXPayBean>> hotelOrder(@Field("uid") String uid,
+                                                 @Field("token") String token,
+                                                 @Field("id") String id,
+                                                 @Field("merchant_id") String merchant_id,
+                                                 @Field("start_time") String start_time,
+                                                 @Field("end_time") String end_time,
+                                                 @Field("real_name") String real_name,
+                                                 @Field("mobile") String mobile,
+                                                 @Field("num") String num,
+                                                 @Field("day_num") String day_num,
+                                                 @Field("pay_way") String pay_way,
+                                                 @Field("is_integral") String is_integral);
 
     /**
      * list - 酒店订单
      */
     @POST("api/hotel/order")
     @FormUrlEncoded
-    Observable<BaseResult<List<MeHotelBean>>> mehotelOrder  (@Field("uid") String uid,
-                                                       @Field("token") String token,
-                                                       @Field("type") String type,
-                                                       @Field("page") String page);
+    Observable<BaseResult<List<MeHotelBean>>> mehotelOrder(@Field("uid") String uid,
+                                                           @Field("token") String token,
+                                                           @Field("type") String type,
+                                                           @Field("page") String page);
 
     /**
      * list - 酒店预订详情
      */
     @POST("api/htorder/orderdatails")
     @FormUrlEncoded
-    Observable<BaseResult<MeHotelDetailsBean>> mehotelOrderDetails  (@Field("uid") String uid,
-                                                                     @Field("token") String token,
-                                                                     @Field("book_sn") String book_sn);
+    Observable<BaseResult<MeHotelDetailsBean>> mehotelOrderDetails(@Field("uid") String uid,
+                                                                   @Field("token") String token,
+                                                                   @Field("book_sn") String book_sn);
 
+    /**
+     * 添加酒店评论
+     */
+    @POST("api/details/addcomment")
+    @FormUrlEncoded
+    Observable<BaseResult<Object>> addhotelcomment(@Field("uid") String uid,
+                                                   @Field("token") String token,
+                                                   @Field("goods_id") String goods_id,
+                                                   @Field("order_id") String order_id,
+                                                   @Field("merchants_id") String merchants_id,
+                                                   @Field("content") String content,
+                                                   @Field("stars") String stars);
 
+    /**
+     * 添加酒店点赞
+     */
+    @POST("api/users/fabulous")
+    @FormUrlEncoded
+    Observable<BaseResult<Object>> addhotelfabulous (@Field("uid") String uid,
+                                                   @Field("token") String token,
+                                                   @Field("id") String id);
 
     /**
      * 绑定手机号
@@ -724,7 +745,7 @@ public interface ApiService {
      */
     @POST("api/goods/uploads")
     @Multipart
-    Observable<BaseResult<String>> uploadImg(@Part("uid") RequestBody uid, @Part("token") RequestBody token, @Part MultipartBody.Part file);
+    Observable<BaseResult<String>> uploadImg(@Part("uid") RequestBody uid,@Part("token") RequestBody token, @Part MultipartBody.Part file);
 //    /**
 //     * 注册
 //     *
