@@ -31,6 +31,7 @@ import com.zskjprojectj.andouclient.entity.mall.MallHomeDataBean;
 import com.zskjprojectj.andouclient.entity.mall.MallPayWaysBean;
 import com.zskjprojectj.andouclient.entity.mall.MallSettlementBean;
 import com.zskjprojectj.andouclient.entity.mall.MallShoppingHomeBean;
+import com.zskjprojectj.andouclient.model.ADProvince;
 import com.zskjprojectj.andouclient.model.Address;
 import com.zskjprojectj.andouclient.model.BalanceDetail;
 import com.zskjprojectj.andouclient.model.CartItem;
@@ -46,9 +47,13 @@ import com.zskjprojectj.andouclient.model.User;
 import java.util.List;
 
 import io.reactivex.Observable;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 
 public interface ApiService {
     /**
@@ -196,11 +201,13 @@ public interface ApiService {
 
     /**
      * 获取充值方式
+     *
      * @return
      */
     @FormUrlEncoded
     @POST("api/wallet/payWays")
     Observable<BaseResult<List<MallPayWaysBean>>> getWalletPayWays(@Field("uid") String uid, @Field("token") String token);
+
     /**
      * 微信支付
      */
@@ -215,6 +222,7 @@ public interface ApiService {
 
     /**
      * 微信充值
+     *
      * @param uid
      * @param token
      * @return
@@ -222,11 +230,12 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("api/wallet/recharge")
     Observable<BaseResult<WXPayBean>> MallWXPayWaysrecharge(@Field("uid") String uid,
-                                                    @Field("token") String token,
-                                                    @Field("money") String money,
-                                                    @Field("mobile") String mobile,
-                                                    @Field("method") String method
+                                                            @Field("token") String token,
+                                                            @Field("money") String money,
+                                                            @Field("mobile") String mobile,
+                                                            @Field("method") String method
     );
+
     /**
      * 新增收货地址
      */
@@ -425,7 +434,6 @@ public interface ApiService {
                                                     @Field("order_sn") String order_sn);
 
 
-
     /**
      * 确认收货
      */
@@ -603,7 +611,6 @@ public interface ApiService {
 
 
     /**
-     *
      * @param uid
      * @param token
      * @return
@@ -613,11 +620,9 @@ public interface ApiService {
     Observable<BaseResult<List<MyFocusonBean>>> usersfollow(@Field("uid") String uid,
                                                             @Field("token") String token);
 
-    //    /**
-
-
     /**
      * 获取充值详细信息
+     *
      * @param uid
      * @param token
      * @return
@@ -626,6 +631,60 @@ public interface ApiService {
     @FormUrlEncoded
     Observable<BaseResult<WalletrecharBean>> walletrechar(@Field("uid") String uid,
                                                           @Field("token") String token);
+
+    /**
+     * 商家入驻
+     *
+     * @param uid
+     * @param type_id
+     * @param name
+     * @param user_name
+     * @param tel
+     * @param province_id
+     * @param city_id
+     * @param area_id
+     * @param address
+     * @param desc
+     * @param bannerImg
+     * @param logo_img
+     * @param management_img
+     * @return
+     */
+    @POST("api/merchant/information")
+    @FormUrlEncoded
+    Observable<BaseResult<Object>> uploadMerchantsInfo(@Field("uid") String uid,
+                                                       @Field("token") String token,
+                                                       @Field("type_id") int type_id,
+                                                       @Field("name") String name,
+                                                       @Field("user_name") String user_name,
+                                                       @Field("tel") String tel,
+                                                       @Field("province_id") int province_id,
+                                                       @Field("city_id") int city_id,
+                                                       @Field("area_id") int area_id,
+                                                       @Field("address") String address,
+                                                       @Field("desc") String desc,
+                                                       @Field("banner_img") String bannerImg,
+                                                       @Field("logo_img") String logo_img,
+                                                       @Field("management_img") String management_img);
+
+    /**
+     * 地址
+     *
+     * @return
+     */
+    @POST("api/common/district")
+    Observable<BaseResult<List<ADProvince>>> districts();
+
+    /**
+     * 图片上传
+     *
+     * @param uid
+     * @param file
+     * @return
+     */
+    @POST("api/goods/uploads")
+    @Multipart
+    Observable<BaseResult<String>> uploadImg(@Part("uid") RequestBody uid, @Part("token") RequestBody token, @Part MultipartBody.Part file);
 //    /**
 //     * 注册
 //     *

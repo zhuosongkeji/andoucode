@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:paddingTop="15dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="27dp"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="店铺地址"
+                android:textColor="#333333" />
+
+            <ImageView
+                android:id="@+id/close"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginRight="12dp"
+                android:src="@mipmap/ic_address_close" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

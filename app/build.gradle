@@ -155,4 +155,6 @@ dependencies {
     implementation project(path: ':library')
     //通知
     implementation 'org.greenrobot:eventbus:3.1.1'
+    //地址选择器
+    implementation 'com.github.chihane:JDAddressSelector:1.1.4'
 }
