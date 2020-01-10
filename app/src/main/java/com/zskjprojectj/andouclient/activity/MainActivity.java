@@ -63,7 +63,7 @@ public class MainActivity extends BaseActivity {
     //定义字体颜色
     private int normalTextColor = Color.parseColor("#646464");
     private int selectTextColor = Color.parseColor("#5ED3AE");
-    private String[] tabText = {"首页", "商家", "信息", "贴吧", "我的"};
+    private String[] tabText = {"首页", "商家", "贴吧", "信息", "我的"};
     //未选中icon
     private int[] normalIcon = {R.mipmap.home_icon_uncheck, R.mipmap.merchants_icon_uncheck, R.mipmap.info_icon, R.mipmap.tieba_icon_uncheck, R.mipmap.me_icon_uncheck};
     //选中时icon
@@ -87,8 +87,8 @@ public class MainActivity extends BaseActivity {
         navigationBar = findViewById(R.id.navigationBar);
         fragments.add(new HomePageFragment());
         fragments.add(new MerchantsPageFragment());
-        fragments.add(new InfoPageFragment());
         fragments.add(new TieBaFragment());
+        fragments.add(new InfoPageFragment());
         fragments.add(new MePageFragment());
         navigationBar.titleItems(tabText)
                 .normalIconItems(normalIcon)
