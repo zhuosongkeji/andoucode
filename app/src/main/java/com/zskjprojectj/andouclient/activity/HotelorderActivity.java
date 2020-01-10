@@ -111,7 +111,7 @@ public class HotelorderActivity extends BaseActivity {
      * 指示器适配器对形象
      */
     public IndicatorViewPager.IndicatorFragmentPagerAdapter adapter = new IndicatorViewPager.IndicatorFragmentPagerAdapter(getSupportFragmentManager()) {
-        private String[] tabNames = {"全部订单", "待入驻", "待评价", "已取消"};
+        private String[] tabNames = {"全部订单", "待入住", "待评价", "已取消"};
 
         @Override
         public int getCount() {

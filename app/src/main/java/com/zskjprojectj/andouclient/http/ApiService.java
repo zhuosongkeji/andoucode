@@ -199,11 +199,13 @@ public interface ApiService {
 
     /**
      * 获取充值方式
+     *
      * @return
      */
     @FormUrlEncoded
     @POST("api/wallet/payWays")
     Observable<BaseResult<List<MallPayWaysBean>>> getWalletPayWays(@Field("uid") String uid, @Field("token") String token);
+
     /**
      * 微信支付
      */
@@ -218,6 +220,7 @@ public interface ApiService {
 
     /**
      * 微信充值
+     *
      * @param uid
      * @param token
      * @return
@@ -225,11 +228,12 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("api/wallet/recharge")
     Observable<BaseResult<WXPayBean>> MallWXPayWaysrecharge(@Field("uid") String uid,
-                                                    @Field("token") String token,
-                                                    @Field("money") String money,
-                                                    @Field("mobile") String mobile,
-                                                    @Field("method") String method
+                                                            @Field("token") String token,
+                                                            @Field("money") String money,
+                                                            @Field("mobile") String mobile,
+                                                            @Field("method") String method
     );
+
     /**
      * 新增收货地址
      */
@@ -428,7 +432,6 @@ public interface ApiService {
                                                     @Field("order_sn") String order_sn);
 
 
-
     /**
      * 确认收货
      */
@@ -545,49 +548,70 @@ public interface ApiService {
      */
     @POST("api/htorder/settlement")
     @FormUrlEncoded
-    Observable<BaseResult<HotelSettlementBean>> hotelSettlement  (@Field("uid") String uid,
-                                                                  @Field("token") String token,
-                                                                  @Field("start") String start,
-                                                                  @Field("end") String end,
-                                                                  @Field("id") String id);
+    Observable<BaseResult<HotelSettlementBean>> hotelSettlement(@Field("uid") String uid,
+                                                                @Field("token") String token,
+                                                                @Field("start") String start,
+                                                                @Field("end") String end,
+                                                                @Field("id") String id);
+
     /**
      * list - 酒店预订
      */
     @POST("api/htorder/add_order")
     @FormUrlEncoded
-    Observable<BaseResult<WXPayBean>> hotelOrder  (@Field("uid") String uid,
-                                                                  @Field("token") String token,
-                                                                  @Field("id") String id,
-                                                                  @Field("merchant_id") String merchant_id,
-                                                                  @Field("start_time") String start_time,
-                                                                  @Field("end_time") String end_time,
-                                                                  @Field("real_name") String real_name,
-                                                                  @Field("mobile") String mobile,
-                                                                  @Field("num") String num,
-                                                                  @Field("day_num") String day_num,
-                                                                  @Field("pay_way") String pay_way,
-                                                                  @Field("is_integral") String is_integral);
+    Observable<BaseResult<WXPayBean>> hotelOrder(@Field("uid") String uid,
+                                                 @Field("token") String token,
+                                                 @Field("id") String id,
+                                                 @Field("merchant_id") String merchant_id,
+                                                 @Field("start_time") String start_time,
+                                                 @Field("end_time") String end_time,
+                                                 @Field("real_name") String real_name,
+                                                 @Field("mobile") String mobile,
+                                                 @Field("num") String num,
+                                                 @Field("day_num") String day_num,
+                                                 @Field("pay_way") String pay_way,
+                                                 @Field("is_integral") String is_integral);
 
     /**
      * list - 酒店订单
      */
     @POST("api/hotel/order")
     @FormUrlEncoded
-    Observable<BaseResult<List<MeHotelBean>>> mehotelOrder  (@Field("uid") String uid,
-                                                       @Field("token") String token,
-                                                       @Field("type") String type,
-                                                       @Field("page") String page);
+    Observable<BaseResult<List<MeHotelBean>>> mehotelOrder(@Field("uid") String uid,
+                                                           @Field("token") String token,
+                                                           @Field("type") String type,
+                                                           @Field("page") String page);
 
     /**
      * list - 酒店预订详情
      */
     @POST("api/htorder/orderdatails")
     @FormUrlEncoded
-    Observable<BaseResult<MeHotelDetailsBean>> mehotelOrderDetails  (@Field("uid") String uid,
-                                                                     @Field("token") String token,
-                                                                     @Field("book_sn") String book_sn);
+    Observable<BaseResult<MeHotelDetailsBean>> mehotelOrderDetails(@Field("uid") String uid,
+                                                                   @Field("token") String token,
+                                                                   @Field("book_sn") String book_sn);
 
+    /**
+     * 添加酒店评论
+     */
+    @POST("api/details/addcomment")
+    @FormUrlEncoded
+    Observable<BaseResult<Object>> addhotelcomment(@Field("uid") String uid,
+                                                   @Field("token") String token,
+                                                   @Field("goods_id") String goods_id,
+                                                   @Field("order_id") String order_id,
+                                                   @Field("merchants_id") String merchants_id,
+                                                   @Field("content") String content,
+                                                   @Field("stars") String stars);
 
+    /**
+     * 添加酒店点赞
+     */
+    @POST("api/users/fabulous")
+    @FormUrlEncoded
+    Observable<BaseResult<Object>> addhotelfabulous (@Field("uid") String uid,
+                                                   @Field("token") String token,
+                                                   @Field("id") String id);
 
     /**
      * 绑定手机号
@@ -643,7 +667,6 @@ public interface ApiService {
 
 
     /**
-     *
      * @param uid
      * @param token
      * @return
@@ -658,6 +681,7 @@ public interface ApiService {
 
     /**
      * 获取充值详细信息
+     *
      * @param uid
      * @param token
      * @return
