@@ -103,7 +103,7 @@ public class MallmerchantsbusinessinActivity extends BaseActivity {
     @Override
     protected void initData(Bundle savedInstanceState) {
         getBarDistance(mTitleView);
-        mHeaderTitle.setText("商城商家入驻");
+        //mHeaderTitle.setText("商城商家入驻");
     }
 
     @Override

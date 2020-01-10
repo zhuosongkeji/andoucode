@@ -183,6 +183,11 @@ public class HotelDetailActivity extends BaseActivity {
 
 
                     }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                    }
                 });
 
     }

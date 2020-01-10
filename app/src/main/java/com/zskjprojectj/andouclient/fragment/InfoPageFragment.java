@@ -51,7 +51,6 @@ public class InfoPageFragment extends BaseFragment {
         mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         mHeaderTitle.setText("信息");
         getBarDistance(mHeaderTitlrView);
-
         mRecycler=view.findViewById(R.id.rv_recycler);
         mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
     }

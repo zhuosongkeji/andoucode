@@ -13,7 +13,9 @@ public class FoodCategoryListAdapter extends BaseAdapter<FoodCategory> {
     @Override
     protected void convert(BaseViewHolder helper, FoodCategory item) {
         helper.setText(R.id.nameTxt, item.name)
-                .setVisible(R.id.indicatorImg, selectMap.get(item));
-        helper.itemView.setSelected(selectMap.get(item));
+                .setVisible(R.id.indicatorImg, isSelect(item));
+        helper.itemView.setSelected(isSelect(item));
     }
+
+
 }

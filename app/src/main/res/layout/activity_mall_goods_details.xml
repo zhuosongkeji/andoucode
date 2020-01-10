@@ -49,8 +49,9 @@
                             android:layout_gravity="center"
                             app:isAutoPlay="false"
                             app:isHandLoop="true"
+                            app:pointsPosition="RIGHT"
                             app:isShowNumberIndicator="true"
-                            app:numberIndicatorBacgroud="@color/gray1_color"
+                            app:numberIndicatorBacgroud="@mipmap/numberindicatoricon"
                             app:pointsVisibility="true" />
 
 
