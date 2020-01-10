@@ -23,6 +23,7 @@ import com.zskjprojectj.andouclient.fragment.MeHotelorderFragment;
 import com.zskjprojectj.andouclient.fragment.MeHotelordercancelledFragment;
 import com.zskjprojectj.andouclient.fragment.MeHotelorderevaluateFragment;
 import com.zskjprojectj.andouclient.fragment.MeHotelorderstayinFragment;
+import com.zskjprojectj.andouclient.fragment.hotel.MeHotelFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +48,7 @@ public class HotelorderActivity extends BaseActivity {
     private ViewPager viewPager;
     //第三方指示器
     private IndicatorViewPager indicatorViewPager;
+
     @Override
     protected void setRootView() {
         setContentView(R.layout.activity_hotelorder);
@@ -54,8 +56,8 @@ public class HotelorderActivity extends BaseActivity {
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-      getBarDistance(mTitleView);
-      mHeaderTitle.setText("酒店预订");
+        getBarDistance(mTitleView);
+        mHeaderTitle.setText("酒店预订");
     }
 
     @Override
@@ -64,23 +66,35 @@ public class HotelorderActivity extends BaseActivity {
         indicator = (FixedIndicatorView) findViewById(R.id.indicator);
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         list = new ArrayList<Fragment>();
-        //全部订单
-        Fragment meHotelorderFragment=new MeHotelorderFragment();
-        list.add(meHotelorderFragment);
-        //待入驻
-        Fragment meHotelorderstayinFragment=new MeHotelorderstayinFragment();
-        list.add(meHotelorderstayinFragment);
-        //待评价
-        Fragment meHotelorderevaluateFragment=new MeHotelorderevaluateFragment();
-        list.add(meHotelorderevaluateFragment);
-        //已取消
-        Fragment meHotelordercancelledFragment=new MeHotelordercancelledFragment();
-        list.add(meHotelordercancelledFragment);
+//        //全部订单
+//        Fragment meHotelorderFragment = new MeHotelorderFragment();
+//        list.add(meHotelorderFragment);
+//        //待入驻
+//        Fragment meHotelorderstayinFragment = new MeHotelorderstayinFragment();
+//        list.add(meHotelorderstayinFragment);
+//        //待评价
+//        Fragment meHotelorderevaluateFragment = new MeHotelorderevaluateFragment();
+//        list.add(meHotelorderevaluateFragment);
+//        //已取消
+//        Fragment meHotelordercancelledFragment = new MeHotelordercancelledFragment();
+//        list.add(meHotelordercancelledFragment);
+
+        Fragment meHotelFragment1 = new MeHotelFragment("");
+        Fragment meHotelFragment2 = new MeHotelFragment("20");
+        Fragment meHotelFragment3 = new MeHotelFragment("40");
+        Fragment meHotelFragment4 = new MeHotelFragment("0");
+
+        list.add(meHotelFragment1);
+        list.add(meHotelFragment2);
+        list.add(meHotelFragment3);
+        list.add(meHotelFragment4);
+
         indicatorViewPager = new IndicatorViewPager(indicator, viewPager);
         indicatorViewPager.setAdapter(adapter);
         //设置滑动时的那一项的图形和颜色变化，ColorBar对应的是下划线的形状。
         indicator.setScrollBar(new ColorBar(getApplicationContext(), Color.parseColor("#5ed3ae"), 5));
-        viewPager.setOffscreenPageLimit(3);//缓存的左右页面的个数都是1
+        viewPager.setOffscreenPageLimit(4);//缓存的左右页面的个数都是1
+        viewPager.setCurrentItem(0, true);
     }
 
     @Override
@@ -92,12 +106,13 @@ public class HotelorderActivity extends BaseActivity {
     protected BasePresenter createPresenter() {
         return null;
     }
+
     /**
      * 指示器适配器对形象
      */
-    public IndicatorViewPager.IndicatorFragmentPagerAdapter adapter=new IndicatorViewPager.IndicatorFragmentPagerAdapter(getSupportFragmentManager())
-    {
-        private String[] tabNames = {"全部订单", "待入驻","待评价","已取消"};
+    public IndicatorViewPager.IndicatorFragmentPagerAdapter adapter = new IndicatorViewPager.IndicatorFragmentPagerAdapter(getSupportFragmentManager()) {
+        private String[] tabNames = {"全部订单", "待入驻", "待评价", "已取消"};
+
         @Override
         public int getCount() {
             return list.size();
@@ -125,7 +140,7 @@ public class HotelorderActivity extends BaseActivity {
 
 
     @OnClick(R.id.iv_header_back)
-    public void clickView(){
+    public void clickView() {
         finish();
     }
 }

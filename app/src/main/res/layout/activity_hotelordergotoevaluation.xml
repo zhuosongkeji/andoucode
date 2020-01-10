@@ -4,7 +4,13 @@
     android:orientation="vertical"
     android:background="#F7F7F7"
     android:layout_height="match_parent">
-    <include layout="@layout/view_top_bar"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:background="@color/colorNavy"
+        android:layout_height="wrap_content">
+        <include layout="@layout/base_title_view"/>
+    </LinearLayout>
     <RelativeLayout
         android:background="@color/white"
         android:layout_width="match_parent"
@@ -47,6 +53,8 @@
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:text="非常满意"
+            android:textSize="@dimen/typeface12sp"
+            android:textColor="#646464"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </RelativeLayout>
@@ -96,6 +104,8 @@
             android:gravity="top"
             android:background="@null"
             android:hint="感谢您宝贵的意见"
+            android:textColorHint="#969696"
+            android:textColor="#969696"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </LinearLayout>
@@ -104,6 +114,7 @@
         android:background="@color/white"
         android:orientation="vertical"
         android:layout_width="match_parent"
+        android:visibility="gone"
         android:layout_height="190dp">
         <TextView
             android:layout_marginTop="@dimen/dp_22"

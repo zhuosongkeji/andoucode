@@ -19,6 +19,8 @@ import com.zskjprojectj.andouclient.entity.hotel.HotelHomeBean;
 import com.zskjprojectj.andouclient.entity.hotel.HotelHomeDetailsBean;
 import com.zskjprojectj.andouclient.entity.hotel.HotelSearchConditionBean;
 import com.zskjprojectj.andouclient.entity.hotel.HotelSettlementBean;
+import com.zskjprojectj.andouclient.entity.hotel.MeHotelBean;
+import com.zskjprojectj.andouclient.entity.hotel.MeHotelDetailsBean;
 import com.zskjprojectj.andouclient.entity.mall.MallBuyBean;
 import com.zskjprojectj.andouclient.entity.mall.MallBuyNowBean;
 import com.zskjprojectj.andouclient.entity.mall.MallCarBean;
@@ -565,6 +567,27 @@ public interface ApiService {
                                                                   @Field("day_num") String day_num,
                                                                   @Field("pay_way") String pay_way,
                                                                   @Field("is_integral") String is_integral);
+
+    /**
+     * list - 酒店订单
+     */
+    @POST("api/hotel/order")
+    @FormUrlEncoded
+    Observable<BaseResult<List<MeHotelBean>>> mehotelOrder  (@Field("uid") String uid,
+                                                       @Field("token") String token,
+                                                       @Field("type") String type,
+                                                       @Field("page") String page);
+
+    /**
+     * list - 酒店预订详情
+     */
+    @POST("api/htorder/orderdatails")
+    @FormUrlEncoded
+    Observable<BaseResult<MeHotelDetailsBean>> mehotelOrderDetails  (@Field("uid") String uid,
+                                                                     @Field("token") String token,
+                                                                     @Field("book_sn") String book_sn);
+
+
 
     /**
      * 绑定手机号
