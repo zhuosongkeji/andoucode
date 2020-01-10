@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ActivityUtils;
@@ -26,11 +27,18 @@ import com.zskjprojectj.andouclient.utils.UrlUtil;
 
 import java.io.IOException;
 
+import butterknife.BindView;
 import butterknife.OnClick;
 
 import static com.zskjprojectj.andouclient.activity.MyaddressActivity.KEY_DATA;
 
 public class ShoporderdetailsActivity extends BaseActivity {
+
+    @BindView(R.id.header_title_view)
+    RelativeLayout mTitleView;
+    @BindView(R.id.tv_header_title)
+    TextView mHeaderTitle;
+
     private Button btn_gotopaymentdetail;
 
     @Override
@@ -40,7 +48,8 @@ public class ShoporderdetailsActivity extends BaseActivity {
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-        topView.setTitle("商城订单");
+        getBarDistance(mTitleView);
+        mHeaderTitle.setText("商城订单");
     }
 
     @Override
@@ -80,6 +89,7 @@ public class ShoporderdetailsActivity extends BaseActivity {
             findViewById(R.id.daifahuoContainer).setVisibility(View.VISIBLE);
         } else if (OrderStatus.DAI_SHOU_HUO.status.equals(order.status)) {
             findViewById(R.id.daishouhuoContainer).setVisibility(View.VISIBLE);
+
         } else if (OrderStatus.DAI_PING_JIA.status.equals(order.status)) {
             findViewById(R.id.daishouhuoContainer).setVisibility(View.VISIBLE);
         }
@@ -108,21 +118,25 @@ public class ShoporderdetailsActivity extends BaseActivity {
         ((TextView) findViewById(R.id.costTxt)).setText("￥" + order.pay_money);
 
 
-        //退货退款
-        if (OrderStatus.DAI_FA_HUO.status.equals(order.status)){
+        /**
+         * 退货退款
+         */
+        if (OrderStatus.DAI_FA_HUO.status.equals(order.status)) {
             findViewById(R.id.btn_refund).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ShopordersendetailsrefundActivity.start("sales_return");
+                    //退款//退货
+                    ShopordersendetailsrefundActivity.start("refund");
                 }
             });
 
-        }else {
+        } else {
 
             findViewById(R.id.btn_refund).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ShopordersendetailsrefundActivity.start("refund");
+                    //退款//退货
+                    ShopordersendetailsrefundActivity.start("sales_return");
                 }
             });
 
@@ -136,7 +150,7 @@ public class ShoporderdetailsActivity extends BaseActivity {
         for (String s : attr_value) {
             builder.append(s).append("+");
         }
-        return builder.substring(0, builder.length() - 2);
+        return builder.substring(0, builder.length() - 1);
     }
 
     @Override
@@ -150,5 +164,9 @@ public class ShoporderdetailsActivity extends BaseActivity {
         ActivityUtils.startActivity(bundle, ShoporderdetailsActivity.class);
     }
 
+    @OnClick(R.id.iv_header_back)
+    public void clickView() {
+        finish();
+    }
 
 }

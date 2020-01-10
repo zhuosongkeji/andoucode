@@ -84,19 +84,23 @@
 
             <TextView
                 android:id="@+id/titleTxt"
-                android:layout_width="wrap_content"
+                android:layout_width="135dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_15"
                 android:layout_marginTop="@dimen/dp_17"
+                android:maxLines="2"
+                android:ellipsize="end"
                 android:text="亲润孕妇化妆品套装"
                 android:textColor="#646464" />
 
             <TextView
                 android:id="@+id/specTxt"
-                android:layout_width="wrap_content"
+                android:layout_width="135dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_marginLeft="@dimen/dp_15"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:text="四件套"
                 android:textColor="#646464" />
         </RelativeLayout>
