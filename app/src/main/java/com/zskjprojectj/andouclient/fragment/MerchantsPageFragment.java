@@ -144,9 +144,7 @@ public class MerchantsPageFragment extends BaseFragment {
                 break;
             //饭店商家
             case "4":
-                Restaurant restaurant  =new Restaurant();
-                restaurant.id = type;
-                RestaurantDetailActivity.start(restaurant);
+                RestaurantDetailActivity.start(type);
                 break;
             //农家乐
             case "5":
