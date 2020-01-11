@@ -6,15 +6,19 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.flyco.tablayout.SlidingTabLayout;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.adapter.InfoFragmentAdapter;
+import com.zskjprojectj.andouclient.adapter.SquareAdapter;
 import com.zskjprojectj.andouclient.base.BaseFragment;
 import com.zskjprojectj.andouclient.entity.InfoFragmentBean;
+import com.zskjprojectj.andouclient.entity.SquareBean;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
 import com.zskjprojectj.andouclient.view.TopView;
 
@@ -34,20 +38,22 @@ import butterknife.OnClick;
  * @author yizhubao
  */
 public class TieBaFragment extends BaseFragment {
-    @BindView(R.id.tv_header_title)
-    TextView mHeaderTitle;
-    @BindView(R.id.header_title_view)
-    RelativeLayout mHeaderTitleView;
 
+    private ArrayList<Fragment> fragments = new ArrayList<>();
 
-    private RecyclerView mRecycler;
-    private ArrayList<InfoFragmentBean> mDataList;
+//    private RecyclerView mRecycler;
+//    private ArrayList<SquareBean> mDataList;
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
-        mHeaderTitle.setText("贴吧");
-        getBarDistance(mHeaderTitleView);
-        mRecycler=view.findViewById(R.id.rv_recycler);
-        mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
+        fragments.add(new SquareFragment());
+        fragments.add(new CircleoffriendsFragment());
+        ((SlidingTabLayout)view.findViewById(R.id.tabLayout)).setViewPager(
+                view.findViewById(R.id.viewPager),
+                new String[]{ "广场", "我的"},
+                getActivity(),
+                fragments);
+//        mRecycler=view.findViewById(R.id.rv_recycler);
+//        mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
     @Override
@@ -57,31 +63,26 @@ public class TieBaFragment extends BaseFragment {
 
     @Override
     protected void getDataFromServer() {
-
     }
 
     @Override
     protected void initData() {
-        mDataList=new ArrayList<>();
-        for (int i=0;i<4;i++) {
-            InfoFragmentBean databean = new InfoFragmentBean();
-            mDataList.add(databean);
-        }
-        InfoFragmentAdapter adapter=new InfoFragmentAdapter(R.layout.item_tiebafragment,mDataList);
-        adapter.openLoadAnimation();
-        mRecycler.addItemDecoration(new DividerItemDecoration(getActivity(),DividerItemDecoration.VERTICAL));
-        mRecycler.setAdapter(adapter);
-        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                ToastUtil.showToast("功能暂未完善给您带来的不便敬请谅解");
-            }
-        });
 
-    }
-
-    @OnClick(R.id.iv_header_back)
-    public void clickBack(){
-        mAty.finish();
-    }
+//        mDataList=new ArrayList<>();
+//        for (int i=0;i<4;i++) {
+//            SquareBean databean = new SquareBean();
+//            mDataList.add(databean);
+//        }
+//        SquareAdapter adapter=new SquareAdapter(R.layout.item_tiebafragment,mDataList);
+//        adapter.openLoadAnimation();
+//        mRecycler.addItemDecoration(new DividerItemDecoration(getActivity(),DividerItemDecoration.VERTICAL));
+//        mRecycler.setAdapter(adapter);
+//        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+//               // ToastUtil.showToast("功能暂未完善给您带来的不便敬请谅解");
+//            }
+//        });
+//
+   }
 }
