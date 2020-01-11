@@ -20,50 +20,21 @@
         android:textColor="@color/colorBlack"
         android:textSize="@dimen/typeface12sp" />
 
-    <LinearLayout
-        android:id="@+id/hotel_star"
+    <com.willy.ratingbar.ScaleRatingBar xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/simpleRatingBar"
         android:layout_width="wrap_content"
-        android:layout_height="20dp"
+        android:layout_height="wrap_content"
+        app:srb_drawableEmpty="@mipmap/ic_plant_gray"
+        app:srb_drawableFilled="@mipmap/ic_plant"
+        app:srb_isIndicator="true"
+        app:srb_numStars="5"
+        app:srb_starPadding="4dp"
         android:layout_marginTop="@dimen/dp_5"
         android:layout_below="@+id/busiess_name1_textview"
-        android:layout_gravity="center_vertical"
         android:layout_toRightOf="@+id/busiess_tupian1_image"
-        android:orientation="horizontal">
+        app:srb_starHeight="13dp"
+        app:srb_starWidth="14dp" />
 
-        <ImageView
-            android:id="@+id/busiess_plant1_image1"
-            android:layout_width="17dp"
-            android:layout_height="17dp"
-            android:src="@mipmap/ic_plant" />
-
-        <ImageView
-            android:id="@+id/busiess_plant1_image2"
-            android:layout_width="17dp"
-            android:layout_height="17dp"
-            android:layout_marginLeft="@dimen/dp_3"
-            android:src="@mipmap/ic_plant" />
-
-        <ImageView
-            android:id="@+id/busiess_plant1_image3"
-            android:layout_width="17dp"
-            android:layout_height="17dp"
-            android:layout_marginLeft="@dimen/dp_3"
-            android:src="@mipmap/ic_plant" />
-
-        <ImageView
-            android:id="@+id/busiess_plant1_image4"
-            android:layout_width="17dp"
-            android:layout_height="17dp"
-            android:layout_marginLeft="@dimen/dp_3"
-            android:src="@mipmap/ic_plant" />
-
-        <ImageView
-            android:id="@+id/busiess_plant1_image5"
-            android:layout_width="17dp"
-            android:layout_height="17dp"
-            android:layout_marginLeft="@dimen/dp_3"
-            android:src="@mipmap/ic_plant" />
-    </LinearLayout>
 
     <ImageView
         android:id="@+id/busiess_dianzan1_image"
@@ -88,7 +59,7 @@
         android:id="@+id/hotel_address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/hotel_star"
+        android:layout_below="@+id/simpleRatingBar"
         android:layout_marginTop="@dimen/dp_5"
         android:layout_toRightOf="@+id/busiess_tupian1_image"
         android:orientation="horizontal">

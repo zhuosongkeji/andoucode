@@ -506,7 +506,7 @@ public interface ApiService {
      * 酒店商家列表
      */
     @POST("api/hotel/hotellist")
-    Observable<BaseResult<HotelHomeBean>> hotelHomeList();
+    Observable<BaseResult<List<HotelHomeBean>>> hotelHomeList();
 
 
     /**

@@ -25,14 +25,14 @@ import java.util.List;
  * 修改时间：
  * 修改备注：
  */
-public class HotelResultAdapter  extends BaseQuickAdapter<HotelHomeBean.MerchantsBean,BaseViewHolder>{
+public class HotelResultAdapter  extends BaseQuickAdapter<HotelHomeBean,BaseViewHolder>{
 
-    public HotelResultAdapter(int layoutResId, @Nullable List<HotelHomeBean.MerchantsBean> data) {
+    public HotelResultAdapter(int layoutResId, @Nullable List<HotelHomeBean> data) {
         super(layoutResId, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, HotelHomeBean.MerchantsBean item) {
+    protected void convert(BaseViewHolder helper, HotelHomeBean item) {
 
 
         Glide.with(mContext).load(BaseUrl.BASE_URL+item.getLogo_img()).apply(new RequestOptions()

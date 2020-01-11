@@ -31,7 +31,6 @@ import com.zskjprojectj.andouclient.model.Restaurant;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -40,7 +39,6 @@ import static com.zskjprojectj.andouclient.activity.MyaddressActivity.KEY_DATA;
 
 public class RestaurantDetailActivity extends BaseActivity {
 
-    private ArrayList<Fragment> fragments = new ArrayList<>();
     private CartAdapter cartAdapter = new CartAdapter();
 
     @BindView(R.id.fixContainer)
@@ -54,6 +52,7 @@ public class RestaurantDetailActivity extends BaseActivity {
 
     @BindView(R.id.cartDialogContainer)
     View cartDialogContainer;
+    FoodListFragment foodListFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,22 +69,7 @@ public class RestaurantDetailActivity extends BaseActivity {
                         ActionBarUtil.getBackground(mActivity, false)
                                 .setAlpha(Math.abs(verticalOffset) * 0.01f));
         fixContainer.setPadding(fixContainer.getPaddingLeft(), BarUtils.getStatusBarHeight(), fixContainer.getPaddingEnd(), 0);
-        Restaurant restaurant = (Restaurant) getIntent().getSerializableExtra(KEY_DATA);
-        FoodListFragment foodListFragment = new FoodListFragment(restaurant);
-        foodListFragment.onCartChangedListener = foods -> {
-            ArrayList<Food> cartFoods = new ArrayList<>();
-            cartFoods.clear();
-            for (Food food : foods) {
-                if (food.num > 0) {
-                    cartFoods.add(food);
-                }
-            }
-            cartAdapter.setNewData(cartFoods);
-            changeCart();
-        };
-        fragments.add(foodListFragment);
-        fragments.add(new ReviewListFragment());
-        fragments.add(new RestaurantInfoFragment());
+        String id = getIntent().getStringExtra(KEY_DATA);
         RecyclerViewUtil.disableItemAnimator(cartRecyclerView);
         cartAdapter.bindToRecyclerView(cartRecyclerView);
         cartAdapter.setOnItemChildClickListener((adapter, view, position) -> {
@@ -106,13 +90,8 @@ public class RestaurantDetailActivity extends BaseActivity {
             changeCart();
         });
         RequestUtil.request(mActivity, true, true,
-                () -> ApiUtils.getApiService().getRestaurantDetail(restaurant.id),
+                () -> ApiUtils.getApiService().getRestaurantDetail(id),
                 result -> bindRestaurant(result.data));
-        ((SlidingTabLayout) findViewById(R.id.tabLayout)).setViewPager(
-                findViewById(R.id.viewPager),
-                new String[]{"预订", "评论", "商家"},
-                mActivity,
-                fragments);
     }
 
     private void changeCart() {
@@ -127,6 +106,27 @@ public class RestaurantDetailActivity extends BaseActivity {
     }
 
     private void bindRestaurant(Restaurant restaurant) {
+        ArrayList<Fragment> fragments = new ArrayList<>();
+        foodListFragment = new FoodListFragment(restaurant);
+        foodListFragment.onCartChangedListener = foods -> {
+            ArrayList<Food> cartFoods = new ArrayList<>();
+            cartFoods.clear();
+            for (Food food : foods) {
+                if (food.num > 0) {
+                    cartFoods.add(food);
+                }
+            }
+            cartAdapter.setNewData(cartFoods);
+            changeCart();
+        };
+        fragments.add(foodListFragment);
+        fragments.add(new ReviewListFragment());
+        fragments.add(new RestaurantInfoFragment());
+        ((SlidingTabLayout) findViewById(R.id.tabLayout)).setViewPager(
+                findViewById(R.id.viewPager),
+                new String[]{"预订", "评论", "商家"},
+                mActivity,
+                fragments);
         ViewUtil.setText(mActivity, R.id.nameTxt, restaurant.name);
         ViewUtil.setText(mActivity, R.id.likeTxt, restaurant.praise_num);
         ViewUtil.setText(mActivity, R.id.addressTxt, restaurant.address);
@@ -174,9 +174,9 @@ public class RestaurantDetailActivity extends BaseActivity {
         return R.layout.activity_restaurant_detail;
     }
 
-    public static void start(Restaurant restaurant) {
+    public static void start(String id) {
         Bundle bundle = new Bundle();
-        bundle.putSerializable(KEY_DATA, restaurant);
+        bundle.putString(KEY_DATA, id);
         ActivityUtils.startActivity(bundle, RestaurantDetailActivity.class);
     }
 }

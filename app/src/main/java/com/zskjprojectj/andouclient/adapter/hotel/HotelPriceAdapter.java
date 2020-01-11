@@ -1,5 +1,7 @@
 package com.zskjprojectj.andouclient.adapter.hotel;
 
+import android.widget.TextView;
+
 import androidx.annotation.Nullable;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -27,13 +29,9 @@ public class HotelPriceAdapter extends BaseQuickAdapter<HotelSearchConditionBean
      * @param layoutResId      The layout resource id of each item.
      * @param sectionHeadResId The section head layout id for each item
      * @param data             A new list is created out of this one to avoid mutable list
-     *
-     *
      */
 
-    public static int SELECTOR_POSITION=-1;
-    public static int SELECTOR_POSITION1=1;
-    public static int SELECTOR_POSITION2=2;
+    public static int SELECTOR_POSITION = -1;
 
     public HotelPriceAdapter(int layoutResId, @Nullable List<HotelSearchConditionBean.PriceRangeBean> data) {
         super(layoutResId, data);
@@ -43,53 +41,42 @@ public class HotelPriceAdapter extends BaseQuickAdapter<HotelSearchConditionBean
     @Override
     protected void convert(BaseViewHolder helper, HotelSearchConditionBean.PriceRangeBean item) {
         String price = item.getStart() + "~" + item.getEnd();
-        helper.setText(R.id.tv_price,price);
-//
-//        TextView mPrice = helper.getView(R.id.tv_price);
-//
-//        int p = helper.getLayoutPosition();
-//
-//
-//
-//
-//        if (0<p&&p<8){
-//            if (SELECTOR_POSITION1==p){
-//                mPrice.setSelected(true);
-//            }else {
-//                mPrice.setSelected(false);
-//            }
-//        }
-//
-//
-//        if (8<p&&p<13){
-//            if (SELECTOR_POSITION2==p){
-//                mPrice.setSelected(true);
-//            }else {
-//                mPrice.setSelected(false);
-//            }
-//        }
+        helper.setText(R.id.tv_price, price);
+        TextView mPrice = helper.getView(R.id.tv_price);
+        int p = helper.getLayoutPosition();
+        if (SELECTOR_POSITION == p) {
+            mPrice.setSelected(true);
+        } else {
+            mPrice.setSelected(false);
+        }
+
+        if (mPrice.isSelected()){
+            String hotelprice = mPrice.getText().toString();
+            if (onItemGetContent!=null){
+                onItemGetContent.content(hotelprice);
+            }
+        }
 
     }
 
-    public void onChange(int position){
-        SELECTOR_POSITION=position;
+    public void onChange(int position) {
+        SELECTOR_POSITION = position;
         notifyDataSetChanged();
     }
 
-    public void onChange1(int position){
-        SELECTOR_POSITION1=position;
+
+    public void cancle(int position) {
+        SELECTOR_POSITION = position;
         notifyDataSetChanged();
     }
 
-    public void onChange2(int position){
-        SELECTOR_POSITION2=position;
-        notifyDataSetChanged();
-    }
 
-    public  void cancle(int position){
-        SELECTOR_POSITION1=position;
-        SELECTOR_POSITION2=position;
-        notifyDataSetChanged();
+    public interface onItemGetContent{
+        void content(String content);
     }
+    private onItemGetContent onItemGetContent;
 
+    public void setOnItemGetContent(HotelPriceAdapter.onItemGetContent onItemGetContent) {
+        this.onItemGetContent = onItemGetContent;
+    }
 }

@@ -17,7 +17,9 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ActivityUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.yhao.floatwindow.FloatWindow;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.adapter.hotel.Catagory1Adapter;
 import com.zskjprojectj.andouclient.adapter.hotel.HotelPriceAdapter;
@@ -79,6 +81,8 @@ public class HotelFilterActivity extends BaseActivity {
 
     private HotelPriceAdapter priceAdapter;
     private HotelStarAdapter starAdapter;
+    //酒店ID
+    private String hotelId;
 
     @Override
     protected void setRootView() {
@@ -88,13 +92,12 @@ public class HotelFilterActivity extends BaseActivity {
     @Override
     protected void initData(Bundle savedInstanceState) {
 
-        HttpRxObservable.getObservable(ApiUtils.getApiService().hotelHomeList()).subscribe(new BaseObserver<HotelHomeBean>(mAt) {
+        HttpRxObservable.getObservable(ApiUtils.getApiService().hotelHomeList()).subscribe(new BaseObserver<List<HotelHomeBean>>(mAt) {
             @Override
-            public void onHandleSuccess(HotelHomeBean hotelHomeBean) throws IOException {
+            public void onHandleSuccess(List<HotelHomeBean> hotelHomeBeans) throws IOException {
 
-                List<HotelHomeBean.MerchantsBean> merchants = hotelHomeBean.getMerchants();
 
-                HotelResultAdapter adapter = new HotelResultAdapter(R.layout.hotelresuilt_item_view, merchants);
+                HotelResultAdapter adapter = new HotelResultAdapter(R.layout.hotelresuilt_item_view, hotelHomeBeans);
                 adapter.openLoadAnimation();
                 mRecycler.addItemDecoration(new DividerItemDecoration(mAt, DividerItemDecoration.VERTICAL));
                 mRecycler.setAdapter(adapter);
@@ -103,7 +106,7 @@ public class HotelFilterActivity extends BaseActivity {
                 adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                        HotelDetailActivity.start(merchants.get(position).getId());
+                        HotelDetailActivity.start(hotelHomeBeans.get(position).getId());
                     }
                 });
 
@@ -115,6 +118,7 @@ public class HotelFilterActivity extends BaseActivity {
     @Override
     protected void initViews() {
         getBarDistance(mHeaderTitle);
+        hotelId = getIntent().getStringExtra("hotelId");
         mRecycler = findViewById(R.id.rv_recycler);
         mRecycler.setLayoutManager(new LinearLayoutManager(this));
     }
@@ -377,6 +381,14 @@ public class HotelFilterActivity extends BaseActivity {
     @OnClick(R.id.iv_header_back)
     public void clickBack() {
         finish();
+    }
+
+
+    public static void start(String hotelId){
+
+        Bundle bundle=new Bundle();
+        bundle.putString("hotelId",hotelId);
+        ActivityUtils.startActivity(bundle,HotelFilterActivity.class);
     }
 
 }

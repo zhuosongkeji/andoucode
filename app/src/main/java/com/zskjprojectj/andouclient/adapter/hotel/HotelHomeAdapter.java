@@ -26,14 +26,14 @@ import java.util.List;
  * 修改时间：
  * 修改备注：
  */
-public class HotelHomeAdapter extends BaseQuickAdapter<HotelHomeBean.MerchantsBean, BaseViewHolder> {
+public class HotelHomeAdapter extends BaseQuickAdapter<HotelHomeBean, BaseViewHolder> {
     public HotelHomeAdapter() {
         super(R.layout.activity_hotel_home_view);
     }
 
 
     @Override
-    protected void convert(BaseViewHolder helper, HotelHomeBean.MerchantsBean item) {
+    protected void convert(BaseViewHolder helper, HotelHomeBean item) {
 
         Glide.with(mContext).load(BaseUrl.BASE_URL+item.getLogo_img()).apply(new RequestOptions()
         .placeholder(R.drawable.default_image).error(R.drawable.default_image)).into((ImageView) helper.getView(R.id.busiess_tupian1_image));

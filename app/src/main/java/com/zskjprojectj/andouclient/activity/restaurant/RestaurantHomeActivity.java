@@ -46,7 +46,7 @@ public class RestaurantHomeActivity extends BaseActivity {
         adapter.bindToRecyclerView(homeAdapter.getHeaderLayout().findViewById(R.id.recyclerView));
         homeRecyclerView.addItemDecoration(new HeaderItemDecoration(homeRecyclerView, homeAdapter));
         homeAdapter.setOnItemClickListener((adapter, view, position)
-                -> RestaurantDetailActivity.start(homeAdapter.getItem(position)));
+                -> RestaurantDetailActivity.start(homeAdapter.getItem(position).id));
         RequestUtil.request(mActivity, true, true,
                 () -> ApiUtils.getApiService().getFoodCategory()
                 , result -> adapter.setNewData(result.data));
