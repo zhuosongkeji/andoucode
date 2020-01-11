@@ -95,6 +95,7 @@
             android:textSize="@dimen/typeface10sp"
             android:textColor="#FF493E"/>
         <TextView
+            android:id="@+id/tv_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="187"

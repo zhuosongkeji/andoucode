@@ -59,8 +59,11 @@ public class MallMainActivity extends BaseActivity {
     @Override
     protected void initViews() {
         navigationBar = findViewById(R.id.navigationBar);
+        //首页
         fragments.add(new MallHomepageFragment1());
+        //分类
         fragments.add(new ClassificationofgoodsFragment());
+        //购物车
         fragments.add(new MallShoppingFragment());
 //        fragments.add(new MallInfoFragment());
         navigationBar.titleItems(tabText)

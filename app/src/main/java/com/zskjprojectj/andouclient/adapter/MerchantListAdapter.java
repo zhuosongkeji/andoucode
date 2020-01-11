@@ -1,5 +1,6 @@
 package com.zskjprojectj.andouclient.adapter;
 
+import android.view.View;
 import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
@@ -8,6 +9,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.willy.ratingbar.ScaleRatingBar;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.base.BaseUrl;
 import com.zskjprojectj.andouclient.entity.MerchantListBean;
@@ -33,11 +35,18 @@ public class MerchantListAdapter extends BaseQuickAdapter<Merchant, BaseViewHold
     @Override
     protected void convert(BaseViewHolder helper, Merchant item) {
         Glide.with(helper.itemView)
-                .load(BaseUrl.BASE_URL+item.logo_img)
+                .load(BaseUrl.BASE_URL + item.logo_img)
                 .apply(new RequestOptions().placeholder(R.drawable.default_image))
                 .into((ImageView) helper.itemView.findViewById(R.id.busiess_tupian1_image));
         helper.setText(R.id.busiess_name1_textview, item.name)
                 .setText(R.id.busiess_dianzancount1_textview, item.praise_num + "")
-                .setText(R.id.busiess_address1_textview, item.address);
+                .setText(R.id.busiess_address1_textview, item.address)
+                .setText(R.id.tv_price, item.price);
+
+        String stars_all = item.stars_all;
+        float aFloat = Float.parseFloat(stars_all);
+        ScaleRatingBar ratingBar = helper.getView(R.id.simpleRatingBar);
+        ratingBar.setRating(aFloat);
+
     }
 }

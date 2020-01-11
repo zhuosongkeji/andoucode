@@ -4,21 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/white"
+    android:orientation="vertical"
     tools:context=".activity.mall.MallShoppingHomeActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="160dp"
-       >
+        android:layout_height="160dp">
 
         <ImageView
             android:id="@+id/iv_shopping_background"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:src="@drawable/bg_mall_shopping"/>
+            android:src="@drawable/bg_mall_shopping" />
 
 
         <RelativeLayout
@@ -84,32 +83,32 @@
             android:text="店铺认证"
             android:textColor="@color/white"
             android:textSize="@dimen/typeface10sp" />
+
         <LinearLayout
-            android:layout_marginBottom="@dimen/dp_22"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
             android:id="@+id/mall_merchants_focuson"
             android:layout_width="wrap_content"
-            android:layout_marginRight="20dp"
-            android:gravity="center"
             android:layout_height="25dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="@dimen/dp_22"
             android:background="@mipmap/lyfocusionbg"
-            android:orientation="horizontal"
-          >
+            android:gravity="center"
+            android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/iv_isfocuson"
-                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginRight="@dimen/dp_3"
                 android:src="@mipmap/unfocusonicon" />
 
             <TextView
-                android:layout_gravity="center"
                 android:id="@+id/tv_mall_merchants_focuson"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:text="关注"
                 android:textColor="@color/white"
                 android:textSize="@dimen/typeface12sp" />
@@ -132,9 +131,9 @@
             android:layout_height="match_parent"
             android:background="#F1F1F1"
             android:hint="关键字搜索商品"
-            android:textColorHint="#919191"
-            android:textColor="#919191"
             android:paddingLeft="@dimen/dp_17"
+            android:textColor="#919191"
+            android:textColorHint="#919191"
             android:textSize="@dimen/typeface14sp" />
 
         <ImageView
@@ -149,17 +148,17 @@
     </RelativeLayout>
 
     <!--分类-->
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_15"
-        android:orientation="horizontal"
-        android:paddingBottom="@dimen/dp_27">
+        android:paddingStart="@dimen/dp_15"
+        android:paddingEnd="@dimen/dp_15"
+        android:paddingBottom="@dimen/dp_10">
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:gravity="center">
 
             <TextView
@@ -180,9 +179,9 @@
 
         <LinearLayout
             android:id="@+id/ll_price_star"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_centerHorizontal="true"
             android:gravity="center">
 
             <TextView
@@ -203,9 +202,9 @@
 
         <LinearLayout
             android:id="@+id/ll_mall_shopping_classify"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_alignParentEnd="true"
             android:gravity="center">
 
             <TextView
@@ -223,7 +222,7 @@
         </LinearLayout>
 
 
-    </LinearLayout>
+    </RelativeLayout>
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -231,7 +230,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingLeft="@dimen/dp_15"
-        android:paddingTop="@dimen/dp_20"
         android:paddingRight="@dimen/dp_15"
         android:paddingBottom="@dimen/dp_20" />
 

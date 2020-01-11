@@ -313,9 +313,15 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
     public void clickItem(int pos) {
 
         switch (pos) {
+            /**
+             * 商城
+             */
             case 0:
                 startActivity(new Intent(getContext(), MallMainActivity.class));
                 break;
+            /**
+             * 酒店
+             */
             case 1:
                 startActivity(new Intent(getContext(), HotelActivity.class));
                 break;

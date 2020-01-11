@@ -125,26 +125,26 @@ public class MerchantsPageFragment extends BaseFragment {
                             @Override
                             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                                 //TODO
-                                getMerchantType(merchantsResponse.merchants.get(position).merchant_type_id);
+                                getMerchantType(merchantsResponse.merchants.get(position).merchant_type_id,merchantsResponse.merchants.get(position).id);
                             }
                         });
                     }
                 });
     }
 
-    private void getMerchantType(String type) {
+    private void getMerchantType(String type,String id) {
         switch (type) {
             //商家商城
             case "2":
-                MallShoppingHomeActivity.start(type);
+                MallShoppingHomeActivity.start(id);
                 break;
             //酒店商家
             case "3":
-                HotelDetailActivity.start(type);
+                HotelDetailActivity.start(id);
                 break;
             //饭店商家
             case "4":
-                RestaurantDetailActivity.start(type);
+                RestaurantDetailActivity.start(id);
                 break;
             //农家乐
             case "5":
