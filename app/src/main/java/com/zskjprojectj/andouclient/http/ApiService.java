@@ -10,6 +10,7 @@ import com.zskjprojectj.andouclient.entity.MyFocusonBean;
 import com.zskjprojectj.andouclient.entity.MycollectionBean;
 import com.zskjprojectj.andouclient.entity.RefundReasonBean;
 import com.zskjprojectj.andouclient.entity.PersonalBean;
+import com.zskjprojectj.andouclient.entity.SetBean;
 import com.zskjprojectj.andouclient.entity.TestBean;
 import com.zskjprojectj.andouclient.entity.WXPayBean;
 import com.zskjprojectj.andouclient.entity.WalletrecharBean;
@@ -363,7 +364,12 @@ public interface ApiService {
     Observable<BaseResult<Object>> forgetPassword(@Field("phone") String uid,
                                                   @Field("new_password") String type,
                                                   @Field("verify") String verify);
-
+    @POST("api/users/upmodel")
+    @FormUrlEncoded
+    Observable<BaseResult<Object>> upmodel(@Field("uid") String uid,
+                                                  @Field("token") String token,
+                                                  @Field("phone") String phone,
+                                                  @Field("verify") String verify);
     /**
      * 收货地址列表
      */
@@ -643,6 +649,18 @@ public interface ApiService {
                                                      @Field("token") String token);
 
     /**
+     * 设置
+     * @param uid
+     * @param token
+     * @return
+     */
+
+    @POST("api/opinion/set")
+    @FormUrlEncoded
+    Observable<BaseResult<SetBean>> set(@Field("uid") String uid,
+                                        @Field("token") String token);
+
+    /**
      * 浏览痕迹
      */
     @POST("api/users/merchant_record")
@@ -771,6 +789,15 @@ public interface ApiService {
     @POST("api/users/binding")
     @FormUrlEncoded
     Observable<BaseResult<Object>> binding(@Field("uid") String uid, @Field("token") String token,@Field("code") String code);
+
+    /**
+     * 添加酒店点赞
+     */
+    @POST("api/opinion/index")
+    @FormUrlEncoded
+    Observable<BaseResult<Object>> opinionindex(@Field("uid") String uid,
+                                                    @Field("token") String token,
+                                                    @Field("content") String content);
 //    /**
 //     * 注册
 //     *

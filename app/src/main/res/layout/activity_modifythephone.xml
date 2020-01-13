@@ -3,5 +3,81 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent">
-    <include layout="@layout/view_top_bar"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorNavy">
+        <include layout="@layout/base_title_view"/>
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/modify_phonenum_edittext"
+        android:layout_width="match_parent"
+        android:textColor="@color/black"
+        android:textColorHint="#B6B6B6"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:background="@drawable/shape_edit"
+        android:drawableLeft="@mipmap/phone_icon"
+        android:hint="@string/login_phonenum"
+        android:padding="@dimen/dp_10"
+        android:textSize="@dimen/typeface12sp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="@dimen/dp_10">
+
+        <EditText
+            android:textColorHint="#B6B6B6"
+            android:id="@+id/modify_inputyanzhenma_edittext"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:layout_weight="2"
+            android:background="@drawable/shape_edit"
+            android:drawableLeft="@mipmap/verification_code"
+            android:hint="@string/registered_input_yanzhenma"
+            android:padding="@dimen/dp_10"
+            android:textSize="@dimen/typeface12sp" />
+
+        <Button
+            android:id="@+id/modify_yanzhenma_button"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_weight="1"
+            android:background="@drawable/shape_button"
+            android:padding="@dimen/dp_10"
+            android:text="@string/registered_yanzhenma"
+            android:textColor="@color/colorWhite" />
+    </LinearLayout>
+
+    <EditText
+        android:textColor="@color/black"
+        android:id="@+id/modify_pwd_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColorHint="#B6B6B6"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:background="@drawable/shape_edit"
+        android:drawableLeft="@mipmap/phone_icon"
+        android:hint="请输入新手机号"
+        android:padding="@dimen/dp_10"
+        android:textSize="@dimen/typeface12sp" />
+    <Button
+        android:id="@+id/modify_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginRight="@dimen/dp_10"
+        android:background="@drawable/shape_button"
+        android:padding="@dimen/dp_10"
+        android:text="确认修改"
+        android:textColor="@color/colorWhite" />
 </LinearLayout>
