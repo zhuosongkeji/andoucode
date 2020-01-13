@@ -139,17 +139,14 @@ public class FoodListFragment extends BaseFragment {
                         }
                         foods.addAll(foodCategory.foods);
                     }
-                    if (TextUtils.isEmpty(LoginInfoUtil.getToken())) {
-                        foodAdapter.setNewData(foods);
-                        return;
-                    }
+                    foodAdapter.setNewData(foods);
                     loadCart();
                 });
     }
 
     private void loadCart() {
         RequestUtil.request(mActivity, true, false,
-                () -> ApiUtils.getApiService().getCart(LoginInfoUtil.getUid(), restaurant.id
+                () -> ApiUtils.getApiService().getCart(LoginInfoUtil.getUid(), LoginInfoUtil.getToken(), restaurant.id
                 ), cartResult -> {
                     for (Food foodTemp : cartResult.data) {
                         for (Food foodTemp2 : foodAdapter.getData()) {

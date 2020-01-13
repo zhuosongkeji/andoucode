@@ -28,13 +28,13 @@ public class RequestUtil {
     public static OnLoginReqeustListener onLoginRequest;
 
     public static <T> void request(BaseActivity activity, boolean showLoading, boolean showRetry,
-                                   ObservableProvider<T> provider,
+                                   ObservableProvider<? extends T> provider,
                                    OnSuccessListener<T> onSuccessListener,
                                    OnFailureListener onFailureListener) {
         provider.getObservable()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<BaseResult<T>>() {
+                .subscribe(new Observer<BaseResult<? extends T>>() {
 
                     @Override
                     public void onSubscribe(Disposable d) {
@@ -45,7 +45,7 @@ public class RequestUtil {
                     }
 
                     @Override
-                    public void onNext(BaseResult<T> result) {
+                    public void onNext(BaseResult<? extends T> result) {
                         dismissProgressDialog(activity);
                         if (result.code.equals("200")) {
                             onSuccessListener.onSuccess(result);
@@ -107,7 +107,7 @@ public class RequestUtil {
     }
 
     public interface OnSuccessListener<T> {
-        void onSuccess(BaseResult<T> result);
+        void onSuccess(BaseResult<? extends T> result);
     }
 
     public interface OnFailureListener {
@@ -115,7 +115,7 @@ public class RequestUtil {
     }
 
     public interface ObservableProvider<T> {
-        Observable<BaseResult<T>> getObservable();
+        Observable<? extends BaseResult<? extends T>> getObservable();
     }
 
     private static void dismissProgressDialog(BaseActivity activity) {

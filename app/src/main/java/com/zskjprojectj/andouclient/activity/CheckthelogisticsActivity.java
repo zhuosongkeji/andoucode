@@ -65,9 +65,9 @@ public class CheckthelogisticsActivity extends BaseActivity {
         //解决ScrollView嵌套RecyclerView出现的系列问题
         mRecycler.setNestedScrollingEnabled(false);
         mRecycler.setHasFixedSize(true);
-//        mRecycler.setAdapter(new CheckthelogisticsAdapter(mAt,R.layout.item_checkthelogistics, getData()));
+//        mRecycler.setAdapter(new CheckthelogisticsAdapter(mAt,R.layout.item_checkthelogistics, data()));
     }
-//    private List<CheckthelogisticsBean> getData() {
+//    private List<CheckthelogisticsBean> data {
 //        mDataList = new ArrayList<>();
 //        mDataList.add(new CheckthelogisticsBean("2018-05-20 13:37:57", "客户 签收人: 他人代收 已签收 感谢使用圆通速递，期待再次为您服务"));
 //        mDataList.add(new CheckthelogisticsBean("2018-05-20 09:03:42", "【广东省深圳市宝安区新安公司】 派件人: 陆黄星 派件中 派件员电话13360979918"));

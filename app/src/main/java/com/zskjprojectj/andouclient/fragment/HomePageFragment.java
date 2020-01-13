@@ -245,10 +245,10 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
                             @Override
                             public void onPick(int position, City data) {
                                 tv_cityinfo.setText(String.format("%s", data.getName()));
-                                //  tv_cityinfo.setText(String.format("当前城市：%s，%s", data.getName(), data.getCode()));
+                                //  tv_cityinfo.setText(String.format("当前城市：%s，%s", data.getName(), data.code()));
 //                                Toast.makeText(
 //                                        getApplicationContext(),
-//                                        String.format("点击的数据：%s，%s", data.getName(), data.getCode()),
+//                                        String.format("点击的数据：%s，%s", data.getName(), data.code()),
 //                                        Toast.LENGTH_SHORT)
 //                                        .show();
                             }

@@ -81,13 +81,13 @@ public class ClassificationofgoodsFragment extends BaseFragment {
 //        String json = getJson(mAty, "category.json");
 //        CategoryBean categoryBean = JSONObject.parseObject(json, CategoryBean.class);
 //        showTitle = new ArrayList<>();
-//        for (int i = 0; i < categoryBean.getData().size(); i++) {
-//            CategoryBean.DataBean dataBean = categoryBean.getData().get(i);
+//        for (int i = 0; i < categoryBean.data.size(); i++) {
+//            CategoryBean.DataBean dataBean = categoryBean.data.get(i);
 //            menuList.add(dataBean.getModuleTitle());
 //            showTitle.add(i);
 //            homeList.add(dataBean);
 //        }
-//        tv_title.setText(categoryBean.getData().get(0).getModuleTitle());
+//        tv_title.setText(categoryBean.data.get(0).getModuleTitle());
 //        menuAdapter.notifyDataSetChanged();
 //        homeAdapter.notifyDataSetChanged();
 

@@ -47,10 +47,7 @@ public class RetrofitUtils {
                     return chain.proceed(request);
                 })
                 .addInterceptor(new HttpLoggingInterceptor(
-                        new HttpLogger()).setLevel(HttpLoggingInterceptor.Level.HEADERS));
-               // .addInterceptor(new HeaderInterceptors());
-
-
+                        new HttpLogger()).setLevel(HttpLoggingInterceptor.Level.BODY));
         return builder.build();
     }
 
@@ -63,10 +60,9 @@ public class RetrofitUtils {
         Retrofit retrofit = new Retrofit.Builder()
                 .client(okHttpClient())
                 .baseUrl(baseUrl)
-                .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().setDateFormat("MMM d, yyyy").create()))
+                .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
-
         return retrofit;
     }
 }

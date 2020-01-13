@@ -2,29 +2,13 @@ package com.zskjprojectj.andouclient.activity;
 
 
 import android.os.Bundle;
-import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
-
 import com.blankj.utilcode.util.ActivityUtils;
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.adapter.LiveAdapter;
 import com.zskjprojectj.andouclient.base.BaseActivity;
-import com.zskjprojectj.andouclient.base.BaseListActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
-import com.zskjprojectj.andouclient.entity.TestBean;
-import com.zskjprojectj.andouclient.http.ApiUtils;
-import com.zskjprojectj.andouclient.http.BaseResult;
-import com.zskjprojectj.andouclient.http.HttpRxObservable;
-import com.zskjprojectj.andouclient.utils.ToastUtil;
-
-import java.util.List;
-
-import io.reactivex.Observable;
-import io.reactivex.functions.Function;
 
 /**
  * 直播界面

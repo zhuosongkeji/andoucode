@@ -39,6 +39,7 @@ import com.zskjprojectj.andouclient.entity.PersonalBean;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
+import com.zskjprojectj.andouclient.utils.BarUtils;
 import com.zskjprojectj.andouclient.utils.GlideTool;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
@@ -60,11 +61,9 @@ import java.io.IOException;
  */
 public class MePageFragment extends BaseFragment {
 
-    @BindView(R.id.tv_header_title)
-    TextView mHeaderTitle;
-
     @BindView(R.id.header_title_view)
-    RelativeLayout mTitleView;
+    RelativeLayout mHeaderTitle;
+
 
     //菜市场
     private LinearLayout mycenter_vegetablemarket_layout;
@@ -137,6 +136,11 @@ public class MePageFragment extends BaseFragment {
         tv_browsenum=view.findViewById(R.id.tv_browsenum);
         tv_moneynum=view.findViewById(R.id.tv_moneynum);
         tv_integralnumm=view.findViewById(R.id.tv_integralnumm);
+
+        //设置状态栏的高度
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mHeaderTitle.getLayoutParams();
+        layoutParams.topMargin = BarUtils.getStatusBarHeight(mAty);
+        mHeaderTitle.setLayoutParams(layoutParams);
     }
 
     @Override
@@ -163,8 +167,7 @@ public class MePageFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-        getBarDistance(mTitleView);
-        mHeaderTitle.setText("会员中心");
+
         /**
          * 菜市场
          */
