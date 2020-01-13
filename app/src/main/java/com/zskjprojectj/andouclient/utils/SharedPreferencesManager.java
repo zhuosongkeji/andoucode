@@ -18,6 +18,7 @@ public class SharedPreferencesManager {
     private static final String SettingFileName = "user_config";
     private static SharedPreferencesManager mInstance;
     private SharedPreferences settings;
+    public static final  String CODE="code";
     public static final String USER_INFO = "user_info";
     public static final String USER_ID = "user_id";
     public static final String FIRST_LAUNCH = "first_launch";

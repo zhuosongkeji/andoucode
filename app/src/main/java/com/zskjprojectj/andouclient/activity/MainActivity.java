@@ -23,8 +23,9 @@ import androidx.fragment.app.Fragment;
 import com.next.easynavigation.view.EasyNavigationBar;
 import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
+import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.base.BaseActivity;
+
 import com.zskjprojectj.andouclient.base.BasePresenter;
 import com.zskjprojectj.andouclient.fragment.HomePageFragment;
 import com.zskjprojectj.andouclient.fragment.InfoPageFragment;
@@ -71,19 +72,14 @@ public class MainActivity extends BaseActivity {
 
     private List<Fragment> fragments = new ArrayList<>();
 
+
     @Override
-    protected void setRootView() {
-        setContentView(R.layout.activity_main);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        initViews();
     }
 
-    @Override
-    protected void initData(Bundle savedInstanceState) {
-
-        checkRxPermission();
-    }
-
-    @Override
-    protected void initViews() {
+    private void initViews() {
         navigationBar = findViewById(R.id.navigationBar);
         fragments.add(new HomePageFragment());
         fragments.add(new MerchantsPageFragment());
@@ -105,17 +101,10 @@ public class MainActivity extends BaseActivity {
                 .canScroll(false)
                 .mode(EasyNavigationBar.MODE_ADD)
                 .build();
+
+        checkRxPermission();
     }
 
-    @Override
-    public void getDataFromServer() {
-
-    }
-
-    @Override
-    protected BasePresenter createPresenter() {
-        return null;
-    }
 
     /**
      * 按键执行操作，连点两次退出程序
@@ -151,7 +140,7 @@ public class MainActivity extends BaseActivity {
     //动态申请权限
     @SuppressLint("CheckResult")
     private void checkRxPermission() {
-        RxPermissions rxPermissions = new RxPermissions((Activity) mAt);
+        RxPermissions rxPermissions = new RxPermissions((Activity) mActivity);
         String[] permissionsArr = new String[]{
                 android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 android.Manifest.permission.READ_PHONE_STATE,
@@ -177,7 +166,7 @@ public class MainActivity extends BaseActivity {
                         } else if (permission.shouldShowRequestPermissionRationale) {
                             LogUtil.e("testRxPermission CallBack onPermissionsDenied() : " + permission.name + "request denied");
                             //ToastUtil.showShort(instance, "拒绝权限，等待下次询问哦");
-                            alertDialog(mAt);
+                            alertDialog(mActivity);
                             //todo request permission again
                         } else {
                             LogUtil.e("testRxPermission CallBack onPermissionsDenied() : this " + permission.name + " is denied " +
@@ -215,5 +204,10 @@ public class MainActivity extends BaseActivity {
                     .create()
                     .show();
         }
+    }
+
+    @Override
+    protected int getContentView() {
+        return R.layout.activity_main;
     }
 }

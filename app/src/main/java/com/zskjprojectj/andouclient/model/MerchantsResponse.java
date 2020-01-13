@@ -1,7 +1,15 @@
 package com.zskjprojectj.andouclient.model;
 
+import com.zhuosongkj.android.library.model.ListData;
+
 import java.util.ArrayList;
 
-public class MerchantsResponse {
+public class MerchantsResponse extends ListData<Merchant> {
+
+    @Override
+    public ArrayList<Merchant> getDataList() {
+        return merchants;
+    }
+
     public ArrayList<Merchant> merchants = new ArrayList<>();
 }

@@ -42,7 +42,7 @@
                 android:src="@mipmap/invitation_youfriend" />
 
             <ImageView
-                android:id="@+id/img_top"
+                android:id="@+id/img_toptouxiang"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/img_friend"
@@ -54,7 +54,7 @@
                 android:id="@+id/tv_username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/img_top"
+                android:layout_below="@id/img_toptouxiang"
                 android:layout_centerInParent="true"
                 android:layout_marginTop="@dimen/dp_10"
                 android:text="卓松科技"
