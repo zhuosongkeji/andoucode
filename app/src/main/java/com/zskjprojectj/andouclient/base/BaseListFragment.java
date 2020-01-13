@@ -12,9 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.alibaba.fastjson.JSONObject;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.zhuosongkj.android.library.model.BaseResult;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.http.BaseHandleObserver;
-import com.zskjprojectj.andouclient.http.BaseResult;
 import com.zskjprojectj.andouclient.refresh.MySwipeRefreshLayout;
 import com.zskjprojectj.andouclient.utils.EmptyView;
 
@@ -243,7 +243,7 @@ public abstract class BaseListFragment<D> extends BaseFragment implements BaseQu
 
     protected int getJsonPage(BaseResult<JSONObject> objectBaseResult) {
         try {
-            int i = objectBaseResult.getData().getInteger("page_limit");
+            int i = objectBaseResult.data.getInteger("page_limit");
             return i;
         } catch (Exception e) {
             e.printStackTrace();

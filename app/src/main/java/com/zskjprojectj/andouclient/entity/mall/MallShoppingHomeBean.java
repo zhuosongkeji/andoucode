@@ -1,7 +1,9 @@
 package com.zskjprojectj.andouclient.entity.mall;
 
 import com.google.gson.annotations.SerializedName;
+import com.zhuosongkj.android.library.model.ListData;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,8 +16,14 @@ import java.util.List;
  * 修改时间：
  * 修改备注：
  */
-public class MallShoppingHomeBean {
+public class MallShoppingHomeBean extends ListData<MallShoppingHomeBean.GoodsBean> {
     private String name;
+
+    @Override
+    public ArrayList<GoodsBean> getDataList() {
+        return goods;
+    }
+
     /**
      * banner_img : 背景海报图
      * logo_img : 头像图片
@@ -35,7 +43,7 @@ public class MallShoppingHomeBean {
     }
 
     private String status;
-    private List<GoodsBean> goods;
+    private ArrayList<GoodsBean> goods;
     private List<TypeBean> type;
 
     public String getName() {
@@ -66,7 +74,7 @@ public class MallShoppingHomeBean {
         return goods;
     }
 
-    public void setGoods(List<GoodsBean> goods) {
+    public void setGoods(ArrayList<GoodsBean> goods) {
         this.goods = goods;
     }
 

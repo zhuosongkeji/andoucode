@@ -7,13 +7,13 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
+import com.zhuosongkj.android.library.model.BaseResult;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.adapter.LiveAdapter;
 import com.zskjprojectj.andouclient.base.BaseListActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
 import com.zskjprojectj.andouclient.entity.TestBean;
 import com.zskjprojectj.andouclient.http.ApiUtils;
-import com.zskjprojectj.andouclient.http.BaseResult;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
 
@@ -43,7 +43,7 @@ public class LiveActivity extends BaseListActivity {
             @Override
             public List apply(BaseResult<TestBean.ResultBean> resultBeanBaseResult) throws Exception {
 
-                return resultBeanBaseResult.getData().getData();
+                return resultBeanBaseResult.data.getData();
             }
 
         });

@@ -44,13 +44,17 @@ public abstract class BaseAdapter<T> extends BaseQuickAdapter<T, BaseViewHolder>
     }
 
     public void setSelected(T data, boolean selected, boolean isSingle) {
-        if (isSingle && selected) {
+        if (isSingle) {
             for (T dataTemp : getData()) {
-                setSelected(dataTemp, false);
+                selectMap.put(dataTemp, false);
             }
         }
         selectMap.put(data, selected);
-        notifyItemChanged(getData().indexOf(data));
+        if (isSingle) {
+            notifyDataSetChanged();
+        } else {
+            notifyItemChanged(getData().indexOf(data));
+        }
         isSelectedAll = selected && isLoadMoreEnd && !selectMap.containsValue(false);
         if (onSelectedStateChangedListener != null) {
             onSelectedStateChangedListener.onSelectedStateChanged();

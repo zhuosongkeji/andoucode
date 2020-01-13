@@ -6,9 +6,12 @@ import android.widget.ImageView;
 import com.blankj.utilcode.util.LogUtils;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
+import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.BuildConfig;
 import com.zskjprojectj.andouclient.R;
+import com.zskjprojectj.andouclient.activity.LoginActivity;
 import com.zskjprojectj.andouclient.http.ApiService;
+import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 import com.zskjprojectj.andouclient.utils.SharedPreferencesManager;
 
 import retrofit2.Retrofit;
@@ -27,6 +30,10 @@ public class BaseApplication extends Application {
         SharedPreferencesManager.init(application);
         initHttp();
         Logger.addLogAdapter(new AndroidLogAdapter());
+        RequestUtil.onLoginRequest = activity -> {
+            LoginActivity.start(activity);
+            LoginInfoUtil.saveLoginInfo("","");
+        };
     }
 
     public static BaseApplication getInstance() {

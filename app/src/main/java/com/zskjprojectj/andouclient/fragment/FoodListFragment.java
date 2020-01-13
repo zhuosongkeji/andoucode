@@ -1,8 +1,8 @@
 package com.zskjprojectj.andouclient.fragment;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Gravity;
-import android.view.View;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -25,6 +25,7 @@ import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.model.Food;
 import com.zskjprojectj.andouclient.model.FoodCategory;
 import com.zskjprojectj.andouclient.model.Restaurant;
+import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 import com.zskjprojectj.andouclient.utils.UrlUtil;
 
 import java.util.ArrayList;
@@ -52,13 +53,25 @@ public class FoodListFragment extends BaseFragment {
         foodAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             Food food = foodAdapter.getItem(position);
             if (view.getId() == R.id.subBtn) {
-                food.num -= 1;
+                RequestUtil.request(mActivity, true, false,
+                        () -> ApiUtils.getApiService().delFoodCart(
+                                LoginInfoUtil.getUid(),
+                                restaurant.id,
+                                food.id),
+                        result -> {
+                            food.num -= 1;
+                            cartChanged(position);
+                        });
             } else if (view.getId() == R.id.addBtn) {
-                food.num += 1;
-            }
-            foodAdapter.notifyItemChanged(position);
-            if (onCartChangedListener != null) {
-                onCartChangedListener.onCartChanged(foodAdapter.getData());
+                RequestUtil.request(mActivity, true, false,
+                        () -> ApiUtils.getApiService().addFoodCart(
+                                LoginInfoUtil.getUid(),
+                                restaurant.id,
+                                food.id),
+                        result -> {
+                            food.num += 1;
+                            cartChanged(position);
+                        });
             }
         });
         foodAdapter.setOnItemClickListener((adapter, view, position) -> {
@@ -127,7 +140,31 @@ public class FoodListFragment extends BaseFragment {
                         foods.addAll(foodCategory.foods);
                     }
                     foodAdapter.setNewData(foods);
+                    loadCart();
                 });
+    }
+
+    private void loadCart() {
+        RequestUtil.request(mActivity, true, false,
+                () -> ApiUtils.getApiService().getCart(LoginInfoUtil.getUid(), LoginInfoUtil.getToken(), restaurant.id
+                ), cartResult -> {
+                    for (Food foodTemp : cartResult.data) {
+                        for (Food foodTemp2 : foodAdapter.getData()) {
+                            if (foodTemp.id.equals(foodTemp2.id)) {
+                                foodTemp2.num = foodTemp.num;
+                                break;
+                            }
+                        }
+                    }
+                    foodAdapter.notifyDataSetChanged();
+                });
+    }
+
+    private void cartChanged(int position) {
+        foodAdapter.notifyItemChanged(position);
+        if (onCartChangedListener != null) {
+            onCartChangedListener.onCartChanged(foodAdapter.getData());
+        }
     }
 
     @Override
@@ -137,6 +174,10 @@ public class FoodListFragment extends BaseFragment {
 
     public void refresh(Food food) {
         foodAdapter.notifyDataSetChanged();
+    }
+
+    public void refreshCart() {
+        loadCart();
     }
 
     public interface OnCartChangedListener {

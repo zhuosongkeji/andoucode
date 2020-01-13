@@ -13,6 +13,7 @@ public class Restaurant implements Serializable {
     public int stars_all;
     public List<Food> cai;
     public boolean isHeader;
+    public String logo_img;
 
     public boolean isVip() {
         return false;

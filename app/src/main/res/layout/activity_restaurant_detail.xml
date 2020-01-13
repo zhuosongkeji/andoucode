@@ -356,6 +356,7 @@
                 android:layout_weight="1" />
 
             <LinearLayout
+                android:id="@+id/buyBtn"
                 android:layout_width="120dp"
                 android:layout_height="35dp"
                 android:layout_marginEnd="15dp"
