@@ -76,9 +76,9 @@ public class MallHomepageFragment1 extends BaseFragment {
 
     private List<MallHomeDataBean.BannerBean> banner;
     //推荐产品
-    private String recommend="1";
+    private String recommend = "1";
     //特价产品
-    private String special="1";
+    private String special = "1";
 
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
@@ -109,8 +109,6 @@ public class MallHomepageFragment1 extends BaseFragment {
                             @Override
                             public void onItemClick(int position) {
                                 ClassificationofgoodsActivity.getCataId(category.get(position).getId());
-
-
                             }
                         });
 
@@ -138,8 +136,8 @@ public class MallHomepageFragment1 extends BaseFragment {
 
     private void initBargainAdapter(List<MallHomeDataBean.BargainGoodsBean> bargain_goods) {
         //特价产品
-        mSpecialProducts.setLayoutManager(new GridLayoutManager(getActivity(),2));
-        SpecialProductsAdapter specialProductsAdapter=new SpecialProductsAdapter(R.layout.fragment_mall_goods_details_view,bargain_goods);
+        mSpecialProducts.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        SpecialProductsAdapter specialProductsAdapter = new SpecialProductsAdapter(R.layout.fragment_mall_goods_details_view, bargain_goods);
         specialProductsAdapter.openLoadAnimation();
         specialProductsAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
@@ -153,8 +151,8 @@ public class MallHomepageFragment1 extends BaseFragment {
 
     private void initRecommendAdapter(List<MallHomeDataBean.RecommendGoodsBean> recommend_goods) {
         //推荐产品
-        mRecommendProducts.setLayoutManager(new GridLayoutManager(getActivity(),2));
-        RecommendProductsAdapter recommendProductsAdapter=new RecommendProductsAdapter(R.layout.fragment_mall_goods_details_view,recommend_goods);
+        mRecommendProducts.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        RecommendProductsAdapter recommendProductsAdapter = new RecommendProductsAdapter(R.layout.fragment_mall_goods_details_view, recommend_goods);
         recommendProductsAdapter.openLoadAnimation();
         recommendProductsAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
@@ -173,7 +171,6 @@ public class MallHomepageFragment1 extends BaseFragment {
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, ScreenUtil.getScreenWidth(mAty) / 2);
         onlinebanner.setLayoutParams(layoutParams);
         initBanner(onlinebanner);
-
     }
 
 
@@ -214,24 +211,24 @@ public class MallHomepageFragment1 extends BaseFragment {
     }
 
 
-    @OnClick({R.id.img_back,R.id.tv_recommend_see_more,R.id.tv_special_see_more,R.id.search_image})
+    @OnClick({R.id.img_back, R.id.tv_recommend_see_more, R.id.tv_special_see_more, R.id.search_image})
     public void clickBack(View view) {
 
-        switch (view.getId()){
+        switch (view.getId()) {
 
             case R.id.img_back:
                 mAty.finish();
                 break;
             //推荐
             case R.id.tv_recommend_see_more:
-                Intent recommenIntent=new Intent(mAty,ClassificationofgoodsActivity.class);
-                recommenIntent.putExtra("recommend",recommend);
+                Intent recommenIntent = new Intent(mAty, ClassificationofgoodsActivity.class);
+                recommenIntent.putExtra("recommend", recommend);
                 mAty.startActivity(recommenIntent);
                 break;
             //特价
             case R.id.tv_special_see_more:
-                Intent specialIntent=new Intent(mAty,ClassificationofgoodsActivity.class);
-                specialIntent.putExtra("special",special);
+                Intent specialIntent = new Intent(mAty, ClassificationofgoodsActivity.class);
+                specialIntent.putExtra("special", special);
                 mAty.startActivity(specialIntent);
                 break;
             //搜索按钮

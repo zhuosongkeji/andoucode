@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@color/white"
     android:padding="@dimen/dp_20">
 
     <RelativeLayout
@@ -36,8 +35,8 @@
             android:layout_alignStart="@+id/tv_name"
             android:layout_marginTop="@dimen/dp_4"
             android:text="2019-08-19  10:20"
-            android:textSize="@dimen/typeface11sp"
-            android:textColor="#969696" />
+            android:textColor="#969696"
+            android:textSize="@dimen/typeface11sp" />
 
         <LinearLayout
             android:id="@+id/hotel_star"
@@ -85,19 +84,18 @@
 
         <com.willy.ratingbar.ScaleRatingBar
             android:id="@+id/ratingBar"
-            android:layout_alignParentEnd="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
             app:srb_clearRatingEnabled="true"
-            app:srb_clickable="true"
             app:srb_drawableEmpty="@mipmap/ic_plant_gray"
             app:srb_drawableFilled="@mipmap/ic_plant"
-            app:srb_isIndicator="false"
+            app:srb_isIndicator="true"
             app:srb_minimumStars="1"
             app:srb_numStars="5"
-            app:srb_starHeight="17dp"
-            app:srb_starPadding="8dp"
-            app:srb_starWidth="19dp"
+            app:srb_starHeight="13dp"
+            app:srb_starPadding="5dp"
+            app:srb_starWidth="14dp"
             app:srb_stepSize="0.5" />
 
     </RelativeLayout>
@@ -108,8 +106,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_20"
         android:text="产品比较好，比较实用"
-        android:textSize="@dimen/typeface12sp"
-        android:textColor="#969696" />
+        android:textColor="#969696"
+        android:textSize="@dimen/typeface12sp" />
 
 
 </LinearLayout>

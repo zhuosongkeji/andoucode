@@ -59,8 +59,6 @@ public class MallBuyAdapter extends BaseQuickAdapter<MallBuyBean.SpecInfo, BaseV
             @Override
             public boolean onTagClick(View view, int position, FlowLayout parent) {
 
-                ToastUtil.showToast("选择的是" + item.value.get(position));
-
                 return true;
             }
         });
@@ -72,7 +70,6 @@ public class MallBuyAdapter extends BaseQuickAdapter<MallBuyBean.SpecInfo, BaseV
                 if (selectPosSet.size() > 0) {
                     Integer next = selectPosSet.iterator().next();
                     String s = item.value.get(next);
-                    Log.d("wangbin", "onSelected: " + s);
                     if (itemClickKind != null) {
                         itemClickKind.getItemKind(item.name, s);
                     }

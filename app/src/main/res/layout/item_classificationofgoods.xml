@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/dp_10"
     android:layout_gravity="center"
     android:orientation="vertical"
     android:background="?android:attr/selectableItemBackground"
@@ -18,12 +19,13 @@
             android:layout_width="165dp"
             android:layout_height="190dp"
             android:layout_gravity="center"
+            android:scaleType="centerCrop"
             android:src="@mipmap/tp_mall_goods" />
 
         <TextView
             android:id="@+id/tv_mall_list_name"
             android:layout_width="165dp"
-            android:layout_height="wrap_content"
+            android:layout_height="33dp"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/dp_14"
             android:ellipsize="end"
@@ -36,7 +38,7 @@
             android:id="@+id/tv_mall_list_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_14"
+            android:layout_marginTop="@dimen/dp_5"
             android:text="¥1299"
             android:textColor="#FE5F50"
             android:textSize="@dimen/dp_10" />

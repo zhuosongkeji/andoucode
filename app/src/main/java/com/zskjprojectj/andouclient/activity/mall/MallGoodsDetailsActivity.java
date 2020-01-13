@@ -240,7 +240,7 @@ public class MallGoodsDetailsActivity extends BaseActivity {
     @Override
     protected void initViews() {
         //商品ID
-        goodsId=getIntent().getStringExtra(GOODS_ID);
+        goodsId = getIntent().getStringExtra(GOODS_ID);
 
 
         getBarDistance(mHeaderTitleView);
@@ -298,8 +298,8 @@ public class MallGoodsDetailsActivity extends BaseActivity {
 
                         merchant_id = mallGoodsDetailsDataBean.getMerchant_id();
 
-                         orderImg = mallGoodsDetailsDataBean.getImg();
-                         orderName = mallGoodsDetailsDataBean.getName();
+                        orderImg = mallGoodsDetailsDataBean.getImg();
+                        orderName = mallGoodsDetailsDataBean.getName();
 
 
                     }
@@ -336,7 +336,7 @@ public class MallGoodsDetailsActivity extends BaseActivity {
                     isCollection = false;
                 }
 
-                Log.d(TAG, "type: "+type);
+                Log.d(TAG, "type: " + type);
                 HttpRxObservable.getObservable(ApiUtils.getApiService().mallGoodsCollection(
                         goodsId,
                         LoginInfoUtil.getUid(),
@@ -485,7 +485,7 @@ public class MallGoodsDetailsActivity extends BaseActivity {
         contentView = LayoutInflater.from(this).inflate(R.layout.dialog_buy_now, null);
 
         ImageView mOrderImg = contentView.findViewById(R.id.iv_online_order_image);
-        Glide.with(mOrderImg.getContext()).load(BaseUrl.BASE_URL+orderImg).apply(new RequestOptions()
+        Glide.with(mOrderImg.getContext()).load(BaseUrl.BASE_URL + orderImg).apply(new RequestOptions()
                 .placeholder(R.drawable.default_image).error(R.drawable.default_image)).into(mOrderImg);
         TextView mOrderName = contentView.findViewById(R.id.tv_order_name);
         mOrderName.setText(orderName);
@@ -499,7 +499,6 @@ public class MallGoodsDetailsActivity extends BaseActivity {
         buyAdapter.setItemClickKind(new MallBuyAdapter.ItemClickKind() {
             @Override
             public void getItemKind(String spec, String kind) {
-                Log.d(TAG, "getItemKind: " + spec + " " + kind);
                 for (MallBuyBean.SpecInfo re : MallGoodsDetailsActivity.this.res) {
                     if (re.name.equals(spec)) {
                         re.value.clear();
@@ -567,10 +566,8 @@ public class MallGoodsDetailsActivity extends BaseActivity {
                     }
                 }
                 String selectKind = buffer.substring(0, buffer.length() - 1);
-                Log.d(TAG, "onClick: " + selectKind);
 
                 MallBuyBean.PriceInfo priceInfo = price.get(selectKind);
-                Log.d(TAG, "priceInfo" + priceInfo.id + " " + priceInfo.num + " " + priceInfo.price);
                 String goods_sku_id = priceInfo.id;
 
                 String merchant_id = String.valueOf(merchantId);
@@ -646,9 +643,9 @@ public class MallGoodsDetailsActivity extends BaseActivity {
         finish();
     }
 
-    public static void start(String id){
-        Bundle intent=new Bundle();
-        intent.putString(GOODS_ID,id);
-        ActivityUtils.startActivity(intent,MallGoodsDetailsActivity.class);
+    public static void start(String id) {
+        Bundle intent = new Bundle();
+        intent.putString(GOODS_ID, id);
+        ActivityUtils.startActivity(intent, MallGoodsDetailsActivity.class);
     }
 }
