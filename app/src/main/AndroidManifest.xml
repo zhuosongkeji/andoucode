@@ -255,6 +255,9 @@
         <activity
             android:name=".activity.MyFocusonActivity"
             android:screenOrientation="portrait" /> <!-- 店铺收藏 -->
+        <activity android:name=".activity.BindSuccessActivity"
+            android:screenOrientation="portrait"
+            /><!--绑定成功-->
         <activity
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"
