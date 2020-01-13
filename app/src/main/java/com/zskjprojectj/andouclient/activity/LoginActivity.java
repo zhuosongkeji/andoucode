@@ -341,6 +341,12 @@ public class LoginActivity extends BaseActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(receiver);
+    }
+
     public static void start(Activity activity) {
         Bundle bundle = new Bundle();
         bundle.putBoolean(KEY_FOR_RESULT, true);

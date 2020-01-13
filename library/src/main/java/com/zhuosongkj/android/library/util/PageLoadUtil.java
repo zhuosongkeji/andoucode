@@ -23,7 +23,7 @@ public class PageLoadUtil<T> {
     private BaseQuickAdapter<T, BaseViewHolder> adapter;
     private SmartRefreshLayout refreshLayout;
     private BaseActivity activity;
-    private RequestUtil.ObservableProvider<ListData<T>> observableProvider;
+    private RequestUtil.ObservableProvider<? extends ListData<T>> observableProvider;
     private View loadingView;
     private OnLoadListener<T> onLoadListener;
 
@@ -106,11 +106,11 @@ public class PageLoadUtil<T> {
                 }, 500));
     }
 
-    public void load(RequestUtil.ObservableProvider<ListData<T>> observableProvider) {
+    public void load(RequestUtil.ObservableProvider<? extends ListData<T>> observableProvider) {
         load(observableProvider, null);
     }
 
-    public void load(RequestUtil.ObservableProvider<ListData<T>> observableProvider, OnLoadListener<T> onLoadListener) {
+    public void load(RequestUtil.ObservableProvider<? extends ListData<T>> observableProvider, OnLoadListener<T> onLoadListener) {
         this.observableProvider = observableProvider;
         this.onLoadListener = onLoadListener;
         loadData(true);

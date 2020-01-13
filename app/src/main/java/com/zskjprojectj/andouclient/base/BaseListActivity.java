@@ -12,9 +12,9 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
 import com.google.gson.JsonParseException;
+import com.zhuosongkj.android.library.model.BaseResult;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.http.BaseHandleObserver;
-import com.zskjprojectj.andouclient.http.BaseResult;
 import com.zskjprojectj.andouclient.refresh.MySwipeRefreshLayout;
 import com.zskjprojectj.andouclient.utils.EmptyView;
 
@@ -254,8 +254,8 @@ public abstract class BaseListActivity<D> extends BaseActivity implements BaseQu
 
     protected int getJsonPage(BaseResult<JSONObject> objectBaseResult) {
         try {
-           // return objectBaseResult.getData().getInteger("pageSize");
-            return objectBaseResult.getData().getInteger("pageSize");
+           // return objectBaseResult.data.getInteger("pageSize");
+            return objectBaseResult.data.getInteger("pageSize");
         } catch (Exception e) {
             e.printStackTrace();
             return pageSize;

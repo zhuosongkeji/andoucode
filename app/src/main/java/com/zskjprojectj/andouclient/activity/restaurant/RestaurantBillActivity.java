@@ -15,11 +15,17 @@ import com.blankj.utilcode.util.ActivityUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.zhuosongkj.android.library.app.BaseActivity;
+import com.zhuosongkj.android.library.model.BaseResult;
+import com.zhuosongkj.android.library.model.ListData;
 import com.zhuosongkj.android.library.util.ActionBarUtil;
 import com.zhuosongkj.android.library.util.FormatUtil;
+import com.zhuosongkj.android.library.util.PageLoadUtil;
+import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zhuosongkj.android.library.util.ViewUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.adapter.restaurant.DateAdapter;
+import com.zskjprojectj.andouclient.entity.mall.MallShoppingHomeBean;
+import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.model.Food;
 import com.zskjprojectj.andouclient.model.Restaurant;
 import com.zskjprojectj.andouclient.utils.UrlUtil;
@@ -32,6 +38,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.Observable;
 
 import static com.zskjprojectj.andouclient.activity.MyaddressActivity.KEY_DATA;
 
@@ -47,6 +54,11 @@ public class RestaurantBillActivity extends BaseActivity {
     View moreBtn;
     DateAdapter adapter = new DateAdapter();
     private int num;
+
+    @BindView(R.id.wxPayBtn)
+    View wxPayBtn;
+    @BindView(R.id.accountPayBtn)
+    View accountPayBtn;
 
     private static final ArrayList<String> times = new ArrayList<>();
 
@@ -97,6 +109,15 @@ public class RestaurantBillActivity extends BaseActivity {
             moreBtn.setVisibility(View.GONE);
         });
         adapter.setNewData(getNextSevenDate());
+        wxPayBtn.setEnabled(false);
+        wxPayBtn.setOnClickListener(v -> {
+            v.setEnabled(v.isEnabled());
+            accountPayBtn.setEnabled(wxPayBtn.isEnabled());
+        });
+        accountPayBtn.setOnClickListener(v -> {
+            v.setEnabled(v.isEnabled());
+            wxPayBtn.setEnabled(wxPayBtn.isEnabled());
+        });
     }
 
     private List<Date> getNextSevenDate() {

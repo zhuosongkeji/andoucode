@@ -1,18 +1,16 @@
 package com.zskjprojectj.andouclient.http;
 
 import android.app.Activity;
-import android.os.Bundle;
 
-import com.blankj.utilcode.util.ActivityUtils;
 import com.google.gson.stream.MalformedJsonException;
+import com.zhuosongkj.android.library.model.BaseResult;
 import com.zskjprojectj.andouclient.activity.LoginActivity;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
+import com.zhuosongkj.android.library.model.BaseResult;
 
 import java.io.IOException;
 
 import io.reactivex.disposables.Disposable;
-
-import static com.zskjprojectj.andouclient.activity.LoginActivity.KEY_FOR_RESULT;
 
 public abstract class BaseObserver<T> extends BaseHandleObserver<BaseResult<T>> implements ProgressCancelListener {
     private static final String TAG = "BaseObserver";
@@ -58,12 +56,12 @@ public abstract class BaseObserver<T> extends BaseHandleObserver<BaseResult<T>> 
     public void onNext(BaseResult<T> t) {
         mData = t;
         try {
-            if (t.getCode().equals("200")||t.getCode().equals("203")) {
-                onHandleSuccess(t.getData());
-            } else if (t.getCode().equals("202")) {
+            if (t.code.equals("200")||t.code.equals("203")) {
+                onHandleSuccess(t.data);
+            } else if (t.code.equals("202")) {
                 LoginActivity.start(context);
             } else {
-                onError(new ApiException(t.getCode(), t.getMsg()));
+                onError(new ApiException(t.code, t.msg));
             }
         } catch (Exception e) {
             onError(new ApiException(ApiException.TYPE_SYSTEM, e.getMessage()));
@@ -106,8 +104,8 @@ public abstract class BaseObserver<T> extends BaseHandleObserver<BaseResult<T>> 
 
     public String getMsg() {
         if (mData != null) {
-            //return mData.getMsg();
-            return mData.getMsg();
+            //return mData.msg;
+            return mData.msg;
         }
         return null;
     }

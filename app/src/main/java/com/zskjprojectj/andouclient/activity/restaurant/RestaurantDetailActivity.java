@@ -167,7 +167,7 @@ public class RestaurantDetailActivity extends BaseActivity {
     private void loadCart() {
         if (TextUtils.isEmpty(LoginInfoUtil.getToken())) return;
         RequestUtil.request(mActivity, true, false,
-                () -> ApiUtils.getApiService().getCart(LoginInfoUtil.getUid(), id
+                () -> ApiUtils.getApiService().getCart(LoginInfoUtil.getUid(), LoginInfoUtil.getToken(), id
                 ), result -> {
                     cartAdapter.setNewData(result.data);
                     changeCart();

@@ -372,6 +372,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/wxPayBtn"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_marginTop="1px"
@@ -387,15 +388,22 @@
                     android:src="@mipmap/ic_restaurant_detail_wxpay" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="25dp"
+                    android:layout_weight="1"
                     android:text="微信支付"
                     android:textColor="#ff565656"
                     android:textSize="12sp" />
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:src="@drawable/sl_pay_way" />
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/accountPayBtn"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_marginTop="1px"
@@ -411,12 +419,18 @@
                     android:src="@mipmap/ic_restaurant_detail_accountpay" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="25dp"
+                    android:layout_weight="1"
                     android:text="余额支付"
                     android:textColor="#ff565656"
                     android:textSize="12sp" />
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:src="@drawable/sl_pay_way" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

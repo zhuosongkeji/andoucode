@@ -1,5 +1,6 @@
 package com.zskjprojectj.andouclient.http;
 
+import com.zhuosongkj.android.library.model.BaseResult;
 import com.zhuosongkj.android.library.model.ListData;
 import com.zskjprojectj.andouclient.entity.BrowsingBean;
 import com.zskjprojectj.andouclient.entity.CheckLogisticsBean;
@@ -885,33 +886,38 @@ public interface ApiService {
 //    Observable<BaseResult<PlatformBean>> getPlatformData(@Field("page") int page, @Field("pid") String id);
 
     @POST("api/gourmet/delicious")
-    Observable<com.zhuosongkj.android.library.model.BaseResult<List<RestaurantCategory>>> getFoodCategory();
+    Observable<BaseResult<List<RestaurantCategory>>> getFoodCategory();
 
     @POST("api/gourmet/list")
-    Observable<com.zhuosongkj.android.library.model.BaseResult<ListData<Restaurant>>> getRestaurants();
+    Observable<BaseResult<ListData<Restaurant>>> getRestaurants();
 
     @FormUrlEncoded
     @POST("api/gourmet/details")
-    Observable<com.zhuosongkj.android.library.model.BaseResult<Restaurant>> getRestaurantDetail(@Field("id") String id);
+    Observable<BaseResult<Restaurant>> getRestaurantDetail(@Field("id") String id);
 
     @FormUrlEncoded
     @POST("api/gourmet/dishtype")
-    Observable<com.zhuosongkj.android.library.model.BaseResult<List<FoodCategory>>> getFoodCategory(@Field("merchants_id") String merchants_id);
+    Observable<BaseResult<List<FoodCategory>>> getFoodCategory(@Field("merchants_id") String merchants_id);
 
     @FormUrlEncoded
     @POST("api/gourmet/booking")
-    Observable<com.zhuosongkj.android.library.model.BaseResult<List<Food>>> getCart(@Field("user_id") String user_id,
-                                                                                    @Field("merchants_id") String merchants_id);
+    Observable<BaseResult<List<Food>>> getCart(@Field("user_id") String user_id,
+                                               @Field("token") String token,
+                                               @Field("merchant_id") String merchants_id);
 
     @FormUrlEncoded
     @POST("api/gourmet/add_foods")
-    Observable<com.zhuosongkj.android.library.model.BaseResult<Object>> addFoodCart(@Field("uid") String user_id,
-                                                                                    @Field("merchants_id") String merchants_id,
-                                                                                    @Field("foods_id") String foods_id);
+    Observable<BaseResult<Object>> addFoodCart(@Field("uid") String user_id,
+                                               @Field("merchant_id") String merchants_id,
+                                               @Field("foods_id") String foods_id);
 
     @FormUrlEncoded
     @POST("api/gourmet/del_foods")
-    Observable<com.zhuosongkj.android.library.model.BaseResult<Object>> delFoodCart(@Field("uid") String user_id,
-                                                                                    @Field("merchants_id") String merchants_id,
-                                                                                    @Field("foods_id") String foods_id);
+    Observable<BaseResult<Object>> delFoodCart(@Field("uid") String user_id,
+                                               @Field("merchant_id") String merchants_id,
+                                               @Field("id") String foods_id);
+
+    @FormUrlEncoded
+    @POST("api/gourmet/del_foods")
+    Observable<BaseResult<MallShoppingHomeBean>> delFoodCartss();
 }

@@ -5,21 +5,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
-
-import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import com.wihaohao.PageGridView;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.adapter.LiveAdapter;
 import com.zskjprojectj.andouclient.base.BaseActivity;
-import com.zskjprojectj.andouclient.base.BaseListActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
 import com.zskjprojectj.andouclient.entity.BookorderBean;
-import com.zskjprojectj.andouclient.entity.TestBean;
-import com.zskjprojectj.andouclient.http.ApiUtils;
-import com.zskjprojectj.andouclient.http.BaseResult;
-import com.zskjprojectj.andouclient.http.HttpRxObservable;
 
 import org.angmarch.views.NiceSpinner;
 
@@ -27,9 +18,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-
-import io.reactivex.Observable;
-import io.reactivex.functions.Function;
 
 /**
  * 在线预约点餐BaseListActivity
@@ -128,7 +116,7 @@ public class OnlineBookingorderActivity extends BaseActivity {
 //            @Override
 //            public List apply(BaseResult<TestBean.ResultBean> resultBeanBaseResult) throws Exception {
 //
-//                return resultBeanBaseResult.getResult().getData();
+//                return resultBeanBaseResult.getResult().data;
 //            }
 //
 //        });
