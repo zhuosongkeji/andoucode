@@ -4,6 +4,7 @@ import com.zhuosongkj.android.library.model.ListData;
 import com.zskjprojectj.andouclient.entity.BrowsingBean;
 import com.zskjprojectj.andouclient.entity.CheckLogisticsBean;
 import com.zskjprojectj.andouclient.entity.IndexHomeBean;
+import com.zskjprojectj.andouclient.entity.InvitationBean;
 import com.zskjprojectj.andouclient.entity.MyFocusonBean;
 import com.zskjprojectj.andouclient.entity.MycollectionBean;
 import com.zskjprojectj.andouclient.entity.RefundReasonBean;
@@ -748,6 +749,27 @@ public interface ApiService {
     @POST("api/goods/uploads")
     @Multipart
     Observable<BaseResult<String>> uploadImg(@Part("uid") RequestBody uid, @Part("token") RequestBody token, @Part MultipartBody.Part file);
+
+    /**
+     * 邀请码
+     * @param uid
+     * @param token
+     * @return
+     */
+    @POST("api/users/invitations")
+    @FormUrlEncoded
+    Observable<BaseResult<InvitationBean>> invitationsvip(@Field("uid") String uid, @Field("token") String token);
+
+    /**
+     * 绑定上下级
+     * @param uid
+     * @param token
+     * @param code
+     * @return
+     */
+    @POST("api/users/binding")
+    @FormUrlEncoded
+    Observable<BaseResult<Object>> binding(@Field("uid") String uid, @Field("token") String token,@Field("code") String code);
 //    /**
 //     * 注册
 //     *
