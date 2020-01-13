@@ -1,44 +1,58 @@
 package com.zskjprojectj.andouclient.activity.restaurant;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.TimeUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.gson.Gson;
 import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zhuosongkj.android.library.model.BaseResult;
-import com.zhuosongkj.android.library.model.ListData;
 import com.zhuosongkj.android.library.util.ActionBarUtil;
 import com.zhuosongkj.android.library.util.FormatUtil;
-import com.zhuosongkj.android.library.util.PageLoadUtil;
 import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zhuosongkj.android.library.util.ViewUtil;
 import com.zskjprojectj.andouclient.R;
+import com.zskjprojectj.andouclient.activity.mall.MallPaySuccessActivity;
 import com.zskjprojectj.andouclient.adapter.restaurant.DateAdapter;
-import com.zskjprojectj.andouclient.entity.mall.MallShoppingHomeBean;
+import com.zskjprojectj.andouclient.entity.WXPayBean;
+import com.zskjprojectj.andouclient.event.RestaurantPaySuccess;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.model.Food;
 import com.zskjprojectj.andouclient.model.Restaurant;
+import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
+import com.zskjprojectj.andouclient.utils.PayUtil;
+import com.zskjprojectj.andouclient.utils.ToastUtil;
 import com.zskjprojectj.andouclient.utils.UrlUtil;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import io.reactivex.Observable;
 
 import static com.zskjprojectj.andouclient.activity.MyaddressActivity.KEY_DATA;
 
@@ -52,6 +66,8 @@ public class RestaurantBillActivity extends BaseActivity {
     TextView numTxt;
     @BindView(R.id.moreBtn)
     View moreBtn;
+    @BindView(R.id.psEdt)
+    EditText psEdt;
     DateAdapter adapter = new DateAdapter();
     private int num;
 
@@ -60,10 +76,14 @@ public class RestaurantBillActivity extends BaseActivity {
     @BindView(R.id.accountPayBtn)
     View accountPayBtn;
 
+    private String dateStr;
+    private String timeStr;
+    private Restaurant restaurant;
+
     private static final ArrayList<String> times = new ArrayList<>();
 
     static {
-        for (int i = 24; i >= 0; i--) {
+        for (int i = 0; i < 25; i++) {
             if (i > 9) {
                 times.add(i + ":00");
             } else {
@@ -77,46 +97,68 @@ public class RestaurantBillActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         ActionBarUtil.setTitle(mActivity, "提交预订");
         adapter.bindToRecyclerView(findViewById(R.id.dateRecyclerView));
-        adapter.setOnItemClickListener((adapter1, view, position) ->
-                adapter.setSelected(adapter.getItem(position), true, true));
+        adapter.setOnItemClickListener((adapter1, view, position) -> {
+                    Date date = adapter.getItem(position);
+                    adapter.setSelected(date, true, true);
+                    dateStr = TimeUtils.date2String(date, new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()));
+                }
+        );
         timeTxt.setOnClickListener(v -> {
-            OptionsPickerView<String> pvOptions = new OptionsPickerBuilder(mActivity, (options1, option2, options3, v1) ->
-                    timeTxt.setText(times.get(options1)))
-                    .setDividerColor(Color.TRANSPARENT)
-                    .build();
+            OptionsPickerView<String> pvOptions =
+                    new OptionsPickerBuilder(mActivity, (options1, option2, options3, v1) -> {
+                        timeStr = times.get(options1);
+                        timeTxt.setText(timeStr);
+                    }).setDividerColor(Color.TRANSPARENT).build();
             pvOptions.setPicker(times);
+            pvOptions.setSelectOptions(11);
             pvOptions.show();
         });
-        Bill bill = (Bill) getIntent().getSerializableExtra(KEY_DATA);
-        ViewUtil.setText(mActivity, R.id.nameTxt, bill.restaurant.name);
+        restaurant = (Restaurant) getIntent().getSerializableExtra(KEY_DATA);
+        RequestUtil.request(mActivity, true, true,
+                () -> ApiUtils.getApiService().getCart(LoginInfoUtil.getUid(),
+                        LoginInfoUtil.getToken(),
+                        restaurant.id),
+                result -> {
+                    int totalNum = 0;
+                    BigDecimal totalAmount = new BigDecimal(0);
+                    for (Food food : result.data) {
+                        totalNum += food.num;
+                        totalAmount = totalAmount.add(new BigDecimal(food.price).multiply(new BigDecimal(food.num)));
+                    }
+                    ViewUtil.setText(mActivity, R.id.cartCountTxt, String.valueOf(totalNum));
+                    ViewUtil.setText(mActivity, R.id.totalAmountTxt1, FormatUtil.getMoneyString(totalAmount.doubleValue()));
+                    ViewUtil.setText(mActivity, R.id.totalAmountTxt2, FormatUtil.getMoneyString(totalAmount.doubleValue()));
+                    ViewUtil.setText(mActivity, R.id.totalAmountTxt3, FormatUtil.getMoneyString(totalAmount.doubleValue()));
+                    for (int i = 0; i < result.data.size(); i++) {
+                        if (i >= 3) {
+                            break;
+                        }
+                        addFoodView(result.data.get(i));
+                    }
+                    moreBtn.setVisibility(result.data.size() > 3 ? View.VISIBLE : View.GONE);
+                    moreBtn.setOnClickListener(v -> {
+                        for (int i = 0; i < result.data.size(); i++) {
+                            if (i >= 3) {
+                                addFoodView(result.data.get(i));
+                            }
+                        }
+                        moreBtn.setVisibility(View.GONE);
+                    });
+                });
+        ViewUtil.setText(mActivity, R.id.nameTxt, restaurant.name);
         Glide.with(mActivity)
-                .load(UrlUtil.getImageUrl(bill.restaurant.logo_img))
+                .load(UrlUtil.getImageUrl(restaurant.logo_img))
                 .apply(new RequestOptions().placeholder(R.mipmap.ic_placeholder))
                 .into((ImageView) findViewById(R.id.logoImg));
-        for (int i = 0; i < bill.cartFoods.size(); i++) {
-            if (i >= 3) {
-                break;
-            }
-            addFoodView(bill.cartFoods.get(i));
-        }
-        moreBtn.setVisibility(bill.cartFoods.size() > 3 ? View.VISIBLE : View.GONE);
-        moreBtn.setOnClickListener(v -> {
-            for (int i = 0; i < bill.cartFoods.size(); i++) {
-                if (i >= 3) {
-                    addFoodView(bill.cartFoods.get(i));
-                }
-            }
-            moreBtn.setVisibility(View.GONE);
-        });
         adapter.setNewData(getNextSevenDate());
-        wxPayBtn.setEnabled(false);
+        wxPayBtn.setSelected(true);
         wxPayBtn.setOnClickListener(v -> {
-            v.setEnabled(v.isEnabled());
-            accountPayBtn.setEnabled(wxPayBtn.isEnabled());
+            v.setSelected(!v.isSelected());
+            accountPayBtn.setSelected(!wxPayBtn.isSelected());
         });
         accountPayBtn.setOnClickListener(v -> {
-            v.setEnabled(v.isEnabled());
-            wxPayBtn.setEnabled(wxPayBtn.isEnabled());
+            v.setSelected(!v.isSelected());
+            wxPayBtn.setSelected(!wxPayBtn.isSelected());
         });
     }
 
@@ -155,25 +197,64 @@ public class RestaurantBillActivity extends BaseActivity {
         numTxt.setText(String.valueOf(num));
     }
 
+    @OnClick(R.id.payBtn)
+    void onPayBtn() {
+        String people = numTxt.getText().toString();
+        if (TextUtils.isEmpty(dateStr)) {
+            ToastUtil.showToast("请选择预约日期");
+        } else if (TextUtils.isEmpty(timeStr)) {
+            ToastUtil.showToast("请选择预约时间");
+        } else if ("0".equals(people)) {
+            ToastUtil.showToast("请选择就餐人数");
+        } else {
+            if (getPayWay() == 4) {
+                new AlertDialog.Builder(mActivity)
+                        .setTitle("温馨提示")
+                        .setMessage("确定用余额支付该订单吗？")
+                        .setNegativeButton("取消", null)
+                        .setPositiveButton("确定",
+                                (dialog, which) -> RequestUtil.request(mActivity, true, false,
+                                        () -> ApiUtils.getApiService().payBill(
+                                                LoginInfoUtil.getUid(),
+                                                restaurant.id,
+                                                people,
+                                                psEdt.getText().toString(),
+                                                dateStr + " " + timeStr,
+                                                0,
+                                                getPayWay()
+                                        ), result -> {
+                                            finish();
+                                            if (getPayWay() == 1) {
+                                                WXPayBean wxPayBean = new Gson().fromJson(result.data, WXPayBean.class);
+                                                PayUtil.startWXPay(mActivity, wxPayBean);
+                                            } else if (getPayWay() == 4) {
+                                                ActivityUtils.startActivity(MallPaySuccessActivity.class);
+                                                EventBus.getDefault().post(new RestaurantPaySuccess());
+                                            }
+                                        }))
+                        .show();
+            }
+        }
+    }
+
+    private int getPayWay() {
+        int payWay = 0;
+        if (findViewById(R.id.wxPayBtn).isSelected()) {
+            payWay = 1;
+        } else if (findViewById(R.id.accountPayBtn).isSelected()) {
+            payWay = 4;
+        }
+        return payWay;
+    }
+
     @Override
     protected int getContentView() {
         return R.layout.activity_restaurant_bill;
     }
 
-    public static void start(Activity activity, Restaurant restaurant, List<Food> cartFoods, int requestCode) {
+    public static void start(Activity activity, Restaurant restaurant, int requestCode) {
         Bundle bundle = new Bundle();
-        Bill bill = new Bill(restaurant, cartFoods);
-        bundle.putSerializable(KEY_DATA, bill);
+        bundle.putSerializable(KEY_DATA, restaurant);
         ActivityUtils.startActivityForResult(bundle, activity, RestaurantBillActivity.class, requestCode);
-    }
-
-    static class Bill implements Serializable {
-        public Bill(Restaurant restaurant, List<Food> cartFoods) {
-            this.restaurant = restaurant;
-            this.cartFoods = cartFoods;
-        }
-
-        public Restaurant restaurant;
-        public List<Food> cartFoods;
     }
 }

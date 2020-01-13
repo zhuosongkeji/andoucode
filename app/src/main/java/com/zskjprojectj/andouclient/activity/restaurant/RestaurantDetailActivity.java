@@ -86,20 +86,22 @@ public class RestaurantDetailActivity extends BaseActivity {
             Food food = cartAdapter.getItem(position);
             if (view.getId() == R.id.subBtn) {
                 RequestUtil.request(mActivity, true, false,
-                        () -> ApiUtils.getApiService().delFoodCart(
+                        () -> ApiUtils.getApiService().changeFoodCart(
                                 LoginInfoUtil.getUid(),
                                 id,
-                                food.id),
+                                food.id,
+                                0),
                         result -> {
                             food.num -= 1;
                             cartChanged(food, position);
                         });
             } else if (view.getId() == R.id.addBtn) {
                 RequestUtil.request(mActivity, true, false,
-                        () -> ApiUtils.getApiService().addFoodCart(
+                        () -> ApiUtils.getApiService().changeFoodCart(
                                 LoginInfoUtil.getUid(),
                                 id,
-                                food.id),
+                                food.id,
+                                1),
                         result -> {
                             food.num += 1;
                             cartChanged(food, position);
@@ -160,7 +162,7 @@ public class RestaurantDetailActivity extends BaseActivity {
                 ToastUtil.showToast("~购物车空空如也~");
                 return;
             }
-            RestaurantBillActivity.start(mActivity, restaurant, cartAdapter.getData(), 666);
+            RestaurantBillActivity.start(mActivity, restaurant, 666);
         });
     }
 
