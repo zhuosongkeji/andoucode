@@ -19,12 +19,14 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.blankj.utilcode.util.BarUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zhuosongkj.android.library.app.BaseFragment;
 import com.zhuosongkj.android.library.model.BaseResult;
 import com.zhuosongkj.android.library.model.ListData;
+import com.zhuosongkj.android.library.util.ActionBarUtil;
 import com.zhuosongkj.android.library.util.PageLoadUtil;
 import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
@@ -41,7 +43,7 @@ import com.zskjprojectj.andouclient.model.Merchant;
 import com.zskjprojectj.andouclient.model.MerchantsResponse;
 import com.zskjprojectj.andouclient.model.Order;
 import com.zskjprojectj.andouclient.model.Restaurant;
-import com.zskjprojectj.andouclient.utils.BarUtils;
+
 import com.zskjprojectj.andouclient.view.TopView;
 
 import java.io.IOException;
@@ -66,11 +68,6 @@ import static com.zskjprojectj.andouclient.activity.MyaddressActivity.KEY_DATA;
  */
 public class MerchantsPageFragment extends BaseFragment {
 
-    @BindView(R.id.tv_header_title)
-    TextView mHeaderTitle;
-
-    @BindView(R.id.header_title_view)
-    RelativeLayout mHeaderTitleView;
 
     @BindView(R.id.ll_classify)
     LinearLayout mClassify;
@@ -88,13 +85,6 @@ public class MerchantsPageFragment extends BaseFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mHeaderTitle.setText("商家");
-
-        //设置状态栏的高度
-        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) mHeaderTitleView.getLayoutParams();
-        layoutParams.topMargin = BarUtils.getStatusBarHeight(getActivity()) + layoutParams.topMargin;
-        mHeaderTitleView.setLayoutParams(layoutParams);
-
         mRecycler = view.findViewById(R.id.rv_recycler);
         mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         PageLoadUtil<Merchant> pageLoadUtil = PageLoadUtil
@@ -102,9 +92,10 @@ public class MerchantsPageFragment extends BaseFragment {
         pageLoadUtil.load(new RequestUtil.ObservableProvider<ListData<Merchant>>() {
             @Override
             public Observable<? extends BaseResult<? extends ListData<Merchant>>> getObservable() {
-                return ApiUtils.getApiService().merchants();
+                return ApiUtils.getApiService().merchants_two(pageLoadUtil.page);
             }
         });
+        getDataFromServer();
         initData();
     }
 
@@ -138,11 +129,11 @@ public class MerchantsPageFragment extends BaseFragment {
         });
     }
 
-    protected void getDataFromServer() {
-//        HttpRxObservable.getObservable(ApiUtils.getApiService().merchants())
-//                .subscribe(new BaseObserver<MerchantsResponse>(mAty) {
-//                    @Override
-//                    public void onHandleSuccess(MerchantsResponse merchantsResponse) throws IOException {
+    private void getDataFromServer() {
+        HttpRxObservable.getObservable(ApiUtils.getApiService().merchants())
+                .subscribe(new BaseObserver<MerchantsResponse>(mActivity) {
+                    @Override
+                    public void onHandleSuccess(MerchantsResponse merchantsResponse) throws IOException {
 //                        adapter.setNewData(merchantsResponse.merchants);
 //                        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
 //                            @Override
@@ -151,8 +142,8 @@ public class MerchantsPageFragment extends BaseFragment {
 //                                getMerchantType(merchantsResponse.merchants.get(position).merchant_type_id,merchantsResponse.merchants.get(position).id);
 //                            }
 //                        });
-//                    }
-//                });
+                    }
+                });
 
 
     }
@@ -244,7 +235,7 @@ public class MerchantsPageFragment extends BaseFragment {
 
     private void initData() {
         adapter.openLoadAnimation();
-        mRecycler.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
+        mRecycler.addItemDecoration(new DividerItemDecoration(mActivity, DividerItemDecoration.VERTICAL));
         mRecycler.setAdapter(adapter);
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
@@ -257,10 +248,6 @@ public class MerchantsPageFragment extends BaseFragment {
 
     }
 
-    @OnClick(R.id.iv_header_back)
-    public void clickBack() {
-        mActivity.finish();
-    }
 
     @Override
     protected int getContentView() {

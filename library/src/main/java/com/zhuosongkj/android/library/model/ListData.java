@@ -2,9 +2,7 @@ package com.zhuosongkj.android.library.model;
 
 import java.util.ArrayList;
 
-public class ListData<T> extends ArrayList<T> {
+public interface ListData<T> {
 
-    public ArrayList<T> getDataList() {
-        return this;
-    }
+    ArrayList<T> getDataList();
 }

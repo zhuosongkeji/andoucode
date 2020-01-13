@@ -39,18 +39,14 @@ public class InfoPageFragment extends BaseFragment {
     private RecyclerView mRecycler;
     private ArrayList<InfoFragmentBean> mDataList;
 
-    @BindView(R.id.tv_header_title)
-    TextView mHeaderTitle;
-    @BindView(R.id.header_title_view)
-    RelativeLayout mHeaderTitlrView;
+
 
 
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
         mRecycler=view.findViewById(R.id.rv_recycler);
         mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mHeaderTitle.setText("信息");
-        getBarDistance(mHeaderTitlrView);
+
         mRecycler=view.findViewById(R.id.rv_recycler);
         mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
@@ -84,8 +80,4 @@ public class InfoPageFragment extends BaseFragment {
         });
     }
 
-    @OnClick(R.id.iv_header_back)
-    public void clickBack(){
-        mAty.finish();
-    }
 }

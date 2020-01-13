@@ -1,5 +1,6 @@
 package com.zhuosongkj.android.library.util;
 
+import android.Manifest;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,7 @@ public class ActionBarUtil {
     }
 
     private static void setupActionBar(BaseActivity activity, boolean topOfContentView) {
+        setVisible(activity,true);
         ViewGroup actionBarContainer = activity.findViewById(R.id.actionBarContainer);
         if (actionBarContainer.getChildCount() == 0) {
             LayoutInflater.from(activity).inflate(R.layout.layout_action_bar, actionBarContainer);
@@ -60,5 +62,10 @@ public class ActionBarUtil {
 
     public static void setBackEnable(BaseActivity activity, boolean enable) {
         activity.findViewById(R.id.backBtn).setVisibility(enable ? View.VISIBLE : View.INVISIBLE);
+    }
+
+    public static void setVisible(BaseActivity activity, Boolean visible) {
+        activity.findViewById(R.id.actionBarContainer)
+                .setVisibility(visible ? View.VISIBLE : View.GONE);
     }
 }

@@ -71,13 +71,16 @@ public class PageLoadUtil<T> {
 
     private void loadData(boolean needRefresh) {
         startLoadingImage();
-        if (observableProvider == null) return;
+        if (observableProvider == null)
+            return;
         if (needRefresh) {
             page = 1;
         }
         RequestUtil.request(activity, false, false, observableProvider
                 , result -> {
-                    onLoadListener.onLoad(needRefresh, result.data.getDataList());
+                    if (onLoadListener != null) {
+                        onLoadListener.onLoad(needRefresh, result.data.getDataList());
+                    }
                     adapter.setEmptyView(R.layout.layout_empty_view);
                     page += 1;
                     if (needRefresh) {

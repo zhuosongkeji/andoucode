@@ -387,6 +387,15 @@ public interface ApiService {
     @POST("api/merchant/merchants")
     Observable<BaseResult<MerchantsResponse>> merchants();
 
+
+
+    /**
+     * 商户列表merchants two
+     */
+    @POST("api/merchant/merchants")
+    @FormUrlEncoded
+    Observable<BaseResult<MerchantsResponse>> merchants_two(@Field("page") int page);
+
     /**
      * 商户详情
      */
