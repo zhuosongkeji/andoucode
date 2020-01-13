@@ -183,7 +183,7 @@
             android:name=".activity.OperationvideoActivity"
             android:screenOrientation="portrait" /> <!-- 操作视频 -->
         <activity
-            android:name=".activity.RestaurantOrderActivity"
+            android:name=".activity.RestaurantOrderListActivity"
             android:screenOrientation="portrait" /> <!-- 饭店订单 -->
         <activity
             android:name=".activity.ShoporderdetailsActivity"

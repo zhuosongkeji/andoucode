@@ -54,22 +54,24 @@ public class FoodListFragment extends BaseFragment {
             Food food = foodAdapter.getItem(position);
             if (view.getId() == R.id.subBtn) {
                 RequestUtil.request(mActivity, true, false,
-                        () -> ApiUtils.getApiService().delFoodCart(
+                        () -> ApiUtils.getApiService().changeFoodCart(
                                 LoginInfoUtil.getUid(),
                                 restaurant.id,
-                                food.id),
+                                food.id,
+                                0),
                         result -> {
-                            food.num -= 1;
+                            refreshCart();
                             cartChanged(position);
                         });
             } else if (view.getId() == R.id.addBtn) {
                 RequestUtil.request(mActivity, true, false,
-                        () -> ApiUtils.getApiService().addFoodCart(
+                        () -> ApiUtils.getApiService().changeFoodCart(
                                 LoginInfoUtil.getUid(),
                                 restaurant.id,
-                                food.id),
+                                food.id,
+                                1),
                         result -> {
-                            food.num += 1;
+                            loadCart();
                             cartChanged(position);
                         });
             }
@@ -148,6 +150,9 @@ public class FoodListFragment extends BaseFragment {
         RequestUtil.request(mActivity, true, false,
                 () -> ApiUtils.getApiService().getCart(LoginInfoUtil.getUid(), LoginInfoUtil.getToken(), restaurant.id
                 ), cartResult -> {
+                    for (Food food : foodAdapter.getData()) {
+                        food.num = 0;
+                    }
                     for (Food foodTemp : cartResult.data) {
                         for (Food foodTemp2 : foodAdapter.getData()) {
                             if (foodTemp.id.equals(foodTemp2.id)) {

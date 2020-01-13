@@ -1,7 +1,9 @@
 package com.zskjprojectj.andouclient.http;
 
+import com.google.gson.JsonElement;
 import com.zhuosongkj.android.library.model.BaseResult;
 import com.zhuosongkj.android.library.model.ListData;
+import com.zskjprojectj.andouclient.activity.RestaurantOrderListActivity;
 import com.zskjprojectj.andouclient.entity.BrowsingBean;
 import com.zskjprojectj.andouclient.entity.CheckLogisticsBean;
 import com.zskjprojectj.andouclient.entity.IndexHomeBean;
@@ -10,6 +12,7 @@ import com.zskjprojectj.andouclient.entity.MyFocusonBean;
 import com.zskjprojectj.andouclient.entity.MycollectionBean;
 import com.zskjprojectj.andouclient.entity.RefundReasonBean;
 import com.zskjprojectj.andouclient.entity.PersonalBean;
+import com.zskjprojectj.andouclient.entity.SetBean;
 import com.zskjprojectj.andouclient.entity.TestBean;
 import com.zskjprojectj.andouclient.entity.WXPayBean;
 import com.zskjprojectj.andouclient.entity.WalletrecharBean;
@@ -48,6 +51,7 @@ import com.zskjprojectj.andouclient.model.Merchant;
 import com.zskjprojectj.andouclient.model.MerchantsResponse;
 import com.zskjprojectj.andouclient.model.Order;
 import com.zskjprojectj.andouclient.model.OrderDetail;
+import com.zskjprojectj.andouclient.model.RestaurantListResponse;
 import com.zskjprojectj.andouclient.model.User;
 
 import java.util.List;
@@ -363,7 +367,12 @@ public interface ApiService {
     Observable<BaseResult<Object>> forgetPassword(@Field("phone") String uid,
                                                   @Field("new_password") String type,
                                                   @Field("verify") String verify);
-
+    @POST("api/users/upmodel")
+    @FormUrlEncoded
+    Observable<BaseResult<Object>> upmodel(@Field("uid") String uid,
+                                                  @Field("token") String token,
+                                                  @Field("phone") String phone,
+                                                  @Field("verify") String verify);
     /**
      * 收货地址列表
      */
@@ -652,6 +661,18 @@ public interface ApiService {
                                                      @Field("token") String token);
 
     /**
+     * 设置
+     * @param uid
+     * @param token
+     * @return
+     */
+
+    @POST("api/opinion/set")
+    @FormUrlEncoded
+    Observable<BaseResult<SetBean>> set(@Field("uid") String uid,
+                                        @Field("token") String token);
+
+    /**
      * 浏览痕迹
      */
     @POST("api/users/merchant_record")
@@ -780,6 +801,15 @@ public interface ApiService {
     @POST("api/users/binding")
     @FormUrlEncoded
     Observable<BaseResult<Object>> binding(@Field("uid") String uid, @Field("token") String token,@Field("code") String code);
+
+    /**
+     * 添加酒店点赞
+     */
+    @POST("api/opinion/index")
+    @FormUrlEncoded
+    Observable<BaseResult<Object>> opinionindex(@Field("uid") String uid,
+                                                    @Field("token") String token,
+                                                    @Field("content") String content);
 //    /**
 //     * 注册
 //     *
@@ -920,7 +950,7 @@ public interface ApiService {
     Observable<BaseResult<List<RestaurantCategory>>> getFoodCategory();
 
     @POST("api/gourmet/list")
-    Observable<BaseResult<ListData<Restaurant>>> getRestaurants();
+    Observable<BaseResult<RestaurantListResponse>> getRestaurants();
 
     @FormUrlEncoded
     @POST("api/gourmet/details")
@@ -937,18 +967,25 @@ public interface ApiService {
                                                @Field("merchant_id") String merchants_id);
 
     @FormUrlEncoded
-    @POST("api/gourmet/add_foods")
-    Observable<BaseResult<Object>> addFoodCart(@Field("uid") String user_id,
-                                               @Field("merchant_id") String merchants_id,
-                                               @Field("foods_id") String foods_id);
+    @POST("api/gourmet/upd_foods")
+    Observable<BaseResult<Object>> changeFoodCart(@Field("uid") String user_id,
+                                                  @Field("merchant_id") String merchants_id,
+                                                  @Field("id") String id,
+                                                  @Field("type") int type);
 
     @FormUrlEncoded
-    @POST("api/gourmet/del_foods")
-    Observable<BaseResult<Object>> delFoodCart(@Field("uid") String user_id,
-                                               @Field("merchant_id") String merchants_id,
-                                               @Field("id") String foods_id);
+    @POST("api/gourmet/timely")
+    Observable<BaseResult<JsonElement>> payBill(@Field("uid") String user_id,
+                                                @Field("merchant_id") String merchant_id,
+                                                @Field("people") String people,
+                                                @Field("remark") String remark,
+                                                @Field("dinnertime") String dinnertime,
+                                                @Field("is_integral") int is_integral,
+                                                @Field("method") int method);
 
     @FormUrlEncoded
-    @POST("api/gourmet/del_foods")
-    Observable<BaseResult<MallShoppingHomeBean>> delFoodCartss();
+    @POST("api/gourmet/order")
+    Observable<BaseResult<RestaurantOrderListResponse>> orderList(@Field("uid") String user_id,
+                                                                  @Field("page") int merchant_id,
+                                                                  @Field("status") int status);
 }

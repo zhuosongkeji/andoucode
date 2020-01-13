@@ -33,7 +33,7 @@
                 android:textSize="@dimen/typeface13sp" />
 
             <ImageView
-                android:id="@+id/img_modifythepic"
+                android:id="@+id/img_setpic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -62,6 +62,7 @@
                 android:textSize="@dimen/typeface13sp" />
 
             <TextView
+                android:id="@+id/tv_usersetname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -102,6 +103,7 @@
                 android:textSize="@dimen/typeface13sp" />
 
             <TextView
+                android:id="@+id/tv_usersetphone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -261,6 +263,7 @@
                 android:textSize="@dimen/typeface13sp" />
 
             <TextView
+                android:id="@+id/tv_usersetversion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
