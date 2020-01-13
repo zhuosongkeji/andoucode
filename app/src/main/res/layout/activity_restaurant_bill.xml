@@ -253,6 +253,7 @@
                 android:paddingEnd="15dp">
 
                 <EditText
+                    android:id="@+id/psEdt"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -311,6 +312,7 @@
                         android:textSize="12sp" />
 
                     <TextView
+                        android:id="@+id/totalAmountTxt1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0"
@@ -345,7 +347,7 @@
                         android:textSize="15sp" />
 
                     <TextView
-                        android:id="@+id/totalAmountTxt"
+                        android:id="@+id/totalAmountTxt2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0"
@@ -470,7 +472,7 @@
                         android:textSize="12sp" />
 
                     <TextView
-                        android:id="@+id/payAmountTxt"
+                        android:id="@+id/totalAmountTxt3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0"
@@ -487,6 +489,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/payBtn"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2"

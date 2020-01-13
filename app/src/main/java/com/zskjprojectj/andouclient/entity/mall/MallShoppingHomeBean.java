@@ -16,7 +16,7 @@ import java.util.List;
  * 修改时间：
  * 修改备注：
  */
-public class MallShoppingHomeBean extends ListData<MallShoppingHomeBean.GoodsBean> {
+public class MallShoppingHomeBean implements ListData<MallShoppingHomeBean.GoodsBean> {
     private String name;
 
     @Override

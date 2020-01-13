@@ -77,7 +77,9 @@ public class PageLoadUtil<T> {
         }
         RequestUtil.request(activity, false, false, observableProvider
                 , result -> {
-                    onLoadListener.onLoad(needRefresh, result.data.getDataList());
+                    if (onLoadListener != null) {
+                        onLoadListener.onLoad(needRefresh, result.data.getDataList());
+                    }
                     adapter.setEmptyView(R.layout.layout_empty_view);
                     page += 1;
                     if (needRefresh) {

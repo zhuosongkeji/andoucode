@@ -4,7 +4,7 @@ import com.zhuosongkj.android.library.model.ListData;
 
 import java.util.ArrayList;
 
-public class MerchantsResponse extends ListData<Merchant> {
+public class MerchantsResponse implements ListData<Merchant> {
 
     @Override
     public ArrayList<Merchant> getDataList() {
