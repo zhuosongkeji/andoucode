@@ -13,4 +13,11 @@ public class ViewUtil {
             ((TextView) view).setText(text);
         }
     }
+
+    public static void setText(View parentView, @IdRes int textViewRes, String text) {
+        View view = parentView.findViewById(textViewRes);
+        if (view instanceof TextView) {
+            ((TextView) view).setText(text);
+        }
+    }
 }

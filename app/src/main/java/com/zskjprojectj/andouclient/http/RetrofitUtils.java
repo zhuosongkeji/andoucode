@@ -47,7 +47,7 @@ public class RetrofitUtils {
                     return chain.proceed(request);
                 })
                 .addInterceptor(new HttpLoggingInterceptor(
-                        new HttpLogger()).setLevel(HttpLoggingInterceptor.Level.BODY));
+                        new HttpLogger()).setLevel(HttpLoggingInterceptor.Level.HEADERS));
                // .addInterceptor(new HeaderInterceptors());
 
 

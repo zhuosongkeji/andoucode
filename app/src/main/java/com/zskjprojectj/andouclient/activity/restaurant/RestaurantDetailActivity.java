@@ -1,9 +1,13 @@
 package com.zskjprojectj.andouclient.activity.restaurant;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,6 +32,8 @@ import com.zskjprojectj.andouclient.fragment.ReviewListFragment;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.model.Food;
 import com.zskjprojectj.andouclient.model.Restaurant;
+import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
+import com.zskjprojectj.andouclient.utils.ToastUtil;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -36,6 +42,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 import static com.zskjprojectj.andouclient.activity.MyaddressActivity.KEY_DATA;
+import static com.zskjprojectj.andouclient.http.BaseObserver.REQUEST_CODE_LOGIN;
 
 public class RestaurantDetailActivity extends BaseActivity {
 
@@ -54,6 +61,8 @@ public class RestaurantDetailActivity extends BaseActivity {
     View cartDialogContainer;
     FoodListFragment foodListFragment;
 
+    String id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,29 +78,49 @@ public class RestaurantDetailActivity extends BaseActivity {
                         ActionBarUtil.getBackground(mActivity, false)
                                 .setAlpha(Math.abs(verticalOffset) * 0.01f));
         fixContainer.setPadding(fixContainer.getPaddingLeft(), BarUtils.getStatusBarHeight(), fixContainer.getPaddingEnd(), 0);
-        String id = getIntent().getStringExtra(KEY_DATA);
+        id = getIntent().getStringExtra(KEY_DATA);
+        loadCart();
         RecyclerViewUtil.disableItemAnimator(cartRecyclerView);
         cartAdapter.bindToRecyclerView(cartRecyclerView);
         cartAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             Food food = cartAdapter.getItem(position);
-            if (view.getId() == R.id.addBtn) {
-                food.num += 1;
-            } else if (view.getId() == R.id.subBtn) {
-                food.num -= 1;
+            if (view.getId() == R.id.subBtn) {
+                RequestUtil.request(mActivity, true, false,
+                        () -> ApiUtils.getApiService().delFoodCart(
+                                LoginInfoUtil.getUid(),
+                                id,
+                                food.id),
+                        result -> {
+                            food.num -= 1;
+                            cartChanged(food, position);
+                        });
+            } else if (view.getId() == R.id.addBtn) {
+                RequestUtil.request(mActivity, true, false,
+                        () -> ApiUtils.getApiService().addFoodCart(
+                                LoginInfoUtil.getUid(),
+                                id,
+                                food.id),
+                        result -> {
+                            food.num += 1;
+                            cartChanged(food, position);
+                        });
             }
-            if (food.num == 0) {
-                cartAdapter.remove(cartAdapter.getData().indexOf(food));
-            }
-            if (cartAdapter.getData().isEmpty()) {
-                toggleCartContainer();
-            }
-            cartAdapter.notifyItemChanged(position);
-            foodListFragment.refresh(food);
-            changeCart();
         });
         RequestUtil.request(mActivity, true, true,
                 () -> ApiUtils.getApiService().getRestaurantDetail(id),
                 result -> bindRestaurant(result.data));
+    }
+
+    private void cartChanged(Food food, int position) {
+        if (food.num == 0) {
+            cartAdapter.remove(cartAdapter.getData().indexOf(food));
+        }
+        if (cartAdapter.getData().isEmpty()) {
+            toggleCartContainer();
+        }
+        cartAdapter.notifyItemChanged(position);
+        foodListFragment.refresh(food);
+        changeCart();
     }
 
     private void changeCart() {
@@ -108,17 +137,7 @@ public class RestaurantDetailActivity extends BaseActivity {
     private void bindRestaurant(Restaurant restaurant) {
         ArrayList<Fragment> fragments = new ArrayList<>();
         foodListFragment = new FoodListFragment(restaurant);
-        foodListFragment.onCartChangedListener = foods -> {
-            ArrayList<Food> cartFoods = new ArrayList<>();
-            cartFoods.clear();
-            for (Food food : foods) {
-                if (food.num > 0) {
-                    cartFoods.add(food);
-                }
-            }
-            cartAdapter.setNewData(cartFoods);
-            changeCart();
-        };
+        foodListFragment.onCartChangedListener = foods -> loadCart();
         fragments.add(foodListFragment);
         fragments.add(new ReviewListFragment());
         fragments.add(new RestaurantInfoFragment());
@@ -136,6 +155,32 @@ public class RestaurantDetailActivity extends BaseActivity {
                         .placeholder(R.mipmap.ic_placeholder)
                         .centerCrop())
                 .into((ImageView) findViewById(R.id.bannerImg));
+        findViewById(R.id.buyBtn).setOnClickListener(v -> {
+            if (cartAdapter.getData().isEmpty()) {
+                ToastUtil.showToast("~购物车空空如也~");
+                return;
+            }
+            RestaurantBillActivity.start(mActivity, restaurant, cartAdapter.getData(), 666);
+        });
+    }
+
+    private void loadCart() {
+        if (TextUtils.isEmpty(LoginInfoUtil.getToken())) return;
+        RequestUtil.request(mActivity, true, false,
+                () -> ApiUtils.getApiService().getCart(LoginInfoUtil.getUid(), id
+                ), result -> {
+                    cartAdapter.setNewData(result.data);
+                    changeCart();
+                });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_LOGIN && resultCode == Activity.RESULT_OK) {
+            loadCart();
+            foodListFragment.refreshCart();
+        }
     }
 
     @OnClick(R.id.cartBtn)

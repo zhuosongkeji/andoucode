@@ -1,5 +1,6 @@
 package com.zhuosongkj.android.library.util;
 
+import android.app.Activity;
 import android.graphics.drawable.AnimationDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,9 @@ import io.reactivex.schedulers.Schedulers;
 import retrofit2.HttpException;
 
 public class RequestUtil {
+
+    public static OnLoginReqeustListener onLoginRequest;
+
     public static <T> void request(BaseActivity activity, boolean showLoading, boolean showRetry,
                                    ObservableProvider<T> provider,
                                    OnSuccessListener<T> onSuccessListener,
@@ -46,7 +50,9 @@ public class RequestUtil {
                         if (result.code.equals("200")) {
                             onSuccessListener.onSuccess(result);
                         } else if (result.code.equals("202")) {
-//                            LoginActivity.start(activity);
+                            if (onLoginRequest != null) {
+                                onLoginRequest.onLoginRequest(activity);
+                            }
                         } else {
                             onError(new ApiException(result.code, result.msg));
                         }
@@ -150,5 +156,9 @@ public class RequestUtil {
         }
         progressBarContainer.setOnClickListener(view -> {
         });
+    }
+
+    public static interface OnLoginReqeustListener {
+        void onLoginRequest(Activity activity);
     }
 }

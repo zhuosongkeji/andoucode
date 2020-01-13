@@ -37,6 +37,7 @@ import com.zskjprojectj.andouclient.model.ADProvince;
 import com.zskjprojectj.andouclient.model.Address;
 import com.zskjprojectj.andouclient.model.BalanceDetail;
 import com.zskjprojectj.andouclient.model.CartItem;
+import com.zskjprojectj.andouclient.model.Food;
 import com.zskjprojectj.andouclient.model.FoodCategory;
 import com.zskjprojectj.andouclient.model.Restaurant;
 import com.zskjprojectj.andouclient.model.RestaurantCategory;
@@ -746,7 +747,7 @@ public interface ApiService {
      */
     @POST("api/goods/uploads")
     @Multipart
-    Observable<BaseResult<String>> uploadImg(@Part("uid") RequestBody uid,@Part("token") RequestBody token, @Part MultipartBody.Part file);
+    Observable<BaseResult<String>> uploadImg(@Part("uid") RequestBody uid, @Part("token") RequestBody token, @Part MultipartBody.Part file);
 //    /**
 //     * 注册
 //     *
@@ -896,4 +897,21 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("api/gourmet/dishtype")
     Observable<com.zhuosongkj.android.library.model.BaseResult<List<FoodCategory>>> getFoodCategory(@Field("merchants_id") String merchants_id);
+
+    @FormUrlEncoded
+    @POST("api/gourmet/booking")
+    Observable<com.zhuosongkj.android.library.model.BaseResult<List<Food>>> getCart(@Field("user_id") String user_id,
+                                                                                    @Field("merchants_id") String merchants_id);
+
+    @FormUrlEncoded
+    @POST("api/gourmet/add_foods")
+    Observable<com.zhuosongkj.android.library.model.BaseResult<Object>> addFoodCart(@Field("uid") String user_id,
+                                                                                    @Field("merchants_id") String merchants_id,
+                                                                                    @Field("foods_id") String foods_id);
+
+    @FormUrlEncoded
+    @POST("api/gourmet/del_foods")
+    Observable<com.zhuosongkj.android.library.model.BaseResult<Object>> delFoodCart(@Field("uid") String user_id,
+                                                                                    @Field("merchants_id") String merchants_id,
+                                                                                    @Field("foods_id") String foods_id);
 }
