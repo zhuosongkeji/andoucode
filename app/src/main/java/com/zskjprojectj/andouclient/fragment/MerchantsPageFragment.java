@@ -14,25 +14,34 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.zhuosongkj.android.library.app.BaseActivity;
+import com.zhuosongkj.android.library.app.BaseFragment;
+import com.zhuosongkj.android.library.model.BaseResult;
+import com.zhuosongkj.android.library.model.ListData;
+import com.zhuosongkj.android.library.util.PageLoadUtil;
+import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.hotel.HotelDetailActivity;
 import com.zskjprojectj.andouclient.activity.mall.MallShoppingHomeActivity;
 import com.zskjprojectj.andouclient.activity.restaurant.RestaurantDetailActivity;
 import com.zskjprojectj.andouclient.activity.restaurant.RestaurantHomeActivity;
 import com.zskjprojectj.andouclient.adapter.MerchantListAdapter;
-import com.zskjprojectj.andouclient.base.BaseFragment;
 import com.zskjprojectj.andouclient.entity.MerchantListBean;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.model.Merchant;
 import com.zskjprojectj.andouclient.model.MerchantsResponse;
+import com.zskjprojectj.andouclient.model.Order;
 import com.zskjprojectj.andouclient.model.Restaurant;
+import com.zskjprojectj.andouclient.utils.BarUtils;
 import com.zskjprojectj.andouclient.view.TopView;
 
 import java.io.IOException;
@@ -40,6 +49,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.Observable;
 
 import static com.zskjprojectj.andouclient.activity.MyaddressActivity.KEY_DATA;
 
@@ -67,23 +77,37 @@ public class MerchantsPageFragment extends BaseFragment {
     private PopupWindow mPopWindow;
     @BindView(R.id.tv_capacity_sort)
     TextView mCapacitySort;
+
+    @BindView(R.id.refreshLayout)
+    SmartRefreshLayout refreshLayout;
+
     private RecyclerView mRecycler;
     MerchantListAdapter adapter = new MerchantListAdapter();
 
 
     @Override
-    protected void initViews(View view, Bundle savedInstanceState) {
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         mHeaderTitle.setText("商家");
-        getBarDistance(mHeaderTitleView);
+
+        //设置状态栏的高度
+        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) mHeaderTitleView.getLayoutParams();
+        layoutParams.topMargin = BarUtils.getStatusBarHeight(getActivity()) + layoutParams.topMargin;
+        mHeaderTitleView.setLayoutParams(layoutParams);
+
         mRecycler = view.findViewById(R.id.rv_recycler);
         mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
-
+        PageLoadUtil<Merchant> pageLoadUtil = PageLoadUtil
+                .get((BaseActivity) getActivity(), mRecycler, adapter, refreshLayout);
+        pageLoadUtil.load(new RequestUtil.ObservableProvider<ListData<Merchant>>() {
+            @Override
+            public Observable<? extends BaseResult<? extends ListData<Merchant>>> getObservable() {
+                return ApiUtils.getApiService().merchants();
+            }
+        });
+        initData();
     }
 
-    @Override
-    protected int getContentViewRes() {
-        return R.layout.fragment_merchantspage;
-    }
 
     //初始化popuwindow
     private void initPopuWindow(View contentView, TextView textView) {
@@ -114,25 +138,26 @@ public class MerchantsPageFragment extends BaseFragment {
         });
     }
 
-    @Override
     protected void getDataFromServer() {
-        HttpRxObservable.getObservable(ApiUtils.getApiService().merchants())
-                .subscribe(new BaseObserver<MerchantsResponse>(mAty) {
-                    @Override
-                    public void onHandleSuccess(MerchantsResponse merchantsResponse) throws IOException {
-                        adapter.setNewData(merchantsResponse.merchants);
-                        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                                //TODO
-                                getMerchantType(merchantsResponse.merchants.get(position).merchant_type_id,merchantsResponse.merchants.get(position).id);
-                            }
-                        });
-                    }
-                });
+//        HttpRxObservable.getObservable(ApiUtils.getApiService().merchants())
+//                .subscribe(new BaseObserver<MerchantsResponse>(mAty) {
+//                    @Override
+//                    public void onHandleSuccess(MerchantsResponse merchantsResponse) throws IOException {
+//                        adapter.setNewData(merchantsResponse.merchants);
+//                        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+//                            @Override
+//                            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+//                                //TODO
+//                                getMerchantType(merchantsResponse.merchants.get(position).merchant_type_id,merchantsResponse.merchants.get(position).id);
+//                            }
+//                        });
+//                    }
+//                });
+
+
     }
 
-    private void getMerchantType(String type,String id) {
+    private void getMerchantType(String type, String id) {
         switch (type) {
             //商家商城
             case "2":
@@ -217,10 +242,7 @@ public class MerchantsPageFragment extends BaseFragment {
         initPopuWindow(contentView, mCapacitySort);
     }
 
-    @Override
-    protected void initData() {
-
-
+    private void initData() {
         adapter.openLoadAnimation();
         mRecycler.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
         mRecycler.setAdapter(adapter);
@@ -237,6 +259,11 @@ public class MerchantsPageFragment extends BaseFragment {
 
     @OnClick(R.id.iv_header_back)
     public void clickBack() {
-        mAty.finish();
+        mActivity.finish();
+    }
+
+    @Override
+    protected int getContentView() {
+        return R.layout.fragment_merchantspage;
     }
 }
