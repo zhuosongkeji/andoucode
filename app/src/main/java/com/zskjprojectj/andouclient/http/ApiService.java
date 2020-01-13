@@ -3,6 +3,7 @@ package com.zskjprojectj.andouclient.http;
 import com.google.gson.JsonElement;
 import com.zhuosongkj.android.library.model.BaseResult;
 import com.zhuosongkj.android.library.model.ListData;
+import com.zskjprojectj.andouclient.activity.RestaurantOrderListActivity;
 import com.zskjprojectj.andouclient.entity.BrowsingBean;
 import com.zskjprojectj.andouclient.entity.CheckLogisticsBean;
 import com.zskjprojectj.andouclient.entity.IndexHomeBean;
@@ -755,6 +756,7 @@ public interface ApiService {
 
     /**
      * 邀请码
+     *
      * @param uid
      * @param token
      * @return
@@ -765,6 +767,7 @@ public interface ApiService {
 
     /**
      * 绑定上下级
+     *
      * @param uid
      * @param token
      * @param code
@@ -772,7 +775,7 @@ public interface ApiService {
      */
     @POST("api/users/binding")
     @FormUrlEncoded
-    Observable<BaseResult<Object>> binding(@Field("uid") String uid, @Field("token") String token,@Field("code") String code);
+    Observable<BaseResult<Object>> binding(@Field("uid") String uid, @Field("token") String token, @Field("code") String code);
 //    /**
 //     * 注册
 //     *
@@ -945,4 +948,10 @@ public interface ApiService {
                                                 @Field("dinnertime") String dinnertime,
                                                 @Field("is_integral") int is_integral,
                                                 @Field("method") int method);
+
+    @FormUrlEncoded
+    @POST("api/gourmet/order")
+    Observable<BaseResult<RestaurantOrderListResponse>> orderList(@Field("uid") String user_id,
+                                                                  @Field("page") int merchant_id,
+                                                                  @Field("status") int status);
 }

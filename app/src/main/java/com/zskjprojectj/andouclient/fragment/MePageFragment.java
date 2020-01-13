@@ -2,7 +2,6 @@ package com.zskjprojectj.andouclient.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -10,6 +9,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
+import com.blankj.utilcode.util.ActivityUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
@@ -30,7 +30,7 @@ import com.zskjprojectj.andouclient.activity.MyscoreActivity;
 import com.zskjprojectj.andouclient.activity.MywalletActivity;
 import com.zskjprojectj.andouclient.activity.OperationvideoActivity;
 import com.zskjprojectj.andouclient.activity.PlatformshoppingcartActivity;
-import com.zskjprojectj.andouclient.activity.RestaurantOrderActivity;
+import com.zskjprojectj.andouclient.activity.RestaurantOrderListActivity;
 import com.zskjprojectj.andouclient.activity.ShoporderActivity;
 import com.zskjprojectj.andouclient.activity.VegetableMarketActivity;
 import com.zskjprojectj.andouclient.base.BaseFragment;
@@ -40,10 +40,8 @@ import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.utils.BarUtils;
-import com.zskjprojectj.andouclient.utils.GlideTool;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
-import com.zskjprojectj.andouclient.view.TopView;
 
 import butterknife.BindView;
 
@@ -56,7 +54,8 @@ import java.io.IOException;
  *     desc   :
  *     version: 1.0
  * </pre>
- *我的界面
+ * 我的界面
+ *
  * @author yizhubao
  */
 public class MePageFragment extends BaseFragment {
@@ -80,7 +79,7 @@ public class MePageFragment extends BaseFragment {
     //我的发布
     private LinearLayout mycenter_myrelease_layout;
     //购物车
-    private  LinearLayout mycenter_shoppingcart_layout;
+    private LinearLayout mycenter_shoppingcart_layout;
     //我的收藏
     private LinearLayout mycenter_mycollection_layout;
     //浏览痕迹
@@ -104,38 +103,39 @@ public class MePageFragment extends BaseFragment {
     //设置界面
     private ImageView img_meset;
     //个人信息
-    private  ImageView img_touxiang;
-    private TextView tv_nickname,tv_viplevel,tv_collectionnum,tv_focusonnum,tv_browsenum,tv_moneynum,tv_integralnumm;
+    private ImageView img_touxiang;
+    private TextView tv_nickname, tv_viplevel, tv_collectionnum, tv_focusonnum, tv_browsenum, tv_moneynum, tv_integralnumm;
+
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
-        mycenter_vegetablemarket_layout=view.findViewById(R.id.mycenter_vegetablemarket_layout);
-        mycenter_foodorder_layout=view.findViewById(R.id.mycenter_foodorder_layout);
-        mycenter_hotelorder_layout=view.findViewById(R.id.mycenter_hotelorder_layout);
-        mycenter_shoporder_layout=view.findViewById(R.id.mycenter_shoporder_layout);
-        mycenter_invitation_with_courtesy_layout=view.findViewById(R.id.mycenter_invitation_with_courtesy_layout);
-        mycenter_mywallet_layout=view.findViewById(R.id.mycenter_mywallet_layout);
-        mycenter_myrelease_layout=view.findViewById(R.id.mycenter_myrelease_layout);
-        mycenter_shoppingcart_layout=view.findViewById(R.id.mycenter_shoppingcart_layout);
-        mycenter_mycollection_layout=view.findViewById(R.id.mycenter_mycollection_layout);
-        mycenter_browsing_layout=view.findViewById(R.id.mycenter_browsing_layout);
-        mycenter_myaddress_layout=view.findViewById(R.id.mycenter_myaddress_layout);
-        mycenter_myscore_layout=view.findViewById(R.id.mycenter_myscore_layout);
-        mycenter_mymessage_layout=view.findViewById(R.id.mycenter_mymessage_layout);
-        mycenter_business_residence_layout=view.findViewById(R.id.mycenter_business_residence_layout);
-        mycenter_downloadapp_layout=view.findViewById(R.id.mycenter_downloadapp_layout);
-        mycenter_operationvideo_layout=view.findViewById(R.id.mycenter_operationvideo_layout);
-        mycenter_restaurant_layout=view.findViewById(R.id.mycenter_restaurant_layout);
-        mycenter_myfocuson_layout=view.findViewById(R.id.mycenter_myfocuson_layout);
-        img_meset=view.findViewById(R.id.img_meset);
-        img_touxiang=view.findViewById(R.id.img_touxiang);
-        tv_nickname=view.findViewById(R.id.tv_nickname);
-        tv_viplevel=view.findViewById(R.id.tv_viplevel);
-        tv_collectionnum=view.findViewById(R.id.tv_collectionnum);
-        tv_focusonnum=view.findViewById(R.id.tv_focusonnum);
-       // tv_lovenum=view.findViewById(R.id.tv_lovenum);
-        tv_browsenum=view.findViewById(R.id.tv_browsenum);
-        tv_moneynum=view.findViewById(R.id.tv_moneynum);
-        tv_integralnumm=view.findViewById(R.id.tv_integralnumm);
+        mycenter_vegetablemarket_layout = view.findViewById(R.id.mycenter_vegetablemarket_layout);
+        mycenter_foodorder_layout = view.findViewById(R.id.mycenter_foodorder_layout);
+        mycenter_hotelorder_layout = view.findViewById(R.id.mycenter_hotelorder_layout);
+        mycenter_shoporder_layout = view.findViewById(R.id.mycenter_shoporder_layout);
+        mycenter_invitation_with_courtesy_layout = view.findViewById(R.id.mycenter_invitation_with_courtesy_layout);
+        mycenter_mywallet_layout = view.findViewById(R.id.mycenter_mywallet_layout);
+        mycenter_myrelease_layout = view.findViewById(R.id.mycenter_myrelease_layout);
+        mycenter_shoppingcart_layout = view.findViewById(R.id.mycenter_shoppingcart_layout);
+        mycenter_mycollection_layout = view.findViewById(R.id.mycenter_mycollection_layout);
+        mycenter_browsing_layout = view.findViewById(R.id.mycenter_browsing_layout);
+        mycenter_myaddress_layout = view.findViewById(R.id.mycenter_myaddress_layout);
+        mycenter_myscore_layout = view.findViewById(R.id.mycenter_myscore_layout);
+        mycenter_mymessage_layout = view.findViewById(R.id.mycenter_mymessage_layout);
+        mycenter_business_residence_layout = view.findViewById(R.id.mycenter_business_residence_layout);
+        mycenter_downloadapp_layout = view.findViewById(R.id.mycenter_downloadapp_layout);
+        mycenter_operationvideo_layout = view.findViewById(R.id.mycenter_operationvideo_layout);
+        mycenter_restaurant_layout = view.findViewById(R.id.mycenter_restaurant_layout);
+        mycenter_myfocuson_layout = view.findViewById(R.id.mycenter_myfocuson_layout);
+        img_meset = view.findViewById(R.id.img_meset);
+        img_touxiang = view.findViewById(R.id.img_touxiang);
+        tv_nickname = view.findViewById(R.id.tv_nickname);
+        tv_viplevel = view.findViewById(R.id.tv_viplevel);
+        tv_collectionnum = view.findViewById(R.id.tv_collectionnum);
+        tv_focusonnum = view.findViewById(R.id.tv_focusonnum);
+        // tv_lovenum=view.findViewById(R.id.tv_lovenum);
+        tv_browsenum = view.findViewById(R.id.tv_browsenum);
+        tv_moneynum = view.findViewById(R.id.tv_moneynum);
+        tv_integralnumm = view.findViewById(R.id.tv_integralnumm);
 
         //设置状态栏的高度
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mHeaderTitle.getLayoutParams();
@@ -150,7 +150,7 @@ public class MePageFragment extends BaseFragment {
 
     @Override
     protected void getDataFromServer() {
-        HttpRxObservable.getObservable(ApiUtils.getApiService().getpersonal(LoginInfoUtil.getUid(),LoginInfoUtil.getToken())).subscribe(new BaseObserver<PersonalBean>(mAty) {
+        HttpRxObservable.getObservable(ApiUtils.getApiService().getpersonal(LoginInfoUtil.getUid(), LoginInfoUtil.getToken())).subscribe(new BaseObserver<PersonalBean>(mAty) {
             @Override
             public void onHandleSuccess(PersonalBean personalBean) throws IOException {
                 tv_viplevel.setText(personalBean.getGrade());
@@ -160,7 +160,7 @@ public class MePageFragment extends BaseFragment {
                 tv_browsenum.setText(personalBean.getRecord());
                 tv_moneynum.setText(personalBean.getMoney());
                 tv_integralnumm.setText(personalBean.getIntegral());
-                Glide.with(mAty).load(BaseUrl.BASE_URL+personalBean.getAvator()).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(img_touxiang);
+                Glide.with(mAty).load(BaseUrl.BASE_URL + personalBean.getAvator()).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(img_touxiang);
             }
         });
     }
@@ -201,20 +201,15 @@ public class MePageFragment extends BaseFragment {
         mycenter_shoporder_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               // ToastUtil.showToast("数据链接异常");
+                // ToastUtil.showToast("数据链接异常");
                 startActivity(new Intent(getContext(), ShoporderActivity.class));
             }
         });
         /**
          * 饭店订单
          */
-        mycenter_restaurant_layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ToastUtil.showToast("当前功能持续完善中.....");
-                //startActivity(new Intent(getContext(), RestaurantOrderActivity.class));
-            }
-        });
+        mycenter_restaurant_layout.setOnClickListener(view ->
+                ActivityUtils.startActivity(RestaurantOrderListActivity.class));
         /**
          * 邀请有礼
          */

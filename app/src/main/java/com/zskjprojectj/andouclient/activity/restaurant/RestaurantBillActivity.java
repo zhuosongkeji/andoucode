@@ -123,7 +123,7 @@ public class RestaurantBillActivity extends BaseActivity {
                     BigDecimal totalAmount = new BigDecimal(0);
                     for (Food food : result.data) {
                         totalNum += food.num;
-                        totalAmount = totalAmount.add(new BigDecimal(food.price).multiply(new BigDecimal(food.num)));
+                        totalAmount = totalAmount.add(new BigDecimal(food.getAmount()));
                     }
                     ViewUtil.setText(mActivity, R.id.cartCountTxt, String.valueOf(totalNum));
                     ViewUtil.setText(mActivity, R.id.totalAmountTxt1, FormatUtil.getMoneyString(totalAmount.doubleValue()));
