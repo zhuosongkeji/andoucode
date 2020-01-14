@@ -1,7 +1,7 @@
 package com.zskjprojectj.andouclient.entity.mall;
 
 import com.google.gson.annotations.SerializedName;
-import com.zhuosongkj.android.library.model.ListData;
+import com.zhuosongkj.android.library.model.IListData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,7 @@ import java.util.List;
  * 修改时间：
  * 修改备注：
  */
-public class MallShoppingHomeBean implements ListData<MallShoppingHomeBean.GoodsBean> {
+public class MallShoppingHomeBean implements IListData<MallShoppingHomeBean.GoodsBean> {
     private String name;
 
     @Override

@@ -18,14 +18,20 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.BarUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.yhao.floatwindow.FloatWindow;
+import com.zhuosongkj.android.library.app.BaseActivity;
+import com.zhuosongkj.android.library.model.BaseResult;
+import com.zhuosongkj.android.library.model.IListData;
+import com.zhuosongkj.android.library.util.PageLoadUtil;
+import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.adapter.hotel.Catagory1Adapter;
 import com.zskjprojectj.andouclient.adapter.hotel.HotelPriceAdapter;
 import com.zskjprojectj.andouclient.adapter.hotel.HotelResultAdapter;
 import com.zskjprojectj.andouclient.adapter.hotel.HotelStarAdapter;
-import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
 import com.zskjprojectj.andouclient.entity.hotel.CategoryBean;
 import com.zskjprojectj.andouclient.entity.hotel.HotelHomeBean;
@@ -41,6 +47,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.Observable;
 
 /**
  * 酒店列表
@@ -56,6 +63,8 @@ public class HotelFilterActivity extends BaseActivity {
     private Button mCancle;
     private PopupWindow mPopWindow;
 
+    @BindView(R.id.refreshLayout)
+    SmartRefreshLayout mRefreshLayout;
 
     @BindView(R.id.ll_classify)
     LinearLayout mClassify;
@@ -66,8 +75,6 @@ public class HotelFilterActivity extends BaseActivity {
     @BindView(R.id.tv_capacity_sort)
     TextView mCapacitySort;
 
-    @BindView(R.id.header_title)
-    LinearLayout mHeaderTitle;
 
     @BindView(R.id.tv_location)
     TextView mLocation;
@@ -83,55 +90,33 @@ public class HotelFilterActivity extends BaseActivity {
     private HotelStarAdapter starAdapter;
     //酒店ID
     private String hotelId;
+    HotelResultAdapter adapter = new HotelResultAdapter();
 
     @Override
-    protected void setRootView() {
-        setContentView(R.layout.activity_hotel_filter);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        initViews();
+        initData();
     }
 
-    @Override
-    protected void initData(Bundle savedInstanceState) {
-
-        HttpRxObservable.getObservable(ApiUtils.getApiService().hotelHomeList()).subscribe(new BaseObserver<List<HotelHomeBean>>(mAt) {
-            @Override
-            public void onHandleSuccess(List<HotelHomeBean> hotelHomeBeans) throws IOException {
+    private void initData() {
 
 
-                HotelResultAdapter adapter = new HotelResultAdapter(R.layout.hotelresuilt_item_view, hotelHomeBeans);
-                adapter.openLoadAnimation();
-                mRecycler.addItemDecoration(new DividerItemDecoration(mAt, DividerItemDecoration.VERTICAL));
-                mRecycler.setAdapter(adapter);
-
-
-                adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                        HotelDetailActivity.start(hotelHomeBeans.get(position).getId());
-                    }
-                });
-
-            }
-        });
+        PageLoadUtil<HotelHomeBean> pageLoadUtil = PageLoadUtil.get(mActivity, mRecycler, adapter, mRefreshLayout);
+        pageLoadUtil.load(() -> ApiUtils.getApiService().hotelHomeList(pageLoadUtil.page));
+        adapter.openLoadAnimation();
+        mRecycler.addItemDecoration(new DividerItemDecoration(mActivity, DividerItemDecoration.VERTICAL));
+        mRecycler.setAdapter(adapter);
+        adapter.setOnItemClickListener((adapter1, view, position) -> HotelDetailActivity.start(adapter.getItem(position).getId()));
 
     }
 
-    @Override
-    protected void initViews() {
-        getBarDistance(mHeaderTitle);
+    private void initViews() {
         hotelId = getIntent().getStringExtra("hotelId");
         mRecycler = findViewById(R.id.rv_recycler);
         mRecycler.setLayoutManager(new LinearLayoutManager(this));
     }
 
-    @Override
-    public void getDataFromServer() {
-
-    }
-
-    @Override
-    protected BasePresenter createPresenter() {
-        return null;
-    }
 
 
     @OnClick({R.id.ll_selector_location, R.id.ll_price_star, R.id.ll_selector_sort, R.id.ll_selector_screen})
@@ -146,11 +131,11 @@ public class HotelFilterActivity extends BaseActivity {
                 break;
             //价格星级
             case R.id.ll_price_star:
-                mSelectorStar.setTextColor(getResources().getColor(R.color.colorNavy));
-                initPriceStar();
-                if (mPopWindow != null && !mPopWindow.isShowing()) {
-                    mPopWindow.showAsDropDown(mClassify, 0, 0);
-                }
+//                mSelectorStar.setTextColor(getResources().getColor(R.color.colorNavy));
+//                initPriceStar();
+//                if (mPopWindow != null && !mPopWindow.isShowing()) {
+//                    mPopWindow.showAsDropDown(mClassify, 0, 0);
+//                }
                 break;
             //智能排序
             case R.id.ll_selector_sort:
@@ -188,7 +173,7 @@ public class HotelFilterActivity extends BaseActivity {
         //星级
         mStarRecycler = contentView.findViewById(R.id.rv_star_recycler);
         mCancle = contentView.findViewById(R.id.bt_cancle);
-        initDialogRecycler();
+//        initDialogRecycler();
     }
 
     //初始化popuwindow
@@ -200,7 +185,7 @@ public class HotelFilterActivity extends BaseActivity {
         //设置背景色
         WindowManager.LayoutParams lp = getWindow().getAttributes();
         lp.alpha = 0.8f;
-//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         getWindow().setAttributes(lp);
 
         //popupWindow获取焦点
@@ -229,7 +214,7 @@ public class HotelFilterActivity extends BaseActivity {
         mStarRecycler.setLayoutManager(new GridLayoutManager(this, 4));
         mStarRecycler.addItemDecoration(new GridSectionAverageGapItemDecoration(10, 10, 0, 10));
 
-        HttpRxObservable.getObservable(ApiUtils.getApiService().hotelSearchCondition()).subscribe(new BaseObserver<HotelSearchConditionBean>(mAt) {
+        HttpRxObservable.getObservable(ApiUtils.getApiService().hotelSearchCondition()).subscribe(new BaseObserver<HotelSearchConditionBean>(mActivity) {
             @Override
             public void onHandleSuccess(HotelSearchConditionBean hotelSearchConditionBean) throws IOException {
                 //价格
@@ -391,4 +376,8 @@ public class HotelFilterActivity extends BaseActivity {
         ActivityUtils.startActivity(bundle,HotelFilterActivity.class);
     }
 
+    @Override
+    protected int getContentView() {
+        return R.layout.activity_hotel_filter;
+    }
 }

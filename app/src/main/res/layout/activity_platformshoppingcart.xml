@@ -5,14 +5,11 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/alltopview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorNavy">
 
-        <include layout="@layout/base_title_view" />
-    </LinearLayout>
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_recycler"
@@ -20,7 +17,7 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/pay_all"
         android:layout_below="@+id/alltopview" />
-
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
     <RelativeLayout
         android:id="@+id/pay_all"
         android:layout_width="match_parent"

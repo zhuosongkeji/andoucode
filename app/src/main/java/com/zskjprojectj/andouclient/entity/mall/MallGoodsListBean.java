@@ -10,7 +10,7 @@ package com.zskjprojectj.andouclient.entity.mall;
  * 修改时间：
  * 修改备注：
  */
-public class MallGoodsListBean {
+public class MallGoodsListBean  {
 
 
     /**
@@ -56,4 +56,5 @@ public class MallGoodsListBean {
     public void setId(String id) {
         this.id = id;
     }
+
 }

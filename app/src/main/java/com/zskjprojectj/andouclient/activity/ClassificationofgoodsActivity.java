@@ -1,9 +1,7 @@
 package com.zskjprojectj.andouclient.activity;
 
-import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +10,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -20,22 +17,26 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.zhuosongkj.android.library.app.BaseActivity;
+import com.zhuosongkj.android.library.model.BaseResult;
+import com.zhuosongkj.android.library.model.IListData;
+import com.zhuosongkj.android.library.util.PageLoadUtil;
+import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.mall.MallGoodsDetailsActivity;
 import com.zskjprojectj.andouclient.adapter.ClassificationofgoodsAdapter;
-import com.zskjprojectj.andouclient.base.BaseActivity;
-import com.zskjprojectj.andouclient.base.BasePresenter;
 import com.zskjprojectj.andouclient.entity.mall.MallGoodsListBean;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.Observable;
 
 
 /**
@@ -49,8 +50,6 @@ public class ClassificationofgoodsActivity extends BaseActivity {
     LinearLayout mClassify;
     private PopupWindow mPopWindow;
 
-    @BindView(R.id.root_view)
-    RelativeLayout mRootView;
     private RecyclerView mRecycler;
     //搜索内容
     @BindView(R.id.search_edittext)
@@ -74,6 +73,9 @@ public class ClassificationofgoodsActivity extends BaseActivity {
     @BindView(R.id.iv_screen)
     ImageView mIvScreen;
 
+    @BindView(R.id.refreshLayout)
+    SmartRefreshLayout mRefreshLayout;
+
     //关键字
     private String keyword;
     //分类id
@@ -86,22 +88,19 @@ public class ClassificationofgoodsActivity extends BaseActivity {
     private String price_sort;
     //销量排序
     private String volume_sort;
+    ClassificationofgoodsAdapter adapter = new ClassificationofgoodsAdapter();
 
 
     @Override
-    protected void setRootView() {
-        setContentView(R.layout.activity_classificationofgoods);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        initViews();
+        getDataFromServer();
     }
 
-    @Override
-    protected void initData(Bundle savedInstanceState) {
 
+    private void initViews() {
         cataId = getIntent().getStringExtra(CATAID);
-    }
-
-    @Override
-    protected void initViews() {
-        getBarDistance(mRootView);
         mRecycler = findViewById(R.id.rv_recycler);
         mRecycler.setLayoutManager(new GridLayoutManager(this, 2));
     }
@@ -137,41 +136,55 @@ public class ClassificationofgoodsActivity extends BaseActivity {
         });
     }
 
-    @Override
-    public void getDataFromServer() {
+    private void getDataFromServer() {
         //推荐id
         is_recommend = getIntent().getStringExtra("recommend");
         //特价id
         is_bargain = getIntent().getStringExtra("special");
 
-        HttpRxObservable.getObservable(ApiUtils.getApiService().mallGoodsList(
+//        HttpRxObservable.getObservable(ApiUtils.getApiService().mallGoodsList(
+//                keyword,
+//                cataId,
+//                is_recommend,
+//                is_bargain,
+//                price_sort,
+//                volume_sort
+//
+//        )).subscribe(new BaseObserver<List<MallGoodsListBean>>(mActivity) {
+//            @Override
+//            public void onHandleSuccess(List<MallGoodsListBean> mallGoodsListBeans) throws IOException {
+//
+//
+//                adapter.openLoadAnimation();
+//                mRecycler.setAdapter(adapter);
+//
+//                adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+//                    @Override
+//                    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+//                        String shippingId = mallGoodsListBeans.get(position).getId();
+//                        MallGoodsDetailsActivity.start(shippingId);
+//
+//                    }
+//                });
+//
+//            }
+//        });
+
+
+        PageLoadUtil<MallGoodsListBean> pageLoadUtil = PageLoadUtil.get(mActivity, mRecycler, adapter, mRefreshLayout);
+        pageLoadUtil.load(() -> ApiUtils.getApiService().mallGoodsList(
                 keyword,
                 cataId,
                 is_recommend,
                 is_bargain,
                 price_sort,
-                volume_sort
+                volume_sort,
+                pageLoadUtil.page
+        ));
 
-        )).subscribe(new BaseObserver<List<MallGoodsListBean>>(mAt) {
-            @Override
-            public void onHandleSuccess(List<MallGoodsListBean> mallGoodsListBeans) throws IOException {
-
-                ClassificationofgoodsAdapter adapter = new ClassificationofgoodsAdapter(R.layout.item_classificationofgoods, mallGoodsListBeans);
-                adapter.openLoadAnimation();
-                mRecycler.setAdapter(adapter);
-
-                adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                        String shippingId = mallGoodsListBeans.get(position).getId();
-                        Log.d(TAG, "onItemClick: " + shippingId);
-                        MallGoodsDetailsActivity.start(shippingId);
-
-                    }
-                });
-
-            }
-        });
+        adapter.openLoadAnimation();
+        mRecycler.setAdapter(adapter);
+        adapter.setOnItemClickListener((adapter1, view, position) -> MallGoodsDetailsActivity.start(adapter.getItem(position).getId()));
     }
 
     @OnClick({R.id.ll_price_comprehensive, R.id.ll_selector_sales, R.id.ll_selector_price, R.id.search_image})
@@ -224,7 +237,7 @@ public class ClassificationofgoodsActivity extends BaseActivity {
         mTvUnlimited.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getDataFromServer();
+//                getDataFromServer();
                 mPopWindow.dismiss();
             }
         });
@@ -248,7 +261,7 @@ public class ClassificationofgoodsActivity extends BaseActivity {
         mVolumUnlimited.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getDataFromServer();
+//                getDataFromServer();
                 mPopWindow.dismiss();
             }
         });
@@ -258,7 +271,7 @@ public class ClassificationofgoodsActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 volume_sort = "0";
-                getDataFromServer();
+//                getDataFromServer();
                 mPopWindow.dismiss();
             }
         });
@@ -268,7 +281,7 @@ public class ClassificationofgoodsActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 volume_sort = "1";
-                getDataFromServer();
+//                getDataFromServer();
                 mPopWindow.dismiss();
             }
         });
@@ -287,7 +300,7 @@ public class ClassificationofgoodsActivity extends BaseActivity {
         mPriceUnlimeted.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getDataFromServer();
+//                getDataFromServer();
                 mPopWindow.dismiss();
             }
         });
@@ -297,7 +310,7 @@ public class ClassificationofgoodsActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 price_sort = "0";
-                getDataFromServer();
+//                getDataFromServer();
                 mPopWindow.dismiss();
             }
         });
@@ -307,16 +320,12 @@ public class ClassificationofgoodsActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 price_sort = "1";
-                getDataFromServer();
+//                getDataFromServer();
                 mPopWindow.dismiss();
             }
         });
     }
 
-    @Override
-    protected BasePresenter createPresenter() {
-        return null;
-    }
 
     @OnClick(R.id.img_back)
     public void clickBack() {
@@ -324,10 +333,14 @@ public class ClassificationofgoodsActivity extends BaseActivity {
     }
 
     public static void getCataId(String cataId) {
-        Bundle bundle=new Bundle();
-        bundle.putString(CATAID,cataId);
-        ActivityUtils.startActivity(bundle,ClassificationofgoodsActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString(CATAID, cataId);
+        ActivityUtils.startActivity(bundle, ClassificationofgoodsActivity.class);
     }
 
 
+    @Override
+    protected int getContentView() {
+        return R.layout.activity_classificationofgoods;
+    }
 }

@@ -104,8 +104,6 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-
-
         initCoverFlow();
         bannertops = view.findViewById(R.id.bannertop);
         view.findViewById(R.id.sha).setOnClickListener(v -> ActivityUtils.startActivity(QrCodeActivity.class));

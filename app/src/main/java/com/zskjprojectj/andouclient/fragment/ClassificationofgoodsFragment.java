@@ -38,12 +38,7 @@ import butterknife.BindView;
  */
 public class ClassificationofgoodsFragment extends BaseFragment {
 
-    @BindView(R.id.header_title_view)
-    RelativeLayout mHeaderTitleView;
-    @BindView(R.id.tv_header_title)
-    TextView mHeaderTitle;
-    @BindView(R.id.iv_header_back)
-    ImageView mHeaderBack;
+
 
     private List<String> menuList = new ArrayList<>();
     private List<MallGoodsCateBean> homeList = new ArrayList<>();
@@ -60,10 +55,6 @@ public class ClassificationofgoodsFragment extends BaseFragment {
 
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
-        mHeaderTitle.setText("商品分类");
-        mHeaderBack.setVisibility(View.GONE);
-
-        getBarDistance(mHeaderTitleView);
 
         lv_menu = (ListView) view.findViewById(R.id.lv_menu);
         tv_title = (TextView) view.findViewById(R.id.tv_titile);

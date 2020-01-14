@@ -16,8 +16,9 @@ import androidx.viewpager.widget.ViewPager;
 import com.shizhefei.view.indicator.FixedIndicatorView;
 import com.shizhefei.view.indicator.IndicatorViewPager;
 import com.shizhefei.view.indicator.slidebar.ColorBar;
+import com.zhuosongkj.android.library.app.BaseActivity;
+import com.zhuosongkj.android.library.util.ActionBarUtil;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
 import com.zskjprojectj.andouclient.fragment.MeHotelorderFragment;
 import com.zskjprojectj.andouclient.fragment.MeHotelordercancelledFragment;
@@ -36,11 +37,6 @@ import butterknife.OnClick;
  */
 public class HotelorderActivity extends BaseActivity {
 
-    @BindView(R.id.header_title_view)
-    RelativeLayout mTitleView;
-
-    @BindView(R.id.tv_header_title)
-    TextView mHeaderTitle;
 
     private FixedIndicatorView indicator;
     //碎片集合
@@ -50,18 +46,13 @@ public class HotelorderActivity extends BaseActivity {
     private IndicatorViewPager indicatorViewPager;
 
     @Override
-    protected void setRootView() {
-        setContentView(R.layout.activity_hotelorder);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ActionBarUtil.setTitle(mActivity, "全部订单");
+        initViews();
     }
 
-    @Override
-    protected void initData(Bundle savedInstanceState) {
-        getBarDistance(mTitleView);
-        mHeaderTitle.setText("酒店预订");
-    }
-
-    @Override
-    protected void initViews() {
+    private void initViews() {
         //这个FixedindicatorView是平分tab的屏幕长度的
         indicator = (FixedIndicatorView) findViewById(R.id.indicator);
         viewPager = (ViewPager) findViewById(R.id.viewPager);
@@ -95,17 +86,38 @@ public class HotelorderActivity extends BaseActivity {
         indicator.setScrollBar(new ColorBar(getApplicationContext(), Color.parseColor("#5ed3ae"), 5));
         viewPager.setOffscreenPageLimit(4);//缓存的左右页面的个数都是1
         viewPager.setCurrentItem(0, true);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                switch (position) {
+                    case 0:
+                        ActionBarUtil.setTitle(mActivity, "全部订单");
+                        break;
+                    case 1:
+                        ActionBarUtil.setTitle(mActivity, "待入住");
+                        break;
+                    case 2:
+                        ActionBarUtil.setTitle(mActivity, "待评价");
+                        break;
+                    case 3:
+                        ActionBarUtil.setTitle(mActivity, "已取消");
+                        break;
+
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
-    @Override
-    public void getDataFromServer() {
-
-    }
-
-    @Override
-    protected BasePresenter createPresenter() {
-        return null;
-    }
 
     /**
      * 指示器适配器对形象
@@ -139,8 +151,9 @@ public class HotelorderActivity extends BaseActivity {
     };
 
 
-    @OnClick(R.id.iv_header_back)
-    public void clickView() {
-        finish();
+
+    @Override
+    protected int getContentView() {
+        return R.layout.activity_hotelorder;
     }
 }

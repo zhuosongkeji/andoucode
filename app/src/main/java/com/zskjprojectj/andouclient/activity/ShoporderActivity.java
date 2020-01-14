@@ -16,8 +16,9 @@ import androidx.viewpager.widget.ViewPager;
 import com.shizhefei.view.indicator.FixedIndicatorView;
 import com.shizhefei.view.indicator.IndicatorViewPager;
 import com.shizhefei.view.indicator.slidebar.ColorBar;
+import com.zhuosongkj.android.library.app.BaseActivity;
+import com.zhuosongkj.android.library.util.ActionBarUtil;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
 import com.zskjprojectj.andouclient.fragment.MeShopFragment;
 import com.zskjprojectj.andouclient.fragment.MeShopforthegoodsFragment;
@@ -37,11 +38,7 @@ import butterknife.OnClick;
  */
 public class ShoporderActivity extends BaseActivity {
 
-    @BindView(R.id.header_title_view)
-    RelativeLayout mHeaderView;
 
-    @BindView(R.id.tv_header_title)
-    TextView mHeaderTitle;
 
 
     private FixedIndicatorView indicator;
@@ -50,25 +47,24 @@ public class ShoporderActivity extends BaseActivity {
     private ViewPager viewPager;
     //第三方指示器
     private IndicatorViewPager indicatorViewPager;
+
     @Override
-    protected void setRootView() {
-        setContentView(R.layout.activity_shoporder);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ActionBarUtil.setTitle(mActivity, "全部订单");
+        initViews();
+        initData();
     }
 
-    @Override
-    protected void initData(Bundle savedInstanceState) {
-
-        getBarDistance(mHeaderView);
-        mHeaderTitle.setText("商城订单");
-
+    private void initData() {
         String flag = getIntent().getStringExtra("flag");
         if ("MallPaySuccess".equals(flag)){
             viewPager.setCurrentItem(2, true);
         }
     }
 
-    @Override
-    protected void initViews() {
+
+    private void initViews() {
         //这个FixedindicatorView是平分tab的屏幕长度的
         indicator = (FixedIndicatorView) findViewById(R.id.indicator);
         viewPager = (ViewPager) findViewById(R.id.viewPager);
@@ -89,17 +85,41 @@ public class ShoporderActivity extends BaseActivity {
         indicator.setScrollBar(new ColorBar(getApplicationContext(), Color.parseColor("#5ed3ae"), 5));
         viewPager.setOffscreenPageLimit(5);//缓存的左右页面的个数都是
         viewPager.setCurrentItem(0, true);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                switch (position) {
+                    case 0:
+                        ActionBarUtil.setTitle(mActivity, "全部订单");
+                        break;
+                    case 1:
+                        ActionBarUtil.setTitle(mActivity, "待付款");
+                        break;
+                    case 2:
+                        ActionBarUtil.setTitle(mActivity, "待发货");
+                        break;
+                    case 3:
+                        ActionBarUtil.setTitle(mActivity, "待收货");
+                        break;
+                    case 4:
+                        ActionBarUtil.setTitle(mActivity, "待评价");
+                        break;
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
-    @Override
-    public void getDataFromServer() {
 
-    }
-
-    @Override
-    protected BasePresenter createPresenter() {
-        return null;
-    }
     /**
      * 指示器适配器对形象
      */
@@ -131,8 +151,8 @@ public class ShoporderActivity extends BaseActivity {
         }
     };
 
-    @OnClick(R.id.iv_header_back)
-    public void clickView(){
-        finish();
+    @Override
+    protected int getContentView() {
+        return R.layout.activity_shoporder;
     }
 }

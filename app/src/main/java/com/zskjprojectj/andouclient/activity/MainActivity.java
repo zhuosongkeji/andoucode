@@ -106,23 +106,19 @@ public class MainActivity extends BaseActivity {
                     @Override
                     public boolean onTabClickEvent(View view, int position) {
                         switch (position) {
-
                             case 0:
-                                BarUtils.transparentStatusBar(mActivity);
-                                ActionBarUtil.setVisible(mActivity,false);
+                                ActionBarUtil.setVisible(mActivity, false);
                                 break;
                             case 1:
                                 ActionBarUtil.setTitle(mActivity, "商家");
                                 break;
                             case 2:
-                                BarUtils.transparentStatusBar(mActivity);
-                                ActionBarUtil.setVisible(mActivity,false);
+                                ActionBarUtil.setVisible(mActivity, false);
                                 break;
                             case 3:
                                 ActionBarUtil.setTitle(mActivity, "信息");
                                 break;
                             case 4:
-                                BarUtils.transparentStatusBar(mActivity);
                                 ActionBarUtil.setVisible(mActivity,false);
                                 break;
 
@@ -131,7 +127,7 @@ public class MainActivity extends BaseActivity {
                     }
                 })
                 .build();
-
+        navigationBar.selectTab(0);
         checkRxPermission();
     }
 

@@ -27,8 +27,8 @@ import java.util.List;
  * 修改备注：
  */
 public class MallShoppingHomeAdapter extends BaseQuickAdapter<MallShoppingHomeBean.GoodsBean, BaseViewHolder> {
-    public MallShoppingHomeAdapter(int layoutResId, @Nullable List<MallShoppingHomeBean.GoodsBean> data) {
-        super(layoutResId, data);
+    public MallShoppingHomeAdapter() {
+        super(R.layout.activity_mall_shopping_item_view);
     }
 
     @Override

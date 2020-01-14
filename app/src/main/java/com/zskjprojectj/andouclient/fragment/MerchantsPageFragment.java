@@ -5,13 +5,11 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
-import android.widget.TextView;
 
 
 import androidx.annotation.Nullable;
@@ -19,35 +17,26 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.blankj.utilcode.util.BarUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zhuosongkj.android.library.app.BaseFragment;
 import com.zhuosongkj.android.library.model.BaseResult;
-import com.zhuosongkj.android.library.model.ListData;
-import com.zhuosongkj.android.library.util.ActionBarUtil;
+import com.zhuosongkj.android.library.model.IListData;
 import com.zhuosongkj.android.library.util.PageLoadUtil;
 import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.hotel.HotelDetailActivity;
 import com.zskjprojectj.andouclient.activity.mall.MallShoppingHomeActivity;
 import com.zskjprojectj.andouclient.activity.restaurant.RestaurantDetailActivity;
-import com.zskjprojectj.andouclient.activity.restaurant.RestaurantHomeActivity;
 import com.zskjprojectj.andouclient.adapter.MerchantListAdapter;
-import com.zskjprojectj.andouclient.entity.MerchantListBean;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.model.Merchant;
 import com.zskjprojectj.andouclient.model.MerchantsResponse;
-import com.zskjprojectj.andouclient.model.Order;
-import com.zskjprojectj.andouclient.model.Restaurant;
-
-import com.zskjprojectj.andouclient.view.TopView;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -89,14 +78,45 @@ public class MerchantsPageFragment extends BaseFragment {
         mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         PageLoadUtil<Merchant> pageLoadUtil = PageLoadUtil
                 .get((BaseActivity) getActivity(), mRecycler, adapter, refreshLayout);
-        pageLoadUtil.load(new RequestUtil.ObservableProvider<ListData<Merchant>>() {
+        pageLoadUtil.load(new RequestUtil.ObservableProvider<IListData<Merchant>>() {
             @Override
-            public Observable<? extends BaseResult<? extends ListData<Merchant>>> getObservable() {
+            public Observable<? extends BaseResult<? extends IListData<Merchant>>> getObservable() {
                 return ApiUtils.getApiService().merchants_two(pageLoadUtil.page);
             }
         });
-        getDataFromServer();
         initData();
+
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter1, View view, int position) {
+                switch (adapter.getItem(position).merchant_type_id){
+                    //商家商城
+                    case "2":
+                        MallShoppingHomeActivity.start(adapter.getItem(position).id);
+                        break;
+                    //酒店商家
+                    case "3":
+                        HotelDetailActivity.start(adapter.getItem(position).id);
+                        break;
+                    //饭店商家
+                    case "4":
+                        RestaurantDetailActivity.start(adapter.getItem(position).id);
+                        break;
+                    //农家乐
+                    case "5":
+                        break;
+                    //旅游
+                    case "6":
+                        break;
+                    //美食预订
+                    case "7":
+                        break;
+                    //农家乐民宿
+                    case "8":
+                        break;
+                }
+            }
+        });
     }
 
 
@@ -129,24 +149,7 @@ public class MerchantsPageFragment extends BaseFragment {
         });
     }
 
-    private void getDataFromServer() {
-        HttpRxObservable.getObservable(ApiUtils.getApiService().merchants())
-                .subscribe(new BaseObserver<MerchantsResponse>(mActivity) {
-                    @Override
-                    public void onHandleSuccess(MerchantsResponse merchantsResponse) throws IOException {
-//                        adapter.setNewData(merchantsResponse.merchants);
-//                        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-//                            @Override
-//                            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-//                                //TODO
-//                                getMerchantType(merchantsResponse.merchants.get(position).merchant_type_id,merchantsResponse.merchants.get(position).id);
-//                            }
-//                        });
-                    }
-                });
 
-
-    }
 
     private void getMerchantType(String type, String id) {
         switch (type) {

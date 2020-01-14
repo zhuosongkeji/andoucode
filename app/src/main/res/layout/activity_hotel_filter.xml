@@ -95,8 +95,8 @@
                 android:id="@+id/tv_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/color_common_font"
-                android:text="位置区域" />
+                android:text="位置区域"
+                android:textColor="@color/color_common_font" />
 
             <ImageView
                 android:layout_width="10dp"
@@ -116,8 +116,8 @@
                 android:id="@+id/tv_selector_star"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/color_common_font"
-                android:text="价格/星级" />
+                android:text="价格/星级"
+                android:textColor="@color/color_common_font" />
 
             <ImageView
                 android:layout_width="10dp"
@@ -137,8 +137,8 @@
                 android:id="@+id/tv_capacity_sort"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/color_common_font"
-                android:text="智能排序" />
+                android:text="智能排序"
+                android:textColor="@color/color_common_font" />
 
             <ImageView
                 android:layout_width="10dp"
@@ -158,8 +158,8 @@
                 android:id="@+id/tv_screen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/color_common_font"
-                android:text="筛选" />
+                android:text="筛选"
+                android:textColor="@color/color_common_font" />
 
             <ImageView
                 android:layout_width="10dp"
@@ -175,9 +175,16 @@
         android:layout_height="@dimen/dp_2"
         android:background="#F1F1F1" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_recycler"
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
 </LinearLayout>

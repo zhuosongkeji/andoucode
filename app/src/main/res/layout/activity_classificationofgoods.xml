@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:background="@color/colorNavy"
+    android:background="@color/white"
     android:layout_height="match_parent">
 
     <RelativeLayout
@@ -141,6 +141,11 @@
         android:layout_height="@dimen/dp_5"
         android:background="#F7F7F7"/>
 
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_recycler"
         android:background="@color/white"
@@ -148,4 +153,5 @@
         android:paddingBottom="@dimen/dp_5"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 </LinearLayout>
