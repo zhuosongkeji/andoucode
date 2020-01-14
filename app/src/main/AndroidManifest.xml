@@ -256,8 +256,11 @@
             android:name=".activity.MyFocusonActivity"
             android:screenOrientation="portrait" /> <!-- 店铺收藏 -->
         <activity android:name=".activity.BindSuccessActivity"
-            android:screenOrientation="portrait"
-            /><!--绑定成功-->
+            android:screenOrientation="portrait" /><!--绑定成功-->
+        <activity android:name=".activity.MessageinfoActivity"
+            android:screenOrientation="portrait" /><!--信息详情-->
+        <activity android:name=".activity.OpeningmemberActivity"
+            android:screenOrientation="portrait" /><!--开通vip-->
         <activity
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"

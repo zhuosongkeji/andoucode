@@ -99,56 +99,7 @@ public class WeixinbingphoneActivity extends BaseActivity {
                 });
             }
         });
-//        findViewById(R.id.bind_yanzhenma_button).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                String mobileStr = et_bindphonenum.getText().toString().trim();
-//                if (mobileStr.isEmpty()) {
-//                    ToastUtil.showToast("请输入正确的手机号码!");
-//                    return;
-//                }
-//                countDownTimer = new CountDownTimerUtils(bind_yanzhenma_button, 60000, 1000);
-//                countDownTimer.start();
-//                HttpRxObservable.getObservable(ApiUtils.getApiService().sendCode(mobileStr, "0"))
-//                        .subscribe(new BaseObserver<Object>(mAt) {
-//                            @Override
-//                            public void onHandleSuccess(Object o) throws IOException {
-//                                ToastUtil.showToast("验证码短信已发送,请注意查收!");
-//                            }
-//                        });
-//            }
-//        });
-//        findViewById(R.id.bind_button).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                String mobileStr = et_bindphonenum.getText().toString().trim();
-//                String codeStr = bind_inputyanzhenma_edittext.getText().toString().trim();
-//                String passwordStr = bind_pwd_edittext.getText().toString();
-//                if (mobileStr.isEmpty()) {
-//                    ToastUtil.showToast("请输入正确的手机号码!");
-//                    return;
-//                }
-//                if (codeStr.isEmpty()) {
-//                    ToastUtil.showToast("请输入正确的验证码!");
-//                    return;
-//                }
-//                if (passwordStr.isEmpty()) {
-//                    ToastUtil.showToast("请输入正确的密码!");
-//                    return;
-//                }
-//
-//                HttpRxObservable.getObservable(ApiUtils.getApiService().bindlogin(mobileStr, passwordStr, codeStr, nickname, useropenid, useravator)).subscribe(new BaseObserver<User>(mAt) {
-//                    @Override
-//                    public void onHandleSuccess(User user) throws IOException {
-//                        LoginInfoUtil.saveLoginInfo(user.id, user.token);
-//                        if (!getIntent().getBooleanExtra(KEY_FOR_RESULT, false)) {
-//                            jumpActivity(MainActivity.class);
-//                        }
-//                        finish();
-//                    }
-//                });
-//            }
-//        });
+
     }
 
     @Override

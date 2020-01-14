@@ -28,6 +28,7 @@ import com.zskjprojectj.andouclient.activity.MymessageActivity;
 import com.zskjprojectj.andouclient.activity.MyreleaseActivity;
 import com.zskjprojectj.andouclient.activity.MyscoreActivity;
 import com.zskjprojectj.andouclient.activity.MywalletActivity;
+import com.zskjprojectj.andouclient.activity.OpeningmemberActivity;
 import com.zskjprojectj.andouclient.activity.OperationvideoActivity;
 import com.zskjprojectj.andouclient.activity.PlatformshoppingcartActivity;
 import com.zskjprojectj.andouclient.activity.RestaurantOrderListActivity;
@@ -103,7 +104,7 @@ public class MePageFragment extends BaseFragment {
     //设置界面
     private ImageView img_meset;
     //个人信息
-    private ImageView img_touxiang;
+    private ImageView img_touxiang,iv_message;
     private TextView tv_nickname, tv_viplevel, tv_collectionnum, tv_focusonnum, tv_browsenum, tv_moneynum, tv_integralnumm;
 
     @Override
@@ -136,7 +137,7 @@ public class MePageFragment extends BaseFragment {
         tv_browsenum = view.findViewById(R.id.tv_browsenum);
         tv_moneynum = view.findViewById(R.id.tv_moneynum);
         tv_integralnumm = view.findViewById(R.id.tv_integralnumm);
-
+        iv_message=view.findViewById(R.id.iv_message);
         //设置状态栏的高度
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mHeaderTitle.getLayoutParams();
         layoutParams.topMargin = BarUtils.getStatusBarHeight(mAty);
@@ -168,6 +169,15 @@ public class MePageFragment extends BaseFragment {
     @Override
     protected void initData() {
 
+        /**
+         * 开通Vip
+         */
+        img_touxiang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), OpeningmemberActivity.class));
+            }
+        });
         /**
          * 菜市场
          */
@@ -285,7 +295,7 @@ public class MePageFragment extends BaseFragment {
         /**
          * 我的消息
          */
-        mycenter_mymessage_layout.setOnClickListener(new View.OnClickListener() {
+        iv_message.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getContext(), MymessageActivity.class));

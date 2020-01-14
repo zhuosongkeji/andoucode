@@ -1,18 +1,17 @@
 package com.zskjprojectj.andouclient.entity;
 
-public class MymessageBean {
+public class InformationBean {
+
     /**
      * id : 标题id
      * title : 公告标题
-     * message : 已读消息用户id
-     * messageStatus : 公告状态 1已读 0未读
-     * created_at : 发布时间
+     * content : 公告内容
+     * created_at : 创建时间
      */
 
     private String id;
     private String title;
-    private String message;
-    private String messageStatus;
+    private String content;
     private String created_at;
 
     public String getId() {
@@ -31,20 +30,12 @@ public class MymessageBean {
         this.title = title;
     }
 
-    public String getMessage() {
-        return message;
+    public String getContent() {
+        return content;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public String getMessageStatus() {
-        return messageStatus;
-    }
-
-    public void setMessageStatus(String messageStatus) {
-        this.messageStatus = messageStatus;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public String getCreated_at() {

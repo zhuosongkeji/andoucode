@@ -4,12 +4,15 @@ import com.google.gson.JsonElement;
 import com.zhuosongkj.android.library.model.BaseResult;
 import com.zhuosongkj.android.library.model.ListData;
 import com.zskjprojectj.andouclient.activity.RestaurantOrderListActivity;
+import com.zskjprojectj.andouclient.entity.AboutusBean;
 import com.zskjprojectj.andouclient.entity.BrowsingBean;
 import com.zskjprojectj.andouclient.entity.CheckLogisticsBean;
 import com.zskjprojectj.andouclient.entity.IndexHomeBean;
+import com.zskjprojectj.andouclient.entity.InformationBean;
 import com.zskjprojectj.andouclient.entity.InvitationBean;
 import com.zskjprojectj.andouclient.entity.MyFocusonBean;
 import com.zskjprojectj.andouclient.entity.MycollectionBean;
+import com.zskjprojectj.andouclient.entity.MymessageBean;
 import com.zskjprojectj.andouclient.entity.RefundReasonBean;
 import com.zskjprojectj.andouclient.entity.PersonalBean;
 import com.zskjprojectj.andouclient.entity.SetBean;
@@ -247,6 +250,20 @@ public interface ApiService {
     );
 
     /**
+     * 会员购买
+     * @param uid
+     * @param token
+     * @param pay_id
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api/users/vip_recharge")
+    Observable<BaseResult<WXPayBean>> vip_recharge(@Field("uid") String uid,
+                                                    @Field("token") String token,
+                                                    @Field("pay_id") String pay_id
+    );
+
+    /**
      * 新增收货地址
      */
     @POST("api/Usersaddress/address_add")
@@ -439,6 +456,26 @@ public interface ApiService {
                                                   @Field("token") String token,
                                                   @Field("type") String type);
 
+    /**
+     * 通知消息
+     * @param uid
+     * @param token
+     * @return
+     */
+    @POST("api/index/notification_center")
+    @FormUrlEncoded
+    Observable<BaseResult<List<MymessageBean>>> notificationcenter(@Field("uid") String uid,
+                                                                       @Field("token") String token);
+    /**
+     * 通知消息
+     * @param id
+     * @param token
+     * @return
+     */
+    @POST("api/index/information")
+    @FormUrlEncoded
+    Observable<BaseResult<InformationBean>> information(@Field("id") String id,
+                                                        @Field("token") String token);
     /**
      * 订单详情
      */
@@ -801,6 +838,12 @@ public interface ApiService {
     Observable<BaseResult<Object>> opinionindex(@Field("uid") String uid,
                                                     @Field("token") String token,
                                                     @Field("content") String content);
+    /**
+     * 酒店搜索配置
+     */
+    @POST("api/index/about")
+    Observable<BaseResult<AboutusBean>> about();
+
 //    /**
 //     * 注册
 //     *

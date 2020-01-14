@@ -1,5 +1,6 @@
 package com.zskjprojectj.andouclient.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -17,9 +18,15 @@ import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
 import com.zskjprojectj.andouclient.entity.MymessageBean;
 import com.zskjprojectj.andouclient.entity.MyscoreBean;
+import com.zskjprojectj.andouclient.http.ApiUtils;
+import com.zskjprojectj.andouclient.http.BaseObserver;
+import com.zskjprojectj.andouclient.http.HttpRxObservable;
+import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -35,8 +42,7 @@ public class MymessageActivity extends BaseActivity {
     TextView mHeaderTitle;
 
     private RecyclerView mRecycler;
-    private ArrayList<MymessageBean> mDataList;
-
+    MymessageAdapter adapter=new MymessageAdapter();
     @Override
     protected void setRootView() {
         setContentView(R.layout.activity_mymessage);
@@ -46,35 +52,34 @@ public class MymessageActivity extends BaseActivity {
     protected void initData(Bundle savedInstanceState) {
         getBarDistance(mTitleView);
         mHeaderTitle.setText("我的消息");
-        mDataList = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            MymessageBean databean = new MymessageBean();
-//            databean.setBrowsingnpic(R.mipmap.ic_busiess_canting);
-//            databean.setBrowsingname("北平楼涮羊肉");
-            mDataList.add(databean);
-        }
-        MymessageAdapter adapter = new MymessageAdapter(R.layout.item_mymessage, mDataList);
         adapter.openLoadAnimation();
+        mRecycler.setAdapter(adapter);
+        mRecycler.addItemDecoration(new DividerItemDecoration(mAt,DividerItemDecoration.VERTICAL));
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                ToastUtil.showToast("数据访问异常");
+            public void onItemClick(BaseQuickAdapter adapters, View view, int position) {
+                Intent intent = new Intent();
+                intent.putExtra("id",adapter.getItem(position).getId());
+                intent.setClass(mAt,MessageinfoActivity.class);
+                startActivity(intent);
             }
         });
-        mRecycler.addItemDecoration(new DividerItemDecoration(mAt, DividerItemDecoration.VERTICAL));
-        mRecycler.setAdapter(adapter);
-
     }
 
     @Override
     protected void initViews() {
-        mRecycler = findViewById(R.id.rv_recycler);
+        mRecycler=findViewById(R.id.rv_recycler);
         mRecycler.setLayoutManager(new LinearLayoutManager(mAt));
     }
 
     @Override
     public void getDataFromServer() {
-
+        HttpRxObservable.getObservable(ApiUtils.getApiService().notificationcenter(LoginInfoUtil.getUid(),LoginInfoUtil.getToken())).subscribe(new BaseObserver<List<MymessageBean>>(mAt) {
+            @Override
+            public void onHandleSuccess(List<MymessageBean> mymessageBeans) throws IOException {
+                adapter.setNewData(mymessageBeans);
+            }
+        });
     }
 
     @Override
