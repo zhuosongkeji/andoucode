@@ -90,7 +90,7 @@
             android:screenOrientation="portrait" /> <!-- 酒店预约-主页 -->
         <activity
             android:name=".activity.LoginActivity"
-            android:launchMode="singleInstance"
+             android:launchMode="singleTop"
             android:screenOrientation="portrait" /> <!-- 注册界面 -->
         <activity
             android:name=".activity.RegisteredActivity"
