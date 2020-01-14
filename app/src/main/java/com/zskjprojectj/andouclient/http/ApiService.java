@@ -52,6 +52,7 @@ import com.zskjprojectj.andouclient.model.MerchantsResponse;
 import com.zskjprojectj.andouclient.model.Order;
 import com.zskjprojectj.andouclient.model.OrderDetail;
 import com.zskjprojectj.andouclient.model.RestaurantListResponse;
+import com.zskjprojectj.andouclient.model.RestaurantOrderDetail;
 import com.zskjprojectj.andouclient.model.User;
 
 import java.util.List;
@@ -367,12 +368,14 @@ public interface ApiService {
     Observable<BaseResult<Object>> forgetPassword(@Field("phone") String uid,
                                                   @Field("new_password") String type,
                                                   @Field("verify") String verify);
+
     @POST("api/users/upmodel")
     @FormUrlEncoded
     Observable<BaseResult<Object>> upmodel(@Field("uid") String uid,
-                                                  @Field("token") String token,
-                                                  @Field("phone") String phone,
-                                                  @Field("verify") String verify);
+                                           @Field("token") String token,
+                                           @Field("phone") String phone,
+                                           @Field("verify") String verify);
+
     /**
      * 收货地址列表
      */
@@ -395,7 +398,6 @@ public interface ApiService {
      */
     @POST("api/merchant/merchants")
     Observable<BaseResult<MerchantsResponse>> merchants();
-
 
 
     /**
@@ -444,18 +446,18 @@ public interface ApiService {
      */
     @POST("api/order/index")
     @FormUrlEncoded
-    Observable<BaseResult<List<Order>>> orderList(@Field("uid") String uid,
-                                                  @Field("token") String token,
-                                                  @Field("type") String type);
+    Observable<BaseResult<List<Order>>> getOrderList(@Field("uid") String uid,
+                                                     @Field("token") String token,
+                                                     @Field("type") String type);
 
     /**
      * 订单详情
      */
     @POST("api/order/details")
     @FormUrlEncoded
-    Observable<BaseResult<OrderDetail>> orderDetail(@Field("uid") String uid,
-                                                    @Field("token") String token,
-                                                    @Field("order_sn") String order_sn);
+    Observable<BaseResult<OrderDetail>> getOrderDetail(@Field("uid") String uid,
+                                                       @Field("token") String token,
+                                                       @Field("order_sn") String order_sn);
 
 
     /**
@@ -662,6 +664,7 @@ public interface ApiService {
 
     /**
      * 设置
+     *
      * @param uid
      * @param token
      * @return
@@ -783,6 +786,7 @@ public interface ApiService {
 
     /**
      * 邀请码
+     *
      * @param uid
      * @param token
      * @return
@@ -793,6 +797,7 @@ public interface ApiService {
 
     /**
      * 绑定上下级
+     *
      * @param uid
      * @param token
      * @param code
@@ -800,7 +805,7 @@ public interface ApiService {
      */
     @POST("api/users/binding")
     @FormUrlEncoded
-    Observable<BaseResult<Object>> binding(@Field("uid") String uid, @Field("token") String token,@Field("code") String code);
+    Observable<BaseResult<Object>> binding(@Field("uid") String uid, @Field("token") String token, @Field("code") String code);
 
     /**
      * 添加酒店点赞
@@ -808,8 +813,8 @@ public interface ApiService {
     @POST("api/opinion/index")
     @FormUrlEncoded
     Observable<BaseResult<Object>> opinionindex(@Field("uid") String uid,
-                                                    @Field("token") String token,
-                                                    @Field("content") String content);
+                                                @Field("token") String token,
+                                                @Field("content") String content);
 //    /**
 //     * 注册
 //     *
@@ -985,7 +990,28 @@ public interface ApiService {
 
     @FormUrlEncoded
     @POST("api/gourmet/order")
-    Observable<BaseResult<RestaurantOrderListResponse>> orderList(@Field("uid") String user_id,
-                                                                  @Field("page") int merchant_id,
-                                                                  @Field("status") int status);
+    Observable<BaseResult<RestaurantOrderListResponse>> getOrderList(@Field("uid") String user_id,
+                                                                     @Field("page") int merchant_id,
+                                                                     @Field("status") int status);
+
+    @FormUrlEncoded
+    @POST("api/gourmet/order_details")
+    Observable<BaseResult<RestaurantOrderDetail>> getOrderDetail(@Field("uid") String user_id,
+                                                                 @Field("id") String id);
+
+    @FormUrlEncoded
+    @POST("api/htorder/refund")
+    Observable<BaseResult<Object>> refund(@Field("uid") String user_id,
+                                          @Field("order_sn") String order_sn,
+                                          @Field("refund_msg") String refund_msg);
+
+    @FormUrlEncoded
+    @POST("api/gourmet/wxPay")
+    Observable<BaseResult<WXPayBean>> wxPay(@Field("uid") String user_id,
+                                            @Field("sNo") String order_sn);
+
+    @FormUrlEncoded
+    @POST("api/gourmet/balancePay")
+    Observable<BaseResult<Object>> accountPay(@Field("uid") String user_id,
+                                              @Field("sNo") String order_sn);
 }

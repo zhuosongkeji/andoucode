@@ -47,6 +47,5 @@ public class RestaurantOrderListAdapter extends BaseAdapter<RestaurantOrder> {
                 .load(item.logo_img)
                 .apply(new RequestOptions().placeholder(R.mipmap.ic_placeholder))
                 .into((ImageView) helper.itemView.findViewById(R.id.logoImg));
-
     }
 }

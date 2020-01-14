@@ -2,11 +2,9 @@ package com.zskjprojectj.andouclient.activity.restaurant;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,9 +20,9 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
 import com.zhuosongkj.android.library.app.BaseActivity;
-import com.zhuosongkj.android.library.model.BaseResult;
 import com.zhuosongkj.android.library.util.ActionBarUtil;
 import com.zhuosongkj.android.library.util.FormatUtil;
+import com.zhuosongkj.android.library.util.ListUtil;
 import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zhuosongkj.android.library.util.ViewUtil;
 import com.zskjprojectj.andouclient.R;
@@ -34,7 +32,6 @@ import com.zskjprojectj.andouclient.entity.WXPayBean;
 import com.zskjprojectj.andouclient.event.RestaurantPaySuccess;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.model.Food;
-import com.zskjprojectj.andouclient.model.Restaurant;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 import com.zskjprojectj.andouclient.utils.PayUtil;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
@@ -78,7 +75,7 @@ public class RestaurantBillActivity extends BaseActivity {
 
     private String dateStr;
     private String timeStr;
-    private Restaurant restaurant;
+    private IBill bill;
 
     private static final ArrayList<String> times = new ArrayList<>();
 
@@ -113,41 +110,28 @@ public class RestaurantBillActivity extends BaseActivity {
             pvOptions.setSelectOptions(11);
             pvOptions.show();
         });
-        restaurant = (Restaurant) getIntent().getSerializableExtra(KEY_DATA);
-        RequestUtil.request(mActivity, true, true,
-                () -> ApiUtils.getApiService().getCart(LoginInfoUtil.getUid(),
-                        LoginInfoUtil.getToken(),
-                        restaurant.id),
-                result -> {
-                    int totalNum = 0;
-                    BigDecimal totalAmount = new BigDecimal(0);
-                    for (Food food : result.data) {
-                        totalNum += food.num;
-                        totalAmount = totalAmount.add(new BigDecimal(food.getAmount()));
-                    }
-                    ViewUtil.setText(mActivity, R.id.cartCountTxt, String.valueOf(totalNum));
-                    ViewUtil.setText(mActivity, R.id.totalAmountTxt1, FormatUtil.getMoneyString(totalAmount.doubleValue()));
-                    ViewUtil.setText(mActivity, R.id.totalAmountTxt2, FormatUtil.getMoneyString(totalAmount.doubleValue()));
-                    ViewUtil.setText(mActivity, R.id.totalAmountTxt3, FormatUtil.getMoneyString(totalAmount.doubleValue()));
-                    for (int i = 0; i < result.data.size(); i++) {
-                        if (i >= 3) {
-                            break;
-                        }
-                        addFoodView(result.data.get(i));
-                    }
-                    moreBtn.setVisibility(result.data.size() > 3 ? View.VISIBLE : View.GONE);
-                    moreBtn.setOnClickListener(v -> {
-                        for (int i = 0; i < result.data.size(); i++) {
-                            if (i >= 3) {
-                                addFoodView(result.data.get(i));
-                            }
-                        }
-                        moreBtn.setVisibility(View.GONE);
-                    });
-                });
-        ViewUtil.setText(mActivity, R.id.nameTxt, restaurant.name);
+        bill = (IBill) getIntent().getSerializableExtra(KEY_DATA);
+        if (bill.getStatus() == 0) {
+            findViewById(R.id.newBillContainer).setVisibility(View.VISIBLE);
+        } else {
+            findViewById(R.id.billInfoContainer).setVisibility(View.VISIBLE);
+            ViewUtil.setText(mActivity, R.id.dinnerDateTxt, bill.getDinnertime());
+            ViewUtil.setText(mActivity, R.id.peopleCountTxt, bill.getPeople() + "人");
+            ViewUtil.setText(mActivity, R.id.psTxt, bill.getRemark());
+        }
+        if (ListUtil.isEmpty(bill.getFoods())) {
+            RequestUtil.request(mActivity, true, true,
+                    () -> ApiUtils.getApiService().getCart(
+                            LoginInfoUtil.getUid(),
+                            LoginInfoUtil.getToken(),
+                            bill.getMerchantId()),
+                    result -> bindFoods(result.data));
+        } else {
+            bindFoods(bill.getFoods());
+        }
+        ViewUtil.setText(mActivity, R.id.nameTxt, bill.getMerchantName());
         Glide.with(mActivity)
-                .load(UrlUtil.getImageUrl(restaurant.logo_img))
+                .load(UrlUtil.getImageUrl(bill.getMerchantLogo()))
                 .apply(new RequestOptions().placeholder(R.mipmap.ic_placeholder))
                 .into((ImageView) findViewById(R.id.logoImg));
         adapter.setNewData(getNextSevenDate());
@@ -162,6 +146,34 @@ public class RestaurantBillActivity extends BaseActivity {
         });
     }
 
+    private void bindFoods(List<Food> result) {
+        int totalNum = 0;
+        BigDecimal totalAmount = new BigDecimal(0);
+        for (Food food : result) {
+            totalNum += food.num;
+            totalAmount = totalAmount.add(new BigDecimal(food.getAmount()));
+        }
+        ViewUtil.setText(mActivity, R.id.cartCountTxt, String.valueOf(totalNum));
+        ViewUtil.setText(mActivity, R.id.totalAmountTxt1, FormatUtil.getMoneyString(totalAmount.doubleValue()));
+        ViewUtil.setText(mActivity, R.id.totalAmountTxt2, FormatUtil.getMoneyString(totalAmount.doubleValue()));
+        ViewUtil.setText(mActivity, R.id.totalAmountTxt3, FormatUtil.getMoneyString(totalAmount.doubleValue()));
+        for (int i = 0; i < result.size(); i++) {
+            if (i >= 3) {
+                break;
+            }
+            addFoodView(mActivity, foodContainer, result.get(i));
+        }
+        moreBtn.setVisibility(result.size() > 3 ? View.VISIBLE : View.GONE);
+        moreBtn.setOnClickListener(v -> {
+            for (int i = 0; i < result.size(); i++) {
+                if (i >= 3) {
+                    addFoodView(mActivity, foodContainer, result.get(i));
+                }
+            }
+            moreBtn.setVisibility(View.GONE);
+        });
+    }
+
     private List<Date> getNextSevenDate() {
         ArrayList<Date> dates = new ArrayList<>();
         Calendar calendar = Calendar.getInstance();
@@ -172,12 +184,12 @@ public class RestaurantBillActivity extends BaseActivity {
         return dates;
     }
 
-    private void addFoodView(Food cartFood) {
-        View foodView = LayoutInflater.from(mActivity).inflate(R.layout.layout_bill_list_item, null);
+    public static void addFoodView(Activity activity, ViewGroup foodContainer, Food cartFood) {
+        View foodView = LayoutInflater.from(activity).inflate(R.layout.layout_bill_list_item, null);
         ViewUtil.setText(foodView, R.id.nameTxt, cartFood.name);
         ViewUtil.setText(foodView, R.id.countTxt, String.valueOf(cartFood.num));
         ViewUtil.setText(foodView, R.id.amountTxt, FormatUtil.getMoneyString(cartFood.getAmount()));
-        Glide.with(mActivity)
+        Glide.with(activity)
                 .load(UrlUtil.getImageUrl(cartFood.image))
                 .apply(new RequestOptions().placeholder(R.mipmap.ic_placeholder))
                 .into((ImageView) foodView.findViewById(R.id.img));
@@ -199,42 +211,75 @@ public class RestaurantBillActivity extends BaseActivity {
 
     @OnClick(R.id.payBtn)
     void onPayBtn() {
-        String people = numTxt.getText().toString();
-        if (TextUtils.isEmpty(dateStr)) {
-            ToastUtil.showToast("请选择预约日期");
-        } else if (TextUtils.isEmpty(timeStr)) {
-            ToastUtil.showToast("请选择预约时间");
-        } else if ("0".equals(people)) {
-            ToastUtil.showToast("请选择就餐人数");
+        if (bill.getStatus() == 0) {
+            String people = numTxt.getText().toString();
+            if (TextUtils.isEmpty(dateStr)) {
+                ToastUtil.showToast("请选择预约日期");
+            } else if (TextUtils.isEmpty(timeStr)) {
+                ToastUtil.showToast("请选择预约时间");
+            } else if ("0".equals(people)) {
+                ToastUtil.showToast("请选择就餐人数");
+            } else {
+                if (getPayWay() == 4) {
+                    new AlertDialog.Builder(mActivity)
+                            .setTitle("温馨提示")
+                            .setMessage("确定用余额支付该订单吗？")
+                            .setNegativeButton("取消", null)
+                            .setPositiveButton("确定",
+                                    (dialog, which) -> RequestUtil.request(mActivity, true, false,
+                                            () -> ApiUtils.getApiService().payBill(
+                                                    LoginInfoUtil.getUid(),
+                                                    bill.getMerchantId(),
+                                                    people,
+                                                    psEdt.getText().toString(),
+                                                    dateStr + " " + timeStr,
+                                                    0,
+                                                    getPayWay()
+                                            ), result -> accountPayResult()))
+                            .show();
+                } else if (getPayWay() == 1) {
+                    RequestUtil.request(mActivity, true, false,
+                            () -> ApiUtils.getApiService().payBill(
+                                    LoginInfoUtil.getUid(),
+                                    bill.getMerchantId(),
+                                    people,
+                                    psEdt.getText().toString(),
+                                    dateStr + " " + timeStr,
+                                    0,
+                                    getPayWay()
+                            ), result -> wxPayResult(new Gson().fromJson(result.data, WXPayBean.class)));
+                }
+            }
         } else {
-            if (getPayWay() == 4) {
+            if (getPayWay() == 1) {
+                RequestUtil.request(mActivity, true, false,
+                        () -> ApiUtils.getApiService().wxPay(LoginInfoUtil.getUid(), bill.getOrderSN()),
+                        result -> wxPayResult(result.data));
+            } else if (getPayWay() == 4) {
                 new AlertDialog.Builder(mActivity)
                         .setTitle("温馨提示")
                         .setMessage("确定用余额支付该订单吗？")
                         .setNegativeButton("取消", null)
                         .setPositiveButton("确定",
                                 (dialog, which) -> RequestUtil.request(mActivity, true, false,
-                                        () -> ApiUtils.getApiService().payBill(
-                                                LoginInfoUtil.getUid(),
-                                                restaurant.id,
-                                                people,
-                                                psEdt.getText().toString(),
-                                                dateStr + " " + timeStr,
-                                                0,
-                                                getPayWay()
-                                        ), result -> {
-                                            finish();
-                                            if (getPayWay() == 1) {
-                                                WXPayBean wxPayBean = new Gson().fromJson(result.data, WXPayBean.class);
-                                                PayUtil.startWXPay(mActivity, wxPayBean);
-                                            } else if (getPayWay() == 4) {
-                                                ActivityUtils.startActivity(MallPaySuccessActivity.class);
-                                                EventBus.getDefault().post(new RestaurantPaySuccess());
-                                            }
-                                        }))
+                                        () -> ApiUtils.getApiService().accountPay(LoginInfoUtil.getUid(), bill.getOrderSN()),
+                                        result -> accountPayResult()))
                         .show();
             }
         }
+    }
+
+    private void accountPayResult() {
+        setResult(Activity.RESULT_OK);
+        finish();
+        ActivityUtils.startActivity(MallPaySuccessActivity.class);
+        EventBus.getDefault().post(new RestaurantPaySuccess());
+    }
+
+    private void wxPayResult(WXPayBean wxPayBean) {
+        setResult(Activity.RESULT_OK);
+        finish();
+        PayUtil.startWXPay(mActivity, wxPayBean);
     }
 
     private int getPayWay() {
@@ -252,9 +297,30 @@ public class RestaurantBillActivity extends BaseActivity {
         return R.layout.activity_restaurant_bill;
     }
 
-    public static void start(Activity activity, Restaurant restaurant, int requestCode) {
+    public static void start(Activity activity, IBill bill, int requestCode) {
         Bundle bundle = new Bundle();
-        bundle.putSerializable(KEY_DATA, restaurant);
+        bundle.putSerializable(KEY_DATA, bill);
         ActivityUtils.startActivityForResult(bundle, activity, RestaurantBillActivity.class, requestCode);
+    }
+
+    public interface IBill extends Serializable {
+
+        String getMerchantId();
+
+        List<Food> getFoods();
+
+        String getMerchantName();
+
+        String getMerchantLogo();
+
+        int getStatus();
+
+        String getDinnertime();
+
+        String getPeople();
+
+        String getRemark();
+
+        String getOrderSN();
     }
 }
