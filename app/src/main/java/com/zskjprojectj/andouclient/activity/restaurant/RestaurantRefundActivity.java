@@ -6,6 +6,7 @@ import android.widget.EditText;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.zhuosongkj.android.library.app.BaseActivity;
+import com.zhuosongkj.android.library.util.ActionBarUtil;
 import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.http.ApiUtils;
@@ -20,6 +21,12 @@ public class RestaurantRefundActivity extends BaseActivity {
 
     @BindView(R.id.reasonEdt)
     EditText reasonEdt;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ActionBarUtil.setTitle(mActivity, "取消预约");
+    }
 
     @Override
     protected int getContentView() {

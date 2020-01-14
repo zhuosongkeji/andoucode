@@ -1000,7 +1000,7 @@ public interface ApiService {
                                                                  @Field("id") String id);
 
     @FormUrlEncoded
-    @POST("api/htorder/refund")
+    @POST("api/gourmet/refund")
     Observable<BaseResult<Object>> refund(@Field("uid") String user_id,
                                           @Field("order_sn") String order_sn,
                                           @Field("refund_msg") String refund_msg);
