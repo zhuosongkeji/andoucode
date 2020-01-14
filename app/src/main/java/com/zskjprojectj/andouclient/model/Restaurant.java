@@ -1,9 +1,11 @@
 package com.zskjprojectj.andouclient.model;
 
+import com.zskjprojectj.andouclient.activity.restaurant.RestaurantBillActivity;
+
 import java.io.Serializable;
 import java.util.List;
 
-public class Restaurant implements Serializable {
+public class Restaurant implements Serializable , RestaurantBillActivity.IBill {
 
     public String id;
     public String door_img;
@@ -17,5 +19,50 @@ public class Restaurant implements Serializable {
 
     public boolean isVip() {
         return false;
+    }
+
+    @Override
+    public String getMerchantId() {
+        return id;
+    }
+
+    @Override
+    public List<Food> getFoods() {
+        return null;
+    }
+
+    @Override
+    public String getMerchantName() {
+        return name;
+    }
+
+    @Override
+    public String getMerchantLogo() {
+        return logo_img;
+    }
+
+    @Override
+    public int getStatus() {
+        return 0;
+    }
+
+    @Override
+    public String getDinnertime() {
+        return null;
+    }
+
+    @Override
+    public String getPeople() {
+        return null;
+    }
+
+    @Override
+    public String getRemark() {
+        return null;
+    }
+
+    @Override
+    public String getOrderSN() {
+        return null;
     }
 }

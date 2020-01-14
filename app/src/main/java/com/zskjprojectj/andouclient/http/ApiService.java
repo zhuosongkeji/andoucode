@@ -55,6 +55,7 @@ import com.zskjprojectj.andouclient.model.MerchantsResponse;
 import com.zskjprojectj.andouclient.model.Order;
 import com.zskjprojectj.andouclient.model.OrderDetail;
 import com.zskjprojectj.andouclient.model.RestaurantListResponse;
+import com.zskjprojectj.andouclient.model.RestaurantOrderDetail;
 import com.zskjprojectj.andouclient.model.User;
 
 import java.util.List;
@@ -387,9 +388,10 @@ public interface ApiService {
     @POST("api/users/upmodel")
     @FormUrlEncoded
     Observable<BaseResult<Object>> upmodel(@Field("uid") String uid,
-                                                  @Field("token") String token,
-                                                  @Field("phone") String phone,
-                                                  @Field("verify") String verify);
+                                           @Field("token") String token,
+                                           @Field("phone") String phone,
+                                           @Field("verify") String verify);
+
     /**
      * 收货地址列表
      */
@@ -412,6 +414,14 @@ public interface ApiService {
      */
     @POST("api/merchant/merchants")
     Observable<BaseResult<MerchantsResponse>> merchants();
+
+
+    /**
+     * 商户列表merchants two
+     */
+    @POST("api/merchant/merchants")
+    @FormUrlEncoded
+    Observable<BaseResult<MerchantsResponse>> merchants_two(@Field("page") int page);
 
     /**
      * 商户详情
@@ -452,9 +462,9 @@ public interface ApiService {
      */
     @POST("api/order/index")
     @FormUrlEncoded
-    Observable<BaseResult<List<Order>>> orderList(@Field("uid") String uid,
-                                                  @Field("token") String token,
-                                                  @Field("type") String type);
+    Observable<BaseResult<List<Order>>> getOrderList(@Field("uid") String uid,
+                                                     @Field("token") String token,
+                                                     @Field("type") String type);
 
     /**
      * 通知消息
@@ -481,9 +491,9 @@ public interface ApiService {
      */
     @POST("api/order/details")
     @FormUrlEncoded
-    Observable<BaseResult<OrderDetail>> orderDetail(@Field("uid") String uid,
-                                                    @Field("token") String token,
-                                                    @Field("order_sn") String order_sn);
+    Observable<BaseResult<OrderDetail>> getOrderDetail(@Field("uid") String uid,
+                                                       @Field("token") String token,
+                                                       @Field("order_sn") String order_sn);
 
 
     /**
@@ -1019,7 +1029,28 @@ public interface ApiService {
 
     @FormUrlEncoded
     @POST("api/gourmet/order")
-    Observable<BaseResult<RestaurantOrderListResponse>> orderList(@Field("uid") String user_id,
-                                                                  @Field("page") int merchant_id,
-                                                                  @Field("status") int status);
+    Observable<BaseResult<RestaurantOrderListResponse>> getOrderList(@Field("uid") String user_id,
+                                                                     @Field("page") int merchant_id,
+                                                                     @Field("status") int status);
+
+    @FormUrlEncoded
+    @POST("api/gourmet/order_details")
+    Observable<BaseResult<RestaurantOrderDetail>> getOrderDetail(@Field("uid") String user_id,
+                                                                 @Field("id") String id);
+
+    @FormUrlEncoded
+    @POST("api/gourmet/refund")
+    Observable<BaseResult<Object>> refund(@Field("uid") String user_id,
+                                          @Field("order_sn") String order_sn,
+                                          @Field("refund_msg") String refund_msg);
+
+    @FormUrlEncoded
+    @POST("api/gourmet/wxPay")
+    Observable<BaseResult<WXPayBean>> wxPay(@Field("uid") String user_id,
+                                            @Field("sNo") String order_sn);
+
+    @FormUrlEncoded
+    @POST("api/gourmet/balancePay")
+    Observable<BaseResult<Object>> accountPay(@Field("uid") String user_id,
+                                              @Field("sNo") String order_sn);
 }

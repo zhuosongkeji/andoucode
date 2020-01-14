@@ -71,7 +71,8 @@ public class PageLoadUtil<T> {
 
     private void loadData(boolean needRefresh) {
         startLoadingImage();
-        if (observableProvider == null) return;
+        if (observableProvider == null)
+            return;
         if (needRefresh) {
             page = 1;
         }

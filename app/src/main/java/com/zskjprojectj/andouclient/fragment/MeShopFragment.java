@@ -1,28 +1,20 @@
 package com.zskjprojectj.andouclient.fragment;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 
 
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.CheckthelogisticsActivity;
 import com.zskjprojectj.andouclient.activity.ShoporderdetailsActivity;
 import com.zskjprojectj.andouclient.activity.ToevaluateActivity;
 import com.zskjprojectj.andouclient.activity.mall.MallOnlineOrderActivity;
 import com.zskjprojectj.andouclient.adapter.MeShopFragmentAdapter;
-import com.zskjprojectj.andouclient.adapter.hotel.ReserveAdapter;
 import com.zskjprojectj.andouclient.base.BaseFragment;
-import com.zskjprojectj.andouclient.entity.MeShopFragmentBean;
-import com.zskjprojectj.andouclient.entity.hotel.HotelDetailReserveBean;
 import com.zskjprojectj.andouclient.fragment.hotel.CustomViewDialog;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
@@ -32,7 +24,6 @@ import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -117,7 +108,7 @@ public class MeShopFragment extends BaseFragment {
 
     @Override
     protected void getDataFromServer() {
-        HttpRxObservable.getObservable(ApiUtils.getApiService().orderList(
+        HttpRxObservable.getObservable(ApiUtils.getApiService().getOrderList(
                 LoginInfoUtil.getUid(),
                 LoginInfoUtil.getToken(),
                 state

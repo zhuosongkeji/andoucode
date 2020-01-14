@@ -31,7 +31,9 @@
         android:usesCleartextTraffic="true"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning"
         tools:targetApi="m">
-        <activity android:name=".activity.restaurant.RestaurantBillActivity"></activity>
+        <activity android:name=".activity.restaurant.RestaurantRefundActivity"></activity>
+        <activity android:name=".activity.restaurant.RestaurantOrderDetailActivity" />
+        <activity android:name=".activity.restaurant.RestaurantBillActivity" />
         <activity android:name=".activity.restaurant.RestaurantDetailActivity" />
         <activity android:name=".activity.restaurant.RestaurantHomeActivity" />
         <activity android:name=".activity.CommentSuccessActivity" />

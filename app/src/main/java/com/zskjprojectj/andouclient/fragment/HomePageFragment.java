@@ -12,10 +12,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.BarUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -30,6 +32,8 @@ import com.zaaach.citypicker.model.City;
 import com.zaaach.citypicker.model.HotCity;
 import com.zaaach.citypicker.model.LocateState;
 import com.zaaach.citypicker.model.LocatedCity;
+import com.zhuosongkj.android.library.app.BaseFragment;
+import com.zhuosongkj.android.library.util.ActionBarUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 import com.zskjprojectj.andouclient.R;
@@ -43,7 +47,6 @@ import com.zskjprojectj.andouclient.activity.MallMainActivity;
 import com.zskjprojectj.andouclient.activity.restaurant.RestaurantHomeActivity;
 import com.zskjprojectj.andouclient.adapter.CoverFlowAdapter;
 import com.zskjprojectj.andouclient.adapter.merchantsCategoryAdapter;
-import com.zskjprojectj.andouclient.base.BaseFragment;
 import com.zskjprojectj.andouclient.base.BaseUrl;
 import com.zskjprojectj.andouclient.entity.IndexHomeBean;
 import com.zskjprojectj.andouclient.http.ApiUtils;
@@ -92,25 +95,20 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
     private int theme;
     private TextView tv_cityinfo;
     private XBanner bannertops;
-    private LinearLayout rootView;
     private LinearLayout onlinebroadcast_see_more_layout, appointment_see_more_layout, onlinebooking_see_more_layout, ly_citychoose;
     private CoverFlowAdapter adapter;
     private merchantsCategoryAdapter merchantsAdapter = new merchantsCategoryAdapter();
 
 
     @Override
-    protected void initViews(View view, Bundle savedInstanceState) {
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+
+
         initCoverFlow();
         bannertops = view.findViewById(R.id.bannertop);
-        rootView = view.findViewById(R.id.root_view);
         view.findViewById(R.id.sha).setOnClickListener(v -> ActivityUtils.startActivity(QrCodeActivity.class));
-        getBarDistance(rootView);
-
-//        //设置状态栏的高度
-//        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) rootView.getLayoutParams();
-//        layoutParams.topMargin = BarUtils.getStatusBarHeight(getActivity()) + layoutParams.topMargin;
-//        rootView.setLayoutParams(layoutParams);
-
         onlinebroadcast_see_more_layout = view.findViewById(R.id.onlinebroadcast_see_more_layout);
         appointment_see_more_layout = view.findViewById(R.id.appointment_see_more_layout);
         onlinebooking_see_more_layout = view.findViewById(R.id.onlinebooking_see_more_layout);
@@ -122,8 +120,10 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
         mRvMerchants.setLayoutManager(layoutManager);
         mRvMerchants.setAdapter(merchantsAdapter);
 
-
+        initData();
+        getDataFromServer();
     }
+
 
     private void initCoverFlow() {
         adapter = new CoverFlowAdapter(getActivity(), this);
@@ -146,20 +146,11 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
         });
     }
 
-    /**
-     * 这里是加载的首页碎片布局,布局是怎么样的页面就是怎么样的
-     *
-     * @return
-     */
-    @Override
-    protected int getContentViewRes() {
-        return R.layout.fragment_homepage;
-    }
 
-    @Override
-    protected void getDataFromServer() {
 
-        HttpRxObservable.getObservable(ApiUtils.getApiService().index()).subscribe(new BaseObserver<IndexHomeBean>(mAty) {
+    private void getDataFromServer() {
+
+        HttpRxObservable.getObservable(ApiUtils.getApiService().index()).subscribe(new BaseObserver<IndexHomeBean>(mActivity) {
             @Override
             public void onHandleSuccess(IndexHomeBean indexHomeBean) throws IOException {
 
@@ -178,12 +169,10 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
 
 
                 List<IndexHomeBean.NoticeBean> notice = indexHomeBean.getNotice();
-                Log.d(TAG, "oaaaaaaaa: " + notice.size());
                 for (int i = 0; i < notice.size(); i++) {
                     View view = getLayoutInflater().inflate(R.layout.text_view, null);
                     TextView content = view.findViewById(R.id.tv_index_notice);
                     content.setText(notice.get(i).getContent());
-                    Log.d(TAG, "notice" + notice.get(i).getContent());
                     view_flipper.addView(view);
                 }
                 view_flipper.setFlipInterval(2000);
@@ -195,11 +184,10 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
 
     }
 
-    @Override
-    protected void initData() {
+    private void initData() {
 
 
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, ScreenUtil.getScreenWidth(mAty) / 2);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, ScreenUtil.getScreenWidth(mActivity) / 2);
         bannertops.setLayoutParams(layoutParams);
         initBanner(bannertops);
 
@@ -302,7 +290,7 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
             @Override
             public void loadBanner(XBanner banner, Object model, View view, int position) {
                 IndexHomeBean.BannerBean model1 = (IndexHomeBean.BannerBean) model;
-                Glide.with(mAty).load(BaseUrl.BASE_URL + model1.getImg()).apply(new RequestOptions()
+                Glide.with(mActivity).load(BaseUrl.BASE_URL + model1.getImg()).apply(new RequestOptions()
                         .placeholder(R.drawable.default_image).error(R.drawable.default_image)).into((ImageView) view);
             }
         });
@@ -343,5 +331,10 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
         if (getActivity() instanceof MainActivity) {
             ((MainActivity) getActivity()).getNavigationBar().selectTab(1);
         }
+    }
+
+    @Override
+    protected int getContentView() {
+        return R.layout.fragment_homepage;
     }
 }

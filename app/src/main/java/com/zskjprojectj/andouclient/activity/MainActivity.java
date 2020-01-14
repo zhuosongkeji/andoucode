@@ -13,6 +13,7 @@ import android.provider.Settings;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -20,10 +21,12 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 
+import com.blankj.utilcode.util.BarUtils;
 import com.next.easynavigation.view.EasyNavigationBar;
 import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.zhuosongkj.android.library.app.BaseActivity;
+import com.zhuosongkj.android.library.util.ActionBarUtil;
 import com.zskjprojectj.andouclient.R;
 
 import com.zskjprojectj.andouclient.base.BasePresenter;
@@ -37,7 +40,6 @@ import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.http.RetrofitUtils;
 import com.zskjprojectj.andouclient.model.User;
-import com.zskjprojectj.andouclient.utils.BarUtils;
 import com.zskjprojectj.andouclient.utils.LogUtil;
 import com.zskjprojectj.andouclient.utils.SharedPreferencesManager;
 import com.zskjprojectj.andouclient.utils.StatusBarUtil;
@@ -100,6 +102,34 @@ public class MainActivity extends BaseActivity {
                 .fragmentManager(getSupportFragmentManager())
                 .canScroll(false)
                 .mode(EasyNavigationBar.MODE_ADD)
+                .onTabClickListener(new EasyNavigationBar.OnTabClickListener() {
+                    @Override
+                    public boolean onTabClickEvent(View view, int position) {
+                        switch (position) {
+
+                            case 0:
+                                BarUtils.transparentStatusBar(mActivity);
+                                ActionBarUtil.setVisible(mActivity,false);
+                                break;
+                            case 1:
+                                ActionBarUtil.setTitle(mActivity, "商家");
+                                break;
+                            case 2:
+                                BarUtils.transparentStatusBar(mActivity);
+                                ActionBarUtil.setVisible(mActivity,false);
+                                break;
+                            case 3:
+                                ActionBarUtil.setTitle(mActivity, "信息");
+                                break;
+                            case 4:
+                                BarUtils.transparentStatusBar(mActivity);
+                                ActionBarUtil.setVisible(mActivity,false);
+                                break;
+
+                        }
+                        return false;
+                    }
+                })
                 .build();
 
         checkRxPermission();

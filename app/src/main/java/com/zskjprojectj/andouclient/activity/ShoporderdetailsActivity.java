@@ -66,7 +66,7 @@ public class ShoporderdetailsActivity extends BaseActivity {
     @Override
     public void getDataFromServer() {
         Order order = (Order) getIntent().getSerializableExtra(KEY_DATA);
-        HttpRxObservable.getObservable(ApiUtils.getApiService().orderDetail(
+        HttpRxObservable.getObservable(ApiUtils.getApiService().getOrderDetail(
                 LoginInfoUtil.getUid(),
                 LoginInfoUtil.getToken(),
                 order.order_id
