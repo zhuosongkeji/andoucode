@@ -63,13 +63,15 @@ import static com.zskjprojectj.andouclient.http.BaseObserver.REQUEST_CODE_LOGIN;
 public class LoginActivity extends BaseActivity {
 
     public static final String KEY_FOR_RESULT = "KEY_FOR_RESULT";
+    private static boolean started = false;
     private TextView btnNewregistered;
     private Button btn_login;
-    private ImageView fingerprint_login,img_weixinlogin;
+    private ImageView fingerprint_login, img_weixinlogin;
     private EditText registered_phonenum, et_loginpwd;
     private IWXAPI api;
     Receiver receiver;
     IntentFilter intentFilter;
+
     @Override
     protected void setRootView() {
         setContentView(R.layout.activity_login);
@@ -90,7 +92,7 @@ public class LoginActivity extends BaseActivity {
         btn_login = findViewById(R.id.btn_login);
         findViewById(R.id.login_back_image).setOnClickListener(v -> finish());
         fingerprint_login = findViewById(R.id.iv_fingerprint_login);
-        img_weixinlogin=findViewById(R.id.img_weixinlogin);
+        img_weixinlogin = findViewById(R.id.img_weixinlogin);
         registered_phonenum = findViewById(R.id.et_loginphonenum);
         et_loginpwd = findViewById(R.id.et_loginpwd);
         //这个跳转最好是在网络请求成功过后去调用，现在没得接口请求暂时写在这里
@@ -157,6 +159,7 @@ public class LoginActivity extends BaseActivity {
             }
         });
     }
+
     //        /**
 //         * 指纹登录
 //         */
@@ -180,17 +183,16 @@ public class LoginActivity extends BaseActivity {
                         @Override
                         public void onHandleSuccess(User user) throws IOException {
                             LoginInfoUtil.saveLoginInfo(user.id, user.token);
-                            if (!TextUtils.isEmpty(user.token))
-                            {
+                            if (!TextUtils.isEmpty(user.token)) {
                                 if (!getIntent().getBooleanExtra(KEY_FOR_RESULT, false)) {
                                     jumpActivity(MainActivity.class);
                                 }
                                 finish();
-                            }else {
-                                Intent bindintent=new Intent();
-                                bindintent.putExtra("nickname",user.name);
-                                bindintent.putExtra("avatorpic",user.avator);
-                                bindintent.putExtra("openid",user.openid);
+                            } else {
+                                Intent bindintent = new Intent();
+                                bindintent.putExtra("nickname", user.name);
+                                bindintent.putExtra("avatorpic", user.avator);
+                                bindintent.putExtra("openid", user.openid);
                                 bindintent.setClass(mAt, WeixinbingphoneActivity.class);
                                 startActivity(bindintent);
                                 finish();
@@ -205,6 +207,7 @@ public class LoginActivity extends BaseActivity {
                     });
         }
     }
+
     @Override
     public void getDataFromServer() {
         //登录请求的逻辑在这里写
@@ -345,9 +348,12 @@ public class LoginActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         unregisterReceiver(receiver);
+        started = false;
     }
 
     public static void start(Activity activity) {
+        if (started) return;
+        started = true;
         Bundle bundle = new Bundle();
         bundle.putBoolean(KEY_FOR_RESULT, true);
         ActivityUtils.startActivityForResult(bundle, activity, LoginActivity.class, REQUEST_CODE_LOGIN);
