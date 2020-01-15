@@ -22,10 +22,15 @@ import com.blankj.utilcode.util.ActivityUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.zhuosongkj.android.library.app.BaseActivity;
+import com.zhuosongkj.android.library.model.BaseResult;
+import com.zhuosongkj.android.library.model.IListData;
+import com.zhuosongkj.android.library.util.PageLoadUtil;
+import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.adapter.mall.MallShoppingHomeAdapter;
 import com.zskjprojectj.andouclient.adapter.mall.MallShoppingPopuAdapter;
-import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
 import com.zskjprojectj.andouclient.base.BaseUrl;
 import com.zskjprojectj.andouclient.entity.mall.MallShoppingHomeBean;
@@ -40,6 +45,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.Observable;
 
 public class MallShoppingHomeActivity extends BaseActivity {
 
@@ -59,8 +65,6 @@ public class MallShoppingHomeActivity extends BaseActivity {
     @BindView(R.id.ll_mall_shopping_classify)
     LinearLayout mShoppingClassify;
 
-    @BindView(R.id.rl_root_view)
-    RelativeLayout mRootView;
     //店铺关注
     @BindView(R.id.tv_mall_merchants_focuson)
     TextView mtvMallMerchantsFocuson;
@@ -87,51 +91,41 @@ public class MallShoppingHomeActivity extends BaseActivity {
     @BindView(R.id.iv_price)
     ImageView mIvPrice;
 
+    @BindView(R.id.refreshLayout)
+    SmartRefreshLayout mRefreshLayout;
 
 
     private RecyclerView mRecyclerPopu;
     private Button mConfirm;
     private PopupWindow mPopWindow;
     private String merchantId;
-    private boolean volumeflag=false;
-    private boolean priceflag=false;
+    private boolean volumeflag = false;
+    private boolean priceflag = false;
 
     //关键字查询
     private String keyword;
     //分类id查询
     private String type_id;
     //价格排序(非必传1为倒序,0为正序)
-    private String price_sort="0";
+    private String price_sort = "0";
     //销量排序(非必传1为倒序,0为正序)
-    private String volume_sort="0";
+    private String volume_sort = "0";
     private List<MallShoppingHomeBean.TypeBean> typeBeanList;
-    private boolean isfocuson= false;
+    private boolean isfocuson = false;
     private String type;
+    MallShoppingHomeAdapter adapter = new MallShoppingHomeAdapter();
+
     @Override
-    protected void setRootView() {
-        setContentView(R.layout.activity_mall_shopping_home);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        initViews();
+        getDataFromServer();
     }
 
-    @Override
-    protected void initData(Bundle savedInstanceState) {
 
-
-    }
-
-    @Override
-    protected void initViews() {
+    private void initViews() {
         merchantId = getIntent().getStringExtra("merchant_id");
-        //设置状态栏的高度
-        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mRootView.getLayoutParams();
-        layoutParams.topMargin = BarUtils.getStatusBarHeight(this);
-        mRootView.setLayoutParams(layoutParams);
         mRecycler.setLayoutManager(new GridLayoutManager(this, 2));
-
-    }
-
-    @Override
-    public void getDataFromServer() {
-        Log.d(TAG, "sort: "+merchantId+"===="+ LoginInfoUtil.getUid()+"===="+volume_sort+"===="+price_sort);
 
         HttpRxObservable.getObservable(ApiUtils.getApiService().mallMerchant(
                 merchantId,
@@ -139,7 +133,8 @@ public class MallShoppingHomeActivity extends BaseActivity {
                 keyword,
                 type_id,
                 price_sort,
-                volume_sort
+                volume_sort,
+                1
 
         )).subscribe(new BaseObserver<MallShoppingHomeBean>(this) {
             @Override
@@ -157,9 +152,6 @@ public class MallShoppingHomeActivity extends BaseActivity {
                     ivisfocuson.setVisibility(View.GONE);
                 }
                 Glide.with(MallShoppingHomeActivity.this).load(BaseUrl.BASE_URL + mallShoppingHomeBean.getBanner_img()).into(mIvShoppingBackground);
-                Log.d(TAG, "onHandleSuccess: "+mallShoppingHomeBean.getBanner_img());
-                initMallShoppingHomeAdapter(mallShoppingHomeBean.getGoods());
-
                 typeBeanList = mallShoppingHomeBean.getType();
             }
         });
@@ -167,27 +159,22 @@ public class MallShoppingHomeActivity extends BaseActivity {
     }
 
 
+    private void getDataFromServer() {
 
-
-
-    private void initMallShoppingHomeAdapter(List<MallShoppingHomeBean.GoodsBean> goods) {
-        MallShoppingHomeAdapter adapter = new MallShoppingHomeAdapter(R.layout.activity_mall_shopping_item_view, goods);
+        PageLoadUtil<MallShoppingHomeBean.GoodsBean> pageLoadUtil = PageLoadUtil.get(mActivity, mRecycler, adapter, mRefreshLayout);
+        pageLoadUtil.load(() -> ApiUtils.getApiService().mallMerchant(
+                merchantId,
+                LoginInfoUtil.getUid(),
+                keyword,
+                type_id,
+                price_sort,
+                volume_sort,
+                pageLoadUtil.page
+        ));
         adapter.openLoadAnimation();
-        mRecycler.setAdapter(adapter);
-        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                MallGoodsDetailsActivity.start(goods.get(position).getId());
-            }
-        });
+        adapter.setOnItemClickListener((adapter1, view, position) -> MallGoodsDetailsActivity.start(adapter.getItem(position).getId()));
 
     }
-
-    @Override
-    protected BasePresenter createPresenter() {
-        return null;
-    }
-
 
 
     /**
@@ -266,46 +253,46 @@ public class MallShoppingHomeActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.busiess_back_image,R.id.tv_volume,R.id.tv_price,R.id.iv_Goods_search,R.id.mall_merchants_focuson})
+    @OnClick({R.id.busiess_back_image, R.id.tv_volume, R.id.tv_price, R.id.iv_Goods_search, R.id.mall_merchants_focuson})
     public void clickView(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.busiess_back_image:
                 finish();
                 break;
-                //销量
+            //销量
             case R.id.tv_volume:
-                price_sort="0";
-                if(!volumeflag){
-                    volume_sort="1";
-                    getDataFromServer();
+                price_sort = "0";
+                if (!volumeflag) {
+                    volume_sort = "1";
+//                    getDataFromServer();
 
-                    volumeflag=true;
-                }else {
-                    volume_sort="2";
-                    getDataFromServer();
-                    volumeflag=false;
+                    volumeflag = true;
+                } else {
+                    volume_sort = "2";
+//                    getDataFromServer();
+                    volumeflag = false;
                 }
                 break;
-                //价格
+            //价格
             case R.id.tv_price:
-                volume_sort="0";
-                if(!priceflag){
-                    price_sort="1";
-                    getDataFromServer();
-                    priceflag=true;
-                }else {
-                    price_sort="2";
-                    getDataFromServer();
-                    priceflag=false;
+                volume_sort = "0";
+                if (!priceflag) {
+                    price_sort = "1";
+//                    getDataFromServer();
+                    priceflag = true;
+                } else {
+                    price_sort = "2";
+//                    getDataFromServer();
+                    priceflag = false;
                 }
                 break;
 
             case R.id.iv_Goods_search:
 
                 String searchContent = mSearchEdittext.getText().toString().trim();
-                keyword="";
-                keyword=searchContent;
-                getDataFromServer();
+                keyword = "";
+                keyword = searchContent;
+//                getDataFromServer();
                 break;
             case R.id.mall_merchants_focuson:
                 if (!isfocuson) {
@@ -319,7 +306,6 @@ public class MallShoppingHomeActivity extends BaseActivity {
                     type = "0";
                     isfocuson = false;
                 }
-                Log.d(TAG, "type: "+type);
                 HttpRxObservable.getObservable(ApiUtils.getApiService().mallgoodsfollow(merchantId
                         ,
                         LoginInfoUtil.getUid(),
@@ -336,10 +322,15 @@ public class MallShoppingHomeActivity extends BaseActivity {
     }
 
 
-    public static void start(String merchant_id){
-        Bundle bundle=new Bundle();
-        bundle.putString("merchant_id",merchant_id);
-        ActivityUtils.startActivity(bundle,MallShoppingHomeActivity.class);
+    public static void start(String merchant_id) {
+        Bundle bundle = new Bundle();
+        bundle.putString("merchant_id", merchant_id);
+        ActivityUtils.startActivity(bundle, MallShoppingHomeActivity.class);
 
+    }
+
+    @Override
+    protected int getContentView() {
+        return R.layout.activity_mall_shopping_home;
     }
 }

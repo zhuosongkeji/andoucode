@@ -24,13 +24,20 @@ import android.widget.TextView;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
+import com.blankj.utilcode.util.BarUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.zhuosongkj.android.library.app.BaseActivity;
+import com.zhuosongkj.android.library.model.BaseResult;
+import com.zhuosongkj.android.library.model.IListData;
+import com.zhuosongkj.android.library.util.ActionBarUtil;
+import com.zhuosongkj.android.library.util.PageLoadUtil;
+import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.adapter.hotel.HotelCateGoryAdapter;
 import com.zskjprojectj.andouclient.adapter.hotel.HotelHomeAdapter;
 import com.zskjprojectj.andouclient.adapter.hotel.HotelPriceAdapter;
 import com.zskjprojectj.andouclient.adapter.hotel.HotelStarAdapter;
-import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
 import com.zskjprojectj.andouclient.entity.hotel.HotelCategoryBean;
 import com.zskjprojectj.andouclient.entity.hotel.HotelHomeBean;
@@ -38,7 +45,6 @@ import com.zskjprojectj.andouclient.entity.hotel.HotelSearchConditionBean;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
-import com.zskjprojectj.andouclient.utils.BarUtils;
 import com.zskjprojectj.andouclient.utils.GridSectionAverageGapItemDecoration;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
 
@@ -50,6 +56,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.Observable;
 
 /**
  * 酒店预约
@@ -73,10 +80,12 @@ public class HotelActivity extends BaseActivity implements View.OnClickListener 
     RecyclerView mHotelCategory;
     @BindView(R.id.tv_set_like)
     TextView mTvSetLike;
+    @BindView(R.id.refreshLayout)
+    SmartRefreshLayout mRefreshLayout;
 
 
     private RecyclerView mRvRecycler;
-    private LinearLayout mTitle, mSearchHotel;
+    private LinearLayout  mSearchHotel;
     private View contentView;
     private Dialog bottomDialog;
     private RecyclerView mPriceRecycler;
@@ -91,24 +100,23 @@ public class HotelActivity extends BaseActivity implements View.OnClickListener 
     private String hotelStar;
 
     @Override
-    protected void setRootView() {
-        setContentView(R.layout.activity_hotel);
-
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        BarUtils.transparentStatusBar(mActivity);
+        initViews();
+        initData();
+        getDataFromServer();
     }
 
-    @Override
-    protected void initData(Bundle savedInstanceState) {
 
-        HttpRxObservable.getObservable(ApiUtils.getApiService().hotelHomeList()).subscribe(new BaseObserver<List<HotelHomeBean>>(mAt) {
+    private void initData() {
+
+
+        PageLoadUtil<HotelHomeBean> pageLoadUtil = PageLoadUtil.get(mActivity, mRvRecycler, hoteladapter, mRefreshLayout);
+        pageLoadUtil.load(new RequestUtil.ObservableProvider<IListData<HotelHomeBean>>() {
             @Override
-            public void onHandleSuccess(List<HotelHomeBean> hotelHomeBeans) throws IOException {
-                hoteladapter.setNewData(hotelHomeBeans);
-                hoteladapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                        HotelDetailActivity.start(hotelHomeBeans.get(position).getId());
-                    }
-                });
+            public Observable<? extends BaseResult<? extends IListData<HotelHomeBean>>> getObservable() {
+                return ApiUtils.getApiService().hotelHomeList(pageLoadUtil.page);
             }
         });
 
@@ -116,21 +124,25 @@ public class HotelActivity extends BaseActivity implements View.OnClickListener 
         hoteladapter.openLoadAnimation();
         mRvRecycler.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         mRvRecycler.setAdapter(hoteladapter);
+        hoteladapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                HotelDetailActivity.start(hoteladapter.getItem(position).getId());
+            }
+        });
+        mRefreshLayout.setEnableRefresh(false);
 
 
     }
 
-    @Override
-    protected void initViews() {
+
+    private void initViews() {
+
+
 
         mInputNumber.setInputType(EditorInfo.TYPE_CLASS_PHONE);
-        mTitle = findViewById(R.id.titlt_view);
         mRvRecycler = findViewById(R.id.rv_recycler);
         mRvRecycler.setLayoutManager(new LinearLayoutManager(this));
-        //设置状态栏的高度
-        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mTitle.getLayoutParams();
-        layoutParams.topMargin = BarUtils.getStatusBarHeight(this);
-        mTitle.setLayoutParams(layoutParams);
 
         mSearchHotel = findViewById(R.id.search_hotel);
         mSearchHotel.setOnClickListener(this);
@@ -153,10 +165,10 @@ public class HotelActivity extends BaseActivity implements View.OnClickListener 
         return f.format(now);
     }
 
-    @Override
-    public void getDataFromServer() {
 
-        HttpRxObservable.getObservable(ApiUtils.getApiService().hotelCategory()).subscribe(new BaseObserver<List<HotelCategoryBean>>(mAt) {
+    private void getDataFromServer() {
+
+        HttpRxObservable.getObservable(ApiUtils.getApiService().hotelCategory()).subscribe(new BaseObserver<List<HotelCategoryBean>>(mActivity) {
             @Override
             public void onHandleSuccess(List<HotelCategoryBean> hotelCategoryBeans) throws IOException {
                 adapter.setNewData(hotelCategoryBeans);
@@ -171,10 +183,6 @@ public class HotelActivity extends BaseActivity implements View.OnClickListener 
 
     }
 
-    @Override
-    protected BasePresenter createPresenter() {
-        return null;
-    }
 
     @Override
     public void onClick(View v) {
@@ -273,7 +281,7 @@ public class HotelActivity extends BaseActivity implements View.OnClickListener 
         mStarRecycler.setLayoutManager(new GridLayoutManager(this, 4));
         mStarRecycler.addItemDecoration(new GridSectionAverageGapItemDecoration(10, 10, 0, 10));
 
-        HttpRxObservable.getObservable(ApiUtils.getApiService().hotelSearchCondition()).subscribe(new BaseObserver<HotelSearchConditionBean>(mAt) {
+        HttpRxObservable.getObservable(ApiUtils.getApiService().hotelSearchCondition()).subscribe(new BaseObserver<HotelSearchConditionBean>(mActivity) {
             @Override
             public void onHandleSuccess(HotelSearchConditionBean hotelSearchConditionBean) throws IOException {
                 //价格
@@ -345,4 +353,8 @@ public class HotelActivity extends BaseActivity implements View.OnClickListener 
         finish();
     }
 
+    @Override
+    protected int getContentView() {
+        return R.layout.activity_hotel;
+    }
 }

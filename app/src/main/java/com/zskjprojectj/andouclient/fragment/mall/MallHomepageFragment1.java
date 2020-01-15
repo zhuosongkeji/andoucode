@@ -52,10 +52,6 @@ import butterknife.OnClick;
 public class MallHomepageFragment1 extends BaseFragment {
 
 
-    @BindView(R.id.root_view)
-    RelativeLayout mRootView;
-
-
     @BindView(R.id.onlinebanner)
     XBanner onlinebanner;
 
@@ -82,7 +78,7 @@ public class MallHomepageFragment1 extends BaseFragment {
 
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
-        getBarDistance(mRootView);
+
     }
 
     @Override

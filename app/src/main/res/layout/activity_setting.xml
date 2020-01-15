@@ -47,6 +47,7 @@
             android:background="#F7F7F7" />
 
         <RelativeLayout
+            android:id="@+id/rl_modifythenickname"
             android:layout_width="match_parent"
             android:layout_height="69dp"
             android:background="@color/white"

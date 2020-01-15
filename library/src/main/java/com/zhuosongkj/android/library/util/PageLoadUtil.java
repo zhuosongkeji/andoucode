@@ -13,7 +13,7 @@ import com.chad.library.adapter.base.loadmore.LoadMoreView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.zhuosongkj.android.library.R;
 import com.zhuosongkj.android.library.app.BaseActivity;
-import com.zhuosongkj.android.library.model.ListData;
+import com.zhuosongkj.android.library.model.IListData;
 import com.zhuosongkj.android.library.ui.RefreshHeaderView;
 
 import java.util.List;
@@ -23,7 +23,7 @@ public class PageLoadUtil<T> {
     private BaseQuickAdapter<T, BaseViewHolder> adapter;
     private SmartRefreshLayout refreshLayout;
     private BaseActivity activity;
-    private RequestUtil.ObservableProvider<? extends ListData<T>> observableProvider;
+    private RequestUtil.ObservableProvider<? extends IListData<T>> observableProvider;
     private View loadingView;
     private OnLoadListener<T> onLoadListener;
 
@@ -107,11 +107,11 @@ public class PageLoadUtil<T> {
                 }, 500));
     }
 
-    public void load(RequestUtil.ObservableProvider<? extends ListData<T>> observableProvider) {
+    public void load(RequestUtil.ObservableProvider<? extends IListData<T>> observableProvider) {
         load(observableProvider, null);
     }
 
-    public void load(RequestUtil.ObservableProvider<? extends ListData<T>> observableProvider, OnLoadListener<T> onLoadListener) {
+    public void load(RequestUtil.ObservableProvider<? extends IListData<T>> observableProvider, OnLoadListener<T> onLoadListener) {
         this.observableProvider = observableProvider;
         this.onLoadListener = onLoadListener;
         loadData(true);

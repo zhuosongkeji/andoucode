@@ -27,8 +27,8 @@ import java.util.List;
  */
 public class HotelResultAdapter  extends BaseQuickAdapter<HotelHomeBean,BaseViewHolder>{
 
-    public HotelResultAdapter(int layoutResId, @Nullable List<HotelHomeBean> data) {
-        super(layoutResId, data);
+    public HotelResultAdapter() {
+        super(R.layout.hotelresuilt_item_view);
     }
 
     @Override

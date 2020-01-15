@@ -15,8 +15,8 @@ import com.zskjprojectj.andouclient.entity.mall.MallGoodsListBean;
 import java.util.List;
 
 public class ClassificationofgoodsAdapter extends BaseQuickAdapter<MallGoodsListBean, BaseViewHolder> {
-    public ClassificationofgoodsAdapter(int layoutResId, @Nullable List<MallGoodsListBean> data) {
-        super(layoutResId, data);
+    public ClassificationofgoodsAdapter() {
+        super(R.layout.item_classificationofgoods);
     }
 
     @Override

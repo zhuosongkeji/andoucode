@@ -2,6 +2,7 @@ package com.zskjprojectj.andouclient.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -73,8 +74,9 @@ public class HomeAdapter extends BaseAdapter {
         viewHold.gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
                 //商品分类跳转到商品列表
-                ClassificationofgoodsActivity.getCataId(towcate.get(position).getId());
+                ClassificationofgoodsActivity.getCataId(towcate.get(i).getId());
             }
         });
         return convertView;

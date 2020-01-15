@@ -268,6 +268,8 @@
         <activity
             android:name=".activity.OpeningmemberActivity"
             android:screenOrientation="portrait" /> <!-- 开通vip -->
+        <activity android:name=".activity.ModifythenicknameActivity"
+            android:screenOrientation="portrait" /><!--修改昵称-->
         <activity
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"

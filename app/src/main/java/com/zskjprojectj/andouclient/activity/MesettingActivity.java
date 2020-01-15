@@ -1,6 +1,7 @@
 package com.zskjprojectj.andouclient.activity;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -8,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ActivityUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
@@ -39,10 +41,11 @@ public class MesettingActivity extends BaseActivity {
     RelativeLayout mTitleView;
     @BindView(R.id.tv_header_title)
     TextView mHeaderTitle;
-    private TextView tv_usersetversion,tv_usersetphone,tv_usersetname,mFsize;
+    private TextView tv_usersetversion, tv_usersetphone, tv_usersetname, mFsize;
     private ImageView img_setpic;
-   private RelativeLayout rl_modifythephone,rl_modifythepassword,rl_modifyfeedback,rl_modifyaboutus,rl_clear;
-   private Button btn_exit;
+    private RelativeLayout rl_modifythephone, rl_modifythepassword, rl_modifyfeedback, rl_modifyaboutus, rl_clear, rl_modifythenickname;
+    private Button btn_exit;
+
     @Override
     protected void setRootView() {
         setContentView(R.layout.activity_setting);
@@ -56,23 +59,43 @@ public class MesettingActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-        rl_modifythephone=findViewById(R.id.rl_modifythephone);
-        rl_modifythepassword=findViewById(R.id.rl_modifythepassword);
-        rl_modifyfeedback=findViewById(R.id.rl_modifyfeedback);
-        rl_modifyaboutus=findViewById(R.id.rl_modifyaboutus);
-        tv_usersetversion=findViewById(R.id.tv_usersetversion);
-        tv_usersetphone=findViewById(R.id.tv_usersetphone);
-        tv_usersetname=findViewById(R.id.tv_usersetname);
-        img_setpic=findViewById(R.id.img_setpic);
-        rl_clear=findViewById(R.id.rl_clear);
-        mFsize=findViewById(R.id.tv_msize);
-//        btn_exit=findViewById(R.id.btn_exit);
-//        btn_exit.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                System.exit(0);
-//            }
-//        });
+        rl_modifythephone = findViewById(R.id.rl_modifythephone);
+        rl_modifythepassword = findViewById(R.id.rl_modifythepassword);
+        rl_modifyfeedback = findViewById(R.id.rl_modifyfeedback);
+        rl_modifyaboutus = findViewById(R.id.rl_modifyaboutus);
+        tv_usersetversion = findViewById(R.id.tv_usersetversion);
+        tv_usersetphone = findViewById(R.id.tv_usersetphone);
+        tv_usersetname = findViewById(R.id.tv_usersetname);
+        img_setpic = findViewById(R.id.img_setpic);
+        rl_clear = findViewById(R.id.rl_clear);
+        rl_modifythenickname = findViewById(R.id.rl_modifythenickname);
+        mFsize = findViewById(R.id.tv_msize);
+        btn_exit = findViewById(R.id.btn_exit);
+        btn_exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                HttpRxObservable.getObservable(ApiUtils.getApiService().quit(LoginInfoUtil.getUid(), LoginInfoUtil.getToken())).subscribe(new BaseObserver<Object>(mAt) {
+                    @Override
+                    public void onHandleSuccess(Object o) throws IOException {
+                        LoginInfoUtil.saveLoginInfo("", "");
+                        finish();
+                        Intent intent = new Intent(mAt, LoginActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        ActivityUtils.startActivity(intent);
+                    }
+                });
+            }
+        });
+        /**
+         * 修改昵称
+         */
+        rl_modifythenickname.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                jumpActivity(ModifythenicknameActivity.class);
+            }
+        });
         /**
          * 电话号码修改
          */
@@ -133,15 +156,15 @@ public class MesettingActivity extends BaseActivity {
 
     @Override
     public void getDataFromServer() {
-        HttpRxObservable.getObservable(ApiUtils.getApiService().set(LoginInfoUtil.getUid(),LoginInfoUtil.getToken())).subscribe(new BaseObserver<SetBean>(mAt) {
+        HttpRxObservable.getObservable(ApiUtils.getApiService().set(LoginInfoUtil.getUid(), LoginInfoUtil.getToken())).subscribe(new BaseObserver<SetBean>(mAt) {
             @Override
             public void onHandleSuccess(SetBean setBean) throws IOException {
                 tv_usersetname.setText(setBean.getName());
                 tv_usersetphone.setText(setBean.getMobile());
-                tv_usersetversion.setText("当前版本"+setBean.getEdition());
+                tv_usersetversion.setText("当前版本" + setBean.getEdition());
                 Glide.with(mAt).load(UrlUtil.getImageUrl(setBean.getAvator()))
                         .apply(new RequestOptions().bitmapTransform(new CircleCrop()))
-                        .into((ImageView)findViewById(R.id.img_setpic));
+                        .into((ImageView) findViewById(R.id.img_setpic));
             }
         });
     }

@@ -3,15 +3,22 @@ package com.zskjprojectj.andouclient.fragment.hotel;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.zhuosongkj.android.library.app.BaseActivity;
+import com.zhuosongkj.android.library.app.BaseFragment;
+import com.zhuosongkj.android.library.model.BaseResult;
+import com.zhuosongkj.android.library.model.IListData;
+import com.zhuosongkj.android.library.util.PageLoadUtil;
+import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.HotelorderdetailsActivity;
 import com.zskjprojectj.andouclient.activity.HotelordergotoevaluationActivity;
 import com.zskjprojectj.andouclient.adapter.hotel.MeHotelAdapter;
-import com.zskjprojectj.andouclient.base.BaseFragment;
 import com.zskjprojectj.andouclient.entity.hotel.MeHotelBean;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
@@ -22,6 +29,7 @@ import java.io.IOException;
 import java.util.List;
 
 import butterknife.BindView;
+import io.reactivex.Observable;
 
 /**
  * 项目名称： andoucode
@@ -38,6 +46,9 @@ public class MeHotelFragment extends BaseFragment {
     @BindView(R.id.rv_recycler)
     RecyclerView mRvRecycler;
 
+    @BindView(R.id.refreshLayout)
+    SmartRefreshLayout mRefreshLayout;
+
     private String status;
     private MeHotelAdapter adapter = new MeHotelAdapter();
 
@@ -46,54 +57,75 @@ public class MeHotelFragment extends BaseFragment {
         this.status = status;
     }
 
-    @Override
-    protected int getContentViewRes() {
-        return R.layout.fragment_shopallorder;
-    }
 
     @Override
-    protected void initViews(View view, Bundle savedInstanceState) {
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        initViews();
+        getDataFromServer();
+    }
+
+    private void initViews() {
 
         mRvRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
 
     }
 
-    @Override
-    protected void initData() {
 
-    }
+    private void getDataFromServer() {
 
-    @Override
-    protected void getDataFromServer() {
+//        HttpRxObservable.getObservable(ApiUtils.getApiService().mehotelOrder(
+//                LoginInfoUtil.getUid(),
+//                LoginInfoUtil.getToken(),
+//                status,
+//                "1"
+//
+//        )).subscribe(new BaseObserver<List<MeHotelBean>>(mAty) {
+//            @Override
+//            public void onHandleSuccess(List<MeHotelBean> meHotelBeans) throws IOException {
+//                adapter.setNewData(meHotelBeans);
+//                adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+//                    @Override
+//                    public void onItemChildClick(BaseQuickAdapter adapter1, View view, int position) {
+//                        //查看详情
+//                        if (view.getId() == R.id.btn_hotelorderdetails) {
+//                            HotelorderdetailsActivity.start(adapter.getItem(position));
+//                        } else if (view.getId() == R.id.btn_evaluate) {
+//                            //发表评论
+//                            HotelordergotoevaluationActivity.start(meHotelBeans.get(position).getMerchants_id(),
+//                                    meHotelBeans.get(position).getHotel_room_id(), meHotelBeans.get(position).getBook_sn());
+//                        }
+//                    }
+//                });
+//            }
+//        });
 
-        HttpRxObservable.getObservable(ApiUtils.getApiService().mehotelOrder(
+        PageLoadUtil<MeHotelBean> pageLoadUtil = PageLoadUtil.get((BaseActivity) getActivity(), mRvRecycler, adapter, mRefreshLayout);
+        pageLoadUtil.load(() -> ApiUtils.getApiService().mehotelOrder(
                 LoginInfoUtil.getUid(),
                 LoginInfoUtil.getToken(),
                 status,
-                "1"
+                pageLoadUtil.page
 
-        )).subscribe(new BaseObserver<List<MeHotelBean>>(mAty) {
-            @Override
-            public void onHandleSuccess(List<MeHotelBean> meHotelBeans) throws IOException {
-                adapter.setNewData(meHotelBeans);
-                adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-                    @Override
-                    public void onItemChildClick(BaseQuickAdapter adapter1, View view, int position) {
-                        //查看详情
-                        if (view.getId() == R.id.btn_hotelorderdetails) {
-                            HotelorderdetailsActivity.start(adapter.getItem(position));
-                        } else if (view.getId() == R.id.btn_evaluate) {
-                            //发表评论
-                            HotelordergotoevaluationActivity.start(meHotelBeans.get(position).getMerchants_id(),
-                                    meHotelBeans.get(position).getHotel_room_id(), meHotelBeans.get(position).getBook_sn());
-                        }
-                    }
-                });
+        ));
+        adapter.setOnItemChildClickListener((adapter1, view, position) -> {
+            //查看详情
+            if (view.getId() == R.id.btn_hotelorderdetails) {
+                HotelorderdetailsActivity.start(adapter.getItem(position));
+            } else if (view.getId() == R.id.btn_evaluate) {
+                //发表评论
+                HotelordergotoevaluationActivity.start(adapter.getItem(position).getMerchants_id(),
+                        adapter.getItem(position).getHotel_room_id(), adapter.getItem(position).getBook_sn());
             }
         });
 
         adapter.openLoadAnimation();
         mRvRecycler.setAdapter(adapter);
 
+    }
+
+    @Override
+    protected int getContentView() {
+        return R.layout.fragment_shopallorder;
     }
 }
