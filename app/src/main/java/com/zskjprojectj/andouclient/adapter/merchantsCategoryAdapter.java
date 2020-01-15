@@ -8,7 +8,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.base.BaseUrl;
+import com.zskjprojectj.andouclient.utils.UrlUtil;import com.zskjprojectj.andouclient.base.BaseUrl;
 import com.zskjprojectj.andouclient.entity.IndexHomeBean;
 
 /**
@@ -29,7 +29,7 @@ public class merchantsCategoryAdapter extends BaseQuickAdapter<IndexHomeBean.Mer
 
     @Override
     protected void convert(BaseViewHolder helper, IndexHomeBean.MerchantsBean item) {
-        String url = BaseUrl.BASE_URL + "/"+item.getLogo_img();
+        String url = UrlUtil.getImageUrl("/"+item.getLogo_img());
         Log.d(TAG, "url===: "+url);
         Glide.with(mContext).load(url).apply(new RequestOptions()
         .placeholder(R.drawable.default_image).error(R.drawable.default_image)).into((ImageView) helper.getView(R.id.check_in_busiess1_image));

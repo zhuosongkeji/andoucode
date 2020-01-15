@@ -26,7 +26,7 @@ import com.zskjprojectj.andouclient.activity.mall.MallGoodsDetailsActivity;
 import com.zskjprojectj.andouclient.adapter.mall.RecommendProductsAdapter;
 import com.zskjprojectj.andouclient.adapter.mall.SpecialProductsAdapter;
 import com.zskjprojectj.andouclient.base.BaseFragment;
-import com.zskjprojectj.andouclient.base.BaseUrl;
+import com.zskjprojectj.andouclient.utils.UrlUtil;import com.zskjprojectj.andouclient.base.BaseUrl;
 import com.zskjprojectj.andouclient.entity.mall.MallHomeDataBean;
 import com.zskjprojectj.andouclient.http.ApiException;
 import com.zskjprojectj.andouclient.http.ApiUtils;
@@ -198,7 +198,7 @@ public class MallHomepageFragment1 extends BaseFragment {
                 //1、此处使用的Glide加载图片，可自行替换自己项目中的图片加载框架
                 //2、返回的图片路径为Object类型，你只需要强转成你传输的类型就行，切记不要胡乱强转！
                 MallHomeDataBean.BannerBean model1 = (MallHomeDataBean.BannerBean) model;
-                String url = BaseUrl.BASE_URL + model1.getImg();
+                String url = UrlUtil.getImageUrl(model1.getImg());
                 Glide.with(mAty).load(url).apply(new RequestOptions()
                         .placeholder(R.drawable.default_image).error(R.drawable.default_image)).into((ImageView) view);
 

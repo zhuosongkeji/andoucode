@@ -15,7 +15,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
-import com.zskjprojectj.andouclient.base.BaseUrl;
+import com.zskjprojectj.andouclient.utils.UrlUtil;import com.zskjprojectj.andouclient.base.BaseUrl;
 import com.zskjprojectj.andouclient.entity.hotel.MeHotelBean;
 import com.zskjprojectj.andouclient.entity.hotel.MeHotelDetailsBean;
 import com.zskjprojectj.andouclient.http.ApiUtils;
@@ -167,7 +167,7 @@ public class HotelorderdetailsActivity extends BaseActivity {
         ((TextView) findViewById(R.id.tv_order_number)).setText(meHotelDetailsBean.getBook_sn());
         ((TextView) findViewById(R.id.created_at)).setText(meHotelDetailsBean.getCreated_at());
         ((TextView) findViewById(R.id.pay_way)).setText(meHotelDetailsBean.getPay_way());
-        Glide.with(mAt).load(BaseUrl.BASE_URL + meHotelDetailsBean.getImg()).apply(new RequestOptions()
+        Glide.with(mAt).load(UrlUtil.getImageUrl(meHotelDetailsBean.getImg())).apply(new RequestOptions()
                 .placeholder(R.drawable.default_image).error(R.drawable.default_image)).into((ImageView) findViewById(R.id.img_iconleft));
 
     }

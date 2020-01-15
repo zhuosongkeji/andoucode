@@ -36,7 +36,7 @@ import com.zskjprojectj.andouclient.activity.MallMainActivity;
 import com.zskjprojectj.andouclient.adapter.mall.MallBuyAdapter;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
-import com.zskjprojectj.andouclient.base.BaseUrl;
+import com.zskjprojectj.andouclient.utils.UrlUtil;import com.zskjprojectj.andouclient.base.BaseUrl;
 import com.zskjprojectj.andouclient.entity.XBannerBean;
 import com.zskjprojectj.andouclient.entity.mall.MallBuyBean;
 import com.zskjprojectj.andouclient.entity.mall.MallBuyNowBean;
@@ -185,7 +185,7 @@ public class MallGoodsDetailsActivity extends BaseActivity {
             public void loadBanner(XBanner banner, Object model, View view, int position) {
 //                加载本地图片展示
                 XBannerBean urlList = (XBannerBean) model;
-                String url = BaseUrl.BASE_URL + urlList.getImageUrl();
+                String url = UrlUtil.getImageUrl(urlList.getImageUrl());
                 Glide.with(MallGoodsDetailsActivity.this).load(url).apply(new RequestOptions()
                         .placeholder(R.drawable.default_image).error(R.drawable.default_image)).into((ImageView) view);
             }
@@ -281,7 +281,7 @@ public class MallGoodsDetailsActivity extends BaseActivity {
                         mTvGoodsVolume.setText(mallGoodsDetailsDataBean.getVolume());
                         mTvGoodsStoreNum.setText(mallGoodsDetailsDataBean.getStore_num());//商品库存
 
-                        Glide.with(MallGoodsDetailsActivity.this).load(BaseUrl.BASE_URL + mallGoodsDetailsDataBean.getMerchant().getLogo_img())
+                        Glide.with(MallGoodsDetailsActivity.this).load(UrlUtil.getImageUrl(mallGoodsDetailsDataBean.getMerchant().getLogo_img()))
                                 .apply(new RequestOptions()
                                         .placeholder(R.mipmap.ic_default_head_photo).error(R.mipmap.ic_default_head_photo))
                                 .into(IvHeadPic);
@@ -485,7 +485,7 @@ public class MallGoodsDetailsActivity extends BaseActivity {
         contentView = LayoutInflater.from(this).inflate(R.layout.dialog_buy_now, null);
 
         ImageView mOrderImg = contentView.findViewById(R.id.iv_online_order_image);
-        Glide.with(mOrderImg.getContext()).load(BaseUrl.BASE_URL + orderImg).apply(new RequestOptions()
+        Glide.with(mOrderImg.getContext()).load(UrlUtil.getImageUrl(orderImg)).apply(new RequestOptions()
                 .placeholder(R.drawable.default_image).error(R.drawable.default_image)).into(mOrderImg);
         TextView mOrderName = contentView.findViewById(R.id.tv_order_name);
         mOrderName.setText(orderName);

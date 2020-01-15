@@ -12,7 +12,7 @@ import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.stx.xhb.xbanner.entity.SimpleBannerInfo;
 import com.wihaohao.PageGridView;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.base.BaseUrl;
+import com.zskjprojectj.andouclient.utils.UrlUtil;import com.zskjprojectj.andouclient.base.BaseUrl;
 
 import java.util.List;
 
@@ -161,13 +161,13 @@ public class MallHomeDataBean {
 //            TextView tv = itemView.findViewById(R.id.iv_item_icon);
 //            tv.setText(name);
 //            ImageView iv = itemView.findViewById(R.id.tv_item_name);
-//            Glide.with(iv.getContext()).load(BaseUrl.BASE_URL + img).into(iv);
+//            Glide.with(iv.getContext()).load(UrlUtil.getImageUrl(img)).into(iv);
 
             TextView textView =  itemView.findViewById(R.id.tv_item_name);
             textView.setText(name);
 
             ImageView imageView = itemView.findViewById(R.id.iv_item_icon);
-            Glide.with(imageView.getContext()).load(BaseUrl.BASE_URL + img).into(imageView);
+            Glide.with(imageView.getContext()).load(UrlUtil.getImageUrl(img)).into(imageView);
         }
     }
 

@@ -2,7 +2,9 @@ package com.zskjprojectj.andouclient.activity;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -18,6 +20,7 @@ import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.adapter.mall.PayWaysAdapter;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
+import com.zskjprojectj.andouclient.entity.ViproteBean;
 import com.zskjprojectj.andouclient.entity.WXPayBean;
 import com.zskjprojectj.andouclient.entity.mall.MallPayWaysBean;
 import com.zskjprojectj.andouclient.http.ApiUtils;
@@ -46,6 +49,8 @@ public class OpeningmemberActivity extends BaseActivity {
     private RecyclerView mRecycler;
     private final static int WXPAY = 1;
     private Button btn_sure;
+    private TextView tv_openprice;
+    private WebView wv_webview;
     @Override
     protected void setRootView() {
         setContentView(R.layout.activity_openingmember);
@@ -56,6 +61,21 @@ public class OpeningmemberActivity extends BaseActivity {
         getBarDistance(mTitleView);
         mHeaderTitle.setText("开通会员");
         mRecycler = findViewById(R.id.rv_pay_ways);
+        tv_openprice=findViewById(R.id.tv_openprice);
+        wv_webview=findViewById(R.id.wv_webview);
+        //请求信息
+        HttpRxObservable.getObservable(ApiUtils.getApiService().vip_rote(LoginInfoUtil.getUid(),LoginInfoUtil.getToken())).subscribe(new BaseObserver<ViproteBean>(mAt) {
+            @Override
+            public void onHandleSuccess(ViproteBean viproteBean) throws IOException {
+                tv_openprice.setText("￥"+viproteBean.getPrice());
+                String details = viproteBean.getVip_rote();
+                Log.d(TAG, "onHandleSuccess:+ " + details);
+                String htmlData = getHtmlData(details);
+                wv_webview.loadData(htmlData,"text/html", "UTF-8");
+                wv_webview.setVerticalScrollBarEnabled(false);
+                wv_webview.setHorizontalScrollBarEnabled(false);
+            }
+        });
         mRecycler.setLayoutManager(new LinearLayoutManager(mAt));
         btn_sure=findViewById(R.id.btn_sure);
         btn_sure.setOnClickListener(new View.OnClickListener() {
@@ -89,6 +109,7 @@ public class OpeningmemberActivity extends BaseActivity {
 
     @Override
     public void getDataFromServer() {
+
         //请求支付方式
         HttpRxObservable.getObservable(ApiUtils.getApiService().getWalletPayWays(LoginInfoUtil.getUid(), LoginInfoUtil.getToken())).subscribe(new BaseObserver<List<MallPayWaysBean>>(mAt) {
             @Override
@@ -145,5 +166,17 @@ public class OpeningmemberActivity extends BaseActivity {
     @OnClick(R.id.iv_header_back)
     public void clickView() {
         finish();
+    }
+    /**
+     * 拼接html字符串片段
+     * @param bodyHTML
+     * @return
+     */
+    private  String getHtmlData(String bodyHTML) {
+        String head = "<head>" +
+                "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"> " +
+                "<style>img{max-width:100% !important; width:auto; height:auto;}</style>" +
+                "</head>";
+        return "<html>" + head + "<body style:'height:auto;max-width: 100%; width:auto;'>" + bodyHTML + "</body></html>";
     }
 }

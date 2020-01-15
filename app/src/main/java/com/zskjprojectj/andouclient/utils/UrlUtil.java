@@ -2,7 +2,7 @@ package com.zskjprojectj.andouclient.utils;
 
 import android.text.TextUtils;
 
-import com.zskjprojectj.andouclient.base.BaseUrl;
+import com.zskjprojectj.andouclient.utils.UrlUtil;import com.zskjprojectj.andouclient.base.BaseUrl;
 
 public class UrlUtil {
     public static String getImageUrl(String path) {
@@ -12,6 +12,6 @@ public class UrlUtil {
         if (!path.startsWith("/")) {
             newpath = "/"+path;
         }
-        return (BaseUrl.BASE_URL + newpath);
+        return BaseUrl.BASE_URL+newpath;
     }
 }

@@ -9,7 +9,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.base.BaseUrl;
+import com.zskjprojectj.andouclient.utils.UrlUtil;import com.zskjprojectj.andouclient.base.BaseUrl;
 import com.zskjprojectj.andouclient.entity.hotel.HotelCategoryBean;
 
 import java.util.List;
@@ -34,7 +34,7 @@ public class HotelCateGoryAdapter extends BaseQuickAdapter<HotelCategoryBean, Ba
     @Override
     protected void convert(BaseViewHolder helper, HotelCategoryBean item) {
 
-        Glide.with(mContext).load(BaseUrl.BASE_URL+item.getImg()).apply(new RequestOptions()
+        Glide.with(mContext).load(UrlUtil.getImageUrl(item.getImg())).apply(new RequestOptions()
                 .placeholder(R.drawable.default_image).error(R.drawable.default_image)).into((ImageView) helper.getView(R.id.iv_hotel_category_img));
         helper.setText(R.id.tv_hotel_category_name,item.getName());
 

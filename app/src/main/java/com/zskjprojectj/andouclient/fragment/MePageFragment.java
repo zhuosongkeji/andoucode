@@ -35,7 +35,7 @@ import com.zskjprojectj.andouclient.activity.RestaurantOrderListActivity;
 import com.zskjprojectj.andouclient.activity.ShoporderActivity;
 import com.zskjprojectj.andouclient.activity.VegetableMarketActivity;
 import com.zskjprojectj.andouclient.base.BaseFragment;
-import com.zskjprojectj.andouclient.base.BaseUrl;
+import com.zskjprojectj.andouclient.utils.UrlUtil;import com.zskjprojectj.andouclient.base.BaseUrl;
 import com.zskjprojectj.andouclient.entity.PersonalBean;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
@@ -43,6 +43,7 @@ import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.utils.BarUtils;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
+import com.zskjprojectj.andouclient.utils.UrlUtil;
 
 import butterknife.BindView;
 
@@ -161,7 +162,7 @@ public class MePageFragment extends BaseFragment {
                 tv_browsenum.setText(personalBean.getRecord());
                 tv_moneynum.setText(personalBean.getMoney());
                 tv_integralnumm.setText(personalBean.getIntegral());
-                Glide.with(mAty).load(BaseUrl.BASE_URL + personalBean.getAvator()).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(img_touxiang);
+                Glide.with(mAty).load(UrlUtil.getImageUrl(personalBean.getAvator())).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(img_touxiang);
             }
         });
     }

@@ -153,7 +153,7 @@ public class MallGoodsDetailsDataBean {
 
         private int id;
         private String name;
-        private Object logo_img;
+        private String logo_img;
 
         public int getId() {
             return id;
@@ -171,11 +171,11 @@ public class MallGoodsDetailsDataBean {
             this.name = name;
         }
 
-        public Object getLogo_img() {
+        public String getLogo_img() {
             return logo_img;
         }
 
-        public void setLogo_img(Object logo_img) {
+        public void setLogo_img(String logo_img) {
             this.logo_img = logo_img;
         }
     }

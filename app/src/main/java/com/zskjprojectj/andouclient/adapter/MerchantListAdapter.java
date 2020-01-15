@@ -12,7 +12,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.willy.ratingbar.ScaleRatingBar;
 import com.zhuosongkj.android.library.adapter.BaseAdapter;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.base.BaseUrl;
+import com.zskjprojectj.andouclient.utils.UrlUtil;import com.zskjprojectj.andouclient.base.BaseUrl;
 import com.zskjprojectj.andouclient.entity.MerchantListBean;
 import com.zskjprojectj.andouclient.model.Merchant;
 
@@ -36,7 +36,7 @@ public class MerchantListAdapter extends BaseQuickAdapter<Merchant,BaseViewHolde
     @Override
     protected void convert(BaseViewHolder helper, Merchant item) {
         Glide.with(helper.itemView)
-                .load(BaseUrl.BASE_URL + item.logo_img)
+                .load(UrlUtil.getImageUrl(item.logo_img))
                 .apply(new RequestOptions().placeholder(R.drawable.default_image))
                 .into((ImageView) helper.itemView.findViewById(R.id.busiess_tupian1_image));
         helper.setText(R.id.busiess_name1_textview, item.name)

@@ -47,7 +47,7 @@ import com.zskjprojectj.andouclient.activity.MallMainActivity;
 import com.zskjprojectj.andouclient.activity.restaurant.RestaurantHomeActivity;
 import com.zskjprojectj.andouclient.adapter.CoverFlowAdapter;
 import com.zskjprojectj.andouclient.adapter.merchantsCategoryAdapter;
-import com.zskjprojectj.andouclient.base.BaseUrl;
+import com.zskjprojectj.andouclient.utils.UrlUtil;import com.zskjprojectj.andouclient.base.BaseUrl;
 import com.zskjprojectj.andouclient.entity.IndexHomeBean;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
@@ -299,7 +299,7 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
             @Override
             public void loadBanner(XBanner banner, Object model, View view, int position) {
                 IndexHomeBean.BannerBean model1 = (IndexHomeBean.BannerBean) model;
-                Glide.with(mActivity).load(BaseUrl.BASE_URL + model1.getImg()).apply(new RequestOptions()
+                Glide.with(mActivity).load(UrlUtil.getImageUrl(model1.getImg())).apply(new RequestOptions()
                         .placeholder(R.drawable.default_image).error(R.drawable.default_image)).into((ImageView) view);
             }
         });

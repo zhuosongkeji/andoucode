@@ -11,7 +11,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.mall.MallGoodsDetailsActivity;
 import com.zskjprojectj.andouclient.activity.mall.MallShoppingHomeActivity;
-import com.zskjprojectj.andouclient.base.BaseUrl;
+import com.zskjprojectj.andouclient.utils.UrlUtil;import com.zskjprojectj.andouclient.base.BaseUrl;
 import com.zskjprojectj.andouclient.entity.mall.MallShoppingHomeBean;
 
 import java.util.List;
@@ -33,7 +33,7 @@ public class MallShoppingHomeAdapter extends BaseQuickAdapter<MallShoppingHomeBe
 
     @Override
     protected void convert(BaseViewHolder helper, MallShoppingHomeBean.GoodsBean item) {
-        Glide.with(mContext).load(BaseUrl.BASE_URL+item.getImg()).into((ImageView) helper.getView(R.id.iv_goods_img));
+        Glide.with(mContext).load(UrlUtil.getImageUrl(item.getImg())).into((ImageView) helper.getView(R.id.iv_goods_img));
         helper.setText(R.id.tv_goods_name,item.getNameX());
         helper.setText(R.id.tv_goods_price,"¥"+item.getPrice());
     }

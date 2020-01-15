@@ -37,6 +37,7 @@
                 android:textSize="@dimen/typeface12sp" />
 
             <TextView
+                android:id="@+id/tv_openprice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

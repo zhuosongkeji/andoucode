@@ -17,7 +17,7 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
-import com.zskjprojectj.andouclient.base.BaseUrl;
+import com.zskjprojectj.andouclient.utils.UrlUtil;import com.zskjprojectj.andouclient.base.BaseUrl;
 import com.zskjprojectj.andouclient.entity.InvitationBean;
 import com.zskjprojectj.andouclient.http.ApiService;
 import com.zskjprojectj.andouclient.http.ApiUtils;
@@ -61,7 +61,7 @@ public class InvitationActivity extends BaseActivity {
                     Glide.with(mAt).load(UrlUtil.getImageUrl(invitationBean.getAvator()))
                             .apply(new RequestOptions().bitmapTransform(new CircleCrop()))
                             .into((ImageView)findViewById(R.id.img_toptouxiang));
-                  //  Glide.with(mAt).load(BaseUrl.BASE_URL+invitationBean.getQrcode()).into((img_toptouxiang));
+                  //  Glide.with(mAt).load(UrlUtil.getImageUrl(invitationBean.getQrcode())).into((img_toptouxiang));
                     Glide.with(mAt).load(UrlUtil.getImageUrl(invitationBean.getQrcode()))
                             .apply(new RequestOptions().placeholder(R.drawable.default_image))
                             .into((ImageView)findViewById(R.id.img_code));

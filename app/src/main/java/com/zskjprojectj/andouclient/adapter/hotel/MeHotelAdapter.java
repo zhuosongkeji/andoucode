@@ -7,7 +7,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.base.BaseUrl;
+import com.zskjprojectj.andouclient.utils.UrlUtil;import com.zskjprojectj.andouclient.base.BaseUrl;
 import com.zskjprojectj.andouclient.entity.hotel.MeHotelBean;
 import com.zskjprojectj.andouclient.model.HotelOrderStatus;
 import com.zskjprojectj.andouclient.model.OrderStatus;
@@ -41,10 +41,10 @@ public class MeHotelAdapter extends BaseQuickAdapter<MeHotelBean, BaseViewHolder
                 .addOnClickListener(R.id.btn_hotelorderdetails)
                 .addOnClickListener(R.id.btn_evaluate);
 
-        Glide.with(mContext).load(BaseUrl.BASE_URL + item.getLogo_img()).apply(new RequestOptions()
+        Glide.with(mContext).load(UrlUtil.getImageUrl(item.getLogo_img())).apply(new RequestOptions()
                 .placeholder(R.drawable.default_image).error(R.drawable.default_image)).into((ImageView) helper.getView(R.id.iv_order_img));
 
-        Glide.with(mContext).load(BaseUrl.BASE_URL + item.getImg()).apply(new RequestOptions()
+        Glide.with(mContext).load(UrlUtil.getImageUrl(item.getImg())).apply(new RequestOptions()
                 .placeholder(R.drawable.default_image).error(R.drawable.default_image)).into((ImageView) helper.getView(R.id.iv_house_img));
         helper.setGone(R.id.btn_evaluate, HotelOrderStatus.DAI_PING_JIA.status.equals(item.getStatus()));
 

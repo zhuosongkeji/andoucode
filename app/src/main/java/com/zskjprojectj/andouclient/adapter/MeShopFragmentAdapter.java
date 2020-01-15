@@ -9,7 +9,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.base.BaseUrl;
+import com.zskjprojectj.andouclient.utils.UrlUtil;import com.zskjprojectj.andouclient.base.BaseUrl;
 import com.zskjprojectj.andouclient.model.Order;
 import com.zskjprojectj.andouclient.model.OrderStatus;
 
@@ -44,11 +44,11 @@ public class MeShopFragmentAdapter extends BaseQuickAdapter<Order, BaseViewHolde
         helper.setGone(R.id.btn_getgoods, OrderStatus.DAI_SHOU_HUO.status.equals(item.status));
         helper.setGone(R.id.btn_check_logistics,OrderStatus.DAI_SHOU_HUO.status.equals(item.status));
         helper.setGone(R.id.btn_comment,OrderStatus.DAI_PING_JIA.status.equals(item.status));
-        Glide.with(mContext).load(BaseUrl.BASE_URL + item.img)
+        Glide.with(mContext).load(UrlUtil.getImageUrl(item.img))
                 .transition(new DrawableTransitionOptions().crossFade())
                 .apply(new RequestOptions().placeholder(R.drawable.default_image))
                 .into((ImageView) helper.getView(R.id.meshop_pic));
-        Glide.with(mContext).load(BaseUrl.BASE_URL + item.logo_img)
+        Glide.with(mContext).load(UrlUtil.getImageUrl(item.logo_img))
                 .transition(new DrawableTransitionOptions().crossFade())
                 .apply(new RequestOptions().placeholder(R.drawable.default_image))
                 .into((ImageView) helper.getView(R.id.shopIconImg));

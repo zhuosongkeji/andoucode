@@ -13,7 +13,7 @@ import com.bumptech.glide.Glide;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.MainActivity;
-import com.zskjprojectj.andouclient.base.BaseUrl;
+import com.zskjprojectj.andouclient.utils.UrlUtil;import com.zskjprojectj.andouclient.base.BaseUrl;
 import com.zskjprojectj.andouclient.entity.CategoryBean;
 import com.zskjprojectj.andouclient.entity.mall.MallGoodsCateBean;
 
@@ -72,7 +72,7 @@ public class HomeItemAdapter extends BaseAdapter {
         }
         viewHold.tv_name.setText(towcateBean.getName());
 
-        Glide.with(context).load(BaseUrl.BASE_URL+towcateBean.getImg()).into(viewHold.iv_icon);
+        Glide.with(context).load(UrlUtil.getImageUrl(towcateBean.getImg())).into(viewHold.iv_icon);
 
         return convertView;
 
