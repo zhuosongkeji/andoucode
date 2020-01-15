@@ -19,8 +19,8 @@ import com.zskjprojectj.andouclient.model.Restaurant;
 import com.zskjprojectj.andouclient.utils.ScreenUtil;
 import com.zskjprojectj.andouclient.utils.UrlUtil;
 
-public class HomeAdapter extends BaseAdapter<Restaurant> implements HeaderItemDecoration.StickyHeaderInterface {
-    public HomeAdapter() {
+public class RestaurantAdapter extends BaseAdapter<Restaurant> implements HeaderItemDecoration.StickyHeaderInterface {
+    public RestaurantAdapter() {
         super(R.layout.layout_restaurant_item);
     }
 
@@ -92,7 +92,7 @@ public class HomeAdapter extends BaseAdapter<Restaurant> implements HeaderItemDe
             img2LayoutParams.height = img1layoutParams.height / 2 - margin;
             ((LinearLayout.LayoutParams) img2LayoutParams).bottomMargin = margin;
             img3LayoutParams.width = img2LayoutParams.width;
-            img3LayoutParams.height = img2LayoutParams.height;
+            img3LayoutParams.height = img2LayoutParams.height + margin;
         }
     }
 
