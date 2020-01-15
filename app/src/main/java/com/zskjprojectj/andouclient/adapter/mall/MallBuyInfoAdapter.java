@@ -9,7 +9,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.base.BaseUrl;
+import com.zskjprojectj.andouclient.utils.UrlUtil;import com.zskjprojectj.andouclient.base.BaseUrl;
 import com.zskjprojectj.andouclient.entity.mall.MallBuyBean;
 import com.zskjprojectj.andouclient.entity.mall.MallSettlementBean;
 
@@ -36,7 +36,7 @@ public class MallBuyInfoAdapter extends BaseQuickAdapter<MallSettlementBean.Deta
     protected void convert(BaseViewHolder helper, MallSettlementBean.DetailsBean item) {
 
         Glide.with(mContext)
-             .load(BaseUrl.BASE_URL + item.getImg())
+             .load(UrlUtil.getImageUrl(item.getImg()))
              .apply(new RequestOptions()
              .placeholder(R.drawable.default_image)
              .error(R.drawable.default_image))

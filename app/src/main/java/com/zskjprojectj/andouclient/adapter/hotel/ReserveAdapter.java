@@ -11,7 +11,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.base.BaseUrl;
+import com.zskjprojectj.andouclient.utils.UrlUtil;import com.zskjprojectj.andouclient.base.BaseUrl;
 import com.zskjprojectj.andouclient.entity.hotel.HotelDetailReserveBean;
 import com.zskjprojectj.andouclient.model.Goods;
 import com.zskjprojectj.andouclient.utils.UrlUtil;
@@ -40,7 +40,7 @@ public class ReserveAdapter extends BaseQuickAdapter<HotelDetailReserveBean.Hote
                 .setText(R.id.hotel_name, item.getHouse_name())
                 .setText(R.id.hotel_price, item.getPrice() + "")
                 .setText(R.id.hotel_des,item.getName());
-        Glide.with(mContext).load(BaseUrl.BASE_URL+item.getImg()).apply(new RequestOptions()
+        Glide.with(mContext).load(UrlUtil.getImageUrl(item.getImg())).apply(new RequestOptions()
         .placeholder(R.drawable.default_image).error(R.drawable.default_image))
                 .into((ImageView) helper.getView(R.id.hotel_image));
 

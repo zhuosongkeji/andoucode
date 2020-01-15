@@ -15,7 +15,7 @@ import com.willy.ratingbar.ScaleRatingBar;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
-import com.zskjprojectj.andouclient.base.BaseUrl;
+import com.zskjprojectj.andouclient.utils.UrlUtil;import com.zskjprojectj.andouclient.base.BaseUrl;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
@@ -63,7 +63,7 @@ public class ToevaluateActivity extends BaseActivity {
         img = getIntent().getStringExtra("img");
 
 
-        Glide.with(this).load(BaseUrl.BASE_URL+img).apply(new RequestOptions()
+        Glide.with(this).load(UrlUtil.getImageUrl(img)).apply(new RequestOptions()
                 .placeholder(R.drawable.default_image).error(R.drawable.default_image)).into(mGoodsImg);
 
 

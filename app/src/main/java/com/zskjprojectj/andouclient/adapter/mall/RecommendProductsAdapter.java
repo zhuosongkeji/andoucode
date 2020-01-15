@@ -9,7 +9,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.base.BaseUrl;
+import com.zskjprojectj.andouclient.utils.UrlUtil;import com.zskjprojectj.andouclient.base.BaseUrl;
 import com.zskjprojectj.andouclient.entity.mall.MallHomeDataBean;
 
 import java.util.List;
@@ -35,7 +35,7 @@ public class RecommendProductsAdapter extends BaseQuickAdapter<MallHomeDataBean.
     protected void convert(BaseViewHolder helper, MallHomeDataBean.RecommendGoodsBean item) {
 
         // 加载推荐产品图片
-        Glide.with(mContext).load(BaseUrl.BASE_URL+item.getImg())
+        Glide.with(mContext).load(UrlUtil.getImageUrl(item.getImg()))
                 .transition(new DrawableTransitionOptions().crossFade())
                 .into((ImageView) helper.getView(R.id.iv_products_image));
 

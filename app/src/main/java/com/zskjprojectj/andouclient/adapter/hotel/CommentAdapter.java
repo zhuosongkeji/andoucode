@@ -11,7 +11,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.willy.ratingbar.ScaleRatingBar;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.base.BaseUrl;
+import com.zskjprojectj.andouclient.utils.UrlUtil;import com.zskjprojectj.andouclient.base.BaseUrl;
 import com.zskjprojectj.andouclient.entity.hotel.HotelDetailCommentBean;
 
 import java.util.List;
@@ -35,7 +35,7 @@ public class CommentAdapter extends BaseQuickAdapter<HotelDetailCommentBean, Bas
     @Override
     protected void convert(BaseViewHolder helper, HotelDetailCommentBean item) {
 
-        Glide.with(mContext).load(BaseUrl.BASE_URL+item.getAvator()).apply(new RequestOptions()
+        Glide.with(mContext).load(UrlUtil.getImageUrl(item.getAvator())).apply(new RequestOptions()
         .placeholder(R.drawable.default_image).error(R.drawable.default_image)).into((ImageView) helper.getView(R.id.iv_headPic));
 
         helper.setText(R.id.tv_name,item.getName())

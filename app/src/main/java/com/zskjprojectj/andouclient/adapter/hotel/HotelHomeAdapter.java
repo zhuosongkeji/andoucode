@@ -11,7 +11,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.willy.ratingbar.ScaleRatingBar;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.base.BaseUrl;
+import com.zskjprojectj.andouclient.utils.UrlUtil;import com.zskjprojectj.andouclient.base.BaseUrl;
 import com.zskjprojectj.andouclient.entity.hotel.HotelHomeBean;
 
 import java.util.List;
@@ -35,7 +35,7 @@ public class HotelHomeAdapter extends BaseQuickAdapter<HotelHomeBean, BaseViewHo
     @Override
     protected void convert(BaseViewHolder helper, HotelHomeBean item) {
 
-        Glide.with(mContext).load(BaseUrl.BASE_URL+item.getLogo_img()).apply(new RequestOptions()
+        Glide.with(mContext).load(UrlUtil.getImageUrl(item.getLogo_img())).apply(new RequestOptions()
         .placeholder(R.drawable.default_image).error(R.drawable.default_image)).into((ImageView) helper.getView(R.id.busiess_tupian1_image));
 
         helper.setText(R.id.busiess_name1_textview,item.getName());

@@ -26,7 +26,7 @@ import com.willy.ratingbar.ScaleRatingBar;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
-import com.zskjprojectj.andouclient.base.BaseUrl;
+import com.zskjprojectj.andouclient.utils.UrlUtil;import com.zskjprojectj.andouclient.base.BaseUrl;
 import com.zskjprojectj.andouclient.entity.hotel.HotelDetailsBean;
 import com.zskjprojectj.andouclient.fragment.hotel.HotelDetailCommentFragment;
 import com.zskjprojectj.andouclient.fragment.hotel.HotelDetailFacilityFragment;
@@ -142,7 +142,7 @@ public class HotelDetailActivity extends BaseActivity {
                     public void onHandleSuccess(HotelDetailsBean hotelDetailsBean) throws IOException {
 
                         //背景图片
-                        Glide.with(mAt).load(BaseUrl.BASE_URL + hotelDetailsBean.getDoor_img())
+                        Glide.with(mAt).load(UrlUtil.getImageUrl(hotelDetailsBean.getDoor_img()))
                                 .apply(new RequestOptions().placeholder(R.drawable.default_image).error(R.drawable.default_image))
                                 .into((ImageView) findViewById(R.id.iv_hotel_details_img));
                         //酒店名字

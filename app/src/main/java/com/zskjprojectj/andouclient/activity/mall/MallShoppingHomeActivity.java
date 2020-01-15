@@ -32,7 +32,7 @@ import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.adapter.mall.MallShoppingHomeAdapter;
 import com.zskjprojectj.andouclient.adapter.mall.MallShoppingPopuAdapter;
 import com.zskjprojectj.andouclient.base.BasePresenter;
-import com.zskjprojectj.andouclient.base.BaseUrl;
+import com.zskjprojectj.andouclient.utils.UrlUtil;import com.zskjprojectj.andouclient.base.BaseUrl;
 import com.zskjprojectj.andouclient.entity.mall.MallShoppingHomeBean;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
@@ -140,7 +140,7 @@ public class MallShoppingHomeActivity extends BaseActivity {
             @Override
             public void onHandleSuccess(MallShoppingHomeBean mallShoppingHomeBean) throws IOException {
                 mTvShoppingName.setText(mallShoppingHomeBean.getName());
-                Glide.with(MallShoppingHomeActivity.this).load(BaseUrl.BASE_URL + mallShoppingHomeBean.getLogo_img())
+                Glide.with(MallShoppingHomeActivity.this).load(UrlUtil.getImageUrl(mallShoppingHomeBean.getLogo_img()))
                         .apply(new RequestOptions()
                                 .placeholder(R.mipmap.ic_default_head_photo).error(R.mipmap.ic_default_head_photo))
                         .into(mIvShoppingHeadpic);
@@ -151,7 +151,7 @@ public class MallShoppingHomeActivity extends BaseActivity {
                     mtvMallMerchantsFocuson.setText("已关注");
                     ivisfocuson.setVisibility(View.GONE);
                 }
-                Glide.with(MallShoppingHomeActivity.this).load(BaseUrl.BASE_URL + mallShoppingHomeBean.getBanner_img()).into(mIvShoppingBackground);
+                Glide.with(MallShoppingHomeActivity.this).load(UrlUtil.getImageUrl(mallShoppingHomeBean.getBanner_img())).into(mIvShoppingBackground);
                 typeBeanList = mallShoppingHomeBean.getType();
             }
         });

@@ -10,7 +10,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.base.BaseUrl;
+import com.zskjprojectj.andouclient.utils.UrlUtil;import com.zskjprojectj.andouclient.base.BaseUrl;
 import com.zskjprojectj.andouclient.entity.mall.MallCommentBean;
 
 import java.util.List;
@@ -32,7 +32,7 @@ public class MallCommentAdapter extends BaseQuickAdapter<MallCommentBean, BaseVi
 
     @Override
     protected void convert(BaseViewHolder helper, MallCommentBean item) {
-        Glide.with(mContext).load(BaseUrl.BASE_URL+item.getAvator())
+        Glide.with(mContext).load(UrlUtil.getImageUrl(item.getAvator()))
                 .transition(new DrawableTransitionOptions().crossFade())
                 .into((ImageView) helper.getView(R.id.iv_headPic));
         helper.setText(R.id.tv_name,item.getName());

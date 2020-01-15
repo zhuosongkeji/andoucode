@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.base.BaseUrl;
+import com.zskjprojectj.andouclient.utils.UrlUtil;import com.zskjprojectj.andouclient.base.BaseUrl;
 import com.zskjprojectj.andouclient.entity.mall.MallPayWaysBean;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
 
@@ -45,7 +45,7 @@ public class PayWaysAdapter extends BaseQuickAdapter<MallPayWaysBean, BaseViewHo
     @Override
     protected void convert(BaseViewHolder helper, MallPayWaysBean item) {
 
-        Glide.with(mContext).load(BaseUrl.BASE_URL+item.getLogo()).into((ImageView) helper.getView(R.id.iv_balance));
+        Glide.with(mContext).load(UrlUtil.getImageUrl(item.getLogo())).into((ImageView) helper.getView(R.id.iv_balance));
         helper.setText(R.id.tv_pay_ways,item.getPay_way());
         AppCompatCheckBox checkBox = helper.getView(R.id.cb_balance_selector);
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

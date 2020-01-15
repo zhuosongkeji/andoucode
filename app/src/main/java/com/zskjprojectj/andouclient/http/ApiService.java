@@ -17,6 +17,7 @@ import com.zskjprojectj.andouclient.entity.RefundReasonBean;
 import com.zskjprojectj.andouclient.entity.PersonalBean;
 import com.zskjprojectj.andouclient.entity.SetBean;
 import com.zskjprojectj.andouclient.entity.TestBean;
+import com.zskjprojectj.andouclient.entity.ViproteBean;
 import com.zskjprojectj.andouclient.entity.WXPayBean;
 import com.zskjprojectj.andouclient.entity.WalletrecharBean;
 import com.zskjprojectj.andouclient.entity.hotel.HotelCategoryBean;
@@ -892,6 +893,16 @@ public interface ApiService {
     Observable<BaseResult<Object>> quit(@Field("uid") String uid,
                                                 @Field("token") String token);
 
+    /**
+     * 会员规则
+     * @param uid
+     * @param token
+     * @return
+     */
+    @POST("api/users/vip_rote")
+    @FormUrlEncoded
+    Observable<BaseResult<ViproteBean>> vip_rote(@Field("uid") String uid,
+                                                 @Field("token") String token);
 //    /**
 //     * 注册
 //     *
