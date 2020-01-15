@@ -46,6 +46,7 @@ import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.utils.GridSectionAverageGapItemDecoration;
+import com.zskjprojectj.andouclient.utils.StatusBarUtil;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
 
 import java.io.IOException;
@@ -82,6 +83,8 @@ public class HotelActivity extends BaseActivity implements View.OnClickListener 
     TextView mTvSetLike;
     @BindView(R.id.refreshLayout)
     SmartRefreshLayout mRefreshLayout;
+    @BindView(R.id.titlt_view)
+    LinearLayout mRootView;
 
 
     private RecyclerView mRvRecycler;
@@ -103,6 +106,13 @@ public class HotelActivity extends BaseActivity implements View.OnClickListener 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         BarUtils.transparentStatusBar(mActivity);
+        int barHeight = StatusBarUtil.getStatusBarHeight(mActivity);
+        if (barHeight > 0) {
+            //设置状态栏的高度
+            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mRootView.getLayoutParams();
+            layoutParams.topMargin = com.zskjprojectj.andouclient.utils.BarUtils.getStatusBarHeight(mActivity) + layoutParams.topMargin;
+            mRootView.setLayoutParams(layoutParams);
+        }
         initViews();
         initData();
         getDataFromServer();

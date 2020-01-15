@@ -6,6 +6,15 @@
     android:background="@color/white"
     android:orientation="vertical">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorNavy">
+
+        <include layout="@layout/base_title_view" />
+    </LinearLayout>
+
+
 
 
     <androidx.recyclerview.widget.RecyclerView
