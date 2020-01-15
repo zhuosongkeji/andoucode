@@ -521,6 +521,18 @@ public interface ApiService {
 
 
     /**
+     * 修改昵称
+     * @param uid
+     * @param token
+     * @param name
+     * @return
+     */
+    @POST("api/modification/user_head")
+    @FormUrlEncoded
+    Observable<BaseResult<Object>> user_head(@Field("id") String uid,
+                                           @Field("token") String token,
+                                           @Field("name") String name);
+    /**
      * 添加商品评论
      */
     @POST("api/order/addcomment")
@@ -872,6 +884,13 @@ public interface ApiService {
      */
     @POST("api/index/about")
     Observable<BaseResult<AboutusBean>> about();
+    /**
+     * 添加酒店点赞
+     */
+    @POST("api/goods/quit")
+    @FormUrlEncoded
+    Observable<BaseResult<Object>> quit(@Field("uid") String uid,
+                                                @Field("token") String token);
 
 //    /**
 //     * 注册
