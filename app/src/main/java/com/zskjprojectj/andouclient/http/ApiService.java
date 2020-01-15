@@ -3,7 +3,6 @@ package com.zskjprojectj.andouclient.http;
 import com.google.gson.JsonElement;
 import com.zhuosongkj.android.library.model.BaseResult;
 import com.zhuosongkj.android.library.model.ListData;
-import com.zskjprojectj.andouclient.activity.RestaurantOrderListActivity;
 import com.zskjprojectj.andouclient.entity.AboutusBean;
 import com.zskjprojectj.andouclient.entity.BrowsingBean;
 import com.zskjprojectj.andouclient.entity.CheckLogisticsBean;
@@ -56,7 +55,7 @@ import com.zskjprojectj.andouclient.model.MerchantsResponse;
 import com.zskjprojectj.andouclient.model.Order;
 import com.zskjprojectj.andouclient.model.OrderDetail;
 import com.zskjprojectj.andouclient.model.RestaurantIListResponse;
-import com.zskjprojectj.andouclient.model.RestaurantOrderDetail;
+import com.zskjprojectj.andouclient.model.RestaurantOrder;
 import com.zskjprojectj.andouclient.model.User;
 
 import java.util.List;
@@ -523,6 +522,7 @@ public interface ApiService {
 
     /**
      * 修改昵称
+     *
      * @param uid
      * @param token
      * @param name
@@ -531,8 +531,9 @@ public interface ApiService {
     @POST("api/modification/user_head")
     @FormUrlEncoded
     Observable<BaseResult<Object>> user_head(@Field("id") String uid,
-                                           @Field("token") String token,
-                                           @Field("name") String name);
+                                             @Field("token") String token,
+                                             @Field("name") String name);
+
     /**
      * 添加商品评论
      */
@@ -885,16 +886,18 @@ public interface ApiService {
      */
     @POST("api/index/about")
     Observable<BaseResult<AboutusBean>> about();
+
     /**
      * 添加酒店点赞
      */
     @POST("api/goods/quit")
     @FormUrlEncoded
     Observable<BaseResult<Object>> quit(@Field("uid") String uid,
-                                                @Field("token") String token);
+                                        @Field("token") String token);
 
     /**
      * 会员规则
+     *
      * @param uid
      * @param token
      * @return
@@ -1085,8 +1088,8 @@ public interface ApiService {
 
     @FormUrlEncoded
     @POST("api/gourmet/order_details")
-    Observable<BaseResult<RestaurantOrderDetail>> getOrderDetail(@Field("uid") String user_id,
-                                                                 @Field("id") String id);
+    Observable<BaseResult<RestaurantOrder>> getOrderDetail(@Field("uid") String user_id,
+                                                           @Field("id") String id);
 
     @FormUrlEncoded
     @POST("api/gourmet/refund")
@@ -1103,4 +1106,14 @@ public interface ApiService {
     @POST("api/gourmet/balancePay")
     Observable<BaseResult<Object>> accountPay(@Field("uid") String user_id,
                                               @Field("sNo") String order_sn);
+
+    @FormUrlEncoded
+    @POST("api/gourmet/addcomment")
+    Observable<BaseResult<Object>> addComment(@Field("uid") String user_id,
+                                              @Field("order_id") String order_id,
+                                              @Field("merchants_id") String merchants_id,
+                                              @Field("content") String content,
+                                              @Field("stars") String stars,
+                                              @Field("image") String image,
+                                              @Field("dianzhan") int dianzhan);
 }

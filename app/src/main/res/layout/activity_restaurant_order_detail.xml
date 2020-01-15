@@ -144,6 +144,8 @@
             android:layout_marginTop="10dp"
             android:background="#FFFFFF"
             android:orientation="vertical"
+            android:visibility="gone"
+            tools:visibility="visible"
             android:padding="15dp">
 
             <TextView
@@ -376,24 +378,54 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/cancelBtnContainer"
+            android:id="@+id/controlBtnContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="#FFFFFF"
             android:gravity="end"
             android:orientation="vertical"
-            android:padding="15dp">
+            android:padding="15dp"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <TextView
+                android:id="@+id/reviewTxtBtn"
+                android:layout_width="76dp"
+                android:layout_height="26dp"
+                android:background="@drawable/bg_btn"
+                android:gravity="center"
+                android:text="立即评价"
+                android:textColor="#ff5ed3ae"
+                android:textSize="11sp"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/payTxtBtn"
+                android:layout_width="76dp"
+                android:layout_height="26dp"
+                android:layout_marginStart="15dp"
+                android:background="@drawable/bg_btn"
+                android:gravity="center"
+                android:text="立即付款"
+                android:textColor="#ff5ed3ae"
+                android:textSize="11sp"
+                android:visibility="gone"
+                tools:visibility="visible" />
 
             <TextView
                 android:id="@+id/cancelBtn"
                 android:layout_width="76dp"
                 android:layout_height="26dp"
+                android:layout_marginStart="15dp"
                 android:background="@drawable/bg_btn"
                 android:gravity="center"
                 android:text="取消订单"
                 android:textColor="#ff5ed3ae"
-                android:textSize="11sp" />
+                android:textSize="11sp"
+                android:visibility="gone"
+                tools:visibility="visible" />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>
