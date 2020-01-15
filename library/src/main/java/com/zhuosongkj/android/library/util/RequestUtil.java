@@ -53,6 +53,7 @@ public class RequestUtil {
                             if (onLoginRequest != null) {
                                 onLoginRequest.onLoginRequest(activity);
                             }
+                            onError(new ApiException(result.code, result.msg));
                         } else {
                             onError(new ApiException(result.code, result.msg));
                         }

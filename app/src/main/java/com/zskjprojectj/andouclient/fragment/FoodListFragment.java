@@ -142,7 +142,9 @@ public class FoodListFragment extends BaseFragment {
                         foods.addAll(foodCategory.foods);
                     }
                     foodAdapter.setNewData(foods);
-                    loadCart();
+                    if (!TextUtils.isEmpty(LoginInfoUtil.getToken())) {
+                        loadCart();
+                    }
                 });
     }
 
