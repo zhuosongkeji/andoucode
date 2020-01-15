@@ -5,6 +5,8 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -23,6 +25,7 @@ import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zhuosongkj.android.library.app.BaseFragment;
 import com.zhuosongkj.android.library.model.BaseResult;
 import com.zhuosongkj.android.library.model.IListData;
+import com.zhuosongkj.android.library.util.ActionBarUtil;
 import com.zhuosongkj.android.library.util.PageLoadUtil;
 import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
@@ -35,6 +38,8 @@ import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.model.Merchant;
 import com.zskjprojectj.andouclient.model.MerchantsResponse;
+import com.zskjprojectj.andouclient.utils.BarUtils;
+import com.zskjprojectj.andouclient.utils.StatusBarUtil;
 
 import java.io.IOException;
 
@@ -57,6 +62,13 @@ import static com.zskjprojectj.andouclient.activity.MyaddressActivity.KEY_DATA;
  */
 public class MerchantsPageFragment extends BaseFragment {
 
+    @BindView(R.id.header_title_view)
+    RelativeLayout mTitleView;
+    @BindView(R.id.iv_header_back)
+    ImageView mHeaderBack;
+    @BindView(R.id.tv_header_title)
+    TextView mHeaderTitle;
+
 
     @BindView(R.id.ll_classify)
     LinearLayout mClassify;
@@ -74,6 +86,15 @@ public class MerchantsPageFragment extends BaseFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        int barHeight = StatusBarUtil.getStatusBarHeight(mActivity);
+        if (barHeight > 0) {
+            //设置状态栏的高度
+            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) mTitleView.getLayoutParams();
+            layoutParams.topMargin = BarUtils.getStatusBarHeight(mActivity) + layoutParams.topMargin;
+            mTitleView.setLayoutParams(layoutParams);
+        }
+        mHeaderTitle.setText("商家");
+        mHeaderBack.setVisibility(View.GONE);
         mRecycler = view.findViewById(R.id.rv_recycler);
         mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         PageLoadUtil<Merchant> pageLoadUtil = PageLoadUtil

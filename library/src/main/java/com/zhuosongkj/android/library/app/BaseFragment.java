@@ -36,4 +36,6 @@ public abstract class BaseFragment extends Fragment {
 
     @LayoutRes
     protected abstract int getContentView();
+
+
 }

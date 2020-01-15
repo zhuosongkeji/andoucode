@@ -35,6 +35,7 @@
             android:name=".activity.restaurant.RestaurantSearchActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".activity.restaurant.RestaurantRefundActivity" />
+        <activity android:name=".activity.restaurant.RestaurantReviewActivity" />
         <activity android:name=".activity.restaurant.RestaurantOrderDetailActivity" />
         <activity android:name=".activity.restaurant.RestaurantBillActivity" />
         <activity android:name=".activity.restaurant.RestaurantDetailActivity" />

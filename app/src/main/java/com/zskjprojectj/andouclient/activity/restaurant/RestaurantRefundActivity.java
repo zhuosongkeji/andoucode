@@ -11,6 +11,7 @@ import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
+import com.zskjprojectj.andouclient.utils.ToastUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -47,6 +48,7 @@ public class RestaurantRefundActivity extends BaseActivity {
                         getIntent().getStringExtra(KEY_DATA),
                         reasonEdt.getText().toString()
                 ), result -> {
+                    ToastUtil.showToast(result.msg);
                     setResult(Activity.RESULT_OK);
                     finish();
                 });

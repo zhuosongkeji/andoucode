@@ -78,6 +78,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        StatusBarUtil.setTranslucentStatus(mActivity);
         initViews();
     }
 
@@ -105,24 +106,24 @@ public class MainActivity extends BaseActivity {
                 .onTabClickListener(new EasyNavigationBar.OnTabClickListener() {
                     @Override
                     public boolean onTabClickEvent(View view, int position) {
-                        switch (position) {
-                            case 0:
-                                ActionBarUtil.setVisible(mActivity, false);
-                                break;
-                            case 1:
-                                ActionBarUtil.setTitle(mActivity, "商家");
-                                break;
-                            case 2:
-                                ActionBarUtil.setVisible(mActivity, false);
-                                break;
-                            case 3:
-                                ActionBarUtil.setTitle(mActivity, "信息");
-                                break;
-                            case 4:
-                                ActionBarUtil.setVisible(mActivity,false);
-                                break;
-
-                        }
+//                        switch (position) {
+//                            case 0:
+//                                ActionBarUtil.setVisible(mActivity, false);
+//                                break;
+//                            case 1:
+//                                ActionBarUtil.setTitle(mActivity, "商家");
+//                                break;
+//                            case 2:
+//                                ActionBarUtil.setVisible(mActivity, false);
+//                                break;
+//                            case 3:
+//                                ActionBarUtil.setTitle(mActivity, "信息");
+//                                break;
+//                            case 4:
+//                                ActionBarUtil.setVisible(mActivity,false);
+//                                break;
+//
+//                        }
                         return false;
                     }
                 })

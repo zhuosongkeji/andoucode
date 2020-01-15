@@ -18,7 +18,10 @@ public class RestaurantOrder implements Serializable, RestaurantBillActivity.IBi
     public String people;
     public int status;
     public ArrayList<Food> foods = new ArrayList<>();
-
+    public int method;
+    public String integral;
+    public String pay_money;
+    public String orderingtime;
     @Override
     public String getMerchantId() {
         return null;

@@ -21,12 +21,10 @@ import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.model.Food;
 import com.zskjprojectj.andouclient.model.RestaurantOrder;
-import com.zskjprojectj.andouclient.model.RestaurantOrderDetail;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 import com.zskjprojectj.andouclient.utils.UrlUtil;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 
 import static com.zskjprojectj.andouclient.activity.MyaddressActivity.KEY_DATA;
 
@@ -34,6 +32,12 @@ public class RestaurantOrderDetailActivity extends BaseActivity {
 
     @BindView(R.id.cancelBtn)
     View cancelBtn;
+
+    @BindView(R.id.payTxtBtn)
+    View payTxtBtn;
+
+    @BindView(R.id.reviewTxtBtn)
+    View reviewTxtBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,11 +51,23 @@ public class RestaurantOrderDetailActivity extends BaseActivity {
                 result -> bindOrderDetail(result.data));
     }
 
-    private void bindOrderDetail(RestaurantOrderDetail data) {
-        if (data.status == RestaurantOrder.STATE.DAI_PING_JIA.stateInt
-                || data.status == RestaurantOrder.STATE.YI_WAN_CHENG.stateInt) {
-            findViewById(R.id.qrCodeContainer).setVisibility(View.GONE);
-            findViewById(R.id.cancelBtnContainer).setVisibility(View.GONE);
+    private void bindOrderDetail(RestaurantOrder data) {
+        if (data.status == RestaurantOrder.STATE.DAI_SHI_YONG.stateInt) {
+            findViewById(R.id.qrCodeContainer).setVisibility(View.VISIBLE);
+            findViewById(R.id.controlBtnContainer).setVisibility(View.VISIBLE);
+            cancelBtn.setVisibility(View.VISIBLE);
+            cancelBtn.setOnClickListener(v ->
+                    RestaurantRefundActivity.start(mActivity, data.order_sn, 666));
+        } else if (data.status == RestaurantOrder.STATE.DAI_ZHI_FU.stateInt) {
+            findViewById(R.id.controlBtnContainer).setVisibility(View.VISIBLE);
+            payTxtBtn.setVisibility(View.VISIBLE);
+            payTxtBtn.setOnClickListener(v ->
+                    RestaurantBillActivity.start(mActivity, data, 666));
+        } else if (data.status == RestaurantOrder.STATE.DAI_PING_JIA.stateInt) {
+            findViewById(R.id.controlBtnContainer).setVisibility(View.VISIBLE);
+            reviewTxtBtn.setVisibility(View.VISIBLE);
+            reviewTxtBtn.setOnClickListener(v ->
+                    RestaurantReviewActivity.start(mActivity, data, 666));
         }
         Glide.with(mActivity)
                 .load(UrlUtil.getImageUrl(data.logo_img))
@@ -74,8 +90,6 @@ public class RestaurantOrderDetailActivity extends BaseActivity {
         for (Food food : data.foods) {
             RestaurantBillActivity.addFoodView(mActivity, findViewById(R.id.foodContainer), food);
         }
-        cancelBtn.setOnClickListener(v ->
-                RestaurantRefundActivity.start(mActivity, data.order_sn, 666));
     }
 
     @Override

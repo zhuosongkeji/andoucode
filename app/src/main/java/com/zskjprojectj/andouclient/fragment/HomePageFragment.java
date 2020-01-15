@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
@@ -17,7 +18,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.blankj.utilcode.util.ActivityUtils;
-import com.blankj.utilcode.util.BarUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -52,8 +52,10 @@ import com.zskjprojectj.andouclient.entity.IndexHomeBean;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
+import com.zskjprojectj.andouclient.utils.BarUtils;
 import com.zskjprojectj.andouclient.utils.GlideTool;
 import com.zskjprojectj.andouclient.utils.ScreenUtil;
+import com.zskjprojectj.andouclient.utils.StatusBarUtil;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
 
 import java.io.IOException;
@@ -89,6 +91,9 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
     @BindView(R.id.view_flipper)
     ViewFlipper view_flipper;
 
+    @BindView(R.id.root_view)
+    LinearLayout mRootView;
+
     private boolean enable;
     private List<HotCity> hotCities;
     private int anim;
@@ -103,7 +108,13 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
+        int barHeight = StatusBarUtil.getStatusBarHeight(mActivity);
+        if (barHeight > 0) {
+            //设置状态栏的高度
+            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) mRootView.getLayoutParams();
+            layoutParams.topMargin = BarUtils.getStatusBarHeight(mActivity) + layoutParams.topMargin;
+            mRootView.setLayoutParams(layoutParams);
+        }
         initCoverFlow();
         bannertops = view.findViewById(R.id.bannertop);
         view.findViewById(R.id.sha).setOnClickListener(v -> ActivityUtils.startActivity(QrCodeActivity.class));

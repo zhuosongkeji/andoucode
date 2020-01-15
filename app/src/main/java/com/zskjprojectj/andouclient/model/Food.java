@@ -15,6 +15,10 @@ public class Food implements Serializable {
     public FoodCategory category = new FoodCategory();
 
     public double getAmount() {
-        return new BigDecimal(price).multiply(new BigDecimal(num)).doubleValue();
+        try {
+            return new BigDecimal(price).multiply(new BigDecimal(num)).doubleValue();
+        } catch (Exception e) {
+            return 0;
+        }
     }
 }

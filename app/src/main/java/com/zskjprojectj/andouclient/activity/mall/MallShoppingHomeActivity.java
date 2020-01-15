@@ -26,6 +26,7 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zhuosongkj.android.library.model.BaseResult;
 import com.zhuosongkj.android.library.model.IListData;
+import com.zhuosongkj.android.library.util.ActionBarUtil;
 import com.zhuosongkj.android.library.util.PageLoadUtil;
 import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
@@ -39,6 +40,7 @@ import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.utils.BarUtils;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
+import com.zskjprojectj.andouclient.utils.StatusBarUtil;
 
 import java.io.IOException;
 import java.util.List;
@@ -93,6 +95,8 @@ public class MallShoppingHomeActivity extends BaseActivity {
 
     @BindView(R.id.refreshLayout)
     SmartRefreshLayout mRefreshLayout;
+    @BindView(R.id.rl_root_view)
+    RelativeLayout mRootView;
 
 
     private RecyclerView mRecyclerPopu;
@@ -118,6 +122,14 @@ public class MallShoppingHomeActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        BarUtils.transparentStatusBar(mActivity);
+        int barHeight = StatusBarUtil.getStatusBarHeight(mActivity);
+        if (barHeight > 0) {
+            //设置状态栏的高度
+            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mRootView.getLayoutParams();
+            layoutParams.topMargin = BarUtils.getStatusBarHeight(mActivity) + layoutParams.topMargin;
+            mRootView.setLayoutParams(layoutParams);
+        }
         initViews();
         getDataFromServer();
     }

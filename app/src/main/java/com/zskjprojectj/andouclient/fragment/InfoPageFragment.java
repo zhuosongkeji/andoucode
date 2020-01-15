@@ -2,6 +2,8 @@ package com.zskjprojectj.andouclient.fragment;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -17,6 +19,8 @@ import com.zskjprojectj.andouclient.adapter.hotel.CommentAdapter;
 import com.zskjprojectj.andouclient.base.BaseFragment;
 import com.zskjprojectj.andouclient.entity.InfoFragmentBean;
 import com.zskjprojectj.andouclient.entity.hotel.HotelDetailCommentBean;
+import com.zskjprojectj.andouclient.utils.BarUtils;
+import com.zskjprojectj.andouclient.utils.StatusBarUtil;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
 import com.zskjprojectj.andouclient.view.TopView;
 
@@ -39,11 +43,29 @@ public class InfoPageFragment extends BaseFragment {
     private RecyclerView mRecycler;
     private ArrayList<InfoFragmentBean> mDataList;
 
-
+    @BindView(R.id.header_title_view)
+    RelativeLayout mTitleView;
+    @BindView(R.id.iv_header_back)
+    ImageView mHeaderBack;
+    @BindView(R.id.tv_header_title)
+    TextView mHeaderTitle;
 
 
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
+
+        int barHeight = StatusBarUtil.getStatusBarHeight(mAty);
+        if (barHeight > 0) {
+            //设置状态栏的高度
+            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) mTitleView.getLayoutParams();
+            layoutParams.topMargin = BarUtils.getStatusBarHeight(mAty) + layoutParams.topMargin;
+            mTitleView.setLayoutParams(layoutParams);
+        }
+        mHeaderTitle.setText("信息");
+        mHeaderBack.setVisibility(View.GONE);
+
+
+
         mRecycler=view.findViewById(R.id.rv_recycler);
         mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
 
