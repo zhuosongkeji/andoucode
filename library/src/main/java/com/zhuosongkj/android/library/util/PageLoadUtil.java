@@ -56,12 +56,10 @@ public class PageLoadUtil<T> {
             }
         });
         loadingView = LayoutInflater.from(activity).inflate(R.layout.layout_loading_view, null);
-        startLoadingImage();
         refreshLayout.setRefreshHeader(new RefreshHeaderView(this.activity));
         refreshLayout.setOnRefreshListener(temp -> loadData(true));
         refreshLayout.setEnableLoadMore(false);
         adapter.setOnLoadMoreListener(() -> loadData(false), recyclerView);
-        loadData(true);
     }
 
     private void startLoadingImage() {

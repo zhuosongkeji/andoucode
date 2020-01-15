@@ -252,6 +252,7 @@ public interface ApiService {
 
     /**
      * 会员购买
+     *
      * @param uid
      * @param token
      * @param pay_id
@@ -260,8 +261,8 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("api/users/vip_recharge")
     Observable<BaseResult<WXPayBean>> vip_recharge(@Field("uid") String uid,
-                                                    @Field("token") String token,
-                                                    @Field("pay_id") String pay_id
+                                                   @Field("token") String token,
+                                                   @Field("pay_id") String pay_id
     );
 
     /**
@@ -385,6 +386,7 @@ public interface ApiService {
     Observable<BaseResult<Object>> forgetPassword(@Field("phone") String uid,
                                                   @Field("new_password") String type,
                                                   @Field("verify") String verify);
+
     @POST("api/users/upmodel")
     @FormUrlEncoded
     Observable<BaseResult<Object>> upmodel(@Field("uid") String uid,
@@ -468,6 +470,7 @@ public interface ApiService {
 
     /**
      * 通知消息
+     *
      * @param uid
      * @param token
      * @return
@@ -475,9 +478,11 @@ public interface ApiService {
     @POST("api/index/notification_center")
     @FormUrlEncoded
     Observable<BaseResult<List<MymessageBean>>> notificationcenter(@Field("uid") String uid,
-                                                                       @Field("token") String token);
+                                                                   @Field("token") String token);
+
     /**
      * 通知消息
+     *
      * @param id
      * @param token
      * @return
@@ -486,6 +491,7 @@ public interface ApiService {
     @FormUrlEncoded
     Observable<BaseResult<InformationBean>> information(@Field("id") String id,
                                                         @Field("token") String token);
+
     /**
      * 订单详情
      */
@@ -700,6 +706,7 @@ public interface ApiService {
 
     /**
      * 设置
+     *
      * @param uid
      * @param token
      * @return
@@ -821,6 +828,7 @@ public interface ApiService {
 
     /**
      * 邀请码
+     *
      * @param uid
      * @param token
      * @return
@@ -831,6 +839,7 @@ public interface ApiService {
 
     /**
      * 绑定上下级
+     *
      * @param uid
      * @param token
      * @param code
@@ -838,7 +847,7 @@ public interface ApiService {
      */
     @POST("api/users/binding")
     @FormUrlEncoded
-    Observable<BaseResult<Object>> binding(@Field("uid") String uid, @Field("token") String token,@Field("code") String code);
+    Observable<BaseResult<Object>> binding(@Field("uid") String uid, @Field("token") String token, @Field("code") String code);
 
     /**
      * 添加酒店点赞
@@ -846,8 +855,9 @@ public interface ApiService {
     @POST("api/opinion/index")
     @FormUrlEncoded
     Observable<BaseResult<Object>> opinionindex(@Field("uid") String uid,
-                                                    @Field("token") String token,
-                                                    @Field("content") String content);
+                                                @Field("token") String token,
+                                                @Field("content") String content);
+
     /**
      * 酒店搜索配置
      */
@@ -993,8 +1003,9 @@ public interface ApiService {
     @POST("api/gourmet/delicious")
     Observable<BaseResult<List<RestaurantCategory>>> getFoodCategory();
 
+    @FormUrlEncoded
     @POST("api/gourmet/list")
-    Observable<BaseResult<RestaurantListResponse>> getRestaurants();
+    Observable<BaseResult<RestaurantListResponse>> getRestaurants(@Field("name") String name);
 
     @FormUrlEncoded
     @POST("api/gourmet/details")

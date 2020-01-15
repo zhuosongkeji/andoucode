@@ -3,18 +3,17 @@ package com.zskjprojectj.andouclient.activity.restaurant;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.View;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.BarUtils;
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zhuosongkj.android.library.ui.HeaderItemDecoration;
 import com.zhuosongkj.android.library.util.PageLoadUtil;
 import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.adapter.restaurant.HomeAdapter;
+import com.zskjprojectj.andouclient.adapter.restaurant.RestaurantAdapter;
 import com.zskjprojectj.andouclient.adapter.restaurant.RestaurantCategoryAdapter;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.model.Restaurant;
@@ -25,7 +24,7 @@ import butterknife.OnClick;
 public class RestaurantHomeActivity extends BaseActivity {
 
     RestaurantCategoryAdapter adapter = new RestaurantCategoryAdapter();
-    HomeAdapter homeAdapter = new HomeAdapter();
+    RestaurantAdapter restaurantAdapter = new RestaurantAdapter();
 
     @BindView(R.id.homeRecyclerView)
     RecyclerView homeRecyclerView;
@@ -41,23 +40,28 @@ public class RestaurantHomeActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         BarUtils.setStatusBarLightMode(mActivity, true);
         BarUtils.transparentStatusBar(mActivity);
-        homeAdapter.addHeaderView(
+        restaurantAdapter.addHeaderView(
                 LayoutInflater.from(mActivity).inflate(R.layout.layout_restaurant_header_view, null));
-        adapter.bindToRecyclerView(homeAdapter.getHeaderLayout().findViewById(R.id.recyclerView));
-        homeRecyclerView.addItemDecoration(new HeaderItemDecoration(homeRecyclerView, homeAdapter));
-        homeAdapter.setOnItemClickListener((adapter, view, position)
-                -> RestaurantDetailActivity.start(homeAdapter.getItem(position).id));
+        adapter.bindToRecyclerView(restaurantAdapter.getHeaderLayout().findViewById(R.id.recyclerView));
+        homeRecyclerView.addItemDecoration(new HeaderItemDecoration(homeRecyclerView, restaurantAdapter));
+        restaurantAdapter.setOnItemClickListener((adapter, view, position)
+                -> RestaurantDetailActivity.start(restaurantAdapter.getItem(position).id));
         RequestUtil.request(mActivity, true, true,
                 () -> ApiUtils.getApiService().getFoodCategory()
                 , result -> adapter.setNewData(result.data));
-        PageLoadUtil<Restaurant> pageLoadUtil = PageLoadUtil.get(mActivity, homeRecyclerView, homeAdapter,
+        PageLoadUtil<Restaurant> pageLoadUtil = PageLoadUtil.get(mActivity, homeRecyclerView, restaurantAdapter,
                 findViewById(R.id.refreshLayout));
-        pageLoadUtil.load(() -> ApiUtils.getApiService().getRestaurants(),
+        pageLoadUtil.load(() -> ApiUtils.getApiService().getRestaurants(null),
                 (refresh, data) -> {
                     if (refresh && data.size() > 0) {
                         data.get(0).isHeader = true;
                     }
                 });
+    }
+
+    @OnClick(R.id.searchBtn)
+    void onSearchBtnClick() {
+        ActivityUtils.startActivity(RestaurantSearchActivity.class);
     }
 
     @Override
