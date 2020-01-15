@@ -108,6 +108,10 @@ public class MePageFragment extends BaseFragment {
     private LinearLayout mycenter_restaurant_layout;
     //我的关注
     private LinearLayout mycenter_myfocuson_layout;
+    //二维码
+    private LinearLayout mycenter_qrcode_layout;
+    //我的发布
+    private LinearLayout mycenter_releas_layout;
     //设置界面
     private ImageView img_meset;
     //个人信息
@@ -134,6 +138,8 @@ public class MePageFragment extends BaseFragment {
         mycenter_operationvideo_layout = view.findViewById(R.id.mycenter_operationvideo_layout);
         mycenter_restaurant_layout = view.findViewById(R.id.mycenter_restaurant_layout);
         mycenter_myfocuson_layout = view.findViewById(R.id.mycenter_myfocuson_layout);
+        mycenter_qrcode_layout=view.findViewById(R.id.mycenter_qrcode_layout);
+        mycenter_releas_layout=view.findViewById(R.id.mycenter_releas_layout);
         img_meset = view.findViewById(R.id.img_meset);
         img_touxiang = view.findViewById(R.id.img_touxiang);
         tv_nickname = view.findViewById(R.id.tv_nickname);
@@ -227,6 +233,24 @@ public class MePageFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getContext(), FoodorderActivity.class));
+            }
+        });
+        /**
+         * 我的二维码
+         */
+        mycenter_qrcode_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ToastUtil.showToast("功能暂未开通敬请期待....");
+            }
+        });
+        /**
+         * 我的发布
+         */
+        mycenter_releas_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ToastUtil.showToast("功能暂未开通敬请期待....");
             }
         });
         /**
