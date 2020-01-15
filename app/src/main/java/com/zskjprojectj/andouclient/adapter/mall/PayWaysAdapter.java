@@ -55,7 +55,6 @@ public class PayWaysAdapter extends BaseQuickAdapter<MallPayWaysBean, BaseViewHo
                     map.clear();
                     map.put(helper.getLayoutPosition(),true);
                     checkedPosition=helper.getLayoutPosition();
-                    ToastUtil.showToast("选择"+item.getPay_way());
                     itemPayWays.getPayWays(item.getPay_way(),helper.getLayoutPosition());
                 }else {
                     map.remove(helper.getLayoutPosition());

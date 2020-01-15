@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -31,6 +32,8 @@ import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.MainActivity;
+import com.zskjprojectj.andouclient.activity.mall.MallOnlineOrderActivity;
+import com.zskjprojectj.andouclient.activity.mall.MallPaySuccessActivity;
 import com.zskjprojectj.andouclient.adapter.mall.PayWaysAdapter;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
@@ -122,7 +125,7 @@ public class HotelOnlineReserveActivity extends BaseActivity {
         ((TextView) findViewById(R.id.end_time)).setText(hotelSettlementBean.getEnd());
         ((TextView) findViewById(R.id.night_numeber)).setText(hotelSettlementBean.getDays() + "晚");
         ((TextView) findViewById(R.id.tv_integral)).setText(hotelSettlementBean.getIntegral());
-        ((TextView) findViewById(R.id.tv_allprice)).setText("¥" + hotelSettlementBean.getAllprice());
+        ((TextView) findViewById(R.id.tv_allprice)).setText("¥" + hotelSettlementBean.getRoom().getPrice());
 
 
     }
@@ -210,11 +213,8 @@ public class HotelOnlineReserveActivity extends BaseActivity {
                     return;
                 } else if (TextUtils.isEmpty(phone)) {
                     ToastUtil.showToast("请输入手机号");
+                    return;
                 } else {
-
-                    Log.d(TAG, "酒店预订: "+LoginInfoUtil.getUid()+"\n"+LoginInfoUtil.getToken()
-                            +"\n"+home_id+"\n"+merchant_id+"\n"+start+"\n"+end+"\n"+name+"\n"+phone+"\n"+personNUm
-                            +"\n"+datNum+"\n"+payId);
 
                     int id = Integer.parseInt(payId);
                     switch (id) {
@@ -242,6 +242,19 @@ public class HotelOnlineReserveActivity extends BaseActivity {
 
                             break;
                         case YUEPAY:
+
+                            Log.d("wangbin", "酒店预订: "+LoginInfoUtil.getToken()+"\n"
+                                    +home_id+"\n"
+                                    +merchant_id+"\n"
+                                    +start+"\n"
+                                    +end+"\n"
+                                    +name+"\n"
+                                    +phone+"\n"
+                                    +personNUm+"\n"
+                                    +datNum+"\n"
+                                    +payId+"\n"
+                            );
+
                             HttpRxObservable.getObservable(ApiUtils.getApiService().hotelOrder(
                                     LoginInfoUtil.getUid(),
                                     LoginInfoUtil.getToken(),
@@ -259,7 +272,8 @@ public class HotelOnlineReserveActivity extends BaseActivity {
                             )).subscribe(new BaseObserver<WXPayBean>(mAt) {
                                 @Override
                                 public void onHandleSuccess(WXPayBean wxPayBean) throws IOException {
-                                    ToastUtil.showToast("预订成功");
+                                    startActivity(new Intent(HotelOnlineReserveActivity.this, MallPaySuccessActivity.class));
+                                    finish();
                                 }
                             });
 

@@ -135,6 +135,9 @@ public class HotelDetailReserveFragment extends BaseFragment {
         Glide.with(mAty).load(UrlUtil.getImageUrl(hotelHomeDetailsBean.getImg()))
                 .apply(new RequestOptions().placeholder(R.drawable.default_image).error(R.drawable.default_image)).into(mHotelHomeImg);
 
+        TextView mHomeAllPrice = contentView.findViewById(R.id.tv_home_all_price);
+        mHomeAllPrice.setText("¥"+hotelHomeDetailsBean.getPrice());
+
         TextView mHomeName = contentView.findViewById(R.id.name);
         mHomeName.setText(hotelHomeDetailsBean.getHouse_name());
 
@@ -151,7 +154,7 @@ public class HotelDetailReserveFragment extends BaseFragment {
         mHomeWifi.setText(hotelHomeDetailsBean.getWifi());
 
         TextView mHomePersonNUm = contentView.findViewById(R.id.tv_person_num);
-        mHomePersonNUm.setText(hotelHomeDetailsBean.getNum());
+        mHomePersonNUm.setText(hotelHomeDetailsBean.getNum_people());
 
         TextView mHomeBreakfast = contentView.findViewById(R.id.tv_has_breakfast);
         mHomeBreakfast.setText(hotelHomeDetailsBean.getHas_breakfast());
@@ -170,8 +173,6 @@ public class HotelDetailReserveFragment extends BaseFragment {
                 String today = getTime(0);
                 String tomorrow = getTime(1);
 
-                Log.d(TAG, "wwwwwww: "+LoginInfoUtil.getUid()+"\n"+LoginInfoUtil.getToken()+"\n"+ getTime(0) +"\n"+
-                        getTime(1)+"\n"+(String.valueOf(hotelHomeDetailsBean.getId())));
                 HttpRxObservable.getObservable(ApiUtils.getApiService().hotelSettlement(
                         LoginInfoUtil.getUid(),
                         LoginInfoUtil.getToken(),

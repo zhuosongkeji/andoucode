@@ -265,7 +265,7 @@
         android:background="#88000000"
         android:gravity="bottom"
         android:visibility="gone"
-        tools:visibility="visible">
+        tools:visibility="gone">
 
         <LinearLayout
             android:id="@+id/cartContainer"

@@ -26,6 +26,7 @@ import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.blankj.utilcode.util.BarUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.google.android.material.appbar.AppBarLayout;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zhuosongkj.android.library.model.BaseResult;
@@ -83,8 +84,6 @@ public class HotelActivity extends BaseActivity implements View.OnClickListener 
     TextView mTvSetLike;
     @BindView(R.id.refreshLayout)
     SmartRefreshLayout mRefreshLayout;
-    @BindView(R.id.titlt_view)
-    LinearLayout mRootView;
 
 
     private RecyclerView mRvRecycler;
@@ -106,13 +105,13 @@ public class HotelActivity extends BaseActivity implements View.OnClickListener 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         BarUtils.transparentStatusBar(mActivity);
-        int barHeight = StatusBarUtil.getStatusBarHeight(mActivity);
-        if (barHeight > 0) {
-            //设置状态栏的高度
-            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mRootView.getLayoutParams();
-            layoutParams.topMargin = com.zskjprojectj.andouclient.utils.BarUtils.getStatusBarHeight(mActivity) + layoutParams.topMargin;
-            mRootView.setLayoutParams(layoutParams);
-        }
+        BarUtils.setStatusBarLightMode(mActivity, false);
+        ActionBarUtil.setTitle(mActivity, "酒店住宿", false);
+        ActionBarUtil.getBackground(mActivity, false).setAlpha(0);
+        ((AppBarLayout) findViewById(R.id.appBarLayout))
+                .addOnOffsetChangedListener((appBarLayout, verticalOffset) ->
+                        ActionBarUtil.getBackground(mActivity, false)
+                                .setAlpha(Math.abs(verticalOffset) * 0.01f));
         initViews();
         initData();
         getDataFromServer();
@@ -358,10 +357,6 @@ public class HotelActivity extends BaseActivity implements View.OnClickListener 
     }
 
 
-    @OnClick(R.id.busiess_back_image)
-    public void clickBack() {
-        finish();
-    }
 
     @Override
     protected int getContentView() {
