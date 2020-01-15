@@ -22,7 +22,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="红红火火火锅"
-                    android:textColor="@color/colorBlack"
+                    android:textColor="@color/black"
                     android:layout_marginBottom="@dimen/dp_4"/>
                 <LinearLayout
                     android:id="@+id/classify_zhaopin1_layout"
@@ -64,6 +64,7 @@
             android:id="@+id/classify_zhaopin_countent1_txetview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="#999999"
             android:layout_marginTop="11dp"
             android:layout_marginBottom="@dimen/dp_3"
             android:text="本店应扩招店面，现招聘6名提供接待用餐客人，打扫用餐卫生环境，为客人提供优质服务，完成其他临时安排的工作。"/>
@@ -79,6 +80,7 @@
             android:gravity="center"
             android:layout_marginBottom="@dimen/dp_8">
             <TextView
+                android:textColor="#999999"
                 android:id="@+id/classify_date1_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -98,6 +100,7 @@
                     android:layout_height="22dp"
                     android:src="@mipmap/ic_comment_gary"/>
                 <TextView
+                    android:textColor="#999999"
                     android:id="@+id/classify_commont_count1_textview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -129,6 +132,7 @@
                     android:text="大大坏蛋："
                     android:textColor="@color/colorNavy"/>
                 <TextView
+                    android:textColor="#999999"
                     android:id="@+id/classify_commont_commont1_textview"
                     android:layout_marginTop="@dimen/dp_18"
                     android:layout_width="wrap_content"
@@ -150,6 +154,7 @@
                     android:layout_marginTop="@dimen/dp_8"
                     android:layout_marginLeft="@dimen/dp_3"
                     android:layout_width="wrap_content"
+                    android:textColor="#999999"
                     android:layout_height="wrap_content"
                     android:text="回复" />
                 <TextView
@@ -161,6 +166,7 @@
                     android:text="大大坏蛋："
                     android:textColor="@color/colorNavy"/>
                 <TextView
+                    android:textColor="#999999"
                     android:id="@+id/classify_commont_commont2_textview"
                     android:layout_marginTop="@dimen/dp_8"
                     android:layout_width="wrap_content"
