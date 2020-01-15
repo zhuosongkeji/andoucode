@@ -3,6 +3,7 @@ package com.zskjprojectj.andouclient.activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.base.BaseActivity;
@@ -28,7 +29,7 @@ import java.io.IOException;
  */
 public class RegisteredActivity extends BaseActivity {
     private TopView topView;
-
+    private TextView registered_login_textview;
     //设置布局文件
     @Override
     protected void setRootView() {
@@ -48,6 +49,14 @@ public class RegisteredActivity extends BaseActivity {
         topView.setBackOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                finish();
+            }
+        });
+        registered_login_textview=findViewById(R.id.registered_login_textview);
+        registered_login_textview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                jumpActivity(LoginActivity.class);
                 finish();
             }
         });

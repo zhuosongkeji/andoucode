@@ -5,7 +5,7 @@ import com.zskjprojectj.andouclient.activity.restaurant.RestaurantBillActivity;
 import java.io.Serializable;
 import java.util.List;
 
-public class Restaurant implements Serializable , RestaurantBillActivity.IBill {
+public class Restaurant implements Serializable, RestaurantBillActivity.IBill {
 
     public String id;
     public String door_img;
@@ -16,6 +16,7 @@ public class Restaurant implements Serializable , RestaurantBillActivity.IBill {
     public List<Food> cai;
     public boolean isHeader;
     public String logo_img;
+    public String mobile;
 
     public boolean isVip() {
         return false;

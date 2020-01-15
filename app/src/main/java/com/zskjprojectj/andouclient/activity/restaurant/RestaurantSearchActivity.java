@@ -7,6 +7,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.BarUtils;
+import com.blankj.utilcode.util.KeyboardUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zhuosongkj.android.library.model.BaseResult;
@@ -39,6 +40,8 @@ public class RestaurantSearchActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         BarUtils.setStatusBarLightMode(mActivity, true);
         BarUtils.transparentStatusBar(mActivity);
+        searchEdt.requestFocus();
+        KeyboardUtils.showSoftInput(searchEdt);
         adapter.setOnItemClickListener((adapter1, view, position)
                 -> RestaurantDetailActivity.start(adapter.getItem(position).id));
         PageLoadUtil<Restaurant> pageLoadUtil = PageLoadUtil.get(mActivity,

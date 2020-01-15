@@ -63,12 +63,6 @@ public class InfoPageFragment extends BaseFragment {
         }
         mHeaderTitle.setText("信息");
         mHeaderBack.setVisibility(View.GONE);
-
-
-
-        mRecycler=view.findViewById(R.id.rv_recycler);
-        mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
-
         mRecycler=view.findViewById(R.id.rv_recycler);
         mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
     }

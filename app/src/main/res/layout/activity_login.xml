@@ -40,7 +40,6 @@
         android:drawablePadding="@dimen/dp_5"
         android:hint="@string/login_phonenum"
         android:textColorHint="#919191"
-        android:text="123456"
         android:textColor="#919191"
         android:padding="@dimen/dp_10"
         android:textSize="@dimen/typeface12sp" />
@@ -58,7 +57,6 @@
         android:padding="@dimen/dp_10"
         android:textColorHint="#919191"
         android:textColor="#919191"
-        android:text="123456"
         android:textSize="@dimen/typeface12sp" />
 
     <Button
