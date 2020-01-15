@@ -31,7 +31,9 @@
         android:usesCleartextTraffic="true"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning"
         tools:targetApi="m">
-        <activity android:name=".activity.restaurant.RestaurantBillActivity"></activity>
+        <activity android:name=".activity.restaurant.RestaurantRefundActivity"></activity>
+        <activity android:name=".activity.restaurant.RestaurantOrderDetailActivity" />
+        <activity android:name=".activity.restaurant.RestaurantBillActivity" />
         <activity android:name=".activity.restaurant.RestaurantDetailActivity" />
         <activity android:name=".activity.restaurant.RestaurantHomeActivity" />
         <activity android:name=".activity.CommentSuccessActivity" />
@@ -88,7 +90,6 @@
             android:screenOrientation="portrait" /> <!-- 酒店预约-主页 -->
         <activity
             android:name=".activity.LoginActivity"
-            android:launchMode="singleInstance"
             android:screenOrientation="portrait" /> <!-- 注册界面 -->
         <activity
             android:name=".activity.RegisteredActivity"
@@ -256,8 +257,11 @@
             android:name=".activity.MyFocusonActivity"
             android:screenOrientation="portrait" /> <!-- 店铺收藏 -->
         <activity android:name=".activity.BindSuccessActivity"
-            android:screenOrientation="portrait"
-            /><!--绑定成功-->
+            android:screenOrientation="portrait" /><!--绑定成功-->
+        <activity android:name=".activity.MessageinfoActivity"
+            android:screenOrientation="portrait" /><!--信息详情-->
+        <activity android:name=".activity.OpeningmemberActivity"
+            android:screenOrientation="portrait" /><!--开通vip-->
         <activity
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"

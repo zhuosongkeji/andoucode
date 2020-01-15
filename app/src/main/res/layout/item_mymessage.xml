@@ -5,6 +5,7 @@
     android:layout_height="@dimen/dp_50">
 
     <ImageView
+        android:visibility="gone"
         android:layout_centerVertical="true"
         android:id="@+id/img_messageicon"
         android:layout_width="wrap_content"
@@ -12,7 +13,6 @@
         android:layout_height="wrap_content"
         android:src="@mipmap/icon_weibo" />
     <LinearLayout
-
         android:layout_toRightOf="@id/img_messageicon"
         android:layout_width="wrap_content"
         android:layout_marginLeft="@dimen/dp_15"
@@ -20,12 +20,15 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <TextView
+            android:id="@+id/tv_messagetitle"
+            android:textColor="#3F3F3F"
             android:textSize="@dimen/typeface15sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="亲润旗舰店" />
         <TextView
-            android:textColor="@color/lightgrey"
+            android:id="@+id/tv_messagecontent"
+            android:textColor="#969696"
             android:textSize="@dimen/typeface12sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

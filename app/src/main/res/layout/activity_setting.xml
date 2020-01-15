@@ -213,6 +213,7 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/rl_clear"
             android:layout_width="match_parent"
             android:layout_height="69dp"
             android:layout_marginTop="@dimen/dp_10"
@@ -229,12 +230,13 @@
                 android:textSize="@dimen/typeface13sp" />
 
             <TextView
+                android:id="@+id/tv_msize"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="32dp"
-                android:text="564M"
+                android:text=""
                 android:textColor="#999999"
                 android:textSize="@dimen/typeface12sp" />
 
@@ -274,7 +276,6 @@
                 android:textSize="@dimen/typeface12sp" />
 
             <ImageView
-
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"

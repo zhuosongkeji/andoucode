@@ -25,10 +25,12 @@ import com.zhuosongkj.android.library.util.RecyclerViewUtil;
 import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zhuosongkj.android.library.util.ViewUtil;
 import com.zskjprojectj.andouclient.R;
+import com.zskjprojectj.andouclient.activity.RestaurantOrderListActivity;
 import com.zskjprojectj.andouclient.adapter.restaurant.CartAdapter;
 import com.zskjprojectj.andouclient.fragment.FoodListFragment;
 import com.zskjprojectj.andouclient.fragment.RestaurantInfoFragment;
 import com.zskjprojectj.andouclient.fragment.ReviewListFragment;
+import com.zskjprojectj.andouclient.fragment.restaurant.RestaurantOrderListFragment;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.model.Food;
 import com.zskjprojectj.andouclient.model.Restaurant;
@@ -179,9 +181,13 @@ public class RestaurantDetailActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE_LOGIN && resultCode == Activity.RESULT_OK) {
+        if (resultCode != Activity.RESULT_OK) return;
+        if (requestCode == REQUEST_CODE_LOGIN) {
             loadCart();
             foodListFragment.refreshCart();
+        } else if (requestCode == 666) {
+            finish();
+            ActivityUtils.startActivity(RestaurantOrderListActivity.class);
         }
     }
 

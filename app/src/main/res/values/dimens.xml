@@ -62,5 +62,6 @@
     <dimen name="sp_17">17sp</dimen>
     <dimen name="dp_24">24dp</dimen>
     <dimen name="dp_23">23dp</dimen>
-
+    <dimen name="mTitleText">18dp</dimen>
+    <dimen name="mTitleText2">16dp</dimen>
 </resources>

@@ -49,19 +49,19 @@ import butterknife.OnClick;
 
 
 /**
- *余额充值
+ * 余额充值
  */
 public class BalanceofprepaidActivity extends BaseActivity {
     private Button btn_confirm;
     private RecyclerView mRecycler;
-    private ArrayList<BalanceofprepaidpaywayBean> mDataList;
     @BindView(R.id.rv_recycler)
     RecyclerView mRvPayWAys;
     private String payId;
-    private TextView tv_balanceofmoney,tv_phonenum;
+    private TextView tv_balanceofmoney, tv_phonenum;
     private final static int WXPAY = 1;
-    private String moneynum,phonenum;
+    private String moneynum, phonenum;
     private EditText moneyet;
+
     @Override
     protected void setRootView() {
         setContentView(R.layout.activity_balanceofprepaid);
@@ -74,25 +74,48 @@ public class BalanceofprepaidActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-        mRecycler=findViewById(R.id.rv_recycler);
+        mRecycler = findViewById(R.id.rv_recycler);
         mRecycler.setLayoutManager(new LinearLayoutManager(mAt));
-        tv_balanceofmoney=findViewById(R.id.tv_balanceofmoney);
-        tv_phonenum=findViewById(R.id.tv_phonenum);
-        moneyet=findViewById(R.id.et_money);
+        tv_balanceofmoney = findViewById(R.id.tv_balanceofmoney);
+        tv_phonenum = findViewById(R.id.tv_phonenum);
+        moneyet = findViewById(R.id.et_money);
         EventBus.getDefault().register(this);
-//        btn_confirm=findViewById(R.id.btn_confirm);
-//        btn_confirm.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-////                finish();
-//
-//            }
-//        });
-        HttpRxObservable.getObservable(ApiUtils.getApiService().walletrechar(LoginInfoUtil.getUid(),LoginInfoUtil.getToken())).subscribe(new BaseObserver<WalletrecharBean>(mAt) {
+        btn_confirm = findViewById(R.id.btn_confirm);
+        btn_confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int id = Integer.parseInt(payId);
+                switch (id) {
+                    case WXPAY:
+                        if (TextUtils.isEmpty(moneyet.getText().toString())) {
+                            ToastUtil.showToast("充值金额不能为空");
+                            return;
+                        }
+                        HttpRxObservable.getObservable(ApiUtils.getApiService().MallWXPayWaysrecharge(
+                                LoginInfoUtil.getUid(),
+                                LoginInfoUtil.getToken(),
+                                moneyet.getText().toString().trim(),
+                                phonenum,
+                                payId
+
+                        )).subscribe(new BaseObserver<WXPayBean>(mAt) {
+                            @Override
+                            public void onHandleSuccess(WXPayBean wxPayBean) throws IOException {
+                                startWXPay(wxPayBean);
+//                                finish();
+                            }
+                        });
+                        break;
+
+                }
+
+            }
+        });
+        HttpRxObservable.getObservable(ApiUtils.getApiService().walletrechar(LoginInfoUtil.getUid(), LoginInfoUtil.getToken())).subscribe(new BaseObserver<WalletrecharBean>(mAt) {
             @Override
             public void onHandleSuccess(WalletrecharBean walletrecharBean) throws IOException {
-                moneynum=walletrecharBean.getMoney();
-                phonenum=walletrecharBean.getMobile();
+                moneynum = walletrecharBean.getMoney();
+                phonenum = walletrecharBean.getMobile();
                 tv_balanceofmoney.setText(moneynum);
                 tv_phonenum.setText(phonenum);
             }
@@ -102,7 +125,7 @@ public class BalanceofprepaidActivity extends BaseActivity {
     @Override
     public void getDataFromServer() {
         //请求支付方式
-        HttpRxObservable.getObservable(ApiUtils.getApiService().getWalletPayWays(LoginInfoUtil.getUid(),LoginInfoUtil.getToken())).subscribe(new BaseObserver<List<MallPayWaysBean>>(mAt) {
+        HttpRxObservable.getObservable(ApiUtils.getApiService().getWalletPayWays(LoginInfoUtil.getUid(), LoginInfoUtil.getToken())).subscribe(new BaseObserver<List<MallPayWaysBean>>(mAt) {
             @Override
             public void onHandleSuccess(List<MallPayWaysBean> mallPayWaysBeans) throws IOException {
                 mRvPayWAys.setLayoutManager(new LinearLayoutManager(mAt));
@@ -118,39 +141,39 @@ public class BalanceofprepaidActivity extends BaseActivity {
             }
         });
     }
+
     @OnClick(R.id.btn_confirm)
-    public void onconfirm()
-    {
-        int id = Integer.parseInt(payId);
-        switch (id)
-        {
-            case WXPAY:
-                if (TextUtils.isEmpty(moneyet.getText().toString()))
-                {
-                    ToastUtil.showToast("充值金额不能为空");
-                    return;
-                }
-                HttpRxObservable.getObservable(ApiUtils.getApiService().MallWXPayWaysrecharge(
-                        LoginInfoUtil.getUid(),
-                        LoginInfoUtil.getToken(),
-                        moneyet.getText().toString().trim(),
-                        phonenum,
-                        payId
-
-                )).subscribe(new BaseObserver<WXPayBean>(mAt) {
-                    @Override
-                    public void onHandleSuccess(WXPayBean wxPayBean) throws IOException {
-                        startWXPay(wxPayBean);
-                        finish();
-                    }
-                });
-                break;
-
-        }
+    public void onconfirm() {
+//        int id = Integer.parseInt(payId);
+//        switch (id)
+//        {
+//            case WXPAY:
+//                if (TextUtils.isEmpty(moneyet.getText().toString()))
+//                {
+//                    ToastUtil.showToast("充值金额不能为空");
+//                    return;
+//                }
+//                HttpRxObservable.getObservable(ApiUtils.getApiService().MallWXPayWaysrecharge(
+//                        LoginInfoUtil.getUid(),
+//                        LoginInfoUtil.getToken(),
+//                        moneyet.getText().toString().trim(),
+//                        phonenum,
+//                        payId
+//
+//                )).subscribe(new BaseObserver<WXPayBean>(mAt) {
+//                    @Override
+//                    public void onHandleSuccess(WXPayBean wxPayBean) throws IOException {
+//                        startWXPay(wxPayBean);
+//                        finish();
+//                    }
+//                });
+//                break;
+//
+//        }
     }
-    @Subscribe (threadMode = ThreadMode.MAIN)
-   public  void  paysucces(PaySuccessEvent paySuccessEvent)
-    {
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void paysucces(PaySuccessEvent paySuccessEvent) {
         finish();
     }
 
@@ -184,6 +207,7 @@ public class BalanceofprepaidActivity extends BaseActivity {
 ////调用api接口，发送数据到微信
 //        msgApi.sendReq(req);
     }
+
     @Override
     protected BasePresenter createPresenter() {
         return null;
