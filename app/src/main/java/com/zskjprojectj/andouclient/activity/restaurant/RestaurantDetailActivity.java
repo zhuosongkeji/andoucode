@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.BarUtils;
+import com.blankj.utilcode.util.IntentUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -38,6 +39,7 @@ import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
 
 import java.math.BigDecimal;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -165,6 +167,21 @@ public class RestaurantDetailActivity extends BaseActivity {
                 return;
             }
             RestaurantBillActivity.start(mActivity, restaurant, 666);
+        });
+        findViewById(R.id.callBtn).setOnClickListener(v ->
+                startActivity(IntentUtils.getDialIntent(restaurant.mobile)));
+        findViewById(R.id.locationBtn).setOnClickListener(v -> {
+            Intent intent;
+            try {
+                intent = Intent.parseUri("intent://map/direction?" +
+                        "destination=" + restaurant.address +
+                        "&mode=driving&" +
+                        "&src=appname#Intent;scheme=bdapp;package=com.baidu.BaiduMap;end", 0);
+                startActivity(intent);
+            } catch (Exception e) {
+                ToastUtil.showToast("地图启动失败,请检查是否安装地图!");
+                e.printStackTrace();
+            }
         });
     }
 
