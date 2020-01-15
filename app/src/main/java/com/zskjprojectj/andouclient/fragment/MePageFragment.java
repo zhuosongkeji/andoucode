@@ -1,7 +1,9 @@
 package com.zskjprojectj.andouclient.fragment;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -46,8 +48,12 @@ import com.zskjprojectj.andouclient.utils.ToastUtil;
 import com.zskjprojectj.andouclient.utils.UrlUtil;
 
 import butterknife.BindView;
+import q.rorbin.badgeview.Badge;
+import q.rorbin.badgeview.QBadgeView;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <pre>
@@ -107,7 +113,7 @@ public class MePageFragment extends BaseFragment {
     //个人信息
     private ImageView img_touxiang,iv_message;
     private TextView tv_nickname, tv_viplevel, tv_collectionnum, tv_focusonnum, tv_browsenum, tv_moneynum, tv_integralnumm;
-
+    private ImageView img_hotelnum,img_mallnum,img_restaurantnum;
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
         mycenter_vegetablemarket_layout = view.findViewById(R.id.mycenter_vegetablemarket_layout);
@@ -134,11 +140,37 @@ public class MePageFragment extends BaseFragment {
         tv_viplevel = view.findViewById(R.id.tv_viplevel);
         tv_collectionnum = view.findViewById(R.id.tv_collectionnum);
         tv_focusonnum = view.findViewById(R.id.tv_focusonnum);
-        // tv_lovenum=view.findViewById(R.id.tv_lovenum);
         tv_browsenum = view.findViewById(R.id.tv_browsenum);
         tv_moneynum = view.findViewById(R.id.tv_moneynum);
         tv_integralnumm = view.findViewById(R.id.tv_integralnumm);
         iv_message=view.findViewById(R.id.iv_message);
+        img_hotelnum=view.findViewById(R.id.img_hotelnum);
+        img_mallnum=view.findViewById(R.id.img_mallnum);
+        img_restaurantnum=view.findViewById(R.id.img_restaurantnum);
+        new QBadgeView(getContext()).bindTarget(img_hotelnum).setBadgeNumber(5).setBadgeTextSize(8,true).setBadgeGravity(Gravity.END|Gravity.TOP).setOnDragStateChangedListener(new Badge.OnDragStateChangedListener() {
+            @Override
+            public void onDragStateChanged(int dragState, Badge badge, View targetView) {
+                if (STATE_SUCCEED == dragState){
+                    badge.hide(true);
+                }
+            }
+        });
+        new QBadgeView(getContext()).bindTarget(img_mallnum).setBadgeNumber(5).setBadgeTextSize(8,true).setBadgeGravity(Gravity.END|Gravity.TOP).setOnDragStateChangedListener(new Badge.OnDragStateChangedListener() {
+            @Override
+            public void onDragStateChanged(int dragState, Badge badge, View targetView) {
+                if (STATE_SUCCEED == dragState){
+                    badge.hide(true);
+                }
+            }
+        });
+        new QBadgeView(getContext()).bindTarget(img_restaurantnum).setBadgeNumber(5).setBadgeTextSize(8,true).setBadgeGravity(Gravity.END|Gravity.TOP).setOnDragStateChangedListener(new Badge.OnDragStateChangedListener() {
+            @Override
+            public void onDragStateChanged(int dragState, Badge badge, View targetView) {
+                if (STATE_SUCCEED == dragState){
+                    badge.hide(true);
+                }
+            }
+        });
         //设置状态栏的高度
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mHeaderTitle.getLayoutParams();
         layoutParams.topMargin = BarUtils.getStatusBarHeight(mAty);

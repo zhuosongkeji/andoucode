@@ -40,6 +40,8 @@
         android:layout_marginTop="@dimen/dp_10"
         android:layout_marginRight="@dimen/dp_10"
         android:background="@drawable/shape_edit"
+        android:textColorHint="#919191"
+        android:textColor="#919191"
         android:drawableLeft="@mipmap/registered_phonenum"
         android:hint="@string/login_phonenum"
         android:padding="@dimen/dp_10"
@@ -58,6 +60,8 @@
             android:background="@drawable/shape_edit"
             android:drawableLeft="@mipmap/verification_code"
             android:hint="@string/registered_input_yanzhenma"
+            android:textColorHint="#919191"
+            android:textColor="#919191"
             android:padding="@dimen/dp_10"
             android:textSize="@dimen/typeface12sp" />
 
@@ -82,6 +86,8 @@
         android:background="@drawable/shape_edit"
         android:drawableLeft="@mipmap/editverification_code"
         android:hint="@string/login_pwd"
+        android:textColorHint="#919191"
+        android:textColor="#919191"
         android:padding="@dimen/dp_10"
         android:textSize="@dimen/typeface12sp" />
 
@@ -115,10 +121,18 @@
             android:drawableLeft="@drawable/agree_selector" />
 
         <TextView
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_5"
             android:text="@string/registered_txt"
+            android:textSize="@dimen/typeface14sp" />
+        <TextView
+            android:id="@+id/yinsi_xieyi_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="《安抖隐私协议》"
+            android:textColor="#5ED3AE"
             android:textSize="@dimen/typeface14sp" />
 
         <TextView
@@ -145,6 +159,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_20"
@@ -169,6 +184,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
