@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+import com.zhuosongkj.android.library.util.ActionBarUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
@@ -33,11 +35,13 @@ import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.model.User;
+import com.zskjprojectj.andouclient.utils.BarUtils;
 import com.zskjprojectj.andouclient.utils.Constants;
 import com.zskjprojectj.andouclient.utils.LogUtil;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 import com.zskjprojectj.andouclient.utils.PhonenumUtil;
 import com.zskjprojectj.andouclient.utils.SharedPreferencesManager;
+import com.zskjprojectj.andouclient.utils.StatusBarUtil;
 
 import org.json.JSONObject;
 
@@ -45,6 +49,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import butterknife.BindView;
 import io.reactivex.functions.Consumer;
 
 import static com.zskjprojectj.andouclient.http.BaseObserver.REQUEST_CODE_LOGIN;
@@ -72,6 +77,9 @@ public class LoginActivity extends BaseActivity {
     Receiver receiver;
     IntentFilter intentFilter;
 
+    @BindView(R.id.rootView)
+    TextView mRootView;
+
     @Override
     protected void setRootView() {
         setContentView(R.layout.activity_login);
@@ -84,13 +92,21 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
+        int barHeight = StatusBarUtil.getStatusBarHeight(mAt);
+        if (barHeight > 0) {
+            //设置状态栏的高度
+            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) mRootView.getLayoutParams();
+            layoutParams.topMargin = BarUtils.getStatusBarHeight(mAt) + layoutParams.topMargin;
+            mRootView.setLayoutParams(layoutParams);
+        }
+        StatusBarUtil.setStatusBarDarkTheme(mAt,true);
+
         receiver = new Receiver();
         intentFilter = new IntentFilter();
         intentFilter.addAction("wxdl");
         registerReceiver(receiver, intentFilter);
         btnNewregistered = findViewById(R.id.btn_newregistered);
         btn_login = findViewById(R.id.btn_login);
-        findViewById(R.id.login_back_image).setOnClickListener(v -> finish());
         fingerprint_login = findViewById(R.id.iv_fingerprint_login);
         img_weixinlogin = findViewById(R.id.img_weixinlogin);
         registered_phonenum = findViewById(R.id.et_loginphonenum);

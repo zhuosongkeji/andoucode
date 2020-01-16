@@ -15,6 +15,7 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zhuosongkj.android.library.model.BaseResult;
 import com.zhuosongkj.android.library.model.IListData;
+import com.zhuosongkj.android.library.util.ActionBarUtil;
 import com.zhuosongkj.android.library.util.PageLoadUtil;
 import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
@@ -50,6 +51,7 @@ public class PlatformshoppingcartActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ActionBarUtil.setTitle(mActivity,"购物车");
         initViews();
         initData();
         getDataFromServer();
@@ -88,10 +90,7 @@ public class PlatformshoppingcartActivity extends BaseActivity {
 
 
 
-    @OnClick(R.id.iv_header_back)
-    public void clickView() {
-        finish();
-    }
+
 
     @Override
     protected int getContentView() {

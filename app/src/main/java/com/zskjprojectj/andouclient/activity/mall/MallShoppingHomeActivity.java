@@ -158,9 +158,11 @@ public class MallShoppingHomeActivity extends BaseActivity {
                         .into(mIvShoppingHeadpic);
                 if ("0".equals(mallShoppingHomeBean.getStatus())) {
                     mtvMallMerchantsFocuson.setText("关注");
+                    isfocuson = false;
                     ivisfocuson.setVisibility(View.VISIBLE);
                 } else {
                     mtvMallMerchantsFocuson.setText("已关注");
+                    isfocuson = true;
                     ivisfocuson.setVisibility(View.GONE);
                 }
                 Glide.with(MallShoppingHomeActivity.this).load(UrlUtil.getImageUrl(mallShoppingHomeBean.getBanner_img())).into(mIvShoppingBackground);

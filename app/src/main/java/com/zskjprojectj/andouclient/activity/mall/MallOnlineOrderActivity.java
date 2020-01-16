@@ -91,6 +91,7 @@ public class MallOnlineOrderActivity extends BaseActivity {
     @Override
     protected void initViews() {
         order_sn = getIntent().getStringExtra("order_sn");
+        Log.d("wangbin", "initViews: "+order_sn);
         topView.setTitle("在线下单");
         getBarDistance(topView);
 
@@ -128,7 +129,6 @@ public class MallOnlineOrderActivity extends BaseActivity {
                 String shippingAddress = userinfo.getProvince() + " " + userinfo.getCity() + " " + userinfo.getArea() + " " + userinfo.getAddress();
                 mTvClientAddress.setText(shippingAddress);
                 mShippingFree.setText(mallSettlementBean.getShipping_free());
-                Log.d(TAG, "购买结算页: " + mallSettlementBean.getShipping_free());
 
                 mTvOrderMoney.setText("¥"+mallSettlementBean.getOrder_money());
                 mMallOrderMoney.setText("¥"+mallSettlementBean.getOrder_money());

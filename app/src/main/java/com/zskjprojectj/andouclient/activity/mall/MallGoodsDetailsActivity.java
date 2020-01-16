@@ -36,7 +36,8 @@ import com.zskjprojectj.andouclient.activity.MallMainActivity;
 import com.zskjprojectj.andouclient.adapter.mall.MallBuyAdapter;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
-import com.zskjprojectj.andouclient.utils.UrlUtil;import com.zskjprojectj.andouclient.base.BaseUrl;
+import com.zskjprojectj.andouclient.utils.UrlUtil;
+import com.zskjprojectj.andouclient.base.BaseUrl;
 import com.zskjprojectj.andouclient.entity.XBannerBean;
 import com.zskjprojectj.andouclient.entity.mall.MallBuyBean;
 import com.zskjprojectj.andouclient.entity.mall.MallBuyNowBean;
@@ -290,9 +291,11 @@ public class MallGoodsDetailsActivity extends BaseActivity {
 
                         if ("0".equals(mallGoodsDetailsDataBean.getIs_collection())) {
                             mtvMallGoodsCollection.setText("收藏");
+                            isCollection = false;
                             iviscollection.setImageResource(R.mipmap.uncollectionicon);
                         } else {
                             mtvMallGoodsCollection.setText("已收藏");
+                            isCollection = true;
                             iviscollection.setImageResource(R.mipmap.ic_heart_mall);
                         }
 
@@ -489,6 +492,8 @@ public class MallGoodsDetailsActivity extends BaseActivity {
                 .placeholder(R.drawable.default_image).error(R.drawable.default_image)).into(mOrderImg);
         TextView mOrderName = contentView.findViewById(R.id.tv_order_name);
         mOrderName.setText(orderName);
+        TextView mGoodsNum = contentView.findViewById(R.id.tv_goods_num_a);
+        TextView mGoodsPrice = contentView.findViewById(R.id.tv_goods_price_a);
         RecyclerView mBuyRecycler = contentView.findViewById(R.id.rv_buy_recyclerview);
         mBuyRecycler.setLayoutManager(new LinearLayoutManager(mBuyRecycler.getContext()));
 
@@ -508,12 +513,32 @@ public class MallGoodsDetailsActivity extends BaseActivity {
                     }
                 }
 
+
+                //显示价格，库存
+                StringBuffer buffer = new StringBuffer();
+                for (int i = 0; i < MallGoodsDetailsActivity.this.res.size(); i++) {
+                    MallBuyBean.SpecInfo info = MallGoodsDetailsActivity.this.res.get(i);
+                    if (info.value.size() <= 0) {
+//                        ToastUtil.showToast("请选择" + info.name);
+                        return;
+                    } else {
+                        buffer.append(info.value.get(0)).append("-");
+                    }
+                }
+                String selectKind = buffer.substring(0, buffer.length() - 1);
+                MallBuyBean.PriceInfo priceInfo = price.get(selectKind);
+                int num = priceInfo.num;
+                String goodsNum = String.valueOf(num);
+                mGoodsNum.setText(goodsNum);
+                mGoodsPrice.setText("¥"+priceInfo.price);
+
+
             }
         });
         //减
-        Button mSub = contentView.findViewById(R.id.btn_sub);
+        ImageView mSub = contentView.findViewById(R.id.btn_sub);
         //加
-        Button mAdd = contentView.findViewById(R.id.btn_add);
+        ImageView mAdd = contentView.findViewById(R.id.btn_add);
         TextView mNum = contentView.findViewById(R.id.tv_num);
 
         //加入购物车
