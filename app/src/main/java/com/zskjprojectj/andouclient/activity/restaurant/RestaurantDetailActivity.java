@@ -143,8 +143,8 @@ public class RestaurantDetailActivity extends BaseActivity {
         foodListFragment = new FoodListFragment(restaurant);
         foodListFragment.onCartChangedListener = foods -> loadCart();
         fragments.add(foodListFragment);
-        fragments.add(new ReviewListFragment());
-        fragments.add(new RestaurantInfoFragment());
+        fragments.add(new ReviewListFragment(restaurant));
+        fragments.add(new RestaurantInfoFragment(restaurant));
         ((SlidingTabLayout) findViewById(R.id.tabLayout)).setViewPager(
                 findViewById(R.id.viewPager),
                 new String[]{"预订", "评论", "商家"},
@@ -154,7 +154,7 @@ public class RestaurantDetailActivity extends BaseActivity {
         ViewUtil.setText(mActivity, R.id.likeTxt, restaurant.praise_num);
         ViewUtil.setText(mActivity, R.id.addressTxt, restaurant.address);
         Glide.with(mActivity)
-                .load(restaurant.door_img)
+                .load(restaurant.banner_img)
                 .apply(new RequestOptions()
                         .placeholder(R.mipmap.ic_placeholder)
                         .centerCrop())

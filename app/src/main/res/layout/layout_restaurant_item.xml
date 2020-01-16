@@ -45,7 +45,8 @@
                 android:layout_width="12dp"
                 android:layout_height="12dp"
                 android:scaleType="fitCenter"
-                android:src="@mipmap/ic_restaurant_like" />
+                android:src="@mipmap/ic_restaurant_like"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/likeTxt"
@@ -54,6 +55,7 @@
                 android:layout_marginStart="6dp"
                 android:textColor="#ff5ed3ae"
                 android:textSize="12sp"
+                android:visibility="gone"
                 tools:text="1366" />
         </LinearLayout>
 

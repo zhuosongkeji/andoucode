@@ -314,7 +314,7 @@ public class MySwipeRefreshLayout extends ViewGroup implements NestedScrollingPa
 
         createProgressView();
         ViewCompat.setChildrenDrawingOrderEnabled(this, true);
-        // the absolute offset has to take into account that the circle starts at an offset
+        // the absolute offset has to take into account that the circle stars at an offset
         mSpinnerOffsetEnd = (int) (DEFAULT_CIRCLE_TARGET * metrics.density);
         mTotalDragDistance = mSpinnerOffsetEnd;
         mNestedScrollingParentHelper = new NestedScrollingParentHelper(this);

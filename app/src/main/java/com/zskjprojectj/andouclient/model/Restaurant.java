@@ -8,7 +8,7 @@ import java.util.List;
 public class Restaurant implements Serializable, RestaurantBillActivity.IBill {
 
     public String id;
-    public String door_img;
+    public String banner_img;
     public String name;
     public String praise_num;
     public String address;
@@ -16,6 +16,7 @@ public class Restaurant implements Serializable, RestaurantBillActivity.IBill {
     public List<Food> cai;
     public boolean isHeader;
     public String logo_img;
+    public String desc;
     public String tel;
 
     public boolean isVip() {

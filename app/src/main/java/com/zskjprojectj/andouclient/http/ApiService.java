@@ -55,6 +55,7 @@ import com.zskjprojectj.andouclient.model.MerchantsResponse;
 import com.zskjprojectj.andouclient.model.Order;
 import com.zskjprojectj.andouclient.model.OrderDetail;
 import com.zskjprojectj.andouclient.model.RestaurantOrder;
+import com.zskjprojectj.andouclient.model.Review;
 import com.zskjprojectj.andouclient.model.User;
 
 import java.util.List;
@@ -1117,4 +1118,9 @@ public interface ApiService {
                                               @Field("stars") String stars,
                                               @Field("image") String image,
                                               @Field("dianzhan") int dianzhan);
+
+    @FormUrlEncoded
+    @POST("api/gourmet/comment")
+    Observable<BaseResult<ListData<Review>>> getReviews(@Field("id") String id,
+                                                        @Field("page") int page);
 }
