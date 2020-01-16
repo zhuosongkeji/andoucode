@@ -201,8 +201,6 @@
             android:id="@+id/rv_hotel_category"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll"
-            android:layout_marginTop="@dimen/dp_20"
             android:background="@color/white" />
 
         <TextView

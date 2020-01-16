@@ -28,6 +28,7 @@ import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zhuosongkj.android.library.util.ActionBarUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.base.BasePresenter;
+import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 import com.zskjprojectj.andouclient.utils.UrlUtil;import com.zskjprojectj.andouclient.base.BaseUrl;
 import com.zskjprojectj.andouclient.entity.hotel.HotelDetailsBean;
 import com.zskjprojectj.andouclient.fragment.hotel.HotelDetailCommentFragment;
@@ -138,7 +139,7 @@ public class HotelDetailActivity extends BaseActivity {
         //商家ID
         String merchantId = getIntent().getStringExtra("merchantId");
 
-        HttpRxObservable.getObservable(ApiUtils.getApiService().hotelDetails(merchantId))
+        HttpRxObservable.getObservable(ApiUtils.getApiService().hotelDetails(LoginInfoUtil.getUid(),merchantId))
                 .subscribe(new BaseObserver<HotelDetailsBean>(mActivity) {
                     @Override
                     public void onHandleSuccess(HotelDetailsBean hotelDetailsBean) throws IOException {

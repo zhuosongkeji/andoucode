@@ -112,6 +112,7 @@ public class HotelActivity extends BaseActivity implements View.OnClickListener 
                 .addOnOffsetChangedListener((appBarLayout, verticalOffset) ->
                         ActionBarUtil.getBackground(mActivity, false)
                                 .setAlpha(Math.abs(verticalOffset) * 0.01f));
+        mHotelCategory.setPadding(mHotelCategory.getPaddingLeft(), BarUtils.getStatusBarHeight(), mHotelCategory.getPaddingEnd(), 0);
         initViews();
         initData();
         getDataFromServer();

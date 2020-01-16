@@ -609,7 +609,7 @@ public interface ApiService {
      */
     @POST("api/details/list")
     @FormUrlEncoded
-    Observable<BaseResult<HotelDetailsBean>> hotelDetails(@Field("id") String id);
+    Observable<BaseResult<HotelDetailsBean>> hotelDetails(@Field("uid") String uid,@Field("id") String id);
 
 
     /**
