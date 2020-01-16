@@ -1047,6 +1047,7 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("api/gourmet/list")
     Observable<BaseResult<ListData<Restaurant>>> getRestaurants(@Field("name") String name,
+                                                                @Field("cate_id") String id,
                                                                 @Field("page") int page);
 
     @FormUrlEncoded
