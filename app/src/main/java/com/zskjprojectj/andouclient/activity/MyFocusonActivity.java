@@ -10,7 +10,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zskjprojectj.andouclient.R;
+import com.zskjprojectj.andouclient.activity.hotel.HotelDetailActivity;
 import com.zskjprojectj.andouclient.activity.mall.MallShoppingHomeActivity;
+import com.zskjprojectj.andouclient.activity.restaurant.RestaurantDetailActivity;
 import com.zskjprojectj.andouclient.adapter.MyFocusonAdapter;
 import com.zskjprojectj.andouclient.adapter.MycollectionAdapter;
 import com.zskjprojectj.andouclient.base.BaseActivity;
@@ -62,7 +64,33 @@ public class MyFocusonActivity extends BaseActivity {
                 adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
                     @Override
                     public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                        MallShoppingHomeActivity.start(myFocusonBeans.get(position).getId());
+
+                        switch (myFocusonBeans.get(position).getMerchant_type_id()){
+                            //商家商城
+                            case "2":
+                                MallShoppingHomeActivity.start(myFocusonBeans.get(position).getId());
+                                break;
+                            //酒店商家
+                            case "3":
+                                HotelDetailActivity.start(myFocusonBeans.get(position).getId());
+                                break;
+                            //饭店商家
+                            case "4":
+                                RestaurantDetailActivity.start(myFocusonBeans.get(position).getId());
+                                break;
+                            //农家乐
+                            case "5":
+                                break;
+                            //旅游
+                            case "6":
+                                break;
+                            //美食预订
+                            case "7":
+                                break;
+                            //农家乐民宿
+                            case "8":
+                                break;
+                        }
                     }
                 });
 
