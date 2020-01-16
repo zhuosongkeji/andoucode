@@ -230,7 +230,6 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/dp_9"
                     android:padding="15dp">
 
                     <LinearLayout
@@ -281,7 +280,6 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
-                    android:layout_marginBottom="@dimen/dp_14"
                     android:background="@color/colorGray" />
 
                 <androidx.recyclerview.widget.RecyclerView
