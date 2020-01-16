@@ -250,7 +250,7 @@ public interface ApiService {
     Observable<BaseResult<WXPayBean>> MallWXPayWaysrecharge(@Field("uid") String uid,
                                                             @Field("token") String token,
                                                             @Field("money") String money,
-                                                            @Field("mobile") String mobile,
+                                                            @Field("tel") String mobile,
                                                             @Field("method") String method
     );
 
@@ -277,7 +277,7 @@ public interface ApiService {
     Observable<BaseResult<Object>> addAddress(@Field("uid") String uid,
                                               @Field("token") String token,
                                               @Field("name") String name,
-                                              @Field("mobile") String mobile,
+                                              @Field("tel") String mobile,
                                               @Field("province_id") String province_id,
                                               @Field("city_id") String city_id,
                                               @Field("area_id") String area_id,
@@ -293,7 +293,7 @@ public interface ApiService {
                                                @Field("uid") String uid,
                                                @Field("token") String token,
                                                @Field("name") String name,
-                                               @Field("mobile") String mobile,
+                                               @Field("tel") String mobile,
                                                @Field("province_id") String province_id,
                                                @Field("city_id") String city_id,
                                                @Field("area_id") String area_id,
@@ -659,7 +659,7 @@ public interface ApiService {
                                                  @Field("start_time") String start_time,
                                                  @Field("end_time") String end_time,
                                                  @Field("real_name") String real_name,
-                                                 @Field("mobile") String mobile,
+                                                 @Field("tel") String mobile,
                                                  @Field("num") String num,
                                                  @Field("day_num") String day_num,
                                                  @Field("pay_way") String pay_way,

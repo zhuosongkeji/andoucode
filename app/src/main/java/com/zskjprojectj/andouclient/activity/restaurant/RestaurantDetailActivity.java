@@ -31,7 +31,6 @@ import com.zskjprojectj.andouclient.adapter.restaurant.CartAdapter;
 import com.zskjprojectj.andouclient.fragment.FoodListFragment;
 import com.zskjprojectj.andouclient.fragment.RestaurantInfoFragment;
 import com.zskjprojectj.andouclient.fragment.ReviewListFragment;
-import com.zskjprojectj.andouclient.fragment.restaurant.RestaurantOrderListFragment;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.model.Food;
 import com.zskjprojectj.andouclient.model.Restaurant;
@@ -39,7 +38,6 @@ import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
 
 import java.math.BigDecimal;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -169,7 +167,7 @@ public class RestaurantDetailActivity extends BaseActivity {
             RestaurantBillActivity.start(mActivity, restaurant, 666);
         });
         findViewById(R.id.callBtn).setOnClickListener(v ->
-                startActivity(IntentUtils.getDialIntent(restaurant.mobile)));
+                startActivity(IntentUtils.getDialIntent(restaurant.tel)));
         findViewById(R.id.locationBtn).setOnClickListener(v -> {
             Intent intent;
             try {

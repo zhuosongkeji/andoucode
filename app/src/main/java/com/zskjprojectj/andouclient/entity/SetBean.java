@@ -5,7 +5,7 @@ public class SetBean {
     /**
      * avator : 头像
      * name : 昵称
-     * mobile : 电话
+     * tel : 电话
      * password : 密码
      * edition : 版本号
      */

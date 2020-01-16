@@ -16,7 +16,7 @@ public class Restaurant implements Serializable, RestaurantBillActivity.IBill {
     public List<Food> cai;
     public boolean isHeader;
     public String logo_img;
-    public String mobile;
+    public String tel;
 
     public boolean isVip() {
         return false;
