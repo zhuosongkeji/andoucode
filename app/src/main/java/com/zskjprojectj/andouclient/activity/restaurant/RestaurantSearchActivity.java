@@ -54,7 +54,8 @@ public class RestaurantSearchActivity extends BaseActivity {
                 ToastUtil.showToast("请输入关键字搜索!");
                 return true;
             }
-            pageLoadUtil.load(() -> ApiUtils.getApiService().getRestaurants(searchEdt.getText().toString()));
+            pageLoadUtil.load(() -> ApiUtils.getApiService().getRestaurants(searchEdt.getText().toString(),
+                    pageLoadUtil.page));
             return true;
         });
         refreshLayout.setEnableRefresh(false);

@@ -51,7 +51,7 @@ public class RestaurantHomeActivity extends BaseActivity {
                 , result -> adapter.setNewData(result.data));
         PageLoadUtil<Restaurant> pageLoadUtil = PageLoadUtil.get(mActivity, homeRecyclerView, restaurantAdapter,
                 findViewById(R.id.refreshLayout));
-        pageLoadUtil.load(() -> ApiUtils.getApiService().getRestaurants(null),
+        pageLoadUtil.load(() -> ApiUtils.getApiService().getRestaurants(null, pageLoadUtil.page),
                 (refresh, data) -> {
                     if (refresh && data.size() > 0) {
                         data.get(0).isHeader = true;

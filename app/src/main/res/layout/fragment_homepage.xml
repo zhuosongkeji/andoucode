@@ -88,7 +88,7 @@
 
     </LinearLayout>
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -103,9 +103,9 @@
                 android:id="@+id/bannertop"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
+                android:background="@mipmap/zhuye_beijin_top"
                 app:AutoPlayTime="3000"
                 app:isAutoPlay="true"
-                android:background="@mipmap/zhuye_beijin_top"
                 app:isShowIndicatorOnlyOne="true"
                 app:pageChangeDuration="800"
                 app:pointNormal="@drawable/shape_noraml"
@@ -119,8 +119,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginBottom="@dimen/dp_30"
-                />
+                android:layout_marginBottom="@dimen/dp_30" />
 
             <View
                 android:layout_width="match_parent"
@@ -223,9 +222,76 @@
                 layout="@layout/main_make_an_appointment"
                 android:visibility="gone" />
 
-            <include layout="@layout/main_onlinebooking" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dp_9"
+                    android:padding="15dp">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="left"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/online_ordering"
+                            android:textColor="@color/colorOrange"
+                            android:textSize="@dimen/typeface16sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="ONLINE BOOKING"
+                            android:textColor="#969696"
+                            android:textSize="@dimen/dp_9" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/onlinebooking_see_more_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="right">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="@dimen/dp_8"
+                            android:gravity="center"
+                            android:text="@string/see_more"
+                            android:textColor="@color/colorOrange" />
+
+                        <ImageView
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:layout_gravity="center"
+                            android:src="@mipmap/ic_jiantouright_orange" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginBottom="@dimen/dp_14"
+                    android:background="@color/colorGray" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/restaurantRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:overScrollMode="never"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            </LinearLayout>
         </LinearLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 </LinearLayout>
 

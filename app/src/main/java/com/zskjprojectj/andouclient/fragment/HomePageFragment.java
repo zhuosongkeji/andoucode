@@ -1,16 +1,12 @@
 package com.zskjprojectj.andouclient.fragment;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import androidx.annotation.Nullable;
@@ -20,12 +16,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.facebook.drawee.backends.pipeline.Fresco;
-import com.google.gson.Gson;
 
 
 import com.stx.xhb.xbanner.XBanner;
-import com.stx.xhb.xbanner.entity.LocalImageInfo;
 import com.zaaach.citypicker.CityPicker;
 import com.zaaach.citypicker.adapter.OnPickListener;
 import com.zaaach.citypicker.model.City;
@@ -33,38 +26,34 @@ import com.zaaach.citypicker.model.HotCity;
 import com.zaaach.citypicker.model.LocateState;
 import com.zaaach.citypicker.model.LocatedCity;
 import com.zhuosongkj.android.library.app.BaseFragment;
-import com.zhuosongkj.android.library.util.ActionBarUtil;
-import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.callback.StringCallback;
+import com.zhuosongkj.android.library.model.BaseResult;
+import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.BookingorderActivity;
 import com.zskjprojectj.andouclient.activity.QrCodeActivity;
-import com.zskjprojectj.andouclient.activity.WebViewActivity;
 import com.zskjprojectj.andouclient.activity.hotel.HotelActivity;
-import com.zskjprojectj.andouclient.activity.LiveActivity;
 import com.zskjprojectj.andouclient.activity.MainActivity;
 import com.zskjprojectj.andouclient.activity.MallMainActivity;
 import com.zskjprojectj.andouclient.activity.restaurant.RestaurantHomeActivity;
 import com.zskjprojectj.andouclient.adapter.CoverFlowAdapter;
 import com.zskjprojectj.andouclient.adapter.merchantsCategoryAdapter;
-import com.zskjprojectj.andouclient.utils.UrlUtil;import com.zskjprojectj.andouclient.base.BaseUrl;
+import com.zskjprojectj.andouclient.adapter.restaurant.RestaurantAdapter;
+import com.zskjprojectj.andouclient.utils.UrlUtil;
 import com.zskjprojectj.andouclient.entity.IndexHomeBean;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.utils.BarUtils;
-import com.zskjprojectj.andouclient.utils.GlideTool;
 import com.zskjprojectj.andouclient.utils.ScreenUtil;
 import com.zskjprojectj.andouclient.utils.StatusBarUtil;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import okhttp3.Call;
+import io.reactivex.Observable;
 import recycler.coverflow.CoverFlowLayoutManger;
 import recycler.coverflow.RecyclerCoverFlow;
 
@@ -131,6 +120,13 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
 
         initData();
         getDataFromServer();
+        RequestUtil.request(mActivity, true, false,
+                () -> ApiUtils.getApiService().getRestaurants(null, 1),
+                result -> {
+                    RestaurantAdapter adapter = new RestaurantAdapter();
+                    adapter.bindToRecyclerView(view.findViewById(R.id.restaurantRecyclerView));
+                    adapter.setNewData(result.data);
+                });
     }
 
 
@@ -154,7 +150,6 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
             }
         });
     }
-
 
 
     private void getDataFromServer() {

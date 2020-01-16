@@ -54,7 +54,6 @@ import com.zskjprojectj.andouclient.model.Merchant;
 import com.zskjprojectj.andouclient.model.MerchantsResponse;
 import com.zskjprojectj.andouclient.model.Order;
 import com.zskjprojectj.andouclient.model.OrderDetail;
-import com.zskjprojectj.andouclient.model.RestaurantIListResponse;
 import com.zskjprojectj.andouclient.model.RestaurantOrder;
 import com.zskjprojectj.andouclient.model.User;
 
@@ -1047,7 +1046,8 @@ public interface ApiService {
 
     @FormUrlEncoded
     @POST("api/gourmet/list")
-    Observable<BaseResult<RestaurantIListResponse>> getRestaurants(@Field("name") String name);
+    Observable<BaseResult<ListData<Restaurant>>> getRestaurants(@Field("name") String name,
+                                                                @Field("page") int page);
 
     @FormUrlEncoded
     @POST("api/gourmet/details")
