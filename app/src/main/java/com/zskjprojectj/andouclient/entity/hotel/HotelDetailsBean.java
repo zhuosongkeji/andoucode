@@ -18,7 +18,7 @@ public class HotelDetailsBean {
      * id : 4
      * name : 希尔顿酒店
      * tel : 18323899463
-     * door_img :
+     * banner_img :
      * stars_all : 4
      * address : 重庆
      * praise_num : 0

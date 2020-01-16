@@ -2,28 +2,27 @@ package com.zskjprojectj.andouclient.activity.restaurant;
 
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.KeyEvent;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.BarUtils;
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.zhuosongkj.android.library.app.BaseActivity;
-import com.zhuosongkj.android.library.model.BaseResult;
-import com.zhuosongkj.android.library.model.ListData;
 import com.zhuosongkj.android.library.util.PageLoadUtil;
-import com.zhuosongkj.android.library.util.RequestUtil;
+import com.zhuosongkj.android.library.util.ViewUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.adapter.restaurant.RestaurantAdapter;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.model.Restaurant;
+import com.zskjprojectj.andouclient.model.RestaurantCategory;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import io.reactivex.Observable;
-import mlxy.utils.S;
+
+import static com.zskjprojectj.andouclient.activity.MyaddressActivity.KEY_DATA;
 
 public class RestaurantSearchActivity extends BaseActivity {
 
@@ -31,17 +30,18 @@ public class RestaurantSearchActivity extends BaseActivity {
 
     @BindView(R.id.searchEdt)
     EditText searchEdt;
+    @BindView(R.id.categoryNameTxt)
+    TextView categoryNameTxt;
     @BindView(R.id.refreshLayout)
     SmartRefreshLayout refreshLayout;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         BarUtils.setStatusBarLightMode(mActivity, true);
         BarUtils.transparentStatusBar(mActivity);
+        RestaurantCategory category = (RestaurantCategory) getIntent().getSerializableExtra(KEY_DATA);
         searchEdt.requestFocus();
-        KeyboardUtils.showSoftInput(searchEdt);
         adapter.setOnItemClickListener((adapter1, view, position)
                 -> RestaurantDetailActivity.start(adapter.getItem(position).id));
         PageLoadUtil<Restaurant> pageLoadUtil = PageLoadUtil.get(mActivity,
@@ -54,10 +54,23 @@ public class RestaurantSearchActivity extends BaseActivity {
                 ToastUtil.showToast("请输入关键字搜索!");
                 return true;
             }
-            pageLoadUtil.load(() -> ApiUtils.getApiService().getRestaurants(searchEdt.getText().toString()));
+            load(null, pageLoadUtil);
             return true;
         });
         refreshLayout.setEnableRefresh(false);
+        if (category != null) {
+            ViewUtil.setText(mActivity, R.id.categoryNameTxt, category.name);
+            load(category.id, pageLoadUtil);
+        } else {
+            KeyboardUtils.showSoftInput(searchEdt);
+        }
+    }
+
+    private void load(String categoryId, PageLoadUtil<Restaurant> pageLoadUtil) {
+        pageLoadUtil.load(() -> ApiUtils.getApiService().getRestaurants(
+                searchEdt.getText().toString(),
+                categoryId,
+                pageLoadUtil.page));
     }
 
     @OnClick(R.id.backBtn)
@@ -65,9 +78,21 @@ public class RestaurantSearchActivity extends BaseActivity {
         onBackPressed();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        KeyboardUtils.hideSoftInput(mActivity);
+    }
 
     @Override
     protected int getContentView() {
         return R.layout.activity_restaurant_search;
+    }
+
+
+    public static void start(RestaurantCategory category) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(KEY_DATA, category);
+        ActivityUtils.startActivity(bundle, RestaurantSearchActivity.class);
     }
 }

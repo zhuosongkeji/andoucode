@@ -30,7 +30,7 @@ public class MeHotelDetailsBean {
      * end_time : 离开时间
      * day_num : 入住天数
      * real_name : 入住人
-     * mobile : 联系电话
+     * tel : 联系电话
      * pay_money : 支付金额
      */
 
