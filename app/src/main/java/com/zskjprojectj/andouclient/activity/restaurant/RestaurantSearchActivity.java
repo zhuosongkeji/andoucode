@@ -66,6 +66,11 @@ public class RestaurantSearchActivity extends BaseActivity {
         onBackPressed();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        KeyboardUtils.hideSoftInput(mActivity);
+    }
 
     @Override
     protected int getContentView() {

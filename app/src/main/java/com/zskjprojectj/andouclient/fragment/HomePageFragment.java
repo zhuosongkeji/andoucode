@@ -18,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.stx.xhb.xbanner.XBanner;
 import com.zaaach.citypicker.CityPicker;
 import com.zaaach.citypicker.adapter.OnPickListener;
@@ -34,6 +35,7 @@ import com.zskjprojectj.andouclient.activity.QrCodeActivity;
 import com.zskjprojectj.andouclient.activity.hotel.HotelActivity;
 import com.zskjprojectj.andouclient.activity.MainActivity;
 import com.zskjprojectj.andouclient.activity.MallMainActivity;
+import com.zskjprojectj.andouclient.activity.restaurant.RestaurantDetailActivity;
 import com.zskjprojectj.andouclient.activity.restaurant.RestaurantHomeActivity;
 import com.zskjprojectj.andouclient.adapter.CoverFlowAdapter;
 import com.zskjprojectj.andouclient.adapter.merchantsCategoryAdapter;
@@ -126,6 +128,8 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
                     RestaurantAdapter adapter = new RestaurantAdapter();
                     adapter.bindToRecyclerView(view.findViewById(R.id.restaurantRecyclerView));
                     adapter.setNewData(result.data);
+                    adapter.setOnItemClickListener((adapter1, view, position) ->
+                            RestaurantDetailActivity.start(adapter.getItem(position).id));
                 });
     }
 
