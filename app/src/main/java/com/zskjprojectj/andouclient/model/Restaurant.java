@@ -18,6 +18,9 @@ public class Restaurant implements Serializable, RestaurantBillActivity.IBill {
     public String logo_img;
     public String desc;
     public String tel;
+    public String business_start;
+    public String business_end;
+    public int status;
 
     public boolean isVip() {
         return false;
@@ -66,5 +69,15 @@ public class Restaurant implements Serializable, RestaurantBillActivity.IBill {
     @Override
     public String getOrderSN() {
         return null;
+    }
+
+    @Override
+    public String getStartTime() {
+        return business_start;
+    }
+
+    @Override
+    public String getEndTime() {
+        return business_end;
     }
 }

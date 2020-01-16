@@ -79,16 +79,6 @@ public class RestaurantBillActivity extends BaseActivity {
 
     private static final ArrayList<String> times = new ArrayList<>();
 
-    static {
-        for (int i = 0; i < 25; i++) {
-            if (i > 9) {
-                times.add(i + ":00");
-            } else {
-                times.add("0" + i + ":00");
-            }
-        }
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,6 +90,8 @@ public class RestaurantBillActivity extends BaseActivity {
                     dateStr = TimeUtils.date2String(date, new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()));
                 }
         );
+        bill = (IBill) getIntent().getSerializableExtra(KEY_DATA);
+        initTimes(bill.getStartTime(), bill.getEndTime());
         timeTxt.setOnClickListener(v -> {
             OptionsPickerView<String> pvOptions =
                     new OptionsPickerBuilder(mActivity, (options1, option2, options3, v1) -> {
@@ -107,10 +99,8 @@ public class RestaurantBillActivity extends BaseActivity {
                         timeTxt.setText(timeStr);
                     }).setDividerColor(Color.TRANSPARENT).build();
             pvOptions.setPicker(times);
-            pvOptions.setSelectOptions(11);
             pvOptions.show();
         });
-        bill = (IBill) getIntent().getSerializableExtra(KEY_DATA);
         if (bill.getStatus() == 0) {
             findViewById(R.id.newBillContainer).setVisibility(View.VISIBLE);
         } else {
@@ -144,6 +134,33 @@ public class RestaurantBillActivity extends BaseActivity {
             v.setSelected(!v.isSelected());
             wxPayBtn.setSelected(!wxPayBtn.isSelected());
         });
+    }
+
+    private void initTimes(String startTime, String endTime) {
+        int start;
+        int end;
+        if (TextUtils.isEmpty(startTime) || TextUtils.isEmpty(endTime)) {
+            start = 0;
+            end = 25;
+        } else {
+            Calendar startCalendar = Calendar.getInstance();
+            Date startDate = TimeUtils.string2Date(startTime, "HH:mm");
+            startCalendar.setTime(startDate);
+            start = startCalendar.get(Calendar.HOUR_OF_DAY);
+
+            Calendar endCalendar = Calendar.getInstance();
+            Date endDate = TimeUtils.string2Date(endTime, "HH:mm");
+            endCalendar.setTime(endDate);
+            end = endCalendar.get(Calendar.HOUR_OF_DAY);
+        }
+        for (int i = start; i < end; i++) {
+            if (i > 9) {
+                times.add(i + ":00");
+            } else {
+                times.add("0" + i + ":00");
+            }
+        }
+
     }
 
     private void bindFoods(List<Food> result) {
@@ -322,5 +339,9 @@ public class RestaurantBillActivity extends BaseActivity {
         String getRemark();
 
         String getOrderSN();
+
+        String getStartTime();
+
+        String getEndTime();
     }
 }

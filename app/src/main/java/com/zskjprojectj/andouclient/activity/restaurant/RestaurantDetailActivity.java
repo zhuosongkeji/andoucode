@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.BarUtils;
 import com.blankj.utilcode.util.IntentUtils;
+import com.blankj.utilcode.util.TimeUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -39,6 +40,8 @@ import com.zskjprojectj.andouclient.utils.ToastUtil;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -64,6 +67,9 @@ public class RestaurantDetailActivity extends BaseActivity {
     FoodListFragment foodListFragment;
 
     String id;
+
+    @BindView(R.id.collectBtn)
+    View collectBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,7 +117,7 @@ public class RestaurantDetailActivity extends BaseActivity {
             }
         });
         RequestUtil.request(mActivity, true, true,
-                () -> ApiUtils.getApiService().getRestaurantDetail(id),
+                () -> ApiUtils.getApiService().getRestaurantDetail(LoginInfoUtil.getUid(), id),
                 result -> bindRestaurant(result.data));
     }
 
@@ -181,6 +187,56 @@ public class RestaurantDetailActivity extends BaseActivity {
                 e.printStackTrace();
             }
         });
+        collectBtn.setSelected(restaurant.status != 1);
+        collectSuccess();
+        collectBtn.setOnClickListener(v -> {
+            if (collectBtn.isSelected()) {
+                RequestUtil.request(mActivity, true, false,
+                        () -> ApiUtils.getApiService().mallgoodsfollow(restaurant.id,
+                                LoginInfoUtil.getUid(), LoginInfoUtil.getToken(), "0")
+                        , result -> collectSuccess());
+            } else {
+                RequestUtil.request(mActivity, true, false,
+                        () -> ApiUtils.getApiService().mallgoodsfollow(restaurant.id,
+                                LoginInfoUtil.getUid(), LoginInfoUtil.getToken(), "1")
+                        , result -> collectSuccess());
+            }
+        });
+        ViewUtil.setText(mActivity, R.id.openTimeTxt, getOpeningTime(restaurant.business_start, restaurant.business_end));
+    }
+
+    private String getOpeningTime(String business_start, String business_end) {
+        if (TextUtils.isEmpty(business_start) || TextUtils.isEmpty(business_end)) {
+            return "营业中 00:00 ~ 24:00";
+        }
+        Calendar now = Calendar.getInstance();
+        Calendar startCalendar = Calendar.getInstance();
+        Date startDate = TimeUtils.string2Date(business_start, "HH:mm");
+        startCalendar.setTime(startDate);
+
+        Calendar endCalendar = Calendar.getInstance();
+        Date endDate = TimeUtils.string2Date(business_end, "HH:mm");
+        endCalendar.setTime(endDate);
+
+        startCalendar.set(now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_YEAR));
+        startCalendar.get(Calendar.YEAR);
+        endCalendar.set(now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_YEAR));
+        endCalendar.get(Calendar.YEAR);
+        String openingTimeStr = business_start + "~" + business_end;
+        if (now.after(startCalendar) && now.before(endCalendar)) {
+            return "营业中 " + openingTimeStr;
+        } else {
+            return "已打烊 " + openingTimeStr;
+        }
+    }
+
+    private void collectSuccess() {
+        collectBtn.setSelected(!collectBtn.isSelected());
+        if (collectBtn.isSelected()) {
+            ViewUtil.setText(mActivity, R.id.collectTxt, "已关注");
+        } else {
+            ViewUtil.setText(mActivity, R.id.collectTxt, "关注");
+        }
     }
 
     private void loadCart() {
