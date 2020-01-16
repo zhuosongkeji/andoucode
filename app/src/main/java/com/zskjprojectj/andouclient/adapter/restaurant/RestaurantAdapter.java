@@ -3,7 +3,6 @@ package com.zskjprojectj.andouclient.adapter.restaurant;
 import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.blankj.utilcode.util.SizeUtils;
@@ -33,7 +32,7 @@ public class RestaurantAdapter extends BaseAdapter<Restaurant> implements Header
         changeImageLayout(helper, ListUtil.isEmpty(item.cai) ? 1 : item.cai.size());
         if (ListUtil.isEmpty(item.cai)) {
             GlideUtil.load(((Activity) helper.itemView.getContext()),
-                    UrlUtil.getImageUrl(item.door_img), R.mipmap.ic_placeholder,
+                    UrlUtil.getImageUrl(item.banner_img), R.mipmap.ic_placeholder,
                     helper.itemView.findViewById(R.id.img1), SizeUtils.dp2px(4));
         } else {
             for (int i = 0; i < item.cai.size(); i++) {

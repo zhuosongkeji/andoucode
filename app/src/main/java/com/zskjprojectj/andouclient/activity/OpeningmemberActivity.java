@@ -81,6 +81,11 @@ public class OpeningmemberActivity extends BaseActivity {
         btn_sure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (TextUtils.isEmpty(payId))
+                {
+                    ToastUtil.showToast("请选择支付方式");
+                    return;
+                }
                 int id = Integer.parseInt(payId);
                 switch (id)
                 {

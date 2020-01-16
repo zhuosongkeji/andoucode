@@ -370,7 +370,7 @@ public class MaterialProgressDrawable extends Drawable implements Animatable {
                         ring.setStartTrim(startTrim);
                     }
 
-                    // Moving the end trim starts after 50% of a single ring
+                    // Moving the end trim stars after 50% of a single ring
                     // animation completes
                     if (interpolatedTime > END_TRIM_START_DELAY_OFFSET) {
                         // scale the interpolatedTime so that the full
@@ -745,7 +745,7 @@ public class MaterialProgressDrawable extends Drawable implements Animatable {
 
         /**
          * If the start / end trim are offset to begin with, store them so that
-         * animation starts from that offset.
+         * animation stars from that offset.
          */
         public void storeOriginals() {
             mStartingStartTrim = mStartTrim;

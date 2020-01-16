@@ -22,7 +22,7 @@ public class MallSettlementBean {
      * order_sn : 20191228X31pYT164827
      * address_id : 9
      * integral : 9
-     * userinfo : {"name":"测试收件人2","address":"什么地方6东7好2123123","mobile":"13888888888","province":"北京","city":"北京","area":"东城"}
+     * userinfo : {"name":"测试收件人2","address":"什么地方6东7好2123123","tel":"13888888888","province":"北京","city":"北京","area":"东城"}
      * details : [{"img":"/uploads/d0b1f88cda6218384147d41f2a09ee80.png","name":"资生堂可悠然（KUYURA）美肌 沐浴露套装.","num":1,"shipping_free":10,"price":"99.00","attr_value":["4G+32G","精包装","白","皮革"]}]
      */
 
@@ -103,7 +103,7 @@ public class MallSettlementBean {
         /**
          * name : 测试收件人2
          * address : 什么地方6东7好2123123
-         * mobile : 13888888888
+         * tel : 13888888888
          * province : 北京
          * city : 北京
          * area : 东城

@@ -55,7 +55,7 @@ public class RestaurantOrderDetailActivity extends BaseActivity {
 
     private void bindOrderDetail(RestaurantOrder data) {
         findViewById(R.id.callBtn).setOnClickListener(v ->
-                startActivity(IntentUtils.getDialIntent(data.mobile)));
+                startActivity(IntentUtils.getDialIntent(data.tel)));
         findViewById(R.id.locationBtn).setOnClickListener(v -> {
             Intent intent;
             try {

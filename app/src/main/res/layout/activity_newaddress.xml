@@ -5,7 +5,14 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <include layout="@layout/view_top_bar" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorNavy">
+
+        <include layout="@layout/base_title_view" />
+    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,12 +30,16 @@
             android:textSize="@dimen/typeface13sp" />
 
         <EditText
-            android:textColor="#646464"
             android:id="@+id/nameEdt"
             android:layout_width="200dp"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:hint="请输入收件人姓名"
+            android:textColorHint="#999999"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="@null" />
+            android:background="@null"
+            android:textColor="#646464"
+            android:textSize="@dimen/typeface12sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -42,6 +53,7 @@
             android:layout_centerVertical="true"
             android:layout_gravity="center"
             android:textColor="#646464"
+
             android:layout_marginLeft="11dp"
             android:text="联系电话:"
             android:textSize="@dimen/typeface13sp" />
@@ -49,7 +61,11 @@
         <EditText
             android:id="@+id/mobileEdt"
             android:layout_width="200dp"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:hint="请输入联系人号码"
+            android:textColorHint="#999999"
             android:textColor="#646464"
+            android:textSize="@dimen/typeface12sp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@null" />
@@ -81,6 +97,7 @@
                 android:src="@mipmap/icon_map" />
 
             <TextView
+                android:id="@+id/tv_showadress"
                 android:textColor="#646464"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -100,6 +117,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="55dp">
 
@@ -145,7 +163,12 @@
 
         <EditText
             android:textColor="#646464"
+            android:paddingLeft="@dimen/dp_11"
             android:id="@+id/detailEdt"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:hint="请输入收件详细地址"
+            android:textColorHint="#999999"
+            android:textSize="@dimen/typeface12sp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@null" />

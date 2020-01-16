@@ -22,7 +22,7 @@ public class RestaurantOrder implements Serializable, RestaurantBillActivity.IBi
     public String integral;
     public String pay_money;
     public String orderingtime;
-    public String mobile;
+    public String tel;
     public String address;
 
     @Override
@@ -68,6 +68,16 @@ public class RestaurantOrder implements Serializable, RestaurantBillActivity.IBi
     @Override
     public String getOrderSN() {
         return order_sn;
+    }
+
+    @Override
+    public String getStartTime() {
+        return null;
+    }
+
+    @Override
+    public String getEndTime() {
+        return null;
     }
 
     public enum STATE {

@@ -64,12 +64,13 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 
     @Override
     public void onResp(BaseResp baseResp) {
+         finish();
         if (baseResp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
             if (baseResp.errCode == 0) {
              startActivity(new Intent(WXPayEntryActivity.this, MallPaySuccessActivity.class));
-              finish();
             } else if (baseResp.errCode == -1) {
                 ToastUtil.showToast("支付错误" + baseResp.errStr);
+
             } else if (baseResp.errCode == -2) {
                 ToastUtil.showToast("取消支付");
             }

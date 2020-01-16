@@ -108,6 +108,10 @@ public class MePageFragment extends BaseFragment {
     private LinearLayout mycenter_restaurant_layout;
     //我的关注
     private LinearLayout mycenter_myfocuson_layout;
+    //二维码
+    private LinearLayout mycenter_qrcode_layout;
+    //我的发布
+    private LinearLayout mycenter_releas_layout;
     //设置界面
     private ImageView img_meset;
     //个人信息
@@ -134,6 +138,8 @@ public class MePageFragment extends BaseFragment {
         mycenter_operationvideo_layout = view.findViewById(R.id.mycenter_operationvideo_layout);
         mycenter_restaurant_layout = view.findViewById(R.id.mycenter_restaurant_layout);
         mycenter_myfocuson_layout = view.findViewById(R.id.mycenter_myfocuson_layout);
+        mycenter_qrcode_layout=view.findViewById(R.id.mycenter_qrcode_layout);
+        mycenter_releas_layout=view.findViewById(R.id.mycenter_releas_layout);
         img_meset = view.findViewById(R.id.img_meset);
         img_touxiang = view.findViewById(R.id.img_touxiang);
         tv_nickname = view.findViewById(R.id.tv_nickname);
@@ -147,30 +153,7 @@ public class MePageFragment extends BaseFragment {
         img_hotelnum=view.findViewById(R.id.img_hotelnum);
         img_mallnum=view.findViewById(R.id.img_mallnum);
         img_restaurantnum=view.findViewById(R.id.img_restaurantnum);
-        new QBadgeView(getContext()).bindTarget(img_hotelnum).setBadgeNumber(5).setBadgeTextSize(8,true).setBadgeGravity(Gravity.END|Gravity.TOP).setOnDragStateChangedListener(new Badge.OnDragStateChangedListener() {
-            @Override
-            public void onDragStateChanged(int dragState, Badge badge, View targetView) {
-                if (STATE_SUCCEED == dragState){
-                    badge.hide(true);
-                }
-            }
-        });
-        new QBadgeView(getContext()).bindTarget(img_mallnum).setBadgeNumber(5).setBadgeTextSize(8,true).setBadgeGravity(Gravity.END|Gravity.TOP).setOnDragStateChangedListener(new Badge.OnDragStateChangedListener() {
-            @Override
-            public void onDragStateChanged(int dragState, Badge badge, View targetView) {
-                if (STATE_SUCCEED == dragState){
-                    badge.hide(true);
-                }
-            }
-        });
-        new QBadgeView(getContext()).bindTarget(img_restaurantnum).setBadgeNumber(5).setBadgeTextSize(8,true).setBadgeGravity(Gravity.END|Gravity.TOP).setOnDragStateChangedListener(new Badge.OnDragStateChangedListener() {
-            @Override
-            public void onDragStateChanged(int dragState, Badge badge, View targetView) {
-                if (STATE_SUCCEED == dragState){
-                    badge.hide(true);
-                }
-            }
-        });
+
         //设置状态栏的高度
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mHeaderTitle.getLayoutParams();
         layoutParams.topMargin = BarUtils.getStatusBarHeight(mAty);
@@ -194,6 +177,33 @@ public class MePageFragment extends BaseFragment {
                 tv_browsenum.setText(personalBean.getRecord());
                 tv_moneynum.setText(personalBean.getMoney());
                 tv_integralnumm.setText(personalBean.getIntegral());
+                int numhotel=Integer.parseInt( personalBean.getBooksordernum());
+                int numfood=Integer.parseInt(personalBean.getFoodsordernum());
+                int nummall=Integer.parseInt(personalBean.getGoodordernum());
+                new QBadgeView(getContext()).bindTarget(img_hotelnum).setBadgeNumber(numhotel).setBadgeTextSize(8,true).setBadgeGravity(Gravity.END|Gravity.TOP).setOnDragStateChangedListener(new Badge.OnDragStateChangedListener() {
+                    @Override
+                    public void onDragStateChanged(int dragState, Badge badge, View targetView) {
+                        if (STATE_SUCCEED == dragState){
+                            badge.hide(true);
+                        }
+                    }
+                });
+                new QBadgeView(getContext()).bindTarget(img_mallnum).setBadgeNumber(nummall).setBadgeTextSize(8,true).setBadgeGravity(Gravity.END|Gravity.TOP).setOnDragStateChangedListener(new Badge.OnDragStateChangedListener() {
+                    @Override
+                    public void onDragStateChanged(int dragState, Badge badge, View targetView) {
+                        if (STATE_SUCCEED == dragState){
+                            badge.hide(true);
+                        }
+                    }
+                });
+                new QBadgeView(getContext()).bindTarget(img_restaurantnum).setBadgeNumber(numfood).setBadgeTextSize(8,true).setBadgeGravity(Gravity.END|Gravity.TOP).setOnDragStateChangedListener(new Badge.OnDragStateChangedListener() {
+                    @Override
+                    public void onDragStateChanged(int dragState, Badge badge, View targetView) {
+                        if (STATE_SUCCEED == dragState){
+                            badge.hide(true);
+                        }
+                    }
+                });
                 Glide.with(mAty).load(UrlUtil.getImageUrl(personalBean.getAvator())).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(img_touxiang);
             }
         });
@@ -227,6 +237,24 @@ public class MePageFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getContext(), FoodorderActivity.class));
+            }
+        });
+        /**
+         * 我的二维码
+         */
+        mycenter_qrcode_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ToastUtil.showToast("功能暂未开通敬请期待....");
+            }
+        });
+        /**
+         * 我的发布
+         */
+        mycenter_releas_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ToastUtil.showToast("功能暂未开通敬请期待....");
             }
         });
         /**

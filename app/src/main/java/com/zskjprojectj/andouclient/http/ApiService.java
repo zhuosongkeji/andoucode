@@ -54,8 +54,8 @@ import com.zskjprojectj.andouclient.model.Merchant;
 import com.zskjprojectj.andouclient.model.MerchantsResponse;
 import com.zskjprojectj.andouclient.model.Order;
 import com.zskjprojectj.andouclient.model.OrderDetail;
-import com.zskjprojectj.andouclient.model.RestaurantIListResponse;
 import com.zskjprojectj.andouclient.model.RestaurantOrder;
+import com.zskjprojectj.andouclient.model.Review;
 import com.zskjprojectj.andouclient.model.User;
 
 import java.util.List;
@@ -250,7 +250,7 @@ public interface ApiService {
     Observable<BaseResult<WXPayBean>> MallWXPayWaysrecharge(@Field("uid") String uid,
                                                             @Field("token") String token,
                                                             @Field("money") String money,
-                                                            @Field("mobile") String mobile,
+                                                            @Field("tel") String mobile,
                                                             @Field("method") String method
     );
 
@@ -277,7 +277,7 @@ public interface ApiService {
     Observable<BaseResult<Object>> addAddress(@Field("uid") String uid,
                                               @Field("token") String token,
                                               @Field("name") String name,
-                                              @Field("mobile") String mobile,
+                                              @Field("tel") String mobile,
                                               @Field("province_id") String province_id,
                                               @Field("city_id") String city_id,
                                               @Field("area_id") String area_id,
@@ -293,7 +293,7 @@ public interface ApiService {
                                                @Field("uid") String uid,
                                                @Field("token") String token,
                                                @Field("name") String name,
-                                               @Field("mobile") String mobile,
+                                               @Field("tel") String mobile,
                                                @Field("province_id") String province_id,
                                                @Field("city_id") String city_id,
                                                @Field("area_id") String area_id,
@@ -492,13 +492,13 @@ public interface ApiService {
      * 通知消息
      *
      * @param id
-     * @param token
+     * @param uid
      * @return
      */
     @POST("api/index/information")
     @FormUrlEncoded
     Observable<BaseResult<InformationBean>> information(@Field("id") String id,
-                                                        @Field("token") String token);
+                                                        @Field("uid") String uid);
 
     /**
      * 订单详情
@@ -659,7 +659,7 @@ public interface ApiService {
                                                  @Field("start_time") String start_time,
                                                  @Field("end_time") String end_time,
                                                  @Field("real_name") String real_name,
-                                                 @Field("mobile") String mobile,
+                                                 @Field("tel") String mobile,
                                                  @Field("num") String num,
                                                  @Field("day_num") String day_num,
                                                  @Field("pay_way") String pay_way,
@@ -1047,11 +1047,14 @@ public interface ApiService {
 
     @FormUrlEncoded
     @POST("api/gourmet/list")
-    Observable<BaseResult<RestaurantIListResponse>> getRestaurants(@Field("name") String name);
+    Observable<BaseResult<ListData<Restaurant>>> getRestaurants(@Field("name") String name,
+                                                                @Field("cate_id") String id,
+                                                                @Field("page") int page);
 
     @FormUrlEncoded
     @POST("api/gourmet/details")
-    Observable<BaseResult<Restaurant>> getRestaurantDetail(@Field("id") String id);
+    Observable<BaseResult<Restaurant>> getRestaurantDetail(@Field("uid") String uid,
+                                                           @Field("id") String id);
 
     @FormUrlEncoded
     @POST("api/gourmet/dishtype")
@@ -1116,4 +1119,9 @@ public interface ApiService {
                                               @Field("stars") String stars,
                                               @Field("image") String image,
                                               @Field("dianzhan") int dianzhan);
+
+    @FormUrlEncoded
+    @POST("api/gourmet/comment")
+    Observable<BaseResult<ListData<Review>>> getReviews(@Field("id") String id,
+                                                        @Field("page") int page);
 }

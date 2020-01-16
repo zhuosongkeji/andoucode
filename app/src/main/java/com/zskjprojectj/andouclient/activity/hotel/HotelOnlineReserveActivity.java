@@ -215,7 +215,11 @@ public class HotelOnlineReserveActivity extends BaseActivity {
                     ToastUtil.showToast("请输入手机号");
                     return;
                 } else {
-
+                    if (TextUtils.isEmpty(payId))
+                    {
+                        ToastUtil.showToast("请选择支付方式");
+                        return;
+                    }
                     int id = Integer.parseInt(payId);
                     switch (id) {
                         case WXPAY:
