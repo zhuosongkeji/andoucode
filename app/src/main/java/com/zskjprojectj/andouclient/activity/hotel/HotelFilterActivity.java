@@ -80,6 +80,9 @@ public class HotelFilterActivity extends BaseActivity {
 
     @BindView(R.id.tv_location)
     TextView mLocation;
+
+    @BindView(R.id.header_title)
+    LinearLayout mRootView;
     private RecyclerView mCatagory2;
     private RecyclerView mCatagory1;
     private RecyclerView mCatagory3;
@@ -97,7 +100,15 @@ public class HotelFilterActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        StatusBarUtil.setTranslucentStatus(mActivity);
+        StatusBarUtil.setStatusBarDarkTheme(mActivity,true);
+        int barHeight = StatusBarUtil.getStatusBarHeight(mActivity);
+        if (barHeight > 0) {
+            //设置状态栏的高度
+            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) mRootView.getLayoutParams();
+            layoutParams.topMargin = BarUtils.getStatusBarHeight(mActivity) + layoutParams.topMargin;
+            mRootView.setLayoutParams(layoutParams);
+        }
         initViews();
         initData();
     }
@@ -119,7 +130,6 @@ public class HotelFilterActivity extends BaseActivity {
         mRecycler = findViewById(R.id.rv_recycler);
         mRecycler.setLayoutManager(new LinearLayoutManager(this));
     }
-
 
 
     @OnClick({R.id.ll_selector_location, R.id.ll_price_star, R.id.ll_selector_sort, R.id.ll_selector_screen})
@@ -228,7 +238,6 @@ public class HotelFilterActivity extends BaseActivity {
                 mStarRecycler.setAdapter(starAdapter);
             }
         });
-
 
 
         priceAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
@@ -372,11 +381,11 @@ public class HotelFilterActivity extends BaseActivity {
     }
 
 
-    public static void start(String hotelId){
+    public static void start(String hotelId) {
 
-        Bundle bundle=new Bundle();
-        bundle.putString("hotelId",hotelId);
-        ActivityUtils.startActivity(bundle,HotelFilterActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("hotelId", hotelId);
+        ActivityUtils.startActivity(bundle, HotelFilterActivity.class);
     }
 
     @Override

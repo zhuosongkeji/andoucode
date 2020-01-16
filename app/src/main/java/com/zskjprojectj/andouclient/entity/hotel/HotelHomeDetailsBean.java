@@ -41,7 +41,7 @@ public class HotelHomeDetailsBean {
     private String areas;
     private String has_window;
     private String wifi;
-    private String num;
+    private String num_people;
     private String has_breakfast;
     private String bed_type;
     private String other_sets;
@@ -94,12 +94,12 @@ public class HotelHomeDetailsBean {
         this.wifi = wifi;
     }
 
-    public String getNum() {
-        return num;
+    public String getNum_people() {
+        return num_people;
     }
 
-    public void setNum(String num) {
-        this.num = num;
+    public void setNum_people(String num_people) {
+        this.num_people = num_people;
     }
 
     public String getHas_breakfast() {

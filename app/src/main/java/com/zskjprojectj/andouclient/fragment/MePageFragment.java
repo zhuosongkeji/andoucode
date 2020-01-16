@@ -1,7 +1,9 @@
 package com.zskjprojectj.andouclient.fragment;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -46,8 +48,12 @@ import com.zskjprojectj.andouclient.utils.ToastUtil;
 import com.zskjprojectj.andouclient.utils.UrlUtil;
 
 import butterknife.BindView;
+import q.rorbin.badgeview.Badge;
+import q.rorbin.badgeview.QBadgeView;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <pre>
@@ -102,12 +108,16 @@ public class MePageFragment extends BaseFragment {
     private LinearLayout mycenter_restaurant_layout;
     //我的关注
     private LinearLayout mycenter_myfocuson_layout;
+    //二维码
+    private LinearLayout mycenter_qrcode_layout;
+    //我的发布
+    private LinearLayout mycenter_releas_layout;
     //设置界面
     private ImageView img_meset;
     //个人信息
     private ImageView img_touxiang,iv_message;
     private TextView tv_nickname, tv_viplevel, tv_collectionnum, tv_focusonnum, tv_browsenum, tv_moneynum, tv_integralnumm;
-
+    private ImageView img_hotelnum,img_mallnum,img_restaurantnum;
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
         mycenter_vegetablemarket_layout = view.findViewById(R.id.mycenter_vegetablemarket_layout);
@@ -128,17 +138,45 @@ public class MePageFragment extends BaseFragment {
         mycenter_operationvideo_layout = view.findViewById(R.id.mycenter_operationvideo_layout);
         mycenter_restaurant_layout = view.findViewById(R.id.mycenter_restaurant_layout);
         mycenter_myfocuson_layout = view.findViewById(R.id.mycenter_myfocuson_layout);
+        mycenter_qrcode_layout=view.findViewById(R.id.mycenter_qrcode_layout);
+        mycenter_releas_layout=view.findViewById(R.id.mycenter_releas_layout);
         img_meset = view.findViewById(R.id.img_meset);
         img_touxiang = view.findViewById(R.id.img_touxiang);
         tv_nickname = view.findViewById(R.id.tv_nickname);
         tv_viplevel = view.findViewById(R.id.tv_viplevel);
         tv_collectionnum = view.findViewById(R.id.tv_collectionnum);
         tv_focusonnum = view.findViewById(R.id.tv_focusonnum);
-        // tv_lovenum=view.findViewById(R.id.tv_lovenum);
         tv_browsenum = view.findViewById(R.id.tv_browsenum);
         tv_moneynum = view.findViewById(R.id.tv_moneynum);
         tv_integralnumm = view.findViewById(R.id.tv_integralnumm);
         iv_message=view.findViewById(R.id.iv_message);
+        img_hotelnum=view.findViewById(R.id.img_hotelnum);
+        img_mallnum=view.findViewById(R.id.img_mallnum);
+        img_restaurantnum=view.findViewById(R.id.img_restaurantnum);
+        new QBadgeView(getContext()).bindTarget(img_hotelnum).setBadgeNumber(5).setBadgeTextSize(8,true).setBadgeGravity(Gravity.END|Gravity.TOP).setOnDragStateChangedListener(new Badge.OnDragStateChangedListener() {
+            @Override
+            public void onDragStateChanged(int dragState, Badge badge, View targetView) {
+                if (STATE_SUCCEED == dragState){
+                    badge.hide(true);
+                }
+            }
+        });
+        new QBadgeView(getContext()).bindTarget(img_mallnum).setBadgeNumber(5).setBadgeTextSize(8,true).setBadgeGravity(Gravity.END|Gravity.TOP).setOnDragStateChangedListener(new Badge.OnDragStateChangedListener() {
+            @Override
+            public void onDragStateChanged(int dragState, Badge badge, View targetView) {
+                if (STATE_SUCCEED == dragState){
+                    badge.hide(true);
+                }
+            }
+        });
+        new QBadgeView(getContext()).bindTarget(img_restaurantnum).setBadgeNumber(5).setBadgeTextSize(8,true).setBadgeGravity(Gravity.END|Gravity.TOP).setOnDragStateChangedListener(new Badge.OnDragStateChangedListener() {
+            @Override
+            public void onDragStateChanged(int dragState, Badge badge, View targetView) {
+                if (STATE_SUCCEED == dragState){
+                    badge.hide(true);
+                }
+            }
+        });
         //设置状态栏的高度
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mHeaderTitle.getLayoutParams();
         layoutParams.topMargin = BarUtils.getStatusBarHeight(mAty);
@@ -195,6 +233,24 @@ public class MePageFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getContext(), FoodorderActivity.class));
+            }
+        });
+        /**
+         * 我的二维码
+         */
+        mycenter_qrcode_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ToastUtil.showToast("功能暂未开通敬请期待....");
+            }
+        });
+        /**
+         * 我的发布
+         */
+        mycenter_releas_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ToastUtil.showToast("功能暂未开通敬请期待....");
             }
         });
         /**
