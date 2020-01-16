@@ -174,6 +174,7 @@ public class MywalletActivity extends BaseActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void initnewData(PaySuccessEvent paySuccessEvent) {
-        getDataFromServer();
+         getDataFromServer();
+
     }
 }

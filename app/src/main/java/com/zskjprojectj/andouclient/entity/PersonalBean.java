@@ -6,6 +6,9 @@ public class PersonalBean {
      * id : 15
      * name : 用户:17318203548
      * avator : /uploads/images/avators/201911/29//1575020535_VGSxFj53YP.jpg
+     * //    "goodordernum":"商城订单数",
+     * //            "foodsordernum":"饭店订单数",
+     * //            "booksordernum":"酒店订单数",
      * grade : 该用户还不是Vip用户
      */
 
@@ -14,6 +17,42 @@ public class PersonalBean {
     private String avator;
     private String grade;
     private String money;
+    private String goodordernum;
+    private String foodsordernum;
+    private String booksordernum;
+    private String status;
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    public String getGoodordernum() {
+        return goodordernum;
+    }
+
+    public void setGoodordernum(String goodordernum) {
+        this.goodordernum = goodordernum;
+    }
+
+    public String getFoodsordernum() {
+        return foodsordernum;
+    }
+
+    public void setFoodsordernum(String foodsordernum) {
+        this.foodsordernum = foodsordernum;
+    }
+
+    public String getBooksordernum() {
+        return booksordernum;
+    }
+
+    public void setBooksordernum(String booksordernum) {
+        this.booksordernum = booksordernum;
+    }
+
+
 
     public String getMoney() {
         return money;

@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ import com.zskjprojectj.andouclient.adapter.mall.MallBuyInfoAdapter;
 import com.zskjprojectj.andouclient.adapter.mall.PayWaysAdapter;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
+import com.zskjprojectj.andouclient.utils.ToastUtil;
 import com.zskjprojectj.andouclient.utils.UrlUtil;import com.zskjprojectj.andouclient.base.BaseUrl;
 import com.zskjprojectj.andouclient.entity.WXPayBean;
 import com.zskjprojectj.andouclient.entity.mall.MallPayWaysBean;
@@ -162,6 +164,11 @@ public class MallOnlineOrderActivity extends BaseActivity {
 
     @OnClick(R.id.ll_buy_pay)
     public void clickBuyPay(){
+        if (TextUtils.isEmpty(payId))
+        {
+            ToastUtil.showToast("请选择支付方式");
+            return;
+        }
         int id = Integer.parseInt(payId);
         switch (id) {
             case WXPAY:

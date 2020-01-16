@@ -2,6 +2,7 @@ package com.zskjprojectj.andouclient.activity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -11,6 +12,7 @@ import com.zskjprojectj.andouclient.base.BasePresenter;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
+import com.zskjprojectj.andouclient.utils.CountDownTimerUtils;
 import com.zskjprojectj.andouclient.utils.PhonenumUtil;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
 import com.zskjprojectj.andouclient.view.TopView;
@@ -30,6 +32,7 @@ import java.io.IOException;
 public class RegisteredActivity extends BaseActivity {
     private TopView topView;
     private TextView registered_login_textview;
+    private CountDownTimerUtils countDownTimer;
     //设置布局文件
     @Override
     protected void setRootView() {
@@ -63,21 +66,41 @@ public class RegisteredActivity extends BaseActivity {
         EditText mobileEdt = findViewById(R.id.registered_phonenum_edittext);
         EditText codeEdt = findViewById(R.id.registered_inputyanzhenma_edittext);
         EditText passwordEdt = findViewById(R.id.registered_pwd_edittext);
-        findViewById(R.id.registered_yanzhenma_button)
-                .setOnClickListener(v -> {
-                    String mobileStr = mobileEdt.getText().toString().trim();
-                    if (mobileStr.isEmpty()) {
-                        ToastUtil.showToast("请输入正确的手机号码!");
-                        return;
-                    }
-                    HttpRxObservable.getObservable(ApiUtils.getApiService().sendCode(mobileStr, "1"))
-                            .subscribe(new BaseObserver<Object>(mAt) {
-                                @Override
-                                public void onHandleSuccess(Object o) throws IOException {
-                                    ToastUtil.showToast("验证码短信已发送,请注意查收!");
-                                }
-                            });
-                });
+        Button registered_yanzhenma_button=findViewById(R.id.registered_yanzhenma_button);
+        registered_yanzhenma_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String mobileStr = mobileEdt.getText().toString().trim();
+                if (mobileStr.isEmpty()) {
+                    ToastUtil.showToast("请输入正确的手机号码!");
+                    return;
+                }
+                countDownTimer = new CountDownTimerUtils(registered_yanzhenma_button, 60000, 1000);
+                countDownTimer.start();
+                HttpRxObservable.getObservable(ApiUtils.getApiService().sendCode(mobileStr, "1"))
+                        .subscribe(new BaseObserver<Object>(mAt) {
+                            @Override
+                            public void onHandleSuccess(Object o) throws IOException {
+                                ToastUtil.showToast("验证码短信已发送,请注意查收!");
+                            }
+                        });
+            }
+        });
+//        findViewById(R.id.registered_yanzhenma_button)
+//                .setOnClickListener(v -> {
+//                    String mobileStr = mobileEdt.getText().toString().trim();
+//                    if (mobileStr.isEmpty()) {
+//                        ToastUtil.showToast("请输入正确的手机号码!");
+//                        return;
+//                    }
+//                    HttpRxObservable.getObservable(ApiUtils.getApiService().sendCode(mobileStr, "1"))
+//                            .subscribe(new BaseObserver<Object>(mAt) {
+//                                @Override
+//                                public void onHandleSuccess(Object o) throws IOException {
+//                                    ToastUtil.showToast("验证码短信已发送,请注意查收!");
+//                                }
+//                            });
+//                });
         findViewById(R.id.registered_button).setOnClickListener(v -> {
             String mobileStr = mobileEdt.getText().toString().trim();
             String codeStr = codeEdt.getText().toString().trim();

@@ -153,30 +153,7 @@ public class MePageFragment extends BaseFragment {
         img_hotelnum=view.findViewById(R.id.img_hotelnum);
         img_mallnum=view.findViewById(R.id.img_mallnum);
         img_restaurantnum=view.findViewById(R.id.img_restaurantnum);
-        new QBadgeView(getContext()).bindTarget(img_hotelnum).setBadgeNumber(5).setBadgeTextSize(8,true).setBadgeGravity(Gravity.END|Gravity.TOP).setOnDragStateChangedListener(new Badge.OnDragStateChangedListener() {
-            @Override
-            public void onDragStateChanged(int dragState, Badge badge, View targetView) {
-                if (STATE_SUCCEED == dragState){
-                    badge.hide(true);
-                }
-            }
-        });
-        new QBadgeView(getContext()).bindTarget(img_mallnum).setBadgeNumber(5).setBadgeTextSize(8,true).setBadgeGravity(Gravity.END|Gravity.TOP).setOnDragStateChangedListener(new Badge.OnDragStateChangedListener() {
-            @Override
-            public void onDragStateChanged(int dragState, Badge badge, View targetView) {
-                if (STATE_SUCCEED == dragState){
-                    badge.hide(true);
-                }
-            }
-        });
-        new QBadgeView(getContext()).bindTarget(img_restaurantnum).setBadgeNumber(5).setBadgeTextSize(8,true).setBadgeGravity(Gravity.END|Gravity.TOP).setOnDragStateChangedListener(new Badge.OnDragStateChangedListener() {
-            @Override
-            public void onDragStateChanged(int dragState, Badge badge, View targetView) {
-                if (STATE_SUCCEED == dragState){
-                    badge.hide(true);
-                }
-            }
-        });
+
         //设置状态栏的高度
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mHeaderTitle.getLayoutParams();
         layoutParams.topMargin = BarUtils.getStatusBarHeight(mAty);
@@ -200,6 +177,33 @@ public class MePageFragment extends BaseFragment {
                 tv_browsenum.setText(personalBean.getRecord());
                 tv_moneynum.setText(personalBean.getMoney());
                 tv_integralnumm.setText(personalBean.getIntegral());
+                int numhotel=Integer.parseInt( personalBean.getBooksordernum());
+                int numfood=Integer.parseInt(personalBean.getFoodsordernum());
+                int nummall=Integer.parseInt(personalBean.getGoodordernum());
+                new QBadgeView(getContext()).bindTarget(img_hotelnum).setBadgeNumber(numhotel).setBadgeTextSize(8,true).setBadgeGravity(Gravity.END|Gravity.TOP).setOnDragStateChangedListener(new Badge.OnDragStateChangedListener() {
+                    @Override
+                    public void onDragStateChanged(int dragState, Badge badge, View targetView) {
+                        if (STATE_SUCCEED == dragState){
+                            badge.hide(true);
+                        }
+                    }
+                });
+                new QBadgeView(getContext()).bindTarget(img_mallnum).setBadgeNumber(nummall).setBadgeTextSize(8,true).setBadgeGravity(Gravity.END|Gravity.TOP).setOnDragStateChangedListener(new Badge.OnDragStateChangedListener() {
+                    @Override
+                    public void onDragStateChanged(int dragState, Badge badge, View targetView) {
+                        if (STATE_SUCCEED == dragState){
+                            badge.hide(true);
+                        }
+                    }
+                });
+                new QBadgeView(getContext()).bindTarget(img_restaurantnum).setBadgeNumber(numfood).setBadgeTextSize(8,true).setBadgeGravity(Gravity.END|Gravity.TOP).setOnDragStateChangedListener(new Badge.OnDragStateChangedListener() {
+                    @Override
+                    public void onDragStateChanged(int dragState, Badge badge, View targetView) {
+                        if (STATE_SUCCEED == dragState){
+                            badge.hide(true);
+                        }
+                    }
+                });
                 Glide.with(mAty).load(UrlUtil.getImageUrl(personalBean.getAvator())).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(img_touxiang);
             }
         });

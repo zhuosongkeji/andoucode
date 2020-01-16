@@ -492,13 +492,13 @@ public interface ApiService {
      * 通知消息
      *
      * @param id
-     * @param token
+     * @param uid
      * @return
      */
     @POST("api/index/information")
     @FormUrlEncoded
     Observable<BaseResult<InformationBean>> information(@Field("id") String id,
-                                                        @Field("token") String token);
+                                                        @Field("uid") String uid);
 
     /**
      * 订单详情

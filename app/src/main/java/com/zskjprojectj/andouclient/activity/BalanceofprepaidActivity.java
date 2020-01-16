@@ -84,6 +84,11 @@ public class BalanceofprepaidActivity extends BaseActivity {
         btn_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (TextUtils.isEmpty(payId))
+                {
+                    ToastUtil.showToast("请选择支付方式");
+                    return;
+                }
                 int id = Integer.parseInt(payId);
                 switch (id) {
                     case WXPAY:

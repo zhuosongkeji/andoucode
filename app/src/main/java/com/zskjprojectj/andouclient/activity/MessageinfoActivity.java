@@ -50,7 +50,7 @@ public class MessageinfoActivity extends BaseActivity {
             @Override
             public void onHandleSuccess(InformationBean informationBean) throws IOException {
                 tv_infodetails.setText(informationBean.getTitle());
-                tv_contentdetails.setText(informationBean.getContent());
+                tv_contentdetails.setText("\t\t\t"+informationBean.getContent());
             }
 
             @Override

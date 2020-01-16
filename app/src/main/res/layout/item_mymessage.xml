@@ -34,8 +34,11 @@
             android:layout_height="wrap_content"
             android:text="你好" />
     </LinearLayout>
-    <TextView
+    <ImageView
+        android:id="@+id/img_status"
+        android:src="@mipmap/weiduicon"
         android:text="2019-09-15"
+        android:layout_centerInParent="true"
         android:layout_marginRight="@dimen/dp_10"
         android:layout_alignParentRight="true"
         android:layout_width="wrap_content"
