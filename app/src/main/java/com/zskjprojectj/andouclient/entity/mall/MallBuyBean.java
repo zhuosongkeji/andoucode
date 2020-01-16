@@ -22,7 +22,7 @@ public class MallBuyBean {
 
     public class PriceInfo {
         public String id;
-        public float price;
+        public String price;
         public int num;
     }
 

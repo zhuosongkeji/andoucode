@@ -50,15 +50,45 @@
             android:background="#E7E7E7" />
 
         <TextView
+            android:id="@+id/tv_goods_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="@dimen/dp_10"
             android:layout_below="@+id/view"
-            android:text="数量："
+            android:text="库存 ："
             android:textColor="#323232"
             android:textSize="@dimen/typeface13sp" />
 
+        <TextView
+            android:id="@+id/tv_goods_num_a"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_below="@+id/view"
+            android:layout_toRightOf="@+id/tv_goods_num"
+            android:text=""
+            android:textColor="#323232"
+            android:textSize="@dimen/typeface13sp" />
 
+        <TextView
+            android:id="@+id/tv_goods_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_below="@+id/tv_goods_num"
+            android:text="价格 ："
+            android:textColor="#323232"
+            android:textSize="@dimen/typeface13sp" />
+        <TextView
+            android:id="@+id/tv_goods_price_a"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_below="@+id/tv_goods_num"
+            android:text=""
+            android:layout_toRightOf="@+id/tv_goods_price"
+            android:textColor="#FE5F50"
+            android:textSize="@dimen/typeface13sp" />
         <LinearLayout
             android:layout_below="@+id/view"
             android:layout_width="wrap_content"
@@ -70,14 +100,12 @@
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <Button
+            <ImageView
                 android:id="@+id/btn_sub"
                 android:layout_width="@dimen/dp_40"
                 android:layout_height="@dimen/dp_30"
-                android:background="@drawable/bg_btn_style_white"
-                android:text="－"
-                android:textColor="#666666"
-                android:textSize="20sp" />
+                android:background="@mipmap/ic_plus"
+                 />
 
             <TextView
                 android:id="@+id/tv_num"
@@ -87,14 +115,11 @@
                 android:textColor="#333333"
                 android:text="1" />
 
-            <Button
+            <ImageView
                 android:id="@+id/btn_add"
                 android:layout_width="@dimen/dp_40"
                 android:layout_height="@dimen/dp_30"
-                android:textColor="#666666"
-                android:background="@drawable/bg_btn_style_white"
-                android:text="＋"
-                android:textSize="20sp" />
+                android:background="@mipmap/ic_add" />
 
         </LinearLayout>
 

@@ -1,6 +1,7 @@
 package com.zskjprojectj.andouclient.adapter.mall;
 
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
@@ -9,6 +10,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.willy.ratingbar.ScaleRatingBar;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.utils.UrlUtil;import com.zskjprojectj.andouclient.base.BaseUrl;
 import com.zskjprojectj.andouclient.entity.mall.MallCommentBean;
@@ -38,7 +40,11 @@ public class MallCommentAdapter extends BaseQuickAdapter<MallCommentBean, BaseVi
         helper.setText(R.id.tv_name,item.getName());
         helper.setText(R.id.tv_time,item.getCreated_at());
         helper.setText(R.id.tv_des,item.getContent());
-        Log.d(TAG, "convert: "+item.getStars());
+
+        String stars = item.getStars();
+        float v = Float.parseFloat(stars);
+        ScaleRatingBar ratingBar  = helper.getView(R.id.ratingBar);
+        ratingBar.setRating(v);
 
 
     }

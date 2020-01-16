@@ -25,6 +25,8 @@
             android:layout_width="159dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_15"
+            android:maxLines="2"
+            android:ellipsize="end"
             android:layout_toRightOf="@+id/iv_online_order_image"
             android:text="亲润孕妇化妆品套装BB霜遮瑕 孕妇护肤品豆...... "
             android:textColor="#404040"
@@ -48,6 +50,9 @@
             android:layout_marginLeft="@dimen/dp_15"
             android:layout_toRightOf="@+id/iv_online_order_image"
             android:text="四件套"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:layout_toLeftOf="@+id/tv_online_order_number"
             android:textColor="#787878"
             android:textSize="@dimen/typeface12sp" />
 
