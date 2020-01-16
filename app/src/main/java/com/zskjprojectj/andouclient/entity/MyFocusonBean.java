@@ -1,7 +1,19 @@
 package com.zskjprojectj.andouclient.entity;
 
+import mlxy.utils.S;
+
 public class MyFocusonBean {
     private String id;
+
+    public String getMerchant_type_id() {
+        return merchant_type_id;
+    }
+
+    public void setMerchant_type_id(String merchant_type_id) {
+        this.merchant_type_id = merchant_type_id;
+    }
+
+    private String merchant_type_id;
 
     public String getId() {
         return id;
