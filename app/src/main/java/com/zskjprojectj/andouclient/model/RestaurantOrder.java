@@ -70,6 +70,16 @@ public class RestaurantOrder implements Serializable, RestaurantBillActivity.IBi
         return order_sn;
     }
 
+    @Override
+    public String getStartTime() {
+        return null;
+    }
+
+    @Override
+    public String getEndTime() {
+        return null;
+    }
+
     public enum STATE {
         ALL(0, "全部订单"),
         DAI_ZHI_FU(10, "待支付"),

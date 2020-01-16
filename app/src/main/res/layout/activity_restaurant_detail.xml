@@ -132,13 +132,14 @@
                                 <ImageView
                                     android:layout_width="15dp"
                                     android:layout_height="15dp"
-                                    android:src="@mipmap/ic_restaurant_detail_collect" />
+                                    android:src="@drawable/sl_follow" />
 
                                 <TextView
+                                    android:id="@+id/collectTxt"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="9dp"
-                                    android:text="收藏"
+                                    android:text="关注"
                                     android:textColor="#ff808080"
                                     android:textSize="12sp" />
                             </LinearLayout>
