@@ -34,6 +34,16 @@ public class HotelDetailsBean {
     private String address;
     private String praise_num;
     private String desc;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    private String status;
     private List<String> facilities;
 
     public String getId() {

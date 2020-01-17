@@ -250,7 +250,7 @@ public interface ApiService {
     Observable<BaseResult<WXPayBean>> MallWXPayWaysrecharge(@Field("uid") String uid,
                                                             @Field("token") String token,
                                                             @Field("money") String money,
-                                                            @Field("tel") String mobile,
+                                                            @Field("mobile") String mobile,
                                                             @Field("method") String method
     );
 
