@@ -19,8 +19,11 @@
     <com.zskjprojectj.andouclient.view.TopView
         android:id="@+id/alltopview"
         android:layout_width="wrap_content"
+        android:visibility="gone"
         android:layout_height="@dimen/dp_50"
-        app:topview_left="@mipmap/icon_back_black"></com.zskjprojectj.andouclient.view.TopView>
+        app:topview_left="@mipmap/icon_back_black">
+
+    </com.zskjprojectj.andouclient.view.TopView>
 
     <TextView
         android:layout_width="wrap_content"
