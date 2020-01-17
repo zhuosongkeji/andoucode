@@ -40,11 +40,13 @@
         android:id="@+id/busiess_dianzan1_image"
         android:layout_width="12dp"
         android:layout_height="12dp"
+        android:visibility="gone"
         android:layout_gravity="center"
         android:layout_toLeftOf="@+id/busiess_dianzancount1_textview"
         android:src="@mipmap/ic_zan" />
 
     <TextView
+        android:visibility="gone"
         android:id="@+id/busiess_dianzancount1_textview"
         android:layout_width="wrap_content"
         android:layout_height="20dp"

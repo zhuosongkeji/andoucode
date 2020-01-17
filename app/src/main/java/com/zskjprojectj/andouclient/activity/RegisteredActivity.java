@@ -1,9 +1,14 @@
 package com.zskjprojectj.andouclient.activity;
 
+import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.zskjprojectj.andouclient.R;
@@ -33,6 +38,8 @@ public class RegisteredActivity extends BaseActivity {
     private TopView topView;
     private TextView registered_login_textview;
     private CountDownTimerUtils countDownTimer;
+    private CheckBox registered_agree_xieyi_button;
+    private Button registered_button;
     //设置布局文件
     @Override
     protected void setRootView() {
@@ -53,6 +60,23 @@ public class RegisteredActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 finish();
+            }
+        });
+        registered_agree_xieyi_button=findViewById(R.id.registered_agree_xieyi_button);
+        registered_agree_xieyi_button.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @SuppressLint("ResourceAsColor")
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b==true)
+                {
+                    registered_button.setEnabled(true);
+                    registered_button.setBackgroundColor(Color.parseColor("#5ed3ae"));
+
+                }else
+                {
+                    registered_button.setEnabled(false);
+                    registered_button.setBackgroundColor(Color.parseColor("#8f8f8f"));
+                }
             }
         });
         registered_login_textview=findViewById(R.id.registered_login_textview);
@@ -86,49 +110,42 @@ public class RegisteredActivity extends BaseActivity {
                         });
             }
         });
-//        findViewById(R.id.registered_yanzhenma_button)
-//                .setOnClickListener(v -> {
-//                    String mobileStr = mobileEdt.getText().toString().trim();
-//                    if (mobileStr.isEmpty()) {
-//                        ToastUtil.showToast("请输入正确的手机号码!");
-//                        return;
-//                    }
-//                    HttpRxObservable.getObservable(ApiUtils.getApiService().sendCode(mobileStr, "1"))
-//                            .subscribe(new BaseObserver<Object>(mAt) {
-//                                @Override
-//                                public void onHandleSuccess(Object o) throws IOException {
-//                                    ToastUtil.showToast("验证码短信已发送,请注意查收!");
-//                                }
-//                            });
-//                });
-        findViewById(R.id.registered_button).setOnClickListener(v -> {
-            String mobileStr = mobileEdt.getText().toString().trim();
-            String codeStr = codeEdt.getText().toString().trim();
-            String passwordStr = passwordEdt.getText().toString();
-            if (mobileStr.isEmpty()) {
-                ToastUtil.showToast("请输入正确的手机号码!");
-                return;
-            }
-            if (codeStr.isEmpty()) {
-                ToastUtil.showToast("请输入正确的验证码!");
-                return;
-            }
-            if (passwordStr.isEmpty()) {
-                ToastUtil.showToast("请输入正确的密码!");
-                return;
-            }
-            HttpRxObservable.getObservable(ApiUtils.getApiService().register(
-                    mobileStr,
-                    passwordStr,
-                    codeStr
-            )).subscribe(new BaseObserver<Object>(mAt) {
-                @Override
-                public void onHandleSuccess(Object o) throws IOException {
-                    ToastUtil.showToast("注册成功,请登录!");
-                    finish();
+        registered_button=findViewById(R.id.registered_button);
+        registered_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String mobileStr = mobileEdt.getText().toString().trim();
+                String codeStr = codeEdt.getText().toString().trim();
+                String passwordStr = passwordEdt.getText().toString();
+                if (mobileStr.isEmpty()) {
+                    ToastUtil.showToast("请输入正确的手机号码!");
+                    return;
                 }
-            });
+                if (codeStr.isEmpty()) {
+                    ToastUtil.showToast("请输入正确的验证码!");
+                    return;
+                }
+                if (passwordStr.isEmpty()) {
+                    ToastUtil.showToast("请输入正确的密码!");
+                    return;
+                }
+                HttpRxObservable.getObservable(ApiUtils.getApiService().register(
+                        mobileStr,
+                        passwordStr,
+                        codeStr
+                )).subscribe(new BaseObserver<Object>(mAt) {
+                    @Override
+                    public void onHandleSuccess(Object o) throws IOException {
+                        ToastUtil.showToast("注册成功,请登录!");
+                        finish();
+                    }
+                });
+            }
         });
+//        findViewById(R.id.registered_button).setOnClickListener(v -> {
+//
+//
+//        });
     }
 
     //获取网络数据现成请求在这里处理

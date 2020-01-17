@@ -98,7 +98,7 @@
         android:layout_marginLeft="@dimen/dp_10"
         android:layout_marginTop="@dimen/dp_20"
         android:layout_marginRight="@dimen/dp_10"
-        android:background="@drawable/shape_button"
+        android:background="#5ED3AE"
         android:padding="@dimen/dp_10"
         android:text="@string/login_registered"
         android:textColor="@color/colorWhite" />
@@ -112,7 +112,7 @@
         android:gravity="center"
         android:orientation="horizontal">
 
-        <RadioButton
+        <CheckBox
             android:id="@+id/registered_agree_xieyi_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -135,13 +135,13 @@
             android:textColor="#5ED3AE"
             android:textSize="@dimen/typeface14sp" />
 
-        <TextView
-            android:id="@+id/registered_xieyi_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="《安抖注册协议》"
-            android:textColor="#5ED3AE"
-            android:textSize="@dimen/typeface14sp" />
+<!--        <TextView-->
+<!--            android:id="@+id/registered_xieyi_textview"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="《安抖注册协议》"-->
+<!--            android:textColor="#5ED3AE"-->
+<!--            android:textSize="@dimen/typeface14sp" />-->
 
         <LinearLayout
             android:layout_width="match_parent"
