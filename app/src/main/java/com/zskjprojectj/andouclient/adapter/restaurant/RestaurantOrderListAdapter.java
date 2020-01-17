@@ -14,8 +14,11 @@ import com.zhuosongkj.android.library.util.ViewUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.model.Food;
 import com.zskjprojectj.andouclient.model.RestaurantOrder;
+import com.zskjprojectj.andouclient.utils.UrlUtil;
 
 import java.math.BigDecimal;
+
+import retrofit2.http.Url;
 
 public class RestaurantOrderListAdapter extends BaseAdapter<RestaurantOrder> {
     public RestaurantOrderListAdapter() {
@@ -42,7 +45,7 @@ public class RestaurantOrderListAdapter extends BaseAdapter<RestaurantOrder> {
                 .setText(R.id.orderNumTxt, item.order_sn)
                 .setText(R.id.statusTxt, RestaurantOrder.getState(item.status).stateStr)
                 .setText(R.id.totalCountTxt, String.valueOf(count))
-                .setText(R.id.amountTxt, FormatUtil.getMoneyString(amount.doubleValue()))
+                .setText(R.id.amountTxt, FormatUtil.getMoneyString(new BigDecimal(item.prices).subtract(new BigDecimal(item.integral)).doubleValue()))
                 .setGone(R.id.reviewTxtBtn, item.status == RestaurantOrder.STATE.DAI_PING_JIA.stateInt)
                 .setGone(R.id.payTxtBtn, item.status == RestaurantOrder.STATE.DAI_ZHI_FU.stateInt)
                 .setGone(R.id.cancelBtn, item.status == RestaurantOrder.STATE.DAI_SHI_YONG.stateInt)
@@ -51,7 +54,7 @@ public class RestaurantOrderListAdapter extends BaseAdapter<RestaurantOrder> {
                 .addOnClickListener(R.id.cancelBtn)
                 .addOnClickListener(R.id.detailBtn);
         Glide.with(helper.itemView.getContext())
-                .load(item.logo_img)
+                .load(UrlUtil.getImageUrl(item.logo_img))
                 .apply(new RequestOptions().placeholder(R.mipmap.ic_placeholder))
                 .into((ImageView) helper.itemView.findViewById(R.id.logoImg));
     }

@@ -18,7 +18,7 @@ public class RestaurantOrder implements Serializable, RestaurantBillActivity.IBi
     public String people;
     public int status;
     public ArrayList<Food> foods = new ArrayList<>();
-    public int method;
+    public String method;
     public String integral;
     public String pay_money;
     public String orderingtime;
@@ -78,6 +78,11 @@ public class RestaurantOrder implements Serializable, RestaurantBillActivity.IBi
     @Override
     public String getEndTime() {
         return null;
+    }
+
+    @Override
+    public String getScore() {
+        return integral;
     }
 
     public enum STATE {

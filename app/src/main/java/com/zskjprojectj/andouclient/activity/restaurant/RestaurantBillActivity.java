@@ -30,6 +30,7 @@ import com.zskjprojectj.andouclient.activity.mall.MallPaySuccessActivity;
 import com.zskjprojectj.andouclient.adapter.restaurant.DateAdapter;
 import com.zskjprojectj.andouclient.entity.WXPayBean;
 import com.zskjprojectj.andouclient.event.RestaurantPaySuccess;
+import com.zskjprojectj.andouclient.http.ApiService;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.model.Food;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
@@ -72,7 +73,9 @@ public class RestaurantBillActivity extends BaseActivity {
     View wxPayBtn;
     @BindView(R.id.accountPayBtn)
     View accountPayBtn;
-
+    @BindView(R.id.scoreContainer)
+    View scoreContainer;
+    private BigDecimal totalAmount;
     private String dateStr;
     private String timeStr;
     private IBill bill;
@@ -101,14 +104,6 @@ public class RestaurantBillActivity extends BaseActivity {
             pvOptions.setPicker(times);
             pvOptions.show();
         });
-        if (bill.getStatus() == 0) {
-            findViewById(R.id.newBillContainer).setVisibility(View.VISIBLE);
-        } else {
-            findViewById(R.id.billInfoContainer).setVisibility(View.VISIBLE);
-            ViewUtil.setText(mActivity, R.id.dinnerDateTxt, bill.getDinnertime());
-            ViewUtil.setText(mActivity, R.id.peopleCountTxt, bill.getPeople() + "人");
-            ViewUtil.setText(mActivity, R.id.psTxt, bill.getRemark());
-        }
         if (ListUtil.isEmpty(bill.getFoods())) {
             RequestUtil.request(mActivity, true, true,
                     () -> ApiUtils.getApiService().getCart(
@@ -118,6 +113,34 @@ public class RestaurantBillActivity extends BaseActivity {
                     result -> bindFoods(result.data));
         } else {
             bindFoods(bill.getFoods());
+        }
+        if (bill.getStatus() == 0) {
+            findViewById(R.id.newBillContainer).setVisibility(View.VISIBLE);
+            RequestUtil.request(mActivity, true, false,
+                    () -> ApiUtils.getApiService().getBookInfo(LoginInfoUtil.getUid(), bill.getMerchantId()),
+                    result -> {
+                        ViewUtil.setText(mActivity, R.id.scoreTxt, String.valueOf(result.data.integral));
+                        scoreContainer.setOnClickListener(v -> {
+                            scoreContainer.setSelected(!scoreContainer.isSelected());
+                            if (scoreContainer.isSelected()) {
+                                ViewUtil.setText(mActivity, R.id.useScoreCountTxt, "-" + result.data.integral);
+                                ViewUtil.setText(mActivity, R.id.totalAmountTxt2, FormatUtil.getMoneyString(totalAmount.subtract(new BigDecimal(result.data.integral)).doubleValue()));
+                                ViewUtil.setText(mActivity, R.id.totalAmountTxt3, FormatUtil.getMoneyString(totalAmount.subtract(new BigDecimal(result.data.integral)).doubleValue()));
+                            } else {
+                                ViewUtil.setText(mActivity, R.id.useScoreCountTxt, "0");
+                                ViewUtil.setText(mActivity, R.id.totalAmountTxt2, FormatUtil.getMoneyString(totalAmount.doubleValue()));
+                                ViewUtil.setText(mActivity, R.id.totalAmountTxt3, FormatUtil.getMoneyString(totalAmount.doubleValue()));
+                            }
+                        });
+                    });
+        } else {
+            findViewById(R.id.billInfoContainer).setVisibility(View.VISIBLE);
+            ViewUtil.setText(mActivity, R.id.dinnerDateTxt, bill.getDinnertime());
+            ViewUtil.setText(mActivity, R.id.peopleCountTxt, bill.getPeople() + "人");
+            ViewUtil.setText(mActivity, R.id.psTxt, bill.getRemark());
+            ViewUtil.setText(mActivity, R.id.useScoreCountTxt, bill.getScore());
+            ViewUtil.setText(mActivity, R.id.totalAmountTxt2, FormatUtil.getMoneyString(totalAmount.subtract(new BigDecimal(bill.getScore())).doubleValue()));
+            ViewUtil.setText(mActivity, R.id.totalAmountTxt3, FormatUtil.getMoneyString(totalAmount.subtract(new BigDecimal(bill.getScore())).doubleValue()));
         }
         ViewUtil.setText(mActivity, R.id.nameTxt, bill.getMerchantName());
         Glide.with(mActivity)
@@ -165,15 +188,13 @@ public class RestaurantBillActivity extends BaseActivity {
 
     private void bindFoods(List<Food> result) {
         int totalNum = 0;
-        BigDecimal totalAmount = new BigDecimal(0);
+        totalAmount = new BigDecimal(0);
         for (Food food : result) {
             totalNum += food.num;
             totalAmount = totalAmount.add(new BigDecimal(food.getAmount()));
         }
         ViewUtil.setText(mActivity, R.id.cartCountTxt, String.valueOf(totalNum));
         ViewUtil.setText(mActivity, R.id.totalAmountTxt1, FormatUtil.getMoneyString(totalAmount.doubleValue()));
-        ViewUtil.setText(mActivity, R.id.totalAmountTxt2, FormatUtil.getMoneyString(totalAmount.doubleValue()));
-        ViewUtil.setText(mActivity, R.id.totalAmountTxt3, FormatUtil.getMoneyString(totalAmount.doubleValue()));
         for (int i = 0; i < result.size(); i++) {
             if (i >= 3) {
                 break;
@@ -250,7 +271,7 @@ public class RestaurantBillActivity extends BaseActivity {
                                                     people,
                                                     psEdt.getText().toString(),
                                                     dateStr + " " + timeStr,
-                                                    0,
+                                                    scoreContainer.isSelected() ? 1 : 0,
                                                     getPayWay()
                                             ), result -> accountPayResult()))
                             .show();
@@ -262,7 +283,7 @@ public class RestaurantBillActivity extends BaseActivity {
                                     people,
                                     psEdt.getText().toString(),
                                     dateStr + " " + timeStr,
-                                    0,
+                                    scoreContainer.isSelected() ? 1 : 0,
                                     getPayWay()
                             ), result -> wxPayResult(new Gson().fromJson(result.data, WXPayBean.class)));
                 }
@@ -343,5 +364,7 @@ public class RestaurantBillActivity extends BaseActivity {
         String getStartTime();
 
         String getEndTime();
+
+        String getScore();
     }
 }

@@ -250,7 +250,7 @@ public interface ApiService {
     Observable<BaseResult<WXPayBean>> MallWXPayWaysrecharge(@Field("uid") String uid,
                                                             @Field("token") String token,
                                                             @Field("money") String money,
-                                                            @Field("tel") String mobile,
+                                                            @Field("mobile") String mobile,
                                                             @Field("method") String method
     );
 
@@ -609,7 +609,7 @@ public interface ApiService {
      */
     @POST("api/details/list")
     @FormUrlEncoded
-    Observable<BaseResult<HotelDetailsBean>> hotelDetails(@Field("uid") String uid,@Field("id") String id);
+    Observable<BaseResult<HotelDetailsBean>> hotelDetails(@Field("uid") String uid, @Field("id") String id);
 
 
     /**
@@ -1124,4 +1124,9 @@ public interface ApiService {
     @POST("api/gourmet/comment")
     Observable<BaseResult<ListData<Review>>> getReviews(@Field("id") String id,
                                                         @Field("page") int page);
+
+    @FormUrlEncoded
+    @POST("api/gourmet/reserve")
+    Observable<BaseResult<GetBookInfoResponse>> getBookInfo(@Field("uid") String uid,
+                                               @Field("merchant_id") String merchant_id);
 }

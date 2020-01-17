@@ -3,6 +3,7 @@ package com.zskjprojectj.andouclient.activity.restaurant;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -16,6 +17,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.king.zxing.util.CodeUtils;
 import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zhuosongkj.android.library.util.ActionBarUtil;
+import com.zhuosongkj.android.library.util.FormatUtil;
 import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zhuosongkj.android.library.util.ViewUtil;
 import com.zskjprojectj.andouclient.R;
@@ -25,6 +27,8 @@ import com.zskjprojectj.andouclient.model.RestaurantOrder;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
 import com.zskjprojectj.andouclient.utils.UrlUtil;
+
+import java.math.BigDecimal;
 
 import butterknife.BindView;
 
@@ -102,7 +106,12 @@ public class RestaurantOrderDetailActivity extends BaseActivity {
         ViewUtil.setText(mActivity, R.id.peopleCountTxt, data.people + "人");
         ViewUtil.setText(mActivity, R.id.psTxt, data.remark);
         ViewUtil.setText(mActivity, R.id.amountTxt, "￥" + data.prices);
-        ViewUtil.setText(mActivity, R.id.payAmountTxt, "￥" + data.pay_money);
+        ViewUtil.setText(mActivity, R.id.useScoreCountTxt, Double.valueOf(data.integral) > 0 ? "-" + data.integral : data.integral);
+        if (TextUtils.isEmpty(data.pay_money)) {
+            ViewUtil.setText(mActivity, R.id.payAmountTxt, "￥" + FormatUtil.getMoneyString(new BigDecimal(data.prices).subtract(new BigDecimal(data.integral)).doubleValue()));
+        } else {
+            ViewUtil.setText(mActivity, R.id.payAmountTxt, "￥" + FormatUtil.getMoneyString(new BigDecimal(data.pay_money).doubleValue()));
+        }
         ViewUtil.setText(mActivity, R.id.payWayTxt, getPayWayStr(data.method));
         for (Food food : data.foods) {
             RestaurantBillActivity.addFoodView(mActivity, findViewById(R.id.foodContainer), food);
@@ -118,13 +127,13 @@ public class RestaurantOrderDetailActivity extends BaseActivity {
         }
     }
 
-    private String getPayWayStr(int method) {
-        if (method == 1) {
+    private String getPayWayStr(String method) {
+        if ("1".equals(method)) {
             return "微信支付";
-        } else if (method == 4) {
+        } else if ("4".equals(method)) {
             return "余额支付";
         }
-        return "";
+        return "未支付";
     }
 
     @Override

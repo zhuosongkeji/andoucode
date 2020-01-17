@@ -88,6 +88,31 @@
                     android:background="@mipmap/ic_v_flag" />
 
                 <LinearLayout
+                    android:layout_alignParentEnd="true"
+                    android:id="@+id/collectBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingEnd="10dp">
+
+                    <ImageView
+                        android:id="@+id/img_hotelfocuson"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:src="@drawable/sl_follow" />
+
+                    <TextView
+                        android:id="@+id/tv_collectTxtfocuson"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="9dp"
+                        android:text="关注"
+                        android:textColor="#ff808080"
+                        android:textSize="12sp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:visibility="gone"
                     android:id="@+id/busiess_dianzan1_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
