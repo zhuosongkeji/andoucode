@@ -117,7 +117,7 @@ public class MePageFragment extends BaseFragment {
     //个人信息
     private ImageView img_touxiang,iv_message;
     private TextView tv_nickname, tv_viplevel, tv_collectionnum, tv_focusonnum, tv_browsenum, tv_moneynum, tv_integralnumm;
-    private ImageView img_hotelnum,img_mallnum,img_restaurantnum;
+    private ImageView img_hotelnum,img_mallnum,img_restaurantnum,img_showvip;
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
         mycenter_vegetablemarket_layout = view.findViewById(R.id.mycenter_vegetablemarket_layout);
@@ -143,7 +143,8 @@ public class MePageFragment extends BaseFragment {
         img_meset = view.findViewById(R.id.img_meset);
         img_touxiang = view.findViewById(R.id.img_touxiang);
         tv_nickname = view.findViewById(R.id.tv_nickname);
-        tv_viplevel = view.findViewById(R.id.tv_viplevel);
+        img_showvip=view.findViewById(R.id.img_showvip);
+       // tv_viplevel = view.findViewById(R.id.tv_viplevel);
         tv_collectionnum = view.findViewById(R.id.tv_collectionnum);
         tv_focusonnum = view.findViewById(R.id.tv_focusonnum);
         tv_browsenum = view.findViewById(R.id.tv_browsenum);
@@ -170,13 +171,19 @@ public class MePageFragment extends BaseFragment {
         HttpRxObservable.getObservable(ApiUtils.getApiService().getpersonal(LoginInfoUtil.getUid(), LoginInfoUtil.getToken())).subscribe(new BaseObserver<PersonalBean>(mAty) {
             @Override
             public void onHandleSuccess(PersonalBean personalBean) throws IOException {
-                tv_viplevel.setText(personalBean.getGrade());
+               // tv_viplevel.setText(personalBean.getGrade());
                 tv_nickname.setText(personalBean.getName());
                 tv_collectionnum.setText(personalBean.getCollect());
                 tv_focusonnum.setText(personalBean.getFocus());
                 tv_browsenum.setText(personalBean.getRecord());
                 tv_moneynum.setText(personalBean.getMoney());
                 tv_integralnumm.setText(personalBean.getIntegral());
+                if ("0".equals(personalBean.getStatus()))
+                {
+                    img_showvip.setImageResource(R.mipmap.putongvip);
+                }else {
+                    img_showvip.setImageResource(R.mipmap.vipplusicon);
+                }
                 int numhotel=Integer.parseInt( personalBean.getBooksordernum());
                 int numfood=Integer.parseInt(personalBean.getFoodsordernum());
                 int nummall=Integer.parseInt(personalBean.getGoodordernum());

@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.activity.hotel.HotelDetailFacilityActivity;
 import com.zskjprojectj.andouclient.adapter.hotel.FacilityAdapter;
 import com.zskjprojectj.andouclient.base.BaseFragment;
 import com.zskjprojectj.andouclient.entity.hotel.HotelDetailFacilityBean;
@@ -31,12 +30,13 @@ import java.util.ArrayList;
 public class HotelDetailFacilityFragment extends BaseFragment {
 
     private RecyclerView mRecycler;
-    private ArrayList<HotelDetailFacilityBean> mDataList;
+    private ArrayList<String> mDataList;
 
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
         mRecycler=view.findViewById(R.id.rv_recycler);
         mRecycler.setLayoutManager(new GridLayoutManager(getActivity(),3));
+        mDataList= (ArrayList<String>) getArguments().getSerializable("facilities");
     }
 
     @Override
@@ -51,24 +51,17 @@ public class HotelDetailFacilityFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-        mDataList=new ArrayList<>();
-        for (int i=0;i<6;i++){
-            HotelDetailFacilityBean databean=new HotelDetailFacilityBean();
-            databean.setImageResource(R.mipmap.hotel_details);
-            mDataList.add(databean);
-        }
-
         FacilityAdapter adapter=new FacilityAdapter(R.layout.facility_item_view,mDataList);
         adapter.openLoadAnimation();
-        View footButton = getLayoutInflater().inflate(R.layout.facility_button_foot, (ViewGroup) mRecycler.getParent(), false);
-        adapter.addFooterView(footButton);
+//        View footButton = getLayoutInflater().inflate(R.layout.facility_button_foot, (ViewGroup) mRecycler.getParent(), false);
+//        adapter.addFooterView(footButton);
 
-        footButton.findViewById(R.id.see_more_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(), HotelDetailFacilityActivity.class));
-            }
-        });
+//        footButton.findViewById(R.id.see_more_button).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //startActivity(new Intent(getActivity(), HotelDetailFacilityActivity.class));
+//            }
+//        });
 
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override

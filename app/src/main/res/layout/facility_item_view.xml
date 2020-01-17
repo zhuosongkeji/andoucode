@@ -4,6 +4,7 @@
     android:padding="@dimen/dp_5"
     android:layout_height="wrap_content">
     <ImageView
+        android:id="@+id/imgbgall"
         android:layout_width="110dp"
         android:layout_height="90dp"
         android:scaleType="centerCrop"

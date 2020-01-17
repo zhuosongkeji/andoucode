@@ -1,5 +1,6 @@
 package com.zskjprojectj.andouclient.entity.hotel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,6 +27,7 @@ public class HotelDetailsBean {
      * facilities : ["/shop/shopImage/201912201729155674.jpg","/shop/shopImage/201912201729157091.jpg"]
      */
 
+
     private String id;
     private String name;
     private String tel;
@@ -34,7 +36,8 @@ public class HotelDetailsBean {
     private String address;
     private String praise_num;
     private String desc;
-
+    private String status;
+    private ArrayList<String> facilities;
     public String getStatus() {
         return status;
     }
@@ -43,8 +46,6 @@ public class HotelDetailsBean {
         this.status = status;
     }
 
-    private String status;
-    private List<String> facilities;
 
     public String getId() {
         return id;
@@ -110,11 +111,11 @@ public class HotelDetailsBean {
         this.desc = desc;
     }
 
-    public List<String> getFacilities() {
+    public ArrayList<String> getFacilities() {
         return facilities;
     }
 
-    public void setFacilities(List<String> facilities) {
+    public void setFacilities(ArrayList<String> facilities) {
         this.facilities = facilities;
     }
 }
