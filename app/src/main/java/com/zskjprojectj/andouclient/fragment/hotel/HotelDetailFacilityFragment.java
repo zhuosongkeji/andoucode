@@ -9,11 +9,16 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.config.PictureMimeType;
+import com.luck.picture.lib.entity.LocalMedia;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.adapter.hotel.FacilityAdapter;
 import com.zskjprojectj.andouclient.base.BaseFragment;
 import com.zskjprojectj.andouclient.entity.hotel.HotelDetailFacilityBean;
+import com.zskjprojectj.andouclient.utils.GlideEngine;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
+import com.zskjprojectj.andouclient.utils.UrlUtil;
 
 import java.util.ArrayList;
 
@@ -66,7 +71,17 @@ public class HotelDetailFacilityFragment extends BaseFragment {
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                ToastUtil.showToast("sdsafd");
+              //  ToastUtil.showToast("sdsafd");
+                ArrayList<LocalMedia> localMedia=new ArrayList<>();
+                for (String s : mDataList) {
+                    localMedia.add(new LocalMedia(UrlUtil.getImageUrl(s),0, PictureMimeType.ofImage(), PictureMimeType.JPEG));
+                }
+                PictureSelector.create(mAty)
+                        .themeStyle(R.style.picture_default_style)
+                        .isNotPreviewDownload(true)
+                        .loadImageEngine(GlideEngine.createGlideEngine()) // 请参考Demo GlideEngine.java
+                        .openExternalPreview(position, localMedia);
+
             }
         });
 
