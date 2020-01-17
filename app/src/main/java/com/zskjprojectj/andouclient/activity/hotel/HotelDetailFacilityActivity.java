@@ -47,8 +47,8 @@ public class HotelDetailFacilityActivity extends BaseActivity {
             databean.setImageResource(R.mipmap.hotel_details);
             mDataList.add(databean);
         }
-        FacilityAdapter adapter=new FacilityAdapter(R.layout.facility_item_view,mDataList);
-        mRecycler.setAdapter(adapter);
+        //FacilityAdapter adapter=new FacilityAdapter(R.layout.facility_item_view,mDataList);
+       // mRecycler.setAdapter(adapter);
 
 
     }

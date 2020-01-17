@@ -214,9 +214,11 @@ public class HotelDetailActivity extends BaseActivity {
                         Bundle bundle = new Bundle();
                         bundle.putString("hotelMerchantId", hotelMerchantId);
                         bundle.putString("desc", hotelDetailsBean.getDesc());
+                        bundle.putSerializable("facilities",hotelDetailsBean.getFacilities());
                         hotelDetailReserveFragment.setArguments(bundle);
                         //预订
                         list.add(hotelDetailReserveFragment);
+
                         //评论
                         HotelDetailCommentFragment hotelDetailCommentFragment = new HotelDetailCommentFragment();
                         hotelDetailCommentFragment.setArguments(bundle);
@@ -226,8 +228,9 @@ public class HotelDetailActivity extends BaseActivity {
                         hotelDetailMerchantFragment.setArguments(bundle);
                         list.add(hotelDetailMerchantFragment);
                         //环境设施
-                        list.add(new HotelDetailFacilityFragment());
-
+                        HotelDetailFacilityFragment hotelDetailFacilityFragment=new HotelDetailFacilityFragment();
+                        hotelDetailFacilityFragment.setArguments(bundle);
+                        list.add(hotelDetailFacilityFragment);
                         IndicatorViewPager indicatorViewPager = new IndicatorViewPager(mIndicator, mViewPager);
                         indicatorViewPager.setAdapter(adapter);
 
