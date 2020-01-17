@@ -195,6 +195,8 @@ public class RestaurantBillActivity extends BaseActivity {
         }
         ViewUtil.setText(mActivity, R.id.cartCountTxt, String.valueOf(totalNum));
         ViewUtil.setText(mActivity, R.id.totalAmountTxt1, FormatUtil.getMoneyString(totalAmount.doubleValue()));
+        ViewUtil.setText(mActivity, R.id.totalAmountTxt2, FormatUtil.getMoneyString(totalAmount.doubleValue()));
+        ViewUtil.setText(mActivity, R.id.totalAmountTxt3, FormatUtil.getMoneyString(totalAmount.doubleValue()));
         for (int i = 0; i < result.size(); i++) {
             if (i >= 3) {
                 break;
