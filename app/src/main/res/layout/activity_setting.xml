@@ -334,6 +334,15 @@
                 android:src="@mipmap/icon_right_arrows" />
         </RelativeLayout>
 
+        <TextView
+            android:id="@+id/protocolContainer"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:gravity="center"
+            android:text="《隐私协议》"
+            android:textColor="@color/picture_color_blue"
+            android:textSize="@dimen/typeface13sp" />
+
         <Button
             android:id="@+id/btn_exit"
             android:layout_width="match_parent"
