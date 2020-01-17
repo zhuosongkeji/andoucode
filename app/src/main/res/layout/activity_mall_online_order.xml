@@ -102,7 +102,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="运送方式"
+                    android:text="运费"
                     android:textColor="#565656"
                     android:textSize="@dimen/typeface13sp" />
 
@@ -129,28 +129,28 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="使用积分"
+                    android:text="使用感恩币"
                     android:textColor="#565656"
                     android:textSize="@dimen/typeface13sp" />
 
                 <TextView
+                    android:id="@+id/tv_integral"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/dp_10"
-                    android:layout_toLeftOf="@+id/iv_integral_into"
+                    android:layout_toLeftOf="@+id/cb_selectorcb1"
                     android:text="1000"
                     android:textColor="#969696"
                     android:textSize="@dimen/typeface12sp" />
-
-                <ImageView
-                    android:id="@+id/iv_integral_into"
-                    android:layout_width="6dp"
-                    android:layout_height="@dimen/dp_11"
-                    android:layout_alignParentEnd="true"
+                <androidx.appcompat.widget.AppCompatCheckBox
+                    android:id="@+id/cb_selectorcb1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:background="@mipmap/triangle_icon" />
-
+                    android:layout_alignParentEnd="true"
+                    android:background="@null"
+                    android:button="@drawable/selector_checkbox" />
             </RelativeLayout>
 
             <View

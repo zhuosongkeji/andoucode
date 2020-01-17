@@ -609,7 +609,7 @@ public interface ApiService {
      */
     @POST("api/details/list")
     @FormUrlEncoded
-    Observable<BaseResult<HotelDetailsBean>> hotelDetails(@Field("uid") String uid,@Field("id") String id);
+    Observable<BaseResult<HotelDetailsBean>> hotelDetails(@Field("uid") String uid, @Field("id") String id);
 
 
     /**
@@ -659,7 +659,7 @@ public interface ApiService {
                                                  @Field("start_time") String start_time,
                                                  @Field("end_time") String end_time,
                                                  @Field("real_name") String real_name,
-                                                 @Field("tel") String mobile,
+                                                 @Field("mobile") String mobile,
                                                  @Field("num") String num,
                                                  @Field("day_num") String day_num,
                                                  @Field("pay_way") String pay_way,
@@ -1124,4 +1124,9 @@ public interface ApiService {
     @POST("api/gourmet/comment")
     Observable<BaseResult<ListData<Review>>> getReviews(@Field("id") String id,
                                                         @Field("page") int page);
+
+    @FormUrlEncoded
+    @POST("api/gourmet/reserve")
+    Observable<BaseResult<GetBookInfoResponse>> getBookInfo(@Field("uid") String uid,
+                                               @Field("merchant_id") String merchant_id);
 }

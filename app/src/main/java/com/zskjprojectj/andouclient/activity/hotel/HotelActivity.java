@@ -106,13 +106,13 @@ public class HotelActivity extends BaseActivity implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         BarUtils.transparentStatusBar(mActivity);
         BarUtils.setStatusBarLightMode(mActivity, false);
-        ActionBarUtil.setTitle(mActivity, "酒店住宿", false);
-        ActionBarUtil.getBackground(mActivity, false).setAlpha(0);
-        ((AppBarLayout) findViewById(R.id.appBarLayout))
-                .addOnOffsetChangedListener((appBarLayout, verticalOffset) ->
-                        ActionBarUtil.getBackground(mActivity, false)
-                                .setAlpha(Math.abs(verticalOffset) * 0.01f));
-        mHotelCategory.setPadding(mHotelCategory.getPaddingLeft(), BarUtils.getStatusBarHeight(), mHotelCategory.getPaddingEnd(), 0);
+//        ActionBarUtil.setTitle(mActivity, "酒店住宿", false);
+//        ActionBarUtil.getBackground(mActivity, false).setAlpha(0);
+//        ((AppBarLayout) findViewById(R.id.appBarLayout))
+//                .addOnOffsetChangedListener((appBarLayout, verticalOffset) ->
+//                        ActionBarUtil.getBackground(mActivity, false)
+//                                .setAlpha(Math.abs(verticalOffset) * 0.01f));
+
         initViews();
         initData();
         getDataFromServer();

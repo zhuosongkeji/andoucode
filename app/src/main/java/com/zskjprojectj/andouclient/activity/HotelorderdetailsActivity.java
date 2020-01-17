@@ -44,7 +44,7 @@ public class HotelorderdetailsActivity extends BaseActivity {
     TextView mHeaderTitle;
 
 
-    private Button btn_hotelordercancle, btn_hotelordercall;
+    private Button btn_hotelordercancle;
     private MeHotelBean meHotelBean;
 
     @OnClick(R.id.iv_header_back)
@@ -69,22 +69,13 @@ public class HotelorderdetailsActivity extends BaseActivity {
         meHotelBean = (MeHotelBean) getIntent().getSerializableExtra("MeHotelBean");
 
         btn_hotelordercancle = findViewById(R.id.btn_hotelordercancle);
-        btn_hotelordercall = findViewById(R.id.btn_hotelordercall);
         btn_hotelordercancle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 jumpActivity(HotelordercancleActivity.class);
             }
         });
-        btn_hotelordercall.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String phoneNumber = "13812342345";
-                Intent myCallIntent = new Intent(Intent.ACTION_DIAL,
-                        Uri.parse("tel" + phoneNumber));
-                startActivity(myCallIntent);
-            }
-        });
+
     }
 
     @Override
@@ -116,7 +107,7 @@ public class HotelorderdetailsActivity extends BaseActivity {
             findViewById(R.id.btn_hotelordercall).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    call(meHotelDetailsBean.getMobile());
+                    call(meHotelDetailsBean.getTel());
                 }
             });
 
@@ -135,7 +126,7 @@ public class HotelorderdetailsActivity extends BaseActivity {
             findViewById(R.id.btn_hotelordercall1).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    call(meHotelDetailsBean.getMobile());
+                    call(meHotelDetailsBean.getTel());
                 }
             });
         } else if (HotelOrderStatus.YI_QU_XIAO.status.equals(meHotelDetailsBean.getStatus())) {
@@ -144,7 +135,7 @@ public class HotelorderdetailsActivity extends BaseActivity {
             findViewById(R.id.btn_hotelordercall_Cancle).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    call(meHotelDetailsBean.getMobile());
+                    call(meHotelDetailsBean.getTel());
                 }
             });
         }
@@ -154,6 +145,8 @@ public class HotelorderdetailsActivity extends BaseActivity {
         ((TextView) findViewById(R.id.tv_house_price)).setText("¥" + meHotelDetailsBean.getPrice());
         ((TextView) findViewById(R.id.tv_house_all_price)).setText("¥" + meHotelDetailsBean.getMoney());
         ((TextView) findViewById(R.id.tv_all_price)).setText(meHotelDetailsBean.getPay_money());
+        ((TextView) findViewById(R.id.tv_integral)).setText("-￥"+meHotelDetailsBean.getIntegral());
+
         //入住时间
         String start_time = meHotelDetailsBean.getStart_time();
         String start = start_time.substring(5);

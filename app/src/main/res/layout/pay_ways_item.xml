@@ -25,7 +25,7 @@
         android:textSize="@dimen/typeface12sp" />
 
     <androidx.appcompat.widget.AppCompatCheckBox
-        android:id="@+id/cb_balance_selector"
+        android:id="@+id/cb_balance_selector_pay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"

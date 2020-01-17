@@ -1,6 +1,7 @@
 package com.zskjprojectj.andouclient.activity.mall;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,7 +28,8 @@ import com.zskjprojectj.andouclient.adapter.mall.PayWaysAdapter;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
-import com.zskjprojectj.andouclient.utils.UrlUtil;import com.zskjprojectj.andouclient.base.BaseUrl;
+import com.zskjprojectj.andouclient.utils.UrlUtil;
+import com.zskjprojectj.andouclient.base.BaseUrl;
 import com.zskjprojectj.andouclient.entity.WXPayBean;
 import com.zskjprojectj.andouclient.entity.mall.MallPayWaysBean;
 import com.zskjprojectj.andouclient.entity.mall.MallSettlementBean;
@@ -36,6 +39,7 @@ import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
 
 import butterknife.BindView;
@@ -73,11 +77,18 @@ public class MallOnlineOrderActivity extends BaseActivity {
     @BindView(R.id.rv_info_recycler)
     RecyclerView mRvInfoRecycler;
 
+    @BindView(R.id.cb_selectorcb1)
+    AppCompatCheckBox cbSelector;
+
+    @BindView(R.id.tv_integral)
+    TextView mIvIntegral;
+
 
     private String order_sn;
     private String payId;
     private final static int WXPAY = 1;
     private final static int YUEPAY = 4;
+    private String is_integral;
 
     @Override
     protected void setRootView() {
@@ -93,7 +104,7 @@ public class MallOnlineOrderActivity extends BaseActivity {
     @Override
     protected void initViews() {
         order_sn = getIntent().getStringExtra("order_sn");
-        Log.d("wangbin", "initViews: "+order_sn);
+        Log.d("wangbin", "initViews: " + order_sn);
         topView.setTitle("在线下单");
         getBarDistance(topView);
 
@@ -120,7 +131,7 @@ public class MallOnlineOrderActivity extends BaseActivity {
             @Override
             public void onHandleSuccess(MallSettlementBean mallSettlementBean) throws IOException {
 
-                MallBuyInfoAdapter adapter=new MallBuyInfoAdapter(R.layout.buy_info_item,mallSettlementBean.getDetails());
+                MallBuyInfoAdapter adapter = new MallBuyInfoAdapter(R.layout.buy_info_item, mallSettlementBean.getDetails());
                 mRvInfoRecycler.setAdapter(adapter);
                 //收货信息
                 MallSettlementBean.UserinfoBean userinfo = mallSettlementBean.getUserinfo();
@@ -132,11 +143,29 @@ public class MallOnlineOrderActivity extends BaseActivity {
                 mTvClientAddress.setText(shippingAddress);
                 mShippingFree.setText(mallSettlementBean.getShipping_free());
 
-                mTvOrderMoney.setText("¥"+mallSettlementBean.getOrder_money());
-                mMallOrderMoney.setText("¥"+mallSettlementBean.getOrder_money());
+                mTvOrderMoney.setText("¥" + mallSettlementBean.getOrder_money());
+                mMallOrderMoney.setText("¥" + mallSettlementBean.getOrder_money());
+                mIvIntegral.setText(mallSettlementBean.getIntegral());
+
+                cbSelector.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if (cbSelector.isChecked()){
+                            BigDecimal bigDecimal=new BigDecimal(mallSettlementBean.getOrder_money());
+                            BigDecimal subtract = bigDecimal.subtract(new BigDecimal(mallSettlementBean.getIntegral()));
+                            mTvOrderMoney.setText("¥" + subtract.toString());
+                            mMallOrderMoney.setText("¥" + subtract.toString());
+                            is_integral="1";
+                        }else {
+                            mTvOrderMoney.setText("¥" + mallSettlementBean.getOrder_money());
+                            mMallOrderMoney.setText("¥" + mallSettlementBean.getOrder_money());
+                            is_integral="0";
+                        }
+                    }
+                });
+
             }
         });
-
 
         //请求支付方式
         HttpRxObservable.getObservable(ApiUtils.getApiService().getMallPayWays()).subscribe(new BaseObserver<List<MallPayWaysBean>>(mAt) {
@@ -163,12 +192,12 @@ public class MallOnlineOrderActivity extends BaseActivity {
     }
 
     @OnClick(R.id.ll_buy_pay)
-    public void clickBuyPay(){
-        if (TextUtils.isEmpty(payId))
-        {
+    public void clickBuyPay() {
+        if (TextUtils.isEmpty(payId)) {
             ToastUtil.showToast("请选择支付方式");
             return;
         }
+
         int id = Integer.parseInt(payId);
         switch (id) {
             case WXPAY:
@@ -177,15 +206,14 @@ public class MallOnlineOrderActivity extends BaseActivity {
                         LoginInfoUtil.getToken(),
                         order_sn,
                         payId,
-                        "0"
-
-        )).subscribe(new BaseObserver<WXPayBean>(mAt) {
-            @Override
-            public void onHandleSuccess(WXPayBean wxPayBean) throws IOException {
-                startWXPay(wxPayBean);
-                finish();
-            }
-        });
+                        is_integral
+                )).subscribe(new BaseObserver<WXPayBean>(mAt) {
+                    @Override
+                    public void onHandleSuccess(WXPayBean wxPayBean) throws IOException {
+                        startWXPay(wxPayBean);
+                        finish();
+                    }
+                });
 
                 break;
             case YUEPAY:
@@ -194,7 +222,7 @@ public class MallOnlineOrderActivity extends BaseActivity {
                         LoginInfoUtil.getToken(),
                         order_sn,
                         payId,
-                        "0"
+                        is_integral
 
                 )).subscribe(new BaseObserver<WXPayBean>(mAt) {
                     @Override
@@ -207,7 +235,6 @@ public class MallOnlineOrderActivity extends BaseActivity {
                 });
 
                 break;
-
         }
 
     }

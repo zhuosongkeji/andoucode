@@ -8,7 +8,7 @@ public class CartItem {
     public int num;
     public String goods_name;
     public String img;
-    public float price;
+    public String price;
     public String merchant_name;
     public String logo_img;
 }

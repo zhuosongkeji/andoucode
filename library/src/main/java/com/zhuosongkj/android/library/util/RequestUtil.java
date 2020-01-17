@@ -92,6 +92,7 @@ public class RequestUtil {
         } else {
             ToastUtils.showShort(msg);
         }
+        throwable.printStackTrace();
     }
 
     private static String convertErrorMsg(Throwable throwable) {

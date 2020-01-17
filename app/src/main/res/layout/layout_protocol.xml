@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@drawable/bg_dialog_top"
+            android:gravity="center"
+            android:text="隐私协议"
+            android:textColor="#ffffffff"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:background="@drawable/bg_dialog_body"
+            android:orientation="vertical"
+            android:paddingBottom="20dp">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:padding="15dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingExtra="5dp"
+                    android:text="        您注册成为安抖本地生活会员前，必须仔细阅读本会员协议，一旦您注册成为了安抖本地生活会员，即表示您已经阅读、同意并接受本会员协议和隐私声明中所含的所有条款和条件。我们有权根据需要不时地修订本协议，如果我们对本协议进行了任何变更，我们会以网站公示的方式进行公告，将不再另行单独通知您。如您不同意该修订条款，您必须终止您与安抖本地生活的会员关系。\n
+一、会员注册： \n
+1. 会员资格：在不限制前述规定的前提下，我们的服务向3周岁以下或被临时或无限期中止会员资格的安抖本地生活会员提供。如您不合资格，请不要使用我们的服务。安抖本地生活保留中止或终止您的帐户的权利。 \n
+2.资料填写：  为确保交易的正常进行，您必须向安抖本地生活提供真实、有效的个人资料，如个人资料有变动，必须及时更新。您同意接收来自安抖本地生活发出的邮件、信息。 \n 
+二、会员的帐号，密码和安全性 \n
+1. 您一旦注册成功，成为本站的合法会员，将得到一个密码和会员名。 \n
+2. 您可随时根据提示改变您的密码。 \n
+3. 您应对会员名和密码安全负重要责任。若发现任何非法使用会员帐号或存在安全漏洞的情况，请立即通告本站。  \n
+三、交易 \n
+您在安抖本地生活进行商品购买时必须遵守以下条款：  \n
+1.您在使用安抖本地生活的服务及购买商品时，应当遵守所有适用的中国法律、法规、条例和地方性法律要求。您还必须确保您遵守本会员协议和隐私声明及纳入上述文件的所有其它条款和规则。\n
+"
+                    android:textColor="#333333" />
+            </ScrollView>
+
+            <LinearLayout
+                android:id="@+id/btnsContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp">
+
+                <TextView
+                    android:id="@+id/quitBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="40dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_quit"
+                    android:gravity="center"
+                    android:text="暂停使用"
+                    android:textColor="#ff929292"
+                    android:textSize="13sp" />
+
+                <View
+                    android:layout_width="16dp"
+                    android:layout_height="0dp" />
+
+                <TextView
+                    android:id="@+id/agreeBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_marginEnd="40dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_ok"
+                    android:gravity="center"
+                    android:text="同意"
+                    android:textColor="#FFFFFF"
+                    android:textSize="13sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>
