@@ -51,7 +51,16 @@ public class MeHotelDetailsBean {
     private String day_num;
     private String real_name;
     private String mobile;
+    private String tel;
     private String pay_money;
+
+    public String getTel() {
+        return tel;
+    }
+
+    public void setTel(String tel) {
+        this.tel = tel;
+    }
 
     public String getBook_sn() {
         return book_sn;

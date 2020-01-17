@@ -38,6 +38,7 @@ import com.zskjprojectj.andouclient.utils.ToastUtil;
 import org.json.JSONArray;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,6 +54,8 @@ public class MallShoppingFragment extends BaseFragment {
     private ArrayList<MallShoppingbean> dataList;
     private Button btn_settleaccounts;
 
+    @BindView(R.id.tv_shipping_all_price)
+    TextView mShippingAllPrice;
 
     @BindView(R.id.cb_selectorcb)
     AppCompatCheckBox mCheckBox;
@@ -91,6 +94,8 @@ public class MallShoppingFragment extends BaseFragment {
                     @Override
                     public void onHandleSuccess(Object o) throws IOException {
                         item.num++;
+
+
                         adapter.notifyItemChanged(position);
                     }
                 });
@@ -107,13 +112,13 @@ public class MallShoppingFragment extends BaseFragment {
                         adapter.notifyItemChanged(position);
                     }
                 });
+            } else if (view1.getId() == R.id.cb_selectorcb1) {
+                //每个item的选择点击
             }
 
         });
         getDataFromServer();
     }
-
-
 
 
     private void getDataFromServer() {
@@ -140,11 +145,19 @@ public class MallShoppingFragment extends BaseFragment {
         switch (view.getId()) {
             case R.id.cb_selectorcb:
                 if (mCheckBox.isChecked()) {
-
                     adapter.isSelector(true);
+
+                    BigDecimal allPrice = new BigDecimal(0);
+                    for (CartItem datum : adapter.getData()) {
+
+                        BigDecimal price = new BigDecimal(datum.num + "");
+                        allPrice = allPrice.add(price.multiply(new BigDecimal(datum.price)));
+                    }
+                    mShippingAllPrice.setText("¥" + allPrice.toString());
                     adapter.notifyDataSetChanged();
                 } else {
                     adapter.isSelector(false);
+                    mShippingAllPrice.setText("¥" + 0);
                     adapter.notifyDataSetChanged();
                 }
                 break;

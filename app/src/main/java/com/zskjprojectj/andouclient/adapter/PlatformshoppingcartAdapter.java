@@ -36,6 +36,7 @@ public class PlatformshoppingcartAdapter extends BaseQuickAdapter<CartItem, Base
         Glide.with(helper.itemView.getContext())
                 .load(UrlUtil.getImageUrl(item.img))
                 .into((ImageView) helper.itemView.findViewById(R.id.img_cartgoodspic));
+
         helper.setText(R.id.shopNameTxt, item.merchant_name)
                 .setText(R.id.tv_cartgoodsname, item.goods_name)
                 //价格
@@ -45,12 +46,10 @@ public class PlatformshoppingcartAdapter extends BaseQuickAdapter<CartItem, Base
                 .addOnClickListener(R.id.btn_add)
                 .addOnClickListener(R.id.btn_sub)
                 .addOnClickListener(R.id.deleteBtn)
-                .addOnClickListener(R.id.cb_selectorcb);
+                .addOnClickListener(R.id.cb_selectorcb1);
 
-        AppCompatCheckBox checkBox = helper.getView(R.id.cb_selectorcb);
+        AppCompatCheckBox checkBox = helper.getView(R.id.cb_selectorcb1);
         checkBox.setChecked(isCheck);
-
-
 
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

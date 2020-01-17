@@ -113,8 +113,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_toLeftOf="@+id/night_numeber"
                     android:layout_marginEnd="@dimen/dp_40"
+                    android:layout_toLeftOf="@+id/night_numeber"
                     android:text="07月20日"
                     android:textColor="#646464"
                     android:textSize="@dimen/typeface21sp" />
@@ -124,8 +124,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/night_numeber"
                     android:layout_marginLeft="40dp"
+                    android:layout_toRightOf="@+id/night_numeber"
                     android:text="07月21日"
                     android:textColor="#646464"
                     android:textSize="@dimen/typeface21sp" />
@@ -188,7 +188,8 @@
                     android:layout_height="@dimen/dp_20"
                     android:layout_marginEnd="@dimen/dp_10"
                     android:layout_toLeftOf="@+id/tv_person_number"
-                    android:background="@drawable/button_add"
+                    android:background="@mipmap/yuanquan_lv"
+                    android:gravity="center"
                     android:text="-"
                     android:textColor="#969696" />
 
@@ -197,9 +198,10 @@
                     android:layout_width="@dimen/dp_20"
                     android:layout_height="@dimen/dp_20"
                     android:layout_alignParentEnd="true"
-                    android:background="@drawable/button_add"
+                    android:background="@mipmap/yuanquan"
+                    android:gravity="center"
                     android:text="+"
-                    android:textColor="#969696" />
+                    android:textColor="@color/white" />
 
                 <TextView
                     android:id="@+id/tv_person_number"
@@ -209,6 +211,7 @@
                     android:layout_toLeftOf="@+id/person"
                     android:text="1"
                     android:textColor="#969696" />
+
                 <TextView
                     android:id="@+id/person"
                     android:layout_width="wrap_content"
@@ -389,7 +392,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_pay_ways"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
 
 
             <View
@@ -413,6 +416,15 @@
                     android:text="合计"
                     android:textColor="#555555"
                     android:textSize="@dimen/typeface12sp" />
+                <TextView
+                    android:id="@+id/tv_all_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_alignParentEnd="true"
+                    android:text="¥187"
+                    android:textColor="#FF493E"
+                    android:textSize="@dimen/typeface18sp" />
 
             </RelativeLayout>
 

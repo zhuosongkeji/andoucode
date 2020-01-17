@@ -1,5 +1,6 @@
 package com.zskjprojectj.andouclient.activity.hotel;
 
+import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -50,6 +52,7 @@ import com.zskjprojectj.andouclient.utils.ToastUtil;
 import com.zskjprojectj.andouclient.utils.UrlUtil;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -88,6 +91,8 @@ public class HotelOnlineReserveActivity extends BaseActivity {
     @BindView(R.id.night_numeber)
     TextView mNighitNumber;
 
+    @BindView(R.id.cb_use_integral)
+    AppCompatCheckBox mIntegral;
 
 
     private HotelSettlementBean hotelSettlementBean;
@@ -100,6 +105,7 @@ public class HotelOnlineReserveActivity extends BaseActivity {
     private int endGroup = -1;
     private int startChild = -1;
     private int endChild = -1;
+    private String is_integral;
 
     @Override
     protected void setRootView() {
@@ -126,7 +132,23 @@ public class HotelOnlineReserveActivity extends BaseActivity {
         ((TextView) findViewById(R.id.night_numeber)).setText(hotelSettlementBean.getDays() + "晚");
         ((TextView) findViewById(R.id.tv_integral)).setText(hotelSettlementBean.getIntegral());
         ((TextView) findViewById(R.id.tv_allprice)).setText("¥" + hotelSettlementBean.getRoom().getPrice());
-
+        ((TextView) findViewById(R.id.tv_all_price)).setText("¥" + hotelSettlementBean.getRoom().getPrice());
+        mIntegral.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    BigDecimal bigDecimal = new BigDecimal(hotelSettlementBean.getRoom().getPrice());
+                    BigDecimal subtract = bigDecimal.subtract(new BigDecimal(hotelSettlementBean.getIntegral()));
+                    ((TextView) findViewById(R.id.tv_allprice)).setText("¥" + subtract.toString());
+                    ((TextView) findViewById(R.id.tv_all_price)).setText("¥" + subtract.toString());
+                    is_integral = "1";
+                } else {
+                    ((TextView) findViewById(R.id.tv_allprice)).setText("¥" + hotelSettlementBean.getRoom().getPrice());
+                    ((TextView) findViewById(R.id.tv_all_price)).setText("¥" + hotelSettlementBean.getRoom().getPrice());
+                    is_integral = "0";
+                }
+            }
+        });
 
     }
 
@@ -165,7 +187,6 @@ public class HotelOnlineReserveActivity extends BaseActivity {
     protected BasePresenter createPresenter() {
         return null;
     }
-
 
 
     @OnClick({R.id.iv_header_back, R.id.bt_minus, R.id.bt_add, R.id.tv_reserve, R.id.rv_slector_time})
@@ -215,8 +236,7 @@ public class HotelOnlineReserveActivity extends BaseActivity {
                     ToastUtil.showToast("请输入手机号");
                     return;
                 } else {
-                    if (TextUtils.isEmpty(payId))
-                    {
+                    if (TextUtils.isEmpty(payId)) {
                         ToastUtil.showToast("请选择支付方式");
                         return;
                     }
@@ -247,16 +267,16 @@ public class HotelOnlineReserveActivity extends BaseActivity {
                             break;
                         case YUEPAY:
 
-                            Log.d("wangbin", "酒店预订: "+LoginInfoUtil.getToken()+"\n"
-                                    +home_id+"\n"
-                                    +merchant_id+"\n"
-                                    +start+"\n"
-                                    +end+"\n"
-                                    +name+"\n"
-                                    +phone+"\n"
-                                    +personNUm+"\n"
-                                    +datNum+"\n"
-                                    +payId+"\n"
+                            Log.d("wangbin", "酒店预订: " + LoginInfoUtil.getToken() + "\n"
+                                    + home_id + "\n"
+                                    + merchant_id + "\n"
+                                    + start + "\n"
+                                    + end + "\n"
+                                    + name + "\n"
+                                    + phone + "\n"
+                                    + personNUm + "\n"
+                                    + datNum + "\n"
+                                    + payId + "\n"
                             );
 
                             HttpRxObservable.getObservable(ApiUtils.getApiService().hotelOrder(
@@ -271,7 +291,7 @@ public class HotelOnlineReserveActivity extends BaseActivity {
                                     personNUm,
                                     datNum,
                                     payId,
-                                    "0"
+                                    is_integral
 
                             )).subscribe(new BaseObserver<WXPayBean>(mAt) {
                                 @Override
@@ -308,12 +328,12 @@ public class HotelOnlineReserveActivity extends BaseActivity {
 
                                 mStartTime.setText(sartTime);
                                 mEndTime.setText(endTime);
-                                mNighitNumber.setText(substring+"晚");
+                                mNighitNumber.setText(substring + "晚");
 
                                 //计算总房价
                                 int days = Integer.parseInt(substring);
                                 int prices = Integer.parseInt(hotelSettlementBean.getAllprice());
-                                int allPrices=days*prices;
+                                int allPrices = days * prices;
                                 String all = String.valueOf(allPrices);
 
                                 ((TextView) findViewById(R.id.tv_allprice)).setText("¥" + all);
