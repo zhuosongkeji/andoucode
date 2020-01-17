@@ -82,10 +82,9 @@ public class PageLoadUtil<T> {
                     adapter.setEmptyView(R.layout.layout_empty_view);
                     page += 1;
                     if (needRefresh) {
+                        adapter.setNewData(result.data.getDataList());
                         if (result.data.getDataList().size() == 0) {
                             adapter.loadMoreEnd(true);
-                        } else {
-                            adapter.setNewData(result.data.getDataList());
                         }
                         refreshLayout.finishRefresh();
                     } else {
@@ -114,6 +113,10 @@ public class PageLoadUtil<T> {
     public void load(RequestUtil.ObservableProvider<? extends IListData<T>> observableProvider, OnLoadListener<T> onLoadListener) {
         this.observableProvider = observableProvider;
         this.onLoadListener = onLoadListener;
+        loadData(true);
+    }
+
+    public void refresh() {
         loadData(true);
     }
 

@@ -123,7 +123,7 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
         initData();
         getDataFromServer();
         RequestUtil.request(mActivity, true, false,
-                () -> ApiUtils.getApiService().getRestaurants(null, null, 1),
+                () -> ApiUtils.getApiService().getRestaurants(null, null, null, 1),
                 result -> {
                     RestaurantAdapter adapter = new RestaurantAdapter();
                     adapter.bindToRecyclerView(view.findViewById(R.id.restaurantRecyclerView));

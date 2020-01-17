@@ -6,8 +6,8 @@ import android.app.Dialog;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.webkit.WebView;
 
 import com.zskjprojectj.andouclient.R;
 
@@ -42,6 +42,7 @@ public class DialogUtil {
         } else {
             view.findViewById(R.id.btnsContainer).setVisibility(View.GONE);
         }
+        ((WebView) view.findViewById(R.id.webView)).loadUrl("http://andou.zhuosongkj.com/privacy.html");
         return dialog;
     }
 }

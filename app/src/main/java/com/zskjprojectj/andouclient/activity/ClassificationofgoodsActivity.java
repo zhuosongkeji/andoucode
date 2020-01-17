@@ -17,6 +17,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.lxj.xpopup.XPopup;
+import com.lxj.xpopup.interfaces.OnSelectListener;
+import com.lxj.xpopup.interfaces.SimpleCallback;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zhuosongkj.android.library.model.BaseResult;
@@ -30,6 +33,8 @@ import com.zskjprojectj.andouclient.entity.mall.MallGoodsListBean;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
+import com.zskjprojectj.andouclient.utils.CustomPartShadowPopupView;
+import com.zskjprojectj.andouclient.utils.ToastUtil;
 
 import java.io.IOException;
 import java.util.List;
@@ -88,6 +93,9 @@ public class ClassificationofgoodsActivity extends BaseActivity {
     private String price_sort;
     //销量排序
     private String volume_sort;
+
+    private CustomPartShadowPopupView popupView;
+
     ClassificationofgoodsAdapter adapter = new ClassificationofgoodsAdapter();
 
 
@@ -190,32 +198,87 @@ public class ClassificationofgoodsActivity extends BaseActivity {
     @OnClick({R.id.ll_price_comprehensive, R.id.ll_selector_sales, R.id.ll_selector_price, R.id.search_image})
     public void clickSelector(View v) {
         switch (v.getId()) {
-            //综合
+            //评价
             case R.id.ll_price_comprehensive:
-                initComprehensive();
+//                initComprehensive();
                 mTvSelectorStar.setTextColor(android.graphics.Color.parseColor("#5ED3AE"));
                 mIvSelectorImg.setImageResource(R.mipmap.icon_cate_img);
-                if (mPopWindow != null && !mPopWindow.isShowing()) {
-                    mPopWindow.showAsDropDown(mClassify, 0, 0);
-                }
+//                if (mPopWindow != null && !mPopWindow.isShowing()) {
+//                    mPopWindow.showAsDropDown(mClassify, 0, 0);
+//                }
+
+                    popupView = (CustomPartShadowPopupView) new XPopup.Builder(mActivity)
+                            .atView(v)
+                            .autoOpenSoftInput(false)
+                            .setPopupCallback(new SimpleCallback() {
+                                @Override
+                                public void onShow() {
+
+                                }
+
+                                @Override
+                                public void onDismiss() {
+                                    mTvSelectorStar.setTextColor(getResources().getColor(R.color.color_common_font));
+                                    mIvSelectorImg.setImageResource(R.mipmap.ic_busiess_xiala);
+                                }
+                            })
+                            .asCustom(new CustomPartShadowPopupView(mActivity, 1));
+                popupView.show();
                 break;
             //销量
             case R.id.ll_selector_sales:
-                initsales();
+//                initsales();
                 mTvCapacitySort.setTextColor(android.graphics.Color.parseColor("#5ED3AE"));
                 mIvCapacitySort.setImageResource(R.mipmap.icon_cate_img);
-                if (mPopWindow != null && !mPopWindow.isShowing()) {
-                    mPopWindow.showAsDropDown(mClassify, 0, 0);
-                }
+//                if (mPopWindow != null && !mPopWindow.isShowing()) {
+//                    mPopWindow.showAsDropDown(mClassify, 0, 0);
+//                }
+
+                    popupView = (CustomPartShadowPopupView) new XPopup.Builder(mActivity)
+                            .atView(v)
+                            .autoOpenSoftInput(false)
+                            .setPopupCallback(new SimpleCallback() {
+                                @Override
+                                public void onShow() {
+
+                                }
+
+                                @Override
+                                public void onDismiss() {
+                                    mTvCapacitySort.setTextColor(getResources().getColor(R.color.color_common_font));
+                                    mIvCapacitySort.setImageResource(R.mipmap.ic_busiess_xiala);
+                                }
+                            })
+                            .asCustom(new CustomPartShadowPopupView(mActivity, 2));
+                popupView.show();
                 break;
             //价格
             case R.id.ll_selector_price:
-                initprice();
+//                initprice();
                 mTvScreen.setTextColor(android.graphics.Color.parseColor("#5ED3AE"));
                 mIvScreen.setImageResource(R.mipmap.icon_cate_img);
-                if (mPopWindow != null && !mPopWindow.isShowing()) {
-                    mPopWindow.showAsDropDown(mClassify, 0, 0);
-                }
+//                if (mPopWindow != null && !mPopWindow.isShowing()) {
+//                    mPopWindow.showAsDropDown(mClassify, 0, 0);
+//                }
+
+                    popupView = (CustomPartShadowPopupView) new XPopup.Builder(mActivity)
+                            .atView(v)
+                            .autoOpenSoftInput(false)
+                            .setPopupCallback(new SimpleCallback() {
+                                @Override
+                                public void onShow() {
+
+                                }
+
+                                @Override
+                                public void onDismiss() {
+                                    mTvScreen.setTextColor(getResources().getColor(R.color.color_common_font));
+                                    mIvScreen.setImageResource(R.mipmap.ic_busiess_xiala);
+                                }
+                            })
+                            .asCustom(new CustomPartShadowPopupView(mActivity, 3));
+                popupView.show();
+
                 break;
             //搜索按钮
             case R.id.search_image:
