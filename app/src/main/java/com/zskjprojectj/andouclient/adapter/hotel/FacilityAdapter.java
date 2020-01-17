@@ -1,11 +1,15 @@
 package com.zskjprojectj.andouclient.adapter.hotel;
 
+import android.widget.ImageView;
+
 import androidx.annotation.Nullable;
 
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.entity.hotel.HotelDetailFacilityBean;
+import com.zskjprojectj.andouclient.utils.UrlUtil;
 
 import java.util.List;
 
@@ -19,15 +23,13 @@ import java.util.List;
  * 修改时间：
  * 修改备注：
  */
-public class FacilityAdapter extends BaseQuickAdapter<HotelDetailFacilityBean, BaseViewHolder> {
-    public FacilityAdapter(int layoutResId, @Nullable List<HotelDetailFacilityBean> data) {
+public class FacilityAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
+    public FacilityAdapter(int layoutResId, @Nullable List<String> data) {
         super(layoutResId, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, HotelDetailFacilityBean item) {
-
-
-
+    protected void convert(BaseViewHolder helper, String item) {
+        Glide.with(mContext).load(UrlUtil.getImageUrl(item)).into((ImageView) helper.getView(R.id.imgbgall));
     }
 }

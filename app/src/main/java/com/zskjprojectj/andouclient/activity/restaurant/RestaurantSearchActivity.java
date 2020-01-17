@@ -70,6 +70,7 @@ public class RestaurantSearchActivity extends BaseActivity {
         pageLoadUtil.load(() -> ApiUtils.getApiService().getRestaurants(
                 searchEdt.getText().toString(),
                 categoryId,
+                null,
                 pageLoadUtil.page));
     }
 

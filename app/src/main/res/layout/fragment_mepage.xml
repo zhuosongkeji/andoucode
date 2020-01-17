@@ -352,28 +352,33 @@
                             android:textSize="@dimen/typeface10sp" />
                     </LinearLayout>
 
-
-                    <LinearLayout
+                    <ImageView
+                        android:id="@+id/img_showvip"
+                        android:layout_marginLeft="@dimen/dp_5"
+                        android:src="@mipmap/putongvip"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/dp_5"
-                        android:background="@mipmap/vipbgicon"
-                        android:gravity="center">
+                        android:layout_height="@dimen/dp_23"/>
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginStart="@dimen/dp_5"-->
+<!--                        android:background="@mipmap/vipbgicon"-->
+<!--                        android:gravity="center">-->
 
-                        <ImageView
-                            android:id="@+id/iv_vipicon"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@mipmap/vipicon" />
+<!--                        <ImageView-->
+<!--                            android:id="@+id/iv_vipicon"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:src="@mipmap/vipicon" />-->
 
-                        <TextView
-                            android:id="@+id/tv_viplevel"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="1"
-                            android:textColor="#5ED3AE"
-                            android:textSize="@dimen/typeface14sp" />
-                    </LinearLayout>
+<!--                        <TextView-->
+<!--                            android:id="@+id/tv_viplevel"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="1"-->
+<!--                            android:textColor="#5ED3AE"-->
+<!--                            android:textSize="@dimen/typeface14sp" />-->
+<!--                    </LinearLayout>-->
                 </LinearLayout>
 
             </LinearLayout>

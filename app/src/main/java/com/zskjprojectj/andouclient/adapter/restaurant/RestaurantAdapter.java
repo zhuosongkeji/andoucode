@@ -7,6 +7,8 @@ import android.widget.LinearLayout;
 
 import com.blankj.utilcode.util.SizeUtils;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.lxj.xpopup.XPopup;
+import com.lxj.xpopup.interfaces.OnSelectListener;
 import com.willy.ratingbar.ScaleRatingBar;
 import com.zhuosongkj.android.library.adapter.BaseAdapter;
 import com.zhuosongkj.android.library.ui.HeaderItemDecoration;

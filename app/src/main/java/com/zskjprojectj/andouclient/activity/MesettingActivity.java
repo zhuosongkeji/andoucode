@@ -21,6 +21,7 @@ import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.utils.DataCleanManager;
+import com.zskjprojectj.andouclient.utils.DialogUtil;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
 import com.zskjprojectj.andouclient.utils.UrlUtil;
@@ -152,7 +153,11 @@ public class MesettingActivity extends BaseActivity {
                 promtOnlyExtraDialog.show();
             }
         });
+        findViewById(R.id.protocolContainer).setOnClickListener(v ->
+                dialog = DialogUtil.showProtocolDialogNoBtns(mAt));
     }
+
+    Dialog dialog;
 
     @Override
     public void getDataFromServer() {
@@ -177,5 +182,13 @@ public class MesettingActivity extends BaseActivity {
     @OnClick(R.id.iv_header_back)
     public void clickView() {
         finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (dialog != null) {
+            dialog.dismiss();
+        }
     }
 }

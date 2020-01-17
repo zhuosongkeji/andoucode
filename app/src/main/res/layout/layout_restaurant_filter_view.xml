@@ -8,17 +8,19 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:paddingStart="15dp"
         android:paddingEnd="15dp">
 
         <LinearLayout
+            android:id="@+id/categoryFilterBtn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:gravity="center_vertical">
 
             <TextView
+                android:id="@+id/categoryFilterTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="全部美食"
@@ -39,15 +41,39 @@
             android:layout_weight="1" />
 
         <LinearLayout
+            android:id="@+id/defaultSortBtn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical">
+            android:layout_height="40dp"
+            android:gravity="center_vertical"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="附近"
-                android:textColor="#ff646464"
+                android:text="推荐"
+                android:textColor="@drawable/sl_sort_txt"
+                android:textSize="11sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:id="@+id/saleSortBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:gravity="center_vertical"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="销量"
+                android:textColor="@drawable/sl_sort_txt"
                 android:textSize="11sp" />
 
             <ImageView
@@ -64,15 +90,18 @@
             android:layout_weight="1" />
 
         <LinearLayout
+            android:id="@+id/starsSortBtn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical">
+            android:layout_height="40dp"
+            android:gravity="center_vertical"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="智能排序"
-                android:textColor="#ff646464"
+                android:text="信誉"
+                android:textColor="@drawable/sl_sort_txt"
                 android:textSize="11sp" />
 
             <ImageView
