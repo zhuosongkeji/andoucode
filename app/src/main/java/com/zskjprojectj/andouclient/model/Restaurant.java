@@ -1,5 +1,6 @@
 package com.zskjprojectj.andouclient.model;
 
+import com.google.gson.annotations.SerializedName;
 import com.zskjprojectj.andouclient.activity.restaurant.RestaurantBillActivity;
 
 import java.io.Serializable;
@@ -8,6 +9,7 @@ import java.util.List;
 public class Restaurant implements Serializable, RestaurantBillActivity.IBill {
 
     public String id;
+    @SerializedName("door_img")
     public String banner_img;
     public String name;
     public String praise_num;
@@ -79,5 +81,10 @@ public class Restaurant implements Serializable, RestaurantBillActivity.IBill {
     @Override
     public String getEndTime() {
         return business_end;
+    }
+
+    @Override
+    public String getScore() {
+        return null;
     }
 }

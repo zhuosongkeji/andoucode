@@ -37,6 +37,7 @@ import com.zskjprojectj.andouclient.model.Food;
 import com.zskjprojectj.andouclient.model.Restaurant;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
+import com.zskjprojectj.andouclient.utils.UrlUtil;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -160,7 +161,7 @@ public class RestaurantDetailActivity extends BaseActivity {
         ViewUtil.setText(mActivity, R.id.likeTxt, restaurant.praise_num);
         ViewUtil.setText(mActivity, R.id.addressTxt, restaurant.address);
         Glide.with(mActivity)
-                .load(restaurant.banner_img)
+                .load(UrlUtil.getImageUrl(restaurant.banner_img))
                 .apply(new RequestOptions()
                         .placeholder(R.mipmap.ic_placeholder)
                         .centerCrop())

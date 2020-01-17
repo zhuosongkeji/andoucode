@@ -144,9 +144,9 @@
             android:layout_marginTop="10dp"
             android:background="#FFFFFF"
             android:orientation="vertical"
+            android:padding="15dp"
             android:visibility="gone"
-            tools:visibility="visible"
-            android:padding="15dp">
+            tools:visibility="visible">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -326,6 +326,29 @@
                     android:layout_height="wrap_content"
                     android:text="预约二维码"
                     android:textColor="#F34345"
+                    android:textSize="11sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_weight="1"
+                    android:text="使用感恩币"
+                    android:textColor="#ff969696"
+                    android:textSize="11sp" />
+
+                <TextView
+                    android:id="@+id/useScoreCountTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="预约二维码"
+                    android:textColor="#ff646464"
                     android:textSize="11sp" />
             </LinearLayout>
 
