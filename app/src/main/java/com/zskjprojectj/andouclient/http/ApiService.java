@@ -523,6 +523,19 @@ public interface ApiService {
 
 
     /**
+     * 申请退款
+     */
+    @POST("index.php/api/refund/apply")
+    @FormUrlEncoded
+    Observable<BaseResult<Object>> mallrefund(@Field("uid") String uid,
+                                              @Field("token") String token,
+                                              @Field("order_goods_id") String order_goods_id,
+                                              @Field("reason_id") String reason_id,
+                                              @Field("content") String content,
+                                              @Field("image") String image);
+
+
+    /**
      * 修改昵称
      *
      * @param uid
