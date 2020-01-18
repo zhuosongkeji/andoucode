@@ -402,7 +402,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="58"
+                    android:text="0"
                     android:textColor="@color/white"
                     android:textSize="@dimen/typeface16sp" />
 
@@ -429,7 +429,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="23"
+                    android:text="0"
                     android:textColor="@color/white"
                     android:textSize="@dimen/typeface16sp" />
 
@@ -482,7 +482,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="354"
+                    android:text="0"
                     android:textColor="@color/white"
                     android:textSize="@dimen/typeface16sp" />
 
@@ -523,7 +523,7 @@
                     android:id="@+id/tv_moneynum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="299"
+                    android:text="0"
                     android:textColor="@color/black" />
 
                 <TextView
@@ -545,7 +545,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="23"
+                    android:text="0"
                     android:textColor="@color/black"
                     android:textSize="@dimen/typeface16sp" />
 
@@ -569,7 +569,7 @@
                     android:id="@+id/tv_integralnumm"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="833"
+                    android:text="0"
                     android:textColor="@color/black"
                     android:textSize="@dimen/typeface16sp" />
 

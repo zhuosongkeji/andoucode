@@ -39,7 +39,6 @@ public class MyFocusonActivity extends BaseActivity {
     protected void setRootView() {
         setContentView(R.layout.activity_focuson);
     }
-
     @Override
     protected void initViews() {
         getBarDistance(mTitleView);
@@ -102,6 +101,13 @@ public class MyFocusonActivity extends BaseActivity {
     protected BasePresenter createPresenter() {
         return null;
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getDataFromServer();
+    }
+
     @OnClick(R.id.iv_header_back)
     public void clickView() {
         finish();

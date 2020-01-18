@@ -3,6 +3,7 @@ package com.zskjprojectj.andouclient.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -31,6 +32,7 @@ import com.zhuosongkj.android.library.model.BaseResult;
 import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.BookingorderActivity;
+import com.zskjprojectj.andouclient.activity.LoginActivity;
 import com.zskjprojectj.andouclient.activity.QrCodeActivity;
 import com.zskjprojectj.andouclient.activity.hotel.HotelActivity;
 import com.zskjprojectj.andouclient.activity.MainActivity;
@@ -40,6 +42,8 @@ import com.zskjprojectj.andouclient.activity.restaurant.RestaurantHomeActivity;
 import com.zskjprojectj.andouclient.adapter.CoverFlowAdapter;
 import com.zskjprojectj.andouclient.adapter.merchantsCategoryAdapter;
 import com.zskjprojectj.andouclient.adapter.restaurant.RestaurantAdapter;
+import com.zskjprojectj.andouclient.entity.NewuserBean;
+import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 import com.zskjprojectj.andouclient.utils.UrlUtil;
 import com.zskjprojectj.andouclient.entity.IndexHomeBean;
 import com.zskjprojectj.andouclient.http.ApiUtils;
@@ -49,6 +53,9 @@ import com.zskjprojectj.andouclient.utils.BarUtils;
 import com.zskjprojectj.andouclient.utils.ScreenUtil;
 import com.zskjprojectj.andouclient.utils.StatusBarUtil;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
+import com.zskjprojectj.andouclient.view.CustomDialog;
+import com.zskjprojectj.andouclient.view.OnRedPacketDialogClickListener;
+import com.zskjprojectj.andouclient.view.RedPacketViewHolder;
 
 import java.io.IOException;
 import java.util.List;
@@ -94,8 +101,10 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
     private LinearLayout onlinebroadcast_see_more_layout, appointment_see_more_layout, onlinebooking_see_more_layout, ly_citychoose;
     private CoverFlowAdapter adapter;
     private merchantsCategoryAdapter merchantsAdapter = new merchantsCategoryAdapter();
-
-
+    //红包
+    private CustomDialog mRedPacketDialog;
+    private View mRedPacketDialogView;
+    private RedPacketViewHolder mRedPacketViewHolder;
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -107,6 +116,7 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
             mRootView.setLayoutParams(layoutParams);
         }
         initCoverFlow();
+
         bannertops = view.findViewById(R.id.bannertop);
         view.findViewById(R.id.sha).setOnClickListener(v -> ActivityUtils.startActivity(QrCodeActivity.class));
         onlinebroadcast_see_more_layout = view.findViewById(R.id.onlinebroadcast_see_more_layout);
@@ -133,12 +143,44 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
                 });
     }
 
+   private void showRedPacketDialog()
+   {
+       if (mRedPacketDialogView == null) {
+           mRedPacketDialogView = View.inflate(mActivity, R.layout.dialog_red_packet, null);
+           mRedPacketViewHolder = new RedPacketViewHolder(mActivity, mRedPacketDialogView);
+           mRedPacketDialog = new CustomDialog(mActivity, mRedPacketDialogView, R.style.custom_dialog);
+           mRedPacketDialog.setCancelable(false);
+       }
+       mRedPacketViewHolder.setOnRedPacketDialogClickListener(new OnRedPacketDialogClickListener() {
+           @Override
+           public void onCloseClick() {
+               mRedPacketDialog.dismiss();
+           }
 
+           @Override
+           public void onOpenClick() {
+               if (TextUtils.isEmpty(LoginInfoUtil.getToken()))
+               {
+                   LoginActivity.start(mActivity);
+               }else {
+                   //领取红包,调用接口
+                   HttpRxObservable.getObservable(ApiUtils.getApiService().envelopes_add(LoginInfoUtil.getUid(),LoginInfoUtil.getToken())).subscribe(new BaseObserver<Object>(mActivity) {
+                       @Override
+                       public void onHandleSuccess(Object o) throws IOException {
+                           ToastUtil.showToast("领取成功");
+                           mRedPacketDialog.dismiss();
+                       }
+                   });
+               }
+
+           }
+       });
+       mRedPacketDialog.show();
+   }
     private void initCoverFlow() {
         adapter = new CoverFlowAdapter(getActivity(), this);
         mCoverFlow.setGreyItem(true); //设置灰度渐变
         mCoverFlow.setAlphaItem(true); //设置半透渐变
-
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -188,7 +230,16 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
 
             }
         });
+        HttpRxObservable.getObservable(ApiUtils.getApiService().new_user(LoginInfoUtil.getUid(),LoginInfoUtil.getToken())).subscribe(new BaseObserver<NewuserBean>(mActivity) {
+            @Override
+            public void onHandleSuccess(NewuserBean newuserBean) throws IOException {
+                if (newuserBean.getVal()==1)
+                {
+                    showRedPacketDialog();
+                }
 
+            }
+        });
 
     }
 
@@ -345,4 +396,8 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
     protected int getContentView() {
         return R.layout.fragment_homepage;
     }
+    /**
+     *  加载弹窗
+     */
+
 }

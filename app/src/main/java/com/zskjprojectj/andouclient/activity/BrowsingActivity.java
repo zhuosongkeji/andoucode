@@ -123,6 +123,12 @@ public class BrowsingActivity extends BaseActivity {
         return null;
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getDataFromServer();
+    }
+
     @OnClick(R.id.iv_header_back)
     public void clickView() {
         finish();
