@@ -97,6 +97,13 @@ public interface ApiService {
     @POST("api/goods/goods_cate")
     Observable<BaseResult<List<MallGoodsCateBean>>> getMallGoodsCate();
 
+    /**
+     * 获取商城商品分类
+     */
+    @POST("api/goods/cate")
+    @FormUrlEncoded
+    Observable<BaseResult<List<MallGoodsCateBean>>> getMallGoodsCate(@Field("id") String id);
+
 
     /**
      * 商城产品列表
@@ -1129,5 +1136,5 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("api/gourmet/reserve")
     Observable<BaseResult<GetBookInfoResponse>> getBookInfo(@Field("uid") String uid,
-                                               @Field("merchant_id") String merchant_id);
+                                                            @Field("merchant_id") String merchant_id);
 }

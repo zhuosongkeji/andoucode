@@ -172,4 +172,7 @@ dependencies {
     implementation 'com.contrarywind:Android-PickerView:4.1.9'
 
     implementation 'com.lxj:xpopup:1.8.10-x'
+
+    implementation 'com.azoft.carousellayoutmanager:carousel:1.2.4'
+    implementation project(path: ':recycler_banner_library')
 }
