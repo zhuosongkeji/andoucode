@@ -68,7 +68,7 @@
             android:text="最高可获得50元"
             android:singleLine="true"
             android:textColor="#FFFFFF"
-            android:textSize="18sp"
+            android:textSize="@dimen/typeface25sp"
             />
 
         <ImageView

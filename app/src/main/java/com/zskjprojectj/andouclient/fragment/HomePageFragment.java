@@ -42,6 +42,7 @@ import com.zskjprojectj.andouclient.activity.restaurant.RestaurantHomeActivity;
 import com.zskjprojectj.andouclient.adapter.CoverFlowAdapter;
 import com.zskjprojectj.andouclient.adapter.merchantsCategoryAdapter;
 import com.zskjprojectj.andouclient.adapter.restaurant.RestaurantAdapter;
+import com.zskjprojectj.andouclient.entity.EnvelopesBean;
 import com.zskjprojectj.andouclient.entity.NewuserBean;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 import com.zskjprojectj.andouclient.utils.UrlUtil;
@@ -147,6 +148,13 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
    {
        if (mRedPacketDialogView == null) {
            mRedPacketDialogView = View.inflate(mActivity, R.layout.dialog_red_packet, null);
+           TextView tv_money=mRedPacketDialogView.findViewById(R.id.tv_hbmoney);
+           HttpRxObservable.getObservable(ApiUtils.getApiService().envelopes(LoginInfoUtil.getUid(),LoginInfoUtil.getToken())).subscribe(new BaseObserver<EnvelopesBean>(mActivity) {
+               @Override
+               public void onHandleSuccess(EnvelopesBean envelopesBean) throws IOException {
+                   tv_money.setText("最高可获得"+envelopesBean.getValue()+"元");
+               }
+           });
            mRedPacketViewHolder = new RedPacketViewHolder(mActivity, mRedPacketDialogView);
            mRedPacketDialog = new CustomDialog(mActivity, mRedPacketDialogView, R.style.custom_dialog);
            mRedPacketDialog.setCancelable(false);

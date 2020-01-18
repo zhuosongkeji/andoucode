@@ -6,6 +6,7 @@ import com.zhuosongkj.android.library.model.ListData;
 import com.zskjprojectj.andouclient.entity.AboutusBean;
 import com.zskjprojectj.andouclient.entity.BrowsingBean;
 import com.zskjprojectj.andouclient.entity.CheckLogisticsBean;
+import com.zskjprojectj.andouclient.entity.EnvelopesBean;
 import com.zskjprojectj.andouclient.entity.IndexHomeBean;
 import com.zskjprojectj.andouclient.entity.InformationBean;
 import com.zskjprojectj.andouclient.entity.InvitationBean;
@@ -936,6 +937,10 @@ public interface ApiService {
     @FormUrlEncoded
     Observable<BaseResult<NewuserBean>> new_user(@Field("uid") String uid,
                                                       @Field("token") String token);
+    @POST("api/users/envelopes")
+    @FormUrlEncoded
+    Observable<BaseResult<EnvelopesBean>> envelopes(@Field("uid") String uid,
+                                                    @Field("token") String token);
 
 //    /**
 //     * 注册
