@@ -277,7 +277,7 @@ public interface ApiService {
     Observable<BaseResult<Object>> addAddress(@Field("uid") String uid,
                                               @Field("token") String token,
                                               @Field("name") String name,
-                                              @Field("tel") String mobile,
+                                              @Field("mobile") String mobile,
                                               @Field("province_id") String province_id,
                                               @Field("city_id") String city_id,
                                               @Field("area_id") String area_id,
