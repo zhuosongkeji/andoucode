@@ -71,16 +71,6 @@ public class ClassificationofgoodsFragment extends BaseFragment {
                     public void onHandleSuccess(List<MallGoodsCateBean> mallGoodsCateBeans) throws IOException {
                         mallGoodsCateBeans.addAll(mallGoodsCateBeans);
                         mallGoodsCateBeans.addAll(mallGoodsCateBeans);
-                        mallGoodsCateBeans.addAll(mallGoodsCateBeans);
-                        mallGoodsCateBeans.addAll(mallGoodsCateBeans);
-                        mallGoodsCateBeans.addAll(mallGoodsCateBeans);
-                        mallGoodsCateBeans.addAll(mallGoodsCateBeans);
-                        mallGoodsCateBeans.addAll(mallGoodsCateBeans);
-                        mallGoodsCateBeans.addAll(mallGoodsCateBeans);
-                        mallGoodsCateBeans.addAll(mallGoodsCateBeans);
-                        mallGoodsCateBeans.addAll(mallGoodsCateBeans);
-                        mallGoodsCateBeans.addAll(mallGoodsCateBeans);
-                        mallGoodsCateBeans.addAll(mallGoodsCateBeans);
                         level3Adapter.setNewData(mallGoodsCateBeans);
                     }
                 });
