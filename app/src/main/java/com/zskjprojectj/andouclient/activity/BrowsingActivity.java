@@ -15,6 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zskjprojectj.andouclient.R;
+import com.zskjprojectj.andouclient.activity.hotel.HotelDetailActivity;
+import com.zskjprojectj.andouclient.activity.mall.MallShoppingHomeActivity;
+import com.zskjprojectj.andouclient.activity.restaurant.RestaurantDetailActivity;
 import com.zskjprojectj.andouclient.adapter.BrowsingAdapter;
 import com.zskjprojectj.andouclient.adapter.MycollectionAdapter;
 import com.zskjprojectj.andouclient.base.BaseActivity;
@@ -64,6 +67,7 @@ public class BrowsingActivity extends BaseActivity {
         adapter.openLoadAnimation();
         mRecycler.setAdapter(adapter);
         mRecycler.addItemDecoration(new DividerItemDecoration(mAt,DividerItemDecoration.VERTICAL));
+
     }
 
     @Override
@@ -78,6 +82,38 @@ public class BrowsingActivity extends BaseActivity {
             @Override
             public void onHandleSuccess(List<BrowsingBean> browsingBeans) throws IOException {
                 adapter.setNewData(browsingBeans);
+                adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+
+                        switch (browsingBeans.get(position).getMerchant_type_id()){
+                            //商家商城
+                            case "2":
+                                MallShoppingHomeActivity.start(browsingBeans.get(position).getId());
+                                break;
+                            //酒店商家
+                            case "3":
+                                HotelDetailActivity.start(browsingBeans.get(position).getId());
+                                break;
+                            //饭店商家
+                            case "4":
+                                RestaurantDetailActivity.start(browsingBeans.get(position).getId());
+                                break;
+                            //农家乐
+                            case "5":
+                                break;
+                            //旅游
+                            case "6":
+                                break;
+                            //美食预订
+                            case "7":
+                                break;
+                            //农家乐民宿
+                            case "8":
+                                break;
+                        }
+                    }
+                });
             }
         });
     }

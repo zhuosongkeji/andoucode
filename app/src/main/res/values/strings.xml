@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">安抖</string>
+    <string name="app_name">安抖本地生活</string>
     <string name="login_registered">注册</string>
     <string name="login_phonenum">请输入手机号码</string>
     <string name="login_pwd">请输入密码</string>

@@ -13,19 +13,28 @@ public class BrowsingBean {
      * logo_img : /uploads/fc8601f9af3e2f49fcc617ea097944fb.jpg
      */
 
-    private int id;
+    private String id;
     private String address;
     private String tel;
     private String stars_all;
     private String praise_num;
     private String name;
     private String logo_img;
+    private String merchant_type_id;
 
-    public int getId() {
+    public String getMerchant_type_id() {
+        return merchant_type_id;
+    }
+
+    public void setMerchant_type_id(String merchant_type_id) {
+        this.merchant_type_id = merchant_type_id;
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
