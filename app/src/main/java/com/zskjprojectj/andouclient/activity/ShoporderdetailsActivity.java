@@ -69,7 +69,8 @@ public class ShoporderdetailsActivity extends BaseActivity {
         HttpRxObservable.getObservable(ApiUtils.getApiService().getOrderDetail(
                 LoginInfoUtil.getUid(),
                 LoginInfoUtil.getToken(),
-                order.order_id
+                order.order_id,
+                order.id
         )).subscribe(new BaseObserver<OrderDetail>(mAt) {
             @Override
             public void onHandleSuccess(OrderDetail orderDetail) throws IOException {
@@ -126,7 +127,7 @@ public class ShoporderdetailsActivity extends BaseActivity {
                 @Override
                 public void onClick(View v) {
                     //退款//退货
-                    ShopordersendetailsrefundActivity.start("refund");
+                    ShopordersendetailsrefundActivity.start("refund",order.details.get(0));
                 }
             });
 
@@ -136,7 +137,7 @@ public class ShoporderdetailsActivity extends BaseActivity {
                 @Override
                 public void onClick(View v) {
                     //退款//退货
-                    ShopordersendetailsrefundActivity.start("sales_return");
+                    ShopordersendetailsrefundActivity.start("sales_return",order.details.get(0));
                 }
             });
 

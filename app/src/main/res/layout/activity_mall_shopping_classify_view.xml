@@ -10,7 +10,7 @@
     android:layout_marginTop="@dimen/dp_10"
     android:id="@+id/rv_recycler"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"/>
+    android:layout_height="180dp"/>
 
     <Button
         android:id="@+id/confirm"

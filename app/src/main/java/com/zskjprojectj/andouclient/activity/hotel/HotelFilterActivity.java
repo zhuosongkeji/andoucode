@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -63,6 +64,7 @@ public class HotelFilterActivity extends BaseActivity {
     private RecyclerView mPriceRecycler;
     private RecyclerView mStarRecycler;
     private Button mCancle;
+    private Button mConfirm;
     private PopupWindow mPopWindow;
 
     @BindView(R.id.refreshLayout)
@@ -83,6 +85,9 @@ public class HotelFilterActivity extends BaseActivity {
 
     @BindView(R.id.header_title)
     LinearLayout mRootView;
+
+    @BindView(R.id.edit_search)
+    EditText mSearch;
     private RecyclerView mCatagory2;
     private RecyclerView mCatagory1;
     private RecyclerView mCatagory3;
@@ -93,15 +98,27 @@ public class HotelFilterActivity extends BaseActivity {
 
     private HotelPriceAdapter priceAdapter;
     private HotelStarAdapter starAdapter;
+    //价格区间最小值
+    private String startPrice;
+
+    //价格区间最大值
+    private String endPrice;
+    //酒店星级
+    private String hotelStar;
+    //排序方式(不是必传 1按距离,2按点价格)
+    private String type;
+    //关键字搜索
+    private String keywords;
     //酒店ID
     private String hotelId;
     HotelResultAdapter adapter = new HotelResultAdapter();
+    private PageLoadUtil<HotelHomeBean> pageLoadUtil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         StatusBarUtil.setTranslucentStatus(mActivity);
-        StatusBarUtil.setStatusBarDarkTheme(mActivity,true);
+        StatusBarUtil.setStatusBarDarkTheme(mActivity, true);
         int barHeight = StatusBarUtil.getStatusBarHeight(mActivity);
         if (barHeight > 0) {
             //设置状态栏的高度
@@ -116,8 +133,14 @@ public class HotelFilterActivity extends BaseActivity {
     private void initData() {
 
 
-        PageLoadUtil<HotelHomeBean> pageLoadUtil = PageLoadUtil.get(mActivity, mRecycler, adapter, mRefreshLayout);
-        pageLoadUtil.load(() -> ApiUtils.getApiService().hotelHomeList(pageLoadUtil.page));
+        pageLoadUtil = PageLoadUtil.get(mActivity, mRecycler, adapter, mRefreshLayout);
+        pageLoadUtil.load(() -> ApiUtils.getApiService().hotelHomeList(
+                keywords,
+                startPrice,
+                endPrice,
+                hotelStar,
+                type,
+                pageLoadUtil.page));
         adapter.openLoadAnimation();
         mRecycler.addItemDecoration(new DividerItemDecoration(mActivity, DividerItemDecoration.VERTICAL));
         mRecycler.setAdapter(adapter);
@@ -132,9 +155,22 @@ public class HotelFilterActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.ll_selector_location, R.id.ll_price_star, R.id.ll_selector_sort, R.id.ll_selector_screen})
+    @OnClick({R.id.btn_clear, R.id.ll_selector_location, R.id.ll_price_star, R.id.ll_selector_sort, R.id.ll_selector_screen})
     public void clickSelector(View v) {
         switch (v.getId()) {
+
+            //搜索
+            case R.id.btn_clear:
+                String content = mSearch.getText().toString().trim();
+                pageLoadUtil.load(() -> ApiUtils.getApiService().hotelHomeList(
+                        content,
+                        startPrice,
+                        endPrice,
+                        hotelStar,
+                        type,
+                        pageLoadUtil.page));
+                break;
+
             //位置区域
             case R.id.ll_selector_location:
                 initLocation();
@@ -144,11 +180,11 @@ public class HotelFilterActivity extends BaseActivity {
                 break;
             //价格星级
             case R.id.ll_price_star:
-//                mSelectorStar.setTextColor(getResources().getColor(R.color.colorNavy));
-//                initPriceStar();
-//                if (mPopWindow != null && !mPopWindow.isShowing()) {
-//                    mPopWindow.showAsDropDown(mClassify, 0, 0);
-//                }
+                mSelectorStar.setTextColor(getResources().getColor(R.color.colorNavy));
+                initPriceStar();
+                if (mPopWindow != null && !mPopWindow.isShowing()) {
+                    mPopWindow.showAsDropDown(mClassify, 0, 0);
+                }
                 break;
             //智能排序
             case R.id.ll_selector_sort:
@@ -173,6 +209,49 @@ public class HotelFilterActivity extends BaseActivity {
         View contentView = LayoutInflater.from(this).inflate(R.layout.dialog_hotel_sort, null);
 
         initPopuWindow(contentView, mCapacitySort);
+        //不限
+        contentView.findViewById(R.id.tv_unlimited).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pageLoadUtil.load(() -> ApiUtils.getApiService().hotelHomeList(
+                        keywords,
+                        startPrice,
+                        endPrice,
+                        hotelStar,
+                        type,
+                        pageLoadUtil.page));
+                mPopWindow.dismiss();
+            }
+        });
+        //距离
+        contentView.findViewById(R.id.tv_distance).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pageLoadUtil.load(() -> ApiUtils.getApiService().hotelHomeList(
+                        keywords,
+                        startPrice,
+                        endPrice,
+                        hotelStar,
+                        "1",
+                        pageLoadUtil.page));
+                mPopWindow.dismiss();
+            }
+        });
+        //价格
+        contentView.findViewById(R.id.tv_price).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pageLoadUtil.load(() -> ApiUtils.getApiService().hotelHomeList(
+                        keywords,
+                        startPrice,
+                        endPrice,
+                        hotelStar,
+                        "2",
+                        pageLoadUtil.page));
+                mPopWindow.dismiss();
+            }
+        });
+
 
     }
 
@@ -186,7 +265,8 @@ public class HotelFilterActivity extends BaseActivity {
         //星级
         mStarRecycler = contentView.findViewById(R.id.rv_star_recycler);
         mCancle = contentView.findViewById(R.id.bt_cancle);
-//        initDialogRecycler();
+        mConfirm = contentView.findViewById(R.id.confirm);
+        initDialogRecycler();
     }
 
     //初始化popuwindow
@@ -222,7 +302,6 @@ public class HotelFilterActivity extends BaseActivity {
         //价格
         mPriceRecycler.setLayoutManager(new GridLayoutManager(this, 4));
         mPriceRecycler.addItemDecoration(new GridSectionAverageGapItemDecoration(10, 10, 0, 10));
-
         //星级
         mStarRecycler.setLayoutManager(new GridLayoutManager(this, 4));
         mStarRecycler.addItemDecoration(new GridSectionAverageGapItemDecoration(10, 10, 0, 10));
@@ -233,32 +312,68 @@ public class HotelFilterActivity extends BaseActivity {
                 //价格
                 priceAdapter = new HotelPriceAdapter(R.layout.item_section_content, hotelSearchConditionBean.getPrice_range());
                 mPriceRecycler.setAdapter(priceAdapter);
+                priceAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                        priceAdapter.onChange(position);
+                        priceAdapter.notifyDataSetChanged();
+                    }
+                });
+                priceAdapter.setOnItemGetContent(new HotelPriceAdapter.onItemGetContent() {
+                    @Override
+                    public void content(String star_price, String end_price) {
+                        startPrice = star_price;
+                        endPrice = end_price;
+                    }
+                });
+
+
                 //星级
                 starAdapter = new HotelStarAdapter(R.layout.item_section_content, hotelSearchConditionBean.getStar());
                 mStarRecycler.setAdapter(starAdapter);
+                starAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                        starAdapter.onChange(position);
+                        starAdapter.notifyDataSetChanged();
+                    }
+                });
+
+                starAdapter.setOnItemGetContent(new HotelStarAdapter.onItemGetContent() {
+                    @Override
+                    public void content(String content) {
+                        hotelStar = content;
+                    }
+                });
+
+
             }
         });
 
-
-        priceAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
-//                if (0 < position && position < 8) {
-//                    priceAdapter.onChange1(position);
-//                    priceAdapter.notifyDataSetChanged();
-//                } else if (8 < position && position < 13) {
-//                    priceAdapter.onChange2(position);
-//                    priceAdapter.notifyDataSetChanged();
-//                }
-            }
-        });
 
         mCancle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                priceAdapter.cancle(-1);
-//                priceAdapter.notifyDataSetChanged();
+                priceAdapter.cancle(-1);
+                priceAdapter.notifyDataSetChanged();
+                starAdapter.cancle(-1);
+                starAdapter.notifyDataSetChanged();
+
+            }
+        });
+
+        mConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pageLoadUtil.load(() -> ApiUtils.getApiService().hotelHomeList(
+                        keywords,
+                        startPrice,
+                        endPrice,
+                        hotelStar,
+                        type,
+                        pageLoadUtil.page));
+
+                mPopWindow.dismiss();
             }
         });
 

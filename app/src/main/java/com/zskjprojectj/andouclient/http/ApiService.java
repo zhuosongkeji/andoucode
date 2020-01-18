@@ -118,6 +118,7 @@ public interface ApiService {
                                                                       @Field("is_bargain") String is_bargain,
                                                                       @Field("price_sort") String price_sort,
                                                                       @Field("volume_sort") String volume_sort,
+                                                                      @Field("start_sort") String start_sort,
                                                                       @Field("page") int page
     );
 
@@ -516,7 +517,8 @@ public interface ApiService {
     @FormUrlEncoded
     Observable<BaseResult<OrderDetail>> getOrderDetail(@Field("uid") String uid,
                                                        @Field("token") String token,
-                                                       @Field("order_sn") String order_sn);
+                                                       @Field("order_sn") String order_sn,
+                                                       @Field("did") String did);
 
 
     /**
@@ -527,6 +529,19 @@ public interface ApiService {
     Observable<BaseResult<Object>> confirm(@Field("uid") String uid,
                                            @Field("token") String token,
                                            @Field("id") String id);
+
+
+    /**
+     * 申请退款
+     */
+    @POST("index.php/api/refund/apply")
+    @FormUrlEncoded
+    Observable<BaseResult<Object>> mallrefund(@Field("uid") String uid,
+                                              @Field("token") String token,
+                                              @Field("order_goods_id") String order_goods_id,
+                                              @Field("reason_id") String reason_id,
+                                              @Field("content") String content,
+                                              @Field("image") String image);
 
 
     /**
@@ -603,7 +618,12 @@ public interface ApiService {
      */
     @POST("api/hotel/hotellist")
     @FormUrlEncoded
-    Observable<BaseResult<ListData<HotelHomeBean>>> hotelHomeList(@Field("page") int page);
+    Observable<BaseResult<ListData<HotelHomeBean>>> hotelHomeList(@Field("keywords") String keywords,
+                                                                  @Field("star_price") String star_price,
+                                                                  @Field("end_price") String end_price,
+                                                                  @Field("stars_all") String stars_all,
+                                                                  @Field("type") String type,
+                                                                  @Field("page") int page);
 
 
     /**

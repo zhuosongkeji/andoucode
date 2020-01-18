@@ -1,5 +1,6 @@
 package com.zskjprojectj.andouclient.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class OrderDetail extends Order {
@@ -20,7 +21,8 @@ public class OrderDetail extends Order {
         public String area;
     }
 
-    public class Goodsdetail {
+    public class Goodsdetail implements Serializable {
+        public String id;
         public String img;
         public String name;
         public String num;
