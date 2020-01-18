@@ -106,6 +106,11 @@ public class MainActivity extends BaseActivity {
                 .onTabClickListener(new EasyNavigationBar.OnTabClickListener() {
                     @Override
                     public boolean onTabClickEvent(View view, int position) {
+                        if (position==4)
+                        {
+                           MePageFragment mePageFragment= (MePageFragment) fragments.get(4);
+                           mePageFragment.refresh();
+                        }
 //                        switch (position) {
 //                            case 0:
 //                                ActionBarUtil.setVisible(mActivity, false);

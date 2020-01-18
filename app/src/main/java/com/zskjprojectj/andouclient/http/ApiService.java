@@ -6,12 +6,14 @@ import com.zhuosongkj.android.library.model.ListData;
 import com.zskjprojectj.andouclient.entity.AboutusBean;
 import com.zskjprojectj.andouclient.entity.BrowsingBean;
 import com.zskjprojectj.andouclient.entity.CheckLogisticsBean;
+import com.zskjprojectj.andouclient.entity.EnvelopesBean;
 import com.zskjprojectj.andouclient.entity.IndexHomeBean;
 import com.zskjprojectj.andouclient.entity.InformationBean;
 import com.zskjprojectj.andouclient.entity.InvitationBean;
 import com.zskjprojectj.andouclient.entity.MyFocusonBean;
 import com.zskjprojectj.andouclient.entity.MycollectionBean;
 import com.zskjprojectj.andouclient.entity.MymessageBean;
+import com.zskjprojectj.andouclient.entity.NewuserBean;
 import com.zskjprojectj.andouclient.entity.RefundReasonBean;
 import com.zskjprojectj.andouclient.entity.PersonalBean;
 import com.zskjprojectj.andouclient.entity.SetBean;
@@ -96,6 +98,13 @@ public interface ApiService {
      */
     @POST("api/goods/goods_cate")
     Observable<BaseResult<List<MallGoodsCateBean>>> getMallGoodsCate();
+
+    /**
+     * 获取商城商品分类
+     */
+    @POST("api/goods/cate")
+    @FormUrlEncoded
+    Observable<BaseResult<List<MallGoodsCateBean>>> getMallGoodsCate(@Field("id") String id);
 
 
     /**
@@ -926,6 +935,33 @@ public interface ApiService {
     @FormUrlEncoded
     Observable<BaseResult<ViproteBean>> vip_rote(@Field("uid") String uid,
                                                  @Field("token") String token);
+
+    /**
+     * 红包领取
+     * @param uid
+     * @param token
+     * @return
+     */
+    @POST("api/users/envelopes_add")
+    @FormUrlEncoded
+    Observable<BaseResult<Object>> envelopes_add(@Field("uid") String uid,
+                                                 @Field("token") String token);
+
+    /**
+     * 判断是否是新用户
+     * @param uid
+     * @param token
+     * @return
+     */
+    @POST("api/users/new_user")
+    @FormUrlEncoded
+    Observable<BaseResult<NewuserBean>> new_user(@Field("uid") String uid,
+                                                      @Field("token") String token);
+    @POST("api/users/envelopes")
+    @FormUrlEncoded
+    Observable<BaseResult<EnvelopesBean>> envelopes(@Field("uid") String uid,
+                                                    @Field("token") String token);
+
 //    /**
 //     * 注册
 //     *
