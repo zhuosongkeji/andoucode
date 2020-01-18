@@ -170,6 +170,6 @@ dependencies {
     implementation 'com.github.SheHuan:NiceDialog:1.2.0'
 
     implementation 'com.contrarywind:Android-PickerView:4.1.9'
-
     implementation 'com.lxj:xpopup:1.8.10-x'
+
 }

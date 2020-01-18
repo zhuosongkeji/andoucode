@@ -415,4 +415,18 @@ public class MePageFragment extends BaseFragment {
             }
         });
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getDataFromServer();
+    }
+
+    public void refresh() {
+        if (LoginInfoUtil.getToken()==null)
+        {
+            return;
+        }
+        getDataFromServer();
+    }
 }
