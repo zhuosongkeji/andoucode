@@ -2,6 +2,7 @@ package com.zskjprojectj.andouclient.http;
 
 import android.app.Activity;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.google.gson.stream.MalformedJsonException;
 import com.zhuosongkj.android.library.model.BaseResult;
 import com.zskjprojectj.andouclient.activity.LoginActivity;
@@ -125,7 +126,7 @@ public abstract class BaseObserver<T> extends BaseHandleObserver<BaseResult<T>> 
 
 
     public void onFailure(String msg) {
-        ToastUtil.showToast(msg);
+        ToastUtils.showShort(msg);
     }
 
 }
