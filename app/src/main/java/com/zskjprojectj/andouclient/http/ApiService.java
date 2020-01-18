@@ -98,6 +98,13 @@ public interface ApiService {
     @POST("api/goods/goods_cate")
     Observable<BaseResult<List<MallGoodsCateBean>>> getMallGoodsCate();
 
+    /**
+     * 获取商城商品分类
+     */
+    @POST("api/goods/cate")
+    @FormUrlEncoded
+    Observable<BaseResult<List<MallGoodsCateBean>>> getMallGoodsCate(@Field("id") String id);
+
 
     /**
      * 商城产品列表
@@ -278,7 +285,7 @@ public interface ApiService {
     Observable<BaseResult<Object>> addAddress(@Field("uid") String uid,
                                               @Field("token") String token,
                                               @Field("name") String name,
-                                              @Field("tel") String mobile,
+                                              @Field("mobile") String mobile,
                                               @Field("province_id") String province_id,
                                               @Field("city_id") String city_id,
                                               @Field("area_id") String area_id,
@@ -1153,5 +1160,5 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("api/gourmet/reserve")
     Observable<BaseResult<GetBookInfoResponse>> getBookInfo(@Field("uid") String uid,
-                                               @Field("merchant_id") String merchant_id);
+                                                            @Field("merchant_id") String merchant_id);
 }

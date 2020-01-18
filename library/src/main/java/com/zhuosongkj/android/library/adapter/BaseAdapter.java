@@ -6,6 +6,7 @@ import androidx.annotation.Nullable;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -123,6 +124,16 @@ public abstract class BaseAdapter<T> extends BaseQuickAdapter<T, BaseViewHolder>
     public void loadMoreEnd(boolean gone) {
         super.loadMoreEnd(gone);
         isLoadMoreEnd = true;
+    }
+
+    public List<T> getSelectedItems() {
+        ArrayList<T> data = new ArrayList<>();
+        for (T t : selectMap.keySet()) {
+            if (selectMap.get(t)) {
+                data.add(t);
+            }
+        }
+        return data;
     }
 
     public interface OnSelectedStateChangedListener {

@@ -206,7 +206,7 @@ public class ClassificationofgoodsActivity extends BaseActivity {
 //                if (mPopWindow != null && !mPopWindow.isShowing()) {
 //                    mPopWindow.showAsDropDown(mClassify, 0, 0);
 //                }
-
+                if (popupView == null) {
                     popupView = (CustomPartShadowPopupView) new XPopup.Builder(mActivity)
                             .atView(v)
                             .autoOpenSoftInput(false)
@@ -220,10 +220,14 @@ public class ClassificationofgoodsActivity extends BaseActivity {
                                 public void onDismiss() {
                                     mTvSelectorStar.setTextColor(getResources().getColor(R.color.color_common_font));
                                     mIvSelectorImg.setImageResource(R.mipmap.ic_busiess_xiala);
+                                    popupView = null;
                                 }
                             })
                             .asCustom(new CustomPartShadowPopupView(mActivity, 1));
-                popupView.show();
+                    popupView.show();
+                } else if (popupView != null && popupView.isShow()) {
+                    popupView.dismiss();
+                }
                 break;
             //销量
             case R.id.ll_selector_sales:
@@ -233,6 +237,8 @@ public class ClassificationofgoodsActivity extends BaseActivity {
 //                if (mPopWindow != null && !mPopWindow.isShowing()) {
 //                    mPopWindow.showAsDropDown(mClassify, 0, 0);
 //                }
+                if (popupView == null) {
+
 
                     popupView = (CustomPartShadowPopupView) new XPopup.Builder(mActivity)
                             .atView(v)
@@ -247,10 +253,14 @@ public class ClassificationofgoodsActivity extends BaseActivity {
                                 public void onDismiss() {
                                     mTvCapacitySort.setTextColor(getResources().getColor(R.color.color_common_font));
                                     mIvCapacitySort.setImageResource(R.mipmap.ic_busiess_xiala);
+                                    popupView = null;
                                 }
                             })
                             .asCustom(new CustomPartShadowPopupView(mActivity, 2));
-                popupView.show();
+                    popupView.show();
+                } else if (popupView != null && popupView.isShow()) {
+                    popupView.dismiss();
+                }
                 break;
             //价格
             case R.id.ll_selector_price:
@@ -260,6 +270,8 @@ public class ClassificationofgoodsActivity extends BaseActivity {
 //                if (mPopWindow != null && !mPopWindow.isShowing()) {
 //                    mPopWindow.showAsDropDown(mClassify, 0, 0);
 //                }
+                if (popupView == null) {
+
 
                     popupView = (CustomPartShadowPopupView) new XPopup.Builder(mActivity)
                             .atView(v)
@@ -274,11 +286,14 @@ public class ClassificationofgoodsActivity extends BaseActivity {
                                 public void onDismiss() {
                                     mTvScreen.setTextColor(getResources().getColor(R.color.color_common_font));
                                     mIvScreen.setImageResource(R.mipmap.ic_busiess_xiala);
+                                    popupView = null;
                                 }
                             })
                             .asCustom(new CustomPartShadowPopupView(mActivity, 3));
-                popupView.show();
-
+                    popupView.show();
+                } else if (popupView != null && popupView.isShow()) {
+                    popupView.dismiss();
+                }
                 break;
             //搜索按钮
             case R.id.search_image:

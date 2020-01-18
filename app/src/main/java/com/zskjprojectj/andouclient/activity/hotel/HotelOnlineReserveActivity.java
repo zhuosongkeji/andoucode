@@ -105,7 +105,7 @@ public class HotelOnlineReserveActivity extends BaseActivity {
     private int endGroup = -1;
     private int startChild = -1;
     private int endChild = -1;
-    private String is_integral;
+    private String is_integral="0";
 
     @Override
     protected void setRootView() {
@@ -241,8 +241,16 @@ public class HotelOnlineReserveActivity extends BaseActivity {
                         return;
                     }
                     int id = Integer.parseInt(payId);
+
+
                     switch (id) {
                         case WXPAY:
+
+                            Log.d(TAG, "clickBuyPay: "+LoginInfoUtil.getUid()+"\n"
+                                    +LoginInfoUtil.getToken()+"\n"
+                                    +home_id+"\n"
+                                    +payId+"\n"
+                                    +is_integral+"\n");
                             HttpRxObservable.getObservable(ApiUtils.getApiService().hotelOrder(
                                     LoginInfoUtil.getUid(),
                                     LoginInfoUtil.getToken(),
@@ -255,7 +263,7 @@ public class HotelOnlineReserveActivity extends BaseActivity {
                                     personNUm,
                                     datNum,
                                     payId,
-                                    "0"
+                                    is_integral
 
                             )).subscribe(new BaseObserver<WXPayBean>(mAt) {
                                 @Override

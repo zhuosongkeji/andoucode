@@ -48,13 +48,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_10">
 
-            <androidx.appcompat.widget.AppCompatCheckBox
+            <ImageView
                 android:id="@+id/cb_selectorcb1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:background="@null"
-                android:button="@drawable/selector_checkbox" />
+                android:src="@drawable/selector_checkbox" />
 
             <ImageView
                 android:id="@+id/img_cartgoodspic"
@@ -120,8 +119,8 @@
                     android:layout_width="@dimen/dp_40"
                     android:layout_height="@dimen/dp_30"
                     android:gravity="center"
-                    android:textColor="#333333"
-                    android:text="1" />
+                    android:text="1"
+                    android:textColor="#333333" />
 
                 <Button
                     android:id="@+id/btn_add"

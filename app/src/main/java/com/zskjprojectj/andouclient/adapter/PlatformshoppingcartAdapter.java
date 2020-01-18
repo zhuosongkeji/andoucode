@@ -10,6 +10,7 @@ import androidx.appcompat.widget.AppCompatCheckBox;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.zhuosongkj.android.library.adapter.BaseAdapter;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.entity.PlatformshoppingcartBean;
 import com.zskjprojectj.andouclient.model.CartItem;
@@ -19,10 +20,8 @@ import com.zskjprojectj.andouclient.utils.UrlUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlatformshoppingcartAdapter extends BaseQuickAdapter<CartItem, BaseViewHolder> {
+public class PlatformshoppingcartAdapter extends BaseAdapter<CartItem> {
 
-    private boolean isCheck;
-    private List<String> carId = new ArrayList<>();
 
     public PlatformshoppingcartAdapter() {
         super(R.layout.fragment_mall_shopping_view);
@@ -47,26 +46,7 @@ public class PlatformshoppingcartAdapter extends BaseQuickAdapter<CartItem, Base
                 .addOnClickListener(R.id.btn_sub)
                 .addOnClickListener(R.id.deleteBtn)
                 .addOnClickListener(R.id.cb_selectorcb1);
+        helper.itemView.findViewById(R.id.cb_selectorcb1).setSelected(isSelect(item));
 
-        AppCompatCheckBox checkBox = helper.getView(R.id.cb_selectorcb1);
-        checkBox.setChecked(isCheck);
-
-        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    carId.add(item.id);
-                }
-            }
-        });
-
-    }
-
-    public void isSelector(boolean isCheck) {
-        this.isCheck = isCheck;
-    }
-
-    public List<String> CarId(){
-        return carId;
     }
 }

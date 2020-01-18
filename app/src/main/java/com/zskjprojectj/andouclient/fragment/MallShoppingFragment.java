@@ -82,6 +82,7 @@ public class MallShoppingFragment extends BaseFragment {
                     public void onHandleSuccess(Object o) throws IOException {
                         ToastUtil.showToast("删除成功");
                         adapter.remove(position);
+                        resetAmount();
                     }
                 });
             } else if (view1.getId() == R.id.btn_add) {
@@ -94,9 +95,8 @@ public class MallShoppingFragment extends BaseFragment {
                     @Override
                     public void onHandleSuccess(Object o) throws IOException {
                         item.num++;
-
-
                         adapter.notifyItemChanged(position);
+                        resetAmount();
                     }
                 });
             } else if (view1.getId() == R.id.btn_sub && item.num > 1) {
@@ -110,12 +110,14 @@ public class MallShoppingFragment extends BaseFragment {
                     public void onHandleSuccess(Object o) throws IOException {
                         item.num--;
                         adapter.notifyItemChanged(position);
+                        resetAmount();
                     }
                 });
             } else if (view1.getId() == R.id.cb_selectorcb1) {
-                //每个item的选择点击
+                adapter.setSelected(item, !adapter.isSelect(item));
+                resetAmount();
+                view.findViewById(R.id.cb_selectorcb).setSelected(adapter.isSelectedAll);
             }
-
         });
         getDataFromServer();
     }
@@ -125,17 +127,10 @@ public class MallShoppingFragment extends BaseFragment {
 
 
         PageLoadUtil<CartItem> pageLoadUtil = PageLoadUtil.get((BaseActivity) getActivity(), mRecycler, adapter, mRefreshLayout);
-        pageLoadUtil.load(new RequestUtil.ObservableProvider<IListData<CartItem>>() {
-            @Override
-            public Observable<? extends BaseResult<? extends IListData<CartItem>>> getObservable() {
-                return ApiUtils.getApiService().cart(
-                        LoginInfoUtil.getUid(),
-                        LoginInfoUtil.getToken(),
-                        pageLoadUtil.page);
-            }
-        });
-
-
+        pageLoadUtil.load(() -> ApiUtils.getApiService().cart(
+                LoginInfoUtil.getUid(),
+                LoginInfoUtil.getToken(),
+                pageLoadUtil.page));
     }
 
 
@@ -144,25 +139,17 @@ public class MallShoppingFragment extends BaseFragment {
 
         switch (view.getId()) {
             case R.id.cb_selectorcb:
-                if (mCheckBox.isChecked()) {
-                    adapter.isSelector(true);
-
-                    BigDecimal allPrice = new BigDecimal(0);
-                    for (CartItem datum : adapter.getData()) {
-
-                        BigDecimal price = new BigDecimal(datum.num + "");
-                        allPrice = allPrice.add(price.multiply(new BigDecimal(datum.price)));
-                    }
-                    mShippingAllPrice.setText("¥" + allPrice.toString());
-                    adapter.notifyDataSetChanged();
+                if (!adapter.isSelectedAll) {
+                    adapter.setSelectedAll(true);
+                    resetAmount();
                 } else {
-                    adapter.isSelector(false);
+                    adapter.setSelectedAll(false);
                     mShippingAllPrice.setText("¥" + 0);
-                    adapter.notifyDataSetChanged();
                 }
+                view.setSelected(adapter.isSelectedAll);
                 break;
             case R.id.btn_settleaccounts:
-                List<String> strings = adapter.CarId();
+                List<String> strings = getSelectedIds();
 //                JSONArray jsonArray=new JSONArray(strings);
 //                String jsonCarId = jsonArray.toString();
 
@@ -203,6 +190,23 @@ public class MallShoppingFragment extends BaseFragment {
                 break;
         }
 
+    }
+
+    private List<String> getSelectedIds() {
+        ArrayList<String> ids = new ArrayList<>();
+        for (CartItem selectedItem : adapter.getSelectedItems()) {
+            ids.add(selectedItem.id);
+        }
+        return ids;
+    }
+
+    private void resetAmount() {
+        BigDecimal allPrice = new BigDecimal(0);
+        for (CartItem datum : adapter.getSelectedItems()) {
+            BigDecimal price = new BigDecimal(datum.num + "");
+            allPrice = allPrice.add(price.multiply(new BigDecimal(datum.price)));
+        }
+        mShippingAllPrice.setText("¥" + allPrice.toString());
     }
 
 

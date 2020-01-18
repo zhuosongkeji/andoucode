@@ -88,7 +88,7 @@ public class MallOnlineOrderActivity extends BaseActivity {
     private String payId;
     private final static int WXPAY = 1;
     private final static int YUEPAY = 4;
-    private String is_integral;
+    private String is_integral="0";
 
     @Override
     protected void setRootView() {
@@ -150,7 +150,7 @@ public class MallOnlineOrderActivity extends BaseActivity {
                 cbSelector.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        if (cbSelector.isChecked()){
+                        if (isChecked){
                             BigDecimal bigDecimal=new BigDecimal(mallSettlementBean.getOrder_money());
                             BigDecimal subtract = bigDecimal.subtract(new BigDecimal(mallSettlementBean.getIntegral()));
                             mTvOrderMoney.setText("¥" + subtract.toString());
@@ -201,6 +201,13 @@ public class MallOnlineOrderActivity extends BaseActivity {
         int id = Integer.parseInt(payId);
         switch (id) {
             case WXPAY:
+
+                Log.d(TAG, "clickBuyPay: "+LoginInfoUtil.getUid()+"\n"
+                +LoginInfoUtil.getToken()+"\n"
+                +order_sn+"\n"
+                +payId+"\n"
+                +is_integral+"\n");
+
                 HttpRxObservable.getObservable(ApiUtils.getApiService().MallWXPayWays(
                         LoginInfoUtil.getUid(),
                         LoginInfoUtil.getToken(),
@@ -211,7 +218,6 @@ public class MallOnlineOrderActivity extends BaseActivity {
                     @Override
                     public void onHandleSuccess(WXPayBean wxPayBean) throws IOException {
                         startWXPay(wxPayBean);
-                        finish();
                     }
                 });
 
@@ -227,8 +233,6 @@ public class MallOnlineOrderActivity extends BaseActivity {
                 )).subscribe(new BaseObserver<WXPayBean>(mAt) {
                     @Override
                     public void onHandleSuccess(WXPayBean wxPayBean) throws IOException {
-
-
                         startActivity(new Intent(MallOnlineOrderActivity.this, MallPaySuccessActivity.class));
                         finish();
                     }
