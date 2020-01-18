@@ -13,7 +13,7 @@ public class Order implements Serializable {
     public String mname;
     public String logo_img;
     public int num;
-    public int id;
+    public String id;
     public String shipping_free;
     public String express_id;
     public String courier_num;

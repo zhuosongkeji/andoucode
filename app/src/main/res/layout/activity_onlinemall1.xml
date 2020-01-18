@@ -21,6 +21,7 @@
             android:src="@mipmap/back_icon" />
 
         <RelativeLayout
+            android:id="@+id/rl_search"
             android:layout_width="306dp"
             android:layout_height="35dp"
             android:layout_centerVertical="true"
@@ -30,13 +31,13 @@
             android:layout_toRightOf="@+id/img_back"
             android:background="@drawable/shape_layout">
 
-            <EditText
+            <TextView
                 android:id="@+id/search_edittext"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/dp_15"
-                android:background="@null"
                 android:hint="@string/search"
+                android:gravity="center_vertical"
                 android:textColorHint="#919191"
                 android:textColor="#919191"
                 android:textSize="@dimen/typeface12sp" />

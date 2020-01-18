@@ -66,9 +66,7 @@ public class MallHomepageFragment1 extends BaseFragment {
     @BindView(R.id.vp_grid_view)
     PageGridView mGridView;
 
-    //搜索内容
-    @BindView(R.id.search_edittext)
-    EditText mSearchEditText;
+
 
     private List<MallHomeDataBean.BannerBean> banner;
     //推荐产品
@@ -207,10 +205,14 @@ public class MallHomepageFragment1 extends BaseFragment {
     }
 
 
-    @OnClick({R.id.img_back, R.id.tv_recommend_see_more, R.id.tv_special_see_more, R.id.search_image})
+    @OnClick({R.id.rl_search,R.id.img_back, R.id.tv_recommend_see_more, R.id.tv_special_see_more, R.id.search_image})
     public void clickBack(View view) {
 
         switch (view.getId()) {
+
+            case R.id.rl_search:
+                startActivity(new Intent(mAty,ClassificationofgoodsActivity.class));
+                break;
 
             case R.id.img_back:
                 mAty.finish();

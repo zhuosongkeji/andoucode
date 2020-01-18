@@ -69,7 +69,8 @@ public class ShoporderdetailsActivity extends BaseActivity {
         HttpRxObservable.getObservable(ApiUtils.getApiService().getOrderDetail(
                 LoginInfoUtil.getUid(),
                 LoginInfoUtil.getToken(),
-                order.order_id
+                order.order_id,
+                order.id
         )).subscribe(new BaseObserver<OrderDetail>(mAt) {
             @Override
             public void onHandleSuccess(OrderDetail orderDetail) throws IOException {

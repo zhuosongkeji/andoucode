@@ -53,7 +53,7 @@ public class HotelPriceAdapter extends BaseQuickAdapter<HotelSearchConditionBean
         if (mPrice.isSelected()){
             String hotelprice = mPrice.getText().toString();
             if (onItemGetContent!=null){
-                onItemGetContent.content(hotelprice);
+                onItemGetContent.content(item.getStart(),item.getEnd());
             }
         }
 
@@ -72,7 +72,7 @@ public class HotelPriceAdapter extends BaseQuickAdapter<HotelSearchConditionBean
 
 
     public interface onItemGetContent{
-        void content(String content);
+        void content(String star_price,String end_price);
     }
     private onItemGetContent onItemGetContent;
 

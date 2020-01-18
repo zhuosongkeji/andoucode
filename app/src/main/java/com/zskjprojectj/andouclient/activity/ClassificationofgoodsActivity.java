@@ -2,6 +2,7 @@ package com.zskjprojectj.andouclient.activity;
 
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -93,10 +94,13 @@ public class ClassificationofgoodsActivity extends BaseActivity {
     private String price_sort;
     //销量排序
     private String volume_sort;
+    //评价
+    private String start_sort;
 
     private CustomPartShadowPopupView popupView;
 
     ClassificationofgoodsAdapter adapter = new ClassificationofgoodsAdapter();
+    private PageLoadUtil<MallGoodsListBean> pageLoadUtil;
 
 
     @Override
@@ -108,6 +112,10 @@ public class ClassificationofgoodsActivity extends BaseActivity {
 
 
     private void initViews() {
+        //推荐id
+        is_recommend = getIntent().getStringExtra("recommend");
+        //特价id
+        is_bargain = getIntent().getStringExtra("special");
         cataId = getIntent().getStringExtra(CATAID);
         mRecycler = findViewById(R.id.rv_recycler);
         mRecycler.setLayoutManager(new GridLayoutManager(this, 2));
@@ -145,10 +153,7 @@ public class ClassificationofgoodsActivity extends BaseActivity {
     }
 
     private void getDataFromServer() {
-        //推荐id
-        is_recommend = getIntent().getStringExtra("recommend");
-        //特价id
-        is_bargain = getIntent().getStringExtra("special");
+
 
 //        HttpRxObservable.getObservable(ApiUtils.getApiService().mallGoodsList(
 //                keyword,
@@ -178,8 +183,16 @@ public class ClassificationofgoodsActivity extends BaseActivity {
 //            }
 //        });
 
+        Log.d("wangbin", "getDataFromServer: "+keyword+"\n"
+                +cataId+"\n"
+                +is_recommend+"\n"
+                +is_bargain+"\n"
+                +price_sort+"\n"
+                +volume_sort+"\n"
+                +start_sort+"\n"
+        );
 
-        PageLoadUtil<MallGoodsListBean> pageLoadUtil = PageLoadUtil.get(mActivity, mRecycler, adapter, mRefreshLayout);
+        pageLoadUtil = PageLoadUtil.get(mActivity, mRecycler, adapter, mRefreshLayout);
         pageLoadUtil.load(() -> ApiUtils.getApiService().mallGoodsList(
                 keyword,
                 cataId,
@@ -187,6 +200,7 @@ public class ClassificationofgoodsActivity extends BaseActivity {
                 is_bargain,
                 price_sort,
                 volume_sort,
+                start_sort,
                 pageLoadUtil.page
         ));
 
@@ -225,6 +239,25 @@ public class ClassificationofgoodsActivity extends BaseActivity {
                             })
                             .asCustom(new CustomPartShadowPopupView(mActivity, 1));
                     popupView.show();
+
+                    popupView.setOnclickItem(new CustomPartShadowPopupView.OnclickItem() {
+                        @Override
+                        public void itemView(String sort) {
+
+                            pageLoadUtil.load(() -> ApiUtils.getApiService().mallGoodsList(
+                                    keyword,
+                                    cataId,
+                                    is_recommend,
+                                    is_bargain,
+                                    price_sort,
+                                    volume_sort,
+                                    sort,
+                                    pageLoadUtil.page
+                            ));
+                        }
+                    });
+
+
                 } else if (popupView != null && popupView.isShow()) {
                     popupView.dismiss();
                 }
@@ -258,6 +291,25 @@ public class ClassificationofgoodsActivity extends BaseActivity {
                             })
                             .asCustom(new CustomPartShadowPopupView(mActivity, 2));
                     popupView.show();
+
+                    popupView.setOnclickItem(new CustomPartShadowPopupView.OnclickItem() {
+                        @Override
+                        public void itemView(String sort) {
+
+                            pageLoadUtil.load(() -> ApiUtils.getApiService().mallGoodsList(
+                                    keyword,
+                                    cataId,
+                                    is_recommend,
+                                    is_bargain,
+                                    price_sort,
+                                    sort,
+                                    start_sort,
+                                    pageLoadUtil.page
+                            ));
+                        }
+                    });
+
+
                 } else if (popupView != null && popupView.isShow()) {
                     popupView.dismiss();
                 }
@@ -291,6 +343,23 @@ public class ClassificationofgoodsActivity extends BaseActivity {
                             })
                             .asCustom(new CustomPartShadowPopupView(mActivity, 3));
                     popupView.show();
+
+                    popupView.setOnclickItem(new CustomPartShadowPopupView.OnclickItem() {
+                        @Override
+                        public void itemView(String sort) {
+
+                            pageLoadUtil.load(() -> ApiUtils.getApiService().mallGoodsList(
+                                    keyword,
+                                    cataId,
+                                    is_recommend,
+                                    is_bargain,
+                                    sort,
+                                    volume_sort,
+                                    start_sort,
+                                    pageLoadUtil.page
+                            ));
+                        }
+                    });
                 } else if (popupView != null && popupView.isShow()) {
                     popupView.dismiss();
                 }
@@ -298,7 +367,17 @@ public class ClassificationofgoodsActivity extends BaseActivity {
             //搜索按钮
             case R.id.search_image:
                 keyword = mSearchEditText.getText().toString();
-                getDataFromServer();
+//                getDataFromServer();
+                pageLoadUtil.load(() -> ApiUtils.getApiService().mallGoodsList(
+                        keyword,
+                        cataId,
+                        is_recommend,
+                        is_bargain,
+                        price_sort,
+                        volume_sort,
+                        start_sort,
+                        pageLoadUtil.page
+                ));
                 break;
         }
     }

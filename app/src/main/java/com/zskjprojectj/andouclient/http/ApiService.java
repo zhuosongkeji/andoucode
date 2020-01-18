@@ -109,6 +109,7 @@ public interface ApiService {
                                                                       @Field("is_bargain") String is_bargain,
                                                                       @Field("price_sort") String price_sort,
                                                                       @Field("volume_sort") String volume_sort,
+                                                                      @Field("start_sort") String start_sort,
                                                                       @Field("page") int page
     );
 
@@ -507,7 +508,8 @@ public interface ApiService {
     @FormUrlEncoded
     Observable<BaseResult<OrderDetail>> getOrderDetail(@Field("uid") String uid,
                                                        @Field("token") String token,
-                                                       @Field("order_sn") String order_sn);
+                                                       @Field("order_sn") String order_sn,
+                                                       @Field("did") String did);
 
 
     /**
@@ -594,7 +596,12 @@ public interface ApiService {
      */
     @POST("api/hotel/hotellist")
     @FormUrlEncoded
-    Observable<BaseResult<ListData<HotelHomeBean>>> hotelHomeList(@Field("page") int page);
+    Observable<BaseResult<ListData<HotelHomeBean>>> hotelHomeList(@Field("keywords") String keywords,
+                                                                  @Field("star_price") String star_price,
+                                                                  @Field("end_price") String end_price,
+                                                                  @Field("stars_all") String stars_all,
+                                                                  @Field("type") String type,
+                                                                  @Field("page") int page);
 
 
     /**
@@ -1129,5 +1136,5 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("api/gourmet/reserve")
     Observable<BaseResult<GetBookInfoResponse>> getBookInfo(@Field("uid") String uid,
-                                               @Field("merchant_id") String merchant_id);
+                                                            @Field("merchant_id") String merchant_id);
 }

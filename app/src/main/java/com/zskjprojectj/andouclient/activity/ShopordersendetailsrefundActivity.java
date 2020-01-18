@@ -10,6 +10,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
@@ -42,6 +43,10 @@ public class ShopordersendetailsrefundActivity extends BaseActivity {
     @BindView(R.id.tv_header_title)
     TextView mHeaderTitle;
 
+    @BindView(R.id.header_title_view)
+    RelativeLayout mTitleView;
+
+
 
     private LinearLayout ly_refundreason;
     private Dialog bottomDialog;
@@ -55,7 +60,7 @@ public class ShopordersendetailsrefundActivity extends BaseActivity {
     @Override
     protected void initData(Bundle savedInstanceState) {
         type = getIntent().getStringExtra("type");
-
+        getBarDistance(mTitleView);
         if ("sales_return".equals(type)){
             mHeaderTitle.setText("申请退货");
         }else if ("refund".equals(type)){

@@ -22,6 +22,8 @@ import com.blankj.utilcode.util.ActivityUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.lxj.xpopup.XPopup;
+import com.lxj.xpopup.interfaces.SimpleCallback;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zhuosongkj.android.library.model.BaseResult;
@@ -33,6 +35,7 @@ import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.adapter.mall.MallShoppingHomeAdapter;
 import com.zskjprojectj.andouclient.adapter.mall.MallShoppingPopuAdapter;
 import com.zskjprojectj.andouclient.base.BasePresenter;
+import com.zskjprojectj.andouclient.utils.CustomPartShadowPopupView;
 import com.zskjprojectj.andouclient.utils.UrlUtil;import com.zskjprojectj.andouclient.base.BaseUrl;
 import com.zskjprojectj.andouclient.entity.mall.MallShoppingHomeBean;
 import com.zskjprojectj.andouclient.http.ApiUtils;
@@ -118,6 +121,8 @@ public class MallShoppingHomeActivity extends BaseActivity {
     private boolean isfocuson = false;
     private String type;
     MallShoppingHomeAdapter adapter = new MallShoppingHomeAdapter();
+    private PageLoadUtil<MallShoppingHomeBean.GoodsBean> pageLoadUtil;
+    private CustomPartShadowPopupView popupView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -175,7 +180,7 @@ public class MallShoppingHomeActivity extends BaseActivity {
 
     private void getDataFromServer() {
 
-        PageLoadUtil<MallShoppingHomeBean.GoodsBean> pageLoadUtil = PageLoadUtil.get(mActivity, mRecycler, adapter, mRefreshLayout);
+        pageLoadUtil = PageLoadUtil.get(mActivity, mRecycler, adapter, mRefreshLayout);
         pageLoadUtil.load(() -> ApiUtils.getApiService().mallMerchant(
                 merchantId,
                 LoginInfoUtil.getUid(),
@@ -214,6 +219,7 @@ public class MallShoppingHomeActivity extends BaseActivity {
 
         //popupWindow获取焦点
         mPopWindow.setFocusable(true);
+        mPopWindow.setAnimationStyle(R.style.popmenu_animation); //动画
         mPopWindow.setOutsideTouchable(true);
         mPopWindow.setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         //设置popupWindow消失时的监听
@@ -227,7 +233,7 @@ public class MallShoppingHomeActivity extends BaseActivity {
         });
 
         //显示方式
-        mPopWindow.showAsDropDown(mShoppingClassify, 0, 100);
+        mPopWindow.showAsDropDown(mShoppingClassify, 0, 0);
 
     }
 
@@ -258,7 +264,17 @@ public class MallShoppingHomeActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
 
-                getDataFromServer();
+//                getDataFromServer();
+
+                pageLoadUtil.load(() -> ApiUtils.getApiService().mallMerchant(
+                        merchantId,
+                        LoginInfoUtil.getUid(),
+                        keyword,
+                        type_id,
+                        price_sort,
+                        volume_sort,
+                        pageLoadUtil.page
+                ));
                 mPopWindow.dismiss();
 
             }
@@ -267,37 +283,124 @@ public class MallShoppingHomeActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.busiess_back_image, R.id.tv_volume, R.id.tv_price, R.id.iv_Goods_search, R.id.mall_merchants_focuson})
+    @OnClick({R.id.ll_sale_volume,R.id.busiess_back_image, R.id.ll_price_star, R.id.iv_Goods_search, R.id.mall_merchants_focuson})
     public void clickView(View view) {
         switch (view.getId()) {
             case R.id.busiess_back_image:
                 finish();
                 break;
             //销量
-            case R.id.tv_volume:
-                price_sort = "0";
-                if (!volumeflag) {
-                    volume_sort = "1";
+            case R.id.ll_sale_volume:
+//                price_sort = "0";
+//                if (!volumeflag) {
+//                    volume_sort = "1";
 //                    getDataFromServer();
 
-                    volumeflag = true;
-                } else {
-                    volume_sort = "2";
+//                    volumeflag = true;
+//                } else {
+//                    volume_sort = "2";
 //                    getDataFromServer();
-                    volumeflag = false;
+//                    volumeflag = false;
+//                }
+
+                mTvVolume.setTextColor(android.graphics.Color.parseColor("#5ED3AE"));
+                mIvVolume.setImageResource(R.mipmap.icon_cate_img);
+                if (popupView == null) {
+                    popupView = (CustomPartShadowPopupView) new XPopup.Builder(mActivity)
+                            .atView(view)
+                            .autoOpenSoftInput(false)
+                            .setPopupCallback(new SimpleCallback() {
+                                @Override
+                                public void onShow() {
+
+                                }
+
+                                @Override
+                                public void onDismiss() {
+                                    mTvVolume.setTextColor(getResources().getColor(R.color.color_common_font));
+                                    mIvVolume.setImageResource(R.mipmap.ic_busiess_xiala);
+                                    popupView = null;
+                                }
+                            })
+                            .asCustom(new CustomPartShadowPopupView(mActivity, 2));
+                    popupView.show();
+
+                    popupView.setOnclickItem(new CustomPartShadowPopupView.OnclickItem() {
+                        @Override
+                        public void itemView(String sort) {
+
+                            pageLoadUtil.load(() -> ApiUtils.getApiService().mallMerchant(
+                                    merchantId,
+                                    LoginInfoUtil.getUid(),
+                                    keyword,
+                                    type_id,
+                                    price_sort,
+                                    sort,
+                                    pageLoadUtil.page
+                            ));
+                        }
+                    });
+
+
+                } else if (popupView != null && popupView.isShow()) {
+                    popupView.dismiss();
                 }
+
                 break;
             //价格
-            case R.id.tv_price:
-                volume_sort = "0";
-                if (!priceflag) {
-                    price_sort = "1";
+            case R.id.ll_price_star:
+//                volume_sort = "0";
+//                if (!priceflag) {
+//                    price_sort = "1";
 //                    getDataFromServer();
-                    priceflag = true;
-                } else {
-                    price_sort = "2";
+//                    priceflag = true;
+//                } else {
+//                    price_sort = "2";
 //                    getDataFromServer();
-                    priceflag = false;
+//                    priceflag = false;
+//                }
+
+                mTvPrice.setTextColor(android.graphics.Color.parseColor("#5ED3AE"));
+                mIvPrice.setImageResource(R.mipmap.icon_cate_img);
+                if (popupView == null) {
+                    popupView = (CustomPartShadowPopupView) new XPopup.Builder(mActivity)
+                            .atView(view)
+                            .autoOpenSoftInput(false)
+                            .setPopupCallback(new SimpleCallback() {
+                                @Override
+                                public void onShow() {
+
+                                }
+
+                                @Override
+                                public void onDismiss() {
+                                    mTvPrice.setTextColor(getResources().getColor(R.color.color_common_font));
+                                    mIvPrice.setImageResource(R.mipmap.ic_busiess_xiala);
+                                    popupView = null;
+                                }
+                            })
+                            .asCustom(new CustomPartShadowPopupView(mActivity, 3));
+                    popupView.show();
+
+                    popupView.setOnclickItem(new CustomPartShadowPopupView.OnclickItem() {
+                        @Override
+                        public void itemView(String sort) {
+
+                            pageLoadUtil.load(() -> ApiUtils.getApiService().mallMerchant(
+                                    merchantId,
+                                    LoginInfoUtil.getUid(),
+                                    keyword,
+                                    type_id,
+                                    sort,
+                                    volume_sort,
+                                    pageLoadUtil.page
+                            ));
+                        }
+                    });
+
+
+                } else if (popupView != null && popupView.isShow()) {
+                    popupView.dismiss();
                 }
                 break;
 
@@ -307,6 +410,17 @@ public class MallShoppingHomeActivity extends BaseActivity {
                 keyword = "";
                 keyword = searchContent;
 //                getDataFromServer();
+
+                pageLoadUtil.load(() -> ApiUtils.getApiService().mallMerchant(
+                        merchantId,
+                        LoginInfoUtil.getUid(),
+                        keyword,
+                        type_id,
+                        price_sort,
+                        volume_sort,
+                        pageLoadUtil.page
+                ));
+
                 break;
             case R.id.mall_merchants_focuson:
                 if (!isfocuson) {

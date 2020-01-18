@@ -100,6 +100,10 @@ public class HotelActivity extends BaseActivity implements View.OnClickListener 
     private Button mConfirm;
     private String hotelPrice;
     private String hotelStar;
+    private String keywords;
+    private String startPrice;
+    private String endPrice;
+    private String type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,7 +130,12 @@ public class HotelActivity extends BaseActivity implements View.OnClickListener 
         pageLoadUtil.load(new RequestUtil.ObservableProvider<IListData<HotelHomeBean>>() {
             @Override
             public Observable<? extends BaseResult<? extends IListData<HotelHomeBean>>> getObservable() {
-                return ApiUtils.getApiService().hotelHomeList(pageLoadUtil.page);
+                return ApiUtils.getApiService().hotelHomeList( keywords,
+                        startPrice,
+                        endPrice,
+                        hotelStar,
+                        type,
+                        pageLoadUtil.page);
             }
         });
 
@@ -306,8 +315,9 @@ public class HotelActivity extends BaseActivity implements View.OnClickListener 
                 });
                 priceAdapter.setOnItemGetContent(new HotelPriceAdapter.onItemGetContent() {
                     @Override
-                    public void content(String content) {
-                        hotelPrice = content;
+                    public void content(String star_price, String end_price) {
+                        startPrice = star_price;
+                        endPrice = end_price;
                     }
                 });
 

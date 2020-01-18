@@ -88,12 +88,10 @@ public class MeShopFragment extends BaseFragment {
                                 dialog.dismiss();
                                 break;
                             case R.id.btn_confirm_receipt:
-                                int id = adapter.getItem(position).id;
-                                String confirmId = String.valueOf(id);
                                 HttpRxObservable.getObservable(ApiUtils.getApiService().confirm(
                                         LoginInfoUtil.getUid(),
                                         LoginInfoUtil.getToken(),
-                                        confirmId
+                                        adapter.getItem(position).id
 
                                 )).subscribe(new BaseObserver<Object>(mActivity) {
                                     @Override
