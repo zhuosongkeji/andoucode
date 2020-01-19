@@ -10,6 +10,7 @@ import com.zskjprojectj.andouclient.entity.EnvelopesBean;
 import com.zskjprojectj.andouclient.entity.IndexHomeBean;
 import com.zskjprojectj.andouclient.entity.InformationBean;
 import com.zskjprojectj.andouclient.entity.InvitationBean;
+import com.zskjprojectj.andouclient.entity.MerchantHomeTypeBean;
 import com.zskjprojectj.andouclient.entity.MyFocusonBean;
 import com.zskjprojectj.andouclient.entity.MycollectionBean;
 import com.zskjprojectj.andouclient.entity.MymessageBean;
@@ -534,7 +535,7 @@ public interface ApiService {
     /**
      * 申请退款
      */
-    @POST("index.php/api/refund/apply")
+    @POST("api/refund/apply")
     @FormUrlEncoded
     Observable<BaseResult<Object>> mallrefund(@Field("uid") String uid,
                                               @Field("token") String token,
@@ -1186,4 +1187,12 @@ public interface ApiService {
     @POST("api/gourmet/reserve")
     Observable<BaseResult<GetBookInfoResponse>> getBookInfo(@Field("uid") String uid,
                                                             @Field("merchant_id") String merchant_id);
+
+    /**
+     * 商户类型
+     * @return
+     */
+    @POST("api/common/merchant_type")
+    Observable<BaseResult<MerchantHomeTypeBean>> merchanttype();
+
 }

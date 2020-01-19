@@ -128,6 +128,7 @@ public class ShoporderdetailsActivity extends BaseActivity {
                 public void onClick(View v) {
                     //退款//退货
                     ShopordersendetailsrefundActivity.start("refund",order.details.get(0));
+                    finish();
                 }
             });
 
@@ -138,6 +139,7 @@ public class ShoporderdetailsActivity extends BaseActivity {
                 public void onClick(View v) {
                     //退款//退货
                     ShopordersendetailsrefundActivity.start("sales_return",order.details.get(0));
+                    finish();
                 }
             });
 

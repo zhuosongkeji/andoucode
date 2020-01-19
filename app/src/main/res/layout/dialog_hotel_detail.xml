@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
@@ -32,15 +33,21 @@
 
     </RelativeLayout>
 
-    <ImageView
-        android:id="@+id/iv_hotel_home_img"
+
+    <com.stx.xhb.xbanner.XBanner
+        android:id="@+id/bannertop"
         android:layout_width="match_parent"
         android:layout_height="175dp"
+        android:layout_gravity="center"
         android:layout_marginLeft="@dimen/dp_15"
         android:layout_marginTop="@dimen/dp_16"
         android:layout_marginRight="@dimen/dp_15"
-        android:scaleType="centerCrop"
-        android:src="@mipmap/hotel_details" />
+        app:isAutoPlay="false"
+        app:isHandLoop="true"
+        app:isShowNumberIndicator="true"
+        app:numberIndicatorBacgroud="@mipmap/numberindicatoricon"
+        app:pointsPosition="RIGHT"
+        app:pointsVisibility="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -250,7 +257,7 @@
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:layout_marginTop="@dimen/dp_22"
-        android:background="#F3F3F3"/>
+        android:background="#F3F3F3" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -279,8 +286,8 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:textColor="#646464"
                 android:text="订单总额："
+                android:textColor="#646464"
                 android:textSize="@dimen/typeface10sp" />
         </LinearLayout>
 
