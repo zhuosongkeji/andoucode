@@ -282,15 +282,19 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
 
             }
         });
-        HttpRxObservable.getObservable(ApiUtils.getApiService().new_user(LoginInfoUtil.getUid(), LoginInfoUtil.getToken())).subscribe(new BaseObserver<NewuserBean>(mActivity) {
-            @Override
-            public void onHandleSuccess(NewuserBean newuserBean) throws IOException {
-                if (newuserBean.getVal() == 1) {
-                    showRedPacketDialog();
-                }
+        if (!TextUtils.isEmpty(LoginInfoUtil.getToken()))
+        {
+            HttpRxObservable.getObservable(ApiUtils.getApiService().new_user(LoginInfoUtil.getUid(), LoginInfoUtil.getToken())).subscribe(new BaseObserver<NewuserBean>(mActivity) {
+                @Override
+                public void onHandleSuccess(NewuserBean newuserBean) throws IOException {
+                    if (newuserBean.getVal() == 1) {
+                        showRedPacketDialog();
+                    }
 
-            }
-        });
+                }
+            });
+        }
+
         HttpRxObservable.getObservable(ApiUtils.getApiService().hotelHomeList("", "", "", "", "", 1))
                 .subscribe(new BaseObserver<ListData<HotelHomeBean>>(mActivity) {
                     @Override
