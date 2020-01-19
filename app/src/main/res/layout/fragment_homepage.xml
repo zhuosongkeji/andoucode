@@ -211,7 +211,10 @@
                 android:layout_height="10dp"
                 android:background="@color/colorGray" />
 
-            <include layout="@layout/main_online_broadcast" />
+            <include layout="@layout/main_online_broadcast"
+                android:visibility="gone"
+
+                />
 
             <View
                 android:layout_width="match_parent"
