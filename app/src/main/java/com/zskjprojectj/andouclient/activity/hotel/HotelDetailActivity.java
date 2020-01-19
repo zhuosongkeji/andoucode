@@ -68,6 +68,9 @@ public class HotelDetailActivity extends BaseActivity {
     @BindView(R.id.indicator)
     FixedIndicatorView mIndicator;
 
+    @BindView(R.id.fixContainer)
+    View fixContainer;
+
     private ViewPager mViewPager;
     private List<Fragment> list = new ArrayList<>();
     private HotelDetailReserveFragment hotelDetailReserveFragment = new HotelDetailReserveFragment();
@@ -91,6 +94,7 @@ public class HotelDetailActivity extends BaseActivity {
                 .addOnOffsetChangedListener((appBarLayout, verticalOffset) ->
                         ActionBarUtil.getBackground(mActivity, false)
                                 .setAlpha(Math.abs(verticalOffset) * 0.01f));
+        fixContainer.setPadding(fixContainer.getPaddingLeft(), BarUtils.getStatusBarHeight(), fixContainer.getPaddingEnd(), 0);
         initViews();
         initData();
     }

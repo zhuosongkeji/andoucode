@@ -21,7 +21,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="226dp">
 
-
                 <ImageView
                     android:id="@+id/iv_hotel_details_img"
                     android:layout_width="match_parent"
@@ -29,35 +28,6 @@
                     android:adjustViewBounds="true"
                     android:scaleType="centerCrop"
                     android:src="@mipmap/hotel_details" />
-
-                <!--                <LinearLayout-->
-                <!--                    android:id="@+id/titlt_view"-->
-                <!--                    android:layout_width="match_parent"-->
-                <!--                    android:layout_height="wrap_content">-->
-
-                <!--                    <RelativeLayout-->
-                <!--                        android:layout_width="match_parent"-->
-                <!--                        android:layout_height="match_parent"-->
-                <!--                        android:layout_marginTop="@dimen/dp_20">-->
-
-                <!--                        <ImageView-->
-                <!--                            android:id="@+id/busiess_back_image"-->
-                <!--                            android:layout_width="9dp"-->
-                <!--                            android:layout_height="15dp"-->
-                <!--                            android:layout_centerVertical="true"-->
-                <!--                            android:layout_marginLeft="@dimen/dp_15"-->
-                <!--                            android:src="@mipmap/ic_back" />-->
-
-                <!--                        <TextView-->
-                <!--                            android:layout_width="wrap_content"-->
-                <!--                            android:layout_height="wrap_content"-->
-                <!--                            android:layout_centerInParent="true"-->
-                <!--                            android:text="商家详情"-->
-                <!--                            android:textColor="@color/colorWhite"-->
-                <!--                            android:textSize="@dimen/typeface14sp" />-->
-                <!--                    </RelativeLayout>-->
-                <!--                </LinearLayout>-->
-
 
             </RelativeLayout>
 
@@ -88,10 +58,10 @@
                     android:background="@mipmap/ic_v_flag" />
 
                 <LinearLayout
-                    android:layout_alignParentEnd="true"
                     android:id="@+id/collectBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:paddingEnd="10dp">
@@ -111,13 +81,14 @@
                         android:textColor="#ff808080"
                         android:textSize="12sp" />
                 </LinearLayout>
+
                 <LinearLayout
-                    android:visibility="gone"
                     android:id="@+id/busiess_dianzan1_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
                     <ImageView
                         android:id="@+id/busiess_dianzan1_image"
@@ -206,7 +177,7 @@
                     android:layout_toRightOf="@+id/ic_phone"
                     android:text="023-8888888"
                     android:textColor="#969696"
-                    android:textSize="@dimen/typeface10sp" />
+                    android:textSize="@dimen/typeface12sp" />
 
             </RelativeLayout>
 
@@ -214,21 +185,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:background="#F7F7F7" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/fixContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
+                android:layout_height="@dimen/dp_45"
                 android:paddingLeft="@dimen/dp_15"
-                android:paddingTop="@dimen/dp_17"
-                android:paddingRight="@dimen/dp_15"
-                android:paddingBottom="@dimen/dp_17">
+                android:paddingRight="@dimen/dp_15">
 
                 <ImageView
                     android:id="@+id/ic_address"
-                    android:layout_width="@dimen/dp_8"
-                    android:layout_height="@dimen/dp_9"
-                    android:layout_centerVertical="true"
+                    android:layout_width="@dimen/dp_9"
+                    android:layout_height="@dimen/dp_10"
                     android:src="@mipmap/ic_address_gary" />
 
                 <TextView
@@ -242,6 +215,7 @@
                     android:maxLines="1"
                     android:text="重庆市南岸区南坝万达广场"
                     android:textColor="#969696"
+                    android:textSize="@dimen/typeface12sp" />
                     android:textSize="@dimen/typeface10sp" />
                 <FrameLayout
                     android:id="@+id/locationBtn"
@@ -264,17 +238,15 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_10"
+                android:layout_gravity="bottom"
                 android:background="#F7F7F7" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        </FrameLayout>
+
         <com.shizhefei.view.indicator.FixedIndicatorView
             android:id="@+id/indicator"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_50"
             android:background="@color/colorWhite" />
-        </LinearLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
 

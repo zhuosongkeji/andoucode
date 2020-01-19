@@ -1,5 +1,6 @@
 package com.zskjprojectj.andouclient.adapter.hotel;
 
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -43,7 +44,7 @@ public class MeHotelAdapter extends BaseQuickAdapter<MeHotelBean, BaseViewHolder
 
         Glide.with(mContext).load(UrlUtil.getImageUrl(item.getLogo_img())).apply(new RequestOptions()
                 .placeholder(R.drawable.default_image).error(R.drawable.default_image)).into((ImageView) helper.getView(R.id.iv_order_img));
-
+        Log.d("wangbin", "convert: "+UrlUtil.getImageUrl(item.getImg())+"\n"+item.getImg());
         Glide.with(mContext).load(UrlUtil.getImageUrl(item.getImg())).apply(new RequestOptions()
                 .placeholder(R.drawable.default_image).error(R.drawable.default_image)).into((ImageView) helper.getView(R.id.iv_house_img));
         helper.setGone(R.id.btn_evaluate, HotelOrderStatus.DAI_PING_JIA.status.equals(item.getStatus()));
