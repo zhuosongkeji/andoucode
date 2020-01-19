@@ -70,7 +70,7 @@ public class ShareLocationActivity extends Activity {
     private ImageView      mIvSearch;
     private ImageView      mIvLocation;
     private ImageView      mIvCenterLocation;
-   private Button         mBtSend;
+    private Button         mBtSend;
     private RecyclerView mRecyclerView;
     private AddressAdapter mAddressAdapter;
     private List<PoiItem>  mList;
@@ -144,7 +144,7 @@ public class ShareLocationActivity extends Activity {
                     isSearchData = false;
                     doSearchQuery(true, "", location.getCity(), userSelectPoiItem.getLatLonPoint());
                     moveMapCamera(userSelectPoiItem.getLatLonPoint().getLatitude(), userSelectPoiItem.getLatLonPoint().getLongitude());
-//                    refleshMark(userSelectPoiItem.getLatLonPoint().getLatitude(), userSelectPoiItem.getLatLonPoint().getLongitude());
+                    refleshMark(userSelectPoiItem.getLatLonPoint().getLatitude(), userSelectPoiItem.getLatLonPoint().getLongitude());
                 }
             } catch (Exception ex) {
                 ex.printStackTrace();

@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
-    android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context="com.zskjprojectj.andouclient.activity.ShareLocationActivity">
+
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="0dp"
@@ -53,18 +55,20 @@
             android:layout_height="@dimen/dp_40"
             android:background="@drawable/shape_button"
             android:gravity="center"
-            android:text="确定"
+            android:text="发 送"
             android:textColor="@android:color/white"
             android:textSize="16sp"
             />
     </LinearLayout>
+
     <com.amap.api.maps2d.MapView
         android:id="@+id/map"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline5"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
     </com.amap.api.maps2d.MapView>
 
@@ -76,7 +80,11 @@
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintGuide_percent="0.5"
-        app:layout_constraintTop_toBottomOf="@+id/guideline2"/>
+        app:layout_constraintTop_toBottomOf="@+id/guideline2"
+        />
+<!--    <android.support.constraint.Guideline-->
+<!--     -->
+<!--      />-->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
@@ -118,7 +126,8 @@
         android:layout_marginBottom="112dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintGuide_percent="0.1" />
+        app:layout_constraintGuide_percent="0.1"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
