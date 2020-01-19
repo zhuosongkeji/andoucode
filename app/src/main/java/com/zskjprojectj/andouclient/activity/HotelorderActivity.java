@@ -116,6 +116,13 @@ public class HotelorderActivity extends BaseActivity {
 
             }
         });
+
+
+
+        String flag = getIntent().getStringExtra("flag");
+        if ("MallPaySuccess".equals(flag)){
+            viewPager.setCurrentItem(1, true);
+        }
     }
 
 

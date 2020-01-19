@@ -73,33 +73,6 @@ public class MeHotelFragment extends BaseFragment {
 
 
     private void getDataFromServer() {
-
-//        HttpRxObservable.getObservable(ApiUtils.getApiService().mehotelOrder(
-//                LoginInfoUtil.getUid(),
-//                LoginInfoUtil.getToken(),
-//                status,
-//                "1"
-//
-//        )).subscribe(new BaseObserver<List<MeHotelBean>>(mAty) {
-//            @Override
-//            public void onHandleSuccess(List<MeHotelBean> meHotelBeans) throws IOException {
-//                adapter.setNewData(meHotelBeans);
-//                adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-//                    @Override
-//                    public void onItemChildClick(BaseQuickAdapter adapter1, View view, int position) {
-//                        //查看详情
-//                        if (view.getId() == R.id.btn_hotelorderdetails) {
-//                            HotelorderdetailsActivity.start(adapter.getItem(position));
-//                        } else if (view.getId() == R.id.btn_evaluate) {
-//                            //发表评论
-//                            HotelordergotoevaluationActivity.start(meHotelBeans.get(position).getMerchants_id(),
-//                                    meHotelBeans.get(position).getHotel_room_id(), meHotelBeans.get(position).getBook_sn());
-//                        }
-//                    }
-//                });
-//            }
-//        });
-
         PageLoadUtil<MeHotelBean> pageLoadUtil = PageLoadUtil.get((BaseActivity) getActivity(), mRvRecycler, adapter, mRefreshLayout);
         pageLoadUtil.load(() -> ApiUtils.getApiService().mehotelOrder(
                 LoginInfoUtil.getUid(),

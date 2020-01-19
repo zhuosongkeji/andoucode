@@ -440,7 +440,10 @@ public interface ApiService {
      */
     @POST("api/merchant/merchants")
     @FormUrlEncoded
-    Observable<BaseResult<MerchantsResponse>> merchants_two(@Field("page") int page);
+    Observable<BaseResult<MerchantsResponse>> merchants_two(
+            @Field("merchant_type_id") String merchant_type_id,
+            @Field("type") String type,
+            @Field("page") int page);
 
     /**
      * 商户详情
