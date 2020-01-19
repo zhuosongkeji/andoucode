@@ -104,11 +104,11 @@ public class ShareLocationActivity extends Activity {
     // 要申请的权限
     private String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CALL_PHONE,
             Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_LOCATION_EXTRA_COMMANDS};
-    private Bundle savedInstanceStates;
+    //private Bundle savedInstanceStates;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        savedInstanceStates=savedInstanceState;
+//        savedInstanceStates=savedInstanceState;
         setContentView(R.layout.activity_selectaddress);
         initView();
         initDatas(savedInstanceState);
@@ -144,7 +144,7 @@ public class ShareLocationActivity extends Activity {
                     isSearchData = false;
                     doSearchQuery(true, "", location.getCity(), userSelectPoiItem.getLatLonPoint());
                     moveMapCamera(userSelectPoiItem.getLatLonPoint().getLatitude(), userSelectPoiItem.getLatLonPoint().getLongitude());
-                    refleshMark(userSelectPoiItem.getLatLonPoint().getLatitude(), userSelectPoiItem.getLatLonPoint().getLongitude());
+                  //  refleshMark(userSelectPoiItem.getLatLonPoint().getLatitude(), userSelectPoiItem.getLatLonPoint().getLongitude());
                 }
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -288,10 +288,10 @@ public class ShareLocationActivity extends Activity {
                     case R.id.iv_back:
                         finish();
                         break;
-//                    case R.id.iv_search:
+                    case R.id.iv_search:
 ////                        Toast.makeText(MainActivity.this, "搜索", Toast.LENGTH_SHORT).show();
-//                        startActivityForResult(new Intent(ShareLocationActivity.this, SearchActivity.class), SEARCHREQUESTCODE);
-//                        break;
+                        startActivityForResult(new Intent(ShareLocationActivity.this, SearchActivity.class), SEARCHREQUESTCODE);
+                        break;
                     case R.id.iv_location:
 //                        Toast.makeText(MainActivity.this, "定位", Toast.LENGTH_SHORT).show();
                         mIvLocation.setImageResource(R.mipmap.location_gps_green);
