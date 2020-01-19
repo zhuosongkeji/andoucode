@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import android.provider.Settings;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -18,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 
@@ -41,6 +43,7 @@ import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.http.RetrofitUtils;
 import com.zskjprojectj.andouclient.model.User;
 import com.zskjprojectj.andouclient.utils.LogUtil;
+import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 import com.zskjprojectj.andouclient.utils.SharedPreferencesManager;
 import com.zskjprojectj.andouclient.utils.StatusBarUtil;
 
@@ -49,6 +52,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.functions.Consumer;
+
+import static com.zskjprojectj.andouclient.http.BaseObserver.REQUEST_CODE_LOGIN;
 
 /**
  * <pre>
@@ -106,10 +111,13 @@ public class MainActivity extends BaseActivity {
                 .onTabClickListener(new EasyNavigationBar.OnTabClickListener() {
                     @Override
                     public boolean onTabClickEvent(View view, int position) {
-                        if (position==4)
-                        {
-                           MePageFragment mePageFragment= (MePageFragment) fragments.get(4);
-                           mePageFragment.refresh();
+                        if (position == 4) {
+                            if (TextUtils.isEmpty(LoginInfoUtil.getToken())) {
+                                LoginActivity.start(mActivity);
+                                return true;
+                            }
+                            MePageFragment mePageFragment = (MePageFragment) fragments.get(4);
+                            mePageFragment.refresh();
                         }
 //                        switch (position) {
 //                            case 0:
@@ -137,7 +145,6 @@ public class MainActivity extends BaseActivity {
         checkRxPermission();
     }
 
-
     /**
      * 按键执行操作，连点两次退出程序
      *
@@ -163,6 +170,14 @@ public class MainActivity extends BaseActivity {
         }
 
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_LOGIN && resultCode == Activity.RESULT_CANCELED) {
+            navigationBar.selectTab(0);
+        }
     }
 
     public EasyNavigationBar getNavigationBar() {
