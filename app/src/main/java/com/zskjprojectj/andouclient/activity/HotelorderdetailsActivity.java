@@ -100,7 +100,7 @@ public class HotelorderdetailsActivity extends BaseActivity {
                 @Override
                 public void onClick(View v) {
                     HotelordercancleActivity.start(meHotelDetailsBean.getMerchant_id(),
-                            meHotelDetailsBean.getId(), meHotelDetailsBean.getBook_sn());
+                            meHotelDetailsBean.getId(), meHotelDetailsBean.getBook_sn(),meHotelDetailsBean.getPay_money());
                 }
             });
             //联系商家

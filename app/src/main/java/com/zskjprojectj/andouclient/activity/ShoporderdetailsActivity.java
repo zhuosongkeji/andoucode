@@ -40,6 +40,7 @@ public class ShoporderdetailsActivity extends BaseActivity {
     TextView mHeaderTitle;
 
     private Button btn_gotopaymentdetail;
+    private String goodsPrice;
 
     @Override
     protected void setRootView() {
@@ -108,12 +109,14 @@ public class ShoporderdetailsActivity extends BaseActivity {
             ((TextView) view.findViewById(R.id.goodsTitleTxt)).setText(goods.name);
             ((TextView) view.findViewById(R.id.specTxt)).setText(getSpec(goods.attr_value));
             ((TextView) view.findViewById(R.id.countTxt)).setText("x" + goods.num);
+            goodsPrice = goods.price;
             ((TextView) view.findViewById(R.id.priceTxt)).setText("￥" + goods.price);
             Glide.with(mAt).load(UrlUtil.getImageUrl(goods.img))
                     .apply(new RequestOptions().placeholder(R.drawable.default_image))
                     .into((ImageView) view.findViewById(R.id.meshop_pic));
             ((ViewGroup) findViewById(R.id.goodsContainer)).addView(view);
         }
+        ((TextView) findViewById(R.id.totalTxt)).setText("￥" +goodsPrice);
         ((TextView) findViewById(R.id.totalCountTxt)).setText("共" + order.allnum + "个商品(合计)");
         ((TextView) findViewById(R.id.freightTxt)).setText("+￥" + order.shipping_free);
         ((TextView) findViewById(R.id.costTxt)).setText("￥" + order.pay_money);
