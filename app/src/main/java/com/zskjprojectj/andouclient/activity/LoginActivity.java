@@ -99,7 +99,7 @@ public class LoginActivity extends BaseActivity {
             layoutParams.topMargin = BarUtils.getStatusBarHeight(mAt) + layoutParams.topMargin;
             mRootView.setLayoutParams(layoutParams);
         }
-        StatusBarUtil.setStatusBarDarkTheme(mAt,true);
+        StatusBarUtil.setStatusBarDarkTheme(mAt, true);
 
         receiver = new Receiver();
         intentFilter = new IntentFilter();
@@ -131,6 +131,7 @@ public class LoginActivity extends BaseActivity {
                             @Override
                             public void onHandleSuccess(User user) throws IOException {
                                 LoginInfoUtil.saveLoginInfo(user.id, user.token);
+                                setResult(Activity.RESULT_OK);
                                 if (!getIntent().getBooleanExtra(KEY_FOR_RESULT, false)) {
                                     jumpActivity(MainActivity.class);
                                 }
@@ -199,6 +200,7 @@ public class LoginActivity extends BaseActivity {
                         @Override
                         public void onHandleSuccess(User user) throws IOException {
                             LoginInfoUtil.saveLoginInfo(user.id, user.token);
+                            LoginActivity.this.setResult(Activity.RESULT_OK);
                             if (!TextUtils.isEmpty(user.token)) {
                                 if (!getIntent().getBooleanExtra(KEY_FOR_RESULT, false)) {
                                     jumpActivity(MainActivity.class);
@@ -368,10 +370,14 @@ public class LoginActivity extends BaseActivity {
     }
 
     public static void start(Activity activity) {
+        start(activity, REQUEST_CODE_LOGIN);
+    }
+
+    public static void start(Activity activity, int requestCode) {
         if (started) return;
         started = true;
         Bundle bundle = new Bundle();
         bundle.putBoolean(KEY_FOR_RESULT, true);
-        ActivityUtils.startActivityForResult(bundle, activity, LoginActivity.class, REQUEST_CODE_LOGIN);
+        ActivityUtils.startActivityForResult(bundle, activity, LoginActivity.class, requestCode);
     }
 }
