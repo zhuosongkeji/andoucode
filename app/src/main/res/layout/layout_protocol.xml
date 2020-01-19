@@ -15,7 +15,7 @@
             android:layout_height="45dp"
             android:background="@drawable/bg_dialog_top"
             android:gravity="center"
-            android:text="隐私协议"
+            android:text="用户协议和隐私政策"
             android:textColor="#ffffffff"
             android:textSize="14sp" />
 

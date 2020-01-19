@@ -1,6 +1,7 @@
 package com.zskjprojectj.andouclient.activity;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -18,6 +19,7 @@ import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.utils.CountDownTimerUtils;
+import com.zskjprojectj.andouclient.utils.DialogUtil;
 import com.zskjprojectj.andouclient.utils.PhonenumUtil;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
 import com.zskjprojectj.andouclient.view.TopView;
@@ -40,6 +42,7 @@ public class RegisteredActivity extends BaseActivity {
     private CountDownTimerUtils countDownTimer;
     private CheckBox registered_agree_xieyi_button;
     private Button registered_button;
+
     //设置布局文件
     @Override
     protected void setRootView() {
@@ -62,24 +65,22 @@ public class RegisteredActivity extends BaseActivity {
                 finish();
             }
         });
-        registered_agree_xieyi_button=findViewById(R.id.registered_agree_xieyi_button);
+        registered_agree_xieyi_button = findViewById(R.id.registered_agree_xieyi_button);
         registered_agree_xieyi_button.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @SuppressLint("ResourceAsColor")
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b==true)
-                {
+                if (b == true) {
                     registered_button.setEnabled(true);
                     registered_button.setBackgroundColor(Color.parseColor("#5ed3ae"));
 
-                }else
-                {
+                } else {
                     registered_button.setEnabled(false);
                     registered_button.setBackgroundColor(Color.parseColor("#8f8f8f"));
                 }
             }
         });
-        registered_login_textview=findViewById(R.id.registered_login_textview);
+        registered_login_textview = findViewById(R.id.registered_login_textview);
         registered_login_textview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,7 +91,7 @@ public class RegisteredActivity extends BaseActivity {
         EditText mobileEdt = findViewById(R.id.registered_phonenum_edittext);
         EditText codeEdt = findViewById(R.id.registered_inputyanzhenma_edittext);
         EditText passwordEdt = findViewById(R.id.registered_pwd_edittext);
-        Button registered_yanzhenma_button=findViewById(R.id.registered_yanzhenma_button);
+        Button registered_yanzhenma_button = findViewById(R.id.registered_yanzhenma_button);
         registered_yanzhenma_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -110,7 +111,7 @@ public class RegisteredActivity extends BaseActivity {
                         });
             }
         });
-        registered_button=findViewById(R.id.registered_button);
+        registered_button = findViewById(R.id.registered_button);
         registered_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -142,10 +143,9 @@ public class RegisteredActivity extends BaseActivity {
                 });
             }
         });
-//        findViewById(R.id.registered_button).setOnClickListener(v -> {
-//
-//
-//        });
+        findViewById(R.id.yinsi_xieyi_textview).setOnClickListener(v -> {
+            DialogUtil.showProtocolDialogNoBtns(mAt);
+        });
     }
 
     //获取网络数据现成请求在这里处理
