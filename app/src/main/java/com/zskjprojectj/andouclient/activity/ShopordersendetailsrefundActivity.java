@@ -1,8 +1,13 @@
 package com.zskjprojectj.andouclient.activity;
 
+import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,14 +19,18 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.config.PictureMimeType;
 import com.yhao.floatwindow.FloatWindow;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.adapter.CauseRecyclerAdapter;
@@ -33,14 +42,21 @@ import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.model.Order;
 import com.zskjprojectj.andouclient.model.OrderDetail;
+import com.zskjprojectj.andouclient.utils.BitmapUtil;
+import com.zskjprojectj.andouclient.utils.GlideEngine;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
+import com.zskjprojectj.andouclient.utils.ToastUtil;
 import com.zskjprojectj.andouclient.utils.UrlUtil;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 /**
  * 申请退款
@@ -76,12 +92,18 @@ public class ShopordersendetailsrefundActivity extends BaseActivity {
     @BindView(R.id.et_dec)
     EditText mEtDec;
 
+    @BindView(R.id.iv_image)
+    ImageView mImage;
+
 
     private RelativeLayout select_cause;
     private Dialog bottomDialog;
     private String type;
     private OrderDetail.Goodsdetail goodsdetail;
     private String reasonId;
+    private static final int REQUEST_CODE_SELECT_IMG = 123;
+    private String content;
+    private String image;
 
     @Override
     protected void setRootView() {
@@ -97,6 +119,14 @@ public class ShopordersendetailsrefundActivity extends BaseActivity {
         } else if ("refund".equals(type)) {
             mHeaderTitle.setText("申请退款");
         }
+
+        mImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startSelectPic(REQUEST_CODE_SELECT_IMG);
+            }
+        });
+
     }
 
     @Override
@@ -136,22 +166,20 @@ public class ShopordersendetailsrefundActivity extends BaseActivity {
 
     @Override
     public void getDataFromServer() {
-        String content = mEtDec.getText().toString().trim();
-        HttpRxObservable.getObservable(ApiUtils.getApiService().mallrefund(
-                LoginInfoUtil.getUid(),
-                LoginInfoUtil.getToken(),
-                goodsdetail.id,
-                reasonId,
-                content,
-                ""
-        )).subscribe(new BaseObserver<Object>(mAt) {
-            @Override
-            public void onHandleSuccess(Object o) throws IOException {
 
-            }
-        });
 
     }
+
+
+    private void startSelectPic(int requestCode) {
+        PictureSelector.create(this)
+                .openGallery(PictureMimeType.ofImage())
+                .maxSelectNum(1)
+                .isCamera(true)
+                .loadImageEngine(GlideEngine.createGlideEngine())
+                .forResult(requestCode);
+    }
+
 
     /**
      * 弹出窗口
@@ -188,8 +216,8 @@ public class ShopordersendetailsrefundActivity extends BaseActivity {
         mRvCauseRecycler.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         adapter.setOnItemContent(new CauseRecyclerAdapter.OnItemContent() {
             @Override
-            public void content(String content,String reason_id) {
-                reasonId=reason_id;
+            public void content(String content, String reason_id) {
+                reasonId = reason_id;
                 mCause.setText(content);
                 bottomDialog.dismiss();
             }
@@ -216,14 +244,90 @@ public class ShopordersendetailsrefundActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.iv_header_back})
+    @OnClick({R.id.iv_header_back, R.id.btn_commit})
     public void clickView(View view) {
         switch (view.getId()) {
             case R.id.iv_header_back:
                 finish();
                 break;
+            case R.id.btn_commit:
+                content = mEtDec.getText().toString().trim();
+                if (TextUtils.isEmpty(reasonId)) {
+                    ToastUtil.showToast("请选择退货理由!");
+                } else {
+                    if ((String) mImage.getTag() == null) {
+                        image = "";
+                    }
+                    Log.d(TAG, "clickView: "
+                            + LoginInfoUtil.getUid() + "\n"
+                            + LoginInfoUtil.getToken() + "\n"
+                            + goodsdetail.id + "\n"
+                            + reasonId + "\n"
+                            + content + "\n"
+                            + (String) mImage.getTag() + "\n");
+                    HttpRxObservable.getObservable(ApiUtils.getApiService().mallrefund(
+                            LoginInfoUtil.getUid(),
+                            LoginInfoUtil.getToken(),
+                            goodsdetail.id,
+                            reasonId,
+                            content,
+                            image
+                    )).subscribe(new BaseObserver<Object>(mAt) {
+                        @Override
+                        public void onHandleSuccess(Object o) throws IOException {
+                            finish();
+                            ToastUtils.showShort("提交申请退款成功");
+                        }
+                    });
 
-
+                }
+                break;
         }
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != Activity.RESULT_OK)
+            return;
+        String path = PictureSelector.obtainMultipleResult(data).get(0).getAndroidQToPath();
+        if (TextUtils.isEmpty(path)) {
+            path = PictureSelector.obtainMultipleResult(data).get(0).getPath();
+        }
+        ImageView imageView = null;
+        if (requestCode == REQUEST_CODE_SELECT_IMG) {
+            imageView = mImage;
+        }
+
+
+        File file = new File(path);
+        RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpg"), file);
+        MultipartBody.Part body = MultipartBody.Part.createFormData("img", file.getName(), requestFile);
+        RequestBody uid = RequestBody.create(MediaType.parse("multipart/form-data"), LoginInfoUtil.getUid());
+        RequestBody token = RequestBody.create(MediaType.parse("multipart/form-data"), LoginInfoUtil.getToken());
+        ImageView finalImageView = imageView;
+        String finalPath = path;
+        HttpRxObservable.getObservable(ApiUtils.getApiService().uploadImg(uid, token, body)).subscribe(new BaseObserver<String>(mAt) {
+
+            @Override
+            public void onHandleSuccess(String s) throws IOException {
+                finalImageView.setTag(s);
+                BitmapUtil.recycle(finalImageView);
+                finalImageView.setImageBitmap(BitmapFactory.decodeFile(finalPath));
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+            }
+        });
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        BitmapUtil.recycle(mImage);
     }
 }

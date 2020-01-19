@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -32,6 +33,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.MainActivity;
 import com.zskjprojectj.andouclient.activity.mall.MallOnlineOrderActivity;
@@ -105,7 +107,7 @@ public class HotelOnlineReserveActivity extends BaseActivity {
     private int endGroup = -1;
     private int startChild = -1;
     private int endChild = -1;
-    private String is_integral="0";
+    private String is_integral = "0";
 
     @Override
     protected void setRootView() {
@@ -246,11 +248,11 @@ public class HotelOnlineReserveActivity extends BaseActivity {
                     switch (id) {
                         case WXPAY:
 
-                            Log.d(TAG, "clickBuyPay: "+LoginInfoUtil.getUid()+"\n"
-                                    +LoginInfoUtil.getToken()+"\n"
-                                    +home_id+"\n"
-                                    +payId+"\n"
-                                    +is_integral+"\n");
+                            Log.d(TAG, "clickBuyPay: " + LoginInfoUtil.getUid() + "\n"
+                                    + LoginInfoUtil.getToken() + "\n"
+                                    + home_id + "\n"
+                                    + payId + "\n"
+                                    + is_integral + "\n");
                             HttpRxObservable.getObservable(ApiUtils.getApiService().hotelOrder(
                                     LoginInfoUtil.getUid(),
                                     LoginInfoUtil.getToken(),
@@ -275,39 +277,35 @@ public class HotelOnlineReserveActivity extends BaseActivity {
                             break;
                         case YUEPAY:
 
-                            Log.d("wangbin", "酒店预订: " + LoginInfoUtil.getToken() + "\n"
-                                    + home_id + "\n"
-                                    + merchant_id + "\n"
-                                    + start + "\n"
-                                    + end + "\n"
-                                    + name + "\n"
-                                    + phone + "\n"
-                                    + personNUm + "\n"
-                                    + datNum + "\n"
-                                    + payId + "\n"
-                            );
+                            new AlertDialog.Builder(mAt)
+                                    .setTitle("温馨提示")
+                                    .setMessage("确定用余额支付该订单吗？")
+                                    .setNegativeButton("取消", null)
+                                    .setPositiveButton("确定",
+                                            (dialog, which) -> {
+                                                HttpRxObservable.getObservable(ApiUtils.getApiService().hotelOrder(
+                                                        LoginInfoUtil.getUid(),
+                                                        LoginInfoUtil.getToken(),
+                                                        home_id,
+                                                        merchant_id,
+                                                        start,
+                                                        end,
+                                                        name,
+                                                        phone,
+                                                        personNUm,
+                                                        datNum,
+                                                        payId,
+                                                        is_integral
 
-                            HttpRxObservable.getObservable(ApiUtils.getApiService().hotelOrder(
-                                    LoginInfoUtil.getUid(),
-                                    LoginInfoUtil.getToken(),
-                                    home_id,
-                                    merchant_id,
-                                    start,
-                                    end,
-                                    name,
-                                    phone,
-                                    personNUm,
-                                    datNum,
-                                    payId,
-                                    is_integral
-
-                            )).subscribe(new BaseObserver<WXPayBean>(mAt) {
-                                @Override
-                                public void onHandleSuccess(WXPayBean wxPayBean) throws IOException {
-                                    startActivity(new Intent(HotelOnlineReserveActivity.this, MallPaySuccessActivity.class));
-                                    finish();
-                                }
-                            });
+                                                )).subscribe(new BaseObserver<WXPayBean>(mAt) {
+                                                    @Override
+                                                    public void onHandleSuccess(WXPayBean wxPayBean) throws IOException {
+                                                        startActivity(new Intent(HotelOnlineReserveActivity.this, MallPaySuccessActivity.class));
+                                                        finish();
+                                                    }
+                                                });
+                                            })
+                                    .show();
 
                             break;
 

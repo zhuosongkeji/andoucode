@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.bumptech.glide.Glide;
+import com.raizlabs.android.dbflow.sql.language.Condition;
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
 import com.tencent.mm.opensdk.modelmsg.WXTextObject;
@@ -23,6 +25,7 @@ import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.zskjprojectj.andouclient.R;
+import com.zskjprojectj.andouclient.activity.hotel.HotelOnlineReserveActivity;
 import com.zskjprojectj.andouclient.adapter.mall.MallBuyInfoAdapter;
 import com.zskjprojectj.andouclient.adapter.mall.PayWaysAdapter;
 import com.zskjprojectj.andouclient.base.BaseActivity;
@@ -88,7 +91,7 @@ public class MallOnlineOrderActivity extends BaseActivity {
     private String payId;
     private final static int WXPAY = 1;
     private final static int YUEPAY = 4;
-    private String is_integral="0";
+    private String is_integral = "0";
 
     @Override
     protected void setRootView() {
@@ -150,16 +153,16 @@ public class MallOnlineOrderActivity extends BaseActivity {
                 cbSelector.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        if (isChecked){
-                            BigDecimal bigDecimal=new BigDecimal(mallSettlementBean.getOrder_money());
+                        if (isChecked) {
+                            BigDecimal bigDecimal = new BigDecimal(mallSettlementBean.getOrder_money());
                             BigDecimal subtract = bigDecimal.subtract(new BigDecimal(mallSettlementBean.getIntegral()));
                             mTvOrderMoney.setText("¥" + subtract.toString());
                             mMallOrderMoney.setText("¥" + subtract.toString());
-                            is_integral="1";
-                        }else {
+                            is_integral = "1";
+                        } else {
                             mTvOrderMoney.setText("¥" + mallSettlementBean.getOrder_money());
                             mMallOrderMoney.setText("¥" + mallSettlementBean.getOrder_money());
-                            is_integral="0";
+                            is_integral = "0";
                         }
                     }
                 });
@@ -201,13 +204,6 @@ public class MallOnlineOrderActivity extends BaseActivity {
         int id = Integer.parseInt(payId);
         switch (id) {
             case WXPAY:
-
-                Log.d(TAG, "clickBuyPay: "+LoginInfoUtil.getUid()+"\n"
-                +LoginInfoUtil.getToken()+"\n"
-                +order_sn+"\n"
-                +payId+"\n"
-                +is_integral+"\n");
-
                 HttpRxObservable.getObservable(ApiUtils.getApiService().MallWXPayWays(
                         LoginInfoUtil.getUid(),
                         LoginInfoUtil.getToken(),
@@ -220,23 +216,31 @@ public class MallOnlineOrderActivity extends BaseActivity {
                         startWXPay(wxPayBean);
                     }
                 });
-
                 break;
             case YUEPAY:
-                HttpRxObservable.getObservable(ApiUtils.getApiService().MallWXPayWays(
-                        LoginInfoUtil.getUid(),
-                        LoginInfoUtil.getToken(),
-                        order_sn,
-                        payId,
-                        is_integral
+                new AlertDialog.Builder(mAt)
+                        .setTitle("温馨提示")
+                        .setMessage("确定用余额支付该订单吗？")
+                        .setNegativeButton("取消", null)
+                        .setPositiveButton("确定",
+                                (dialog, which) -> {
+                                    HttpRxObservable.getObservable(ApiUtils.getApiService().MallWXPayWays(
+                                            LoginInfoUtil.getUid(),
+                                            LoginInfoUtil.getToken(),
+                                            order_sn,
+                                            payId,
+                                            is_integral
+                                    )).subscribe(new BaseObserver<WXPayBean>(mAt) {
+                                        @Override
+                                        public void onHandleSuccess(WXPayBean wxPayBean) throws IOException {
+                                            Intent intent = new Intent(MallOnlineOrderActivity.this, MallPaySuccessActivity.class);
+                                            startActivity(intent);
+                                            finish();
+                                        }
+                                    });
+                                })
+                        .show();
 
-                )).subscribe(new BaseObserver<WXPayBean>(mAt) {
-                    @Override
-                    public void onHandleSuccess(WXPayBean wxPayBean) throws IOException {
-                        startActivity(new Intent(MallOnlineOrderActivity.this, MallPaySuccessActivity.class));
-                        finish();
-                    }
-                });
 
                 break;
         }

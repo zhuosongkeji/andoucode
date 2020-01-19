@@ -24,11 +24,14 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.stx.xhb.xbanner.XBanner;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.hotel.HotelDetailActivity;
 import com.zskjprojectj.andouclient.activity.hotel.HotelOnlineReserveActivity;
+import com.zskjprojectj.andouclient.activity.mall.MallGoodsDetailsActivity;
 import com.zskjprojectj.andouclient.adapter.hotel.ReserveAdapter;
 import com.zskjprojectj.andouclient.base.BaseFragment;
+import com.zskjprojectj.andouclient.entity.XBannerBean;
 import com.zskjprojectj.andouclient.entity.hotel.HotelDetailReserveBean;
 import com.zskjprojectj.andouclient.entity.hotel.HotelHomeDetailsBean;
 import com.zskjprojectj.andouclient.entity.hotel.HotelSettlementBean;
@@ -57,6 +60,7 @@ public class HotelDetailReserveFragment extends BaseFragment {
     private Dialog bottomDialog;
     private ReserveAdapter adapter = new ReserveAdapter();
     private int hotelId;
+    private XBanner xBanner;
 
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
@@ -131,9 +135,26 @@ public class HotelDetailReserveFragment extends BaseFragment {
         contentView = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_hotel_detail, null);
         bottomDialog.setContentView(contentView);
 
-        ImageView mHotelHomeImg = contentView.findViewById(R.id.iv_hotel_home_img);
-        Glide.with(mAty).load(UrlUtil.getImageUrl(hotelHomeDetailsBean.getImg()))
-                .apply(new RequestOptions().placeholder(R.drawable.default_image).error(R.drawable.default_image)).into(mHotelHomeImg);
+        xBanner = contentView.findViewById(R.id.bannertop);
+        List<XBannerBean> urlBanner = new ArrayList<>();
+        urlBanner.clear();
+        List<String> img = hotelHomeDetailsBean.getImg();
+        if (img.size()!=0){
+            for (String s : img) {
+                urlBanner.add(new XBannerBean(s));
+            }
+        }
+        xBanner.setBannerData(urlBanner);
+        xBanner.loadImage(new XBanner.XBannerAdapter() {
+            @Override
+            public void loadBanner(XBanner banner, Object model, View view, int position) {
+//                加载本地图片展示
+                XBannerBean urlList = (XBannerBean) model;
+                String url = UrlUtil.getImageUrl(urlList.getImageUrl());
+                Glide.with(mAty).load(url).apply(new RequestOptions()
+                        .placeholder(R.drawable.default_image).error(R.drawable.default_image)).into((ImageView) view);
+            }
+        });
 
         TextView mHomeAllPrice = contentView.findViewById(R.id.tv_home_all_price);
         mHomeAllPrice.setText("¥"+hotelHomeDetailsBean.getPrice());

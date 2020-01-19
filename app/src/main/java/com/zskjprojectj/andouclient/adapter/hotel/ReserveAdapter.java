@@ -40,10 +40,11 @@ public class ReserveAdapter extends BaseQuickAdapter<HotelDetailReserveBean.Hote
                 .setText(R.id.hotel_name, item.getHouse_name())
                 .setText(R.id.hotel_price, item.getPrice() + "")
                 .setText(R.id.hotel_des,item.getName());
-        Glide.with(mContext).load(UrlUtil.getImageUrl(item.getImg())).apply(new RequestOptions()
-        .placeholder(R.drawable.default_image).error(R.drawable.default_image))
-                .into((ImageView) helper.getView(R.id.hotel_image));
+        if (item.getImg().size()!=0) {
+            Glide.with(mContext).load(UrlUtil.getImageUrl(item.getImg().get(0))).apply(new RequestOptions()
+                    .placeholder(R.drawable.default_image).error(R.drawable.default_image))
+                    .into((ImageView) helper.getView(R.id.hotel_image));
+        }
 
-        Log.d("wangbin", "convert: "+item.getId());
     }
 }
