@@ -66,8 +66,8 @@ import io.reactivex.annotations.NonNull;
  */
 public class ShareLocationActivity extends Activity {
     private MapView        mMapView;
-   // private ImageView      mIvBack;
-   // private ImageView      mIvSearch;
+    private ImageView      mIvBack;
+    private ImageView      mIvSearch;
     private ImageView      mIvLocation;
     private ImageView      mIvCenterLocation;
    private Button         mBtSend;
@@ -327,8 +327,8 @@ public class ShareLocationActivity extends Activity {
             }
         };
 
-//        mIvBack.setOnClickListener(mOnClickListener);
-//        mIvSearch.setOnClickListener(mOnClickListener);
+        mIvBack.setOnClickListener(mOnClickListener);
+        mIvSearch.setOnClickListener(mOnClickListener);
         mIvLocation.setOnClickListener(mOnClickListener);
         mBtSend.setOnClickListener(mOnClickListener);
 
@@ -356,8 +356,8 @@ public class ShareLocationActivity extends Activity {
     }
     private void initView() {
         mMapView = (MapView) findViewById(R.id.map);
-//        mIvBack = (ImageView) findViewById(R.id.iv_back);
-//        mIvSearch = (ImageView) findViewById(R.id.iv_search);
+        mIvBack = (ImageView) findViewById(R.id.iv_back);
+        mIvSearch = (ImageView) findViewById(R.id.iv_search);
         mIvLocation = (ImageView) findViewById(R.id.iv_location);
         mIvCenterLocation = (ImageView) findViewById(R.id.iv_center_location);
         mBtSend = (Button) findViewById(R.id.bt_send);

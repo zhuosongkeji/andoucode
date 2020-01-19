@@ -276,8 +276,10 @@ public class MallmerchantsbusinessinActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != Activity.RESULT_OK) return;
-        if (requestCode== PictureConfig.CHOOSE_REQUEST)
+        if(requestCode==REQUEST_CODE_SELECT_POSITION)
         {
+                addressDetailEdt.setText(data.getStringExtra("result"));
+        }else {
             String path = PictureSelector.obtainMultipleResult(data).get(0).getAndroidQToPath();
             if (TextUtils.isEmpty(path)) {
                 path = PictureSelector.obtainMultipleResult(data).get(0).getPath();
@@ -316,14 +318,7 @@ public class MallmerchantsbusinessinActivity extends BaseActivity {
                     super.onError(e);
                 }
             });
-        }else if(requestCode==REQUEST_CODE_SELECT_POSITION)
-        {
-                addressDetailEdt.setText(data.getStringExtra("result"));
         }
-
-//        imageView.setTag(path);
-//        BitmapUtil.recycle(imageView);
-//        imageView.setImageBitmap(BitmapFactory.decodeFile(path));
 
     }
 
