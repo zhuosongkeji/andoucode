@@ -32,7 +32,9 @@ import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.hotel.HotelDetailActivity;
 import com.zskjprojectj.andouclient.activity.mall.MallShoppingHomeActivity;
 import com.zskjprojectj.andouclient.activity.restaurant.RestaurantDetailActivity;
+import com.zskjprojectj.andouclient.adapter.MerchantAdapter;
 import com.zskjprojectj.andouclient.adapter.MerchantListAdapter;
+import com.zskjprojectj.andouclient.entity.MerchantHomeTypeBean;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
@@ -42,6 +44,7 @@ import com.zskjprojectj.andouclient.utils.BarUtils;
 import com.zskjprojectj.andouclient.utils.StatusBarUtil;
 
 import java.io.IOException;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -232,9 +235,28 @@ public class MerchantsPageFragment extends BaseFragment {
      */
     private void initclassification() {
 
-        View contentView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_shop_comprehensive, null);
+        View contentView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_shop_comprehensive_view, null);
 
         initPopuWindow(contentView, mCapacitySort);
+
+        RecyclerView mMerchantRecycler = contentView.findViewById(R.id.rv_merchant_recycler);
+        mMerchantRecycler.setLayoutManager(new LinearLayoutManager(mActivity));
+        MerchantAdapter adapter=new MerchantAdapter();
+        mMerchantRecycler.setAdapter(adapter);
+        HttpRxObservable.getObservable(ApiUtils.getApiService().merchanttype()).subscribe(new BaseObserver<MerchantHomeTypeBean>(mActivity) {
+            @Override
+            public void onHandleSuccess(MerchantHomeTypeBean merchantHomeTypeBeans) throws IOException {
+                adapter.setNewData(merchantHomeTypeBeans.getMerchant_type());
+                adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(BaseQuickAdapter adapter1, View view, int position) {
+                        String id = adapter.getItem(position).getId();
+                        //TODO
+                    }
+                });
+            }
+        });
+
     }
 
     /**

@@ -37,7 +37,7 @@ public class HotelDetailReserveBean {
         private int id;
         private String house_name;
         private String price;
-        private String img;
+        private List<String> img;
         private String desc;
         private String name;
 
@@ -65,11 +65,11 @@ public class HotelDetailReserveBean {
             this.price = price;
         }
 
-        public String getImg() {
+        public List<String> getImg() {
             return img;
         }
 
-        public void setImg(String img) {
+        public void setImg(List<String> img) {
             this.img = img;
         }
 

@@ -1,5 +1,7 @@
 package com.zskjprojectj.andouclient.entity.hotel;
 
+import java.util.List;
+
 /**
  * 项目名称： andoucode
  * 包名：com.zskjprojectj.andouclient.entity.hotel
@@ -35,7 +37,7 @@ public class HotelHomeDetailsBean {
      */
 
     private int id;
-    private String img;
+    private List<String> img;
     private String price;
     private String house_name;
     private String areas;
@@ -46,11 +48,11 @@ public class HotelHomeDetailsBean {
     private String bed_type;
     private String other_sets;
 
-    public String getImg() {
+    public List<String> getImg() {
         return img;
     }
 
-    public void setImg(String img) {
+    public void setImg(List<String> img) {
         this.img = img;
     }
 

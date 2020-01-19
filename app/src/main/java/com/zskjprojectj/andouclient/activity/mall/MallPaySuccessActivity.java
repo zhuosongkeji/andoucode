@@ -61,10 +61,8 @@ public class MallPaySuccessActivity extends BaseActivity {
             case R.id.iv_header_back:
                 finish();
                 break;
-
             case R.id.btn_see_order:
 //                startActivity(new Intent(MallPaySuccessActivity.this,));
-
 //                Intent intent=new Intent(MallPaySuccessActivity.this, ShoporderActivity.class);
 //                intent.putExtra("flag","MallPaySuccess");
 //                startActivity(intent);
