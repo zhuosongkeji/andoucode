@@ -3,6 +3,7 @@ package com.zskjprojectj.andouclient.fragment;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
@@ -168,6 +169,10 @@ public class MePageFragment extends BaseFragment {
 
     @Override
     protected void getDataFromServer() {
+        if (TextUtils.isEmpty(LoginInfoUtil.getToken()))
+        {
+            return;
+        }
         HttpRxObservable.getObservable(ApiUtils.getApiService().getpersonal(LoginInfoUtil.getUid(), LoginInfoUtil.getToken())).subscribe(new BaseObserver<PersonalBean>(mAty) {
             @Override
             public void onHandleSuccess(PersonalBean personalBean) throws IOException {
@@ -423,10 +428,7 @@ public class MePageFragment extends BaseFragment {
     }
 
     public void refresh() {
-        if (LoginInfoUtil.getToken()==null)
-        {
-            return;
-        }
+
         getDataFromServer();
     }
 }

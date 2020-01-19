@@ -201,21 +201,40 @@
                 <ImageView
                     android:id="@+id/ic_address"
                     android:layout_width="@dimen/dp_9"
+                    android:layout_centerVertical="true"
                     android:layout_height="@dimen/dp_10"
                     android:src="@mipmap/ic_address_gary" />
 
                 <TextView
                     android:id="@+id/addressTxt"
+                    android:layout_centerInParent="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/dp_5"
                     android:layout_toRightOf="@+id/ic_address"
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:text="重庆市南岸区南坝万达广场"
                     android:textColor="#969696"
-                    android:textSize="@dimen/typeface12sp" />
+                    android:textSize="@dimen/typeface12sp"/>
+                <FrameLayout
+                    android:id="@+id/locationBtn"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="15dp"
+                        android:scaleType="fitCenter"
+                        android:src="@mipmap/ic_restaurant_detail_location" />
+                </FrameLayout>
             </RelativeLayout>
 
             <View
