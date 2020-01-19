@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.ViewFlipper;
 
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,6 +22,7 @@ import com.bumptech.glide.request.RequestOptions;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.stx.xhb.xbanner.XBanner;
+import com.wihaohao.PageGridView;
 import com.zaaach.citypicker.CityPicker;
 import com.zaaach.citypicker.adapter.OnPickListener;
 import com.zaaach.citypicker.model.City;
@@ -29,23 +31,31 @@ import com.zaaach.citypicker.model.LocateState;
 import com.zaaach.citypicker.model.LocatedCity;
 import com.zhuosongkj.android.library.app.BaseFragment;
 import com.zhuosongkj.android.library.model.BaseResult;
+import com.zhuosongkj.android.library.model.ListData;
 import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.BookingorderActivity;
+import com.zskjprojectj.andouclient.activity.ClassificationofgoodsActivity;
 import com.zskjprojectj.andouclient.activity.LoginActivity;
 import com.zskjprojectj.andouclient.activity.QrCodeActivity;
 import com.zskjprojectj.andouclient.activity.hotel.HotelActivity;
 import com.zskjprojectj.andouclient.activity.MainActivity;
 import com.zskjprojectj.andouclient.activity.MallMainActivity;
 import com.zskjprojectj.andouclient.activity.hotel.HotelDetailActivity;
+import com.zskjprojectj.andouclient.activity.mall.MallGoodsDetailsActivity;
 import com.zskjprojectj.andouclient.activity.mall.MallShoppingHomeActivity;
 import com.zskjprojectj.andouclient.activity.restaurant.RestaurantDetailActivity;
 import com.zskjprojectj.andouclient.activity.restaurant.RestaurantHomeActivity;
 import com.zskjprojectj.andouclient.adapter.CoverFlowAdapter;
+import com.zskjprojectj.andouclient.adapter.hotel.HotelHomeAdapter;
+import com.zskjprojectj.andouclient.adapter.mall.RecommendProductsAdapter;
 import com.zskjprojectj.andouclient.adapter.merchantsCategoryAdapter;
 import com.zskjprojectj.andouclient.adapter.restaurant.RestaurantAdapter;
 import com.zskjprojectj.andouclient.entity.EnvelopesBean;
 import com.zskjprojectj.andouclient.entity.NewuserBean;
+import com.zskjprojectj.andouclient.entity.hotel.HotelHomeBean;
+import com.zskjprojectj.andouclient.entity.mall.MallHomeDataBean;
+import com.zskjprojectj.andouclient.http.ApiException;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 import com.zskjprojectj.andouclient.utils.UrlUtil;
 import com.zskjprojectj.andouclient.entity.IndexHomeBean;
@@ -61,6 +71,7 @@ import com.zskjprojectj.andouclient.view.OnRedPacketDialogClickListener;
 import com.zskjprojectj.andouclient.view.RedPacketViewHolder;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -69,17 +80,6 @@ import io.reactivex.Observable;
 import recycler.coverflow.CoverFlowLayoutManger;
 import recycler.coverflow.RecyclerCoverFlow;
 
-/**
- * <pre>
- *     e-mail : 3307501630@qq.com
- *     time   : 2019/10/25
- *     desc   :
- *     version: 1.0
- * </pre>
- * 首页的碎片对象
- *
- * @author yizhubao
- */
 public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.onItemClick {
 
     @BindView(R.id.coverflow)
@@ -104,10 +104,14 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
     private LinearLayout onlinebroadcast_see_more_layout, appointment_see_more_layout, onlinebooking_see_more_layout, ly_citychoose;
     private CoverFlowAdapter adapter;
     private merchantsCategoryAdapter merchantsAdapter = new merchantsCategoryAdapter();
+    RecommendProductsAdapter recommendProductsAdapter = new RecommendProductsAdapter(R.layout.fragment_mall_goods_details_view, new ArrayList<>());
+
     //红包
     private CustomDialog mRedPacketDialog;
     private View mRedPacketDialogView;
     private RedPacketViewHolder mRedPacketViewHolder;
+    private HotelHomeAdapter hoteladapter = new HotelHomeAdapter();
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -135,7 +139,7 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
         merchantsAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                switch (merchantsAdapter.getItem(position).getMerchant_type_id()){
+                switch (merchantsAdapter.getItem(position).getMerchant_type_id()) {
                     //商家商城
                     case "2":
                         MallShoppingHomeActivity.start(merchantsAdapter.getItem(position).getId());
@@ -175,49 +179,56 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
                     adapter.setOnItemClickListener((adapter1, view, position) ->
                             RestaurantDetailActivity.start(adapter.getItem(position).id));
                 });
+        RecyclerView hotelRecyclerView = view.findViewById(R.id.hotelRecyclerView);
+        hotelRecyclerView.addItemDecoration(new DividerItemDecoration(mActivity, DividerItemDecoration.VERTICAL));
+        hoteladapter.bindToRecyclerView(hotelRecyclerView);
+        hoteladapter.setOnItemClickListener((adapter, view, position) ->
+                HotelDetailActivity.start(hoteladapter.getItem(position).getId()));
+        recommendProductsAdapter.bindToRecyclerView(view.findViewById(R.id.goodsRecyclerView));
+        recommendProductsAdapter.setOnItemClickListener((adapter, view, position) ->
+                MallGoodsDetailsActivity.start(recommendProductsAdapter.getItem(position).getId()));
     }
 
-   private void showRedPacketDialog()
-   {
-       if (mRedPacketDialogView == null) {
-           mRedPacketDialogView = View.inflate(mActivity, R.layout.dialog_red_packet, null);
-           TextView tv_money=mRedPacketDialogView.findViewById(R.id.tv_hbmoney);
-           HttpRxObservable.getObservable(ApiUtils.getApiService().envelopes(LoginInfoUtil.getUid(),LoginInfoUtil.getToken())).subscribe(new BaseObserver<EnvelopesBean>(mActivity) {
-               @Override
-               public void onHandleSuccess(EnvelopesBean envelopesBean) throws IOException {
-                   tv_money.setText("最高可获得"+envelopesBean.getValue()+"元");
-               }
-           });
-           mRedPacketViewHolder = new RedPacketViewHolder(mActivity, mRedPacketDialogView);
-           mRedPacketDialog = new CustomDialog(mActivity, mRedPacketDialogView, R.style.custom_dialog);
-           mRedPacketDialog.setCancelable(false);
-       }
-       mRedPacketViewHolder.setOnRedPacketDialogClickListener(new OnRedPacketDialogClickListener() {
-           @Override
-           public void onCloseClick() {
-               mRedPacketDialog.dismiss();
-           }
+    private void showRedPacketDialog() {
+        if (mRedPacketDialogView == null) {
+            mRedPacketDialogView = View.inflate(mActivity, R.layout.dialog_red_packet, null);
+            TextView tv_money = mRedPacketDialogView.findViewById(R.id.tv_hbmoney);
+            HttpRxObservable.getObservable(ApiUtils.getApiService().envelopes(LoginInfoUtil.getUid(), LoginInfoUtil.getToken())).subscribe(new BaseObserver<EnvelopesBean>(mActivity) {
+                @Override
+                public void onHandleSuccess(EnvelopesBean envelopesBean) throws IOException {
+                    tv_money.setText("最高可获得" + envelopesBean.getValue() + "元");
+                }
+            });
+            mRedPacketViewHolder = new RedPacketViewHolder(mActivity, mRedPacketDialogView);
+            mRedPacketDialog = new CustomDialog(mActivity, mRedPacketDialogView, R.style.custom_dialog);
+            mRedPacketDialog.setCancelable(false);
+        }
+        mRedPacketViewHolder.setOnRedPacketDialogClickListener(new OnRedPacketDialogClickListener() {
+            @Override
+            public void onCloseClick() {
+                mRedPacketDialog.dismiss();
+            }
 
-           @Override
-           public void onOpenClick() {
-               if (TextUtils.isEmpty(LoginInfoUtil.getToken()))
-               {
-                   LoginActivity.start(mActivity);
-               }else {
-                   //领取红包,调用接口
-                   HttpRxObservable.getObservable(ApiUtils.getApiService().envelopes_add(LoginInfoUtil.getUid(),LoginInfoUtil.getToken())).subscribe(new BaseObserver<Object>(mActivity) {
-                       @Override
-                       public void onHandleSuccess(Object o) throws IOException {
-                           ToastUtil.showToast("领取成功");
-                           mRedPacketDialog.dismiss();
-                       }
-                   });
-               }
+            @Override
+            public void onOpenClick() {
+                if (TextUtils.isEmpty(LoginInfoUtil.getToken())) {
+                    LoginActivity.start(mActivity);
+                } else {
+                    //领取红包,调用接口
+                    HttpRxObservable.getObservable(ApiUtils.getApiService().envelopes_add(LoginInfoUtil.getUid(), LoginInfoUtil.getToken())).subscribe(new BaseObserver<Object>(mActivity) {
+                        @Override
+                        public void onHandleSuccess(Object o) throws IOException {
+                            ToastUtil.showToast("领取成功");
+                            mRedPacketDialog.dismiss();
+                        }
+                    });
+                }
 
-           }
-       });
-       mRedPacketDialog.show();
-   }
+            }
+        });
+        mRedPacketDialog.show();
+    }
+
     private void initCoverFlow() {
         adapter = new CoverFlowAdapter(getActivity(), this);
         mCoverFlow.setGreyItem(true); //设置灰度渐变
@@ -271,16 +282,34 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
 
             }
         });
-        HttpRxObservable.getObservable(ApiUtils.getApiService().new_user(LoginInfoUtil.getUid(),LoginInfoUtil.getToken())).subscribe(new BaseObserver<NewuserBean>(mActivity) {
+        HttpRxObservable.getObservable(ApiUtils.getApiService().new_user(LoginInfoUtil.getUid(), LoginInfoUtil.getToken())).subscribe(new BaseObserver<NewuserBean>(mActivity) {
             @Override
             public void onHandleSuccess(NewuserBean newuserBean) throws IOException {
-                if (newuserBean.getVal()==1)
-                {
+                if (newuserBean.getVal() == 1) {
                     showRedPacketDialog();
                 }
 
             }
         });
+        HttpRxObservable.getObservable(ApiUtils.getApiService().hotelHomeList("", "", "", "", "", 1))
+                .subscribe(new BaseObserver<ListData<HotelHomeBean>>(mActivity) {
+                    @Override
+                    public void onHandleSuccess(ListData<HotelHomeBean> hotelHomeBeans) throws IOException {
+                        for (int i = 0; i < hotelHomeBeans.size(); i++) {
+                            if (i > 2) return;
+                            hoteladapter.addData(hotelHomeBeans.get(i));
+                        }
+                    }
+                });
+        HttpRxObservable.getObservable(ApiUtils.getApiService().getMallInfo())
+                .subscribe(new BaseObserver<MallHomeDataBean>(mActivity) {
+
+                    @Override
+                    public void onHandleSuccess(MallHomeDataBean bean) {
+                        List<MallHomeDataBean.RecommendGoodsBean> recommend_goods = bean.getRecommend_goods();
+                        recommendProductsAdapter.setNewData(recommend_goods);
+                    }
+                });
 
     }
 
@@ -431,6 +460,16 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
         if (getActivity() instanceof MainActivity) {
             ((MainActivity) getActivity()).getNavigationBar().selectTab(1);
         }
+    }
+
+    @OnClick(R.id.more_hotel_btn)
+    void onMoreHotelBtnClick() {
+        ActivityUtils.startActivity(HotelActivity.class);
+    }
+
+    @OnClick(R.id.moreGoodsBtn)
+    void onMoreGoodsBtnClick() {
+        ActivityUtils.startActivity(MallMainActivity.class);
     }
 
     @Override
