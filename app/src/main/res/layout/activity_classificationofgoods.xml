@@ -46,6 +46,7 @@
                 android:id="@+id/search_image"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:paddingStart="@dimen/dp_20"
                 android:layout_alignParentRight="true"
                 android:gravity="center|right">
 

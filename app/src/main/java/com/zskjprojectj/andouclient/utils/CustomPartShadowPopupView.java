@@ -19,7 +19,7 @@ import com.zskjprojectj.andouclient.R;
  * 修改时间：
  * 修改备注：
  */
-public class CustomPartShadowPopupView extends PartShadowPopupView {
+public class CustomPartShadowPopupView extends PartShadowPopupView  {
     private int type;
 
     public CustomPartShadowPopupView(@NonNull Context context, int type) {
@@ -48,20 +48,104 @@ public class CustomPartShadowPopupView extends PartShadowPopupView {
         tv_popu_price = findViewById(R.id.tv_popu_price);
 
         switch (type) {
+            //评价
             case 1:
                 mPopu_unlimited.setText("不限");
+                mPopu_unlimited.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (onclickItem!=null){
+                            onclickItem.itemView("");
+                            dismiss();
+                        }
+                    }
+                });
                 tv_popu_credit.setText("评价升序排列");
+                tv_popu_credit.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (onclickItem!=null){
+                            onclickItem.itemView("1");
+                            dismiss();
+                        }
+                    }
+                });
                 tv_popu_price.setText("评价降序排列");
+                tv_popu_price.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (onclickItem!=null){
+                            onclickItem.itemView("0");
+                            dismiss();
+                        }
+                    }
+                });
                 break;
+                //销量
             case 2:
                 mPopu_unlimited.setText("不限");
+                mPopu_unlimited.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (onclickItem!=null){
+                            onclickItem.itemView("");
+                            dismiss();
+                        }
+                    }
+                });
                 tv_popu_credit.setText("销量升序排列");
+                tv_popu_credit.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (onclickItem!=null){
+                            onclickItem.itemView("1");
+                            dismiss();
+                        }
+                    }
+                });
                 tv_popu_price.setText("销量降序排列");
+                tv_popu_price.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (onclickItem!=null){
+                            onclickItem.itemView("0");
+                            dismiss();
+                        }
+                    }
+                });
                 break;
+                //价格
             case 3:
                 mPopu_unlimited.setText("不限");
+                mPopu_unlimited.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (onclickItem!=null){
+                            onclickItem.itemView("");
+                            dismiss();
+                        }
+                    }
+                });
                 tv_popu_credit.setText("价格升序排列");
+                tv_popu_credit.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (onclickItem!=null){
+                            onclickItem.itemView("1");
+                            dismiss();
+                        }
+                    }
+                });
                 tv_popu_price.setText("价格降序排列");
+                tv_popu_price.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (onclickItem!=null){
+                            onclickItem.itemView("0");
+                            dismiss();
+                        }
+                    }
+                });
                 break;
         }
 
@@ -69,6 +153,13 @@ public class CustomPartShadowPopupView extends PartShadowPopupView {
 
 
 
+    public interface OnclickItem{
+        void itemView(String sort);
+    }
 
+    private OnclickItem onclickItem;
 
+    public void setOnclickItem(OnclickItem onclickItem) {
+        this.onclickItem = onclickItem;
+    }
 }

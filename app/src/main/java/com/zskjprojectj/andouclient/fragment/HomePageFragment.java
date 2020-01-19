@@ -37,11 +37,14 @@ import com.zskjprojectj.andouclient.activity.QrCodeActivity;
 import com.zskjprojectj.andouclient.activity.hotel.HotelActivity;
 import com.zskjprojectj.andouclient.activity.MainActivity;
 import com.zskjprojectj.andouclient.activity.MallMainActivity;
+import com.zskjprojectj.andouclient.activity.hotel.HotelDetailActivity;
+import com.zskjprojectj.andouclient.activity.mall.MallShoppingHomeActivity;
 import com.zskjprojectj.andouclient.activity.restaurant.RestaurantDetailActivity;
 import com.zskjprojectj.andouclient.activity.restaurant.RestaurantHomeActivity;
 import com.zskjprojectj.andouclient.adapter.CoverFlowAdapter;
 import com.zskjprojectj.andouclient.adapter.merchantsCategoryAdapter;
 import com.zskjprojectj.andouclient.adapter.restaurant.RestaurantAdapter;
+import com.zskjprojectj.andouclient.entity.EnvelopesBean;
 import com.zskjprojectj.andouclient.entity.NewuserBean;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 import com.zskjprojectj.andouclient.utils.UrlUtil;
@@ -129,6 +132,37 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         mRvMerchants.setLayoutManager(layoutManager);
         mRvMerchants.setAdapter(merchantsAdapter);
+        merchantsAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                switch (merchantsAdapter.getItem(position).getMerchant_type_id()){
+                    //商家商城
+                    case "2":
+                        MallShoppingHomeActivity.start(merchantsAdapter.getItem(position).getId());
+                        break;
+                    //酒店商家
+                    case "3":
+                        HotelDetailActivity.start(merchantsAdapter.getItem(position).getId());
+                        break;
+                    //饭店商家
+                    case "4":
+                        RestaurantDetailActivity.start(merchantsAdapter.getItem(position).getId());
+                        break;
+                    //农家乐
+                    case "5":
+                        break;
+                    //旅游
+                    case "6":
+                        break;
+                    //美食预订
+                    case "7":
+                        break;
+                    //农家乐民宿
+                    case "8":
+                        break;
+                }
+            }
+        });
 
         initData();
         getDataFromServer();
@@ -147,6 +181,13 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
    {
        if (mRedPacketDialogView == null) {
            mRedPacketDialogView = View.inflate(mActivity, R.layout.dialog_red_packet, null);
+           TextView tv_money=mRedPacketDialogView.findViewById(R.id.tv_hbmoney);
+           HttpRxObservable.getObservable(ApiUtils.getApiService().envelopes(LoginInfoUtil.getUid(),LoginInfoUtil.getToken())).subscribe(new BaseObserver<EnvelopesBean>(mActivity) {
+               @Override
+               public void onHandleSuccess(EnvelopesBean envelopesBean) throws IOException {
+                   tv_money.setText("最高可获得"+envelopesBean.getValue()+"元");
+               }
+           });
            mRedPacketViewHolder = new RedPacketViewHolder(mActivity, mRedPacketDialogView);
            mRedPacketDialog = new CustomDialog(mActivity, mRedPacketDialogView, R.style.custom_dialog);
            mRedPacketDialog.setCancelable(false);
