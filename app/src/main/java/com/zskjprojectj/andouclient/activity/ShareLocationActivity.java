@@ -66,11 +66,11 @@ import io.reactivex.annotations.NonNull;
  */
 public class ShareLocationActivity extends Activity {
     private MapView        mMapView;
-   // private ImageView      mIvBack;
-   // private ImageView      mIvSearch;
+    private ImageView      mIvBack;
+    private ImageView      mIvSearch;
     private ImageView      mIvLocation;
     private ImageView      mIvCenterLocation;
-   // private Button         mBtSend;
+   private Button         mBtSend;
     private RecyclerView mRecyclerView;
     private AddressAdapter mAddressAdapter;
     private List<PoiItem>  mList;
@@ -285,9 +285,9 @@ public class ShareLocationActivity extends Activity {
             @Override
             public void onClick(View view) {
                 switch (view.getId()) {
-//                    case R.id.iv_back:
-//                        finish();
-//                        break;
+                    case R.id.iv_back:
+                        finish();
+                        break;
 //                    case R.id.iv_search:
 ////                        Toast.makeText(MainActivity.this, "搜索", Toast.LENGTH_SHORT).show();
 //                        startActivityForResult(new Intent(ShareLocationActivity.this, SearchActivity.class), SEARCHREQUESTCODE);
@@ -304,30 +304,33 @@ public class ShareLocationActivity extends Activity {
                             doWhenLocationSucess();
                         }
                         break;
-//                    case R.id.bt_send:
-//                        if (null != mList && 0 < mList.size() && null != mAddressAdapter) {
-//                            int position = mAddressAdapter.getSelectPositon();
-//                            if (position < 0) {
-//                                position = 0;
-//                            } else if (position > mList.size()) {
-//                                position = mList.size();
-//                            }
-//                            PoiItem poiItem = mList.get(position);
-//                            //发送定位信息
+                    case R.id.bt_send:
+                        if (null != mList && 0 < mList.size() && null != mAddressAdapter) {
+                            int position = mAddressAdapter.getSelectPositon();
+                            if (position < 0) {
+                                position = 0;
+                            } else if (position > mList.size()) {
+                                position = mList.size();
+                            }
+                            PoiItem poiItem = mList.get(position);
+                            //发送定位信息
 //                            LoginInfo.MallHomeDataBean data = UserInfo.getLoginInfo().data;
 //                            TaoChatManager.sendAddress(data.getId()+"",poiItem.getLatLonPoint().getLatitude(),poiItem.getLatLonPoint().getLongitude(),poiItem.getSnippet(), savedInstanceStates);
-//                            finish();
-//                           // Toast.makeText(ShareLocationActivity.this, "发送：" + poiItem.getTitle() + "  " + poiItem.getSnippet() + "  " + "纬度：" + poiItem.getLatLonPoint().getLatitude() + "  " + "经度：" + poiItem.getLatLonPoint().getLongitude(), Toast.LENGTH_SHORT).show();
-//                        }
-//                        break;
+                            Intent intent =new Intent();
+                            intent.putExtra("result", poiItem.getTitle());
+                            setResult(Activity.RESULT_OK, intent);
+                            finish();
+                            //Toast.makeText(ShareLocationActivity.this, "发送：" + poiItem.getTitle() + "  " + poiItem.getSnippet() + "  " + "纬度：" + poiItem.getLatLonPoint().getLatitude() + "  " + "经度：" + poiItem.getLatLonPoint().getLongitude(), Toast.LENGTH_SHORT).show();
+                        }
+                        break;
                 }
             }
         };
 
-//        mIvBack.setOnClickListener(mOnClickListener);
-//        mIvSearch.setOnClickListener(mOnClickListener);
+        mIvBack.setOnClickListener(mOnClickListener);
+        mIvSearch.setOnClickListener(mOnClickListener);
         mIvLocation.setOnClickListener(mOnClickListener);
-      //  mBtSend.setOnClickListener(mOnClickListener);
+        mBtSend.setOnClickListener(mOnClickListener);
 
     }
     private void initDatas(Bundle savedInstanceState)
@@ -353,11 +356,11 @@ public class ShareLocationActivity extends Activity {
     }
     private void initView() {
         mMapView = (MapView) findViewById(R.id.map);
-//        mIvBack = (ImageView) findViewById(R.id.iv_back);
-//        mIvSearch = (ImageView) findViewById(R.id.iv_search);
+        mIvBack = (ImageView) findViewById(R.id.iv_back);
+        mIvSearch = (ImageView) findViewById(R.id.iv_search);
         mIvLocation = (ImageView) findViewById(R.id.iv_location);
         mIvCenterLocation = (ImageView) findViewById(R.id.iv_center_location);
-       // mBtSend = (Button) findViewById(R.id.bt_send);
+        mBtSend = (Button) findViewById(R.id.bt_send);
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
 
     }

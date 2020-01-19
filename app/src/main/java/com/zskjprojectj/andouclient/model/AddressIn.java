@@ -21,6 +21,6 @@ public class AddressIn {
     @NonNull
     @Override
     public String toString() {
-        return !province.name.equals(city.name) ? province.name : "" + city.name + county.name;
+        return (!province.name.equals(city.name) ? province.name : "" )+ city.name + county.name;
     }
 }

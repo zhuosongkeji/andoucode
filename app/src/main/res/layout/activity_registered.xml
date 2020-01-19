@@ -134,7 +134,7 @@
             android:id="@+id/yinsi_xieyi_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="《安抖隐私协议》"
+            android:text="《用户协议》《隐私政策》"
             android:textColor="#5ED3AE"
             android:textSize="@dimen/typeface14sp" />
 

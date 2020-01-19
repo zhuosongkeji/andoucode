@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -14,6 +15,7 @@ import androidx.annotation.Nullable;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.base.BaseActivity;
@@ -58,6 +60,7 @@ public class MallmerchantsbusinessinActivity extends BaseActivity {
     private static final int REQUEST_CODE_SELECT_LOGO = 666;
     private static final int REQUEST_CODE_SELECT_BANNER = 667;
     private static final int REQUEST_CODE_SELECT_LICENSE = 668;
+    private static final  int REQUEST_CODE_SELECT_POSITION=669;
     @BindView(R.id.header_title_view)
     RelativeLayout mTitleView;
     @BindView(R.id.tv_header_title)
@@ -76,7 +79,7 @@ public class MallmerchantsbusinessinActivity extends BaseActivity {
     TextView addressTxt;
 
     @BindView(R.id.addressDetailEdt)
-    EditText addressDetailEdt;
+    TextView addressDetailEdt;
 
     @BindView(R.id.descriptionEdt)
     EditText descriptionEdt;
@@ -90,7 +93,6 @@ public class MallmerchantsbusinessinActivity extends BaseActivity {
 
     AddressIn address;
     int type;
-
     final List<ADProvince> adProvincess = new ArrayList<>();
     @Override
     protected void setRootView() {
@@ -106,6 +108,15 @@ public class MallmerchantsbusinessinActivity extends BaseActivity {
     @Override
     protected void initViews() {
           type = getIntent().getIntExtra(KEY_TYPE, UserIn.Role.Type.MALL.typeInt);
+         addressDetailEdt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                jumpActivity(ShareLocationActivity.class);
+                Intent intent=new Intent(mAt,ShareLocationActivity.class);
+                startActivityForResult(intent,REQUEST_CODE_SELECT_POSITION);
+
+            }
+        });
         if (type == UserIn.Role.Type.HOTEL.typeInt) {
             mHeaderTitle.setText("酒店商家入驻");
         } else if (type == UserIn.Role.Type.MALL.typeInt) {
@@ -210,7 +221,7 @@ public class MallmerchantsbusinessinActivity extends BaseActivity {
         String contactName = contactNameEdt.getText().toString();
         String contactMobile = contactMobileEdt.getText().toString();
         String addressStr = addressTxt.getText().toString();
-        String addressDetail = addressDetailEdt.getText().toString();
+         String addressDetail = addressDetailEdt.getText().toString();
         String description = descriptionEdt.getText().toString();
         if (TextUtils.isEmpty(name)) {
             ToastUtil.showToast("请输入商户名称!");
@@ -265,46 +276,50 @@ public class MallmerchantsbusinessinActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != Activity.RESULT_OK) return;
-        String path = PictureSelector.obtainMultipleResult(data).get(0).getAndroidQToPath();
-        if (TextUtils.isEmpty(path)) {
-            path = PictureSelector.obtainMultipleResult(data).get(0).getPath();
-        }
-        ImageView imageView = null;
-        switch (requestCode) {
-            case REQUEST_CODE_SELECT_LOGO:
-                imageView = logoImg;
-                break;
-            case REQUEST_CODE_SELECT_BANNER:
-                imageView = bannerImg;
-                break;
-            case REQUEST_CODE_SELECT_LICENSE:
-                imageView = licenseImg;
-                break;
-        }
-//        imageView.setTag(path);
-//        BitmapUtil.recycle(imageView);
-//        imageView.setImageBitmap(BitmapFactory.decodeFile(path));
-        File file = new File(path);
-        RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpg"), file);
-        MultipartBody.Part body = MultipartBody.Part.createFormData("img", file.getName(), requestFile);
-        RequestBody uid = RequestBody.create(MediaType.parse("multipart/form-data"), LoginInfoUtil.getUid());
-        RequestBody token = RequestBody.create(MediaType.parse("multipart/form-data"), LoginInfoUtil.getToken());
-        ImageView finalImageView = imageView;
-        String finalPath = path;
-        HttpRxObservable.getObservable(ApiUtils.getApiService().uploadImg(uid,token,body)).subscribe(new BaseObserver<String>(mAt) {
-
-            @Override
-            public void onHandleSuccess(String s) throws IOException {
-                finalImageView.setTag(s);
-                BitmapUtil.recycle(finalImageView);
-                finalImageView.setImageBitmap(BitmapFactory.decodeFile(finalPath));
+        if(requestCode==REQUEST_CODE_SELECT_POSITION)
+        {
+                addressDetailEdt.setText(data.getStringExtra("result"));
+        }else {
+            String path = PictureSelector.obtainMultipleResult(data).get(0).getAndroidQToPath();
+            if (TextUtils.isEmpty(path)) {
+                path = PictureSelector.obtainMultipleResult(data).get(0).getPath();
             }
+            ImageView imageView = null;
+            switch (requestCode) {
+                case REQUEST_CODE_SELECT_LOGO:
+                    imageView = logoImg;
+                    break;
+                case REQUEST_CODE_SELECT_BANNER:
+                    imageView = bannerImg;
+                    break;
+                case REQUEST_CODE_SELECT_LICENSE:
+                    imageView = licenseImg;
+                    break;
 
-            @Override
-            public void onError(Throwable e) {
-                super.onError(e);
             }
-       });
+            File file = new File(path);
+            RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpg"), file);
+            MultipartBody.Part body = MultipartBody.Part.createFormData("img", file.getName(), requestFile);
+            RequestBody uid = RequestBody.create(MediaType.parse("multipart/form-data"), LoginInfoUtil.getUid());
+            RequestBody token = RequestBody.create(MediaType.parse("multipart/form-data"), LoginInfoUtil.getToken());
+            ImageView finalImageView = imageView;
+            String finalPath = path;
+            HttpRxObservable.getObservable(ApiUtils.getApiService().uploadImg(uid,token,body)).subscribe(new BaseObserver<String>(mAt) {
+
+                @Override
+                public void onHandleSuccess(String s) throws IOException {
+                    finalImageView.setTag(s);
+                    BitmapUtil.recycle(finalImageView);
+                    finalImageView.setImageBitmap(BitmapFactory.decodeFile(finalPath));
+                }
+
+                @Override
+                public void onError(Throwable e) {
+                    super.onError(e);
+                }
+            });
+        }
+
     }
 
     @Override

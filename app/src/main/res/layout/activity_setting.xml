@@ -339,7 +339,7 @@
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:gravity="center"
-            android:text="《隐私协议》"
+            android:text="《用户协议》《隐私政策》"
             android:textColor="@color/picture_color_blue"
             android:textSize="@dimen/typeface13sp" />
 
