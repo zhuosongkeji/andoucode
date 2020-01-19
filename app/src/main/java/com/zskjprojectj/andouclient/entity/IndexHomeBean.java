@@ -131,6 +131,16 @@ public class IndexHomeBean {
         private String id;
         private String logo_img;
         private String name;
+        private String merchant_type_id;
+        public String getMerchant_type_id() {
+            return merchant_type_id;
+        }
+
+        public void setMerchant_type_id(String merchant_type_id) {
+            this.merchant_type_id = merchant_type_id;
+        }
+
+
 
         public String getId() {
             return id;
