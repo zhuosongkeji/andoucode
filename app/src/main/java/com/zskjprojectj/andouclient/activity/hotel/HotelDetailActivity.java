@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,6 +32,7 @@ import com.zhuosongkj.android.library.util.ViewUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.base.BasePresenter;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
+import com.zskjprojectj.andouclient.utils.ToastUtil;
 import com.zskjprojectj.andouclient.utils.UrlUtil;
 import com.zskjprojectj.andouclient.base.BaseUrl;
 import com.zskjprojectj.andouclient.entity.hotel.HotelDetailsBean;
@@ -182,7 +184,19 @@ public class HotelDetailActivity extends BaseActivity {
                 .subscribe(new BaseObserver<HotelDetailsBean>(mActivity) {
                     @Override
                     public void onHandleSuccess(HotelDetailsBean hotelDetailsBean) throws IOException {
-
+                        findViewById(R.id.locationBtn).setOnClickListener(v -> {
+                            Intent intent;
+                            try {
+                                intent = Intent.parseUri("intent://map/direction?" +
+                                        "destination=" + hotelDetailsBean.getAddress() +
+                                        "&mode=driving&" +
+                                        "&src=appname#Intent;scheme=bdapp;package=com.baidu.BaiduMap;end", 0);
+                                startActivity(intent);
+                            } catch (Exception e) {
+                                ToastUtil.showToast("地图启动失败,请检查是否安装地图!");
+                                e.printStackTrace();
+                            }
+                        });
                         //背景图片
                         Glide.with(mActivity).load(UrlUtil.getImageUrl(hotelDetailsBean.getDoor_img()))
                                 .apply(new RequestOptions().placeholder(R.drawable.default_image).error(R.drawable.default_image))
