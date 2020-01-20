@@ -63,6 +63,7 @@ public class ModifythenicknameActivity extends BaseActivity {
                     @Override
                     public void onHandleSuccess(Object o) throws IOException {
                         ToastUtil.showToast("修改成功");
+                        finish();
                     }
 
                     @Override

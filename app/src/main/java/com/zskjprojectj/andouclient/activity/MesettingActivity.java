@@ -1,18 +1,25 @@
 package com.zskjprojectj.andouclient.activity;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+
 import com.blankj.utilcode.util.ActivityUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
+import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.config.PictureMimeType;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
@@ -20,17 +27,25 @@ import com.zskjprojectj.andouclient.entity.SetBean;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
+import com.zskjprojectj.andouclient.utils.BitmapUtil;
 import com.zskjprojectj.andouclient.utils.DataCleanManager;
 import com.zskjprojectj.andouclient.utils.DialogUtil;
+import com.zskjprojectj.andouclient.utils.GlideEngine;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
 import com.zskjprojectj.andouclient.utils.UrlUtil;
 import com.zskjprojectj.andouclient.view.PromtOnlyExtraDialog;
 
+import java.io.File;
 import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+
+import static com.zskjprojectj.andouclient.http.BaseObserver.REQUEST_CODE_LOGIN;
 
 /**
  * 个人中心设置界面
@@ -46,7 +61,7 @@ public class MesettingActivity extends BaseActivity {
     private ImageView img_setpic;
     private RelativeLayout rl_modifythephone, rl_modifythepassword, rl_modifyfeedback, rl_modifyaboutus, rl_clear, rl_modifythenickname;
     private Button btn_exit;
-
+    private static final int REQUEST_CODE_TOUXIANG_LOGO = 555;
     @Override
     protected void setRootView() {
         setContentView(R.layout.activity_setting);
@@ -69,6 +84,15 @@ public class MesettingActivity extends BaseActivity {
         tv_usersetname = findViewById(R.id.tv_usersetname);
         img_setpic = findViewById(R.id.img_setpic);
         rl_clear = findViewById(R.id.rl_clear);
+        /**
+         * 修改头像
+         */
+        img_setpic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startSelectPic(REQUEST_CODE_TOUXIANG_LOGO);
+            }
+        });
         rl_modifythenickname = findViewById(R.id.rl_modifythenickname);
         mFsize = findViewById(R.id.tv_msize);
         btn_exit = findViewById(R.id.btn_exit);
@@ -156,6 +180,14 @@ public class MesettingActivity extends BaseActivity {
         findViewById(R.id.protocolContainer).setOnClickListener(v ->
                 dialog = DialogUtil.showProtocolDialogNoBtns(mAt));
     }
+    private void startSelectPic(int requestCode) {
+        PictureSelector.create(this)
+                .openGallery(PictureMimeType.ofImage())
+                .maxSelectNum(1)
+                .isCamera(true)
+                .loadImageEngine(GlideEngine.createGlideEngine())
+                .forResult(requestCode);
+    }
 
     Dialog dialog;
 
@@ -179,9 +211,64 @@ public class MesettingActivity extends BaseActivity {
         return null;
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != Activity.RESULT_OK) return;
+        if (requestCode==REQUEST_CODE_LOGIN)
+        {
+            getDataFromServer();
+            return;
+        }
+        String path = PictureSelector.obtainMultipleResult(data).get(0).getAndroidQToPath();
+        if (TextUtils.isEmpty(path)) {
+            path = PictureSelector.obtainMultipleResult(data).get(0).getPath();
+        }
+        ImageView imageView = null;
+        switch (requestCode)
+        {
+            case  REQUEST_CODE_TOUXIANG_LOGO:
+                imageView=img_setpic;
+                break;
+        }
+        File file = new File(path);
+        RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpg"), file);
+        MultipartBody.Part body = MultipartBody.Part.createFormData("img", file.getName(), requestFile);
+        RequestBody uid = RequestBody.create(MediaType.parse("multipart/form-data"), LoginInfoUtil.getUid());
+        RequestBody token = RequestBody.create(MediaType.parse("multipart/form-data"), LoginInfoUtil.getToken());
+        ImageView finalImageView = imageView;
+        String finalPath = path;
+        HttpRxObservable.getObservable(ApiUtils.getApiService().uploadImg(uid,token,body)).subscribe(new BaseObserver<String>(mAt) {
+
+            @Override
+            public void onHandleSuccess(String s) throws IOException {
+            //    finalImageView.setTag(s);
+              HttpRxObservable.getObservable(ApiUtils.getApiService().user_pictures(LoginInfoUtil.getUid(),LoginInfoUtil.getToken(),s)).subscribe(new BaseObserver<String>(mAt) {
+                  @Override
+                   public void onHandleSuccess(String s) throws IOException {
+                        BitmapUtil.recycle(finalImageView);
+                        finalImageView.setImageBitmap(BitmapFactory.decodeFile(finalPath));
+                 }
+              });
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+            }
+        });
+    }
+
     @OnClick(R.id.iv_header_back)
     public void clickView() {
         finish();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getDataFromServer();
     }
 
     @Override

@@ -71,6 +71,7 @@ public class OpeningmemberActivity extends BaseActivity {
                 String details = viproteBean.getVip_rote();
                 Log.d(TAG, "onHandleSuccess:+ " + details);
                 String htmlData = getHtmlData(details);
+                System.out.println("tml"+htmlData);
                 wv_webview.loadData(htmlData,"text/html", "UTF-8");
                 wv_webview.setVerticalScrollBarEnabled(false);
                 wv_webview.setHorizontalScrollBarEnabled(false);

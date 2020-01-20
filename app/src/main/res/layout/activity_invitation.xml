@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@mipmap/invitation_bg"
     android:layout_height="match_parent">
-<!--    <com.zskjprojectj.andouclient.view.TopView-->
-<!--        android:id="@+id/alltopview"-->
-<!--        app:topview_left="@mipmap/back_icon"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="@dimen/dp_50"/>-->
+    <com.zskjprojectj.andouclient.view.TopView
+        android:id="@+id/alltopview"
+        android:background="#FE3B49"
+        app:topview_left="@mipmap/back_icon"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"/>
     <RelativeLayout
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"

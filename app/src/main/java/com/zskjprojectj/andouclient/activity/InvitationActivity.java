@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
@@ -29,12 +30,18 @@ import com.zskjprojectj.andouclient.utils.UrlUtil;
 
 import java.io.IOException;
 
+import butterknife.BindView;
+
 /**
  * 分享有礼
  */
 public class InvitationActivity extends BaseActivity {
     private TextView tv_username;
     private ImageView img_toptouxiang,img_code;
+//    @BindView(R.id.header_title_view)
+//    RelativeLayout mTitleView;
+//    @BindView(R.id.tv_header_title)
+//    TextView mHeaderTitle;
     @Override
     protected void setRootView() {
         setContentView(R.layout.activity_invitation);
@@ -42,7 +49,9 @@ public class InvitationActivity extends BaseActivity {
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-//        topView.setTitle("分享有礼");
+            topView.setTitle("分享有礼");
+//            getBarDistance(mTitleView);
+//            mHeaderTitle.setText("分享有礼");
     }
 
     @Override

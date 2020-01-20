@@ -901,10 +901,20 @@ public interface ApiService {
      * @param file
      * @return
      */
+    @POST("api/modification/user_pictures")
+    @FormUrlEncoded
+    Observable<BaseResult<String>> user_pictures(@Field("id") String uid, @Field("token") String token, @Field("avator") String file);
+
+    /**
+     * 图片上传
+     *
+     * @param uid
+     * @param file
+     * @return
+     */
     @POST("api/goods/uploads")
     @Multipart
     Observable<BaseResult<String>> uploadImg(@Part("uid") RequestBody uid, @Part("token") RequestBody token, @Part MultipartBody.Part file);
-
     /**
      * 邀请码
      *
