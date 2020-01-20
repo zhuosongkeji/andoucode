@@ -52,6 +52,7 @@ import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.utils.CalendarViewUtil;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
+import com.zskjprojectj.andouclient.utils.PaySuccessBackEvent;
 import com.zskjprojectj.andouclient.utils.PaySuccessEvent;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
 import com.zskjprojectj.andouclient.utils.UrlUtil;
@@ -377,6 +378,14 @@ public class HotelOnlineReserveActivity extends BaseActivity {
         startActivity(intent);
         finish();
     }
+
+
+    //5.接收消息
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void backEventBus(PaySuccessBackEvent paySuccessBackEvent) {
+        finish();
+    }
+
 
     private String getTime(Date date) {//可根据需要自行截取数据显示
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");

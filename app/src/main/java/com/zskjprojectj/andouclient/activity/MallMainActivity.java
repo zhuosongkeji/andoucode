@@ -18,6 +18,8 @@ import com.zskjprojectj.andouclient.fragment.MallShoppingFragment;
 import com.zskjprojectj.andouclient.fragment.MallInfoFragment;
 import com.zskjprojectj.andouclient.fragment.mall.MallHomepageFragment1;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,11 +50,14 @@ public class MallMainActivity extends BaseActivity {
 
     private void initData() {
 
+
         String id = getIntent().getStringExtra("id");
         if ("MallShopping".equals(id)) {
             navigationBar.selectTab(2);
 
         }
+
+
 
         String tag = getIntent().getStringExtra("tag");
         if ("backHome".equals(tag)) {
@@ -104,4 +109,6 @@ public class MallMainActivity extends BaseActivity {
     protected int getContentView() {
         return R.layout.activity_mallmain;
     }
+
+
 }

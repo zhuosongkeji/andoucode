@@ -3,6 +3,7 @@ package com.zskjprojectj.andouclient.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.adapter.MyaddressAdapter;
 import com.zskjprojectj.andouclient.base.BaseActivity;
@@ -76,6 +78,17 @@ public class MyaddressActivity extends BaseActivity {
         });
         mRecycler.addItemDecoration(new DividerItemDecoration(mAt, DividerItemDecoration.VERTICAL));
         mRecycler.setAdapter(adapter);
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter1, View view, int position) {
+                Intent intent=new Intent();
+                intent.putExtra("name",adapter.getItem(position).name);
+                intent.putExtra("address",adapter.getItem(position).address);
+                intent.putExtra("tel",adapter.getItem(position).mobile);
+                setResult(RESULT_OK,intent);
+                finish();
+            }
+        });
     }
 
     @Override

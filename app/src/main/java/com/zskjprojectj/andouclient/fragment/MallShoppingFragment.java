@@ -2,6 +2,7 @@ package com.zskjprojectj.andouclient.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -15,6 +16,7 @@ import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zhuosongkj.android.library.app.BaseFragment;
@@ -23,6 +25,7 @@ import com.zhuosongkj.android.library.model.IListData;
 import com.zhuosongkj.android.library.util.PageLoadUtil;
 import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
+import com.zskjprojectj.andouclient.activity.ShoporderActivity;
 import com.zskjprojectj.andouclient.activity.mall.MallOnlineOrderActivity;
 import com.zskjprojectj.andouclient.adapter.PlatformshoppingcartAdapter;
 import com.zskjprojectj.andouclient.entity.mall.MallCarBean;
@@ -33,8 +36,14 @@ import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.model.CartItem;
 import com.zskjprojectj.andouclient.utils.ArrayParamUtil;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
+import com.zskjprojectj.andouclient.utils.PayCancle;
+import com.zskjprojectj.andouclient.utils.PaySuccessBackEvent;
+import com.zskjprojectj.andouclient.utils.PaySuccessEvent;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONArray;
 
 import java.io.IOException;
@@ -57,6 +66,8 @@ public class MallShoppingFragment extends BaseFragment {
     @BindView(R.id.tv_shipping_all_price)
     TextView mShippingAllPrice;
 
+
+
     @BindView(R.id.cb_selectorcb)
     AppCompatCheckBox mCheckBox;
 
@@ -64,6 +75,7 @@ public class MallShoppingFragment extends BaseFragment {
     SmartRefreshLayout mRefreshLayout;
 
     PlatformshoppingcartAdapter adapter = new PlatformshoppingcartAdapter();
+    private PageLoadUtil<CartItem> pageLoadUtil;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -120,17 +132,43 @@ public class MallShoppingFragment extends BaseFragment {
             }
         });
         getDataFromServer();
+        //1、注册广播
+        EventBus.getDefault().register(this);
     }
 
 
     private void getDataFromServer() {
-
-
-        PageLoadUtil<CartItem> pageLoadUtil = PageLoadUtil.get((BaseActivity) getActivity(), mRecycler, adapter, mRefreshLayout);
+        pageLoadUtil = PageLoadUtil.get((BaseActivity) getActivity(), mRecycler, adapter, mRefreshLayout);
+        if (TextUtils.isEmpty(LoginInfoUtil.getToken())) {
+            return;
+        }
         pageLoadUtil.load(() -> ApiUtils.getApiService().cart(
                 LoginInfoUtil.getUid(),
                 LoginInfoUtil.getToken(),
                 pageLoadUtil.page));
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        //2、解除注册
+        EventBus.getDefault().unregister(this);
+    }
+
+    //5.接收消息
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void intentEventBus(PaySuccessEvent paySuccessEvent) {
+        getDataFromServer();
+    }
+
+    //5.接收消息
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void backEventBus(PayCancle payCancle) {
+
+        pageLoadUtil.refresh();
+        if (mCheckBox.isSelected()){
+            mCheckBox.performClick();
+        }
     }
 
 
