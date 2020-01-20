@@ -30,6 +30,7 @@ import com.zskjprojectj.andouclient.entity.hotel.HotelHomeBean;
 import com.zskjprojectj.andouclient.entity.hotel.HotelHomeDetailsBean;
 import com.zskjprojectj.andouclient.entity.hotel.HotelSearchConditionBean;
 import com.zskjprojectj.andouclient.entity.hotel.HotelSettlementBean;
+import com.zskjprojectj.andouclient.entity.hotel.HotelrefundreasonBean;
 import com.zskjprojectj.andouclient.entity.hotel.MeHotelBean;
 import com.zskjprojectj.andouclient.entity.hotel.MeHotelDetailsBean;
 import com.zskjprojectj.andouclient.entity.mall.MallBuyBean;
@@ -440,7 +441,10 @@ public interface ApiService {
      */
     @POST("api/merchant/merchants")
     @FormUrlEncoded
-    Observable<BaseResult<MerchantsResponse>> merchants_two(@Field("page") int page);
+    Observable<BaseResult<MerchantsResponse>> merchants_two(
+            @Field("merchant_type_id") String merchant_type_id,
+            @Field("type") String type,
+            @Field("page") int page);
 
     /**
      * 商户详情
@@ -737,6 +741,28 @@ public interface ApiService {
                                                     @Field("token") String token,
                                                     @Field("id") String id);
 
+
+    /**
+     * 酒店退款原因
+     */
+    @POST("api/htorder/refund_reason")
+    @FormUrlEncoded
+    Observable<BaseResult<List<HotelrefundreasonBean>>> hotelrefundreason(@Field("uid") String uid,
+                                                                          @Field("token") String token,
+                                                                          @Field("merchants_id") String merchants_id);
+
+
+    /**
+     * 酒店退款
+     */
+    @POST("api/htorder/refund")
+    @FormUrlEncoded
+    Observable<BaseResult<Object>> hotelrefund(@Field("uid") String uid,
+                                               @Field("token") String token,
+                                               @Field("book_sn") String book_sn,
+                                               @Field("refund_id") String refund_id,
+                                               @Field("refund_msg") String refund_msg);
+
     /**
      * 绑定手机号
      */
@@ -939,6 +965,7 @@ public interface ApiService {
 
     /**
      * 红包领取
+     *
      * @param uid
      * @param token
      * @return
@@ -950,6 +977,7 @@ public interface ApiService {
 
     /**
      * 判断是否是新用户
+     *
      * @param uid
      * @param token
      * @return
@@ -957,7 +985,8 @@ public interface ApiService {
     @POST("api/users/new_user")
     @FormUrlEncoded
     Observable<BaseResult<NewuserBean>> new_user(@Field("uid") String uid,
-                                                      @Field("token") String token);
+                                                 @Field("token") String token);
+
     @POST("api/users/envelopes")
     @FormUrlEncoded
     Observable<BaseResult<EnvelopesBean>> envelopes(@Field("uid") String uid,
@@ -1190,6 +1219,7 @@ public interface ApiService {
 
     /**
      * 商户类型
+     *
      * @return
      */
     @POST("api/common/merchant_type")

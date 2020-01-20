@@ -35,7 +35,9 @@ import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
+import com.zskjprojectj.andouclient.activity.HotelorderActivity;
 import com.zskjprojectj.andouclient.activity.MainActivity;
+import com.zskjprojectj.andouclient.activity.ShoporderActivity;
 import com.zskjprojectj.andouclient.activity.mall.MallOnlineOrderActivity;
 import com.zskjprojectj.andouclient.activity.mall.MallPaySuccessActivity;
 import com.zskjprojectj.andouclient.adapter.mall.PayWaysAdapter;
@@ -50,8 +52,13 @@ import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.utils.CalendarViewUtil;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
+import com.zskjprojectj.andouclient.utils.PaySuccessEvent;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
 import com.zskjprojectj.andouclient.utils.UrlUtil;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -152,6 +159,18 @@ public class HotelOnlineReserveActivity extends BaseActivity {
             }
         });
 
+
+        //1、注册广播
+        EventBus.getDefault().register(HotelOnlineReserveActivity.this);
+
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //2、解除注册
+        EventBus.getDefault().unregister(HotelOnlineReserveActivity.this);
     }
 
     @Override
@@ -301,7 +320,6 @@ public class HotelOnlineReserveActivity extends BaseActivity {
                                                     @Override
                                                     public void onHandleSuccess(WXPayBean wxPayBean) throws IOException {
                                                         startActivity(new Intent(HotelOnlineReserveActivity.this, MallPaySuccessActivity.class));
-                                                        finish();
                                                     }
                                                 });
                                             })
@@ -351,6 +369,14 @@ public class HotelOnlineReserveActivity extends BaseActivity {
         }
     }
 
+    //5.接收消息
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void intentEventBus(PaySuccessEvent paySuccessEvent) {
+        Intent intent = new Intent(HotelOnlineReserveActivity.this, HotelorderActivity.class);
+        intent.putExtra("flag", "MallPaySuccess");
+        startActivity(intent);
+        finish();
+    }
 
     private String getTime(Date date) {//可根据需要自行截取数据显示
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");

@@ -25,11 +25,13 @@ import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.zskjprojectj.andouclient.R;
+import com.zskjprojectj.andouclient.activity.ShoporderActivity;
 import com.zskjprojectj.andouclient.activity.hotel.HotelOnlineReserveActivity;
 import com.zskjprojectj.andouclient.adapter.mall.MallBuyInfoAdapter;
 import com.zskjprojectj.andouclient.adapter.mall.PayWaysAdapter;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
+import com.zskjprojectj.andouclient.utils.PaySuccessEvent;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
 import com.zskjprojectj.andouclient.utils.UrlUtil;
 import com.zskjprojectj.andouclient.base.BaseUrl;
@@ -40,6 +42,10 @@ import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -100,9 +106,17 @@ public class MallOnlineOrderActivity extends BaseActivity {
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-
+//1、注册广播
+        EventBus.getDefault().register(MallOnlineOrderActivity.this);
 
     }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //2、解除注册
+        EventBus.getDefault().unregister(MallOnlineOrderActivity.this);
+    }
+
 
     @Override
     protected void initViews() {
@@ -235,7 +249,6 @@ public class MallOnlineOrderActivity extends BaseActivity {
                                         public void onHandleSuccess(WXPayBean wxPayBean) throws IOException {
                                             Intent intent = new Intent(MallOnlineOrderActivity.this, MallPaySuccessActivity.class);
                                             startActivity(intent);
-                                            finish();
                                         }
                                     });
                                 })
@@ -246,7 +259,14 @@ public class MallOnlineOrderActivity extends BaseActivity {
         }
 
     }
-
+    //5.接收消息
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void intentEventBus(PaySuccessEvent paySuccessEvent) {
+        Intent intent = new Intent(MallOnlineOrderActivity.this, ShoporderActivity.class);
+        intent.putExtra("flag", "MallPaySuccess");
+        startActivity(intent);
+        finish();
+    }
 
     private void startWXPay(WXPayBean wxPayBean) {
         final IWXAPI msgApi = WXAPIFactory.createWXAPI(MallOnlineOrderActivity.this, wxPayBean.getAppid());

@@ -42,6 +42,7 @@ import com.zskjprojectj.andouclient.model.Merchant;
 import com.zskjprojectj.andouclient.model.MerchantsResponse;
 import com.zskjprojectj.andouclient.utils.BarUtils;
 import com.zskjprojectj.andouclient.utils.StatusBarUtil;
+import com.zskjprojectj.andouclient.utils.ToastUtil;
 
 import java.io.IOException;
 import java.util.List;
@@ -84,6 +85,9 @@ public class MerchantsPageFragment extends BaseFragment {
 
     private RecyclerView mRecycler;
     MerchantListAdapter adapter = new MerchantListAdapter();
+    private String merchant_type_id;
+    private String type;
+    private PageLoadUtil<Merchant> pageLoadUtil;
 
 
     @Override
@@ -100,20 +104,17 @@ public class MerchantsPageFragment extends BaseFragment {
         mHeaderBack.setVisibility(View.GONE);
         mRecycler = view.findViewById(R.id.rv_recycler);
         mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
-        PageLoadUtil<Merchant> pageLoadUtil = PageLoadUtil
-                .get((BaseActivity) getActivity(), mRecycler, adapter, refreshLayout);
-        pageLoadUtil.load(new RequestUtil.ObservableProvider<IListData<Merchant>>() {
-            @Override
-            public Observable<? extends BaseResult<? extends IListData<Merchant>>> getObservable() {
-                return ApiUtils.getApiService().merchants_two(pageLoadUtil.page);
-            }
-        });
+        pageLoadUtil = PageLoadUtil.get((BaseActivity) getActivity(), mRecycler, adapter, refreshLayout);
+        pageLoadUtil.load(() -> ApiUtils.getApiService().merchants_two(
+                merchant_type_id,
+                type,
+                pageLoadUtil.page));
         initData();
 
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter1, View view, int position) {
-                switch (adapter.getItem(position).merchant_type_id){
+                switch (adapter.getItem(position).merchant_type_id) {
                     //商家商城
                     case "2":
                         MallShoppingHomeActivity.start(adapter.getItem(position).id);
@@ -172,7 +173,6 @@ public class MerchantsPageFragment extends BaseFragment {
             }
         });
     }
-
 
 
     private void getMerchantType(String type, String id) {
@@ -241,7 +241,7 @@ public class MerchantsPageFragment extends BaseFragment {
 
         RecyclerView mMerchantRecycler = contentView.findViewById(R.id.rv_merchant_recycler);
         mMerchantRecycler.setLayoutManager(new LinearLayoutManager(mActivity));
-        MerchantAdapter adapter=new MerchantAdapter();
+        MerchantAdapter adapter = new MerchantAdapter();
         mMerchantRecycler.setAdapter(adapter);
         HttpRxObservable.getObservable(ApiUtils.getApiService().merchanttype()).subscribe(new BaseObserver<MerchantHomeTypeBean>(mActivity) {
             @Override
@@ -251,7 +251,13 @@ public class MerchantsPageFragment extends BaseFragment {
                     @Override
                     public void onItemClick(BaseQuickAdapter adapter1, View view, int position) {
                         String id = adapter.getItem(position).getId();
-                        //TODO
+
+                        pageLoadUtil.load(() -> ApiUtils.getApiService().merchants_two(
+                                id,
+                                type,
+                                pageLoadUtil.page));
+
+                        mPopWindow.dismiss();
                     }
                 });
             }
@@ -275,8 +281,34 @@ public class MerchantsPageFragment extends BaseFragment {
     private void initsortingway() {
 
         View contentView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_shop_comprehensive, null);
-
         initPopuWindow(contentView, mCapacitySort);
+        //不限
+        TextView mPopuunlimited = contentView.findViewById(R.id.tv_popu_unlimited);
+        mPopuunlimited.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pageLoadUtil.load(() -> ApiUtils.getApiService().merchants_two(
+                        merchant_type_id,
+                        type,
+                        pageLoadUtil.page));
+                mPopWindow.dismiss();
+            }
+        });
+        //信誉优先
+        TextView mPopucredit = contentView.findViewById(R.id.tv_popu_credit);
+        mPopucredit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pageLoadUtil.load(() -> ApiUtils.getApiService().merchants_two(
+                        merchant_type_id,
+                        "1",
+                        pageLoadUtil.page));
+                mPopWindow.dismiss();
+            }
+        });
+        TextView mPopuprice = contentView.findViewById(R.id.tv_popu_price);
+        mPopuprice.setVisibility(View.GONE);
+
     }
 
     private void initData() {
