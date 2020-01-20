@@ -55,12 +55,12 @@
                 android:layout_marginLeft="@dimen/dp_10"
                 android:background="@drawable/shape_layout">
 
-                <EditText
+                <TextView
                     android:id="@+id/search_edittext"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="15dp"
-                    android:background="@null"
+                    android:gravity="center_vertical"
                     android:hint="@string/chihewanle"
                     android:textColor="#919191"
                     android:textColorHint="#919191"
@@ -211,7 +211,8 @@
                 android:layout_height="10dp"
                 android:background="@color/colorGray" />
 
-            <include layout="@layout/main_online_broadcast"
+            <include
+                layout="@layout/main_online_broadcast"
                 android:visibility="gone"
 
                 />
