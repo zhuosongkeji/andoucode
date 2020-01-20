@@ -31,6 +31,7 @@ import com.zskjprojectj.andouclient.utils.UrlUtil;
 import java.io.IOException;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * 分享有礼
@@ -38,10 +39,16 @@ import butterknife.BindView;
 public class InvitationActivity extends BaseActivity {
     private TextView tv_username;
     private ImageView img_toptouxiang,img_code;
-//    @BindView(R.id.header_title_view)
-//    RelativeLayout mTitleView;
-//    @BindView(R.id.tv_header_title)
-//    TextView mHeaderTitle;
+    @BindView(R.id.header_title_view)
+    RelativeLayout mTitleView;
+    @BindView(R.id.tv_header_title)
+    TextView mHeaderTitle;
+
+    @OnClick(R.id.iv_header_back)
+    public void clickView(){
+        finish();
+    }
+
     @Override
     protected void setRootView() {
         setContentView(R.layout.activity_invitation);
@@ -49,7 +56,8 @@ public class InvitationActivity extends BaseActivity {
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-            topView.setTitle("分享有礼");
+        mHeaderTitle.setText("邀请有礼");
+        getBarDistance(mTitleView);
 //            getBarDistance(mTitleView);
 //            mHeaderTitle.setText("分享有礼");
     }

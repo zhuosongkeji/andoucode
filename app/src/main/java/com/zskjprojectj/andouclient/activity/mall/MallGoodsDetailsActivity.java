@@ -33,6 +33,7 @@ import com.shizhefei.view.indicator.transition.OnTransitionTextListener;
 import com.stx.xhb.xbanner.XBanner;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.MallMainActivity;
+import com.zskjprojectj.andouclient.activity.MyaddressActivity;
 import com.zskjprojectj.andouclient.adapter.mall.MallBuyAdapter;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
@@ -611,6 +612,15 @@ public class MallGoodsDetailsActivity extends BaseActivity {
                         MallOnlineOrderActivity.start(order_sn);
                         bottomDialog.dismiss();
 
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+
+                        if ("请填写收货地址".equals(e.getMessage())){
+                            startActivity(new Intent(mAt, MyaddressActivity.class));
+                        }
                     }
                 });
 

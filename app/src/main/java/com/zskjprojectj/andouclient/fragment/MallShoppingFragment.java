@@ -25,6 +25,7 @@ import com.zhuosongkj.android.library.model.IListData;
 import com.zhuosongkj.android.library.util.PageLoadUtil;
 import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
+import com.zskjprojectj.andouclient.activity.MyaddressActivity;
 import com.zskjprojectj.andouclient.activity.ShoporderActivity;
 import com.zskjprojectj.andouclient.activity.mall.MallOnlineOrderActivity;
 import com.zskjprojectj.andouclient.adapter.PlatformshoppingcartAdapter;
@@ -158,7 +159,7 @@ public class MallShoppingFragment extends BaseFragment {
     //5.接收消息
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void intentEventBus(PaySuccessEvent paySuccessEvent) {
-        getDataFromServer();
+        pageLoadUtil.refresh();
     }
 
     //5.接收消息
@@ -223,6 +224,10 @@ public class MallShoppingFragment extends BaseFragment {
                     @Override
                     public void onError(Throwable e) {
                         super.onError(e);
+                        if ("请填写收货地址".equals(e.getMessage())){
+                            startActivity(new Intent(mActivity, MyaddressActivity.class));
+                        }
+
                     }
                 });
                 break;

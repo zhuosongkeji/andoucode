@@ -39,7 +39,12 @@ import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.model.Order;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
+import com.zskjprojectj.andouclient.utils.PaySuccessEvent;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -59,6 +64,7 @@ public class MeShopFragment extends BaseFragment {
     private RecyclerView mRecycler;
     MeShopFragmentAdapter adapter = new MeShopFragmentAdapter();
     String state;
+    private PageLoadUtil<Order> pageLoadUtil;
 
     public MeShopFragment(String state) {
         this.state = state;
@@ -127,6 +133,22 @@ public class MeShopFragment extends BaseFragment {
 
 
         getDataFromServer();
+
+        //1、注册广播
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        //2、解除注册
+        EventBus.getDefault().unregister(this);
+    }
+
+    //5.接收消息
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void intentEventBus(PaySuccessEvent paySuccessEvent) {
+        pageLoadUtil.refresh();
     }
 
 
@@ -142,7 +164,7 @@ public class MeShopFragment extends BaseFragment {
 //            }
 //        });
 
-        PageLoadUtil<Order> pageLoadUtil = PageLoadUtil.get((BaseActivity) getActivity(), mRecycler, adapter, mRefreshLayout);
+        pageLoadUtil = PageLoadUtil.get((BaseActivity) getActivity(), mRecycler, adapter, mRefreshLayout);
         pageLoadUtil.load(new RequestUtil.ObservableProvider<IListData<Order>>() {
             @Override
             public Observable<? extends BaseResult<? extends IListData<Order>>> getObservable() {
@@ -159,6 +181,10 @@ public class MeShopFragment extends BaseFragment {
         adapter.openLoadAnimation();
         mRecycler.setAdapter(adapter);
     }
+
+
+
+
 
 
     @Override
