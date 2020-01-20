@@ -23,6 +23,7 @@ import com.zskjprojectj.andouclient.activity.DownloadappActivity;
 import com.zskjprojectj.andouclient.activity.FoodorderActivity;
 import com.zskjprojectj.andouclient.activity.HotelorderActivity;
 import com.zskjprojectj.andouclient.activity.InvitationActivity;
+import com.zskjprojectj.andouclient.activity.MallMainActivity;
 import com.zskjprojectj.andouclient.activity.MesettingActivity;
 import com.zskjprojectj.andouclient.activity.MyFocusonActivity;
 import com.zskjprojectj.andouclient.activity.MyaddressActivity;
@@ -37,8 +38,10 @@ import com.zskjprojectj.andouclient.activity.PlatformshoppingcartActivity;
 import com.zskjprojectj.andouclient.activity.RestaurantOrderListActivity;
 import com.zskjprojectj.andouclient.activity.ShoporderActivity;
 import com.zskjprojectj.andouclient.activity.VegetableMarketActivity;
+import com.zskjprojectj.andouclient.activity.hotel.HotelOnlineReserveActivity;
 import com.zskjprojectj.andouclient.base.BaseFragment;
-import com.zskjprojectj.andouclient.utils.UrlUtil;import com.zskjprojectj.andouclient.base.BaseUrl;
+import com.zskjprojectj.andouclient.utils.UrlUtil;
+import com.zskjprojectj.andouclient.base.BaseUrl;
 import com.zskjprojectj.andouclient.entity.PersonalBean;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
@@ -116,9 +119,10 @@ public class MePageFragment extends BaseFragment {
     //设置界面
     private ImageView img_meset;
     //个人信息
-    private ImageView img_touxiang,iv_message;
+    private ImageView img_touxiang, iv_message;
     private TextView tv_nickname, tv_viplevel, tv_collectionnum, tv_focusonnum, tv_browsenum, tv_moneynum, tv_integralnumm;
-    private ImageView img_hotelnum,img_mallnum,img_restaurantnum,img_showvip;
+    private ImageView img_hotelnum, img_mallnum, img_restaurantnum, img_showvip;
+
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
         mycenter_vegetablemarket_layout = view.findViewById(R.id.mycenter_vegetablemarket_layout);
@@ -139,22 +143,22 @@ public class MePageFragment extends BaseFragment {
         mycenter_operationvideo_layout = view.findViewById(R.id.mycenter_operationvideo_layout);
         mycenter_restaurant_layout = view.findViewById(R.id.mycenter_restaurant_layout);
         mycenter_myfocuson_layout = view.findViewById(R.id.mycenter_myfocuson_layout);
-        mycenter_qrcode_layout=view.findViewById(R.id.mycenter_qrcode_layout);
-        mycenter_releas_layout=view.findViewById(R.id.mycenter_releas_layout);
+        mycenter_qrcode_layout = view.findViewById(R.id.mycenter_qrcode_layout);
+        mycenter_releas_layout = view.findViewById(R.id.mycenter_releas_layout);
         img_meset = view.findViewById(R.id.img_meset);
         img_touxiang = view.findViewById(R.id.img_touxiang);
         tv_nickname = view.findViewById(R.id.tv_nickname);
-        img_showvip=view.findViewById(R.id.img_showvip);
-       // tv_viplevel = view.findViewById(R.id.tv_viplevel);
+        img_showvip = view.findViewById(R.id.img_showvip);
+        // tv_viplevel = view.findViewById(R.id.tv_viplevel);
         tv_collectionnum = view.findViewById(R.id.tv_collectionnum);
         tv_focusonnum = view.findViewById(R.id.tv_focusonnum);
         tv_browsenum = view.findViewById(R.id.tv_browsenum);
         tv_moneynum = view.findViewById(R.id.tv_moneynum);
         tv_integralnumm = view.findViewById(R.id.tv_integralnumm);
-        iv_message=view.findViewById(R.id.iv_message);
-        img_hotelnum=view.findViewById(R.id.img_hotelnum);
-        img_mallnum=view.findViewById(R.id.img_mallnum);
-        img_restaurantnum=view.findViewById(R.id.img_restaurantnum);
+        iv_message = view.findViewById(R.id.iv_message);
+        img_hotelnum = view.findViewById(R.id.img_hotelnum);
+        img_mallnum = view.findViewById(R.id.img_mallnum);
+        img_restaurantnum = view.findViewById(R.id.img_restaurantnum);
 
         //设置状态栏的高度
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mHeaderTitle.getLayoutParams();
@@ -169,49 +173,47 @@ public class MePageFragment extends BaseFragment {
 
     @Override
     protected void getDataFromServer() {
-        if (TextUtils.isEmpty(LoginInfoUtil.getToken()))
-        {
+        if (TextUtils.isEmpty(LoginInfoUtil.getToken())) {
             return;
         }
         HttpRxObservable.getObservable(ApiUtils.getApiService().getpersonal(LoginInfoUtil.getUid(), LoginInfoUtil.getToken())).subscribe(new BaseObserver<PersonalBean>(mAty) {
             @Override
             public void onHandleSuccess(PersonalBean personalBean) throws IOException {
-               // tv_viplevel.setText(personalBean.getGrade());
+                // tv_viplevel.setText(personalBean.getGrade());
                 tv_nickname.setText(personalBean.getName());
                 tv_collectionnum.setText(personalBean.getCollect());
                 tv_focusonnum.setText(personalBean.getFocus());
                 tv_browsenum.setText(personalBean.getRecord());
                 tv_moneynum.setText(personalBean.getMoney());
                 tv_integralnumm.setText(personalBean.getIntegral());
-                if ("0".equals(personalBean.getStatus()))
-                {
+                if ("0".equals(personalBean.getStatus())) {
                     img_showvip.setImageResource(R.mipmap.putongvip);
-                }else {
+                } else {
                     img_showvip.setImageResource(R.mipmap.vipplusicon);
                 }
-                int numhotel=Integer.parseInt( personalBean.getBooksordernum());
-                int numfood=Integer.parseInt(personalBean.getFoodsordernum());
-                int nummall=Integer.parseInt(personalBean.getGoodordernum());
-                new QBadgeView(getContext()).bindTarget(img_hotelnum).setBadgeNumber(numhotel).setBadgeTextSize(8,true).setBadgeGravity(Gravity.END|Gravity.TOP).setOnDragStateChangedListener(new Badge.OnDragStateChangedListener() {
+                int numhotel = Integer.parseInt(personalBean.getBooksordernum());
+                int numfood = Integer.parseInt(personalBean.getFoodsordernum());
+                int nummall = Integer.parseInt(personalBean.getGoodordernum());
+                new QBadgeView(getContext()).bindTarget(img_hotelnum).setBadgeNumber(numhotel).setBadgeTextSize(8, true).setBadgeGravity(Gravity.END | Gravity.TOP).setOnDragStateChangedListener(new Badge.OnDragStateChangedListener() {
                     @Override
                     public void onDragStateChanged(int dragState, Badge badge, View targetView) {
-                        if (STATE_SUCCEED == dragState){
+                        if (STATE_SUCCEED == dragState) {
                             badge.hide(true);
                         }
                     }
                 });
-                new QBadgeView(getContext()).bindTarget(img_mallnum).setBadgeNumber(nummall).setBadgeTextSize(8,true).setBadgeGravity(Gravity.END|Gravity.TOP).setOnDragStateChangedListener(new Badge.OnDragStateChangedListener() {
+                new QBadgeView(getContext()).bindTarget(img_mallnum).setBadgeNumber(nummall).setBadgeTextSize(8, true).setBadgeGravity(Gravity.END | Gravity.TOP).setOnDragStateChangedListener(new Badge.OnDragStateChangedListener() {
                     @Override
                     public void onDragStateChanged(int dragState, Badge badge, View targetView) {
-                        if (STATE_SUCCEED == dragState){
+                        if (STATE_SUCCEED == dragState) {
                             badge.hide(true);
                         }
                     }
                 });
-                new QBadgeView(getContext()).bindTarget(img_restaurantnum).setBadgeNumber(numfood).setBadgeTextSize(8,true).setBadgeGravity(Gravity.END|Gravity.TOP).setOnDragStateChangedListener(new Badge.OnDragStateChangedListener() {
+                new QBadgeView(getContext()).bindTarget(img_restaurantnum).setBadgeNumber(numfood).setBadgeTextSize(8, true).setBadgeGravity(Gravity.END | Gravity.TOP).setOnDragStateChangedListener(new Badge.OnDragStateChangedListener() {
                     @Override
                     public void onDragStateChanged(int dragState, Badge badge, View targetView) {
-                        if (STATE_SUCCEED == dragState){
+                        if (STATE_SUCCEED == dragState) {
                             badge.hide(true);
                         }
                     }
@@ -326,7 +328,10 @@ public class MePageFragment extends BaseFragment {
         mycenter_shoppingcart_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getContext(), PlatformshoppingcartActivity.class));
+
+                Intent intent = new Intent(mAty, MallMainActivity.class);
+                intent.putExtra("id", "MallShopping");
+                startActivity(intent);
             }
         });
         /**

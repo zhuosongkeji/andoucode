@@ -1,5 +1,6 @@
 package com.zskjprojectj.andouclient.activity.mall;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -11,8 +12,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ActivityUtils;
@@ -25,12 +28,15 @@ import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.zskjprojectj.andouclient.R;
+import com.zskjprojectj.andouclient.activity.MyaddressActivity;
 import com.zskjprojectj.andouclient.activity.ShoporderActivity;
 import com.zskjprojectj.andouclient.activity.hotel.HotelOnlineReserveActivity;
 import com.zskjprojectj.andouclient.adapter.mall.MallBuyInfoAdapter;
 import com.zskjprojectj.andouclient.adapter.mall.PayWaysAdapter;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
+import com.zskjprojectj.andouclient.utils.PayCancle;
+import com.zskjprojectj.andouclient.utils.PaySuccessBackEvent;
 import com.zskjprojectj.andouclient.utils.PaySuccessEvent;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
 import com.zskjprojectj.andouclient.utils.UrlUtil;
@@ -93,11 +99,20 @@ public class MallOnlineOrderActivity extends BaseActivity {
     TextView mIvIntegral;
 
 
+
     private String order_sn;
     private String payId;
     private final static int WXPAY = 1;
     private final static int YUEPAY = 4;
     private String is_integral = "0";
+    private final int SELECTORADDRESS=1;
+
+    @OnClick(R.id.rl_selector_address)
+    public void clickAddress(){
+        Intent intent=new Intent(MallOnlineOrderActivity.this, MyaddressActivity.class);
+
+        startActivityForResult(intent,SELECTORADDRESS);
+    }
 
     @Override
     protected void setRootView() {
@@ -123,6 +138,13 @@ public class MallOnlineOrderActivity extends BaseActivity {
         order_sn = getIntent().getStringExtra("order_sn");
         Log.d("wangbin", "initViews: " + order_sn);
         topView.setTitle("在线下单");
+        topView.setBackOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EventBus.getDefault().post(new PayCancle());
+                finish();
+            }
+        });
         getBarDistance(topView);
 
         mRvInfoRecycler.setLayoutManager(new LinearLayoutManager(this));
@@ -268,6 +290,13 @@ public class MallOnlineOrderActivity extends BaseActivity {
         finish();
     }
 
+    //5.接收消息
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void backEventBus(PaySuccessBackEvent paySuccessBackEvent) {
+
+        finish();
+    }
+
     private void startWXPay(WXPayBean wxPayBean) {
         final IWXAPI msgApi = WXAPIFactory.createWXAPI(MallOnlineOrderActivity.this, wxPayBean.getAppid());
         //将该app注册到微信
@@ -299,5 +328,19 @@ public class MallOnlineOrderActivity extends BaseActivity {
 //        msgApi.sendReq(req);
     }
 
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode==RESULT_OK){
+            if (requestCode==SELECTORADDRESS){
+                String name = data.getStringExtra("name");
+                mTvClientName.setText(name);
+                String address = data.getStringExtra("address");
+                mTvClientAddress.setText(address);
+                String tel = data.getStringExtra("tel");
+                mTvClientPhone.setText(tel);
+                Log.d(TAG, "onActivityResult: "+name+address+tel);
+            }
+        }
+    }
 }

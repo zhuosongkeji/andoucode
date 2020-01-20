@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -52,6 +53,9 @@ public class HotelordercancleActivity extends BaseActivity {
     @BindView(R.id.tv_price)
     TextView mPrice;
 
+    @BindView(R.id.et_dec)
+    EditText metDec;
+
     private LinearLayout ly_chooserefundreason;
     private Dialog bottomDialog;
     private String merchant_id;
@@ -89,6 +93,7 @@ public class HotelordercancleActivity extends BaseActivity {
                 );
 
 
+                refund_msg= metDec.getText().toString();
                 HttpRxObservable.getObservable(ApiUtils.getApiService().hotelrefund(
                         LoginInfoUtil.getUid(),
                         LoginInfoUtil.getToken(),

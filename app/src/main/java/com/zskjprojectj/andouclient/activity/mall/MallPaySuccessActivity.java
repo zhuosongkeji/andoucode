@@ -14,6 +14,7 @@ import com.zskjprojectj.andouclient.activity.MainActivity;
 import com.zskjprojectj.andouclient.activity.ShoporderActivity;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
+import com.zskjprojectj.andouclient.utils.PaySuccessBackEvent;
 import com.zskjprojectj.andouclient.utils.PaySuccessEvent;
 
 import org.greenrobot.eventbus.EventBus;
@@ -59,6 +60,7 @@ public class MallPaySuccessActivity extends BaseActivity {
     public void clickBack(View view) {
         switch (view.getId()) {
             case R.id.iv_header_back:
+                EventBus.getDefault().post(new PaySuccessBackEvent());
                 finish();
                 break;
             case R.id.btn_see_order:
