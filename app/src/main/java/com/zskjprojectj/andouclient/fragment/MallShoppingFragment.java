@@ -2,6 +2,7 @@ package com.zskjprojectj.andouclient.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -138,6 +139,9 @@ public class MallShoppingFragment extends BaseFragment {
 
     private void getDataFromServer() {
         pageLoadUtil = PageLoadUtil.get((BaseActivity) getActivity(), mRecycler, adapter, mRefreshLayout);
+        if (TextUtils.isEmpty(LoginInfoUtil.getToken())) {
+            return;
+        }
         pageLoadUtil.load(() -> ApiUtils.getApiService().cart(
                 LoginInfoUtil.getUid(),
                 LoginInfoUtil.getToken(),

@@ -32,6 +32,7 @@ import com.zhuosongkj.android.library.util.ViewUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.base.BasePresenter;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
+import com.zskjprojectj.andouclient.utils.MapUtil;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
 import com.zskjprojectj.andouclient.utils.UrlUtil;
 import com.zskjprojectj.andouclient.base.BaseUrl;
@@ -189,17 +190,7 @@ public class HotelDetailActivity extends BaseActivity {
                     @Override
                     public void onHandleSuccess(HotelDetailsBean hotelDetailsBean) throws IOException {
                         findViewById(R.id.locationBtn).setOnClickListener(v -> {
-                            Intent intent;
-                            try {
-                                intent = Intent.parseUri("intent://map/direction?" +
-                                        "destination=" + hotelDetailsBean.getAddress() +
-                                        "&mode=driving&" +
-                                        "&src=appname#Intent;scheme=bdapp;package=com.baidu.BaiduMap;end", 0);
-                                startActivity(intent);
-                            } catch (Exception e) {
-                                ToastUtil.showToast("地图启动失败,请检查是否安装地图!");
-                                e.printStackTrace();
-                            }
+                            MapUtil.start(hotelDetailsBean.getAddress(), mActivity);
                         });
                         //背景图片
                         Glide.with(mActivity).load(UrlUtil.getImageUrl(hotelDetailsBean.getDoor_img()))
