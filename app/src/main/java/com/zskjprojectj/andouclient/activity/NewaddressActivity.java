@@ -90,6 +90,7 @@ public class NewaddressActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 AddressBottomDialog dialog = AddressBottomDialog.show(mAt);
+                dialog.setTitles("收货地址");
                 dialog.setAddressProvider(new AddressProvider() {
                     @Override
                     public void provideProvinces(AddressReceiver<Province> addressReceiver) {

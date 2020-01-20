@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.zskjprojectj.andouclient.R;
 
@@ -32,6 +33,11 @@ public class AddressBottomDialog extends BottomDialog {
         this.init(context);
     }
 
+    public   void setTitles(String title)
+    {
+       TextView textView= findViewById(R.id.tv_addresstitle);
+       textView.setText(title);
+    }
     private void init(Context context) {
         this.selector = new AddressSelector(context);
         LinearLayout view = (LinearLayout) LayoutInflater.from(getContext()).inflate(R.layout.address_linearlayout, null);
