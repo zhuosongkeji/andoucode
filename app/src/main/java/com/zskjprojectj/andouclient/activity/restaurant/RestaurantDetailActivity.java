@@ -1,7 +1,9 @@
 package com.zskjprojectj.andouclient.activity.restaurant;
 
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -36,6 +38,7 @@ import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.model.Food;
 import com.zskjprojectj.andouclient.model.Restaurant;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
+import com.zskjprojectj.andouclient.utils.MapUtil;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
 import com.zskjprojectj.andouclient.utils.UrlUtil;
 
@@ -176,17 +179,7 @@ public class RestaurantDetailActivity extends BaseActivity {
         findViewById(R.id.callBtn).setOnClickListener(v ->
                 startActivity(IntentUtils.getDialIntent(restaurant.tel)));
         findViewById(R.id.locationBtn).setOnClickListener(v -> {
-            Intent intent;
-            try {
-                intent = Intent.parseUri("intent://map/direction?" +
-                        "destination=" + restaurant.address +
-                        "&mode=driving&" +
-                        "&src=appname#Intent;scheme=bdapp;package=com.baidu.BaiduMap;end", 0);
-                startActivity(intent);
-            } catch (Exception e) {
-                ToastUtil.showToast("地图启动失败,请检查是否安装地图!");
-                e.printStackTrace();
-            }
+            MapUtil.start(restaurant.address, mActivity);
         });
         collectBtn.setSelected(restaurant.status != 1);
         collectSuccess();
@@ -205,6 +198,7 @@ public class RestaurantDetailActivity extends BaseActivity {
         });
         ViewUtil.setText(mActivity, R.id.openTimeTxt, getOpeningTime(restaurant.business_start, restaurant.business_end));
     }
+
 
     private String getOpeningTime(String business_start, String business_end) {
         if (TextUtils.isEmpty(business_start) || TextUtils.isEmpty(business_end)) {
