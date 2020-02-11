@@ -54,6 +54,48 @@
                             app:pointsPosition="RIGHT"
                             app:pointsVisibility="true" />
 
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bg_miaosha_time">
+
+                            <TextView
+                                android:id="@+id/rmb"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="￥"
+                                android:textColor="#fffefefe"
+                                android:textSize="14sp"
+                                />
+
+                            <TextView
+                                android:id="@+id/miaoshaprice"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="119.00"
+                                android:textColor="#ffffffff"
+                                android:textSize="24sp"
+                                />
+
+                            <TextView
+                                android:id="@+id/price"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="￥138"
+                                android:textColor="#fffefefe"
+                                android:textSize="13sp"
+                                />
+
+                            <TextView
+                                android:id="@+id/tv_time"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="距活动结束还有"
+                                android:textColor="#ffffffff"
+                                android:textSize="13sp"
+                                />
+
+                        </RelativeLayout>
 
                         <TextView
                             android:id="@+id/tv_mall_goods_name"
@@ -362,7 +404,6 @@
                         android:textSize="@dimen/typeface11sp" />
 
                     <TextView
-                        android:visibility="gone"
                         android:id="@+id/tv_Mall_service"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -372,7 +413,8 @@
                         android:gravity="center"
                         android:text="客服"
                         android:textColor="#666666"
-                        android:textSize="@dimen/typeface11sp" />
+                        android:textSize="@dimen/typeface11sp"
+                        android:visibility="gone" />
 
                     <TextView
                         android:id="@+id/tv_mall_shopping"

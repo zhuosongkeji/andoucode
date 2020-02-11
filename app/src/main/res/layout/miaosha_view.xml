@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/dp_10"
+    android:background="@drawable/bg_miaosha_rv"
+    android:orientation="horizontal">
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/miaoshaimg"
+            android:layout_width="100dp"
+            android:layout_height="95dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:scaleType="centerCrop"
+            tools:src="@mipmap/bg_miaosha_template" />
+
+        <LinearLayout
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:background="@mipmap/bg_miaosha_time"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="热抢"
+                android:textColor="#ffffffff"
+                android:textSize="11sp" />
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="15dp">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="#ff333333"
+            android:textSize="13sp"
+            tools:text="韩国进口SNP面膜海洋燕窝水库补水安瓶精华……" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ProgressBar
+                android:id="@+id/progressbar"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:max="100"
+                android:indeterminateOnly="false"
+                android:progressDrawable="@drawable/bg_progressbar"
+                android:layout_height="12dp" />
+
+            <TextView
+                android:id="@+id/tv_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#ff999999"
+                android:layout_marginStart="10dp"
+                android:textSize="10sp"
+                tools:text="已抢60%" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/tv_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textColor="#fffc371f"
+                android:textSize="16sp"
+                tools:text="￥99" />
+
+            <TextView
+                android:id="@+id/original_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="13dp"
+                android:layout_toRightOf="@+id/tv_price"
+                android:textColor="#ff999999"
+                android:textSize="11sp"
+                tools:text="￥128" />
+
+
+            <TextView
+                android:id="@+id/tv_buy_now"
+                android:layout_width="60dp"
+                android:layout_height="23dp"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/bg_miaosha_qiang"
+                android:gravity="center"
+                android:text="马上抢 "
+                android:textColor="#ffffffff"
+                android:textSize="12sp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

@@ -2,17 +2,14 @@ package com.zskjprojectj.andouclient.fragment.mall;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.blankj.utilcode.util.ActivityUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -23,10 +20,11 @@ import com.wihaohao.PageGridView;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.ClassificationofgoodsActivity;
 import com.zskjprojectj.andouclient.activity.mall.MallGoodsDetailsActivity;
+import com.zskjprojectj.andouclient.activity.mall.MallMiaoShaActivity;
 import com.zskjprojectj.andouclient.adapter.mall.RecommendProductsAdapter;
 import com.zskjprojectj.andouclient.adapter.mall.SpecialProductsAdapter;
 import com.zskjprojectj.andouclient.base.BaseFragment;
-import com.zskjprojectj.andouclient.utils.UrlUtil;import com.zskjprojectj.andouclient.base.BaseUrl;
+import com.zskjprojectj.andouclient.utils.UrlUtil;
 import com.zskjprojectj.andouclient.entity.mall.MallHomeDataBean;
 import com.zskjprojectj.andouclient.http.ApiException;
 import com.zskjprojectj.andouclient.http.ApiUtils;
@@ -236,4 +234,11 @@ public class MallHomepageFragment1 extends BaseFragment {
 
 
     }
+
+    @OnClick(R.id.miaoShaEntry)
+    void onMiaoShaEntryClick(){
+        ActivityUtils.startActivity(MallMiaoShaActivity.class);
+    }
+
+
 }

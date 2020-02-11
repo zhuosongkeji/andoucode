@@ -3,6 +3,9 @@ package com.zskjprojectj.andouclient.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -24,6 +27,8 @@ public class RestaurantOrderListActivity extends BaseActivity {
 
     @BindView(R.id.viewPager)
     ViewPager viewPager;
+    @BindView(R.id.tabLayout)
+    SlidingTabLayout tabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +39,19 @@ public class RestaurantOrderListActivity extends BaseActivity {
         fragments.add(new RestaurantOrderListFragment(RestaurantOrder.STATE.DAI_SHI_YONG.stateInt));
         fragments.add(new RestaurantOrderListFragment(RestaurantOrder.STATE.DAI_PING_JIA.stateInt));
         viewPager.setOffscreenPageLimit(3);
-        ((SlidingTabLayout) findViewById(R.id.tabLayout)).setViewPager(
+        tabLayout.setViewPager(
                 viewPager,
-                new String[]{"全部订单", "待支付", "待使用", "待评价"},
+                new String[]{"10:00\r\n即将开始", "待支付", "待使用", "待评价"},
                 mActivity,
                 fragments);
+        tabLayout.post(() -> {
+           LinearLayout parent =  (LinearLayout)tabLayout.getChildAt(0);
+            for (int i = 0; i < parent.getChildCount(); i++) {
+                View child = parent.getChildAt(i);
+                TextView tabTitle = child.findViewById(R.id.tv_tab_title);
+                tabTitle.setSingleLine(false);
+            }
+        });
     }
 
     @Override
