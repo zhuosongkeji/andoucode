@@ -129,7 +129,7 @@ public class MallShoppingFragment extends BaseFragment {
             } else if (view1.getId() == R.id.cb_selectorcb1) {
                 adapter.setSelected(item, !adapter.isSelect(item));
                 resetAmount();
-                view.findViewById(R.id.cb_selectorcb).setSelected(adapter.isSelectedAll);
+                mCheckBox.setSelected(adapter.isSelectedAll);
             }
         });
         getDataFromServer();
