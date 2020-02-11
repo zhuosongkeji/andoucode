@@ -54,48 +54,129 @@
                             app:pointsPosition="RIGHT"
                             app:pointsVisibility="true" />
 
-                        <RelativeLayout
+                        <LinearLayout
+                            android:id="@+id/miaoShaContainer"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/bg_miaosha_time">
+                            android:background="@drawable/bg_miaosha_time"
+                            android:orientation="vertical"
+                            android:paddingStart="15dp"
+                            android:paddingTop="10dp"
+                            android:paddingEnd="15dp"
+                            android:visibility="gone"
+                            tools:visibility="visible">
 
-                            <TextView
-                                android:id="@+id/rmb"
-                                android:layout_width="wrap_content"
+                            <LinearLayout
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="￥"
-                                android:textColor="#fffefefe"
-                                android:textSize="14sp"
-                                />
+                                android:baselineAligned="true"
+                                android:orientation="horizontal">
 
-                            <TextView
-                                android:id="@+id/miaoshaprice"
-                                android:layout_width="wrap_content"
+                                <TextView
+                                    android:id="@+id/rmb"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="￥"
+                                    android:textColor="#fffefefe"
+                                    android:textSize="14sp" />
+
+                                <TextView
+                                    android:id="@+id/miaoshaprice"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_toRightOf="@+id/rmb"
+                                    android:layout_weight="1"
+                                    android:text="119.00"
+                                    android:textColor="#ffffffff"
+                                    android:textSize="24sp" />
+
+
+                                <TextView
+                                    android:id="@+id/tv_hint"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="距活动结束还有"
+                                    android:textColor="#ffffffff"
+                                    android:textSize="13sp" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="119.00"
-                                android:textColor="#ffffffff"
-                                android:textSize="24sp"
-                                />
+                                android:layout_marginBottom="10dp"
+                                android:orientation="horizontal">
 
-                            <TextView
-                                android:id="@+id/price"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="￥138"
-                                android:textColor="#fffefefe"
-                                android:textSize="13sp"
-                                />
+                                <TextView
+                                    android:id="@+id/price"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="￥138"
+                                    android:textColor="#fffefefe"
+                                    android:textSize="13sp" />
 
-                            <TextView
-                                android:id="@+id/tv_time"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="距活动结束还有"
-                                android:textColor="#ffffffff"
-                                android:textSize="13sp"
-                                />
+                                <TextView
+                                    android:id="@+id/tv_day"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="1天"
+                                    android:textColor="#ffffffff"
+                                    android:textSize="11sp" />
 
-                        </RelativeLayout>
+                                <TextView
+                                    android:id="@+id/hour"
+                                    android:layout_width="16dp"
+                                    android:layout_height="16dp"
+                                    android:background="@drawable/bg_miaosha_time_withe"
+                                    android:gravity="center"
+                                    android:text="15"
+                                    android:textColor="#fffd4a2b"
+                                    android:textSize="11sp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="时"
+                                    android:textColor="#ffffffff"
+                                    android:textSize="11sp" />
+
+                                <TextView
+                                    android:id="@+id/minute"
+                                    android:layout_width="16dp"
+                                    android:layout_height="16dp"
+                                    android:background="@drawable/bg_miaosha_time_withe"
+                                    android:gravity="center"
+                                    android:text="15"
+                                    android:textColor="#fffd4a2b"
+                                    android:textSize="11sp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="分"
+                                    android:textColor="#ffffffff"
+                                    android:textSize="11sp" />
+
+                                <TextView
+                                    android:id="@+id/second"
+                                    android:layout_width="16dp"
+                                    android:layout_height="16dp"
+                                    android:background="@drawable/bg_miaosha_time_withe"
+                                    android:gravity="center"
+                                    android:text="15"
+                                    android:textColor="#fffd4a2b"
+                                    android:textSize="11sp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="秒"
+                                    android:textColor="#ffffffff"
+                                    android:textSize="11sp" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
 
                         <TextView
                             android:id="@+id/tv_mall_goods_name"
@@ -117,31 +198,56 @@
                             android:layout_marginBottom="@dimen/dp_10"
                             android:paddingLeft="@dimen/dp_15">
 
-                            <TextView
-                                android:id="@+id/tv_flag"
+
+                            <LinearLayout
+                                android:id="@+id/goodsPrice"
+                                android:visibility="visible"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_alignBottom="@+id/tv_price"
                                 android:layout_centerVertical="true"
-                                android:text="¥"
-                                android:textColor="#FE5F50"
-                                android:textSize="@dimen/typeface12sp" />
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/tv_flag"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignBottom="@+id/tv_price"
+                                    android:layout_centerVertical="true"
+                                    android:text="¥"
+                                    android:textColor="#FE5F50"
+                                    android:textSize="@dimen/typeface12sp" />
+
+                                <TextView
+                                    android:id="@+id/tv_price"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginLeft="@dimen/dp_3"
+                                    android:layout_toRightOf="@+id/tv_flag"
+                                    android:text="288"
+                                    android:textColor="#FE5F50"
+                                    android:textSize="@dimen/typeface17sp" />
+                            </LinearLayout>
 
                             <TextView
-                                android:id="@+id/tv_price"
-                                android:layout_width="wrap_content"
+                                android:id="@+id/tv_mall_goods_name2"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:ellipsize="end"
+                                android:layout_toLeftOf="@+id/mall_goods_collection"
+                                android:maxLines="2"
                                 android:layout_centerVertical="true"
-                                android:layout_marginLeft="@dimen/dp_3"
-                                android:layout_toRightOf="@+id/tv_flag"
-                                android:text="288"
-                                android:textColor="#FE5F50"
-                                android:textSize="@dimen/typeface17sp" />
+                                android:layout_marginEnd="56dp"
+                                android:text="亲润孕妇化妆品套装BB霜遮瑕孕妇护肤品豆乳补水4件套（洗面奶+爽肤水+乳液+BB霜）"
+                                android:textColor="#333333"
+                                android:visibility="gone"
+                                android:textSize="@dimen/typeface14sp" />
 
                             <LinearLayout
                                 android:id="@+id/mall_goods_collection"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
                                 android:layout_alignParentEnd="true"
                                 android:background="@mipmap/btn_half_circle_mall"
                                 android:orientation="horizontal"

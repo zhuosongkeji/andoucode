@@ -18,8 +18,10 @@ import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zhuosongkj.android.library.util.ActionBarUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.fragment.mall.MallMiaoShaFragment;
+import com.zskjprojectj.andouclient.fragment.mall.MiaoSha;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -34,28 +36,40 @@ public class MallMiaoShaActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        BarUtils.setStatusBarColor(mActivity, Color.TRANSPARENT);
-        ActionBarUtil.setTitle(mActivity, "限时秒杀",true);
-//        ActionBarUtil.getBackground(mActivity,false).setAlpha(0);
-        fragments.add(new MallMiaoShaFragment());
-        fragments.add(new MallMiaoShaFragment());
-        fragments.add(new MallMiaoShaFragment());
-        fragments.add(new MallMiaoShaFragment());
-        fragments.add(new MallMiaoShaFragment());
-        tabLayout.setViewPager(
-                viewPager,
-                new String[]{"08:00\n已开抢", "09:00\n已开抢", "10:00\n抢购进行中", "11:00\n即将开场","12:00\n即将开场"},
-                mActivity,
-                fragments);
-        tabLayout.post(() -> {
+        BarUtils.transparentStatusBar(mActivity);
+        BarUtils.setStatusBarLightMode(mActivity, false);
+        ActionBarUtil.setTitle(mActivity, "限时秒杀", false);
+        ActionBarUtil.getBackground(mActivity, false).setAlpha(0);
+        viewPager.setOffscreenPageLimit(5);
+        tabLayout.postDelayed(() -> {
             LinearLayout parent = (LinearLayout) tabLayout.getChildAt(0);
             for (int i = 0; i < parent.getChildCount(); i++) {
                 View child = parent.getChildAt(i);
                 TextView tabTitle = child.findViewById(R.id.tv_tab_title);
                 tabTitle.setSingleLine(false);
-                tabTitle.setLineSpacing(SizeUtils.dp2px(5),1f);
+                tabTitle.setLineSpacing(SizeUtils.dp2px(5), 1f);
             }
-        });
+        }, 1);
+        onBind(MiaoSha.getTests());
+    }
+
+    private void onBind(ArrayList<MiaoSha> miaoShas) {
+        String[] titles = new String[miaoShas.size()];
+        int index = 0;
+        for (int i = 0; i < miaoShas.size(); i++) {
+            MiaoSha miaoSha = miaoShas.get(i);
+            titles[i] = miaoSha.time + "\n" + miaoSha.state.title;
+            fragments.add(new MallMiaoShaFragment(miaoSha));
+            if (miaoSha.state == MiaoSha.State.JIN_XING_ZHONG){
+                index = i;
+            }
+        }
+        tabLayout.setViewPager(
+                viewPager,
+                titles,
+                mActivity,
+                fragments);
+        tabLayout.setCurrentTab(index);
     }
 
     @Override

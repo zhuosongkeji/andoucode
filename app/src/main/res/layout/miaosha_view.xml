@@ -22,6 +22,7 @@
             tools:src="@mipmap/bg_miaosha_template" />
 
         <LinearLayout
+            android:id="@+id/hot_buy"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:background="@mipmap/bg_miaosha_time"

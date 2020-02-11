@@ -23,6 +23,13 @@ import java.util.ArrayList;
 import butterknife.BindView;
 
 public class MallMiaoShaFragment extends BaseFragment {
+
+    public MallMiaoShaFragment(MiaoSha miaoSha) {
+        this.miaoSha = miaoSha;
+    }
+
+    MiaoSha miaoSha ;
+
     MallMiaoShaGoodsAdapter goodsAdapter = new MallMiaoShaGoodsAdapter();
     MallMiaoShaAdapter adapter = new MallMiaoShaAdapter();
 
@@ -43,19 +50,22 @@ public class MallMiaoShaFragment extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
         goodsAdapter.bindToRecyclerView(mRvGoodGoods);
         adapter.bindToRecyclerView(mRvMiaoShaGoods);
-        onBind(MiaoSha.getTest());
+        onBind(miaoSha);
 
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                ActivityUtils.startActivity(MallGoodsDetailsActivity.class);
+                MallGoodsDetailsActivity.start("23");
             }
         });
     }
 
     private void onBind(MiaoSha miaoSha) {
         goodsAdapter.setNewData(miaoSha.recommends);
+        adapter.miaoSha = miaoSha;
         adapter.setNewData(miaoSha.goods);
     }
+
+
 
 }

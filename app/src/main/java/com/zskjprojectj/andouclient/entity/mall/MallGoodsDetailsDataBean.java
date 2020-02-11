@@ -55,6 +55,8 @@ public class MallGoodsDetailsDataBean {
     private String is_collection;
     private MerchantBean merchant;
     private List<String> album;
+    public boolean isMiaoSha;
+
 
     public String getStore_num() {
         return store_num;

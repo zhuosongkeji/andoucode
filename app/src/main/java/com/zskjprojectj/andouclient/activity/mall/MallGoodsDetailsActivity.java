@@ -18,6 +18,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -31,6 +32,7 @@ import com.shizhefei.view.indicator.transition.OnTransitionTextListener;
 
 
 import com.stx.xhb.xbanner.XBanner;
+import com.zhuosongkj.android.library.util.ViewUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.MallMainActivity;
 import com.zskjprojectj.andouclient.activity.MyaddressActivity;
@@ -58,6 +60,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -110,6 +113,15 @@ public class MallGoodsDetailsActivity extends BaseActivity {
     //商家名字
     @BindView(R.id.tv_name)
     TextView mTvName;
+
+    @BindView(R.id.miaoShaContainer)
+    LinearLayout miaoShaContainer;
+
+    @BindView(R.id.goodsPrice)
+    LinearLayout mGoodsPrice;
+
+    @BindView(R.id.tv_mall_goods_name2)
+    TextView tv_mall_goods_name2;
 
     private FixedIndicatorView mIndicator;
     private ViewPager mViewPager;
@@ -276,6 +288,11 @@ public class MallGoodsDetailsActivity extends BaseActivity {
                                 urlBanner.add(new XBannerBean(s));
                             }
                         }
+                        mallGoodsDetailsDataBean.isMiaoSha = new Random().nextBoolean();
+                        miaoShaContainer.setVisibility(mallGoodsDetailsDataBean.isMiaoSha ? View.VISIBLE : View.GONE);
+                        mGoodsPrice.setVisibility(mallGoodsDetailsDataBean.isMiaoSha ? View.GONE : View.VISIBLE);
+                        tv_mall_goods_name2.setVisibility(mallGoodsDetailsDataBean.isMiaoSha ? View.VISIBLE : View.GONE);
+                        mMallGoodsName.setVisibility(mallGoodsDetailsDataBean.isMiaoSha ? View.GONE : View.VISIBLE);
                         mBanner.setBannerData(urlBanner);
                         mMallGoodsName.setText(mallGoodsDetailsDataBean.getName());
                         mTvPrice.setText(mallGoodsDetailsDataBean.getPrice());
@@ -531,7 +548,7 @@ public class MallGoodsDetailsActivity extends BaseActivity {
                 int num = priceInfo.num;
                 String goodsNum = String.valueOf(num);
                 mGoodsNum.setText(goodsNum);
-                mGoodsPrice.setText("¥"+priceInfo.price);
+                mGoodsPrice.setText("¥" + priceInfo.price);
 
 
             }
@@ -618,7 +635,7 @@ public class MallGoodsDetailsActivity extends BaseActivity {
                     public void onError(Throwable e) {
                         super.onError(e);
 
-                        if ("请填写收货地址".equals(e.getMessage())){
+                        if ("请填写收货地址".equals(e.getMessage())) {
                             startActivity(new Intent(mAt, MyaddressActivity.class));
                         }
                     }
@@ -682,5 +699,6 @@ public class MallGoodsDetailsActivity extends BaseActivity {
         Bundle intent = new Bundle();
         intent.putString(GOODS_ID, id);
         ActivityUtils.startActivity(intent, MallGoodsDetailsActivity.class);
+
     }
 }

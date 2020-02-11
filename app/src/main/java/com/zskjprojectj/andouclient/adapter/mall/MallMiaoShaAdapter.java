@@ -17,6 +17,8 @@ import com.zskjprojectj.andouclient.model.MiaoShaGoods;
 import com.zskjprojectj.andouclient.utils.UrlUtil;
 
 public class MallMiaoShaAdapter extends BaseAdapter<MiaoShaGoods> {
+    public MiaoSha miaoSha;
+
     public MallMiaoShaAdapter() {
         super(R.layout.miaosha_view);
     }
@@ -27,7 +29,9 @@ public class MallMiaoShaAdapter extends BaseAdapter<MiaoShaGoods> {
                 .setText(R.id.tv_progress, "已抢" + item.progress + "%")
                 .setProgress(R.id.progressbar, item.progress)
                 .setText(R.id.tv_price, "￥" + FormatUtil.getMoneyString(item.miaoshaPrice))
-                .setText(R.id.original_price, "￥" + FormatUtil.getMoneyString(item.price));
+                .setText(R.id.original_price, "￥" + FormatUtil.getMoneyString(item.price))
+                .setGone(R.id.hot_buy, miaoSha.state == MiaoSha.State.JIN_XING_ZHONG);
+
         TextView textView = helper.getView(R.id.original_price);
         textView.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
 
