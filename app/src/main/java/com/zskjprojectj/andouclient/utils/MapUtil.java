@@ -45,7 +45,7 @@ public class MapUtil {
         Poi start = new Poi("三元桥", new LatLng(39.96087, 116.45798), "");
 /**终点传入的是北京站坐标,但是POI的ID "B000A83M61"对应的是北京西站，所以实际算路以北京西站作为终点**/
         Poi end = new Poi("北京站", new LatLng(39.904556, 116.427231), "B000A83M61");
-        AmapNaviPage.getInstance().showRouteActivity(activity, new AmapNaviParams(start, null, end, AmapNaviType.DRIVER), new INaviInfoCallback() {
+        AmapNaviPage.getInstance().showRouteActivity(activity, new AmapNaviParams(null, null, end, AmapNaviType.DRIVER), new INaviInfoCallback() {
             @Override
             public void onInitNaviFailure() {
 
