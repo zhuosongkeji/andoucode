@@ -1,9 +1,12 @@
 package com.zskjprojectj.andouclient.activity;
 
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.zskjprojectj.andouclient.R;
@@ -23,10 +26,19 @@ public class WebViewActivity extends BaseActivity {
         setContentView(R.layout.activity_web_view);
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void initViews() {
         topView.setTitle("加载中");
         webView = findViewById(R.id.webView);
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+                webView.loadUrl(request.getUrl().toString());
+                return true;
+            }
+        });
         webView.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onReceivedTitle(WebView view, String title) {
