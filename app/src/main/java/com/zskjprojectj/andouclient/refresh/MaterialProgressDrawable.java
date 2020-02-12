@@ -314,7 +314,7 @@ public class MaterialProgressDrawable extends Drawable implements Animatable {
         if (interpolatedTime > COLOR_START_DELAY_OFFSET) {
             // scale the interpolatedTime so that the full
             // transformation from 0 - 1 takes place in the
-            // remaining time
+            // remaining startTime
             ring.setColor(evaluateColorChange((interpolatedTime - COLOR_START_DELAY_OFFSET)
                             / (1.0f - COLOR_START_DELAY_OFFSET), ring.getStartingColor(),
                     ring.getNextColor()));
@@ -361,7 +361,7 @@ public class MaterialProgressDrawable extends Drawable implements Animatable {
                     if (interpolatedTime <= START_TRIM_DURATION_OFFSET) {
                         // scale the interpolatedTime so that the full
                         // transformation from 0 - 1 takes place in the
-                        // remaining time
+                        // remaining startTime
                         final float scaledTime = (interpolatedTime)
                                 / (1.0f - START_TRIM_DURATION_OFFSET);
                         final float startTrim = startingTrim
@@ -375,7 +375,7 @@ public class MaterialProgressDrawable extends Drawable implements Animatable {
                     if (interpolatedTime > END_TRIM_START_DELAY_OFFSET) {
                         // scale the interpolatedTime so that the full
                         // transformation from 0 - 1 takes place in the
-                        // remaining time
+                        // remaining startTime
                         final float minArc = MAX_PROGRESS_ARC - minProgressArc;
                         float scaledTime = (interpolatedTime - START_TRIM_DURATION_OFFSET)
                                 / (1.0f - START_TRIM_DURATION_OFFSET);
@@ -542,7 +542,7 @@ public class MaterialProgressDrawable extends Drawable implements Animatable {
                 float x = (float) (mRingCenterRadius * Math.cos(0) + bounds.exactCenterX());
                 float y = (float) (mRingCenterRadius * Math.sin(0) + bounds.exactCenterY());
 
-                // Update the path each time. This works around an issue in SKIA
+                // Update the path each startTime. This works around an issue in SKIA
                 // where concatenating a rotation matrix to a scale matrix
                 // ignored a starting negative rotation. This appears to have
                 // been fixed as of API 21.

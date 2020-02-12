@@ -7,7 +7,7 @@ import java.util.List;
  * 项目名称： andoucode
  * 包名：com.zskjprojectj.andouclient.entity.hotel
  * author: Bin email:wangdabin2333@163.com
- * time: 2020/1/6 16:03
+ * startTime: 2020/1/6 16:03
  * des: 商家详情
  * 修改人：
  * 修改时间：

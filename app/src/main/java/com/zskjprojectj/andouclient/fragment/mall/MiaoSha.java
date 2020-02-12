@@ -1,12 +1,12 @@
 package com.zskjprojectj.andouclient.fragment.mall;
 
-import com.zskjprojectj.andouclient.model.Goods;
 import com.zskjprojectj.andouclient.model.MiaoShaGoods;
 
 import java.util.ArrayList;
 
 public class MiaoSha {
-    public String time;
+    public String startTime;
+    public String endTime;
     public State state;
 
     public ArrayList<MiaoShaGoods> recommends = new ArrayList<>();
@@ -24,9 +24,11 @@ public class MiaoSha {
 
     public static MiaoSha getTest(String time, State state) {
         MiaoSha miaoSha = new MiaoSha();
-        miaoSha.time = time;
+        miaoSha.startTime = time;
+        miaoSha.endTime = "23:00";
         miaoSha.state = state;
         MiaoShaGoods goods = new MiaoShaGoods();
+        goods.id = "23";
         goods.img = "http://img0.imgtn.bdimg.com/it/u=1473544931,889757245&fm=15&gp=0.jpg";
         goods.name = "秒杀测试商品";
         goods.price = 128.99;

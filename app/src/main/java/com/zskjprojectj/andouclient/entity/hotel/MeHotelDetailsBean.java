@@ -4,7 +4,7 @@ package com.zskjprojectj.andouclient.entity.hotel;
  * 项目名称： andoucode
  * 包名：com.zskjprojectj.andouclient.entity.hotel
  * author: Bin email:wangdabin2333@163.com
- * time: 2020/1/9 17:02
+ * startTime: 2020/1/9 17:02
  * des:
  * 修改人：
  * 修改时间：

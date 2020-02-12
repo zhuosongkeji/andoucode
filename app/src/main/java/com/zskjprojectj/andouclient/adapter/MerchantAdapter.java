@@ -9,7 +9,7 @@ import com.zskjprojectj.andouclient.entity.MerchantHomeTypeBean;
  * 项目名称： andoucode
  * 包名：com.zskjprojectj.andouclient.adapter
  * author: Bin email:wangdabin2333@163.com
- * time: 2020/1/19 15:12
+ * startTime: 2020/1/19 15:12
  * des:
  * 修改人：
  * 修改时间：

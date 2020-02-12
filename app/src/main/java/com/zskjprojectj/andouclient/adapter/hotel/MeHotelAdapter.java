@@ -19,7 +19,7 @@ import com.zskjprojectj.andouclient.utils.UrlUtil;
  * 项目名称： andoucode
  * 包名：com.zskjprojectj.andouclient.adapter.hotel
  * author: Bin email:wangdabin2333@163.com
- * time: 2020/1/9 15:00
+ * startTime: 2020/1/9 15:00
  * des:
  * 修改人：
  * 修改时间：

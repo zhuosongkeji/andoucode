@@ -35,7 +35,7 @@ import io.reactivex.Observable;
  * 项目名称： andoucode
  * 包名：com.zskjprojectj.andouclient.fragment.hotel
  * author: Bin email:wangdabin2333@163.com
- * time: 2020/1/9 14:28
+ * startTime: 2020/1/9 14:28
  * des:
  * 修改人：
  * 修改时间：

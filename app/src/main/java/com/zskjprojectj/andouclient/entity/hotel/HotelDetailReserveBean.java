@@ -6,7 +6,7 @@ import java.util.List;
  * 项目名称： andoucode
  * 包名：com.zskjprojectj.andouclient.entity.hotel
  * author: Bin email:wangdabin2333@163.com
- * time: 2019/12/7 10:15
+ * startTime: 2019/12/7 10:15
  * des:酒店详情预订实体类
  * 修改人：
  * 修改时间：

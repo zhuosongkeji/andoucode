@@ -9,7 +9,7 @@ import android.widget.ScrollView;
  * 项目名称： andoucode
  * 包名：com.zskjprojectj.andouclient.utils
  * author: Bin email:wangdabin2333@163.com
- * time: 2019/12/21 11:28
+ * startTime: 2019/12/21 11:28
  * des:
  * 修改人：
  * 修改时间：

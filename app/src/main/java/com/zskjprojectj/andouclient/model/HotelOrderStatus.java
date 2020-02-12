@@ -4,7 +4,7 @@ package com.zskjprojectj.andouclient.model;
  * 项目名称： andoucode
  * 包名：com.zskjprojectj.andouclient.model
  * author: Bin email:wangdabin2333@163.com
- * time: 2020/1/9 16:27
+ * startTime: 2020/1/9 16:27
  * des:
  * 修改人：
  * 修改时间：

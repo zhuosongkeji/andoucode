@@ -26,7 +26,7 @@ import java.util.ArrayList;
  * 项目名称： andoucode
  * 包名：com.zskjprojectj.andouclient.fragment.hotel
  * author: Bin email:wangdabin2333@163.com
- * time: 2019/12/7 9:36
+ * startTime: 2019/12/7 9:36
  * des:酒店环境设施
  * 修改人：
  * 修改时间：

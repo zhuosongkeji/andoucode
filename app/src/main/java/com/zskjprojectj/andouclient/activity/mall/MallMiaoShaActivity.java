@@ -1,17 +1,14 @@
 package com.zskjprojectj.andouclient.activity.mall;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
-
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
+
 import com.blankj.utilcode.util.BarUtils;
-import com.blankj.utilcode.util.ScreenUtils;
 import com.blankj.utilcode.util.SizeUtils;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.zhuosongkj.android.library.app.BaseActivity;
@@ -21,7 +18,6 @@ import com.zskjprojectj.andouclient.fragment.mall.MallMiaoShaFragment;
 import com.zskjprojectj.andouclient.fragment.mall.MiaoSha;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 
@@ -58,7 +54,7 @@ public class MallMiaoShaActivity extends BaseActivity {
         int index = 0;
         for (int i = 0; i < miaoShas.size(); i++) {
             MiaoSha miaoSha = miaoShas.get(i);
-            titles[i] = miaoSha.time + "\n" + miaoSha.state.title;
+            titles[i] = miaoSha.startTime + "\n" + miaoSha.state.title;
             fragments.add(new MallMiaoShaFragment(miaoSha));
             if (miaoSha.state == MiaoSha.State.JIN_XING_ZHONG){
                 index = i;

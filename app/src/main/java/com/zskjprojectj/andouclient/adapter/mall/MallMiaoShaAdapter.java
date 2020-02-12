@@ -31,12 +31,14 @@ public class MallMiaoShaAdapter extends BaseAdapter<MiaoShaGoods> {
                 .setText(R.id.tv_price, "￥" + FormatUtil.getMoneyString(item.miaoshaPrice))
                 .setText(R.id.original_price, "￥" + FormatUtil.getMoneyString(item.price))
                 .setGone(R.id.hot_buy, miaoSha.state == MiaoSha.State.JIN_XING_ZHONG);
-
+        if (miaoSha.state != MiaoSha.State.JIN_XING_ZHONG) {
+            helper.setText(R.id.tv_buy_now, miaoSha.state.title);
+        } else {
+            helper.setText(R.id.tv_buy_now, "马上抢");
+        }
         TextView textView = helper.getView(R.id.original_price);
         textView.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-
         helper.addOnClickListener(R.id.tv_buy_now);
-
         Glide.with(mContext).load(UrlUtil.getImageUrl(item.img)).into((ImageView) helper.getView(R.id.miaoshaimg));
     }
 }
