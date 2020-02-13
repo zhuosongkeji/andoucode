@@ -31,6 +31,7 @@
         android:usesCleartextTraffic="true"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning"
         tools:targetApi="m">
+        <activity android:name=".activity.mall.PinTuanActivity"></activity>
         <activity
             android:name=".activity.mall.MallMiaoShaActivity"
             android:screenOrientation="portrait" />
