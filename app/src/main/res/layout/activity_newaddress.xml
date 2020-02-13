@@ -22,23 +22,23 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#646464"
             android:layout_centerVertical="true"
             android:layout_gravity="center"
             android:layout_marginLeft="11dp"
             android:text="收货人:"
+            android:textColor="#646464"
             android:textSize="@dimen/typeface13sp" />
 
         <EditText
             android:id="@+id/nameEdt"
             android:layout_width="200dp"
-            android:layout_marginLeft="@dimen/dp_5"
-            android:hint="请输入收件人姓名"
-            android:textColorHint="#999999"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/dp_5"
             android:background="@null"
+            android:hint="请输入收件人姓名"
             android:textColor="#646464"
+            android:textColorHint="#999999"
             android:textSize="@dimen/typeface12sp" />
     </LinearLayout>
 
@@ -52,23 +52,23 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_gravity="center"
-            android:textColor="#646464"
-
             android:layout_marginLeft="11dp"
+
             android:text="联系电话:"
+            android:textColor="#646464"
             android:textSize="@dimen/typeface13sp" />
 
         <EditText
             android:id="@+id/mobileEdt"
             android:layout_width="200dp"
-            android:layout_marginLeft="@dimen/dp_5"
-            android:hint="请输入联系人号码"
-            android:textColorHint="#999999"
-            android:textColor="#646464"
-            android:textSize="@dimen/typeface12sp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="@null" />
+            android:layout_marginLeft="@dimen/dp_5"
+            android:background="@null"
+            android:hint="请输入联系人号码"
+            android:textColor="#646464"
+            android:textColorHint="#999999"
+            android:textSize="@dimen/typeface12sp" />
     </LinearLayout>
 
     <RelativeLayout
@@ -78,10 +78,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#646464"
             android:layout_centerVertical="true"
             android:layout_marginLeft="11dp"
-            android:text="所在地区:" />
+            android:text="所在地区:"
+            android:textColor="#646464" />
 
         <RelativeLayout
             android:id="@+id/ry_selectaddress"
@@ -90,36 +90,38 @@
             android:layout_centerVertical="true">
 
             <ImageView
-                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="90dp"
-                android:src="@mipmap/icon_map" />
+                android:src="@mipmap/icon_map"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/tv_showadress"
-                android:textColor="#646464"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="29dp"
                 android:text="点击选择"
+                android:textColor="#646464"
                 android:textSize="@dimen/typeface13sp" />
 
             <ImageView
-                android:layout_centerVertical="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/dp_10"
                 android:src="@mipmap/triangle_icon" />
         </RelativeLayout>
 
     </RelativeLayout>
 
+
+    <!--  定位地址  -->
     <RelativeLayout
-        android:visibility="gone"
+        android:id="@+id/ry_locationaddress"
         android:layout_width="match_parent"
         android:layout_height="55dp">
 
@@ -128,17 +130,65 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="11dp"
-            android:textColor="#646464"
-            android:text="街道:" />
+            android:text="定位地址:"
+            android:textColor="#646464" />
+
+        <RelativeLayout
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="90dp"
+                android:src="@mipmap/icon_map"
+                android:visibility="gone" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="29dp"
+                android:text="点击选择"
+                android:textColor="#646464"
+                android:textSize="@dimen/typeface13sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/dp_10"
+                android:src="@mipmap/triangle_icon" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+    <!--  定位地址  -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:visibility="gone">
 
         <TextView
-            android:textColor="#646464"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="11dp"
+            android:text="街道:"
+            android:textColor="#646464" />
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="29dp"
             android:text="请选择"
+            android:textColor="#646464"
             android:textSize="@dimen/typeface13sp" />
 
         <ImageView
@@ -156,24 +206,24 @@
         android:orientation="vertical">
 
         <TextView
-            android:textColor="#646464"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_11"
             android:layout_marginTop="@dimen/dp_11"
-            android:text="详细地址:" />
+            android:text="详细地址:"
+            android:textColor="#646464" />
 
         <EditText
-            android:textColor="#646464"
-            android:paddingLeft="@dimen/dp_11"
             android:id="@+id/detailEdt"
-            android:layout_marginLeft="@dimen/dp_5"
-            android:hint="请输入收件详细地址"
-            android:textColorHint="#999999"
-            android:textSize="@dimen/typeface12sp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@null" />
+            android:layout_marginLeft="@dimen/dp_5"
+            android:background="@null"
+            android:hint="请输入收件详细地址"
+            android:paddingLeft="@dimen/dp_11"
+            android:textColor="#646464"
+            android:textColorHint="#999999"
+            android:textSize="@dimen/typeface12sp" />
     </LinearLayout>
 
     <RelativeLayout
@@ -181,12 +231,12 @@
         android:layout_height="55dp">
 
         <TextView
-            android:textColor="#646464"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="11dp"
-            android:text="设为默认收货地址" />
+            android:text="设为默认收货地址"
+            android:textColor="#646464" />
 
         <CheckBox
             android:id="@+id/defaultCkb"
@@ -194,8 +244,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:button="@drawable/selector_checkbox"
-            android:layout_marginRight="@dimen/dp_10" />
+            android:layout_marginRight="@dimen/dp_10"
+            android:button="@drawable/selector_checkbox" />
     </RelativeLayout>
 
     <Button

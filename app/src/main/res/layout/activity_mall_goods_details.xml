@@ -201,11 +201,11 @@
 
                             <LinearLayout
                                 android:id="@+id/goodsPrice"
-                                android:visibility="visible"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
-                                android:orientation="horizontal">
+                                android:orientation="horizontal"
+                                android:visibility="visible">
 
                                 <TextView
                                     android:id="@+id/tv_flag"
@@ -233,22 +233,48 @@
                                 android:id="@+id/tv_mall_goods_name2"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:ellipsize="end"
-                                android:layout_toLeftOf="@+id/mall_goods_collection"
-                                android:maxLines="2"
                                 android:layout_centerVertical="true"
                                 android:layout_marginEnd="56dp"
+                                android:layout_toLeftOf="@+id/mall_goods_collection"
+                                android:ellipsize="end"
+                                android:maxLines="2"
                                 android:text="亲润孕妇化妆品套装BB霜遮瑕孕妇护肤品豆乳补水4件套（洗面奶+爽肤水+乳液+BB霜）"
                                 android:textColor="#333333"
+                                android:textSize="@dimen/typeface14sp"
+                                android:visibility="gone" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="8dp"
                                 android:visibility="gone"
-                                android:textSize="@dimen/typeface14sp" />
+                                tools:visibility="visible"
+                                android:layout_toRightOf="@+id/goodsPrice"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:src="@mipmap/icon_pintuan_ico" />
+
+                                <TextView
+                                    android:id="@+id/tv_pintuan_number"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="3dp"
+                                    android:textColor="#FF0000"
+                                    tools:text="2人拼"/>
+
+                            </LinearLayout>
 
                             <LinearLayout
                                 android:id="@+id/mall_goods_collection"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
                                 android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
                                 android:background="@mipmap/btn_half_circle_mall"
                                 android:orientation="horizontal"
                                 android:padding="@dimen/dp_5">
@@ -457,6 +483,33 @@
                             android:layout_height="@dimen/dp_10"
                             android:background="#F7F7F7" />
 
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="15dp"
+                            android:paddingEnd="15dp"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="已有85921人参团"
+                                android:textColor="#333333"/>
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/tv_pintuan"
+                                android:layout_width="match_parent"
+                                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                                android:layout_height="wrap_content"/>
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dp_10"
+                            android:background="#F7F7F7" />
+
                     </LinearLayout>
 
                     <com.shizhefei.view.indicator.FixedIndicatorView
@@ -538,6 +591,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/ll_normal"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -564,6 +618,42 @@
                         android:gravity="center"
                         android:paddingLeft="@dimen/dp_15"
                         android:text="立即购买"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/typeface13sp" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_pintuan"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/pintuan_add_shopping"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="#EFA13B"
+                        android:gravity="center"
+                        android:text="¥199\n单独购买"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/typeface13sp" />
+
+                    <TextView
+                        android:id="@+id/pintuan_tv_buy_now"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="#FC6464"
+                        android:drawableLeft="@mipmap/icon_buynow_pay"
+                        android:gravity="center"
+                        android:paddingLeft="@dimen/dp_15"
+                        android:text="¥89\n我要开团"
                         android:textColor="@color/white"
                         android:textSize="@dimen/typeface13sp" />
 

@@ -31,7 +31,8 @@
         android:usesCleartextTraffic="true"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning"
         tools:targetApi="m">
-        <activity android:name=".activity.mall.MallMiaoShaActivity"></activity>
+        <activity android:name=".activity.SelectLocationActivity"></activity>
+        <activity android:name=".activity.mall.MallMiaoShaActivity" />
         <activity
             android:name=".activity.restaurant.RestaurantSearchActivity"
             android:windowSoftInputMode="adjustPan" />
