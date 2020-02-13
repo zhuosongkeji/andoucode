@@ -34,7 +34,6 @@ import com.shizhefei.view.indicator.transition.OnTransitionTextListener;
 
 
 import com.stx.xhb.xbanner.XBanner;
-import com.zhuosongkj.android.library.util.ViewUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.MallMainActivity;
 import com.zskjprojectj.andouclient.activity.MyaddressActivity;
@@ -42,13 +41,11 @@ import com.zskjprojectj.andouclient.adapter.mall.MallBuyAdapter;
 import com.zskjprojectj.andouclient.adapter.mall.MallPinTuanAdapter;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
-import com.zskjprojectj.andouclient.model.PinTuan;
+import com.zskjprojectj.andouclient.model.PinTuanDetails;
 import com.zskjprojectj.andouclient.utils.UrlUtil;
-import com.zskjprojectj.andouclient.base.BaseUrl;
 import com.zskjprojectj.andouclient.entity.XBannerBean;
 import com.zskjprojectj.andouclient.entity.mall.MallBuyBean;
 import com.zskjprojectj.andouclient.entity.mall.MallBuyNowBean;
-import com.zskjprojectj.andouclient.entity.mall.MallCommentBean;
 import com.zskjprojectj.andouclient.entity.mall.MallGoodsDetailsDataBean;
 import com.zskjprojectj.andouclient.fragment.hotel.CustomViewDialog;
 import com.zskjprojectj.andouclient.fragment.mall.MallGoodsCommentFragment;
@@ -201,7 +198,7 @@ public class MallGoodsDetailsActivity extends BaseActivity {
 
     private void initPinTuan() {
         pinTuanAdapter.bindToRecyclerView(tv_pintuan);
-        pinTuanAdapter.setNewData(PinTuan.getTest());
+        pinTuanAdapter.setNewData(PinTuanDetails.getTest());
 
         pinTuanAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
