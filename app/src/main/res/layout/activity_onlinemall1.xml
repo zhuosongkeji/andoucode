@@ -117,7 +117,7 @@
                     android:src="@mipmap/miaosha" />
 
                 <ImageView
-
+                    android:id="@+id/pinTuanEntry"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/dp_105"
                     android:layout_gravity="center"

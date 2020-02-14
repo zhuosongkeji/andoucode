@@ -7,18 +7,19 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.zhuosongkj.android.library.adapter.BaseAdapter;
 import com.zhuosongkj.android.library.util.FormatUtil;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.model.MiaoShaGoods;
+import com.zskjprojectj.andouclient.model.PinTuanGoods;
 import com.zskjprojectj.andouclient.utils.UrlUtil;
 
-public class MallMiaoShaGoodsAdapter extends BaseAdapter<MiaoShaGoods> {
-
-    public MallMiaoShaGoodsAdapter() {
-        super(R.layout.goods_miaosha_view);
+public class PinTuanMustAdapter extends BaseAdapter<PinTuanGoods> {
+    public PinTuanMustAdapter() {
+        super(R.layout.layout_pin_tuan_must_list_item);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, MiaoShaGoods item) {
-        helper.setText(R.id.priceTxt, "￥" + FormatUtil.getMoneyString(item.miaoshaPrice));
+    protected void convert(BaseViewHolder helper, PinTuanGoods item) {
+        helper.setText(R.id.priceTxt, FormatUtil.getMoneyString(item.pintuanPrice))
+                .setText(R.id.titleTxt, item.name)
+                .setText(R.id.peopleCountTxt, item.people + "人团");
         helper.itemView.postDelayed(() -> {
             ImageView img = helper.itemView.findViewById(R.id.img);
             img.getLayoutParams().height = img.getWidth();
