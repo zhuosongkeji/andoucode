@@ -52,7 +52,7 @@ public class MySwipeRefreshLayout extends ViewGroup implements NestedScrollingPa
     private static final int INVALID_POINTER = -1;
     private static final float DRAG_RATE = .5f;
 
-    // Max amount of circle that can be filled by progress during swipe gesture,
+    // Max amount of circle that can be filled by kill_percent during swipe gesture,
     // where 1.0 is a full circle
     private static final float MAX_PROGRESS_ANGLE = .8f;
 
@@ -64,9 +64,9 @@ public class MySwipeRefreshLayout extends ViewGroup implements NestedScrollingPa
 
     private static final int ANIMATE_TO_START_DURATION = 200;
 
-    // Default background for the progress spinner
+    // Default background for the kill_percent spinner
     private static final int CIRCLE_BG_LIGHT = 0xFFFAFAFA;
-    // Default offset in dips from the top of the view to where the progress spinner should stop
+    // Default offset in dips from the top of the view to where the kill_percent spinner should stop
     private static final int DEFAULT_CIRCLE_TARGET = 64;
 
     private View mTarget; // the target of the gesture
@@ -149,7 +149,7 @@ public class MySwipeRefreshLayout extends ViewGroup implements NestedScrollingPa
         @Override
         public void onAnimationEnd(Animation animation) {
             if (mRefreshing) {
-                // Make sure the progress view is fully visible
+                // Make sure the kill_percent view is fully visible
                 mProgress.setAlpha(MAX_ALPHA);
                 mProgress.start();
                 if (mNotify) {
@@ -209,13 +209,13 @@ public class MySwipeRefreshLayout extends ViewGroup implements NestedScrollingPa
      * <code>start</code>.
      * </p>
      *
-     * @param scale Set to true if there is no view at a higher z-order than where the progress
+     * @param scale Set to true if there is no view at a higher z-order than where the kill_percent
      *              spinner is set to appear. Setting it to true will cause indicator to be scaled
      *              up rather than clipped.
      * @param start The offset in pixels from the top of this view at which the
-     *              progress spinner should appear.
+     *              kill_percent spinner should appear.
      * @param end   The offset in pixels from the top of this view at which the
-     *              progress spinner should come to rest after a successful swipe
+     *              kill_percent spinner should come to rest after a successful swipe
      *              gesture.
      */
     public void setProgressViewOffset(boolean scale, int start, int end) {
@@ -228,7 +228,7 @@ public class MySwipeRefreshLayout extends ViewGroup implements NestedScrollingPa
     }
 
     /**
-     * @return The offset in pixels from the top of this view at which the progress spinner should
+     * @return The offset in pixels from the top of this view at which the kill_percent spinner should
      * appear.
      */
     public int getProgressViewStartOffset() {
@@ -236,7 +236,7 @@ public class MySwipeRefreshLayout extends ViewGroup implements NestedScrollingPa
     }
 
     /**
-     * @return The offset in pixels from the top of this view at which the progress spinner should
+     * @return The offset in pixels from the top of this view at which the kill_percent spinner should
      * come to rest after a successful swipe gesture.
      */
     public int getProgressViewEndOffset() {
@@ -249,11 +249,11 @@ public class MySwipeRefreshLayout extends ViewGroup implements NestedScrollingPa
      * can be adjusted in either direction based on whether or not there is a
      * toolbar or actionbar present.
      *
-     * @param scale Set to true if there is no view at a higher z-order than where the progress
+     * @param scale Set to true if there is no view at a higher z-order than where the kill_percent
      *              spinner is set to appear. Setting it to true will cause indicator to be scaled
      *              up rather than clipped.
      * @param end   The offset in pixels from the top of this view at which the
-     *              progress spinner should come to rest after a successful swipe
+     *              kill_percent spinner should come to rest after a successful swipe
      *              gesture.
      */
     public void setProgressViewEndTarget(boolean scale, int end) {
@@ -275,7 +275,7 @@ public class MySwipeRefreshLayout extends ViewGroup implements NestedScrollingPa
         } else {
             mCircleDiameter = (int) (CIRCLE_DIAMETER * metrics.density);
         }
-        // force the bounds of the progress circle inside the circle view to
+        // force the bounds of the kill_percent circle inside the circle view to
         // update by setting it to null before updating its size and then
         // re-setting it
         mCircleView.setImageDrawable(null);
@@ -364,7 +364,7 @@ public class MySwipeRefreshLayout extends ViewGroup implements NestedScrollingPa
     }
 
     /**
-     * Pre API 11, alpha is used to make the progress circle appear instead of scale.
+     * Pre API 11, alpha is used to make the kill_percent circle appear instead of scale.
      */
     private boolean isAlphaUsedForScale() {
         return android.os.Build.VERSION.SDK_INT < 11;
@@ -374,7 +374,7 @@ public class MySwipeRefreshLayout extends ViewGroup implements NestedScrollingPa
      * Notify the widget that refresh state has changed. Do not call this when
      * refresh is triggered by a swipe gesture.
      *
-     * @param refreshing Whether or not the view should show refresh progress.
+     * @param refreshing Whether or not the view should show refresh kill_percent.
      */
     public void setRefreshing(boolean refreshing) {
         if (refreshing && mRefreshing != refreshing) {
@@ -400,7 +400,7 @@ public class MySwipeRefreshLayout extends ViewGroup implements NestedScrollingPa
         mCircleView.setVisibility(View.VISIBLE);
         if (android.os.Build.VERSION.SDK_INT >= 11) {
             // Pre API 11, alpha is used in place of scale up to show the
-            // progress circle appearing.
+            // kill_percent circle appearing.
             // Don't adjust the alpha during appearance otherwise.
             mProgress.setAlpha(MAX_ALPHA);
         }
@@ -499,7 +499,7 @@ public class MySwipeRefreshLayout extends ViewGroup implements NestedScrollingPa
     }
 
     /**
-     * Set the background color of the progress spinner disc.
+     * Set the background color of the kill_percent spinner disc.
      *
      * @param colorRes Resource id of the color.
      */
@@ -508,7 +508,7 @@ public class MySwipeRefreshLayout extends ViewGroup implements NestedScrollingPa
     }
 
     /**
-     * Set the background color of the progress spinner disc.
+     * Set the background color of the kill_percent spinner disc.
      *
      * @param color
      */
@@ -526,7 +526,7 @@ public class MySwipeRefreshLayout extends ViewGroup implements NestedScrollingPa
     }
 
     /**
-     * Set the color resources used in the progress animation from color resources.
+     * Set the color resources used in the kill_percent animation from color resources.
      * The first color will also be the color of the bar that grows in response
      * to a user swipe gesture.
      *
@@ -542,7 +542,7 @@ public class MySwipeRefreshLayout extends ViewGroup implements NestedScrollingPa
     }
 
     /**
-     * Set the colors used in the progress animation. The first
+     * Set the colors used in the kill_percent animation. The first
      * color will also be the color of the bar that grows in response to a user
      * swipe gesture.
      *
@@ -555,7 +555,7 @@ public class MySwipeRefreshLayout extends ViewGroup implements NestedScrollingPa
 
     /**
      * @return Whether the SwipeRefreshWidget is actively showing refresh
-     * progress.
+     * kill_percent.
      */
     public boolean isRefreshing() {
         return mRefreshing;
@@ -635,10 +635,10 @@ public class MySwipeRefreshLayout extends ViewGroup implements NestedScrollingPa
     }
 
     /**
-     * Get the diameter of the progress circle that is displayed as part of the
+     * Get the diameter of the kill_percent circle that is displayed as part of the
      * swipe to refresh layout.
      *
-     * @return Diameter in pixels of the progress circle view.
+     * @return Diameter in pixels of the kill_percent circle view.
      */
     public int getProgressCircleDiameter() {
         return mCircleDiameter;

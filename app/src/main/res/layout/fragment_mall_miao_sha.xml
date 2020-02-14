@@ -109,14 +109,21 @@
 
         </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/mRvMiaoShaGoods"
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/refreshLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
-            android:paddingStart="15dp"
-            android:paddingEnd="15dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            app:srlEnableRefresh="false">
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/mRvMiaoShaGoods"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

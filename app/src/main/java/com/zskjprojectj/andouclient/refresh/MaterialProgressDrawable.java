@@ -66,10 +66,10 @@ public class MaterialProgressDrawable extends Drawable implements Animatable {
     private static final float END_TRIM_START_DELAY_OFFSET = 0.5f;
     private static final float START_TRIM_DURATION_OFFSET = 0.5f;
 
-    /** The duration of a single progress spin in milliseconds. */
+    /** The duration of a single kill_percent spin in milliseconds. */
     private static final int ANIMATION_DURATION = 1332;
 
-    /** The number of points in the progress "star". */
+    /** The number of points in the kill_percent "star". */
     private static final float NUM_POINTS = 5f;
     /** The list of animators operating on this drawable. */
     private final ArrayList<Animation> mAnimators = new ArrayList<Animation>();
@@ -125,7 +125,7 @@ public class MaterialProgressDrawable extends Drawable implements Animatable {
     }
 
     /**
-     * Set the overall size for the progress spinner. This updates the radius
+     * Set the overall size for the kill_percent spinner. This updates the radius
      * and stroke width of the ring.
      *
      */
@@ -140,7 +140,7 @@ public class MaterialProgressDrawable extends Drawable implements Animatable {
     }
 
     /**
-     * @param show Set to true to display the arrowhead on the progress spinner.
+     * @param show Set to true to display the arrowhead on the kill_percent spinner.
      */
     public void showArrow(boolean show) {
         mRing.setShowArrow(show);
@@ -154,7 +154,7 @@ public class MaterialProgressDrawable extends Drawable implements Animatable {
     }
 
     /**
-     * Set the start and end trim for the progress spinner arc.
+     * Set the start and end trim for the kill_percent spinner arc.
      *
      * @param startAngle start angle
      * @param endAngle end angle
@@ -165,7 +165,7 @@ public class MaterialProgressDrawable extends Drawable implements Animatable {
     }
 
     /**
-     * Set the amount of rotation to apply to the progress spinner.
+     * Set the amount of rotation to apply to the kill_percent spinner.
      *
      * @param rotation Rotation is from [0..1]
      */
@@ -181,7 +181,7 @@ public class MaterialProgressDrawable extends Drawable implements Animatable {
     }
 
     /**
-     * Set the colors used in the progress animation from color resources.
+     * Set the colors used in the kill_percent animation from color resources.
      * The first color will also be the color of the bar that grows in response
      * to a user swipe gesture.
      *
@@ -415,7 +415,7 @@ public class MaterialProgressDrawable extends Drawable implements Animatable {
                 ring.setStartTrim(ring.getEndTrim());
                 if (mFinishing) {
                     // finished closing the last ring from the swipe gesture; go
-                    // into progress mode
+                    // into kill_percent mode
                     mFinishing = false;
                     animation.setDuration(ANIMATION_DURATION);
                     ring.setShowArrow(false);
@@ -459,7 +459,7 @@ public class MaterialProgressDrawable extends Drawable implements Animatable {
 
         private int[] mColors;
         // mColorIndex represents the offset into the available mColors that the
-        // progress circle should currently display. As the progress circle is
+        // kill_percent circle should currently display. As the kill_percent circle is
         // animating, the mColorIndex moves by one to the next available color.
         private int mColorIndex;
         private float mStartingStartTrim;
@@ -503,7 +503,7 @@ public class MaterialProgressDrawable extends Drawable implements Animatable {
         }
 
         /**
-         * Draw the progress spinner
+         * Draw the kill_percent spinner
          */
         public void draw(Canvas c, Rect bounds) {
             final RectF arcBounds = mTempBounds;
@@ -561,7 +561,7 @@ public class MaterialProgressDrawable extends Drawable implements Animatable {
         }
 
         /**
-         * Set the colors the progress spinner alternates between.
+         * Set the colors the kill_percent spinner alternates between.
          *
          * @param colors Array of integers describing the colors. Must be non-<code>null</code>.
          */
@@ -572,7 +572,7 @@ public class MaterialProgressDrawable extends Drawable implements Animatable {
         }
 
         /**
-         * Set the absolute color of the progress spinner. This is should only
+         * Set the absolute color of the kill_percent spinner. This is should only
          * be used when animating between current and next color when the
          * spinner is rotating.
          *
@@ -584,7 +584,7 @@ public class MaterialProgressDrawable extends Drawable implements Animatable {
 
         /**
          * @param index Index into the color array of the color to display in
-         *            the progress spinner.
+         *            the kill_percent spinner.
          */
         public void setColorIndex(int index) {
             mColorIndex = index;
@@ -592,7 +592,7 @@ public class MaterialProgressDrawable extends Drawable implements Animatable {
         }
 
         /**
-         * @return int describing the next color the progress spinner should use when drawing.
+         * @return int describing the next color the kill_percent spinner should use when drawing.
          */
         public int getNextColor() {
             return mColors[getNextColorIndex()];
@@ -616,21 +616,21 @@ public class MaterialProgressDrawable extends Drawable implements Animatable {
         }
 
         /**
-         * @param alpha Set the alpha of the progress spinner and associated arrowhead.
+         * @param alpha Set the alpha of the kill_percent spinner and associated arrowhead.
          */
         public void setAlpha(int alpha) {
             mAlpha = alpha;
         }
 
         /**
-         * @return Current alpha of the progress spinner and arrowhead.
+         * @return Current alpha of the kill_percent spinner and arrowhead.
          */
         public int getAlpha() {
             return mAlpha;
         }
 
         /**
-         * @param strokeWidth Set the stroke width of the progress spinner in pixels.
+         * @param strokeWidth Set the stroke width of the kill_percent spinner in pixels.
          */
         public void setStrokeWidth(float strokeWidth) {
             mStrokeWidth = strokeWidth;
@@ -705,7 +705,7 @@ public class MaterialProgressDrawable extends Drawable implements Animatable {
         }
 
         /**
-         * @param centerRadius Inner radius in px of the circle the progress
+         * @param centerRadius Inner radius in px of the circle the kill_percent
          *            spinner arc traces.
          */
         public void setCenterRadius(double centerRadius) {
@@ -717,7 +717,7 @@ public class MaterialProgressDrawable extends Drawable implements Animatable {
         }
 
         /**
-         * @param show Set to true to show the arrow head on the progress spinner.
+         * @param show Set to true to show the arrow head on the kill_percent spinner.
          */
         public void setShowArrow(boolean show) {
             if (mShowArrow != show) {
@@ -737,7 +737,7 @@ public class MaterialProgressDrawable extends Drawable implements Animatable {
         }
 
         /**
-         * @return The amount the progress spinner is currently rotated, between [0..1].
+         * @return The amount the kill_percent spinner is currently rotated, between [0..1].
          */
         public float getStartingRotation() {
             return mStartingRotation;
@@ -754,7 +754,7 @@ public class MaterialProgressDrawable extends Drawable implements Animatable {
         }
 
         /**
-         * Reset the progress spinner to default rotation, start and end angles.
+         * Reset the kill_percent spinner to default rotation, start and end angles.
          */
         public void resetOriginals() {
             mStartingStartTrim = 0;

@@ -13,11 +13,19 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.blankj.utilcode.util.TimeUtils;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.zhuosongkj.android.library.app.BaseFragment;
+import com.zhuosongkj.android.library.model.BaseResult;
+import com.zhuosongkj.android.library.model.IListData;
+import com.zhuosongkj.android.library.util.PageLoadUtil;
+import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.mall.MallGoodsDetailsActivity;
 import com.zskjprojectj.andouclient.adapter.mall.MallMiaoShaAdapter;
 import com.zskjprojectj.andouclient.adapter.mall.MallMiaoShaGoodsAdapter;
+import com.zskjprojectj.andouclient.http.ApiUtils;
+import com.zskjprojectj.andouclient.model.MiaoShaGoods;
+import com.zskjprojectj.andouclient.model.MiaoShaListResponse;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -35,7 +43,7 @@ public class MallMiaoShaFragment extends BaseFragment {
     }
 
     MiaoSha miaoSha;
-
+    OnStateReceiveListener listener;
     MallMiaoShaGoodsAdapter goodsAdapter = new MallMiaoShaGoodsAdapter();
     MallMiaoShaAdapter adapter = new MallMiaoShaAdapter();
 
@@ -48,6 +56,8 @@ public class MallMiaoShaFragment extends BaseFragment {
 
     @BindView(R.id.timerContainer)
     View timerContainer;
+    @BindView(R.id.refreshLayout)
+    SmartRefreshLayout refreshLayout;
 
     @BindView(R.id.hourTxt)
     TextView hourTxt;
@@ -67,30 +77,27 @@ public class MallMiaoShaFragment extends BaseFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         goodsAdapter.bindToRecyclerView(mRvGoodGoods);
-        adapter.bindToRecyclerView(mRvMiaoShaGoods);
         adapter.setOnItemChildClickListener(
-                (adapter1, view, position) -> {
-//                    if (miaoSha.state == MiaoSha.State.JIN_XING_ZHONG) {
-                    MallGoodsDetailsActivity.start(adapter.getItem(position).id);
-//                    }
-                });
+                (adapter1, view, position) -> MallGoodsDetailsActivity.start(adapter.getItem(position).id));
         goodsAdapter.setOnItemClickListener(
-                (adapter1, view, position) -> {
-//                    if (miaoSha.state == MiaoSha.State.JIN_XING_ZHONG) {
-                    MallGoodsDetailsActivity.start(adapter.getItem(position).id);
-//                    }
+                (adapter1, view, position) -> MallGoodsDetailsActivity.start(goodsAdapter.getItem(position).id));
+        PageLoadUtil<MiaoShaGoods> pageLoadUtil = PageLoadUtil.get(mActivity, mRvMiaoShaGoods, adapter, refreshLayout);
+        pageLoadUtil.load(() -> ApiUtils.getApiService().miaoShaList(miaoSha.getStartTimeParam(), pageLoadUtil.page)
+                , (refresh, data) -> {
+                    miaoSha.response = (MiaoShaListResponse) data;
+                    if (listener != null) {
+                        listener.onStateReceive(miaoSha.getState());
+                    }
+                    onBind(miaoSha);
                 });
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(Intent.ACTION_TIME_TICK);
-        filter.addAction(Intent.ACTION_TIME_CHANGED);
-        getActivity().registerReceiver(new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
+    }
 
-            }
-        }, filter);
-        onBind(miaoSha);
-        if (miaoSha.state == MiaoSha.State.JIN_XING_ZHONG) {
+    private void onBind(MiaoSha miaoSha) {
+        goodsAdapter.setNewData(miaoSha.response.top_goods);
+        adapter.miaoSha = miaoSha;
+        timerContainer.setVisibility(
+                miaoSha.getState() == MiaoSha.State.JIN_XING_ZHONG ? View.VISIBLE : View.GONE);
+        if (miaoSha.getState() == MiaoSha.State.JIN_XING_ZHONG) {
             timer.schedule(new TimerTask() {
                 @Override
                 public void run() {
@@ -100,12 +107,12 @@ public class MallMiaoShaFragment extends BaseFragment {
         }
     }
 
-    private void onBind(MiaoSha miaoSha) {
-        goodsAdapter.setNewData(miaoSha.recommends);
-        adapter.miaoSha = miaoSha;
-        adapter.setNewData(miaoSha.goods);
-        timerContainer.setVisibility(
-                miaoSha.state == MiaoSha.State.JIN_XING_ZHONG ? View.VISIBLE : View.GONE);
+    public void setOnStateReceiveListener(OnStateReceiveListener listener) {
+        this.listener = listener;
+    }
+
+    public interface OnStateReceiveListener {
+        void onStateReceive(MiaoSha.State state);
     }
 
     long offset;

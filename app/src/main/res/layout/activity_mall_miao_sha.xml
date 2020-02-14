@@ -27,7 +27,6 @@
             android:layout_marginTop="60dp"
             android:layout_marginBottom="25dp"
             app:tl_indicator_height="0dp"
-            app:tl_tab_space_equal="true"
             app:tl_textBold="SELECT"
             app:tl_textSelectColor="#FEFEFF"
             app:tl_textUnselectColor="#80FEFEFF"

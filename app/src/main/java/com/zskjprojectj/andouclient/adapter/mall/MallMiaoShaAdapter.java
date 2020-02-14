@@ -1,8 +1,6 @@
 package com.zskjprojectj.andouclient.adapter.mall;
 
 import android.graphics.Paint;
-import android.view.View;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -11,7 +9,6 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.zhuosongkj.android.library.adapter.BaseAdapter;
 import com.zhuosongkj.android.library.util.FormatUtil;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.entity.mall.MallMiaoShaBean;
 import com.zskjprojectj.andouclient.fragment.mall.MiaoSha;
 import com.zskjprojectj.andouclient.model.MiaoShaGoods;
 import com.zskjprojectj.andouclient.utils.UrlUtil;
@@ -26,13 +23,13 @@ public class MallMiaoShaAdapter extends BaseAdapter<MiaoShaGoods> {
     @Override
     protected void convert(BaseViewHolder helper, MiaoShaGoods item) {
         helper.setText(R.id.tv_title, item.name)
-                .setText(R.id.tv_progress, "已抢" + item.progress + "%")
-                .setProgress(R.id.progressbar, item.progress)
-                .setText(R.id.tv_price, "￥" + FormatUtil.getMoneyString(item.miaoshaPrice))
+                .setText(R.id.tv_progress, "已抢" + item.kill_percent + "%")
+                .setProgress(R.id.progressbar, item.kill_percent)
+                .setText(R.id.tv_price, "￥" + FormatUtil.getMoneyString(item.kill_price))
                 .setText(R.id.original_price, "￥" + FormatUtil.getMoneyString(item.price))
-                .setGone(R.id.hot_buy, miaoSha.state == MiaoSha.State.JIN_XING_ZHONG);
-        if (miaoSha.state != MiaoSha.State.JIN_XING_ZHONG) {
-            helper.setText(R.id.tv_buy_now, miaoSha.state.title);
+                .setGone(R.id.hot_buy, miaoSha.getState() == MiaoSha.State.JIN_XING_ZHONG);
+        if (miaoSha.getState() != MiaoSha.State.JIN_XING_ZHONG) {
+            helper.setText(R.id.tv_buy_now, miaoSha.getState().title);
         } else {
             helper.setText(R.id.tv_buy_now, "马上抢");
         }
