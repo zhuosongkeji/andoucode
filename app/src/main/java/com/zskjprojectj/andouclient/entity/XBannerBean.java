@@ -6,7 +6,7 @@ import com.stx.xhb.xbanner.entity.SimpleBannerInfo;
  * 项目名称： andoucode
  * 包名：com.zskjprojectj.andouclient.entity
  * author: Bin email:wangdabin2333@163.com
- * startTime: 2019/12/25 10:38
+ * time: 2019/12/25 10:38
  * des:
  * 修改人：
  * 修改时间：

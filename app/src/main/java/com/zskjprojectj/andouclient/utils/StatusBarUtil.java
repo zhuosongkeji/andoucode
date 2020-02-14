@@ -4,7 +4,7 @@ package com.zskjprojectj.andouclient.utils;
  * 项目名称： andoucode
  * 包名：com.zskjprojectj.andouclient.utils
  * author: Bin email:wangdabin2333@163.com
- * startTime: 2019/12/4 16:33
+ * time: 2019/12/4 16:33
  * des:
  * 修改人：
  * 修改时间：

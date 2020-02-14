@@ -58,7 +58,7 @@ import static com.zskjprojectj.andouclient.http.BaseObserver.REQUEST_CODE_LOGIN;
 /**
  * <pre>
  *     e-mail : 3307501630@qq.com
- *     startTime   : 2019/10/25
+ *     time   : 2019/10/25
  *     desc   :
  *     version: 1.0
  * </pre>

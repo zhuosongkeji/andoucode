@@ -21,7 +21,6 @@ import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.ClassificationofgoodsActivity;
 import com.zskjprojectj.andouclient.activity.mall.MallGoodsDetailsActivity;
 import com.zskjprojectj.andouclient.activity.mall.MallMiaoShaActivity;
-import com.zskjprojectj.andouclient.activity.mall.PinTuanActivity;
 import com.zskjprojectj.andouclient.adapter.mall.RecommendProductsAdapter;
 import com.zskjprojectj.andouclient.adapter.mall.SpecialProductsAdapter;
 import com.zskjprojectj.andouclient.base.BaseFragment;
@@ -42,7 +41,7 @@ import butterknife.OnClick;
  * 项目名称： andoucode
  * 包名：com.zskjprojectj.andouclient.fragment.mall
  * author: Bin email:wangdabin2333@163.com
- * startTime: 2019/12/9 19:55
+ * time: 2019/12/9 19:55
  * des:
  * 修改人：
  * 修改时间：
@@ -64,6 +63,7 @@ public class MallHomepageFragment1 extends BaseFragment {
 
     @BindView(R.id.vp_grid_view)
     PageGridView mGridView;
+
 
 
     private List<MallHomeDataBean.BannerBean> banner;
@@ -203,13 +203,13 @@ public class MallHomepageFragment1 extends BaseFragment {
     }
 
 
-    @OnClick({R.id.rl_search, R.id.img_back, R.id.tv_recommend_see_more, R.id.tv_special_see_more, R.id.search_image})
+    @OnClick({R.id.rl_search,R.id.img_back, R.id.tv_recommend_see_more, R.id.tv_special_see_more, R.id.search_image})
     public void clickBack(View view) {
 
         switch (view.getId()) {
 
             case R.id.rl_search:
-                startActivity(new Intent(mAty, ClassificationofgoodsActivity.class));
+                startActivity(new Intent(mAty,ClassificationofgoodsActivity.class));
                 break;
 
             case R.id.img_back:
@@ -236,13 +236,8 @@ public class MallHomepageFragment1 extends BaseFragment {
     }
 
     @OnClick(R.id.miaoShaEntry)
-    void onMiaoShaEntryClick() {
+    void onMiaoShaEntryClick(){
         ActivityUtils.startActivity(MallMiaoShaActivity.class);
-    }
-
-    @OnClick(R.id.pinTuanEntry)
-    void onPinTuanEntryClick() {
-        ActivityUtils.startActivity(PinTuanActivity.class);
     }
 
 

@@ -22,7 +22,7 @@ import com.zskjprojectj.andouclient.utils.ToastUtil;
  * 项目名称： andoucode
  * 包名：com.zskjprojectj.andouclient.wxapi
  * author: Bin email:wangdabin2333@163.com
- * startTime: 2019/12/30 11:34
+ * time: 2019/12/30 11:34
  * des:
  * 修改人：
  * 修改时间：

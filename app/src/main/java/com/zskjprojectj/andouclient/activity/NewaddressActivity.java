@@ -1,12 +1,15 @@
 package com.zskjprojectj.andouclient.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
 
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.base.BaseActivity;
@@ -28,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import chihane.jdaddressselector.AddressProvider;
 import chihane.jdaddressselector.model.City;
 import chihane.jdaddressselector.model.County;
@@ -42,6 +46,7 @@ import static com.zskjprojectj.andouclient.activity.MyaddressActivity.KEY_DATA;
 public class NewaddressActivity extends BaseActivity {
     private RelativeLayout ry_selectaddress;
     final List<ADProvince> adProvincess = new ArrayList<>();
+    public final static int REQUEST_CODE_SELECT_BD_LOCATION = 101;
     @BindView(R.id.tv_showadress)
     TextView addressTxt;
     AddressIn addresss;
@@ -49,6 +54,8 @@ public class NewaddressActivity extends BaseActivity {
     RelativeLayout mTitleView;
     @BindView(R.id.tv_header_title)
     TextView mHeaderTitle;
+    private EditText detailEdt;
+
     @Override
     protected void setRootView() {
         setContentView(R.layout.activity_newaddress);
@@ -66,10 +73,10 @@ public class NewaddressActivity extends BaseActivity {
         ry_selectaddress = findViewById(R.id.ry_selectaddress);
         EditText nameEdt = findViewById(R.id.nameEdt);
         EditText mobileEdt = findViewById(R.id.mobileEdt);
-        EditText detailEdt = findViewById(R.id.detailEdt);
+        detailEdt = findViewById(R.id.detailEdt);
         CheckBox defaultCbx = findViewById(R.id.defaultCkb);
         if (address == null) {
-           // topView.setTitle("新增地址");
+            // topView.setTitle("新增地址");
             mHeaderTitle.setText("新增地址");
         } else {
             //topView.setTitle("修改地址");
@@ -85,7 +92,7 @@ public class NewaddressActivity extends BaseActivity {
                 adProvincess.addAll(adProvinces);
             }
         });
-       // ry_selectaddress.setOnClickListener(view -> jumpActivity(ShareLocationActivity.class));
+        // ry_selectaddress.setOnClickListener(view -> jumpActivity(ShareLocationActivity.class));
         ry_selectaddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -221,5 +228,28 @@ public class NewaddressActivity extends BaseActivity {
     @Override
     protected BasePresenter createPresenter() {
         return null;
+    }
+
+    /**
+     * 定位地址
+     */
+    @OnClick(R.id.ry_locationaddress)
+    void locationClick() {
+        Intent intent = new Intent(mAt, SelectLocationActivity.class);
+//        startActivity(intent);
+//        intent.putExtra("province", );
+//        intent.putExtra("city", );
+//        intent.putExtra("district", );
+        startActivityForResult(intent, REQUEST_CODE_SELECT_BD_LOCATION);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (data != null) {
+            if (requestCode == REQUEST_CODE_SELECT_BD_LOCATION || resultCode == Activity.RESULT_OK) {
+                detailEdt.setText(data.getStringExtra("title")+" "+data.getStringExtra("message"));
+            }
+        }
     }
 }

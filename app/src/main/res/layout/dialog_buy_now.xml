@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="#00000000">
 
     <RelativeLayout
@@ -153,8 +154,20 @@
             android:textColor="@color/white"
             android:textSize="@dimen/typeface13sp" />
 
-
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_buynow_pintuan"
+        android:layout_width="match_parent"
+        android:layout_height="49dp"
+        android:background="#FC6464"
+        android:layout_below="@+id/content_details"
+        android:gravity="center"
+        android:text="确定（2人团）"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:textColor="@color/white"
+        android:textSize="@dimen/typeface13sp" />
 
     <FrameLayout
         android:layout_width="wrap_content"

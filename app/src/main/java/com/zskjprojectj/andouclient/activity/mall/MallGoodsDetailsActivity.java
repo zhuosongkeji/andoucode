@@ -21,10 +21,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.shizhefei.view.indicator.FixedIndicatorView;
 import com.shizhefei.view.indicator.IndicatorViewPager;
 import com.shizhefei.view.indicator.slidebar.ColorBar;
@@ -32,19 +34,18 @@ import com.shizhefei.view.indicator.transition.OnTransitionTextListener;
 
 
 import com.stx.xhb.xbanner.XBanner;
-import com.zhuosongkj.android.library.util.ViewUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.MallMainActivity;
 import com.zskjprojectj.andouclient.activity.MyaddressActivity;
 import com.zskjprojectj.andouclient.adapter.mall.MallBuyAdapter;
+import com.zskjprojectj.andouclient.adapter.mall.MallPinTuanAdapter;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
+import com.zskjprojectj.andouclient.model.PinTuanDetails;
 import com.zskjprojectj.andouclient.utils.UrlUtil;
-import com.zskjprojectj.andouclient.base.BaseUrl;
 import com.zskjprojectj.andouclient.entity.XBannerBean;
 import com.zskjprojectj.andouclient.entity.mall.MallBuyBean;
 import com.zskjprojectj.andouclient.entity.mall.MallBuyNowBean;
-import com.zskjprojectj.andouclient.entity.mall.MallCommentBean;
 import com.zskjprojectj.andouclient.entity.mall.MallGoodsDetailsDataBean;
 import com.zskjprojectj.andouclient.fragment.hotel.CustomViewDialog;
 import com.zskjprojectj.andouclient.fragment.mall.MallGoodsCommentFragment;
@@ -123,6 +124,9 @@ public class MallGoodsDetailsActivity extends BaseActivity {
     @BindView(R.id.tv_mall_goods_name2)
     TextView tv_mall_goods_name2;
 
+    @BindView(R.id.tv_pintuan)
+    RecyclerView tv_pintuan;
+
     private FixedIndicatorView mIndicator;
     private ViewPager mViewPager;
     private List<Fragment> list = new ArrayList<>();
@@ -135,6 +139,8 @@ public class MallGoodsDetailsActivity extends BaseActivity {
     private ArrayList<MallBuyBean.SpecInfo> res;
     //商户Id
     private int merchantId;
+
+    private MallPinTuanAdapter pinTuanAdapter = new MallPinTuanAdapter();
 
     //商品图片
     private String goodsImg;
@@ -156,6 +162,8 @@ public class MallGoodsDetailsActivity extends BaseActivity {
 
     @Override
     protected void initData(Bundle savedInstanceState) {
+        //拼团
+        initPinTuan();
 
         initLocalImage();
 
@@ -186,6 +194,18 @@ public class MallGoodsDetailsActivity extends BaseActivity {
         int selectColor = getResources().getColor(R.color.green_bg);//当前显示的Title颜色
         int unSelectColor = getResources().getColor(R.color.black_bg);//未显示的Title颜色
         mIndicator.setOnTransitionListener(new OnTransitionTextListener().setColor(selectColor, unSelectColor).setSize(unSelectSize, unSelectSize));
+    }
+
+    private void initPinTuan() {
+        pinTuanAdapter.bindToRecyclerView(tv_pintuan);
+        pinTuanAdapter.setNewData(PinTuanDetails.getTest());
+
+        pinTuanAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                Toast.makeText(MallGoodsDetailsActivity.this, "sdfaf", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     /**
@@ -288,6 +308,9 @@ public class MallGoodsDetailsActivity extends BaseActivity {
                                 urlBanner.add(new XBannerBean(s));
                             }
                         }
+                        /**
+                         * 随机设置是否秒杀
+                         */
                         mallGoodsDetailsDataBean.isMiaoSha = new Random().nextBoolean();
                         miaoShaContainer.setVisibility(mallGoodsDetailsDataBean.isMiaoSha ? View.VISIBLE : View.GONE);
                         mGoodsPrice.setVisibility(mallGoodsDetailsDataBean.isMiaoSha ? View.GONE : View.VISIBLE);
@@ -383,31 +406,19 @@ public class MallGoodsDetailsActivity extends BaseActivity {
                 ToastUtil.showToast("客服");
                 break;
 
-            //立即购买
+                //立即购买
             case R.id.tv_buy_now:
                 //加入购物车
             case R.id.add_shopping:
+                //开团单独购买
+            case R.id.pintuan_add_shopping:
 
-                HttpRxObservable.getObservable(ApiUtils.getApiService().buySpecification(goodsId))
-                        .subscribe(new BaseObserver<MallBuyBean>(mAt) {
-                            @Override
-                            public void onHandleSuccess(MallBuyBean mallBuyBean) throws IOException {
-//                                mallBuyBean.res.get(9).name
-//                                mallBuyBean.res.get(9).value
-                                //获取拼接选择之后的id，sum，price
-//                                mallBuyBean.price.get("").
-                                res = new ArrayList<>();
-                                for (MallBuyBean.SpecInfo re : mallBuyBean.res) {
-                                    MallBuyBean.SpecInfo info = new MallBuyBean.SpecInfo();
-                                    info.name = re.name;
-                                    res.add(info);
-                                }
+                goToBuy();
 
-                                initBuyNow(mallBuyBean.res, mallBuyBean.price);
-                            }
-                        });
-
-
+                break;
+                //拼团购买
+            case R.id.pintuan_tv_buy_now:
+                goToBuy();
                 break;
             //店铺主页
             case R.id.tv_mall_home:
@@ -452,6 +463,27 @@ public class MallGoodsDetailsActivity extends BaseActivity {
                 break;
         }
 
+    }
+
+    private void goToBuy() {
+        HttpRxObservable.getObservable(ApiUtils.getApiService().buySpecification(goodsId))
+                .subscribe(new BaseObserver<MallBuyBean>(mAt) {
+                    @Override
+                    public void onHandleSuccess(MallBuyBean mallBuyBean) throws IOException {
+//                                mallBuyBean.res.get(9).name
+//                                mallBuyBean.res.get(9).value
+                        //获取拼接选择之后的id，sum，price
+//                                mallBuyBean.price.get("").
+                        res = new ArrayList<>();
+                        for (MallBuyBean.SpecInfo re : mallBuyBean.res) {
+                            MallBuyBean.SpecInfo info = new MallBuyBean.SpecInfo();
+                            info.name = re.name;
+                            res.add(info);
+                        }
+
+                        initBuyNow(mallBuyBean.res, mallBuyBean.price);
+                    }
+                });
     }
 
     private void initDiscount() {

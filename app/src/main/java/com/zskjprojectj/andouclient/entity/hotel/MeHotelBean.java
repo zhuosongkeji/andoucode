@@ -6,7 +6,7 @@ import java.io.Serializable;
  * 项目名称： andoucode
  * 包名：com.zskjprojectj.andouclient.entity.hotel
  * author: Bin email:wangdabin2333@163.com
- * startTime: 2020/1/9 15:08
+ * time: 2020/1/9 15:08
  * des:
  * 修改人：
  * 修改时间：
