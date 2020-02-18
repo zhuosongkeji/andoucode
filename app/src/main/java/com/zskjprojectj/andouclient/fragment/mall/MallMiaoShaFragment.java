@@ -101,7 +101,6 @@ public class MallMiaoShaFragment extends BaseFragment {
             timer.schedule(new TimerTask() {
                 @Override
                 public void run() {
-//                    countTime();
                     timerContainer.postDelayed(() -> countTime(), 1);
                 }
             }, 0, 1000);
