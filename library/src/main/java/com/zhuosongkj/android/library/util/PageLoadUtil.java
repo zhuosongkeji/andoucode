@@ -77,7 +77,7 @@ public class PageLoadUtil<T> {
         RequestUtil.request(activity, false, false, observableProvider
                 , result -> {
                     if (onLoadListener != null) {
-                        onLoadListener.onLoad(needRefresh, result.data.getDataList());
+                        onLoadListener.onLoad(needRefresh, result.data);
                     }
                     adapter.setEmptyView(R.layout.layout_empty_view);
                     page += 1;
@@ -126,6 +126,6 @@ public class PageLoadUtil<T> {
     }
 
     public interface OnLoadListener<T> {
-        void onLoad(boolean refresh, List<T> data);
+        void onLoad(boolean refresh, IListData<T> data);
     }
 }

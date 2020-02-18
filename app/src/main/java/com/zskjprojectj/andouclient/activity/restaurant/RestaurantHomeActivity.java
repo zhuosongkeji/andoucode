@@ -92,8 +92,8 @@ public class RestaurantHomeActivity extends BaseActivity {
                 sort,
                 pageLoadUtil.page),
                 (refresh, data) -> {
-                    if (refresh && data.size() > 0) {
-                        data.get(0).isHeader = true;
+                    if (refresh && data.getDataList().size() > 0) {
+                        data.getDataList().get(0).isHeader = true;
                     }
                 });
         defaultSortBtn.setSelected(true);

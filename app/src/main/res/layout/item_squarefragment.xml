@@ -1,129 +1,166 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginRight="@dimen/dp_15"
-    android:background="@color/white"
-    android:layout_marginLeft="16dp"
     android:orientation="vertical">
 
-    <RelativeLayout
-
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_20"
-        android:layout_marginRight="@dimen/dp_15">
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="@dimen/dp_15"
+        android:layout_marginBottom="20dp"
+        android:background="@color/white"
+        android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/iv_squaretouxiang"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@mipmap/ic_touxiang" />
+            android:layout_marginTop="@dimen/dp_20"
+            android:layout_marginRight="@dimen/dp_15">
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/avatarImg"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/ic_placeholder"
+                app:riv_oval="true" />
+
+            <TextView
+                android:id="@+id/nameTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_toRightOf="@id/avatarImg"
+                android:textColor="#323232"
+                android:textSize="12sp"
+                tools:text="暮看日西沉" />
+        </RelativeLayout>
 
         <TextView
+            android:id="@+id/titleTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="@dimen/dp_10"
-            android:layout_toRightOf="@id/iv_squaretouxiang"
-            android:text="暮看日西沉"
-            android:textColor="#323232" />
-    </RelativeLayout>
+            android:layout_marginTop="@dimen/dp_10"
+            android:textColor="#646464"
+            android:textSize="14sp"
+            tools:text="玩今天天气不错" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_10"
-        android:text="玩今天天气不错"
-        android:textColor="#646464"
-        android:textSize="@dimen/typeface14sp" />
+        <TextView
+            android:id="@+id/contentTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:textColor="#646464"
+            android:textSize="12sp"
+            tools:text="玩今天天气不错" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_10"
-        android:text="今天天气不错,出去烧烤"
-        android:textColor="#646464"
-        android:textSize="@dimen/typeface14sp" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="3" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_10"
-        android:src="@mipmap/one_test" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_17"
+            android:gravity="center_vertical">
 
-    <RelativeLayout
+            <TextView
+                android:id="@+id/dateTxt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="#969696"
+                android:textSize="11sp"
+                tools:text="2019-08-21  13:49" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:scaleType="centerInside"
+                    android:src="@mipmap/dianzhan" />
+
+                <TextView
+                    android:id="@+id/likeTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_3"
+                    android:textColor="#8A8A8A"
+                    android:textSize="12sp"
+                    tools:text="198" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginStart="30dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center"
+                    android:scaleType="centerInside"
+                    android:src="@mipmap/xieruico" />
+
+                <TextView
+                    android:id="@+id/commentTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_3"
+                    android:textColor="#8A8A8A"
+                    android:textSize="12sp"
+                    tools:text="198" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:scaleType="centerInside"
+                    android:src="@mipmap/fenxiang" />
+
+                <TextView
+                    android:id="@+id/shareTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_3"
+                    android:textColor="#8A8A8A"
+                    android:textSize="12sp"
+                    tools:text="198" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/commentRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:paddingTop="10dp"
+            android:background="#f7f7f7"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+    </LinearLayout>
+
+    <View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_17">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="2019-08-21  13:49"
-            android:textColor="#969696"
-            android:textSize="@dimen/typeface11sp" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_marginRight="146dp"
-            android:layout_height="wrap_content"
-          android:layout_alignParentRight="true"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/dianzhan" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_3"
-                android:text="198"
-                android:textColor="#8A8A8A"
-                android:textSize="@dimen/typeface12sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="78dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/xieruico" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_3"
-                android:text="198"
-                android:textColor="#8A8A8A"
-                android:textSize="@dimen/typeface12sp" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_alignParentRight="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/fenxiang" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_3"
-                android:text="198"
-                android:textColor="#8A8A8A"
-                android:textSize="@dimen/typeface12sp" />
-        </LinearLayout>
-    </RelativeLayout>
+        android:layout_height="10dp"
+        android:background="#F7F7F7" />
 </LinearLayout>

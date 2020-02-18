@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <com.next.easynavigation.view.EasyNavigationBar
         android:id="@+id/navigationBar"
@@ -12,118 +12,4 @@
         app:Easy_addIconSize="50dp">
 
     </com.next.easynavigation.view.EasyNavigationBar>
-
-    <!--<RelativeLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:layout_alignParentLeft="true"-->
-        <!--android:layout_alignParentStart="true"-->
-        <!--android:layout_alignParentTop="true"-->
-        <!--android:background="#fff">-->
-        <!--<FrameLayout-->
-            <!--android:id="@+id/fragment_all"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_above="@+id/lineshow">-->
-        <!--</FrameLayout>-->
-        <!--<View-->
-            <!--android:id="@+id/lineshow"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="1dp"-->
-            <!--android:layout_above="@+id/rg_oper"-->
-            <!--android:layout_marginBottom="5dp"-->
-            <!--android:background="#F3F3F3" />-->
-        <!--<RadioGroup-->
-            <!--android:id="@+id/rg_oper"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_alignParentBottom="true"-->
-            <!--android:background="#00000000"-->
-            <!--android:orientation="horizontal"-->
-            <!--android:paddingBottom="@dimen/typeface15sp">-->
-            <!--<RadioButton-->
-                <!--android:id="@+id/rd_home_page"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_weight="1"-->
-                <!--android:background="#fff"-->
-                <!--android:button="@null"-->
-                <!--android:checked="true"-->
-                <!--android:drawablePadding="3dp"-->
-                <!--android:drawableTop="@drawable/homepage_selector"-->
-                <!--android:gravity="center"-->
-                <!--android:layout_marginLeft="5dp"-->
-                <!--android:text="@string/honm_page"-->
-                <!--android:textColor="@drawable/index_textcolor_selecter"-->
-                <!--android:textSize="@dimen/typeface12sp" />-->
-            <!--<RadioButton-->
-                <!--android:id="@+id/rd_merchants_page"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_weight="1"-->
-                <!--android:background="#fff"-->
-                <!--android:button="@null"-->
-                <!--android:checked="false"-->
-                <!--android:drawablePadding="3dp"-->
-                <!--android:drawableTop="@drawable/merchantspage_selector"-->
-                <!--android:gravity="center"-->
-                <!--android:layout_marginLeft="5dp"-->
-                <!--android:text="@string/merchants_page"-->
-                <!--android:textColor="@drawable/index_textcolor_selecter"-->
-                <!--android:textSize="@dimen/typeface12sp" />-->
-
-            <!--<RadioButton-->
-                <!--android:id="@+id/rd_info_page"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_weight="1"-->
-                <!--android:background="#fff"-->
-                <!--android:button="@null"-->
-                <!--android:clipChildren="false"-->
-                <!--android:gravity="center|bottom"-->
-                <!--android:text="@string/info_page"-->
-                <!--android:textColor="@drawable/index_textcolor_selecter"-->
-                <!--android:textSize="@dimen/typeface12sp" />-->
-
-            <!--<RadioButton-->
-                <!--android:id="@+id/rd_tieba_page"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_weight="1"-->
-                <!--android:background="#fff"-->
-                <!--android:button="@null"-->
-                <!--android:checked="false"-->
-                <!--android:drawablePadding="3dp"-->
-                <!--android:drawableTop="@drawable/tiebapage_selector"-->
-                <!--android:gravity="center"-->
-                <!--android:layout_marginLeft="5dp"-->
-                <!--android:text="@string/tieba_page"-->
-                <!--android:textColor="@drawable/index_textcolor_selecter"-->
-                <!--android:textSize="@dimen/typeface12sp" />-->
-            <!--<RadioButton-->
-                <!--android:id="@+id/rd_me_page"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_weight="1"-->
-                <!--android:background="#fff"-->
-                <!--android:button="@null"-->
-                <!--android:checked="false"-->
-                <!--android:drawablePadding="3dp"-->
-                <!--android:drawableTop="@drawable/mypage_selector"-->
-                <!--android:gravity="center"-->
-                <!--android:layout_marginLeft="5dp"-->
-                <!--android:text="@string/me_page"-->
-                <!--android:textColor="@drawable/index_textcolor_selecter"-->
-                <!--android:textSize="@dimen/typeface12sp" />-->
-        <!--</RadioGroup>-->
-        <!--<ImageView-->
-            <!--android:id="@+id/img_protruding"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_alignParentBottom="true"-->
-            <!--android:layout_centerHorizontal="true"-->
-            <!--android:layout_marginBottom="40dp"-->
-            <!--android:src="@mipmap/info_icon" />-->
-    <!--</RelativeLayout>-->
-
 </LinearLayout>

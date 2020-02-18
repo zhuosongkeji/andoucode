@@ -61,6 +61,7 @@ import com.zskjprojectj.andouclient.model.OrderDetail;
 import com.zskjprojectj.andouclient.model.RestaurantOrder;
 import com.zskjprojectj.andouclient.model.Review;
 import com.zskjprojectj.andouclient.model.User;
+import com.zskjprojectj.andouclient.model.MiaoShaListResponse;
 
 import java.util.List;
 
@@ -915,6 +916,7 @@ public interface ApiService {
     @POST("api/goods/uploads")
     @Multipart
     Observable<BaseResult<String>> uploadImg(@Part("uid") RequestBody uid, @Part("token") RequestBody token, @Part MultipartBody.Part file);
+
     /**
      * 邀请码
      *
@@ -1226,6 +1228,11 @@ public interface ApiService {
     @POST("api/gourmet/reserve")
     Observable<BaseResult<GetBookInfoResponse>> getBookInfo(@Field("uid") String uid,
                                                             @Field("merchant_id") String merchant_id);
+
+    @FormUrlEncoded
+    @POST("api/goods/sec_list")
+    Observable<BaseResult<MiaoShaListResponse>> miaoShaList(@Field("sec_hour") String sec_hour,
+                                                            @Field("page") int page);
 
     /**
      * 商户类型

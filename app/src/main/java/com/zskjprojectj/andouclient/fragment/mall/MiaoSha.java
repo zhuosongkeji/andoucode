@@ -1,16 +1,29 @@
 package com.zskjprojectj.andouclient.fragment.mall;
 
-import com.zskjprojectj.andouclient.model.Goods;
-import com.zskjprojectj.andouclient.model.MiaoShaGoods;
+import com.zskjprojectj.andouclient.model.MiaoShaListResponse;
 
 import java.util.ArrayList;
 
 public class MiaoSha {
-    public String time;
-    public State state;
+    public String startTime;
+    public String endTime;
 
-    public ArrayList<MiaoShaGoods> recommends = new ArrayList<>();
-    public ArrayList<MiaoShaGoods> goods = new ArrayList<>();
+    public State getState() {
+        // 1进行中 0未开始 2已结束
+        if (response.sec_status == 0) {
+            return State.JI_JIANG;
+        } else if (response.sec_status == 1) {
+            return State.JIN_XING_ZHONG;
+        } else {
+            return State.YI_QIANG_GOU;
+        }
+    }
+
+    public MiaoShaListResponse response;
+
+    public String getStartTimeParam() {
+        return startTime.substring(0, 2);
+    }
 
     public enum State {
         YI_QIANG_GOU("已抢购"), JIN_XING_ZHONG("抢购进行中"), JI_JIANG("即将开场");
@@ -22,45 +35,31 @@ public class MiaoSha {
         }
     }
 
-    public static MiaoSha getTest(String time, State state) {
+    public static MiaoSha getTest(String startTime, String endTime) {
         MiaoSha miaoSha = new MiaoSha();
-        miaoSha.time = time;
-        miaoSha.state = state;
-        MiaoShaGoods goods = new MiaoShaGoods();
-        goods.img = "http://img0.imgtn.bdimg.com/it/u=1473544931,889757245&fm=15&gp=0.jpg";
-        goods.name = "秒杀测试商品";
-        goods.price = 128.99;
-        goods.miaoshaPrice = 88.88;
-        goods.progress = 80;
-        miaoSha.recommends.add(goods);
-        miaoSha.recommends.add(goods);
-        miaoSha.recommends.add(goods);
-        miaoSha.goods.add(goods);
-        miaoSha.goods.add(goods);
-        miaoSha.goods.add(goods);
-        miaoSha.goods.add(goods);
-        miaoSha.goods.add(goods);
-        miaoSha.goods.add(goods);
-        miaoSha.goods.add(goods);
-        miaoSha.goods.add(goods);
-        miaoSha.goods.add(goods);
-        miaoSha.goods.add(goods);
-        miaoSha.goods.add(goods);
-        miaoSha.goods.add(goods);
-        miaoSha.goods.add(goods);
-        miaoSha.goods.add(goods);
-        miaoSha.goods.add(goods);
-        miaoSha.goods.add(goods);
+        miaoSha.startTime = startTime;
+        miaoSha.endTime = endTime;
         return miaoSha;
     }
 
     public static ArrayList<MiaoSha> getTests() {
         ArrayList<MiaoSha> data = new ArrayList<>();
-        data.add(getTest("08:00", State.YI_QIANG_GOU));
-        data.add(getTest("10:00", State.YI_QIANG_GOU));
-        data.add(getTest("12:00", State.JIN_XING_ZHONG));
-        data.add(getTest("14:00", State.JI_JIANG));
-        data.add(getTest("16:00", State.JI_JIANG));
+        data.add(getTest("08:00", "09:00"));
+        data.add(getTest("09:00", "10:00"));
+        data.add(getTest("10:00", "11:00"));
+        data.add(getTest("11:00", "12:00"));
+        data.add(getTest("12:00", "13:00"));
+        data.add(getTest("13:00", "14:00"));
+        data.add(getTest("14:00", "15:00"));
+        data.add(getTest("15:00", "16:00"));
+        data.add(getTest("16:00", "17:00"));
+        data.add(getTest("17:00", "18:00"));
+        data.add(getTest("18:00", "19:00"));
+        data.add(getTest("19:00", "20:00"));
+        data.add(getTest("20:00", "21:00"));
+        data.add(getTest("21:00", "22:00"));
+        data.add(getTest("22:00", "23:00"));
+        data.add(getTest("23:00", "24:00"));
         return data;
     }
 }

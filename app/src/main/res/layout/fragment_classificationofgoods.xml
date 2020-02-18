@@ -42,8 +42,8 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/lv_menu"
-            android:layout_width="80dp"
-            android:layout_height="280dp"
+            android:layout_width="100dp"
+            android:layout_height="380dp"
             android:layout_gravity="center_vertical"
             android:layout_margin="10dp" />
     </LinearLayout>

@@ -1,17 +1,14 @@
 package com.zskjprojectj.andouclient.activity.mall;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
-
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
+
 import com.blankj.utilcode.util.BarUtils;
-import com.blankj.utilcode.util.ScreenUtils;
 import com.blankj.utilcode.util.SizeUtils;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.zhuosongkj.android.library.app.BaseActivity;
@@ -21,7 +18,6 @@ import com.zskjprojectj.andouclient.fragment.mall.MallMiaoShaFragment;
 import com.zskjprojectj.andouclient.fragment.mall.MiaoSha;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 
@@ -40,7 +36,6 @@ public class MallMiaoShaActivity extends BaseActivity {
         BarUtils.setStatusBarLightMode(mActivity, false);
         ActionBarUtil.setTitle(mActivity, "限时秒杀", false);
         ActionBarUtil.getBackground(mActivity, false).setAlpha(0);
-        viewPager.setOffscreenPageLimit(5);
         tabLayout.postDelayed(() -> {
             LinearLayout parent = (LinearLayout) tabLayout.getChildAt(0);
             for (int i = 0; i < parent.getChildCount(); i++) {
@@ -54,22 +49,25 @@ public class MallMiaoShaActivity extends BaseActivity {
     }
 
     private void onBind(ArrayList<MiaoSha> miaoShas) {
+        viewPager.setOffscreenPageLimit(miaoShas.size());
         String[] titles = new String[miaoShas.size()];
-        int index = 0;
         for (int i = 0; i < miaoShas.size(); i++) {
             MiaoSha miaoSha = miaoShas.get(i);
-            titles[i] = miaoSha.time + "\n" + miaoSha.state.title;
-            fragments.add(new MallMiaoShaFragment(miaoSha));
-            if (miaoSha.state == MiaoSha.State.JIN_XING_ZHONG){
-                index = i;
-            }
+            titles[i] = miaoSha.startTime;
+            MallMiaoShaFragment mallMiaoShaFragment = new MallMiaoShaFragment(miaoSha);
+            int finalI = i;
+            mallMiaoShaFragment.setOnStateReceiveListener(state -> {
+                TextView titleTxt = tabLayout.getTitleView(finalI);
+                if (!titleTxt.getText().toString().contains("\n")) {
+                    titleTxt.setText(titleTxt.getText() + "\n" + state.title);
+                }
+                if (miaoSha.getState() == MiaoSha.State.JIN_XING_ZHONG) {
+                    tabLayout.setCurrentTab(finalI);
+                }
+            });
+            fragments.add(mallMiaoShaFragment);
         }
-        tabLayout.setViewPager(
-                viewPager,
-                titles,
-                mActivity,
-                fragments);
-        tabLayout.setCurrentTab(index);
+        tabLayout.setViewPager(viewPager, titles, mActivity, fragments);
     }
 
     @Override

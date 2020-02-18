@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="top"
+    android:orientation="horizontal"
+    android:paddingStart="15dp"
+    android:paddingEnd="15dp"
+    android:paddingBottom="10dp">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/img"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:scaleType="centerInside"
+        android:src="@mipmap/ic_placeholder"
+        app:riv_oval="true" />
+
+    <TextView
+        android:id="@+id/contentTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:layout_marginStart="7dp"
+        android:textColor="#646464"
+        android:textSize="11sp"
+        tools:text="大大坏蛋大大坏 回复 蛋大大坏蛋：坏蛋大大坏蛋大大坏坏蛋大大坏蛋大大坏坏蛋大大坏蛋大大坏坏蛋大大坏蛋大大坏坏蛋大大坏蛋大大坏坏蛋大大坏蛋大大坏大大坏蛋：" />
+
+</LinearLayout>

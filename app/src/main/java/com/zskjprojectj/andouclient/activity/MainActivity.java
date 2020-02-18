@@ -8,46 +8,29 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-
 import android.provider.Settings;
 import android.text.TextUtils;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-
-import com.blankj.utilcode.util.BarUtils;
 import com.next.easynavigation.view.EasyNavigationBar;
 import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.zhuosongkj.android.library.app.BaseActivity;
-import com.zhuosongkj.android.library.util.ActionBarUtil;
 import com.zskjprojectj.andouclient.R;
-
-import com.zskjprojectj.andouclient.base.BasePresenter;
 import com.zskjprojectj.andouclient.fragment.HomePageFragment;
 import com.zskjprojectj.andouclient.fragment.InfoPageFragment;
 import com.zskjprojectj.andouclient.fragment.MePageFragment;
 import com.zskjprojectj.andouclient.fragment.MerchantsPageFragment;
 import com.zskjprojectj.andouclient.fragment.TieBaFragment;
-import com.zskjprojectj.andouclient.http.ApiUtils;
-import com.zskjprojectj.andouclient.http.BaseObserver;
-import com.zskjprojectj.andouclient.http.HttpRxObservable;
-import com.zskjprojectj.andouclient.http.RetrofitUtils;
-import com.zskjprojectj.andouclient.model.User;
 import com.zskjprojectj.andouclient.utils.LogUtil;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
-import com.zskjprojectj.andouclient.utils.SharedPreferencesManager;
 import com.zskjprojectj.andouclient.utils.StatusBarUtil;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,17 +38,6 @@ import io.reactivex.functions.Consumer;
 
 import static com.zskjprojectj.andouclient.http.BaseObserver.REQUEST_CODE_LOGIN;
 
-/**
- * <pre>
- *     e-mail : 3307501630@qq.com
- *     time   : 2019/10/25
- *     desc   :
- *     version: 1.0
- * </pre>
- * public class MainActivity extends FragmentActivity implements RadioGroup.OnCheckedChangeListener
- *
- * @author yizhubao
- */
 public class MainActivity extends BaseActivity {
     private EasyNavigationBar navigationBar;
     //定义字体颜色

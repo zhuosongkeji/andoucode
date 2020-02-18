@@ -3,49 +3,58 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#5ED3AE"
     android:orientation="vertical">
+
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorNavy">
+        android:layout_height="match_parent"
+        android:background="#FFFFFF"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical">
 
-
-        <FrameLayout
-            android:id="@+id/title_view"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#5ED3AE">
+            android:background="@color/colorNavy">
 
-            <com.flyco.tablayout.SlidingTabLayout
-                android:id="@+id/tabLayout"
-                android:layout_width="140dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center"
-                app:tl_divider_color="@color/white"
-                app:tl_divider_width="@dimen/dp_1"
-                app:tl_indicator_color="@color/white"
-                app:tl_indicator_corner_radius="1.5dp"
-                app:tl_indicator_height="3dp"
-                app:tl_indicator_width_equal_title="true"
-                app:tl_tab_space_equal="true"
-                app:tl_textBold="NONE"
-                app:tl_textSelectColor="@color/white"
-                app:tl_textUnselectColor="@color/white"
-                app:tl_textsize="13sp" />
-
-            <ImageView
-                android:layout_width="wrap_content"
+            <FrameLayout
+                android:id="@+id/title_view"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right|center"
-                android:layout_marginRight="@dimen/dp_15"
-                android:padding="@dimen/dp_15"
-                android:src="@mipmap/addicon" />
-        </FrameLayout>
-    </LinearLayout>
+                android:background="#5ED3AE">
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/viewPager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+                <com.flyco.tablayout.SlidingTabLayout
+                    android:id="@+id/tabLayout"
+                    android:layout_width="140dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    app:tl_divider_color="@color/white"
+                    app:tl_divider_width="@dimen/dp_1"
+                    app:tl_indicator_color="@color/white"
+                    app:tl_indicator_corner_radius="1.5dp"
+                    app:tl_indicator_height="3dp"
+                    app:tl_indicator_width_equal_title="true"
+                    app:tl_tab_space_equal="true"
+                    app:tl_textBold="NONE"
+                    app:tl_textSelectColor="@color/white"
+                    app:tl_textUnselectColor="@color/white"
+                    app:tl_textsize="13sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|center"
+                    android:layout_marginRight="@dimen/dp_15"
+                    android:padding="@dimen/dp_15"
+                    android:src="@mipmap/addicon" />
+            </FrameLayout>
+        </LinearLayout>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
 </LinearLayout>
