@@ -1,6 +1,8 @@
 package com.zskjprojectj.andouclient.model;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     public static final String KEY_TOKEN = "KEY_TOKEN";
     public static final String KEY_UID = "KEY_UID";
 

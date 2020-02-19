@@ -43,6 +43,7 @@
                     app:tl_textsize="13sp" />
 
                 <ImageView
+                    android:id="@+id/commentDetails"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right|center"

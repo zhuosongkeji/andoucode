@@ -1,15 +1,16 @@
 package com.zskjprojectj.andouclient.entity
 
 import com.zskjprojectj.andouclient.model.Comment
+import java.io.Serializable
 
-class Square(val avatar: String, val name: String, val content: String, val time: String,
-             val like: Int, val comment: Int, val share: Int, val title: String, val imgs: ArrayList<String>,
-             val comments: ArrayList<Comment>) {
+class TieZi(val avatar: String, val name: String, val content: String, val time: String,
+            val like: Int, val comment: Int, val share: Int, val title: String, val imgs: ArrayList<String>,
+            val comments: ArrayList<Comment>) : Serializable {
 
     companion object {
         val testData = arrayListOf(test, test, test, test)
         val test
-            get() = Square("http://a4.att.hudong.com/21/09/01200000026352136359" +
+            get() = TieZi("http://a4.att.hudong.com/21/09/01200000026352136359" +
                     "091694357.jpg",
                     "测试名曾",
                     "测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试" +

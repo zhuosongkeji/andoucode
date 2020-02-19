@@ -1,6 +1,8 @@
 package com.zskjprojectj.andouclient.model
 
-class Comment(val avatar: String, val name: String, val content: String, val to: User?) {
+import java.io.Serializable
+
+class Comment(val avatar: String, val name: String, val content: String, val to: User?) : Serializable {
 
 
     companion object {

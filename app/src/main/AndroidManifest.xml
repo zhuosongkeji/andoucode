@@ -31,8 +31,9 @@
         android:usesCleartextTraffic="true"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning"
         tools:targetApi="m">
-        <activity android:name=".activity.mall.PinTuanActivity"></activity>
-        <activity android:name=".activity.SelectLocationActivity"></activity>
+        <activity android:name=".activity.TieBaReleaseActivity"></activity>
+        <activity android:name=".activity.mall.PinTuanActivity" />
+        <activity android:name=".activity.SelectLocationActivity" />
         <activity android:name=".activity.mall.MallMiaoShaActivity" />
         <activity
             android:name=".activity.restaurant.RestaurantSearchActivity"
@@ -45,6 +46,7 @@
         <activity android:name=".activity.restaurant.RestaurantHomeActivity" />
         <activity android:name=".activity.CommentSuccessActivity" />
         <activity android:name=".activity.mall.MallPaySuccessActivity" />
+        <activity android:name=".activity.TieBaDetailsActivity" />
         <activity
             android:name=".activity.SplashActivity"
             android:screenOrientation="portrait">

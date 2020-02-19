@@ -21,6 +21,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
+
 import com.blankj.utilcode.util.ActivityUtils;
 import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
@@ -379,5 +381,13 @@ public class LoginActivity extends BaseActivity {
         Bundle bundle = new Bundle();
         bundle.putBoolean(KEY_FOR_RESULT, true);
         ActivityUtils.startActivityForResult(bundle, activity, LoginActivity.class, requestCode);
+    }
+
+    public static void start(Fragment fragment, int requestCode) {
+        if (started) return;
+        started = true;
+        Bundle bundle = new Bundle();
+        bundle.putBoolean(KEY_FOR_RESULT, true);
+        ActivityUtils.startActivityForResult(bundle, fragment, LoginActivity.class, requestCode);
     }
 }
