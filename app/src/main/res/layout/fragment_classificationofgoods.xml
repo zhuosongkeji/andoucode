@@ -14,7 +14,7 @@
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="3"
+            android:layout_weight="1.5"
             android:background="@color/white">
 
             <LinearLayout
@@ -23,8 +23,9 @@
 
                 <ListView
                     android:id="@+id/lv_home"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
             </LinearLayout>
 
             <TextView
@@ -42,9 +43,10 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/lv_menu"
-            android:layout_width="100dp"
-            android:layout_height="380dp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
-            android:layout_margin="10dp" />
+            android:layout_margin="10dp"
+            android:layout_weight="1" />
     </LinearLayout>
 </LinearLayout>

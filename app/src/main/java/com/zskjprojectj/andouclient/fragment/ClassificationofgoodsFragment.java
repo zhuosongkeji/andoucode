@@ -75,7 +75,7 @@ public class ClassificationofgoodsFragment extends BaseFragment {
                 return new ItemTransformation(scale, scale, 0, 0);
             }
         });
-        layoutManager1.setMaxVisibleItems(5);
+        layoutManager1.setMaxVisibleItems(6);
         layoutManager1.addOnItemSelectionListener(adapterPosition -> {
             if (CarouselLayoutManager.INVALID_POSITION != adapterPosition) {
                 MallGoodsCateBean bean = level1Adapter.getItem(adapterPosition);
@@ -123,6 +123,7 @@ public class ClassificationofgoodsFragment extends BaseFragment {
                 }
                 tv_title.setText(mallGoodsCateBeans.get(0).name);
                 homeAdapter.notifyDataSetChanged();
+                mallGoodsCateBeans.addAll(mallGoodsCateBeans);
                 level1Adapter.setNewData(mallGoodsCateBeans);
             }
         });
@@ -157,30 +158,5 @@ public class ClassificationofgoodsFragment extends BaseFragment {
                 }
             }
         });
-    }
-
-    /**
-     * 得到json文件中的内容
-     *
-     * @param context
-     * @param fileName
-     * @return
-     */
-    public static String getJson(Context context, String fileName) {
-        StringBuilder stringBuilder = new StringBuilder();
-        //获得assets资源管理器
-        AssetManager assetManager = context.getAssets();
-        //使用IO流读取json文件内容
-        try {
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(
-                    assetManager.open(fileName), "utf-8"));
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                stringBuilder.append(line);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return stringBuilder.toString();
     }
 }
