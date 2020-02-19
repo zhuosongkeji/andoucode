@@ -127,6 +127,22 @@ public class MallGoodsDetailsActivity extends BaseActivity {
     @BindView(R.id.tv_pintuan)
     RecyclerView tv_pintuan;
 
+    @BindView(R.id.ll_pintuan_person)
+    LinearLayout ll_pintuan_person;
+
+    @BindView(R.id.ll_pintuan_list)
+    LinearLayout ll_pintuan_list;
+
+    @BindView(R.id.tv_pintuan_number)
+    TextView tv_pintuan_number;
+
+    @BindView(R.id.tv_total_member)
+    TextView tv_total_member;
+    @BindView(R.id.ll_normal)
+    LinearLayout ll_normal;
+    @BindView(R.id.ll_pintuan)
+    LinearLayout ll_pintuan;
+
     private FixedIndicatorView mIndicator;
     private ViewPager mViewPager;
     private List<Fragment> list = new ArrayList<>();
@@ -162,8 +178,7 @@ public class MallGoodsDetailsActivity extends BaseActivity {
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-        //拼团
-        initPinTuan();
+
 
         initLocalImage();
 
@@ -198,12 +213,37 @@ public class MallGoodsDetailsActivity extends BaseActivity {
 
     private void initPinTuan() {
         pinTuanAdapter.bindToRecyclerView(tv_pintuan);
-        pinTuanAdapter.setNewData(PinTuanDetails.getTest());
+
+        //商品详情
+        HttpRxObservable.getObservable(ApiUtils.getApiService().tuangouDetails(goodsId))
+                .subscribe(new BaseObserver<PinTuanDetails>(this) {
+
+                    @Override
+                    public void onHandleSuccess(PinTuanDetails pinTuanDetails) throws IOException {
+                        if("0".equals(pinTuanDetails.getGroup_goods().getCode())){
+                            ll_pintuan_person.setVisibility(View.VISIBLE);
+                            ll_pintuan_list.setVisibility(View.VISIBLE);
+
+                            mTvPrice.setText(pinTuanDetails.getGroup_goods().getPrice());
+
+                            tv_pintuan_number.setText(pinTuanDetails.getGroup_goods().getTop_member()+"人拼");
+                            mTvGoodsVolume.setText(pinTuanDetails.getGroup_goods().getSale_total());
+                            mTvGoodsStoreNum.setText(pinTuanDetails.getGroup_goods().getStorage());
+                            tv_total_member.setText("已有"+pinTuanDetails.getTotal_member()+"人参团");
+                            pinTuanAdapter.setNewData(pinTuanDetails.getTeam_list());
+                            ll_normal.setVisibility(View.GONE);
+                            ll_pintuan.setVisibility(View.VISIBLE);
+                        }
+                    }
+                });
+
+
+
 
         pinTuanAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                Toast.makeText(MallGoodsDetailsActivity.this, "sdfaf", Toast.LENGTH_SHORT).show();
+                MallOnlineOrderActivity.start(order_sn);
             }
         });
     }
@@ -344,7 +384,8 @@ public class MallGoodsDetailsActivity extends BaseActivity {
 
                         orderImg = mallGoodsDetailsDataBean.getImg();
                         orderName = mallGoodsDetailsDataBean.getName();
-
+                        //拼团
+                        initPinTuan();
 
                     }
 
@@ -363,7 +404,7 @@ public class MallGoodsDetailsActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.mall_goods_collection, R.id.tv_mall_home, R.id.tv_mall_shopping, R.id.tv_Mall_service, R.id.tv_buy_now, R.id.add_shopping, R.id.rv_shop_home, R.id.bt_mall_goods_discount, R.id.shared})
+    @OnClick({R.id.pintuan_add_shopping,R.id.mall_goods_collection, R.id.tv_mall_home, R.id.tv_mall_shopping, R.id.tv_Mall_service, R.id.tv_buy_now, R.id.add_shopping, R.id.rv_shop_home, R.id.bt_mall_goods_discount, R.id.shared})
     public void clickButNow(View v) {
         switch (v.getId()) {
 
@@ -417,8 +458,10 @@ public class MallGoodsDetailsActivity extends BaseActivity {
 
                 break;
                 //拼团购买
+
+            //TODO
             case R.id.pintuan_tv_buy_now:
-                goToBuy();
+            //  goToBuy();
                 break;
             //店铺主页
             case R.id.tv_mall_home:

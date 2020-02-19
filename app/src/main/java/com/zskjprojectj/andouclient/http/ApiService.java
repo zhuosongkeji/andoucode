@@ -51,6 +51,7 @@ import com.zskjprojectj.andouclient.model.BalanceDetail;
 import com.zskjprojectj.andouclient.model.CartItem;
 import com.zskjprojectj.andouclient.model.Food;
 import com.zskjprojectj.andouclient.model.FoodCategory;
+import com.zskjprojectj.andouclient.model.PinTuanDetails;
 import com.zskjprojectj.andouclient.model.Restaurant;
 import com.zskjprojectj.andouclient.model.RestaurantCategory;
 import com.zskjprojectj.andouclient.model.IntegralDetail;
@@ -70,9 +71,11 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.Path;
 
 public interface ApiService {
     /**
@@ -1241,5 +1244,12 @@ public interface ApiService {
      */
     @POST("api/common/merchant_type")
     Observable<BaseResult<MerchantHomeTypeBean>> merchanttype();
+
+
+    /**
+     * 团购明细
+     */
+    @GET("api/group/puzzle_detail/{id}")
+    Observable<BaseResult<PinTuanDetails>> tuangouDetails(@Path("id")String id);
 
 }
