@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_height="match_parent"
+    android:background="#F7F7F7">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,16 +14,16 @@
 
         <EditText
             android:id="@+id/titleTxt"
-            android:background="@null"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#FFFFFF"
             android:hint="标题"
             android:paddingStart="25dp"
             android:paddingTop="21dp"
             android:paddingBottom="21dp"
             android:textColor="#666666"
-            android:textSize="14sp"
-            android:textColorHint="#959595" />
+            android:textColorHint="#959595"
+            android:textSize="14sp" />
 
         <View
             android:layout_width="match_parent"
@@ -33,26 +33,28 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#FFFFFF"
             android:orientation="vertical">
 
             <EditText
                 android:id="@+id/contentTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@null"
                 android:gravity="top"
                 android:hint="内容"
-                android:background="@null"
                 android:lines="10"
                 android:paddingStart="15dp"
                 android:paddingTop="17dp"
-                android:textSize="12sp"
                 android:textColor="#666666"
-                android:textColorHint="#969696" />
+                android:textColorHint="#969696"
+                android:textSize="12sp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:overScrollMode="never"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:spanCount="3" />
 
@@ -66,6 +68,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#FFFFFF"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingStart="15dp"
@@ -96,12 +99,19 @@
 
         </LinearLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#f7f7f7" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#FFFFFF"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingStart="15dp"
+
             android:paddingTop="21dp"
             android:paddingEnd="15dp"
             android:paddingBottom="21dp">
@@ -120,8 +130,8 @@
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:hint="请输入联系方式"
-                android:textColorHint="#ff959595"
                 android:textColor="#666666"
+                android:textColorHint="#ff959595"
                 android:textSize="14sp" />
         </LinearLayout>
 
@@ -134,6 +144,7 @@
         <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#FFFFFF"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingStart="15dp"
@@ -188,6 +199,7 @@
             android:layout_marginStart="15dp"
             android:layout_marginTop="26dp"
             android:layout_marginEnd="15dp"
+            android:layout_marginBottom="45dp"
             android:background="@drawable/bg_tieba_release"
             android:gravity="center"
             android:paddingTop="15dp"

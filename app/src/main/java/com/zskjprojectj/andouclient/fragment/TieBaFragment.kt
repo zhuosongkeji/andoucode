@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.blankj.utilcode.util.ActivityUtils
+import com.blankj.utilcode.util.BarUtils
 import com.zhuosongkj.android.library.app.BaseFragment
 import com.zskjprojectj.andouclient.R
 import com.zskjprojectj.andouclient.activity.TieBaReleaseActivity
@@ -21,16 +22,14 @@ class TieBaFragment : BaseFragment() {
                 arrayListOf(SquareFragment(), MyTieBaFragment()))
         view.commentDetails.setOnClickListener {
             ActivityUtils.startActivityForResult(
-                    mFragment,TieBaReleaseActivity::class.java,666)
+                    mFragment, TieBaReleaseActivity::class.java, 666)
         }
+        title_view.setPadding(0, BarUtils.getStatusBarHeight(), 0, 0)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
     }
 
     override fun getContentView() = R.layout.fragment_tiebapage
-
-
 }

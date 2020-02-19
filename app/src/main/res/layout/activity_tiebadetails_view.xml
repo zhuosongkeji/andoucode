@@ -15,35 +15,38 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
     <LinearLayout
+        android:id="@+id/commentContainer"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:background="#E7E7E7"
         android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone"
+        tools:visibility="visible">
 
         <EditText
+            android:id="@+id/commentEdt"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
-            android:layout_weight="1"
             android:layout_marginTop="6dp"
             android:layout_marginBottom="6dp"
+            android:layout_weight="1"
             android:background="@drawable/bg_tiebasend"
             android:hint="你想说什么就说吧"
             android:padding="12dp"
-            android:textColorHint="#ffaeaeae"
             android:textColor="#666666"
+            android:textColorHint="#ffaeaeae"
             android:textSize="13sp" />
-
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="23dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingStart="15dp"
+            android:paddingEnd="23dp"
             android:text="发送"
             android:textColor="#ff333333"
             android:textSize="14sp" />
-
     </LinearLayout>
 </LinearLayout>
