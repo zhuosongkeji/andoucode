@@ -13,9 +13,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.utils.UrlUtil;import com.zskjprojectj.andouclient.base.BaseUrl;
+import com.zskjprojectj.andouclient.utils.UrlUtil;
+import com.zskjprojectj.andouclient.base.BaseUrl;
 import com.zskjprojectj.andouclient.entity.IndexHomeBean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -38,7 +40,7 @@ public class CoverFlowAdapter extends RecyclerView.Adapter<CoverFlowAdapter.View
     private onItemClick clickCb;
 
 
-    private List<IndexHomeBean.MerchantTypeBean> merchant_type;
+    public ArrayList<IndexHomeBean.MerchantTypeBean> merchant_type = new ArrayList<>();
 
     public CoverFlowAdapter(Context c) {
         mContext = c;
@@ -61,24 +63,21 @@ public class CoverFlowAdapter extends RecyclerView.Adapter<CoverFlowAdapter.View
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        String url = UrlUtil.getImageUrl( merchant_type.get(position).getImg());
+        String url = UrlUtil.getImageUrl(merchant_type.get(position % merchant_type.size()).getImg());
         Log.d("wangbin", "url: " + url);
         Glide.with(mContext).load(url).apply(new RequestOptions()
                 .placeholder(R.drawable.default_image).error(R.drawable.default_image)).into(holder.imageView);
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (clickCb != null) {
-                    clickCb.clickItem(position);
-                }
+        holder.itemView.setOnClickListener(v -> {
+            if (clickCb != null) {
+                clickCb.clickItem(position);
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return merchant_type == null ? 0:merchant_type.size();
+        return Integer.MAX_VALUE;
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -95,8 +94,7 @@ public class CoverFlowAdapter extends RecyclerView.Adapter<CoverFlowAdapter.View
         void clickItem(int pos);
     }
 
-
-    public void setNewData(List<IndexHomeBean.MerchantTypeBean> merchant_type) {
+    public void setNewData(ArrayList<IndexHomeBean.MerchantTypeBean> merchant_type) {
         this.merchant_type = merchant_type;
     }
 }

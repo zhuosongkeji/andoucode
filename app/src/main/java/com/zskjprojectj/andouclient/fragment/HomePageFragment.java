@@ -18,11 +18,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-
-
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.stx.xhb.xbanner.XBanner;
-import com.wihaohao.PageGridView;
 import com.zaaach.citypicker.CityPicker;
 import com.zaaach.citypicker.adapter.OnPickListener;
 import com.zaaach.citypicker.model.City;
@@ -30,17 +27,15 @@ import com.zaaach.citypicker.model.HotCity;
 import com.zaaach.citypicker.model.LocateState;
 import com.zaaach.citypicker.model.LocatedCity;
 import com.zhuosongkj.android.library.app.BaseFragment;
-import com.zhuosongkj.android.library.model.BaseResult;
 import com.zhuosongkj.android.library.model.ListData;
 import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.BookingorderActivity;
-import com.zskjprojectj.andouclient.activity.ClassificationofgoodsActivity;
 import com.zskjprojectj.andouclient.activity.LoginActivity;
-import com.zskjprojectj.andouclient.activity.QrCodeActivity;
-import com.zskjprojectj.andouclient.activity.hotel.HotelActivity;
 import com.zskjprojectj.andouclient.activity.MainActivity;
 import com.zskjprojectj.andouclient.activity.MallMainActivity;
+import com.zskjprojectj.andouclient.activity.QrCodeActivity;
+import com.zskjprojectj.andouclient.activity.hotel.HotelActivity;
 import com.zskjprojectj.andouclient.activity.hotel.HotelDetailActivity;
 import com.zskjprojectj.andouclient.activity.mall.MallGoodsDetailsActivity;
 import com.zskjprojectj.andouclient.activity.mall.MallShoppingHomeActivity;
@@ -52,20 +47,19 @@ import com.zskjprojectj.andouclient.adapter.mall.RecommendProductsAdapter;
 import com.zskjprojectj.andouclient.adapter.merchantsCategoryAdapter;
 import com.zskjprojectj.andouclient.adapter.restaurant.RestaurantAdapter;
 import com.zskjprojectj.andouclient.entity.EnvelopesBean;
+import com.zskjprojectj.andouclient.entity.IndexHomeBean;
 import com.zskjprojectj.andouclient.entity.NewuserBean;
 import com.zskjprojectj.andouclient.entity.hotel.HotelHomeBean;
 import com.zskjprojectj.andouclient.entity.mall.MallHomeDataBean;
-import com.zskjprojectj.andouclient.http.ApiException;
-import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
-import com.zskjprojectj.andouclient.utils.UrlUtil;
-import com.zskjprojectj.andouclient.entity.IndexHomeBean;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.utils.BarUtils;
+import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 import com.zskjprojectj.andouclient.utils.ScreenUtil;
 import com.zskjprojectj.andouclient.utils.StatusBarUtil;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
+import com.zskjprojectj.andouclient.utils.UrlUtil;
 import com.zskjprojectj.andouclient.view.CustomDialog;
 import com.zskjprojectj.andouclient.view.OnRedPacketDialogClickListener;
 import com.zskjprojectj.andouclient.view.RedPacketViewHolder;
@@ -76,8 +70,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import io.reactivex.Observable;
-import recycler.coverflow.CoverFlowLayoutManger;
 import recycler.coverflow.RecyclerCoverFlow;
 
 public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.onItemClick {
@@ -136,35 +128,32 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         mRvMerchants.setLayoutManager(layoutManager);
         mRvMerchants.setAdapter(merchantsAdapter);
-        merchantsAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                switch (merchantsAdapter.getItem(position).getMerchant_type_id()) {
-                    //商家商城
-                    case "2":
-                        MallShoppingHomeActivity.start(merchantsAdapter.getItem(position).getId());
-                        break;
-                    //酒店商家
-                    case "3":
-                        HotelDetailActivity.start(merchantsAdapter.getItem(position).getId());
-                        break;
-                    //饭店商家
-                    case "4":
-                        RestaurantDetailActivity.start(merchantsAdapter.getItem(position).getId());
-                        break;
-                    //农家乐
-                    case "5":
-                        break;
-                    //旅游
-                    case "6":
-                        break;
-                    //美食预订
-                    case "7":
-                        break;
-                    //农家乐民宿
-                    case "8":
-                        break;
-                }
+        merchantsAdapter.setOnItemClickListener((adapter, view, position) -> {
+            switch (merchantsAdapter.getItem(position).getMerchant_type_id()) {
+                //商家商城
+                case "2":
+                    MallShoppingHomeActivity.start(merchantsAdapter.getItem(position).getId());
+                    break;
+                //酒店商家
+                case "3":
+                    HotelDetailActivity.start(merchantsAdapter.getItem(position).getId());
+                    break;
+                //饭店商家
+                case "4":
+                    RestaurantDetailActivity.start(merchantsAdapter.getItem(position).getId());
+                    break;
+                //农家乐
+                case "5":
+                    break;
+                //旅游
+                case "6":
+                    break;
+                //美食预订
+                case "7":
+                    break;
+                //农家乐民宿
+                case "8":
+                    break;
             }
         });
 
@@ -233,20 +222,6 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
         adapter = new CoverFlowAdapter(getActivity(), this);
         mCoverFlow.setGreyItem(true); //设置灰度渐变
         mCoverFlow.setAlphaItem(true); //设置半透渐变
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mCoverFlow.smoothScrollToPosition(2);
-            }
-        }, 500);
-
-        mCoverFlow.setOnItemSelectedListener(new CoverFlowLayoutManger.OnSelected() {
-            @Override
-            public void onItemSelected(int position) {
-//                ((TextView)findViewById(R.id.index)).setText((position+1)+"/"+mList.getLayoutManager().getItemCount());
-            }
-        });
     }
 
 
@@ -262,10 +237,10 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
                 bannertops.setIsClipChildrenMode(true);
                 bannertops.setBannerData(banner);
 
-                List<IndexHomeBean.MerchantTypeBean> merchant_type = indexHomeBean.getMerchant_type();
+                ArrayList<IndexHomeBean.MerchantTypeBean> merchant_type = indexHomeBean.getMerchant_type();
                 adapter.setNewData(merchant_type);
                 mCoverFlow.setAdapter(adapter);
-
+                mCoverFlow.scrollToPosition(merchant_type.size() * 1000);
                 List<IndexHomeBean.MerchantsBean> merchants = indexHomeBean.getMerchants();
                 merchantsAdapter.setNewData(merchants);
 
@@ -282,8 +257,7 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
 
             }
         });
-        if (!TextUtils.isEmpty(LoginInfoUtil.getToken()))
-        {
+        if (!TextUtils.isEmpty(LoginInfoUtil.getToken())) {
             HttpRxObservable.getObservable(ApiUtils.getApiService().new_user(LoginInfoUtil.getUid(), LoginInfoUtil.getToken())).subscribe(new BaseObserver<NewuserBean>(mActivity) {
                 @Override
                 public void onHandleSuccess(NewuserBean newuserBean) throws IOException {
@@ -432,8 +406,9 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
 
     @Override
     public void clickItem(int pos) {
-
-        switch (pos) {
+        mCoverFlow.smoothScrollToPosition(pos);
+        int index = pos % adapter.merchant_type.size();
+        switch (index) {
             /**
              * 商城
              */

@@ -2,6 +2,7 @@ package com.zskjprojectj.andouclient.entity;
 
 import com.stx.xhb.xbanner.entity.SimpleBannerInfo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,7 +19,7 @@ public class IndexHomeBean {
 
 
     private List<BannerBean> banner;
-    private List<MerchantTypeBean> merchant_type;
+    private ArrayList<MerchantTypeBean> merchant_type;
     private List<MerchantsBean> merchants;
     private List<NoticeBean> notice;
 
@@ -30,11 +31,11 @@ public class IndexHomeBean {
         this.banner = banner;
     }
 
-    public List<MerchantTypeBean> getMerchant_type() {
+    public ArrayList<MerchantTypeBean> getMerchant_type() {
         return merchant_type;
     }
 
-    public void setMerchant_type(List<MerchantTypeBean> merchant_type) {
+    public void setMerchant_type(ArrayList<MerchantTypeBean> merchant_type) {
         this.merchant_type = merchant_type;
     }
 
@@ -132,6 +133,7 @@ public class IndexHomeBean {
         private String logo_img;
         private String name;
         private String merchant_type_id;
+
         public String getMerchant_type_id() {
             return merchant_type_id;
         }
@@ -139,7 +141,6 @@ public class IndexHomeBean {
         public void setMerchant_type_id(String merchant_type_id) {
             this.merchant_type_id = merchant_type_id;
         }
-
 
 
         public String getId() {
