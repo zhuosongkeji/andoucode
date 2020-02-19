@@ -1,5 +1,7 @@
 package com.zskjprojectj.andouclient.model;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.util.ArrayList;
 
 public class PinTuan {
@@ -8,8 +10,9 @@ public class PinTuan {
     public ArrayList<PinTuanType> types = new ArrayList<>();
 
     public static class PinTuanType {
-        public String title;
+        public String name;
         public ArrayList<PinTuanGoods> goods = new ArrayList<>();
+        public String id;
     }
 
     public static PinTuan getTest() {
@@ -19,7 +22,6 @@ public class PinTuan {
         goods.img = "http://img0.imgtn.bdimg.com/it/u=1473544931,889757245&fm=15&gp=0.jpg";
         goods.name = "拼团测试商品";
         goods.price = 128.99;
-        goods.pintuanPrice = 88.88;
         goods.people = 3;
         goods.joinPeople = 3312;
         goods.progress = 60;
@@ -31,7 +33,7 @@ public class PinTuan {
         pinTuan.recommendGoods.add(goods);
         for (int i = 0; i < 10; i++) {
             PinTuanType pinTuanType = new PinTuanType();
-            pinTuanType.title = "分类" + i;
+            pinTuanType.name = "分类" + i;
             pinTuanType.goods.add(goods);
             pinTuanType.goods.add(goods);
             pinTuanType.goods.add(goods);

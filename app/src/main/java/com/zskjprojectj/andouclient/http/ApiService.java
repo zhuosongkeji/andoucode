@@ -2,6 +2,7 @@ package com.zskjprojectj.andouclient.http;
 
 import com.google.gson.JsonElement;
 import com.zhuosongkj.android.library.model.BaseResult;
+import com.zhuosongkj.android.library.model.IListData;
 import com.zhuosongkj.android.library.model.ListData;
 import com.zskjprojectj.andouclient.entity.AboutusBean;
 import com.zskjprojectj.andouclient.entity.BrowsingBean;
@@ -51,6 +52,8 @@ import com.zskjprojectj.andouclient.model.BalanceDetail;
 import com.zskjprojectj.andouclient.model.CartItem;
 import com.zskjprojectj.andouclient.model.Food;
 import com.zskjprojectj.andouclient.model.FoodCategory;
+import com.zskjprojectj.andouclient.model.PinTuan;
+import com.zskjprojectj.andouclient.model.PinTuanGoods;
 import com.zskjprojectj.andouclient.model.Restaurant;
 import com.zskjprojectj.andouclient.model.RestaurantCategory;
 import com.zskjprojectj.andouclient.model.IntegralDetail;
@@ -60,6 +63,7 @@ import com.zskjprojectj.andouclient.model.Order;
 import com.zskjprojectj.andouclient.model.OrderDetail;
 import com.zskjprojectj.andouclient.model.RestaurantOrder;
 import com.zskjprojectj.andouclient.model.Review;
+import com.zskjprojectj.andouclient.model.TodayTopResponse;
 import com.zskjprojectj.andouclient.model.User;
 import com.zskjprojectj.andouclient.model.MiaoShaListResponse;
 
@@ -70,9 +74,11 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.Path;
 
 public interface ApiService {
     /**
@@ -1233,6 +1239,16 @@ public interface ApiService {
     @POST("api/goods/sec_list")
     Observable<BaseResult<MiaoShaListResponse>> miaoShaList(@Field("sec_hour") String sec_hour,
                                                             @Field("page") int page);
+
+    @GET("api/group/today_top")
+    Observable<BaseResult<TodayTopResponse>> todayTop();
+
+    @GET("api/group/group_cate")
+    Observable<BaseResult<List<PinTuan.PinTuanType>>> pinTuanType();
+
+    @GET("api/group/group_list/{cate_id}/{page}")
+    Observable<BaseResult<ListData<PinTuanGoods>>> pinTuanGoods(@Path("cate_id") String cate_id,
+                                                            @Path("page") int page);
 
     /**
      * 商户类型
