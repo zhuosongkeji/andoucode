@@ -17,7 +17,7 @@ public class PinTuanMustAdapter extends BaseAdapter<PinTuanGoods> {
 
     @Override
     protected void convert(BaseViewHolder helper, PinTuanGoods item) {
-        helper.setText(R.id.priceTxt, FormatUtil.getMoneyString(item.pintuanPrice))
+        helper.setText(R.id.priceTxt, FormatUtil.getMoneyString(item.price))
                 .setText(R.id.titleTxt, item.name)
                 .setText(R.id.peopleCountTxt, item.people + "人团");
         helper.itemView.postDelayed(() -> {

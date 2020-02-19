@@ -69,7 +69,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_17"
             android:gravity="center_vertical">
 
             <TextView
@@ -77,6 +76,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:paddingTop="17dp"
                 android:textColor="#969696"
                 android:textSize="11sp"
                 tools:text="2019-08-21  13:49" />
@@ -84,7 +84,8 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingTop="17dp">
 
                 <ImageView
                     android:layout_width="15dp"
@@ -103,11 +104,12 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/commentBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
                 android:layout_marginStart="30dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingTop="17dp">
 
                 <ImageView
                     android:layout_width="15dp"
@@ -130,7 +132,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingTop="17dp">
 
                 <ImageView
                     android:layout_width="15dp"
@@ -154,8 +157,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:paddingTop="10dp"
             android:background="#f7f7f7"
+            android:paddingTop="10dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
     </LinearLayout>
 
