@@ -214,7 +214,7 @@ public class MallGoodsDetailsActivity extends BaseActivity {
     private void initPinTuan() {
         pinTuanAdapter.bindToRecyclerView(tv_pintuan);
 
-        //商品详情
+        //团购
         HttpRxObservable.getObservable(ApiUtils.getApiService().tuangouDetails(goodsId))
                 .subscribe(new BaseObserver<PinTuanDetails>(this) {
 
@@ -231,6 +231,7 @@ public class MallGoodsDetailsActivity extends BaseActivity {
                             mTvGoodsStoreNum.setText(pinTuanDetails.getGroup_goods().getStorage());
                             tv_total_member.setText("已有"+pinTuanDetails.getTotal_member()+"人参团");
                             pinTuanAdapter.setNewData(pinTuanDetails.getTeam_list());
+                            pinTuanAdapter.setEndTime(pinTuanDetails.getGroup_goods().getFinish_time());
                             ll_normal.setVisibility(View.GONE);
                             ll_pintuan.setVisibility(View.VISIBLE);
                         }

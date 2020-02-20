@@ -1,17 +1,11 @@
 package com.zskjprojectj.andouclient.activity.mall;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.king.zxing.ViewfinderView;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.activity.MainActivity;
-import com.zskjprojectj.andouclient.activity.ShoporderActivity;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
 import com.zskjprojectj.andouclient.utils.PaySuccessBackEvent;

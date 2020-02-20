@@ -12,47 +12,49 @@ import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.SPUtils
 import com.zskjprojectj.andouclient.R
 import com.zskjprojectj.andouclient.utils.DialogUtil
+import com.zskjprojectj.andouclient.utils.KEY_PROTOCOL_AGREED
 import kotlinx.android.synthetic.main.activity_splash.*
-import mlxy.utils.App
 
 class SplashActivity : AppCompatActivity() {
 
-    internal var dialog: Dialog? = null
+    var dialog: Dialog? = null
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
         versionTxt.text = "V${AppUtils.getAppVersionName()}"
-        if (SPUtils.getInstance().getBoolean(KEY_PROTOCOL_BEEN_SHOWN, false)) {
-            start()
-        } else {
+        if (needShowProtocolDialog()) {
             showProtocolDialog()
+        } else {
+            enterHome()
         }
+    }
+
+    private fun needShowProtocolDialog(): Boolean {
+        return !SPUtils.getInstance().getBoolean(KEY_PROTOCOL_AGREED, false)
     }
 
     private fun showProtocolDialog() {
-        findViewById<View>(R.id.logo).postDelayed({ dialog = DialogUtil.showProtocolDialog(this, { v -> start() }, { v -> finish() }) },
-                500)
+        logo.postDelayed({
+            dialog = DialogUtil.showProtocolDialog(this,
+                    {
+                        SPUtils.getInstance().put(KEY_PROTOCOL_AGREED, true)
+                        enterHome()
+                    },
+                    { finish() })
+        }, 500)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        if (dialog != null) {
-            dialog!!.dismiss()
-        }
-    }
-
-    private fun start() {
-        SPUtils.getInstance().put(KEY_PROTOCOL_BEEN_SHOWN, true)
+    private fun enterHome() {
         findViewById<View>(R.id.logo).postDelayed({
-            ActivityUtils.startActivity(MainActivity::class.java)
+            ActivityUtils.startActivity(AppHomeActivity::class.java)
             finish()
         }, 1000)
     }
 
-    companion object {
-
-        private val KEY_PROTOCOL_BEEN_SHOWN = "KEY_PROTOCOL_BEEN_SHOWN"
+    override fun onDestroy() {
+        super.onDestroy()
+        dialog?.dismiss()
     }
 }

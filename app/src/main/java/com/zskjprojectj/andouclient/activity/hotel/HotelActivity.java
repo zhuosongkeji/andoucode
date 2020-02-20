@@ -39,7 +39,6 @@ import com.zskjprojectj.andouclient.adapter.hotel.HotelCateGoryAdapter;
 import com.zskjprojectj.andouclient.adapter.hotel.HotelHomeAdapter;
 import com.zskjprojectj.andouclient.adapter.hotel.HotelPriceAdapter;
 import com.zskjprojectj.andouclient.adapter.hotel.HotelStarAdapter;
-import com.zskjprojectj.andouclient.base.BasePresenter;
 import com.zskjprojectj.andouclient.entity.hotel.HotelCategoryBean;
 import com.zskjprojectj.andouclient.entity.hotel.HotelHomeBean;
 import com.zskjprojectj.andouclient.entity.hotel.HotelSearchConditionBean;
@@ -47,12 +46,9 @@ import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.utils.GridSectionAverageGapItemDecoration;
-import com.zskjprojectj.andouclient.utils.StatusBarUtil;
-import com.zskjprojectj.andouclient.utils.ToastUtil;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 

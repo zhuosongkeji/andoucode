@@ -15,19 +15,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.adapter.InfoFragmentAdapter;
-import com.zskjprojectj.andouclient.adapter.hotel.CommentAdapter;
 import com.zskjprojectj.andouclient.base.BaseFragment;
 import com.zskjprojectj.andouclient.entity.InfoFragmentBean;
-import com.zskjprojectj.andouclient.entity.hotel.HotelDetailCommentBean;
 import com.zskjprojectj.andouclient.utils.BarUtils;
-import com.zskjprojectj.andouclient.utils.StatusBarUtil;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
-import com.zskjprojectj.andouclient.view.TopView;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 
 /**
  * <pre>

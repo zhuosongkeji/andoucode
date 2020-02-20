@@ -49,6 +49,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/timerContainer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -61,7 +62,7 @@
                 android:textSize="12sp" />
 
             <TextView
-                android:id="@+id/tv_hour"
+                android:id="@+id/hourTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="3dp"
@@ -78,7 +79,7 @@
                 android:textSize="12sp" />
 
             <TextView
-                android:id="@+id/tv_minute"
+                android:id="@+id/minuteTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="3dp"
@@ -95,7 +96,7 @@
                 android:textSize="12sp" />
 
             <TextView
-                android:id="@+id/tv_second"
+                android:id="@+id/secondTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="3dp"

@@ -18,7 +18,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.stx.xhb.xbanner.XBanner;
 import com.zaaach.citypicker.CityPicker;
 import com.zaaach.citypicker.adapter.OnPickListener;
@@ -30,9 +29,9 @@ import com.zhuosongkj.android.library.app.BaseFragment;
 import com.zhuosongkj.android.library.model.ListData;
 import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
+import com.zskjprojectj.andouclient.activity.AppHomeActivity;
 import com.zskjprojectj.andouclient.activity.BookingorderActivity;
 import com.zskjprojectj.andouclient.activity.LoginActivity;
-import com.zskjprojectj.andouclient.activity.MainActivity;
 import com.zskjprojectj.andouclient.activity.MallMainActivity;
 import com.zskjprojectj.andouclient.activity.QrCodeActivity;
 import com.zskjprojectj.andouclient.activity.hotel.HotelActivity;
@@ -57,7 +56,6 @@ import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.utils.BarUtils;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 import com.zskjprojectj.andouclient.utils.ScreenUtil;
-import com.zskjprojectj.andouclient.utils.StatusBarUtil;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
 import com.zskjprojectj.andouclient.utils.UrlUtil;
 import com.zskjprojectj.andouclient.view.CustomDialog;
@@ -436,8 +434,8 @@ public class HomePageFragment extends BaseFragment implements CoverFlowAdapter.o
 
     @OnClick(R.id.ll_see_more)
     public void clickSeeMore() {
-        if (getActivity() instanceof MainActivity) {
-            ((MainActivity) getActivity()).getNavigationBar().selectTab(1);
+        if (getActivity() instanceof AppHomeActivity) {
+            ((AppHomeActivity) getActivity()).getNavigationBar().selectTab(1);
         }
     }
 

@@ -289,11 +289,11 @@ public class ShareLocationActivity extends Activity {
                         finish();
                         break;
                     case R.id.iv_search:
-////                        Toast.makeText(MainActivity.this, "搜索", Toast.LENGTH_SHORT).show();
+////                        Toast.makeText(AppHomeActivity.this, "搜索", Toast.LENGTH_SHORT).show();
                         startActivityForResult(new Intent(ShareLocationActivity.this, SearchActivity.class), SEARCHREQUESTCODE);
                         break;
                     case R.id.iv_location:
-//                        Toast.makeText(MainActivity.this, "定位", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(AppHomeActivity.this, "定位", Toast.LENGTH_SHORT).show();
                         mIvLocation.setImageResource(R.mipmap.location_gps_green);
                         if (null != mSelectByListMarker) {
                             mSelectByListMarker.setVisible(false);

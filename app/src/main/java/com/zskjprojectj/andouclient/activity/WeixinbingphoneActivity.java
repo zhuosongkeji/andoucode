@@ -92,7 +92,7 @@ public class WeixinbingphoneActivity extends BaseActivity {
                     public void onHandleSuccess(User user) throws IOException {
                         LoginInfoUtil.saveLoginInfo(user.id, user.token);
                         if (!getIntent().getBooleanExtra(KEY_FOR_RESULT, false)) {
-                            jumpActivity(MainActivity.class);
+                            jumpActivity(AppHomeActivity.class);
                         }
                         finish();
                     }
