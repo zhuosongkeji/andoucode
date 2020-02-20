@@ -29,7 +29,6 @@ import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
-import com.zhuosongkj.android.library.util.ActionBarUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
@@ -41,11 +40,6 @@ import com.zskjprojectj.andouclient.utils.BarUtils;
 import com.zskjprojectj.andouclient.utils.Constants;
 import com.zskjprojectj.andouclient.utils.LogUtil;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
-import com.zskjprojectj.andouclient.utils.PhonenumUtil;
-import com.zskjprojectj.andouclient.utils.SharedPreferencesManager;
-import com.zskjprojectj.andouclient.utils.StatusBarUtil;
-
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -94,14 +88,14 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-        int barHeight = StatusBarUtil.getStatusBarHeight(mAt);
+        int barHeight = com.blankj.utilcode.util.BarUtils.getStatusBarHeight();
         if (barHeight > 0) {
             //设置状态栏的高度
             LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) mRootView.getLayoutParams();
             layoutParams.topMargin = BarUtils.getStatusBarHeight(mAt) + layoutParams.topMargin;
             mRootView.setLayoutParams(layoutParams);
         }
-        StatusBarUtil.setStatusBarDarkTheme(mAt, true);
+        com.blankj.utilcode.util.BarUtils.setNavBarLightMode(mAt,false);
 
         receiver = new Receiver();
         intentFilter = new IntentFilter();
@@ -135,7 +129,7 @@ public class LoginActivity extends BaseActivity {
                                 LoginInfoUtil.saveLoginInfo(user.id, user.token);
                                 setResult(Activity.RESULT_OK);
                                 if (!getIntent().getBooleanExtra(KEY_FOR_RESULT, false)) {
-                                    jumpActivity(MainActivity.class);
+                                    jumpActivity(AppHomeActivity.class);
                                 }
                                 finish();
                             }
@@ -205,7 +199,7 @@ public class LoginActivity extends BaseActivity {
                             LoginActivity.this.setResult(Activity.RESULT_OK);
                             if (!TextUtils.isEmpty(user.token)) {
                                 if (!getIntent().getBooleanExtra(KEY_FOR_RESULT, false)) {
-                                    jumpActivity(MainActivity.class);
+                                    jumpActivity(AppHomeActivity.class);
                                 }
                                 finish();
                             } else {

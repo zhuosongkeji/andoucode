@@ -52,6 +52,8 @@ import com.zskjprojectj.andouclient.model.BalanceDetail;
 import com.zskjprojectj.andouclient.model.CartItem;
 import com.zskjprojectj.andouclient.model.Food;
 import com.zskjprojectj.andouclient.model.FoodCategory;
+import com.zskjprojectj.andouclient.model.PinTuan;
+import com.zskjprojectj.andouclient.model.PinTuanGoods;
 import com.zskjprojectj.andouclient.model.PinTuanDetails;
 import com.zskjprojectj.andouclient.model.PinTuan;
 import com.zskjprojectj.andouclient.model.PinTuanGoods;

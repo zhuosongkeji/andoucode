@@ -31,7 +31,16 @@
         android:usesCleartextTraffic="true"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning"
         tools:targetApi="m">
-        <activity android:name=".activity.TieBaReleaseActivity"></activity>
+        <activity
+            android:name=".activity.SplashActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.TieBaReleaseActivity"/>
         <activity android:name=".activity.mall.PinTuanActivity" />
         <activity android:name=".activity.SelectLocationActivity" />
         <activity android:name=".activity.mall.MallMiaoShaActivity" />
@@ -47,15 +56,7 @@
         <activity android:name=".activity.CommentSuccessActivity" />
         <activity android:name=".activity.mall.MallPaySuccessActivity" />
         <activity android:name=".activity.TieBaDetailsActivity" />
-        <activity
-            android:name=".activity.SplashActivity"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity
             android:name=".activity.mall.MallOnlineOrderActivity"
             android:screenOrientation="portrait" />
@@ -107,7 +108,7 @@
             android:name=".activity.ForgetActivity"
             android:screenOrientation="portrait" /> <!-- 主界面 -->
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".activity.AppHomeActivity"
             android:screenOrientation="portrait"
             android:theme="@style/DefaultCityPickerTheme" />
         <activity

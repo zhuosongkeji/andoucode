@@ -8,12 +8,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorNavy">
+        android:background="@color/colorNavy"
+        android:paddingEnd="15dp">
 
         <LinearLayout
-            android:id="@+id/root_view"
+            android:id="@+id/actionBarContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="@dimen/dp_10"
             android:orientation="horizontal">
 
@@ -50,9 +52,10 @@
             </LinearLayout>
 
             <RelativeLayout
-                android:layout_width="240dp"
+                android:layout_width="0dp"
                 android:layout_height="35dp"
                 android:layout_marginLeft="@dimen/dp_10"
+                android:layout_weight="1"
                 android:background="@drawable/shape_layout">
 
                 <TextView

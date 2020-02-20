@@ -173,9 +173,6 @@ public class MePageFragment extends BaseFragment {
 
     @Override
     protected void getDataFromServer() {
-        if (TextUtils.isEmpty(LoginInfoUtil.getToken())) {
-            return;
-        }
         HttpRxObservable.getObservable(ApiUtils.getApiService().getpersonal(LoginInfoUtil.getUid(), LoginInfoUtil.getToken())).subscribe(new BaseObserver<PersonalBean>(mAty) {
             @Override
             public void onHandleSuccess(PersonalBean personalBean) throws IOException {

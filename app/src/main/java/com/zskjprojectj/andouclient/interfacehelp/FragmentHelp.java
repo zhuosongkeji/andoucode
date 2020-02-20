@@ -1,7 +1,7 @@
 package com.zskjprojectj.andouclient.interfacehelp;
 
 
-import com.zskjprojectj.andouclient.fragment.HomePageFragment;
+import com.zskjprojectj.andouclient.fragment.AppHomeFragment;
 import com.zskjprojectj.andouclient.fragment.InfoPageFragment;
 import com.zskjprojectj.andouclient.fragment.MePageFragment;
 import com.zskjprojectj.andouclient.fragment.MerchantsPageFragment;
@@ -11,7 +11,7 @@ import com.zskjprojectj.andouclient.fragment.TieBaFragment;
  * 全局变量
  */
 public class FragmentHelp {
-    private static HomePageFragment homePageFragment;//首页
+    private static AppHomeFragment appHomeFragment;//首页
     private static MerchantsPageFragment merchantsPageFragment;//商家
     private static InfoPageFragment infoPageFragment;//信息
     private static TieBaFragment tieBaFragment;//贴吧
@@ -21,12 +21,12 @@ public class FragmentHelp {
      * 依次初始化每个碎片对象
      * 首页
      */
-    public static HomePageFragment getHomePageFragment()
+    public static AppHomeFragment getHomePageFragment()
     {
-        if (homePageFragment == null) {
-            homePageFragment = new HomePageFragment();
+        if (appHomeFragment == null) {
+            appHomeFragment = new AppHomeFragment();
         }
-        return homePageFragment;
+        return appHomeFragment;
     }
     /**
      * 商家

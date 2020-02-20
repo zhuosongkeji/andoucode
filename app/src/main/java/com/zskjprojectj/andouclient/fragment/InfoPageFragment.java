@@ -15,19 +15,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.adapter.InfoFragmentAdapter;
-import com.zskjprojectj.andouclient.adapter.hotel.CommentAdapter;
 import com.zskjprojectj.andouclient.base.BaseFragment;
 import com.zskjprojectj.andouclient.entity.InfoFragmentBean;
-import com.zskjprojectj.andouclient.entity.hotel.HotelDetailCommentBean;
 import com.zskjprojectj.andouclient.utils.BarUtils;
-import com.zskjprojectj.andouclient.utils.StatusBarUtil;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
-import com.zskjprojectj.andouclient.view.TopView;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 
 /**
  * <pre>
@@ -54,7 +49,7 @@ public class InfoPageFragment extends BaseFragment {
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
 
-        int barHeight = StatusBarUtil.getStatusBarHeight(mAty);
+        int barHeight = com.blankj.utilcode.util.BarUtils.getStatusBarHeight();
         if (barHeight > 0) {
             //设置状态栏的高度
             LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) mTitleView.getLayoutParams();

@@ -23,11 +23,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zhuosongkj.android.library.app.BaseFragment;
-import com.zhuosongkj.android.library.model.BaseResult;
-import com.zhuosongkj.android.library.model.IListData;
-import com.zhuosongkj.android.library.util.ActionBarUtil;
 import com.zhuosongkj.android.library.util.PageLoadUtil;
-import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.hotel.HotelDetailActivity;
 import com.zskjprojectj.andouclient.activity.mall.MallShoppingHomeActivity;
@@ -39,17 +35,12 @@ import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.model.Merchant;
-import com.zskjprojectj.andouclient.model.MerchantsResponse;
 import com.zskjprojectj.andouclient.utils.BarUtils;
-import com.zskjprojectj.andouclient.utils.StatusBarUtil;
-import com.zskjprojectj.andouclient.utils.ToastUtil;
 
 import java.io.IOException;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import io.reactivex.Observable;
 
 import static com.zskjprojectj.andouclient.activity.MyaddressActivity.KEY_DATA;
 
@@ -93,7 +84,7 @@ public class MerchantsPageFragment extends BaseFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        int barHeight = StatusBarUtil.getStatusBarHeight(mActivity);
+        int barHeight = com.blankj.utilcode.util.BarUtils.getStatusBarHeight();
         if (barHeight > 0) {
             //设置状态栏的高度
             LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) mTitleView.getLayoutParams();

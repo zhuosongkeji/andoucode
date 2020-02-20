@@ -53,7 +53,7 @@ public class BindSuccessActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.btn_jumpmain:
-                jumpActivity(MainActivity.class);
+                jumpActivity(AppHomeActivity.class);
                 break;
         }
     }

@@ -5,7 +5,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -21,19 +20,13 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.yhao.floatwindow.FloatWindow;
 import com.zhuosongkj.android.library.app.BaseActivity;
-import com.zhuosongkj.android.library.model.BaseResult;
-import com.zhuosongkj.android.library.model.IListData;
-import com.zhuosongkj.android.library.util.ActionBarUtil;
 import com.zhuosongkj.android.library.util.PageLoadUtil;
-import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.adapter.hotel.Catagory1Adapter;
 import com.zskjprojectj.andouclient.adapter.hotel.HotelPriceAdapter;
 import com.zskjprojectj.andouclient.adapter.hotel.HotelResultAdapter;
 import com.zskjprojectj.andouclient.adapter.hotel.HotelStarAdapter;
-import com.zskjprojectj.andouclient.base.BasePresenter;
 import com.zskjprojectj.andouclient.entity.hotel.CategoryBean;
 import com.zskjprojectj.andouclient.entity.hotel.HotelHomeBean;
 import com.zskjprojectj.andouclient.entity.hotel.HotelSearchConditionBean;
@@ -42,15 +35,12 @@ import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.utils.BarUtils;
 import com.zskjprojectj.andouclient.utils.GridSectionAverageGapItemDecoration;
-import com.zskjprojectj.andouclient.utils.StatusBarUtil;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import io.reactivex.Observable;
 
 /**
  * 酒店列表
@@ -117,9 +107,9 @@ public class HotelFilterActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        StatusBarUtil.setTranslucentStatus(mActivity);
-        StatusBarUtil.setStatusBarDarkTheme(mActivity, true);
-        int barHeight = StatusBarUtil.getStatusBarHeight(mActivity);
+        com.blankj.utilcode.util.BarUtils.transparentStatusBar(mActivity);
+        com.blankj.utilcode.util.BarUtils.setNavBarLightMode(mActivity,false);
+        int barHeight = com.blankj.utilcode.util.BarUtils.getStatusBarHeight();
         if (barHeight > 0) {
             //设置状态栏的高度
             LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) mRootView.getLayoutParams();
