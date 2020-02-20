@@ -14,7 +14,7 @@ import butterknife.ButterKnife;
 public abstract class BaseActivity extends AppCompatActivity {
     protected ViewGroup rootView;
 
-    protected ViewGroup contentView;
+    protected ViewGroup baseContentView;
     protected BaseActivity mActivity;
 
     @Override
@@ -22,8 +22,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         mActivity = this;
         setContentView(R.layout.activity_base);
-        contentView = findViewById(R.id.baseContentView);
-        LayoutInflater.from(mActivity).inflate(getContentView(), contentView);
+        baseContentView = findViewById(R.id.baseContentView);
+        LayoutInflater.from(mActivity).inflate(getContentView(), baseContentView);
         rootView = findViewById(R.id.rootView);
         ButterKnife.bind(mActivity);
     }

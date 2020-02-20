@@ -107,9 +107,9 @@ public class HotelFilterActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        StatusBarUtil.setTranslucentStatus(mActivity);
-        StatusBarUtil.setStatusBarDarkTheme(mActivity, true);
-        int barHeight = StatusBarUtil.getStatusBarHeight(mActivity);
+        com.blankj.utilcode.util.BarUtils.transparentStatusBar(mActivity);
+        com.blankj.utilcode.util.BarUtils.setNavBarLightMode(mActivity,false);
+        int barHeight = com.blankj.utilcode.util.BarUtils.getStatusBarHeight();
         if (barHeight > 0) {
             //设置状态栏的高度
             LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) mRootView.getLayoutParams();

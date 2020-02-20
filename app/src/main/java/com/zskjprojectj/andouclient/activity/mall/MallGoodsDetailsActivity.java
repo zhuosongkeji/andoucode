@@ -547,10 +547,10 @@ public class MallGoodsDetailsActivity extends BaseActivity {
 
         View contentView = LayoutInflater.from(this).inflate(R.layout.dialog_mall_goods_discount, null);
         bottomDialog.setContentView(contentView);
-//        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) contentView.getLayoutParams();
+//        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) baseContentView.getLayoutParams();
 //        params.width = getResources().getDisplayMetrics().widthPixels - DensityUtil.dp2px(this, 16f);
 //        params.bottomMargin = DensityUtil.dp2px(this, 8f);
-//        contentView.setLayoutParams(params);
+//        baseContentView.setLayoutParams(params);
         ImageView mCancle = contentView.findViewById(R.id.iv_cancle);
         mCancle.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -756,9 +756,9 @@ public class MallGoodsDetailsActivity extends BaseActivity {
 
 
         bottomDialog.setContentView(contentView);
-//        ViewGroup.LayoutParams layoutParams = contentView.getLayoutParams();
+//        ViewGroup.LayoutParams layoutParams = baseContentView.getLayoutParams();
 //        layoutParams.width = getResources().getDisplayMetrics().widthPixels;
-//        contentView.setLayoutParams(layoutParams);
+//        baseContentView.setLayoutParams(layoutParams);
         bottomDialog.getWindow().setGravity(Gravity.BOTTOM);
         bottomDialog.setCanceledOnTouchOutside(true);
         bottomDialog.getWindow().setWindowAnimations(R.style.BottomDialog_Animation);

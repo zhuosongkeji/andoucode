@@ -88,14 +88,14 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-        int barHeight = StatusBarUtil.getStatusBarHeight(mAt);
+        int barHeight = com.blankj.utilcode.util.BarUtils.getStatusBarHeight();
         if (barHeight > 0) {
             //设置状态栏的高度
             LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) mRootView.getLayoutParams();
             layoutParams.topMargin = BarUtils.getStatusBarHeight(mAt) + layoutParams.topMargin;
             mRootView.setLayoutParams(layoutParams);
         }
-        StatusBarUtil.setStatusBarDarkTheme(mAt, true);
+        com.blankj.utilcode.util.BarUtils.setNavBarLightMode(mAt,false);
 
         receiver = new Receiver();
         intentFilter = new IntentFilter();
