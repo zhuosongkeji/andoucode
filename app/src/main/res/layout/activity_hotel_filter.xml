@@ -15,13 +15,18 @@
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:padding="@dimen/dp_10">
-
-        <ImageView
+        <FrameLayout
             android:id="@+id/iv_header_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_14"
-            android:background="@mipmap/icon_back_black" />
+            android:layout_width="40dp"
+            android:layout_height="50dp"
+            android:paddingStart="15dp">
+
+            <ImageView
+                android:layout_width="8.5dp"
+                android:layout_height="15dp"
+                android:layout_gravity="center_vertical"
+                android:src="@mipmap/icon_back_black" />
+        </FrameLayout>
 
         <TextView
             android:layout_width="wrap_content"
