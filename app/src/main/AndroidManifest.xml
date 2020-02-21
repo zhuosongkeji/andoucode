@@ -239,7 +239,7 @@
             android:name=".activity.ClassificationofgoodsActivity"
             android:screenOrientation="portrait" /> <!-- 分类页详细 -->
         <activity
-            android:name=".activity.MallMainActivity"
+            android:name=".activity.MallHomeActivity"
             android:screenOrientation="portrait" /> <!-- 全面屏 -->
         <!-- 地址选择 -->
         <activity

@@ -51,7 +51,7 @@ class MePageFragment : BaseFragment() {
         mycenter_mywallet_layout.setOnClickListener { startActivity(Intent(context, MywalletActivity::class.java)) }
         mycenter_releas_layout.setOnClickListener { startActivity(Intent(context, MyreleaseActivity::class.java)) }
         mycenter_shoppingcart_layout.setOnClickListener {
-            val intent = Intent(mActivity, MallMainActivity::class.java)
+            val intent = Intent(mActivity, MallHomeActivity::class.java)
             intent.putExtra("id", "MallShopping")
             startActivity(intent)
         }

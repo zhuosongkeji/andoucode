@@ -24,7 +24,7 @@ import com.zhuosongkj.android.library.util.RequestUtil
 import com.zskjprojectj.andouclient.R
 import com.zskjprojectj.andouclient.activity.AppHomeActivity
 import com.zskjprojectj.andouclient.activity.BookingorderActivity
-import com.zskjprojectj.andouclient.activity.MallMainActivity
+import com.zskjprojectj.andouclient.activity.MallHomeActivity
 import com.zskjprojectj.andouclient.activity.QrCodeActivity
 import com.zskjprojectj.andouclient.activity.hotel.HotelActivity
 import com.zskjprojectj.andouclient.activity.hotel.HotelDetailActivity
@@ -100,7 +100,7 @@ class AppHomeFragment : BaseFragment() {
             ActivityUtils.startActivity(HotelActivity::class.java)
         }
         moreGoodsBtn.setOnClickListener {
-            ActivityUtils.startActivity(MallMainActivity::class.java)
+            ActivityUtils.startActivity(MallHomeActivity::class.java)
         }
     }
 
@@ -132,7 +132,7 @@ class AppHomeFragment : BaseFragment() {
         adapter = CoverFlowAdapter(activity) {
             coverflow!!.smoothScrollToPosition(it)
             when (it % (adapter?.merchant_type?.size ?: 1)) {
-                0 -> startActivity(Intent(context, MallMainActivity::class.java))
+                0 -> startActivity(Intent(context, MallHomeActivity::class.java))
                 1 -> startActivity(Intent(context, HotelActivity::class.java))
                 5 -> ActivityUtils.startActivity(RestaurantHomeActivity::class.java)
             }

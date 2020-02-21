@@ -38,16 +38,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-/**
- * 项目名称： andoucode
- * 包名：com.zskjprojectj.andouclient.fragment.mall
- * author: Bin email:wangdabin2333@163.com
- * time: 2019/12/9 19:55
- * des:
- * 修改人：
- * 修改时间：
- * 修改备注：
- */
+
 public class MallHomepageFragment1 extends BaseFragment {
 
 

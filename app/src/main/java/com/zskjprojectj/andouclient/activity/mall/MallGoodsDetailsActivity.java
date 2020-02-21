@@ -21,7 +21,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.bumptech.glide.Glide;
@@ -35,7 +34,7 @@ import com.shizhefei.view.indicator.transition.OnTransitionTextListener;
 
 import com.stx.xhb.xbanner.XBanner;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.activity.MallMainActivity;
+import com.zskjprojectj.andouclient.activity.MallHomeActivity;
 import com.zskjprojectj.andouclient.activity.MyaddressActivity;
 import com.zskjprojectj.andouclient.adapter.mall.MallBuyAdapter;
 import com.zskjprojectj.andouclient.adapter.mall.MallPinTuanAdapter;
@@ -439,7 +438,7 @@ public class MallGoodsDetailsActivity extends BaseActivity {
 
             //购物车
             case R.id.tv_mall_shopping:
-                Intent intent = new Intent(MallGoodsDetailsActivity.this, MallMainActivity.class);
+                Intent intent = new Intent(MallGoodsDetailsActivity.this, MallHomeActivity.class);
                 intent.putExtra("id", "MallShopping");
                 startActivity(intent);
                 break;
