@@ -20,17 +20,6 @@ import com.zskjprojectj.andouclient.entity.IndexHomeBean;
 import java.util.ArrayList;
 import java.util.List;
 
-
-/**
- * 项目名称： andoucode
- * 包名：com.zskjprojectj.andouclient.adapter
- * author: Bin email:wangdabin2333@163.com
- * time: 2019/12/19 11:38
- * des:
- * 修改人：
- * 修改时间：
- * 修改备注：
- */
 public class CoverFlowAdapter extends RecyclerView.Adapter<CoverFlowAdapter.ViewHolder> {
 
     private Context mContext;
@@ -77,7 +66,11 @@ public class CoverFlowAdapter extends RecyclerView.Adapter<CoverFlowAdapter.View
 
     @Override
     public int getItemCount() {
-        return Integer.MAX_VALUE;
+        if (merchant_type.size() == 0) {
+            return 0;
+        } else {
+            return Integer.MAX_VALUE;
+        }
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -96,5 +89,6 @@ public class CoverFlowAdapter extends RecyclerView.Adapter<CoverFlowAdapter.View
 
     public void setNewData(ArrayList<IndexHomeBean.MerchantTypeBean> merchant_type) {
         this.merchant_type = merchant_type;
+        notifyDataSetChanged();
     }
 }

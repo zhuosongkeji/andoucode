@@ -4,16 +4,33 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/rootView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/dp_20"
-        android:layout_marginBottom="@dimen/dp_10"
-        android:text="@string/login_txt"
-        android:textColor="@color/black_28"
-        android:textSize="@dimen/typeface21sp" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:fitsSystemWindows="true">
+
+        <FrameLayout
+            android:id="@+id/bacBtn"
+            android:layout_width="40dp"
+            android:layout_height="50dp"
+            android:paddingStart="15dp">
+
+            <ImageView
+                android:layout_width="8.5dp"
+                android:layout_height="15dp"
+                android:layout_gravity="center_vertical"
+                android:src="@mipmap/icon_back_black" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/rootView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/login_txt"
+            android:textColor="@color/black_28"
+            android:textSize="@dimen/typeface21sp" />
+    </FrameLayout>
 
     <EditText
         android:id="@+id/et_loginphonenum"
@@ -24,11 +41,11 @@
         android:layout_marginRight="@dimen/dp_10"
         android:background="@drawable/shape_edit"
         android:drawableLeft="@mipmap/registered_phonenum"
-        android:drawablePadding="@dimen/dp_5"
+        android:drawablePadding="10dp"
         android:hint="@string/login_phonenum"
-        android:textColorHint="#919191"
-        android:textColor="#919191"
         android:padding="@dimen/dp_10"
+        android:textColor="#919191"
+        android:textColorHint="#919191"
         android:textSize="@dimen/typeface12sp" />
 
     <EditText
@@ -41,9 +58,10 @@
         android:background="@drawable/shape_edit"
         android:drawableLeft="@mipmap/editverification_code"
         android:hint="@string/login_pwd"
+        android:drawablePadding="10dp"
         android:padding="@dimen/dp_10"
-        android:textColorHint="#919191"
         android:textColor="#919191"
+        android:textColorHint="#919191"
         android:textSize="@dimen/typeface12sp" />
 
     <Button

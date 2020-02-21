@@ -24,6 +24,7 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.BarUtils;
 import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
@@ -36,7 +37,6 @@ import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.model.User;
-import com.zskjprojectj.andouclient.utils.BarUtils;
 import com.zskjprojectj.andouclient.utils.Constants;
 import com.zskjprojectj.andouclient.utils.LogUtil;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
@@ -50,17 +50,6 @@ import io.reactivex.functions.Consumer;
 
 import static com.zskjprojectj.andouclient.http.BaseObserver.REQUEST_CODE_LOGIN;
 
-
-/**
- * <pre>
- *     e-mail : 3307501630@qq.com
- *     time   : 2019/10/23
- *     desc   :
- *     version: 1.0
- * </pre>
- *
- * @author yizhubao
- */
 public class LoginActivity extends BaseActivity {
 
     public static final String KEY_FOR_RESULT = "KEY_FOR_RESULT";
@@ -88,15 +77,14 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-        int barHeight = com.blankj.utilcode.util.BarUtils.getStatusBarHeight();
-        if (barHeight > 0) {
-            //设置状态栏的高度
-            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) mRootView.getLayoutParams();
-            layoutParams.topMargin = BarUtils.getStatusBarHeight(mAt) + layoutParams.topMargin;
-            mRootView.setLayoutParams(layoutParams);
-        }
-        com.blankj.utilcode.util.BarUtils.setNavBarLightMode(mAt,false);
-
+        BarUtils.transparentStatusBar(mAt);
+        BarUtils.setNavBarLightMode(mAt, true);
+        findViewById(R.id.bacBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         receiver = new Receiver();
         intentFilter = new IntentFilter();
         intentFilter.addAction("wxdl");
@@ -370,7 +358,8 @@ public class LoginActivity extends BaseActivity {
     }
 
     public static void start(Activity activity, int requestCode) {
-        if (started) return;
+        if (started)
+            return;
         started = true;
         Bundle bundle = new Bundle();
         bundle.putBoolean(KEY_FOR_RESULT, true);
@@ -378,7 +367,8 @@ public class LoginActivity extends BaseActivity {
     }
 
     public static void start(Fragment fragment, int requestCode) {
-        if (started) return;
+        if (started)
+            return;
         started = true;
         Bundle bundle = new Bundle();
         bundle.putBoolean(KEY_FOR_RESULT, true);

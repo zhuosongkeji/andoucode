@@ -59,7 +59,7 @@ public class InvitationActivity extends BaseActivity {
         mHeaderTitle.setText("邀请有礼");
         getBarDistance(mTitleView);
 //            getBarDistance(mTitleView);
-//            mHeaderTitle.setText("分享有礼");
+//            header_title_view.setText("分享有礼");
     }
 
     @Override

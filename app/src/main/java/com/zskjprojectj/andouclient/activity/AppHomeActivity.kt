@@ -27,7 +27,7 @@ import kotlinx.android.synthetic.main.activity_app_home.*
 
 class AppHomeActivity : BaseActivity() {
 
-    val mNavigationBar get() = navigationBar
+    val mNavigationBar: EasyNavigationBar get() = navigationBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
