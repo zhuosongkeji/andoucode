@@ -17,7 +17,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -79,7 +78,7 @@ public class LoginActivity extends BaseActivity {
     protected void initViews() {
         BarUtils.transparentStatusBar(mAt);
         BarUtils.setNavBarLightMode(mAt, true);
-        findViewById(R.id.bacBtn).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.backBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
@@ -128,7 +127,7 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 //跳转
-                jumpActivity(RegisteredActivity.class);
+                jumpActivity(RegisterActivity.class);
                 // finish();
             }
         });

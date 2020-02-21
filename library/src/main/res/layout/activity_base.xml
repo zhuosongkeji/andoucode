@@ -11,7 +11,7 @@
         android:id="@+id/contentViewContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/actionBarContainer">
+        android:layout_below="@+id/baseActionBarContainer">
 
         <FrameLayout
             android:id="@+id/baseContentView"
@@ -20,7 +20,7 @@
     </FrameLayout>
 
     <FrameLayout
-        android:id="@+id/actionBarContainer"
+        android:id="@+id/baseActionBarContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 </RelativeLayout>

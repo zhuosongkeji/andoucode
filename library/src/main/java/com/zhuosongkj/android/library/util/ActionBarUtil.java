@@ -1,6 +1,5 @@
 package com.zhuosongkj.android.library.util;
 
-import android.Manifest;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +31,7 @@ public class ActionBarUtil {
 
     private static void setupActionBar(BaseActivity activity, boolean topOfContentView) {
         setVisible(activity,true);
-        ViewGroup actionBarContainer = activity.findViewById(R.id.actionBarContainer);
+        ViewGroup actionBarContainer = activity.findViewById(R.id.baseActionBarContainer);
         if (actionBarContainer.getChildCount() == 0) {
             LayoutInflater.from(activity).inflate(R.layout.layout_action_bar, actionBarContainer);
             if (!topOfContentView) {
@@ -65,7 +64,7 @@ public class ActionBarUtil {
     }
 
     public static void setVisible(BaseActivity activity, Boolean visible) {
-        activity.findViewById(R.id.actionBarContainer)
+        activity.findViewById(R.id.baseActionBarContainer)
                 .setVisibility(visible ? View.VISIBLE : View.GONE);
     }
 }

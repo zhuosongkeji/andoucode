@@ -52,10 +52,10 @@ public class ForgetActivity extends BaseActivity {
                 finish();
             }
         });
-        EditText mobileEdt = findViewById(R.id.registered_phonenum_edittext);
-        EditText codeEdt = findViewById(R.id.registered_inputyanzhenma_edittext);
-        EditText passwordEdt = findViewById(R.id.registered_pwd_edittext);
-       Button registered_yanzhenma_button=findViewById(R.id.registered_yanzhenma_button);
+        EditText mobileEdt = findViewById(R.id.mobileEdt);
+        EditText codeEdt = findViewById(R.id.codeEdt);
+        EditText passwordEdt = findViewById(R.id.passwordEdt);
+       Button registered_yanzhenma_button=findViewById(R.id.getCodeBtn);
        registered_yanzhenma_button.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {

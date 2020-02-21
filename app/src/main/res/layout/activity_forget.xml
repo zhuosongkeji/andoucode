@@ -34,7 +34,7 @@
         android:textSize="@dimen/typeface21sp" />
 
     <EditText
-        android:id="@+id/registered_phonenum_edittext"
+        android:id="@+id/mobileEdt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp_10"
@@ -54,7 +54,7 @@
         android:layout_margin="@dimen/dp_10">
 
         <EditText
-            android:id="@+id/registered_inputyanzhenma_edittext"
+            android:id="@+id/codeEdt"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
@@ -67,7 +67,7 @@
             android:textSize="@dimen/typeface12sp" />
 
         <Button
-            android:id="@+id/registered_yanzhenma_button"
+            android:id="@+id/getCodeBtn"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_marginLeft="@dimen/dp_20"
@@ -79,7 +79,7 @@
     </LinearLayout>
 
     <EditText
-        android:id="@+id/registered_pwd_edittext"
+        android:id="@+id/passwordEdt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp_10"
