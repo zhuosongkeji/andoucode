@@ -408,8 +408,8 @@ interface ApiService {
     fun MallWXPayWaysrecharge(@Field("uid") uid: String,
                               @Field("token") token: String,
                               @Field("money") money: String,
-                              @Field("mobile") mobile: String,
-                              @Field("method") method: String
+                              @Field("mobile") mobile: String?,
+                              @Field("method") method: String?
     ): Observable<BaseResult<WXPayBean>>
 
     /**
