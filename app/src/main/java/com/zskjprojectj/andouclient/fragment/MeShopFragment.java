@@ -22,6 +22,7 @@ import com.zskjprojectj.andouclient.activity.ShoporderdetailsActivity;
 import com.zskjprojectj.andouclient.activity.ToevaluateActivity;
 import com.zskjprojectj.andouclient.activity.mall.MallOnlineOrderActivity;
 import com.zskjprojectj.andouclient.adapter.MeShopFragmentAdapter;
+import com.zskjprojectj.andouclient.event.OrderStateChangedEvent;
 import com.zskjprojectj.andouclient.fragment.hotel.CustomViewDialog;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
@@ -89,6 +90,7 @@ public class MeShopFragment extends BaseFragment {
                                 )).subscribe(new BaseObserver<Object>(mActivity) {
                                     @Override
                                     public void onHandleSuccess(Object o) throws IOException {
+                                        EventBus.getDefault().post(new OrderStateChangedEvent());
                                         ToastUtil.showToast("确认收货成功");
                                         dialog.dismiss();
                                     }
@@ -120,37 +122,27 @@ public class MeShopFragment extends BaseFragment {
 
 
         getDataFromServer();
-
-        //1、注册广播
         EventBus.getDefault().register(this);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        //2、解除注册
         EventBus.getDefault().unregister(this);
     }
 
-    //5.接收消息
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void intentEventBus(PaySuccessEvent paySuccessEvent) {
         pageLoadUtil.refresh();
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onOrderStateChanged(OrderStateChangedEvent event) {
+        pageLoadUtil.refresh();
+    }
+
 
     private void getDataFromServer() {
-//        HttpRxObservable.getObservable(ApiUtils.getApiService().orderList(
-//                LoginInfoUtil.getUid(),
-//                LoginInfoUtil.getToken(),
-//                state
-//        )).subscribe(new BaseObserver<List<Order>>(mAty) {
-//            @Override
-//            public void onHandleSuccess(List<Order> data) throws IOException {
-//                adapter.setNewData(data);
-//            }
-//        });
-
         pageLoadUtil = PageLoadUtil.get((BaseActivity) getActivity(), mRecycler, adapter, mRefreshLayout);
         pageLoadUtil.load(new RequestUtil.ObservableProvider<IListData<Order>>() {
             @Override
@@ -163,16 +155,7 @@ public class MeShopFragment extends BaseFragment {
                 );
             }
         });
-
-
-        adapter.openLoadAnimation();
-        mRecycler.setAdapter(adapter);
     }
-
-
-
-
-
 
     @Override
     protected int getContentView() {
