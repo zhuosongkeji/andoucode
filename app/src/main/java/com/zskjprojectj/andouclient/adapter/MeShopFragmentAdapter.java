@@ -8,8 +8,10 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.zhuosongkj.android.library.util.FormatUtil;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.utils.UrlUtil;import com.zskjprojectj.andouclient.base.BaseUrl;
+import com.zskjprojectj.andouclient.utils.UrlUtil;
+import com.zskjprojectj.andouclient.base.BaseUrl;
 import com.zskjprojectj.andouclient.model.Order;
 import com.zskjprojectj.andouclient.model.OrderStatus;
 
@@ -25,16 +27,16 @@ public class MeShopFragmentAdapter extends BaseQuickAdapter<Order, BaseViewHolde
 
     @Override
     protected void convert(BaseViewHolder helper, Order item) {
-        Log.d("wangbin", "convert: "+item.num);
+        Log.d("wangbin", "convert: " + item.num);
 
         helper.setText(R.id.shopNameTxt, item.mname)
                 .setText(R.id.orderNumTxt, "订单编号:" + item.order_id)
                 .setText(R.id.titleTxt, item.name)
-                .setText(R.id.priceTxt, "￥" + item.price)
-                .setText(R.id.countTxt, "x " + item.num)
+                .setText(R.id.priceTxt, FormatUtil.getMoneyString(item.price))
+                .setText(R.id.countTxt, String.valueOf(item.num))
                 .setText(R.id.statusTxt, getStatusStr(item.status))
                 .setText(R.id.total, "￥" + item.pay_money)
-                .setText(R.id.specTxt,getSpec(item.attr_value))
+                .setText(R.id.specTxt, getSpec(item.attr_value))
                 .addOnClickListener(R.id.btn_orderdetails)
                 .addOnClickListener(R.id.btn_gotopayment)
                 .addOnClickListener(R.id.btn_getgoods)
@@ -42,8 +44,8 @@ public class MeShopFragmentAdapter extends BaseQuickAdapter<Order, BaseViewHolde
                 .addOnClickListener(R.id.btn_comment);
         helper.setGone(R.id.btn_gotopayment, OrderStatus.DAI_FU_KUAN.status.equals(item.status));
         helper.setGone(R.id.btn_getgoods, OrderStatus.DAI_SHOU_HUO.status.equals(item.status));
-        helper.setGone(R.id.btn_check_logistics,OrderStatus.DAI_SHOU_HUO.status.equals(item.status));
-        helper.setGone(R.id.btn_comment,OrderStatus.DAI_PING_JIA.status.equals(item.status));
+        helper.setGone(R.id.btn_check_logistics, OrderStatus.DAI_SHOU_HUO.status.equals(item.status));
+        helper.setGone(R.id.btn_comment, OrderStatus.DAI_PING_JIA.status.equals(item.status));
         Glide.with(mContext).load(UrlUtil.getImageUrl(item.img))
                 .transition(new DrawableTransitionOptions().crossFade())
                 .apply(new RequestOptions().placeholder(R.drawable.default_image))

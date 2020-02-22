@@ -33,9 +33,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-/**
- * 商城订单
- */
 public class ShoporderActivity extends BaseActivity {
 
 
