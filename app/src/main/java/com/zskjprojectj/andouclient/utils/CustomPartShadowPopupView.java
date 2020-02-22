@@ -65,7 +65,7 @@ public class CustomPartShadowPopupView extends PartShadowPopupView  {
                     @Override
                     public void onClick(View v) {
                         if (onclickItem!=null){
-                            onclickItem.itemView("1");
+                            onclickItem.itemView("0");
                             dismiss();
                         }
                     }
@@ -75,7 +75,7 @@ public class CustomPartShadowPopupView extends PartShadowPopupView  {
                     @Override
                     public void onClick(View v) {
                         if (onclickItem!=null){
-                            onclickItem.itemView("0");
+                            onclickItem.itemView("1");
                             dismiss();
                         }
                     }
@@ -98,7 +98,7 @@ public class CustomPartShadowPopupView extends PartShadowPopupView  {
                     @Override
                     public void onClick(View v) {
                         if (onclickItem!=null){
-                            onclickItem.itemView("1");
+                            onclickItem.itemView("0");
                             dismiss();
                         }
                     }
@@ -108,7 +108,7 @@ public class CustomPartShadowPopupView extends PartShadowPopupView  {
                     @Override
                     public void onClick(View v) {
                         if (onclickItem!=null){
-                            onclickItem.itemView("0");
+                            onclickItem.itemView("1");
                             dismiss();
                         }
                     }
@@ -131,7 +131,7 @@ public class CustomPartShadowPopupView extends PartShadowPopupView  {
                     @Override
                     public void onClick(View v) {
                         if (onclickItem!=null){
-                            onclickItem.itemView("1");
+                            onclickItem.itemView("0");
                             dismiss();
                         }
                     }
@@ -141,7 +141,7 @@ public class CustomPartShadowPopupView extends PartShadowPopupView  {
                     @Override
                     public void onClick(View v) {
                         if (onclickItem!=null){
-                            onclickItem.itemView("0");
+                            onclickItem.itemView("1");
                             dismiss();
                         }
                     }
