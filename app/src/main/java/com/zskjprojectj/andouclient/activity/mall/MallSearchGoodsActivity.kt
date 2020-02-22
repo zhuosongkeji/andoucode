@@ -55,6 +55,7 @@ class MallSearchGoodsActivity : BaseActivity() {
                 ToastUtils.showShort("请输入要搜索的关键字")
                 return@setOnEditorActionListener true
             }
+            KeyboardUtils.hideSoftInput(mSearchEditText)
             pageLoadUtil?.load({
                 ApiUtils.getApiService().mallGoodsList(
                         keyword,
