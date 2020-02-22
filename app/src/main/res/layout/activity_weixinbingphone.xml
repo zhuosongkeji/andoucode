@@ -3,7 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <include layout="@layout/view_top_bar" />
+
     <EditText
         android:id="@+id/et_bindphonenum"
         android:layout_width="match_parent"
@@ -13,11 +15,13 @@
         android:layout_marginRight="@dimen/dp_10"
         android:background="@drawable/shape_edit"
         android:drawableLeft="@mipmap/registered_phonenum"
-        android:textColorHint="@color/alltextcolor"
-        android:textColor="@color/alltextcolor"
+        android:drawablePadding="10dp"
         android:hint="@string/login_phonenum"
         android:padding="@dimen/dp_10"
+        android:textColor="@color/alltextcolor"
+        android:textColorHint="@color/alltextcolor"
         android:textSize="@dimen/typeface12sp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -30,10 +34,12 @@
             android:layout_weight="2"
             android:background="@drawable/shape_edit"
             android:drawableLeft="@mipmap/verification_code"
+
+            android:drawablePadding="10dp"
             android:hint="@string/registered_input_yanzhenma"
+            android:padding="@dimen/dp_10"
             android:textColor="@color/alltextcolor"
             android:textColorHint="@color/alltextcolor"
-            android:padding="@dimen/dp_10"
             android:textSize="@dimen/typeface12sp" />
 
         <Button
@@ -47,6 +53,7 @@
             android:text="@string/registered_yanzhenma"
             android:textColor="@color/colorWhite" />
     </LinearLayout>
+
     <EditText
         android:id="@+id/bind_pwd_edittext"
         android:layout_width="match_parent"
@@ -55,11 +62,13 @@
         android:layout_marginRight="@dimen/dp_10"
         android:background="@drawable/shape_edit"
         android:drawableLeft="@mipmap/editverification_code"
+        android:drawablePadding="10dp"
         android:hint="@string/login_pwd"
+        android:padding="@dimen/dp_10"
         android:textColor="@color/alltextcolor"
         android:textColorHint="@color/alltextcolor"
-        android:padding="@dimen/dp_10"
         android:textSize="@dimen/typeface12sp" />
+
     <Button
         android:id="@+id/bind_button"
         android:layout_width="match_parent"
