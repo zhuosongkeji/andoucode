@@ -14,7 +14,6 @@ import com.zskjprojectj.andouclient.activity.hotel.HotelDetailActivity;
 import com.zskjprojectj.andouclient.activity.mall.MallShoppingHomeActivity;
 import com.zskjprojectj.andouclient.activity.restaurant.RestaurantDetailActivity;
 import com.zskjprojectj.andouclient.adapter.MyFocusonAdapter;
-import com.zskjprojectj.andouclient.adapter.MycollectionAdapter;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
 import com.zskjprojectj.andouclient.entity.MyFocusonBean;
@@ -43,7 +42,7 @@ public class MyFocusonActivity extends BaseActivity {
     protected void initViews() {
         getBarDistance(mTitleView);
         mHeaderTitle.setText("店铺关注");
-        mRecycler = findViewById(R.id.rv_recycler);
+        mRecycler = findViewById(R.id.recyclerView);
         mRecycler.setLayoutManager(new LinearLayoutManager(mAt));
     }
 

@@ -18,9 +18,10 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.stx.xhb.xbanner.XBanner;
 import com.wihaohao.PageGridView;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.activity.ClassificationofgoodsActivity;
+import com.zskjprojectj.andouclient.activity.MallGoodsListActivity;
 import com.zskjprojectj.andouclient.activity.mall.MallGoodsDetailsActivity;
 import com.zskjprojectj.andouclient.activity.mall.MallMiaoShaActivity;
+import com.zskjprojectj.andouclient.activity.mall.MallSearchGoodsActivity;
 import com.zskjprojectj.andouclient.activity.mall.PinTuanActivity;
 import com.zskjprojectj.andouclient.adapter.mall.RecommendProductsAdapter;
 import com.zskjprojectj.andouclient.adapter.mall.SpecialProductsAdapter;
@@ -58,10 +59,6 @@ public class MallHomepageFragment1 extends BaseFragment {
 
 
     private List<MallHomeDataBean.BannerBean> banner;
-    //推荐产品
-    private String recommend = "1";
-    //特价产品
-    private String special = "1";
 
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
@@ -91,7 +88,7 @@ public class MallHomepageFragment1 extends BaseFragment {
                         mGridView.setOnItemClickListener(new PageGridView.OnItemClickListener() {
                             @Override
                             public void onItemClick(int position) {
-                                ClassificationofgoodsActivity.getCataId(category.get(position).getId());
+                                MallGoodsListActivity.Companion.start(null, null, category.get(position).getId());
                             }
                         });
 
@@ -200,23 +197,18 @@ public class MallHomepageFragment1 extends BaseFragment {
         switch (view.getId()) {
 
             case R.id.rl_search:
-                startActivity(new Intent(mAty, ClassificationofgoodsActivity.class));
+                MallSearchGoodsActivity.Companion.start();
                 break;
-
             case R.id.img_back:
                 mAty.finish();
                 break;
             //推荐
             case R.id.tv_recommend_see_more:
-                Intent recommenIntent = new Intent(mAty, ClassificationofgoodsActivity.class);
-                recommenIntent.putExtra("recommend", recommend);
-                mAty.startActivity(recommenIntent);
+                MallGoodsListActivity.Companion.start("1", null, null);
                 break;
             //特价
             case R.id.tv_special_see_more:
-                Intent specialIntent = new Intent(mAty, ClassificationofgoodsActivity.class);
-                specialIntent.putExtra("special", special);
-                mAty.startActivity(specialIntent);
+                MallGoodsListActivity.Companion.start(null, "1", null);
                 break;
             //搜索按钮
             case R.id.search_image:

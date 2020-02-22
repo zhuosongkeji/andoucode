@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".activity.mall.MallSearchGoodsActivity">
 
     <RelativeLayout
         android:id="@+id/actionBarContainer"
@@ -31,13 +34,16 @@
             android:background="@drawable/shape_layout">
 
             <EditText
-                android:id="@+id/search_edittext"
+                android:id="@+id/mSearchEditText"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/dp_18"
                 android:background="@null"
                 android:gravity="center_vertical"
                 android:hint="@string/search"
+                android:imeOptions="actionSearch"
+                android:lines="1"
+                android:singleLine="true"
                 android:textColor="#919191"
                 android:textColorHint="#919191"
                 android:textSize="@dimen/typeface12sp" />
@@ -46,9 +52,9 @@
                 android:id="@+id/search_image"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:paddingStart="@dimen/dp_20"
                 android:layout_alignParentRight="true"
-                android:gravity="center|right">
+                android:gravity="center|right"
+                android:paddingStart="@dimen/dp_20">
 
                 <ImageView
                     android:layout_width="@dimen/dp_16"
@@ -61,12 +67,13 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:id="@+id/ll_classify"
+        android:id="@+id/sortContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:orientation="horizontal"
-        android:padding="@dimen/dp_10">
+        android:padding="@dimen/dp_10"
+        android:visibility="gone">
 
         <LinearLayout
             android:id="@+id/ll_price_comprehensive"
@@ -76,14 +83,14 @@
             android:gravity="center">
 
             <TextView
-                android:id="@+id/tv_selector_star"
+                android:id="@+id/mTvSelectorStar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="评价"
                 android:textColor="@color/color_common_font" />
 
             <ImageView
-                android:id="@+id/iv_selector_star_img"
+                android:id="@+id/mIvSelectorImg"
                 android:layout_width="10dp"
                 android:layout_height="10dp"
                 android:layout_marginLeft="@dimen/dp_6"
@@ -98,14 +105,14 @@
             android:gravity="center">
 
             <TextView
-                android:id="@+id/tv_capacity_sort"
+                android:id="@+id/mTvCapacitySort"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="销量"
                 android:textColor="@color/color_common_font" />
 
             <ImageView
-                android:id="@+id/iv_capacity_sort"
+                android:id="@+id/mIvCapacitySort"
                 android:layout_width="10dp"
                 android:layout_height="10dp"
                 android:layout_marginLeft="@dimen/dp_6"
@@ -120,14 +127,14 @@
             android:gravity="center">
 
             <TextView
-                android:id="@+id/tv_screen"
+                android:id="@+id/mTvScreen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="价格"
                 android:textColor="@color/color_common_font" />
 
             <ImageView
-                android:id="@+id/iv_screen"
+                android:id="@+id/mIvScreen"
                 android:layout_width="10dp"
                 android:layout_height="10dp"
                 android:layout_marginLeft="@dimen/dp_6"
@@ -147,11 +154,13 @@
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_recycler"
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
             android:paddingTop="@dimen/dp_5"
-            android:paddingBottom="@dimen/dp_5" />
+            android:paddingBottom="@dimen/dp_5"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="2" />
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 </LinearLayout>

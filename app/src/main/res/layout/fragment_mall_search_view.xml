@@ -27,7 +27,7 @@
         android:background="@drawable/shape_layout">
 
         <EditText
-            android:id="@+id/search_edittext"
+            android:id="@+id/mSearchEditText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="35dp"

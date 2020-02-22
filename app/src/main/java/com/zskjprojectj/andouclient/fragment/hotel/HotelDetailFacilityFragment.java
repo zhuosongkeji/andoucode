@@ -1,9 +1,7 @@
 package com.zskjprojectj.andouclient.fragment.hotel;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,9 +13,7 @@ import com.luck.picture.lib.entity.LocalMedia;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.adapter.hotel.FacilityAdapter;
 import com.zskjprojectj.andouclient.base.BaseFragment;
-import com.zskjprojectj.andouclient.entity.hotel.HotelDetailFacilityBean;
 import com.zskjprojectj.andouclient.utils.GlideEngine;
-import com.zskjprojectj.andouclient.utils.ToastUtil;
 import com.zskjprojectj.andouclient.utils.UrlUtil;
 
 import java.util.ArrayList;
@@ -39,7 +35,7 @@ public class HotelDetailFacilityFragment extends BaseFragment {
 
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
-        mRecycler=view.findViewById(R.id.rv_recycler);
+        mRecycler=view.findViewById(R.id.recyclerView);
         mRecycler.setLayoutManager(new GridLayoutManager(getActivity(),3));
         mDataList= (ArrayList<String>) getArguments().getSerializable("facilities");
     }

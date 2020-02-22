@@ -68,7 +68,7 @@ public class MerchantsPageFragment extends BaseFragment {
     @BindView(R.id.ll_classify)
     LinearLayout mClassify;
     private PopupWindow mPopWindow;
-    @BindView(R.id.tv_capacity_sort)
+    @BindView(R.id.mTvCapacitySort)
     TextView mCapacitySort;
 
     @BindView(R.id.refreshLayout)
@@ -93,7 +93,7 @@ public class MerchantsPageFragment extends BaseFragment {
         }
         mHeaderTitle.setText("商家");
         mHeaderBack.setVisibility(View.GONE);
-        mRecycler = view.findViewById(R.id.rv_recycler);
+        mRecycler = view.findViewById(R.id.recyclerView);
         mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         pageLoadUtil = PageLoadUtil.get((BaseActivity) getActivity(), mRecycler, adapter, refreshLayout);
         pageLoadUtil.load(() -> ApiUtils.getApiService().merchants_two(

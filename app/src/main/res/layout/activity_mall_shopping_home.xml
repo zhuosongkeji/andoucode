@@ -125,7 +125,7 @@
         android:background="@drawable/shape_layout">
 
         <EditText
-            android:id="@+id/search_edittext"
+            android:id="@+id/mSearchEditText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#F1F1F1"
@@ -231,7 +231,7 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_recycler"
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingLeft="@dimen/dp_15"

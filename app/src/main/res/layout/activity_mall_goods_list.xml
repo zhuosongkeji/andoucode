@@ -6,14 +6,60 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/actionBarContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorNavy">
 
-        <include layout="@layout/base_title_view" />
-    </LinearLayout>
+        <ImageView
+            android:id="@+id/img_back"
+            android:layout_width="@dimen/dp_9"
+            android:layout_height="@dimen/dp_15"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_15"
+            android:src="@mipmap/back_icon" />
 
+        <RelativeLayout
+            android:layout_width="306dp"
+            android:layout_height="35dp"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/dp_30"
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:layout_toRightOf="@+id/img_back"
+            android:background="@drawable/shape_layout">
+
+            <TextView
+                android:id="@+id/mSearchEditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/dp_18"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:hint="@string/search"
+                android:textColor="#919191"
+                android:textColorHint="#919191"
+                android:textSize="@dimen/typeface12sp" />
+
+            <LinearLayout
+                android:id="@+id/search_image"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:gravity="center|right"
+                android:paddingStart="@dimen/dp_20">
+
+                <ImageView
+                    android:layout_width="@dimen/dp_16"
+                    android:layout_height="@dimen/dp_15"
+                    android:layout_marginRight="@dimen/dp_8"
+                    android:src="@mipmap/search" />
+            </LinearLayout>
+        </RelativeLayout>
+
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/ll_classify"
@@ -24,7 +70,7 @@
         android:padding="@dimen/dp_10">
 
         <LinearLayout
-            android:id="@+id/ll_merchants_classification"
+            android:id="@+id/ll_price_comprehensive"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -34,10 +80,11 @@
                 android:id="@+id/mTvSelectorStar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="商家分类"
+                android:text="评价"
                 android:textColor="@color/color_common_font" />
 
             <ImageView
+                android:id="@+id/mIvSelectorImg"
                 android:layout_width="10dp"
                 android:layout_height="10dp"
                 android:layout_marginLeft="@dimen/dp_6"
@@ -45,9 +92,8 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/ll_in_screening"
+            android:id="@+id/ll_selector_sales"
             android:layout_width="0dp"
-            android:visibility="gone"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center">
@@ -56,10 +102,11 @@
                 android:id="@+id/mTvCapacitySort"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="地区筛选"
-                android:textColor="#323232" />
+                android:text="销量"
+                android:textColor="@color/color_common_font" />
 
             <ImageView
+                android:id="@+id/mIvCapacitySort"
                 android:layout_width="10dp"
                 android:layout_height="10dp"
                 android:layout_marginLeft="@dimen/dp_6"
@@ -67,7 +114,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/ll_sorting_way"
+            android:id="@+id/ll_selector_price"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -77,10 +124,11 @@
                 android:id="@+id/mTvScreen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="排序方式"
+                android:text="价格"
                 android:textColor="@color/color_common_font" />
 
             <ImageView
+                android:id="@+id/mIvScreen"
                 android:layout_width="10dp"
                 android:layout_height="10dp"
                 android:layout_marginLeft="@dimen/dp_6"
@@ -89,10 +137,10 @@
 
     </LinearLayout>
 
-    <TextView
+    <View
         android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:background="@color/colorGray" />
+        android:layout_height="@dimen/dp_5"
+        android:background="#F7F7F7" />
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/refreshLayout"
@@ -103,7 +151,10 @@
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white" />
+            android:background="@color/white"
+            android:paddingTop="@dimen/dp_5"
+            android:paddingBottom="@dimen/dp_5"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="2" />
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-
 </LinearLayout>

@@ -268,12 +268,12 @@ interface ApiService {
     @POST("api/goods/good_list")
     @FormUrlEncoded
     fun mallGoodsList(@Field("keyword") keyword: String,
-                      @Field("cate_id") uid: String,
-                      @Field("is_recommend") is_recommend: String,
-                      @Field("is_bargain") is_bargain: String,
-                      @Field("price_sort") price_sort: String,
-                      @Field("volume_sort") volume_sort: String,
-                      @Field("start_sort") start_sort: String,
+                      @Field("cate_id") uid: String?,
+                      @Field("is_recommend") is_recommend: String?,
+                      @Field("is_bargain") is_bargain: String?,
+                      @Field("price_sort") price_sort: String?,
+                      @Field("volume_sort") volume_sort: String?,
+                      @Field("start_sort") start_sort: String?,
                       @Field("page") page: Int
     ): Observable<BaseResult<ListData<MallGoodsListBean>>>
 

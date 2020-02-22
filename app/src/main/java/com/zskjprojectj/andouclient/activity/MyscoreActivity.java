@@ -63,7 +63,7 @@ public class MyscoreActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-        mRecycler = findViewById(R.id.rv_recycler);
+        mRecycler = findViewById(R.id.recyclerView);
         mRecycler.setLayoutManager(new LinearLayoutManager(mAt));
     }
 

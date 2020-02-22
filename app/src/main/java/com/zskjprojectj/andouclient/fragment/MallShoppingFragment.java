@@ -3,12 +3,8 @@ package com.zskjprojectj.andouclient.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
-import android.widget.CompoundButton;
-import android.widget.ImageView;
 import android.widget.Button;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -16,17 +12,12 @@ import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.blankj.utilcode.util.ToastUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zhuosongkj.android.library.app.BaseFragment;
-import com.zhuosongkj.android.library.model.BaseResult;
-import com.zhuosongkj.android.library.model.IListData;
 import com.zhuosongkj.android.library.util.PageLoadUtil;
-import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.MyaddressActivity;
-import com.zskjprojectj.andouclient.activity.ShoporderActivity;
 import com.zskjprojectj.andouclient.activity.mall.MallOnlineOrderActivity;
 import com.zskjprojectj.andouclient.adapter.PlatformshoppingcartAdapter;
 import com.zskjprojectj.andouclient.entity.mall.MallCarBean;
@@ -38,14 +29,12 @@ import com.zskjprojectj.andouclient.model.CartItem;
 import com.zskjprojectj.andouclient.utils.ArrayParamUtil;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 import com.zskjprojectj.andouclient.utils.PayCancle;
-import com.zskjprojectj.andouclient.utils.PaySuccessBackEvent;
 import com.zskjprojectj.andouclient.utils.PaySuccessEvent;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-import org.json.JSONArray;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -54,7 +43,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import io.reactivex.Observable;
 
 /**
  * 在线商城购物车
@@ -81,7 +69,7 @@ public class MallShoppingFragment extends BaseFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mRecycler = view.findViewById(R.id.rv_recycler);
+        mRecycler = view.findViewById(R.id.recyclerView);
         mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter.setOnItemChildClickListener((adapter1, view1, position) -> {
             CartItem item = adapter.getItem(position);

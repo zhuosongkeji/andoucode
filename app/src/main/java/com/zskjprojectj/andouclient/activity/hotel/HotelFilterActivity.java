@@ -63,10 +63,10 @@ public class HotelFilterActivity extends BaseActivity {
     @BindView(R.id.ll_classify)
     LinearLayout mClassify;
 
-    @BindView(R.id.tv_selector_star)
+    @BindView(R.id.mTvSelectorStar)
     TextView mSelectorStar;
 
-    @BindView(R.id.tv_capacity_sort)
+    @BindView(R.id.mTvCapacitySort)
     TextView mCapacitySort;
 
 
@@ -140,7 +140,7 @@ public class HotelFilterActivity extends BaseActivity {
 
     private void initViews() {
         hotelId = getIntent().getStringExtra("hotelId");
-        mRecycler = findViewById(R.id.rv_recycler);
+        mRecycler = findViewById(R.id.recyclerView);
         mRecycler.setLayoutManager(new LinearLayoutManager(this));
     }
 

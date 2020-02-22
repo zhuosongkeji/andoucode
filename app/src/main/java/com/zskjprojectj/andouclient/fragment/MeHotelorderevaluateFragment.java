@@ -13,10 +13,8 @@ import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.HotelorderevaluationdetailsActivity;
 import com.zskjprojectj.andouclient.activity.HotelordergotoevaluationActivity;
 import com.zskjprojectj.andouclient.adapter.HotelorderevaluateAdapter;
-import com.zskjprojectj.andouclient.adapter.MehotelorderAdapter;
 import com.zskjprojectj.andouclient.base.BaseFragment;
 import com.zskjprojectj.andouclient.entity.HotelorderevaluateBean;
-import com.zskjprojectj.andouclient.entity.MehotelorderBean;
 
 import java.util.ArrayList;
 
@@ -29,7 +27,7 @@ public class MeHotelorderevaluateFragment extends BaseFragment {
     private ArrayList<HotelorderevaluateBean> mDataList;
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
-        mRecycler=view.findViewById(R.id.rv_recycler);
+        mRecycler=view.findViewById(R.id.recyclerView);
         mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 

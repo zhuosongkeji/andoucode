@@ -5,19 +5,15 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.mall.MallGoodsDetailsActivity;
-import com.zskjprojectj.andouclient.adapter.ClassificationofgoodsAdapter;
-import com.zskjprojectj.andouclient.adapter.MerchantListAdapter;
 import com.zskjprojectj.andouclient.adapter.MycollectionAdapter;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
-import com.zskjprojectj.andouclient.entity.MerchantListBean;
 import com.zskjprojectj.andouclient.entity.MycollectionBean;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
@@ -25,7 +21,6 @@ import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -55,7 +50,7 @@ public class MycollectionActivity extends BaseActivity {
     protected void initViews() {
         getBarDistance(mTitleView);
         mHeaderTitle.setText("商品收藏");
-        mRecycler = findViewById(R.id.rv_recycler);
+        mRecycler = findViewById(R.id.recyclerView);
         mRecycler.setLayoutManager(new LinearLayoutManager(mAt));
     }
 

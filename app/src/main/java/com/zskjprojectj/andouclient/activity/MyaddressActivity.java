@@ -93,7 +93,7 @@ public class MyaddressActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-        mRecycler = findViewById(R.id.rv_recycler);
+        mRecycler = findViewById(R.id.recyclerView);
         mRecycler.setLayoutManager(new LinearLayoutManager(mAt));
         btn_addressadd = findViewById(R.id.btn_addressadd);
         btn_addressadd.setOnClickListener(view ->

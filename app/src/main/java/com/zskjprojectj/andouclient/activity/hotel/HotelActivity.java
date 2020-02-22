@@ -156,7 +156,7 @@ public class HotelActivity extends BaseActivity implements View.OnClickListener 
 
 
         mInputNumber.setInputType(EditorInfo.TYPE_CLASS_PHONE);
-        mRvRecycler = findViewById(R.id.rv_recycler);
+        mRvRecycler = findViewById(R.id.recyclerView);
         mRvRecycler.setLayoutManager(new LinearLayoutManager(this));
 
         mSearchHotel = findViewById(R.id.search_hotel);

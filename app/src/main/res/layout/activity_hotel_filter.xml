@@ -120,7 +120,7 @@
             android:gravity="center">
 
             <TextView
-                android:id="@+id/tv_selector_star"
+                android:id="@+id/mTvSelectorStar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="价格/星级"
@@ -141,7 +141,7 @@
             android:gravity="center">
 
             <TextView
-                android:id="@+id/tv_capacity_sort"
+                android:id="@+id/mTvCapacitySort"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="智能排序"
@@ -163,7 +163,7 @@
             android:gravity="center">
 
             <TextView
-                android:id="@+id/tv_screen"
+                android:id="@+id/mTvScreen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="筛选"
@@ -190,7 +190,7 @@
 
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_recycler"
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>

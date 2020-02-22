@@ -1,16 +1,13 @@
 package com.zskjprojectj.andouclient.activity.hotel;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.text.Layout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.adapter.hotel.FacilityAdapter;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
 import com.zskjprojectj.andouclient.entity.hotel.HotelDetailFacilityBean;
@@ -57,7 +54,7 @@ public class HotelDetailFacilityActivity extends BaseActivity {
     protected void initViews() {
         mHeaderTitle.setText("环境设施");
         getBarDistance(mHeaderTitleView);
-        mRecycler=findViewById(R.id.rv_recycler);
+        mRecycler=findViewById(R.id.recyclerView);
         mRecycler.setLayoutManager(new GridLayoutManager(this,3));
     }
 

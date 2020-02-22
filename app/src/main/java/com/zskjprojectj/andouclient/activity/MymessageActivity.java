@@ -13,19 +13,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.adapter.MymessageAdapter;
-import com.zskjprojectj.andouclient.adapter.MyscoreAdapter;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
 import com.zskjprojectj.andouclient.entity.MymessageBean;
-import com.zskjprojectj.andouclient.entity.MyscoreBean;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
-import com.zskjprojectj.andouclient.utils.ToastUtil;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -68,7 +64,7 @@ public class MymessageActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-        mRecycler=findViewById(R.id.rv_recycler);
+        mRecycler=findViewById(R.id.recyclerView);
         mRecycler.setLayoutManager(new LinearLayoutManager(mAt));
     }
 

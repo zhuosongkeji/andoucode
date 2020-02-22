@@ -1,31 +1,23 @@
 package com.zskjprojectj.andouclient.activity;
 
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.activity.mall.MallOnlineOrderActivity;
-import com.zskjprojectj.andouclient.adapter.BalanceofprepaidPaywayAdapter;
-import com.zskjprojectj.andouclient.adapter.BalancesubsidiaryAdapter;
 import com.zskjprojectj.andouclient.adapter.mall.PayWaysAdapter;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
-import com.zskjprojectj.andouclient.entity.BalanceofprepaidpaywayBean;
-import com.zskjprojectj.andouclient.entity.BalancesubsidiaryBean;
 import com.zskjprojectj.andouclient.entity.WXPayBean;
 import com.zskjprojectj.andouclient.entity.WalletrecharBean;
 import com.zskjprojectj.andouclient.entity.mall.MallPayWaysBean;
@@ -41,7 +33,6 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -54,7 +45,7 @@ import butterknife.OnClick;
 public class BalanceofprepaidActivity extends BaseActivity {
     private Button btn_confirm;
     private RecyclerView mRecycler;
-    @BindView(R.id.rv_recycler)
+    @BindView(R.id.recyclerView)
     RecyclerView mRvPayWAys;
     private String payId;
     private TextView tv_balanceofmoney, tv_phonenum;
@@ -74,7 +65,7 @@ public class BalanceofprepaidActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-        mRecycler = findViewById(R.id.rv_recycler);
+        mRecycler = findViewById(R.id.recyclerView);
         mRecycler.setLayoutManager(new LinearLayoutManager(mAt));
         tv_balanceofmoney = findViewById(R.id.tv_balanceofmoney);
         tv_phonenum = findViewById(R.id.tv_phonenum);

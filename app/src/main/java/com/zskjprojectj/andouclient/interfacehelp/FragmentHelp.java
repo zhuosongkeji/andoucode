@@ -3,7 +3,7 @@ package com.zskjprojectj.andouclient.interfacehelp;
 
 import com.zskjprojectj.andouclient.fragment.AppHomeFragment;
 import com.zskjprojectj.andouclient.fragment.InfoPageFragment;
-import com.zskjprojectj.andouclient.fragment.MePageFragment;
+import com.zskjprojectj.andouclient.fragment.MeFragment;
 import com.zskjprojectj.andouclient.fragment.MerchantsPageFragment;
 import com.zskjprojectj.andouclient.fragment.TieBaFragment;
 
@@ -15,7 +15,7 @@ public class FragmentHelp {
     private static MerchantsPageFragment merchantsPageFragment;//商家
     private static InfoPageFragment infoPageFragment;//信息
     private static TieBaFragment tieBaFragment;//贴吧
-    private static MePageFragment mePageFragment;//我的
+    private static MeFragment meFragment;//我的
     public  static ChangeFragment schangeFragment;//改变选中的fragment接口
     /**
      * 依次初始化每个碎片对象
@@ -62,13 +62,13 @@ public class FragmentHelp {
     /**
      * 我的
      */
-    public static MePageFragment getMePageFragment()
+    public static MeFragment getMePageFragment()
     {
-        if (mePageFragment==null)
+        if (meFragment ==null)
         {
-            mePageFragment=new MePageFragment();
+            meFragment =new MeFragment();
         }
-        return  mePageFragment;
+        return meFragment;
     }
     /**
      * 设置被选中的Fragment
