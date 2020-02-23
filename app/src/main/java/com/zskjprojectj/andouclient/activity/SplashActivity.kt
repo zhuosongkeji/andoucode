@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.AppUtils
+import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.SPUtils
 import com.zskjprojectj.andouclient.R
 import com.zskjprojectj.andouclient.utils.DialogUtil
@@ -17,12 +18,12 @@ import kotlinx.android.synthetic.main.activity_splash.*
 
 class SplashActivity : AppCompatActivity() {
 
-    var dialog: Dialog? = null
-
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
+        BarUtils.transparentStatusBar(this)
+        BarUtils.setStatusBarLightMode(this, true)
         versionTxt.text = "V${AppUtils.getAppVersionName()}"
         if (needShowProtocolDialog()) {
             showProtocolDialog()
@@ -37,7 +38,7 @@ class SplashActivity : AppCompatActivity() {
 
     private fun showProtocolDialog() {
         logo.postDelayed({
-            dialog = DialogUtil.showProtocolDialog(this,
+            DialogUtil.showProtocolDialog(this,
                     {
                         SPUtils.getInstance().put(KEY_PROTOCOL_AGREED, true)
                         enterHome()
@@ -51,10 +52,5 @@ class SplashActivity : AppCompatActivity() {
             ActivityUtils.startActivity(AppHomeActivity::class.java)
             finish()
         }, 1000)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        dialog?.dismiss()
     }
 }
