@@ -39,9 +39,9 @@ import butterknife.OnClick;
  * 开通会员界面
  */
 public class OpeningmemberActivity extends BaseActivity {
-    @BindView(R.id.header_title_view)
+    @BindView(R.id.mTitleView)
     RelativeLayout mTitleView;
-    @BindView(R.id.tv_header_title)
+    @BindView(R.id.mHeaderTitle)
     TextView mHeaderTitle;
     @BindView(R.id.rv_pay_ways)
     RecyclerView mRvPayWAys;
@@ -169,7 +169,7 @@ public class OpeningmemberActivity extends BaseActivity {
 ////调用api接口，发送数据到微信
 //        msgApi.sendReq(req);
     }
-    @OnClick(R.id.iv_header_back)
+    @OnClick(R.id.mHeaderBack)
     public void clickView() {
         finish();
     }

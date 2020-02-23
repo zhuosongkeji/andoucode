@@ -31,6 +31,7 @@
         android:usesCleartextTraffic="true"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning"
         tools:targetApi="m">
+        <activity android:name=".activity.mall.MallSearchGoodsActivity"></activity>
         <activity
             android:name=".activity.SplashActivity"
             android:screenOrientation="portrait">
@@ -40,7 +41,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.TieBaReleaseActivity"/>
+        <activity android:name=".activity.TieBaReleaseActivity" />
         <activity android:name=".activity.mall.PinTuanActivity" />
         <activity android:name=".activity.SelectLocationActivity" />
         <activity android:name=".activity.mall.MallMiaoShaActivity" />
@@ -56,7 +57,6 @@
         <activity android:name=".activity.CommentSuccessActivity" />
         <activity android:name=".activity.mall.MallPaySuccessActivity" />
         <activity android:name=".activity.TieBaDetailsActivity" />
-
         <activity
             android:name=".activity.mall.MallOnlineOrderActivity"
             android:screenOrientation="portrait" />
@@ -236,7 +236,7 @@
             android:name=".activity.ShopordersendetailsrefundActivity"
             android:screenOrientation="portrait" /> <!-- 商城申请退款 -->
         <activity
-            android:name=".activity.ClassificationofgoodsActivity"
+            android:name=".activity.MallGoodsListActivity"
             android:screenOrientation="portrait" /> <!-- 分类页详细 -->
         <activity
             android:name=".activity.MallHomeActivity"

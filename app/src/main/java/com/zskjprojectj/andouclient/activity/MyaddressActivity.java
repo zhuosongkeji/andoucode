@@ -36,9 +36,9 @@ import butterknife.OnClick;
  */
 public class MyaddressActivity extends BaseActivity {
 
-    @BindView(R.id.header_title_view)
+    @BindView(R.id.mTitleView)
     RelativeLayout mTitleView;
-    @BindView(R.id.tv_header_title)
+    @BindView(R.id.mHeaderTitle)
     TextView mHeaderTitle;
 
     public static final String KEY_DATA = "KEY_DATA";
@@ -93,7 +93,7 @@ public class MyaddressActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-        mRecycler = findViewById(R.id.rv_recycler);
+        mRecycler = findViewById(R.id.recyclerView);
         mRecycler.setLayoutManager(new LinearLayoutManager(mAt));
         btn_addressadd = findViewById(R.id.btn_addressadd);
         btn_addressadd.setOnClickListener(view ->
@@ -126,7 +126,7 @@ public class MyaddressActivity extends BaseActivity {
         return null;
     }
 
-    @OnClick(R.id.iv_header_back)
+    @OnClick(R.id.mHeaderBack)
     public void clickView() {
         finish();
     }

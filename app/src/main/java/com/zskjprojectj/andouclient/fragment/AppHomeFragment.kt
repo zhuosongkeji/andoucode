@@ -59,7 +59,9 @@ class AppHomeFragment : BaseFragment() {
 
     private var adapter: CoverFlowAdapter? = null
     private val merchantsAdapter = merchantsCategoryAdapter()
-    private var recommendProductsAdapter = RecommendProductsAdapter(R.layout.fragment_mall_goods_details_view, ArrayList<MallHomeDataBean.RecommendGoodsBean>())
+    private var recommendProductsAdapter = RecommendProductsAdapter(
+            R.layout.fragment_mall_goods_details_view,
+            ArrayList<MallHomeDataBean.RecommendGoodsBean>())
     private val hotelAdapter = HotelHomeAdapter()
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

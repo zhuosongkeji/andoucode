@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/tv_popu_unlimited"
+        android:id="@+id/mPopuunlimited"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -25,7 +25,7 @@
         android:background="#F3F3F3" />
 
     <TextView
-        android:id="@+id/tv_popu_credit"
+        android:id="@+id/mPopucredit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -43,7 +43,7 @@
         android:background="#F3F3F3" />
 
     <TextView
-        android:id="@+id/tv_popu_price"
+        android:id="@+id/mPopuprice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"

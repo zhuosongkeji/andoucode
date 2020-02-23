@@ -16,7 +16,7 @@ public class MerchantsInfoActivity extends BaseActivity {
     private ImageView busiess_back_image;
     @Override
     protected void setRootView() {
-        setContentView(R.layout.fragment_merchantspage);
+        setContentView(R.layout.fragment_merchant_list);
     }
 
     @Override

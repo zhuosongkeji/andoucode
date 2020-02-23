@@ -56,7 +56,7 @@ public class MallShoppingHomeActivity extends BaseActivity {
     @BindView(R.id.iv_shopping_headpic)
     ImageView mIvShoppingHeadpic;
 
-    @BindView(R.id.rv_recycler)
+    @BindView(R.id.recyclerView)
     RecyclerView mRecycler;
 
     @BindView(R.id.ll_mall_shopping_classify)
@@ -69,7 +69,7 @@ public class MallShoppingHomeActivity extends BaseActivity {
     @BindView(R.id.iv_isfocuson)
     ImageView ivisfocuson;
     //搜索框输入内容
-    @BindView(R.id.search_edittext)
+    @BindView(R.id.mSearchEditText)
     EditText mSearchEdittext;
 
     //销量
@@ -196,7 +196,7 @@ public class MallShoppingHomeActivity extends BaseActivity {
         //设置contentView
         View contentView = LayoutInflater.from(MallShoppingHomeActivity.this).inflate(R.layout.activity_mall_shopping_classify_view, null);
 
-        mRecyclerPopu = contentView.findViewById(R.id.rv_recycler);
+        mRecyclerPopu = contentView.findViewById(R.id.recyclerView);
         mConfirm = contentView.findViewById(R.id.confirm);
         initRecycler();
         mPopWindow = new PopupWindow(contentView,

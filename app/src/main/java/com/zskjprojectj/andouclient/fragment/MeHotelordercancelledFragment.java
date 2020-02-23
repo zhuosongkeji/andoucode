@@ -11,10 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.HotelordercancledetailsActivity;
-import com.zskjprojectj.andouclient.adapter.HotelorderevaluateAdapter;
 import com.zskjprojectj.andouclient.adapter.MeHotelordercancelledAdapter;
 import com.zskjprojectj.andouclient.base.BaseFragment;
-import com.zskjprojectj.andouclient.entity.HotelorderevaluateBean;
 import com.zskjprojectj.andouclient.entity.MeHotelordercancelledBean;
 
 import java.util.ArrayList;
@@ -28,7 +26,7 @@ public class MeHotelordercancelledFragment extends BaseFragment {
     private ArrayList<MeHotelordercancelledBean> mDataList;
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
-        mRecycler=view.findViewById(R.id.rv_recycler);
+        mRecycler=view.findViewById(R.id.recyclerView);
         mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 

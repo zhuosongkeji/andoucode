@@ -53,9 +53,9 @@ import static com.zskjprojectj.andouclient.http.BaseObserver.REQUEST_CODE_LOGIN;
 public class MesettingActivity extends BaseActivity {
 
 
-    @BindView(R.id.header_title_view)
+    @BindView(R.id.mTitleView)
     RelativeLayout mTitleView;
-    @BindView(R.id.tv_header_title)
+    @BindView(R.id.mHeaderTitle)
     TextView mHeaderTitle;
     private TextView tv_usersetversion, tv_usersetphone, tv_usersetname, mFsize;
     private ImageView img_setpic;
@@ -260,7 +260,7 @@ public class MesettingActivity extends BaseActivity {
         });
     }
 
-    @OnClick(R.id.iv_header_back)
+    @OnClick(R.id.mHeaderBack)
     public void clickView() {
         finish();
     }

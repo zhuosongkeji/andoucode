@@ -28,10 +28,10 @@
 
             <ImageView
                 android:id="@+id/busiess_back_image"
-                android:layout_width="@dimen/dp_9"
-                android:layout_height="@dimen/dp_15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/dp_15"
+                android:padding="@dimen/dp_15"
                 android:src="@mipmap/ic_back" />
 
             <TextView
@@ -125,7 +125,7 @@
         android:background="@drawable/shape_layout">
 
         <EditText
-            android:id="@+id/search_edittext"
+            android:id="@+id/mSearchEditText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#F1F1F1"
@@ -230,13 +230,13 @@
         android:layout_height="match_parent">
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_recycler"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingLeft="@dimen/dp_15"
-        android:paddingRight="@dimen/dp_15"
-        android:paddingBottom="@dimen/dp_20" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="@dimen/dp_15"
+            android:paddingRight="@dimen/dp_15"
+            android:paddingBottom="@dimen/dp_20" />
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
 </LinearLayout>

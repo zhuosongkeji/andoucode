@@ -30,9 +30,9 @@ import butterknife.OnClick;
  */
 public class HotelordergotoevaluationActivity extends BaseActivity {
 
-    @BindView(R.id.header_title_view)
+    @BindView(R.id.mTitleView)
     RelativeLayout mTitleView;
-    @BindView(R.id.tv_header_title)
+    @BindView(R.id.mHeaderTitle)
     TextView mHeaderTitle;
 
     @BindView(R.id.simpleRatingBar)
@@ -53,10 +53,10 @@ public class HotelordergotoevaluationActivity extends BaseActivity {
     private String likeStatus="0";
 
 
-    @OnClick({R.id.iv_header_back, R.id.iv_like,R.id.btn_evaluate})
+    @OnClick({R.id.mHeaderBack, R.id.iv_like,R.id.btn_evaluate})
     public void clickView(View view) {
         switch (view.getId()) {
-            case R.id.iv_header_back:
+            case R.id.mHeaderBack:
                 finish();
                 break;
             case R.id.iv_like:

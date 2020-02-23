@@ -11,22 +11,19 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.request.RequestOptions
 import com.zhuosongkj.android.library.app.BaseFragment
+import com.zhuosongkj.android.library.util.RequestUtil
 import com.zskjprojectj.andouclient.R
 import com.zskjprojectj.andouclient.activity.*
-import com.zskjprojectj.andouclient.entity.PersonalBean
 import com.zskjprojectj.andouclient.http.ApiUtils
-import com.zskjprojectj.andouclient.http.BaseObserver
-import com.zskjprojectj.andouclient.http.HttpRxObservable
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil.isLogin
 import com.zskjprojectj.andouclient.utils.ToastUtil
 import com.zskjprojectj.andouclient.utils.UrlUtil
-import kotlinx.android.synthetic.main.fragment_mepage.*
+import kotlinx.android.synthetic.main.fragment_me.*
 import q.rorbin.badgeview.Badge
 import q.rorbin.badgeview.QBadgeView
-import java.io.IOException
 
-class MePageFragment : BaseFragment() {
+class MeFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -36,7 +33,7 @@ class MePageFragment : BaseFragment() {
         loginBtn.setOnClickListener {
             LoginActivity.start(mFragment, 666)
         }
-        header_title_view.setPadding(0, BarUtils.getStatusBarHeight(), 0, 0)
+        mTitleView.setPadding(0, BarUtils.getStatusBarHeight(), 0, 0)
         img_touxiang.setOnClickListener { startActivity(Intent(context, OpeningmemberActivity::class.java)) }
         mycenter_vegetablemarket_layout.setOnClickListener { startActivity(Intent(context, VegetableMarketActivity::class.java)) }
         mycenter_foodorder_layout.setOnClickListener { startActivity(Intent(context, FoodorderActivity::class.java)) }
@@ -71,42 +68,40 @@ class MePageFragment : BaseFragment() {
         if (!isLogin()) {
             return
         }
-        HttpRxObservable.getObservable(ApiUtils.getApiService().getpersonal(LoginInfoUtil.getUid(), LoginInfoUtil.getToken())).subscribe(object : BaseObserver<PersonalBean>(mActivity) {
-            @Throws(IOException::class)
-            override fun onHandleSuccess(personalBean: PersonalBean) {
-                // tv_viplevel.setText(personalBean.getGrade());
-                tv_nickname!!.text = personalBean.name
-                tv_collectionnum!!.text = personalBean.collect
-                tv_focusonnum!!.text = personalBean.focus
-                tv_browsenum!!.text = personalBean.record
-                tv_moneynum!!.text = personalBean.money
-                tv_integralnumm!!.text = personalBean.integral
-                if ("0" == personalBean.status) {
-                    img_showvip!!.setImageResource(R.mipmap.putongvip)
-                } else {
-                    img_showvip!!.setImageResource(R.mipmap.vipplusicon)
-                }
-                val numhotel = Integer.parseInt(personalBean.booksordernum)
-                val numfood = Integer.parseInt(personalBean.foodsordernum)
-                val nummall = Integer.parseInt(personalBean.goodordernum)
-                QBadgeView(context).bindTarget(img_hotelnum!!).setBadgeNumber(numhotel).setBadgeTextSize(8f, true).setBadgeGravity(Gravity.END or Gravity.TOP).setOnDragStateChangedListener { dragState, badge, targetView ->
-                    if (Badge.OnDragStateChangedListener.STATE_SUCCEED == dragState) {
-                        badge.hide(true)
+        RequestUtil.request(mActivity, true, true,
+                { ApiUtils.getApiService().getpersonal(LoginInfoUtil.getUid(), LoginInfoUtil.getToken()) },
+                { result ->
+                    tv_nickname.text = result.data.name
+                    tv_collectionnum.text = result.data.collect
+                    tv_focusonnum.text = result.data.focus
+                    tv_browsenum.text = result.data.record
+                    tv_moneynum.text = result.data.money
+                    tv_integralnumm.text = result.data.integral
+                    if ("0" == result.data.status) {
+                        img_showvip.setImageResource(R.mipmap.putongvip)
+                    } else {
+                        img_showvip.setImageResource(R.mipmap.vipplusicon)
                     }
-                }
-                QBadgeView(context).bindTarget(img_mallnum!!).setBadgeNumber(nummall).setBadgeTextSize(8f, true).setBadgeGravity(Gravity.END or Gravity.TOP).setOnDragStateChangedListener { dragState, badge, targetView ->
-                    if (Badge.OnDragStateChangedListener.STATE_SUCCEED == dragState) {
-                        badge.hide(true)
+                    val numhotel = Integer.parseInt(result.data.booksordernum)
+                    val numfood = Integer.parseInt(result.data.foodsordernum)
+                    val nummall = Integer.parseInt(result.data.goodordernum)
+                    QBadgeView(context).bindTarget(img_hotelnum).setBadgeNumber(numhotel).setBadgeTextSize(8f, true).setBadgeGravity(Gravity.END or Gravity.TOP).setOnDragStateChangedListener { dragState, badge, targetView ->
+                        if (Badge.OnDragStateChangedListener.STATE_SUCCEED == dragState) {
+                            badge.hide(true)
+                        }
                     }
-                }
-                QBadgeView(context).bindTarget(img_restaurantnum!!).setBadgeNumber(numfood).setBadgeTextSize(8f, true).setBadgeGravity(Gravity.END or Gravity.TOP).setOnDragStateChangedListener { dragState, badge, targetView ->
-                    if (Badge.OnDragStateChangedListener.STATE_SUCCEED == dragState) {
-                        badge.hide(true)
+                    QBadgeView(context).bindTarget(img_mallnum).setBadgeNumber(nummall).setBadgeTextSize(8f, true).setBadgeGravity(Gravity.END or Gravity.TOP).setOnDragStateChangedListener { dragState, badge, targetView ->
+                        if (Badge.OnDragStateChangedListener.STATE_SUCCEED == dragState) {
+                            badge.hide(true)
+                        }
                     }
-                }
-                Glide.with(mActivity).load(UrlUtil.getImageUrl(personalBean.avator)).apply(RequestOptions.bitmapTransform(CircleCrop())).into(img_touxiang!!)
-            }
-        })
+                    QBadgeView(context).bindTarget(img_restaurantnum).setBadgeNumber(numfood).setBadgeTextSize(8f, true).setBadgeGravity(Gravity.END or Gravity.TOP).setOnDragStateChangedListener { dragState, badge, targetView ->
+                        if (Badge.OnDragStateChangedListener.STATE_SUCCEED == dragState) {
+                            badge.hide(true)
+                        }
+                    }
+                    Glide.with(mActivity).load(UrlUtil.getImageUrl(result.data.avator)).apply(RequestOptions.bitmapTransform(CircleCrop())).into(img_touxiang)
+                })
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -126,5 +121,5 @@ class MePageFragment : BaseFragment() {
         loadData()
     }
 
-    override fun getContentView() = R.layout.fragment_mepage
+    override fun getContentView() = R.layout.fragment_me
 }

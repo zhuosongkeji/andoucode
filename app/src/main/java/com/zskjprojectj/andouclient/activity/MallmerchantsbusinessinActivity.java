@@ -15,7 +15,6 @@ import androidx.annotation.Nullable;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.luck.picture.lib.PictureSelector;
-import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.base.BaseActivity;
@@ -61,9 +60,9 @@ public class MallmerchantsbusinessinActivity extends BaseActivity {
     private static final int REQUEST_CODE_SELECT_BANNER = 667;
     private static final int REQUEST_CODE_SELECT_LICENSE = 668;
     private static final  int REQUEST_CODE_SELECT_POSITION=669;
-    @BindView(R.id.header_title_view)
+    @BindView(R.id.mTitleView)
     RelativeLayout mTitleView;
-    @BindView(R.id.tv_header_title)
+    @BindView(R.id.mHeaderTitle)
     TextView mHeaderTitle;
 
     @BindView(R.id.nameEdt)
@@ -341,7 +340,7 @@ public class MallmerchantsbusinessinActivity extends BaseActivity {
         ActivityUtils.startActivityForResult(bundle, activity, MallmerchantsbusinessinActivity.class, requestCode);
     }
 
-    @OnClick(R.id.iv_header_back)
+    @OnClick(R.id.mHeaderBack)
     public void clickView() {
         finish();
     }

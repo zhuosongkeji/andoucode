@@ -256,7 +256,6 @@ public class HotelDetailActivity extends BaseActivity {
 
 
     public static void start(String merchantId) {
-
         Bundle bundle = new Bundle();
         bundle.putString("merchantId", merchantId);
         ActivityUtils.startActivity(bundle, HotelDetailActivity.class);

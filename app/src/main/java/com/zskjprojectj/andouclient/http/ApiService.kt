@@ -268,12 +268,12 @@ interface ApiService {
     @POST("api/goods/good_list")
     @FormUrlEncoded
     fun mallGoodsList(@Field("keyword") keyword: String,
-                      @Field("cate_id") uid: String,
-                      @Field("is_recommend") is_recommend: String,
-                      @Field("is_bargain") is_bargain: String,
-                      @Field("price_sort") price_sort: String,
-                      @Field("volume_sort") volume_sort: String,
-                      @Field("start_sort") start_sort: String,
+                      @Field("cate_id") uid: String?,
+                      @Field("is_recommend") is_recommend: String?,
+                      @Field("is_bargain") is_bargain: String?,
+                      @Field("price_sort") price_sort: String?,
+                      @Field("volume_sort") volume_sort: String?,
+                      @Field("start_sort") start_sort: String?,
                       @Field("page") page: Int
     ): Observable<BaseResult<ListData<MallGoodsListBean>>>
 
@@ -408,8 +408,8 @@ interface ApiService {
     fun MallWXPayWaysrecharge(@Field("uid") uid: String,
                               @Field("token") token: String,
                               @Field("money") money: String,
-                              @Field("mobile") mobile: String,
-                              @Field("method") method: String
+                              @Field("mobile") mobile: String?,
+                              @Field("method") method: String?
     ): Observable<BaseResult<WXPayBean>>
 
     /**
@@ -588,8 +588,8 @@ interface ApiService {
     @POST("api/merchant/merchants")
     @FormUrlEncoded
     fun merchants_two(
-            @Field("merchant_type_id") merchant_type_id: String,
-            @Field("type") type: String,
+            @Field("merchant_type_id") merchant_type_id: String?,
+            @Field("type") type: String?,
             @Field("page") page: Int): Observable<BaseResult<MerchantsResponse>>
 
     /**

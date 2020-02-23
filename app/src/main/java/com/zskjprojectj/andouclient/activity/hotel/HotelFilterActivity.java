@@ -60,13 +60,13 @@ public class HotelFilterActivity extends BaseActivity {
     @BindView(R.id.refreshLayout)
     SmartRefreshLayout mRefreshLayout;
 
-    @BindView(R.id.ll_classify)
+    @BindView(R.id.mClassify)
     LinearLayout mClassify;
 
-    @BindView(R.id.tv_selector_star)
+    @BindView(R.id.mTvSelectorStar)
     TextView mSelectorStar;
 
-    @BindView(R.id.tv_capacity_sort)
+    @BindView(R.id.mCapacitySort)
     TextView mCapacitySort;
 
 
@@ -140,7 +140,7 @@ public class HotelFilterActivity extends BaseActivity {
 
     private void initViews() {
         hotelId = getIntent().getStringExtra("hotelId");
-        mRecycler = findViewById(R.id.rv_recycler);
+        mRecycler = findViewById(R.id.recyclerView);
         mRecycler.setLayoutManager(new LinearLayoutManager(this));
     }
 
@@ -480,7 +480,7 @@ public class HotelFilterActivity extends BaseActivity {
         });
     }
 
-    @OnClick(R.id.iv_header_back)
+    @OnClick(R.id.mHeaderBack)
     public void clickBack() {
         finish();
     }

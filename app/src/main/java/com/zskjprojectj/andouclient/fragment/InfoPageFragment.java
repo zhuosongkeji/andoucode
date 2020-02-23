@@ -38,11 +38,11 @@ public class InfoPageFragment extends BaseFragment {
     private RecyclerView mRecycler;
     private ArrayList<InfoFragmentBean> mDataList;
 
-    @BindView(R.id.header_title_view)
+    @BindView(R.id.mTitleView)
     RelativeLayout mTitleView;
-    @BindView(R.id.iv_header_back)
+    @BindView(R.id.mHeaderBack)
     ImageView mHeaderBack;
-    @BindView(R.id.tv_header_title)
+    @BindView(R.id.mHeaderTitle)
     TextView mHeaderTitle;
 
 
@@ -58,7 +58,7 @@ public class InfoPageFragment extends BaseFragment {
         }
         mHeaderTitle.setText("信息");
         mHeaderBack.setVisibility(View.GONE);
-        mRecycler=view.findViewById(R.id.rv_recycler);
+        mRecycler=view.findViewById(R.id.recyclerView);
         mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 

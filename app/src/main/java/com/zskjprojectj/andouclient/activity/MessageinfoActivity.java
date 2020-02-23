@@ -19,9 +19,9 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class MessageinfoActivity extends BaseActivity {
-    @BindView(R.id.header_title_view)
+    @BindView(R.id.mTitleView)
     RelativeLayout mTitleView;
-    @BindView(R.id.tv_header_title)
+    @BindView(R.id.mHeaderTitle)
     TextView mHeaderTitle;
     private String id;
     private TextView tv_infodetails,tv_contentdetails;
@@ -64,7 +64,7 @@ public class MessageinfoActivity extends BaseActivity {
     protected BasePresenter createPresenter() {
         return null;
     }
-    @OnClick(R.id.iv_header_back)
+    @OnClick(R.id.mHeaderBack)
     public void clickView() {
         finish();
     }

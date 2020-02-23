@@ -21,9 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.ToastUtils;
-import com.yhao.floatwindow.FloatWindow;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.adapter.CauseRecyclerAdapter;
 import com.zskjprojectj.andouclient.adapter.hotel.HotelRefundAdapter;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
@@ -32,7 +30,6 @@ import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
-import com.zskjprojectj.andouclient.utils.ToastUtil;
 
 import java.io.IOException;
 import java.util.List;
@@ -42,9 +39,9 @@ import butterknife.OnClick;
 
 public class HotelordercancleActivity extends BaseActivity {
 
-    @BindView(R.id.header_title_view)
+    @BindView(R.id.mTitleView)
     RelativeLayout mTitleView;
-    @BindView(R.id.tv_header_title)
+    @BindView(R.id.mHeaderTitle)
     TextView mHeaderTitle;
 
     @BindView(R.id.tv_refund_reason)
@@ -65,10 +62,10 @@ public class HotelordercancleActivity extends BaseActivity {
     private String refund_msg;
     private String pay_money;
 
-    @OnClick({R.id.iv_header_back, R.id.rv_refund_reason, R.id.btn_commint})
+    @OnClick({R.id.mHeaderBack, R.id.rv_refund_reason, R.id.btn_commint})
     public void clickView(View view) {
         switch (view.getId()) {
-            case R.id.iv_header_back:
+            case R.id.mHeaderBack:
                 finish();
                 break;
             case R.id.rv_refund_reason:

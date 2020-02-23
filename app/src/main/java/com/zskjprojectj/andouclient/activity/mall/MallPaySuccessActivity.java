@@ -18,10 +18,10 @@ import butterknife.OnClick;
 
 public class MallPaySuccessActivity extends BaseActivity {
 
-    @BindView(R.id.tv_header_title)
+    @BindView(R.id.mHeaderTitle)
     TextView mHeaderTitle;
 
-    @BindView(R.id.header_title_view)
+    @BindView(R.id.mTitleView)
     RelativeLayout mHeaderTitleView;
 
     @Override
@@ -50,10 +50,10 @@ public class MallPaySuccessActivity extends BaseActivity {
         return null;
     }
 
-    @OnClick({R.id.iv_header_back, R.id.btn_see_order})
+    @OnClick({R.id.mHeaderBack, R.id.btn_see_order})
     public void clickBack(View view) {
         switch (view.getId()) {
-            case R.id.iv_header_back:
+            case R.id.mHeaderBack:
                 EventBus.getDefault().post(new PaySuccessBackEvent());
                 finish();
                 break;

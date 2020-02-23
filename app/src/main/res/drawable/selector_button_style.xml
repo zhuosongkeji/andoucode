@@ -2,7 +2,7 @@
 
 <shape xmlns:android="http://schemas.android.com/apk/res/android" >
 <!-- 角度 -->
-<corners android:radius="10dp"/>
+<corners android:radius="14dp"/>
 <!-- 填充色 -->
 <solid android:color="#EBFAF5"/>
 <!-- 描边 设置线宽及颜色-->

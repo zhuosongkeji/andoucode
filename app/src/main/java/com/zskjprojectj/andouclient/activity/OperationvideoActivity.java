@@ -19,9 +19,9 @@ import cn.jzvd.JzvdStd;
  */
 public class OperationvideoActivity extends BaseActivity {
 
-    @BindView(R.id.header_title_view)
+    @BindView(R.id.mTitleView)
     RelativeLayout mTitleView;
-    @BindView(R.id.tv_header_title)
+    @BindView(R.id.mHeaderTitle)
     TextView mHeaderTitle;
 
 
@@ -70,7 +70,7 @@ public class OperationvideoActivity extends BaseActivity {
         Jzvd.releaseAllVideos();
     }
 
-    @OnClick(R.id.iv_header_back)
+    @OnClick(R.id.mHeaderBack)
     public void clickView() {
         finish();
     }

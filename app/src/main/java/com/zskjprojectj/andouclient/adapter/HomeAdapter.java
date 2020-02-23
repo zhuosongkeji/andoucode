@@ -1,18 +1,14 @@
 package com.zskjprojectj.andouclient.adapter;
 
 import android.content.Context;
-import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.activity.ClassificationofgoodsActivity;
-import com.zskjprojectj.andouclient.entity.CategoryBean;
+import com.zskjprojectj.andouclient.activity.MallGoodsListActivity;
 import com.zskjprojectj.andouclient.entity.mall.MallGoodsCateBean;
 import com.zskjprojectj.andouclient.view.GridViewForScrollView;
 
@@ -76,7 +72,7 @@ public class HomeAdapter extends BaseAdapter {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                 //商品分类跳转到商品列表
-                ClassificationofgoodsActivity.getCataId(towcate.get(i).id);
+                MallGoodsListActivity.Companion.start(null, null, towcate.get(i).id);
             }
         });
         return convertView;

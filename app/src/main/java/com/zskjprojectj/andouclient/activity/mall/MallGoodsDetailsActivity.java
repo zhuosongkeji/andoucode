@@ -80,9 +80,9 @@ public class MallGoodsDetailsActivity extends BaseActivity {
     @BindView(R.id.bannertop)
     XBanner mBanner;
 
-    @BindView(R.id.header_title_view)
+    @BindView(R.id.mTitleView)
     RelativeLayout mHeaderTitleView;
-    @BindView(R.id.tv_header_title)
+    @BindView(R.id.mHeaderTitle)
     TextView mHeaderTitle;
 
     //商品名称
@@ -219,16 +219,16 @@ public class MallGoodsDetailsActivity extends BaseActivity {
 
                     @Override
                     public void onHandleSuccess(PinTuanDetails pinTuanDetails) throws IOException {
-                        if("0".equals(pinTuanDetails.getGroup_goods().getCode())){
+                        if ("0".equals(pinTuanDetails.getGroup_goods().getCode())) {
                             ll_pintuan_person.setVisibility(View.VISIBLE);
                             ll_pintuan_list.setVisibility(View.VISIBLE);
 
                             mTvPrice.setText(pinTuanDetails.getGroup_goods().getPrice());
 
-                            tv_pintuan_number.setText(pinTuanDetails.getGroup_goods().getTop_member()+"人拼");
+                            tv_pintuan_number.setText(pinTuanDetails.getGroup_goods().getTop_member() + "人拼");
                             mTvGoodsVolume.setText(pinTuanDetails.getGroup_goods().getSale_total());
                             mTvGoodsStoreNum.setText(pinTuanDetails.getGroup_goods().getStorage());
-                            tv_total_member.setText("已有"+pinTuanDetails.getTotal_member()+"人参团");
+                            tv_total_member.setText("已有" + pinTuanDetails.getTotal_member() + "人参团");
                             pinTuanAdapter.setNewData(pinTuanDetails.getTeam_list());
                             pinTuanAdapter.setEndTime(pinTuanDetails.getGroup_goods().getFinish_time());
                             ll_normal.setVisibility(View.GONE);
@@ -236,8 +236,6 @@ public class MallGoodsDetailsActivity extends BaseActivity {
                         }
                     }
                 });
-
-
 
 
         pinTuanAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
@@ -258,6 +256,7 @@ public class MallGoodsDetailsActivity extends BaseActivity {
             @Override
             public void loadBanner(XBanner banner, Object model, View view, int position) {
 //                加载本地图片展示
+                ((ImageView) view).setScaleType(ImageView.ScaleType.CENTER_CROP);
                 XBannerBean urlList = (XBannerBean) model;
                 String url = UrlUtil.getImageUrl(urlList.getImageUrl());
                 Glide.with(MallGoodsDetailsActivity.this).load(url).apply(new RequestOptions()
@@ -404,7 +403,7 @@ public class MallGoodsDetailsActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.pintuan_add_shopping,R.id.mall_goods_collection, R.id.tv_mall_home, R.id.tv_mall_shopping, R.id.tv_Mall_service, R.id.tv_buy_now, R.id.add_shopping, R.id.rv_shop_home, R.id.bt_mall_goods_discount, R.id.shared})
+    @OnClick({R.id.pintuan_add_shopping, R.id.mall_goods_collection, R.id.tv_mall_home, R.id.tv_mall_shopping, R.id.tv_Mall_service, R.id.tv_buy_now, R.id.add_shopping, R.id.rv_shop_home, R.id.bt_mall_goods_discount, R.id.shared})
     public void clickButNow(View v) {
         switch (v.getId()) {
 
@@ -447,7 +446,7 @@ public class MallGoodsDetailsActivity extends BaseActivity {
                 ToastUtil.showToast("客服");
                 break;
 
-                //立即购买
+            //立即购买
             case R.id.tv_buy_now:
                 //加入购物车
             case R.id.add_shopping:
@@ -457,11 +456,11 @@ public class MallGoodsDetailsActivity extends BaseActivity {
                 goToBuy();
 
                 break;
-                //拼团购买
+            //拼团购买
 
             //TODO
             case R.id.pintuan_tv_buy_now:
-            //  goToBuy();
+                //  goToBuy();
                 break;
             //店铺主页
             case R.id.tv_mall_home:
@@ -765,7 +764,7 @@ public class MallGoodsDetailsActivity extends BaseActivity {
 
     }
 
-    @OnClick(R.id.iv_header_back)
+    @OnClick(R.id.mHeaderBack)
     public void clickBack() {
         finish();
     }

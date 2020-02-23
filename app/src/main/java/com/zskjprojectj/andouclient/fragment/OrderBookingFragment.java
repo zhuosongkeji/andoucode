@@ -1,6 +1,5 @@
 package com.zskjprojectj.andouclient.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,7 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.activity.OrederSubmitbooking;
 import com.zskjprojectj.andouclient.adapter.OnlineBookingAdapter;
 import com.zskjprojectj.andouclient.base.BaseFragment;
 import com.zskjprojectj.andouclient.entity.OnlineBookingBean;
@@ -27,7 +25,7 @@ public class OrderBookingFragment extends BaseFragment {
     private ArrayList<OnlineBookingBean> dataList;
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
-        mRecycler=view.findViewById(R.id.rv_recycler);
+        mRecycler=view.findViewById(R.id.recyclerView);
         mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         btn_orderbook_now=view.findViewById(R.id.btn_orderbook_now);
