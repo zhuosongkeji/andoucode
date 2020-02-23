@@ -76,7 +76,7 @@ class MallGoodsListActivity : BaseActivity() {
             }
         }
         ll_selector_sales.setOnClickListener {
-            mTvCapacitySort.setTextColor(Color.parseColor("#5ED3AE"))
+            mCapacitySort.setTextColor(Color.parseColor("#5ED3AE"))
             mIvCapacitySort.setImageResource(R.mipmap.icon_cate_img)
             if (popupView == null) {
                 popupView = XPopup.Builder(mActivity)
@@ -88,7 +88,7 @@ class MallGoodsListActivity : BaseActivity() {
                             }
 
                             override fun onDismiss() {
-                                mTvCapacitySort.setTextColor(Color.parseColor("#646464"))
+                                mCapacitySort.setTextColor(Color.parseColor("#646464"))
                                 mIvCapacitySort.setImageResource(R.mipmap.ic_busiess_xiala)
                                 popupView = null
                             }

@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.base.BaseFragment;
-import com.zskjprojectj.andouclient.view.TopView;
 
 import butterknife.BindView;
 
@@ -17,11 +16,11 @@ import butterknife.BindView;
  * 在线商城信息
  */
 public class MallInfoFragment extends BaseFragment {
-    @BindView(R.id.header_title_view)
+    @BindView(R.id.mTitleView)
     RelativeLayout mHeaderTitleView;
-    @BindView(R.id.tv_header_title)
+    @BindView(R.id.mHeaderTitle)
     TextView mHeaderTitle;
-    @BindView(R.id.iv_header_back)
+    @BindView(R.id.mHeaderBack)
     ImageView mHeaderBack;
 
     @Override

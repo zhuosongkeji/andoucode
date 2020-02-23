@@ -50,9 +50,9 @@ public class NewaddressActivity extends BaseActivity {
     @BindView(R.id.tv_showadress)
     TextView addressTxt;
     AddressIn addresss;
-    @BindView(R.id.header_title_view)
+    @BindView(R.id.mTitleView)
     RelativeLayout mTitleView;
-    @BindView(R.id.tv_header_title)
+    @BindView(R.id.mHeaderTitle)
     TextView mHeaderTitle;
     private EditText detailEdt;
 

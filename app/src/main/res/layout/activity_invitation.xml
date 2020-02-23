@@ -10,13 +10,13 @@
         android:background="#FF532E">
 
         <RelativeLayout
-            android:id="@+id/header_title_view"
+            android:id="@+id/mTitleView"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_50"
             android:background="#FF532E">
 
             <ImageView
-                android:id="@+id/iv_header_back"
+                android:id="@+id/mHeaderBack"
                 android:layout_width="@dimen/dp_9"
                 android:layout_height="@dimen/dp_15"
                 android:layout_centerVertical="true"
@@ -24,7 +24,7 @@
                 android:background="@mipmap/back_icon" />
 
             <TextView
-                android:id="@+id/tv_header_title"
+                android:id="@+id/mHeaderTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"

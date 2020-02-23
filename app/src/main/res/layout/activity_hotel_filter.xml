@@ -16,7 +16,7 @@
         android:orientation="horizontal"
         android:padding="@dimen/dp_10">
         <FrameLayout
-            android:id="@+id/iv_header_back"
+            android:id="@+id/mHeaderBack"
             android:layout_width="40dp"
             android:layout_height="50dp"
             android:paddingStart="15dp">
@@ -85,7 +85,7 @@
         android:background="#F1F1F1" />
     <!--分类-->
     <LinearLayout
-        android:id="@+id/ll_classify"
+        android:id="@+id/mClassify"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -141,7 +141,7 @@
             android:gravity="center">
 
             <TextView
-                android:id="@+id/mTvCapacitySort"
+                android:id="@+id/mCapacitySort"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="智能排序"

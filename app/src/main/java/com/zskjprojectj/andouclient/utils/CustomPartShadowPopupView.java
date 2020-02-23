@@ -41,11 +41,11 @@ public class CustomPartShadowPopupView extends PartShadowPopupView  {
         super.onCreate();
 
         //不限
-        mPopu_unlimited = findViewById(R.id.tv_popu_unlimited);
+        mPopu_unlimited = findViewById(R.id.mPopuunlimited);
         //评价升序排列
-        tv_popu_credit = findViewById(R.id.tv_popu_credit);
+        tv_popu_credit = findViewById(R.id.mPopucredit);
         //评价降序排列
-        tv_popu_price = findViewById(R.id.tv_popu_price);
+        tv_popu_price = findViewById(R.id.mPopuprice);
 
         switch (type) {
             //评价

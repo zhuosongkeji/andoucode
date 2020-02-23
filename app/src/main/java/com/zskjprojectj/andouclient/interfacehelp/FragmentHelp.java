@@ -4,7 +4,7 @@ package com.zskjprojectj.andouclient.interfacehelp;
 import com.zskjprojectj.andouclient.fragment.AppHomeFragment;
 import com.zskjprojectj.andouclient.fragment.InfoPageFragment;
 import com.zskjprojectj.andouclient.fragment.MeFragment;
-import com.zskjprojectj.andouclient.fragment.MerchantsPageFragment;
+import com.zskjprojectj.andouclient.fragment.MerchantListFragment;
 import com.zskjprojectj.andouclient.fragment.TieBaFragment;
 
 /**
@@ -12,7 +12,7 @@ import com.zskjprojectj.andouclient.fragment.TieBaFragment;
  */
 public class FragmentHelp {
     private static AppHomeFragment appHomeFragment;//首页
-    private static MerchantsPageFragment merchantsPageFragment;//商家
+    private static MerchantListFragment merchantListFragment;//商家
     private static InfoPageFragment infoPageFragment;//信息
     private static TieBaFragment tieBaFragment;//贴吧
     private static MeFragment meFragment;//我的
@@ -31,12 +31,12 @@ public class FragmentHelp {
     /**
      * 商家
      */
-    public static MerchantsPageFragment getMerchantsPageFragment()
+    public static MerchantListFragment getMerchantListFragment()
     {
-        if (merchantsPageFragment == null) {
-            merchantsPageFragment = new MerchantsPageFragment();
+        if (merchantListFragment == null) {
+            merchantListFragment = new MerchantListFragment();
         }
-        return merchantsPageFragment;
+        return merchantListFragment;
     }
     /**
      * 信息

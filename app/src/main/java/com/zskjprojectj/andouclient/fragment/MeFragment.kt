@@ -14,10 +14,7 @@ import com.zhuosongkj.android.library.app.BaseFragment
 import com.zhuosongkj.android.library.util.RequestUtil
 import com.zskjprojectj.andouclient.R
 import com.zskjprojectj.andouclient.activity.*
-import com.zskjprojectj.andouclient.entity.PersonalBean
 import com.zskjprojectj.andouclient.http.ApiUtils
-import com.zskjprojectj.andouclient.http.BaseObserver
-import com.zskjprojectj.andouclient.http.HttpRxObservable
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil.isLogin
 import com.zskjprojectj.andouclient.utils.ToastUtil
@@ -25,7 +22,6 @@ import com.zskjprojectj.andouclient.utils.UrlUtil
 import kotlinx.android.synthetic.main.fragment_me.*
 import q.rorbin.badgeview.Badge
 import q.rorbin.badgeview.QBadgeView
-import java.io.IOException
 
 class MeFragment : BaseFragment() {
 
@@ -37,7 +33,7 @@ class MeFragment : BaseFragment() {
         loginBtn.setOnClickListener {
             LoginActivity.start(mFragment, 666)
         }
-        header_title_view.setPadding(0, BarUtils.getStatusBarHeight(), 0, 0)
+        mTitleView.setPadding(0, BarUtils.getStatusBarHeight(), 0, 0)
         img_touxiang.setOnClickListener { startActivity(Intent(context, OpeningmemberActivity::class.java)) }
         mycenter_vegetablemarket_layout.setOnClickListener { startActivity(Intent(context, VegetableMarketActivity::class.java)) }
         mycenter_foodorder_layout.setOnClickListener { startActivity(Intent(context, FoodorderActivity::class.java)) }

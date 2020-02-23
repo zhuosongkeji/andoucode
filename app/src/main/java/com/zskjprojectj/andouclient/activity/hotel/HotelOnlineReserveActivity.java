@@ -58,9 +58,9 @@ import butterknife.OnClick;
 
 public class HotelOnlineReserveActivity extends BaseActivity {
 
-    @BindView(R.id.header_title_view)
+    @BindView(R.id.mTitleView)
     RelativeLayout mHeaderTitleView;
-    @BindView(R.id.tv_header_title)
+    @BindView(R.id.mHeaderTitle)
     TextView mHeaderTitle;
 
     //人数
@@ -196,10 +196,10 @@ public class HotelOnlineReserveActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.iv_header_back, R.id.bt_minus, R.id.bt_add, R.id.tv_reserve, R.id.rv_slector_time})
+    @OnClick({R.id.mHeaderBack, R.id.bt_minus, R.id.bt_add, R.id.tv_reserve, R.id.rv_slector_time})
     public void clickBack(View view) {
         switch (view.getId()) {
-            case R.id.iv_header_back:
+            case R.id.mHeaderBack:
                 finish();
                 break;
             //减

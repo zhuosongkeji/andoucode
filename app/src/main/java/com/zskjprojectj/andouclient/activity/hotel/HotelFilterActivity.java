@@ -60,13 +60,13 @@ public class HotelFilterActivity extends BaseActivity {
     @BindView(R.id.refreshLayout)
     SmartRefreshLayout mRefreshLayout;
 
-    @BindView(R.id.ll_classify)
+    @BindView(R.id.mClassify)
     LinearLayout mClassify;
 
     @BindView(R.id.mTvSelectorStar)
     TextView mSelectorStar;
 
-    @BindView(R.id.mTvCapacitySort)
+    @BindView(R.id.mCapacitySort)
     TextView mCapacitySort;
 
 
@@ -480,7 +480,7 @@ public class HotelFilterActivity extends BaseActivity {
         });
     }
 
-    @OnClick(R.id.iv_header_back)
+    @OnClick(R.id.mHeaderBack)
     public void clickBack() {
         finish();
     }

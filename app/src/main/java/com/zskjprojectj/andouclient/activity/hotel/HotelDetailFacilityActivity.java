@@ -22,9 +22,9 @@ import butterknife.OnClick;
  */
 public class HotelDetailFacilityActivity extends BaseActivity {
 
-    @BindView(R.id.header_title_view)
+    @BindView(R.id.mTitleView)
     RelativeLayout mHeaderTitleView;
-    @BindView(R.id.tv_header_title)
+    @BindView(R.id.mHeaderTitle)
     TextView mHeaderTitle;
 
     private RecyclerView mRecycler;
@@ -67,7 +67,7 @@ public class HotelDetailFacilityActivity extends BaseActivity {
     protected BasePresenter createPresenter() {
         return null;
     }
-    @OnClick(R.id.iv_header_back)
+    @OnClick(R.id.mHeaderBack)
     public void clickBack(){
         finish();
     }

@@ -1,7 +1,5 @@
 package com.zskjprojectj.andouclient.activity;
 
-import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -11,22 +9,15 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.WriterException;
-import com.google.zxing.common.BitMatrix;
-import com.google.zxing.qrcode.QRCodeWriter;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
-import com.zskjprojectj.andouclient.utils.UrlUtil;import com.zskjprojectj.andouclient.base.BaseUrl;
+import com.zskjprojectj.andouclient.utils.UrlUtil;
 import com.zskjprojectj.andouclient.entity.InvitationBean;
-import com.zskjprojectj.andouclient.http.ApiService;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
-import com.zskjprojectj.andouclient.utils.SharedPreferencesManager;
-import com.zskjprojectj.andouclient.utils.UrlUtil;
 
 import java.io.IOException;
 
@@ -39,12 +30,12 @@ import butterknife.OnClick;
 public class InvitationActivity extends BaseActivity {
     private TextView tv_username;
     private ImageView img_toptouxiang,img_code;
-    @BindView(R.id.header_title_view)
+    @BindView(R.id.mTitleView)
     RelativeLayout mTitleView;
-    @BindView(R.id.tv_header_title)
+    @BindView(R.id.mHeaderTitle)
     TextView mHeaderTitle;
 
-    @OnClick(R.id.iv_header_back)
+    @OnClick(R.id.mHeaderBack)
     public void clickView(){
         finish();
     }

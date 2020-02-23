@@ -1,34 +1,17 @@
 package com.zskjprojectj.andouclient.adapter;
 
-import android.view.View;
 import android.widget.ImageView;
-
-import androidx.annotation.Nullable;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.willy.ratingbar.ScaleRatingBar;
-import com.zhuosongkj.android.library.adapter.BaseAdapter;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.utils.UrlUtil;import com.zskjprojectj.andouclient.base.BaseUrl;
-import com.zskjprojectj.andouclient.entity.MerchantListBean;
 import com.zskjprojectj.andouclient.model.Merchant;
+import com.zskjprojectj.andouclient.utils.UrlUtil;
 
-import java.util.List;
-
-/**
- * 项目名称： andoucode
- * 包名：com.zskjprojectj.andouclient.adapter
- * author: Bin email:wangdabin2333@163.com
- * time: 2019/12/7 17:34
- * des:
- * 修改人：
- * 修改时间：
- * 修改备注：
- */
-public class MerchantListAdapter extends BaseQuickAdapter<Merchant,BaseViewHolder> {
+public class MerchantListAdapter extends BaseQuickAdapter<Merchant, BaseViewHolder> {
     public MerchantListAdapter() {
         super(R.layout.merchant_item_view);
     }

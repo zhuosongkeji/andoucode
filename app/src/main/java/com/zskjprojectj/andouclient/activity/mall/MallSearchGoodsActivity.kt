@@ -3,7 +3,6 @@ package com.zskjprojectj.andouclient.activity.mall
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
-import android.widget.TextView
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.lxj.xpopup.XPopup
@@ -19,7 +18,6 @@ import com.zskjprojectj.andouclient.http.ApiUtils
 import com.zskjprojectj.andouclient.utils.CustomPartShadowPopupView
 import com.zskjprojectj.andouclient.utils.KEY_IS_RECOMMEND
 import com.zskjprojectj.andouclient.utils.KEY_IS_SPECIAL
-import kotlinx.android.synthetic.main.activity_mall_goods_list.*
 import kotlinx.android.synthetic.main.activity_mall_goods_list.ll_price_comprehensive
 import kotlinx.android.synthetic.main.activity_mall_goods_list.ll_selector_price
 import kotlinx.android.synthetic.main.activity_mall_goods_list.ll_selector_sales
@@ -27,7 +25,7 @@ import kotlinx.android.synthetic.main.activity_mall_goods_list.mIvCapacitySort
 import kotlinx.android.synthetic.main.activity_mall_goods_list.mIvScreen
 import kotlinx.android.synthetic.main.activity_mall_goods_list.mIvSelectorImg
 import kotlinx.android.synthetic.main.activity_mall_goods_list.mSearchEditText
-import kotlinx.android.synthetic.main.activity_mall_goods_list.mTvCapacitySort
+import kotlinx.android.synthetic.main.activity_mall_goods_list.mCapacitySort
 import kotlinx.android.synthetic.main.activity_mall_goods_list.mTvScreen
 import kotlinx.android.synthetic.main.activity_mall_goods_list.mTvSelectorStar
 import kotlinx.android.synthetic.main.activity_mall_goods_list.recyclerView
@@ -105,7 +103,7 @@ class MallSearchGoodsActivity : BaseActivity() {
             }
         }
         ll_selector_sales.setOnClickListener {
-            mTvCapacitySort.setTextColor(Color.parseColor("#5ED3AE"))
+            mCapacitySort.setTextColor(Color.parseColor("#5ED3AE"))
             mIvCapacitySort.setImageResource(R.mipmap.icon_cate_img)
             if (popupView == null) {
                 popupView = XPopup.Builder(mActivity)
@@ -117,7 +115,7 @@ class MallSearchGoodsActivity : BaseActivity() {
                             }
 
                             override fun onDismiss() {
-                                mTvCapacitySort.setTextColor(Color.parseColor("#646464"))
+                                mCapacitySort.setTextColor(Color.parseColor("#646464"))
                                 mIvCapacitySort.setImageResource(R.mipmap.ic_busiess_xiala)
                                 popupView = null
                             }

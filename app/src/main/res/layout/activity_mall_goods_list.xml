@@ -58,7 +58,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/ll_classify"
+        android:id="@+id/mClassify"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -95,7 +95,7 @@
             android:gravity="center">
 
             <TextView
-                android:id="@+id/mTvCapacitySort"
+                android:id="@+id/mCapacitySort"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="销量"

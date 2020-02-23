@@ -3,7 +3,6 @@ package com.zskjprojectj.andouclient.activity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -23,9 +22,9 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class ModifythenicknameActivity extends BaseActivity {
-    @BindView(R.id.header_title_view)
+    @BindView(R.id.mTitleView)
     RelativeLayout mTitleView;
-    @BindView(R.id.tv_header_title)
+    @BindView(R.id.mHeaderTitle)
     TextView mHeaderTitle;
     private EditText infoEdt;
     private TextView confirmBtn;
@@ -80,7 +79,7 @@ public class ModifythenicknameActivity extends BaseActivity {
     protected BasePresenter createPresenter() {
         return null;
     }
-    @OnClick(R.id.iv_header_back)
+    @OnClick(R.id.mHeaderBack)
     public void clickView() {
         finish();
     }

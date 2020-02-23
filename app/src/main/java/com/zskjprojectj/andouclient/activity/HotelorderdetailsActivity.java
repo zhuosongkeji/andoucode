@@ -15,19 +15,16 @@ import com.bumptech.glide.request.RequestOptions;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
-import com.zskjprojectj.andouclient.utils.UrlUtil;import com.zskjprojectj.andouclient.base.BaseUrl;
+import com.zskjprojectj.andouclient.utils.UrlUtil;
 import com.zskjprojectj.andouclient.entity.hotel.MeHotelBean;
 import com.zskjprojectj.andouclient.entity.hotel.MeHotelDetailsBean;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.model.HotelOrderStatus;
-import com.zskjprojectj.andouclient.model.Order;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
-import com.zskjprojectj.andouclient.utils.ToastUtil;
 
 import java.io.IOException;
-import java.io.Serializable;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -38,16 +35,16 @@ import butterknife.OnClick;
 
 public class HotelorderdetailsActivity extends BaseActivity {
 
-    @BindView(R.id.header_title_view)
+    @BindView(R.id.mTitleView)
     RelativeLayout mTitleView;
-    @BindView(R.id.tv_header_title)
+    @BindView(R.id.mHeaderTitle)
     TextView mHeaderTitle;
 
 
     private Button btn_hotelordercancle;
     private MeHotelBean meHotelBean;
 
-    @OnClick(R.id.iv_header_back)
+    @OnClick(R.id.mHeaderBack)
     public void clickView(){
         finish();
     }

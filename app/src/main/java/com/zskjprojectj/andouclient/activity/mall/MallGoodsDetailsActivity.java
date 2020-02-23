@@ -80,9 +80,9 @@ public class MallGoodsDetailsActivity extends BaseActivity {
     @BindView(R.id.bannertop)
     XBanner mBanner;
 
-    @BindView(R.id.header_title_view)
+    @BindView(R.id.mTitleView)
     RelativeLayout mHeaderTitleView;
-    @BindView(R.id.tv_header_title)
+    @BindView(R.id.mHeaderTitle)
     TextView mHeaderTitle;
 
     //商品名称
@@ -764,7 +764,7 @@ public class MallGoodsDetailsActivity extends BaseActivity {
 
     }
 
-    @OnClick(R.id.iv_header_back)
+    @OnClick(R.id.mHeaderBack)
     public void clickBack() {
         finish();
     }

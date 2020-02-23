@@ -43,10 +43,10 @@ import butterknife.OnClick;
  */
 public class MywalletActivity extends BaseActivity {
 
-    @BindView(R.id.header_title_view)
+    @BindView(R.id.mTitleView)
     RelativeLayout mTitleView;
 
-    @BindView(R.id.tv_header_title)
+    @BindView(R.id.mHeaderTitle)
     TextView mHeaderTitle;
 
     private FixedIndicatorView indicator;
@@ -167,7 +167,7 @@ public class MywalletActivity extends BaseActivity {
         }
     };
 
-    @OnClick(R.id.iv_header_back)
+    @OnClick(R.id.mHeaderBack)
     public void clickView() {
         finish();
     }

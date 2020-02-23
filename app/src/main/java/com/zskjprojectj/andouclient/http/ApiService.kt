@@ -588,8 +588,8 @@ interface ApiService {
     @POST("api/merchant/merchants")
     @FormUrlEncoded
     fun merchants_two(
-            @Field("merchant_type_id") merchant_type_id: String,
-            @Field("type") type: String,
+            @Field("merchant_type_id") merchant_type_id: String?,
+            @Field("type") type: String?,
             @Field("page") page: Int): Observable<BaseResult<MerchantsResponse>>
 
     /**

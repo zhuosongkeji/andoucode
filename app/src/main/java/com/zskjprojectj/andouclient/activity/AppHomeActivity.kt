@@ -14,11 +14,12 @@ import com.blankj.utilcode.util.ToastUtils
 import com.next.easynavigation.view.EasyNavigationBar
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.zhuosongkj.android.library.app.BaseActivity
+import com.zhuosongkj.android.library.util.ActionBarUtil
 import com.zskjprojectj.andouclient.R
 import com.zskjprojectj.andouclient.fragment.AppHomeFragment
 import com.zskjprojectj.andouclient.fragment.InfoPageFragment
 import com.zskjprojectj.andouclient.fragment.MeFragment
-import com.zskjprojectj.andouclient.fragment.MerchantsPageFragment
+import com.zskjprojectj.andouclient.fragment.MerchantListFragment
 import com.zskjprojectj.andouclient.fragment.TieBaFragment
 import com.zskjprojectj.andouclient.utils.LogUtil
 
@@ -47,7 +48,7 @@ class AppHomeActivity : BaseActivity() {
                         R.mipmap.me_icon_check))
                 .fragmentList(arrayListOf(
                         AppHomeFragment(),
-                        MerchantsPageFragment(),
+                        MerchantListFragment(),
                         TieBaFragment(),
                         InfoPageFragment(),
                         MeFragment()))

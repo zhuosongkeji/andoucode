@@ -1,11 +1,8 @@
 package com.zskjprojectj.andouclient.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import androidx.annotation.Nullable;
 
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.base.BaseActivity;
@@ -16,12 +13,12 @@ import butterknife.OnClick;
 
 public class DownloadappActivity extends BaseActivity {
 
-    @BindView(R.id.header_title_view)
+    @BindView(R.id.mTitleView)
     RelativeLayout mTitleView;
-    @BindView(R.id.tv_header_title)
+    @BindView(R.id.mHeaderTitle)
     TextView mHeaderTitle;
 
-    @OnClick(R.id.iv_header_back)
+    @OnClick(R.id.mHeaderBack)
     public void clickView(){
         finish();
     }
