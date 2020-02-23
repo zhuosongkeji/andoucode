@@ -2,6 +2,7 @@ package com.zskjprojectj.andouclient.activity
 
 import android.os.Bundle
 import android.view.View
+import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.RegexUtils
 import com.zhuosongkj.android.library.app.BaseActivity
 import com.zhuosongkj.android.library.util.RequestUtil
@@ -16,6 +17,8 @@ class RegisterActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        BarUtils.transparentStatusBar(mActivity)
+        BarUtils.setStatusBarLightMode(mActivity, true)
         backBtn.setOnClickListener { onBackPressed() }
         registered_agree_xieyi_button.setOnCheckedChangeListener { _, checked ->
             registered_button.isEnabled = checked
@@ -23,26 +26,26 @@ class RegisterActivity : BaseActivity() {
         registered_login_textview.setOnClickListener {
             onBackPressed()
         }
-        getCodeBtn.setOnClickListener(View.OnClickListener {
+        getCodeBtn.setOnClickListener {
             val mobileStr = mobileEdt.text.toString()
-            if (RegexUtils.isMobileSimple(mobileStr)) {
+            if (!RegexUtils.isMobileSimple(mobileStr)) {
                 ToastUtil.showToast("请输入正确的手机号码!")
-                return@OnClickListener
+            } else {
+                RequestUtil.request(mActivity, true, false,
+                        { ApiUtils.getApiService().sendCode(mobileStr, "1") },
+                        {
+                            val countDownTimer = CountDownTimerUtils(getCodeBtn, 60000, 1000)
+                            countDownTimer.start()
+                            ToastUtil.showToast("验证码短信已发送,请注意查收!")
+                        })
             }
-            RequestUtil.request(mActivity, true, false,
-                    { ApiUtils.getApiService().sendCode(mobileStr, "1") },
-                    {
-                        val countDownTimer = CountDownTimerUtils(getCodeBtn, 60000, 1000)
-                        countDownTimer.start()
-                        ToastUtil.showToast("验证码短信已发送,请注意查收!")
-                    })
-        })
+        }
         registered_button.setOnClickListener {
             val mobileStr = mobileEdt.text.toString()
             val codeStr = codeEdt.text.toString()
             val passwordStr = passwordEdt.text.toString()
             when {
-                RegexUtils.isMobileSimple(mobileStr) ->
+                !RegexUtils.isMobileSimple(mobileStr) ->
                     ToastUtil.showToast("请输入正确的手机号码!")
                 codeStr.isEmpty() ->
                     ToastUtil.showToast("请输入正确的验证码!")

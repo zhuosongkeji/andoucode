@@ -77,7 +77,7 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void initViews() {
         BarUtils.transparentStatusBar(mAt);
-        BarUtils.setNavBarLightMode(mAt, true);
+        BarUtils.setStatusBarLightMode(mAt, true);
         findViewById(R.id.backBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
