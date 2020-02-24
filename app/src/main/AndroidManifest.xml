@@ -96,7 +96,7 @@
             android:name=".activity.hotel.HotelFilterActivity"
             android:screenOrientation="portrait" /> <!-- 酒店预约-列表 -->
         <activity
-            android:name=".activity.hotel.HotelActivity"
+            android:name=".activity.hotel.HotelHomeActivity"
             android:screenOrientation="portrait" /> <!-- 酒店预约-主页 -->
         <activity
             android:name=".activity.LoginActivity"

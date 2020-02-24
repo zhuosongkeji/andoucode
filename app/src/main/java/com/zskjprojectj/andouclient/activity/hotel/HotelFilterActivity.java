@@ -108,7 +108,7 @@ public class HotelFilterActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         com.blankj.utilcode.util.BarUtils.transparentStatusBar(mActivity);
-        com.blankj.utilcode.util.BarUtils.setNavBarLightMode(mActivity,false);
+        com.blankj.utilcode.util.BarUtils.setNavBarLightMode(mActivity, false);
         int barHeight = com.blankj.utilcode.util.BarUtils.getStatusBarHeight();
         if (barHeight > 0) {
             //设置状态栏的高度
@@ -300,7 +300,8 @@ public class HotelFilterActivity extends BaseActivity {
             @Override
             public void onHandleSuccess(HotelSearchConditionBean hotelSearchConditionBean) throws IOException {
                 //价格
-                priceAdapter = new HotelPriceAdapter(R.layout.item_section_content, hotelSearchConditionBean.getPrice_range());
+                priceAdapter = new HotelPriceAdapter(R.layout.item_section_content);
+                priceAdapter.setNewData(hotelSearchConditionBean.getPrice_range());
                 mPriceRecycler.setAdapter(priceAdapter);
                 priceAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                     @Override
@@ -309,17 +310,11 @@ public class HotelFilterActivity extends BaseActivity {
                         priceAdapter.notifyDataSetChanged();
                     }
                 });
-                priceAdapter.setOnItemGetContent(new HotelPriceAdapter.onItemGetContent() {
-                    @Override
-                    public void content(String star_price, String end_price) {
-                        startPrice = star_price;
-                        endPrice = end_price;
-                    }
-                });
 
 
                 //星级
-                starAdapter = new HotelStarAdapter(R.layout.item_section_content, hotelSearchConditionBean.getStar());
+                starAdapter = new HotelStarAdapter(R.layout.item_section_content);
+                starAdapter.setNewData(hotelSearchConditionBean.getStar());
                 mStarRecycler.setAdapter(starAdapter);
                 starAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                     @Override
@@ -328,43 +323,27 @@ public class HotelFilterActivity extends BaseActivity {
                         starAdapter.notifyDataSetChanged();
                     }
                 });
-
-                starAdapter.setOnItemGetContent(new HotelStarAdapter.onItemGetContent() {
-                    @Override
-                    public void content(String content) {
-                        hotelStar = content;
-                    }
-                });
-
-
             }
         });
+        mCancle.setOnClickListener(v -> {
+            priceAdapter.cancel(-1);
+            priceAdapter.notifyDataSetChanged();
+            starAdapter.cancel(-1);
+            starAdapter.notifyDataSetChanged();
 
-
-        mCancle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                priceAdapter.cancle(-1);
-                priceAdapter.notifyDataSetChanged();
-                starAdapter.cancle(-1);
-                starAdapter.notifyDataSetChanged();
-
-            }
         });
+        mConfirm.setOnClickListener(v -> {
+            HotelSearchConditionBean.PriceRangeBean item = priceAdapter.getItem(HotelPriceAdapter.SELECTOR_POSITION);
 
-        mConfirm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pageLoadUtil.load(() -> ApiUtils.getApiService().hotelHomeList(
-                        keywords,
-                        startPrice,
-                        endPrice,
-                        hotelStar,
-                        type,
-                        pageLoadUtil.page));
+            pageLoadUtil.load(() -> ApiUtils.getApiService().hotelHomeList(
+                    keywords,
+                    item.getStart(),
+                    item.getEnd(),
+                    starAdapter.getItem(HotelStarAdapter.SELECTOR_POSITION).getName(),
+                    type,
+                    pageLoadUtil.page));
 
-                mPopWindow.dismiss();
-            }
+            mPopWindow.dismiss();
         });
 
 

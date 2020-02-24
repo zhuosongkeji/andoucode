@@ -1,12 +1,5 @@
 package com.zskjprojectj.andouclient.activity.mall;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatCheckBox;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,33 +7,25 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatCheckBox;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.blankj.utilcode.util.ActivityUtils;
-import com.bumptech.glide.Glide;
-import com.raizlabs.android.dbflow.sql.language.Condition;
-import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
-import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
-import com.tencent.mm.opensdk.modelmsg.WXTextObject;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.MyaddressActivity;
 import com.zskjprojectj.andouclient.activity.ShoporderActivity;
-import com.zskjprojectj.andouclient.activity.hotel.HotelOnlineReserveActivity;
 import com.zskjprojectj.andouclient.adapter.mall.MallBuyInfoAdapter;
 import com.zskjprojectj.andouclient.adapter.mall.PayWaysAdapter;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
-import com.zskjprojectj.andouclient.utils.PayCancle;
-import com.zskjprojectj.andouclient.utils.PaySuccessBackEvent;
-import com.zskjprojectj.andouclient.utils.PaySuccessEvent;
-import com.zskjprojectj.andouclient.utils.ToastUtil;
-import com.zskjprojectj.andouclient.utils.UrlUtil;
-import com.zskjprojectj.andouclient.base.BaseUrl;
 import com.zskjprojectj.andouclient.entity.WXPayBean;
 import com.zskjprojectj.andouclient.entity.mall.MallPayWaysBean;
 import com.zskjprojectj.andouclient.entity.mall.MallSettlementBean;
@@ -48,6 +33,10 @@ import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
+import com.zskjprojectj.andouclient.utils.PayCancle;
+import com.zskjprojectj.andouclient.utils.PaySuccessBackEvent;
+import com.zskjprojectj.andouclient.utils.PaySuccessEvent;
+import com.zskjprojectj.andouclient.utils.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;

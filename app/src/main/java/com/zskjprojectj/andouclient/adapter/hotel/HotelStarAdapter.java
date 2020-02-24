@@ -24,8 +24,8 @@ import java.util.List;
 public class HotelStarAdapter extends BaseQuickAdapter<HotelSearchConditionBean.StarBean, BaseViewHolder> {
     public static int SELECTOR_POSITION = -1;
 
-    public HotelStarAdapter(int layoutResId, @Nullable List<HotelSearchConditionBean.StarBean> data) {
-        super(layoutResId, data);
+    public HotelStarAdapter(int layoutResId) {
+        super(layoutResId);
     }
 
     @Override
@@ -38,14 +38,6 @@ public class HotelStarAdapter extends BaseQuickAdapter<HotelSearchConditionBean.
         } else {
             mPrice.setSelected(false);
         }
-
-        if (mPrice.isSelected()){
-            String hotelprice = mPrice.getText().toString();
-            if (onItemGetContent!=null){
-                onItemGetContent.content(hotelprice);
-            }
-        }
-
     }
 
 
@@ -54,17 +46,8 @@ public class HotelStarAdapter extends BaseQuickAdapter<HotelSearchConditionBean.
         notifyDataSetChanged();
     }
 
-    public void cancle(int position) {
+    public void cancel(int position) {
         SELECTOR_POSITION = position;
         notifyDataSetChanged();
-    }
-
-    public interface onItemGetContent{
-        void content(String content);
-    }
-    private onItemGetContent onItemGetContent;
-
-    public void setOnItemGetContent(HotelStarAdapter.onItemGetContent onItemGetContent) {
-        this.onItemGetContent = onItemGetContent;
     }
 }

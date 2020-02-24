@@ -26,7 +26,7 @@ import com.zskjprojectj.andouclient.activity.AppHomeActivity
 import com.zskjprojectj.andouclient.activity.BookingorderActivity
 import com.zskjprojectj.andouclient.activity.MallHomeActivity
 import com.zskjprojectj.andouclient.activity.QrCodeActivity
-import com.zskjprojectj.andouclient.activity.hotel.HotelActivity
+import com.zskjprojectj.andouclient.activity.hotel.HotelHomeActivity
 import com.zskjprojectj.andouclient.activity.hotel.HotelDetailActivity
 import com.zskjprojectj.andouclient.activity.mall.MallGoodsDetailsActivity
 import com.zskjprojectj.andouclient.activity.mall.MallShoppingHomeActivity
@@ -56,7 +56,11 @@ import kotlinx.android.synthetic.main.text_view.view.*
 import java.util.*
 
 class AppHomeFragment : BaseFragment() {
-
+    private var hotelStar: String? = null
+    private val keywords: String? = null
+    private var startPrice: String? = null
+    private var endPrice: String? = null
+    private val type: String? = null
     private var adapter: CoverFlowAdapter? = null
     private val merchantsAdapter = merchantsCategoryAdapter()
     private var recommendProductsAdapter = RecommendProductsAdapter(
@@ -99,7 +103,7 @@ class AppHomeFragment : BaseFragment() {
             (activity as AppHomeActivity).mNavigationBar.selectTab(1)
         }
         more_hotel_btn.setOnClickListener {
-            ActivityUtils.startActivity(HotelActivity::class.java)
+            ActivityUtils.startActivity(HotelHomeActivity::class.java)
         }
         moreGoodsBtn.setOnClickListener {
             ActivityUtils.startActivity(MallHomeActivity::class.java)
@@ -135,7 +139,7 @@ class AppHomeFragment : BaseFragment() {
             coverflow!!.smoothScrollToPosition(it)
             when (it % (adapter?.merchant_type?.size ?: 1)) {
                 0 -> startActivity(Intent(context, MallHomeActivity::class.java))
-                1 -> startActivity(Intent(context, HotelActivity::class.java))
+                1 -> startActivity(Intent(context, HotelHomeActivity::class.java))
                 5 -> ActivityUtils.startActivity(RestaurantHomeActivity::class.java)
             }
         }
@@ -208,7 +212,13 @@ class AppHomeFragment : BaseFragment() {
                     })
         }
         RequestUtil.request(mActivity, true, true,
-                { ApiUtils.getApiService().hotelHomeList() },
+                { ApiUtils.getApiService().hotelHomeList(
+                        keywords,
+                        startPrice,
+                        endPrice,
+                        hotelStar,
+                        ""
+                ) },
                 { result ->
                     hotelAdapter.setNewData(
                             result.data.subList(0, if (result.data.size >= 3) 3 else result.data.size))
