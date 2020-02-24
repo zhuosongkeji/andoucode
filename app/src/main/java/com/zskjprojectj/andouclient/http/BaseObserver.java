@@ -7,8 +7,6 @@ import com.google.gson.stream.MalformedJsonException;
 import com.zhuosongkj.android.library.model.BaseResult;
 import com.zskjprojectj.andouclient.activity.LoginActivity;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
-import com.zskjprojectj.andouclient.utils.ToastUtil;
-import com.zhuosongkj.android.library.model.BaseResult;
 
 import java.io.IOException;
 
@@ -58,11 +56,11 @@ public abstract class BaseObserver<T> extends BaseHandleObserver<BaseResult<T>> 
     public void onNext(BaseResult<T> t) {
         mData = t;
         try {
-            if (t.code.equals("200")||t.code.equals("203")) {
+            if (t.code.equals("200") || t.code.equals("203")) {
                 onHandleSuccess(t.data);
             } else if (t.code.equals("202")) {
-                LoginActivity.start(context);
-                LoginInfoUtil.saveLoginInfo("","");
+                LoginActivity.Companion.start(context, BaseObserver.REQUEST_CODE_LOGIN);
+                LoginInfoUtil.saveLoginInfo("", "");
             } else {
                 onError(new ApiException(t.code, t.msg));
             }

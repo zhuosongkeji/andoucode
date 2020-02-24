@@ -33,7 +33,7 @@
     </FrameLayout>
 
     <EditText
-        android:id="@+id/et_loginphonenum"
+        android:id="@+id/registered_phonenum"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp_10"
@@ -82,7 +82,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/btn_newregistered"
+            android:id="@+id/btnNewregistered"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_10"
@@ -135,7 +135,7 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/iv_fingerprint_login"
+            android:id="@+id/fingerprint_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"

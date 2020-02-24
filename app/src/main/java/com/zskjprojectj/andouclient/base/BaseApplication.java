@@ -3,7 +3,6 @@ package com.zskjprojectj.andouclient.base;
 import android.app.Application;
 import android.widget.ImageView;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.zhuosongkj.android.library.util.RequestUtil;
@@ -11,6 +10,7 @@ import com.zskjprojectj.andouclient.BuildConfig;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.LoginActivity;
 import com.zskjprojectj.andouclient.http.ApiService;
+import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 import com.zskjprojectj.andouclient.utils.SharedPreferencesManager;
 
@@ -31,8 +31,8 @@ public class BaseApplication extends Application {
         initHttp();
         Logger.addLogAdapter(new AndroidLogAdapter());
         RequestUtil.onLoginRequest = activity -> {
-            LoginActivity.start(activity);
-            LoginInfoUtil.saveLoginInfo("","");
+            LoginActivity.Companion.start(activity, BaseObserver.REQUEST_CODE_LOGIN);
+            LoginInfoUtil.saveLoginInfo("", "");
         };
     }
 
