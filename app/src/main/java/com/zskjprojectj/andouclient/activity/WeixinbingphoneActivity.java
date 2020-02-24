@@ -19,7 +19,7 @@ import com.zskjprojectj.andouclient.utils.ToastUtil;
 
 import java.io.IOException;
 
-import static com.zskjprojectj.andouclient.activity.LoginActivity.KEY_FOR_RESULT;
+import static com.zskjprojectj.andouclient.utils.ConstantKt.KEY_FOR_RESULT;
 
 public class WeixinbingphoneActivity extends BaseActivity {
     private CountDownTimerUtils countDownTimer;
