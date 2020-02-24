@@ -45,6 +45,7 @@
         android:drawablePadding="10dp"
         android:hint="@string/login_phonenum"
         android:padding="@dimen/dp_10"
+        android:inputType="phone"
         android:textColor="#969696"
         android:textColorHint="#969696"
         android:textSize="@dimen/typeface12sp" />
@@ -90,6 +91,7 @@
         android:drawableLeft="@mipmap/editverification_code"
         android:drawablePadding="10dp"
         android:hint="@string/login_pwd"
+        android:inputType="textPassword"
         android:padding="@dimen/dp_10"
         android:textColor="#969696"
         android:textColorHint="#969696"
