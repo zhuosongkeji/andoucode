@@ -57,8 +57,8 @@
         android:layout_marginRight="@dimen/dp_10"
         android:background="@drawable/shape_edit"
         android:drawableLeft="@mipmap/editverification_code"
-        android:hint="@string/login_pwd"
         android:drawablePadding="10dp"
+        android:hint="@string/login_pwd"
         android:padding="@dimen/dp_10"
         android:textColor="#919191"
         android:textColorHint="#919191"
@@ -159,5 +159,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="bottom"
-        android:background="@mipmap/icon_login_beijin" />
+        android:scaleType="centerCrop"
+        android:src="@mipmap/icon_login_beijin" />
 </LinearLayout>
