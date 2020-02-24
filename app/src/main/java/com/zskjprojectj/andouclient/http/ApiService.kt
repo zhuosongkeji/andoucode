@@ -949,7 +949,9 @@ interface ApiService {
     @POST("api/users/merchant_record")
     @FormUrlEncoded
     fun merchantrecord(@Field("uid") uid: String,
-                       @Field("token") token: String): Observable<BaseResult<List<BrowsingBean>>>
+                       @Field("token") token: String,
+                       @Field("page") page: Int)
+            : Observable<BaseResult<ListData<BrowsingBean>>>
 
     /**
      * 我的平台币
