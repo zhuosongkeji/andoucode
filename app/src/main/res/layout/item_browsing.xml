@@ -10,6 +10,7 @@
         android:layout_width="130dp"
         android:layout_height="107dp"
         android:layout_marginRight="@dimen/dp_10"
+        android:scaleType="centerCrop"
         android:src="@mipmap/ic_busiess_canting" />
 
     <TextView
@@ -21,32 +22,31 @@
         android:textColor="@color/colorBlack"
         android:textSize="@dimen/typeface14sp" />
 
-        <com.willy.ratingbar.ScaleRatingBar
-            android:id="@+id/simpleRatingBars"
-            android:layout_width="wrap_content"
-            android:layout_below="@+id/busiess_name1_textview"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/busiess_tupian1_image"
-            app:srb_clearRatingEnabled="true"
-            app:srb_drawableEmpty="@mipmap/ic_plant_gray"
-            app:srb_drawableFilled="@mipmap/ic_plant"
-            app:srb_isIndicator="true"
-            app:srb_numStars="5"
-            app:srb_starHeight="17dp"
-            app:srb_starWidth="19dp"
-            app:srb_stepSize="0.5" />
+    <com.willy.ratingbar.ScaleRatingBar
+        android:id="@+id/simpleRatingBars"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/busiess_name1_textview"
+        android:layout_toRightOf="@+id/busiess_tupian1_image"
+        app:srb_clearRatingEnabled="true"
+        app:srb_drawableEmpty="@mipmap/ic_plant_gray"
+        app:srb_drawableFilled="@mipmap/ic_plant"
+        app:srb_isIndicator="true"
+        app:srb_numStars="5"
+        app:srb_starHeight="17dp"
+        app:srb_starWidth="19dp"
+        app:srb_stepSize="0.5" />
 
     <ImageView
-        android:visibility="gone"
         android:id="@+id/busiess_dianzan1_image"
         android:layout_width="15dp"
         android:layout_height="15dp"
         android:layout_gravity="center"
         android:layout_toLeftOf="@+id/busiess_dianzancount1_textview"
-        android:src="@mipmap/ic_zan" />
+        android:src="@mipmap/ic_zan"
+        android:visibility="gone" />
 
     <TextView
-        android:visibility="gone"
         android:id="@+id/busiess_dianzancount1_textview"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
@@ -55,7 +55,8 @@
         android:layout_marginLeft="@dimen/dp_5"
         android:text="1366"
         android:textColor="@color/colorNavy"
-        android:textSize="@dimen/typeface14sp" />
+        android:textSize="@dimen/typeface14sp"
+        android:visibility="gone" />
 
     <LinearLayout
         android:id="@+id/hotel_address"

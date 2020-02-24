@@ -29,7 +29,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/tv_titile"
+                android:id="@+id/titleTxt"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:background="#DCDBDB"

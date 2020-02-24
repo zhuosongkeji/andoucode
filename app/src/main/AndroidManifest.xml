@@ -164,7 +164,7 @@
             android:name=".activity.MycollectionActivity"
             android:screenOrientation="portrait" /> <!-- 我的收藏 -->
         <activity
-            android:name=".activity.BrowsingActivity"
+            android:name=".activity.HistoryActivity"
             android:screenOrientation="portrait" /> <!-- 浏览痕迹 -->
         <activity
             android:name=".activity.MyaddressActivity"

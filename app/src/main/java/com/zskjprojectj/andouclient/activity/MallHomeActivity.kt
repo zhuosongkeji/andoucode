@@ -5,7 +5,7 @@ import android.os.Bundle
 import com.zhuosongkj.android.library.app.BaseActivity
 import com.zhuosongkj.android.library.util.ActionBarUtil
 import com.zskjprojectj.andouclient.R
-import com.zskjprojectj.andouclient.fragment.ClassificationofgoodsFragment
+import com.zskjprojectj.andouclient.fragment.MallCategoryFragment
 import com.zskjprojectj.andouclient.fragment.MallShoppingFragment
 import com.zskjprojectj.andouclient.fragment.mall.MallHomepageFragment1
 import kotlinx.android.synthetic.main.activity_mall_home.*
@@ -25,7 +25,7 @@ class MallHomeActivity : BaseActivity() {
                         R.mipmap.shopping_cart_check))
                 .fragmentList(arrayListOf(
                         MallHomepageFragment1(),
-                        ClassificationofgoodsFragment(),
+                        MallCategoryFragment(),
                         MallShoppingFragment()))
                 .normalTextColor(Color.parseColor("#646464"))
                 .selectTextColor(Color.parseColor("#5ED3AE"))
