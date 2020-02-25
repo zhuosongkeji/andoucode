@@ -66,7 +66,7 @@ public class MycollectionActivity extends BaseActivity {
                     @Override
                     public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                         //商品ID
-                        MallGoodsDetailsActivity.start( mycollectionBeans.get(position).getId());
+                        MallGoodsDetailsActivity.start( mycollectionBeans.get(position).getId(),"PUTONG");
                     }
                 });
             }

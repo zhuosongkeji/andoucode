@@ -78,9 +78,9 @@ public class MallMiaoShaFragment extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
         goodsAdapter.bindToRecyclerView(mRvGoodGoods);
         adapter.setOnItemChildClickListener(
-                (adapter1, view, position) -> MallGoodsDetailsActivity.start(adapter.getItem(position).id));
+                (adapter1, view, position) -> MallGoodsDetailsActivity.start(adapter.getItem(position).id,"MIAOSHA"));
         goodsAdapter.setOnItemClickListener(
-                (adapter1, view, position) -> MallGoodsDetailsActivity.start(goodsAdapter.getItem(position).id));
+                (adapter1, view, position) -> MallGoodsDetailsActivity.start(goodsAdapter.getItem(position).id,"MIAOSHA"));
         PageLoadUtil<MiaoShaGoods> pageLoadUtil = PageLoadUtil.get(mActivity, mRvMiaoShaGoods, adapter, refreshLayout);
         pageLoadUtil.load(() -> ApiUtils.getApiService().miaoShaList(miaoSha.getStartTimeParam(), pageLoadUtil.page)
                 , (refresh, data) -> {

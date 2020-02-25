@@ -43,7 +43,8 @@ class MallSearchGoodsActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        adapter.setOnItemClickListener { _, _, position -> MallGoodsDetailsActivity.start(adapter.getItem(position)?.id) }
+        adapter.setOnItemClickListener { _, _, position ->
+            MallGoodsDetailsActivity.start(adapter.getItem(position)?.id,"PUTONG") }
         pageLoadUtil = PageLoadUtil.get(mActivity, recyclerView, adapter, refreshLayout)
         mSearchEditText.requestFocus()
         KeyboardUtils.showSoftInput(mSearchEditText)

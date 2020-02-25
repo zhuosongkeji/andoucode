@@ -46,27 +46,7 @@ import com.zskjprojectj.andouclient.entity.mall.MallHomeDataBean
 import com.zskjprojectj.andouclient.entity.mall.MallPayWaysBean
 import com.zskjprojectj.andouclient.entity.mall.MallSettlementBean
 import com.zskjprojectj.andouclient.entity.mall.MallShoppingHomeBean
-import com.zskjprojectj.andouclient.model.ADProvince
-import com.zskjprojectj.andouclient.model.Address
-import com.zskjprojectj.andouclient.model.BalanceDetail
-import com.zskjprojectj.andouclient.model.CartItem
-import com.zskjprojectj.andouclient.model.Food
-import com.zskjprojectj.andouclient.model.FoodCategory
-import com.zskjprojectj.andouclient.model.PinTuan
-import com.zskjprojectj.andouclient.model.PinTuanGoods
-import com.zskjprojectj.andouclient.model.PinTuanDetails
-import com.zskjprojectj.andouclient.model.Restaurant
-import com.zskjprojectj.andouclient.model.RestaurantCategory
-import com.zskjprojectj.andouclient.model.IntegralDetail
-import com.zskjprojectj.andouclient.model.Merchant
-import com.zskjprojectj.andouclient.model.MerchantsResponse
-import com.zskjprojectj.andouclient.model.Order
-import com.zskjprojectj.andouclient.model.OrderDetail
-import com.zskjprojectj.andouclient.model.RestaurantOrder
-import com.zskjprojectj.andouclient.model.Review
-import com.zskjprojectj.andouclient.model.TodayTopResponse
-import com.zskjprojectj.andouclient.model.User
-import com.zskjprojectj.andouclient.model.MiaoShaListResponse
+import com.zskjprojectj.andouclient.model.*
 
 import io.reactivex.Observable
 import okhttp3.MultipartBody
@@ -1269,4 +1249,8 @@ interface ApiService {
     @GET("api/group/puzzle_detail/{id}")
     fun tuangouDetails(@Path("id") id: String): Observable<BaseResult<PinTuanDetails>>
 
+
+    @FormUrlEncoded
+    @POST("api/goods/sec_details")
+    fun miaoShaDetails(@Field("sec_id") sec_id: String): Observable<BaseResult<MiaoShaDetails>>
 }

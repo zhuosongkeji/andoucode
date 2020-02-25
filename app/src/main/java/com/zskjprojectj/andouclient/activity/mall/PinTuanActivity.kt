@@ -59,7 +59,7 @@ class PinTuanActivity : BaseActivity() {
         }
         tabLayout.setViewPager(viewPager, titles, mActivity, pinTuanFragments)
         pinTuanMustAdapter.setOnItemClickListener { _, _, position ->
-            MallGoodsDetailsActivity.start(pinTuanMustAdapter.getItem(position)?.id)
+            MallGoodsDetailsActivity.start(pinTuanMustAdapter.getItem(position)?.id,"PINTUAN")
         }
     }
 
@@ -88,14 +88,17 @@ class PinTuanActivity : BaseActivity() {
         (view.findViewById<View>(R.id.recommendTitleTxt) as TextView).text = goods.name
         (view.findViewById<View>(R.id.recommendPriceTxt) as TextView).text = FormatUtil.getMoneyString(goods.price)
         (view.findViewById<View>(R.id.recommendPeopleTxt) as TextView).text = goods.people.toString() + "人团"
+        view.setOnClickListener {
+            MallGoodsDetailsActivity.start(goods.goods_id,"PINTUAN")
+        }
     }
 
     override fun getContentView() = R.layout.activity_pin_tuan
 
-    @OnClick(R.id.recommendGoods1, R.id.recommendGoods2, R.id.recommendGoods3)
-    fun pinTuanClick(view: View) {
-        when (view.id) {
-            R.id.recommendGoods1, R.id.recommendGoods2, R.id.recommendGoods3 -> MallGoodsDetailsActivity.start("23")
-        }
-    }
+//    @OnClick(R.id.recommendGoods1, R.id.recommendGoods2, R.id.recommendGoods3)
+//    fun pinTuanClick(view: View) {
+//        when (view.id) {
+//            R.id.recommendGoods1, R.id.recommendGoods2, R.id.recommendGoods3 -> MallGoodsDetailsActivity.start("23","PINTUAN")
+//        }
+//    }
 }
