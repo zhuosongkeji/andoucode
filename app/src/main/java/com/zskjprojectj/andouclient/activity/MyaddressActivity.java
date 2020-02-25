@@ -71,7 +71,7 @@ public class MyaddressActivity extends BaseActivity {
                     }
                 });
             } else if (view.getId() == R.id.editBtn) {
-                Intent intent = new Intent(mAt, NewaddressActivity.class);
+                Intent intent = new Intent(mAt, NewAddressActivity.class);
                 intent.putExtra(KEY_DATA, this.adapter.getItem(position));
                 startActivityForResult(intent, 666);
             }
@@ -97,7 +97,7 @@ public class MyaddressActivity extends BaseActivity {
         mRecycler.setLayoutManager(new LinearLayoutManager(mAt));
         btn_addressadd = findViewById(R.id.btn_addressadd);
         btn_addressadd.setOnClickListener(view ->
-                startActivityForResult(new Intent(mAt, NewaddressActivity.class), 666));
+                startActivityForResult(new Intent(mAt, NewAddressActivity.class), 666));
     }
 
     @Override

@@ -1,0 +1,187 @@
+package com.zskjprojectj.andouclient.activity
+
+import android.app.Activity
+import android.content.Intent
+import android.os.Bundle
+import android.widget.CheckBox
+import chihane.jdaddressselector.AddressProvider
+import chihane.jdaddressselector.AddressProvider.AddressReceiver
+import chihane.jdaddressselector.model.City
+import chihane.jdaddressselector.model.County
+import chihane.jdaddressselector.model.Province
+import chihane.jdaddressselector.model.Street
+import com.zhuosongkj.android.library.app.BaseActivity
+import com.zhuosongkj.android.library.util.ActionBarUtil
+import com.zhuosongkj.android.library.util.RequestUtil
+import com.zskjprojectj.andouclient.R
+import com.zskjprojectj.andouclient.http.ApiUtils
+import com.zskjprojectj.andouclient.model.ADProvince
+import com.zskjprojectj.andouclient.model.Address
+import com.zskjprojectj.andouclient.model.AddressIn
+import com.zskjprojectj.andouclient.utils.LoginInfoUtil
+import com.zskjprojectj.andouclient.utils.ToastUtil
+import com.zskjprojectj.andouclient.view.AddressBottomDialog
+import kotlinx.android.synthetic.main.activity_new_address.*
+import java.util.*
+
+class NewAddressActivity : BaseActivity() {
+    val adProvincess: MutableList<ADProvince> = ArrayList()
+    var addresss: AddressIn? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val address = intent.getSerializableExtra(MyaddressActivity.KEY_DATA) as Address
+        val defaultCbx = findViewById<CheckBox>(R.id.defaultCkb)
+        if (address == null) { // topView.setTitle("新增地址");
+            ActionBarUtil.setTitle(mActivity, "新增地址")
+        } else { //topView.setTitle("修改地址");
+            ActionBarUtil.setTitle(mActivity, "修改地址")
+            nameEdt.setText(address.name)
+            mobileEdt.setText(address.mobile)
+            detailEdt.setText(address.address)
+            defaultCbx.isChecked = address.is_defualt == "1"
+        }
+        RequestUtil.request(mActivity, true, true,
+                { ApiUtils.getApiService().districts() },
+                { adProvincess.addAll(it.data) })
+        ry_selectaddress.setOnClickListener {
+            val dialog = AddressBottomDialog.show(mActivity)
+            dialog.setTitles("收货地址")
+            dialog.setAddressProvider(object : AddressProvider {
+                override fun provideProvinces(addressReceiver: AddressReceiver<Province>) {
+                    val provinces = ArrayList<Province>()
+                    for (adProvince in adProvincess) {
+                        val province = Province()
+                        province.id = adProvince.id
+                        province.name = adProvince.name
+                        provinces.add(province)
+                    }
+                    addressReceiver.send(provinces)
+                }
+
+                override fun provideCitiesWith(provinceId: Int, addressReceiver: AddressReceiver<City>) {
+                    val cities = ArrayList<City>()
+                    for (adProvince in adProvincess) {
+                        if (adProvince.id == provinceId) {
+                            for (adCity in adProvince.cities) {
+                                val city = City()
+                                city.id = adCity.id
+                                city.name = adCity.name
+                                city.province_id = adCity.pid
+                                cities.add(city)
+                            }
+                            break
+                        }
+                    }
+                    addressReceiver.send(cities)
+                }
+
+                override fun provideCountiesWith(cityId: Int, addressReceiver: AddressReceiver<County>) {
+                    val counties = ArrayList<County>()
+                    for (adProvince in adProvincess) {
+                        for (adCity in adProvince.cities) {
+                            if (adCity.id == cityId) {
+                                for (adArea in adCity.getAreas()) {
+                                    val county = County()
+                                    county.id = adArea.id
+                                    county.name = adArea.name
+                                    county.city_id = adArea.pid
+                                    counties.add(county)
+                                }
+                                break
+                            }
+                        }
+                    }
+                    addressReceiver.send(counties)
+                }
+
+                override fun provideStreetsWith(countyId: Int, addressReceiver: AddressReceiver<Street>) {
+                    addressReceiver.send(null)
+                }
+            })
+            dialog.setOnAddressSelectedListener { province: Province?, city: City?, county: County?, street: Street? ->
+                addresss = AddressIn(province, city, county)
+                addressTxt!!.text = addresss.toString()
+                dialog.dismiss()
+            }
+        }
+        saveBtn.setOnClickListener {
+            val nameStr = nameEdt.text.toString().trim { it <= ' ' }
+            val mobileStr = mobileEdt.text.toString().trim { it <= ' ' }
+            val detailStr = detailEdt.getText().toString().trim { it <= ' ' }
+            if (nameStr.isEmpty()) {
+                ToastUtil.showToast("收件人不能为空!")
+                return@setOnClickListener
+            }
+            if (mobileStr.isEmpty()) {
+                ToastUtil.showToast("手机号不能为空!")
+                return@setOnClickListener
+            }
+            if (detailStr.isEmpty()) {
+                ToastUtil.showToast("详细地址不能为空!")
+                return@setOnClickListener
+            }
+            if (address == null) {
+                RequestUtil.request(mActivity, true, false,
+                        {
+                            ApiUtils.getApiService().addAddress(
+                                    LoginInfoUtil.getUid(),
+                                    LoginInfoUtil.getToken()
+                                    , nameStr
+                                    , mobileStr
+                                    , "11"
+                                    , "1101"
+                                    , "110101"
+                                    , detailStr
+                                    , if (defaultCbx.isChecked) "1" else "0"
+                            )
+                        },
+                        {
+                            ToastUtil.showToast("保存成功!")
+                            setResult(Activity.RESULT_OK)
+                            finish()
+                        })
+            } else {
+                RequestUtil.request(mActivity, true, false,
+                        {
+                            ApiUtils.getApiService().editAddress(
+                                    address.id,
+                                    LoginInfoUtil.getUid(),
+                                    LoginInfoUtil.getToken()
+                                    , nameStr
+                                    , mobileStr
+                                    , "11"
+                                    , "1101"
+                                    , "110101"
+                                    , detailStr
+                                    , if (defaultCbx.isChecked) "1" else "0"
+                            )
+                        },
+                        {
+                            ToastUtil.showToast("保存成功!")
+                            setResult(Activity.RESULT_OK)
+                            finish()
+                        })
+            }
+        }
+        ry_locationaddress.setOnClickListener {
+            val intent = Intent(mActivity, SelectLocationActivity::class.java)
+            startActivityForResult(intent, REQUEST_CODE_SELECT_BD_LOCATION)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (data != null) {
+            if (requestCode == REQUEST_CODE_SELECT_BD_LOCATION || resultCode == Activity.RESULT_OK) {
+                detailEdt!!.setText(data.getStringExtra("title") + " " + data.getStringExtra("message"))
+            }
+        }
+    }
+
+    override fun getContentView() = R.layout.activity_new_address
+
+    companion object {
+        const val REQUEST_CODE_SELECT_BD_LOCATION = 101
+    }
+}

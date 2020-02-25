@@ -243,7 +243,7 @@
             android:screenOrientation="portrait" /> <!-- 全面屏 -->
         <!-- 地址选择 -->
         <activity
-            android:name=".activity.NewaddressActivity"
+            android:name=".activity.NewAddressActivity"
             android:screenOrientation="portrait" /> <!-- 新增地址 -->
         <activity
             android:name=".activity.ShareLocationActivity"
