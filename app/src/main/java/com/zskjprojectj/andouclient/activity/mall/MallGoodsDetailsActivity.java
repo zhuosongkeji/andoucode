@@ -1,15 +1,10 @@
 package com.zskjprojectj.andouclient.activity.mall;
 
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
-
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +17,13 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
+
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.TimeUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -30,18 +31,15 @@ import com.shizhefei.view.indicator.FixedIndicatorView;
 import com.shizhefei.view.indicator.IndicatorViewPager;
 import com.shizhefei.view.indicator.slidebar.ColorBar;
 import com.shizhefei.view.indicator.transition.OnTransitionTextListener;
-
-
 import com.stx.xhb.xbanner.XBanner;
+import com.zhuosongkj.android.library.app.BaseActivity;
+import com.zhuosongkj.android.library.util.ActionBarUtil;
+import com.zhuosongkj.android.library.util.FormatUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.MallHomeActivity;
 import com.zskjprojectj.andouclient.activity.MyaddressActivity;
 import com.zskjprojectj.andouclient.adapter.mall.MallBuyAdapter;
 import com.zskjprojectj.andouclient.adapter.mall.MallPinTuanAdapter;
-import com.zskjprojectj.andouclient.base.BaseActivity;
-import com.zskjprojectj.andouclient.base.BasePresenter;
-import com.zskjprojectj.andouclient.model.PinTuanDetails;
-import com.zskjprojectj.andouclient.utils.UrlUtil;
 import com.zskjprojectj.andouclient.entity.XBannerBean;
 import com.zskjprojectj.andouclient.entity.mall.MallBuyBean;
 import com.zskjprojectj.andouclient.entity.mall.MallBuyNowBean;
@@ -53,14 +51,22 @@ import com.zskjprojectj.andouclient.http.ApiException;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
+import com.zskjprojectj.andouclient.model.MiaoShaDetails;
+import com.zskjprojectj.andouclient.model.PinTuanDetails;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
+import com.zskjprojectj.andouclient.utils.UrlUtil;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
+import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -79,11 +85,6 @@ public class MallGoodsDetailsActivity extends BaseActivity {
 
     @BindView(R.id.bannertop)
     XBanner mBanner;
-
-    @BindView(R.id.mTitleView)
-    RelativeLayout mHeaderTitleView;
-    @BindView(R.id.mHeaderTitle)
-    TextView mHeaderTitle;
 
     //商品名称
     @BindView(R.id.tv_mall_goods_name)
@@ -142,6 +143,19 @@ public class MallGoodsDetailsActivity extends BaseActivity {
     @BindView(R.id.ll_pintuan)
     LinearLayout ll_pintuan;
 
+    @BindView(R.id.miaoshaprice)
+    TextView miaoshaprice;
+    @BindView(R.id.timerContainer)
+    LinearLayout timerContainer;
+    @BindView(R.id.hourTxt)
+    TextView hourTxt;
+    @BindView(R.id.minuteTxt)
+    TextView minuteTxt;
+    @BindView(R.id.secondTxt)
+    TextView secondTxt;
+    @BindView(R.id.price)
+    TextView price;
+
     private FixedIndicatorView mIndicator;
     private ViewPager mViewPager;
     private List<Fragment> list = new ArrayList<>();
@@ -169,14 +183,19 @@ public class MallGoodsDetailsActivity extends BaseActivity {
     private String orderImg;
     //订单标题
     private String orderName;
+    private Timer timer = new Timer();
+    private long offset;
 
     @Override
-    protected void setRootView() {
-        setContentView(R.layout.activity_mall_goods_details);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        initViews();
+        initData();
+        getDataFromServer();
     }
 
-    @Override
-    protected void initData(Bundle savedInstanceState) {
+
+    private void initData() {
 
 
         initLocalImage();
@@ -210,41 +229,6 @@ public class MallGoodsDetailsActivity extends BaseActivity {
         mIndicator.setOnTransitionListener(new OnTransitionTextListener().setColor(selectColor, unSelectColor).setSize(unSelectSize, unSelectSize));
     }
 
-    private void initPinTuan() {
-        pinTuanAdapter.bindToRecyclerView(tv_pintuan);
-
-        //团购
-        HttpRxObservable.getObservable(ApiUtils.getApiService().tuangouDetails(goodsId))
-                .subscribe(new BaseObserver<PinTuanDetails>(this) {
-
-                    @Override
-                    public void onHandleSuccess(PinTuanDetails pinTuanDetails) throws IOException {
-                        if ("0".equals(pinTuanDetails.getGroup_goods().getCode())) {
-                            ll_pintuan_person.setVisibility(View.VISIBLE);
-                            ll_pintuan_list.setVisibility(View.VISIBLE);
-
-                            mTvPrice.setText(pinTuanDetails.getGroup_goods().getPrice());
-
-                            tv_pintuan_number.setText(pinTuanDetails.getGroup_goods().getTop_member() + "人拼");
-                            mTvGoodsVolume.setText(pinTuanDetails.getGroup_goods().getSale_total());
-                            mTvGoodsStoreNum.setText(pinTuanDetails.getGroup_goods().getStorage());
-                            tv_total_member.setText("已有" + pinTuanDetails.getTotal_member() + "人参团");
-                            pinTuanAdapter.setNewData(pinTuanDetails.getTeam_list());
-                            pinTuanAdapter.setEndTime(pinTuanDetails.getGroup_goods().getFinish_time());
-                            ll_normal.setVisibility(View.GONE);
-                            ll_pintuan.setVisibility(View.VISIBLE);
-                        }
-                    }
-                });
-
-
-        pinTuanAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-            @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                MallOnlineOrderActivity.start(order_sn);
-            }
-        });
-    }
 
     /**
      * 加载本地图片
@@ -310,20 +294,93 @@ public class MallGoodsDetailsActivity extends BaseActivity {
         }
     };
 
-    @Override
-    protected void initViews() {
+
+    private void initViews() {
         //商品ID
         goodsId = getIntent().getStringExtra(GOODS_ID);
-
-
-        getBarDistance(mHeaderTitleView);
-        mHeaderTitle.setText("商品详情");
+        ActionBarUtil.setTitle(mActivity,"商品详情");
         mIndicator = findViewById(R.id.indicator);
         mViewPager = findViewById(R.id.viewPager);
+
+        if ("MIAOSHA".equals(getIntent().getStringExtra("MIAOSHA"))) {
+            miaoShaContainer.setVisibility(View.VISIBLE);
+            mMallGoodsName.setVisibility(View.GONE);
+            mGoodsPrice.setVisibility(View.GONE);
+            tv_mall_goods_name2.setVisibility(View.VISIBLE);
+            ll_pintuan_person.setVisibility(View.GONE);
+            ll_pintuan_list.setVisibility(View.GONE);
+            //秒杀
+            HttpRxObservable.getObservable(ApiUtils.getApiService().miaoShaDetails(goodsId))
+                    .subscribe(new BaseObserver<MiaoShaDetails>(mActivity) {
+                        @Override
+                        public void onHandleSuccess(MiaoShaDetails miaoShaDetails) throws IOException {
+                            miaoshaprice.setText(miaoShaDetails.kill_price);
+                            timer.schedule(new TimerTask() {
+                                @Override
+                                public void run() {
+                                    timerContainer.postDelayed(() -> countTime(miaoShaDetails.end_time), 1);
+                                }
+                            }, 0, 1000);
+                        }
+                    });
+
+        } else if ("PINTUAN".equals(getIntent().getStringExtra("PINTUAN"))) {
+            ll_pintuan_person.setVisibility(View.VISIBLE);
+            ll_pintuan_list.setVisibility(View.VISIBLE);
+            miaoShaContainer.setVisibility(View.GONE);
+            ll_normal.setVisibility(View.GONE);
+            ll_pintuan.setVisibility(View.VISIBLE);
+
+            pinTuanAdapter.bindToRecyclerView(tv_pintuan);
+            pinTuanAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+                @Override
+                public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                    MallOnlineOrderActivity.start(order_sn);
+                }
+            });
+
+            //团购
+            HttpRxObservable.getObservable(ApiUtils.getApiService().tuangouDetails(goodsId))
+                    .subscribe(new BaseObserver<PinTuanDetails>(this) {
+                        @Override
+                        public void onHandleSuccess(PinTuanDetails pinTuanDetails) throws IOException {
+                            if ("0".equals(pinTuanDetails.getGroup_goods().getCode())) {
+                                mTvPrice.setText(pinTuanDetails.getGroup_goods().getPrice());
+                                tv_pintuan_number.setText(pinTuanDetails.getGroup_goods().getTop_member() + "人拼");
+                                mTvGoodsVolume.setText(pinTuanDetails.getGroup_goods().getSale_total());
+                                mTvGoodsStoreNum.setText(pinTuanDetails.getGroup_goods().getStorage());
+                                tv_total_member.setText("已有" + pinTuanDetails.getTotal_member() + "人参团");
+                                pinTuanAdapter.setNewData(pinTuanDetails.getTeam_list());
+                                pinTuanAdapter.setEndTime(pinTuanDetails.getGroup_goods().getFinish_time());
+
+                            }
+                        }
+                    });
+        }
+
+
+
     }
 
-    @Override
-    public void getDataFromServer() {
+    private void countTime(String time) {
+        Date date = TimeUtils.string2Date(time, new SimpleDateFormat("HH:mm", Locale.getDefault()));
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, date.getHours());
+        calendar.set(Calendar.MINUTE, date.getMinutes());
+        calendar.set(Calendar.SECOND, 0);
+        long endTime = calendar.getTime().getTime();
+        long currentTime = System.currentTimeMillis();
+        offset = (endTime - currentTime) / 1000;
+        if (offset > 0) {
+            secondTxt.setText(String.valueOf(offset % 60));
+            minuteTxt.setText(String.valueOf(offset / 60 % 60));
+            hourTxt.setText(String.valueOf(offset / 60 / 60 % 24));
+            offset -= 1;
+        }
+    }
+
+
+    private void getDataFromServer() {
 
 
         //商品详情
@@ -347,17 +404,21 @@ public class MallGoodsDetailsActivity extends BaseActivity {
                                 urlBanner.add(new XBannerBean(s));
                             }
                         }
-                        /**
-                         * 随机设置是否秒杀
-                         */
-                        mallGoodsDetailsDataBean.isMiaoSha = new Random().nextBoolean();
-                        miaoShaContainer.setVisibility(mallGoodsDetailsDataBean.isMiaoSha ? View.VISIBLE : View.GONE);
-                        mGoodsPrice.setVisibility(mallGoodsDetailsDataBean.isMiaoSha ? View.GONE : View.VISIBLE);
-                        tv_mall_goods_name2.setVisibility(mallGoodsDetailsDataBean.isMiaoSha ? View.VISIBLE : View.GONE);
-                        mMallGoodsName.setVisibility(mallGoodsDetailsDataBean.isMiaoSha ? View.GONE : View.VISIBLE);
+//                        /**
+//                         * 随机设置是否秒杀
+//                         */
+//                        mallGoodsDetailsDataBean.isMiaoSha = new Random().nextBoolean();
+
+
                         mBanner.setBannerData(urlBanner);
                         mMallGoodsName.setText(mallGoodsDetailsDataBean.getName());
-                        mTvPrice.setText(mallGoodsDetailsDataBean.getPrice());
+                        if ("MIAOSHA".equals(getIntent().getStringExtra("MIAOSHA"))){
+                            price.setText( "￥" + mallGoodsDetailsDataBean.getPrice());
+                            price.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+                        }else {
+                            mTvPrice.setText(mallGoodsDetailsDataBean.getPrice());
+                        }
+
                         mTvGoodsDilivery.setText(mallGoodsDetailsDataBean.getDilivery());
                         mTvGoodsVolume.setText(mallGoodsDetailsDataBean.getVolume());
                         mTvGoodsStoreNum.setText(mallGoodsDetailsDataBean.getStore_num());//商品库存
@@ -383,9 +444,6 @@ public class MallGoodsDetailsActivity extends BaseActivity {
 
                         orderImg = mallGoodsDetailsDataBean.getImg();
                         orderName = mallGoodsDetailsDataBean.getName();
-                        //拼团
-                        initPinTuan();
-
                     }
 
                     @Override
@@ -395,11 +453,6 @@ public class MallGoodsDetailsActivity extends BaseActivity {
                 });
 
 
-    }
-
-    @Override
-    protected BasePresenter createPresenter() {
-        return null;
     }
 
 
@@ -420,7 +473,7 @@ public class MallGoodsDetailsActivity extends BaseActivity {
                     isCollection = false;
                 }
 
-                Log.d(TAG, "type: " + type);
+
                 HttpRxObservable.getObservable(ApiUtils.getApiService().mallGoodsCollection(
                         goodsId,
                         LoginInfoUtil.getUid(),
@@ -509,7 +562,7 @@ public class MallGoodsDetailsActivity extends BaseActivity {
 
     private void goToBuy() {
         HttpRxObservable.getObservable(ApiUtils.getApiService().buySpecification(goodsId))
-                .subscribe(new BaseObserver<MallBuyBean>(mAt) {
+                .subscribe(new BaseObserver<MallBuyBean>(mActivity) {
                     @Override
                     public void onHandleSuccess(MallBuyBean mallBuyBean) throws IOException {
 //                                mallBuyBean.res.get(9).name
@@ -658,7 +711,7 @@ public class MallGoodsDetailsActivity extends BaseActivity {
                     goodsId,
                     merchant_id,
                     goods_sku_id
-            )).subscribe(new BaseObserver<Object>(mAt) {
+            )).subscribe(new BaseObserver<Object>(mActivity) {
                 @Override
                 public void onHandleSuccess(Object o) throws IOException {
                     ToastUtil.showToast("加入购物车成功");
@@ -696,7 +749,7 @@ public class MallGoodsDetailsActivity extends BaseActivity {
                         merchant_id,
                         goods_sku_id,
                         num
-                )).subscribe(new BaseObserver<MallBuyNowBean>(mAt) {
+                )).subscribe(new BaseObserver<MallBuyNowBean>(mActivity) {
                     @Override
                     public void onHandleSuccess(MallBuyNowBean mallBuyNowBean) throws IOException {
                         order_sn = mallBuyNowBean.getOrder_sn();
@@ -710,7 +763,7 @@ public class MallGoodsDetailsActivity extends BaseActivity {
                         super.onError(e);
 
                         if ("请填写收货地址".equals(e.getMessage())) {
-                            startActivity(new Intent(mAt, MyaddressActivity.class));
+                            startActivity(new Intent(mActivity, MyaddressActivity.class));
                         }
                     }
                 });
@@ -764,15 +817,16 @@ public class MallGoodsDetailsActivity extends BaseActivity {
 
     }
 
-    @OnClick(R.id.mHeaderBack)
-    public void clickBack() {
-        finish();
-    }
 
-    public static void start(String id) {
+    public static void start(String id, String type) {
         Bundle intent = new Bundle();
         intent.putString(GOODS_ID, id);
         ActivityUtils.startActivity(intent, MallGoodsDetailsActivity.class);
 
+    }
+
+    @Override
+    protected int getContentView() {
+        return R.layout.activity_mall_goods_details;
     }
 }
