@@ -6,11 +6,11 @@ import com.zhuosongkj.android.library.adapter.BaseAdapter;
 import com.zskjprojectj.andouclient.R;
 
 
-public class MapResultAdapter extends BaseAdapter<PoiItem> {
+public class PoiItemListAdapter extends BaseAdapter<PoiItem> {
 
     private int selectPosition = -1;
 
-    public MapResultAdapter() {
+    public PoiItemListAdapter() {
         super(R.layout.mapresult_view);
     }
 

@@ -64,7 +64,7 @@ class HotelFilterActivity : BaseActivity() {
     @BindView(R.id.header_title)
     internal var mRootView: LinearLayout? = null
 
-    @BindView(R.id.edit_search)
+    @BindView(R.id.keywordEdt)
     internal var mSearch: EditText? = null
     private var mCatagory2: RecyclerView? = null
     private var mCatagory1: RecyclerView? = null

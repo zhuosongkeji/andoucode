@@ -30,9 +30,7 @@ android {
 
         buildConfigField "String", "API_HOST", "\"http://andou.zhuosongkj.com/index.php/\""
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        ndk {
-            abiFilters "armeabi", "armeabi-v7a", "arm64-v8a", "x86","x86_64"
-        }
+
     }
     buildTypes {
         release {

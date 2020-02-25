@@ -1,5 +1,6 @@
 package com.zskjprojectj.andouclient.activity
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
@@ -10,6 +11,7 @@ import chihane.jdaddressselector.model.City
 import chihane.jdaddressselector.model.County
 import chihane.jdaddressselector.model.Province
 import chihane.jdaddressselector.model.Street
+import com.amap.api.services.core.PoiItem
 import com.blankj.utilcode.util.ActivityUtils
 import com.zhuosongkj.android.library.app.BaseActivity
 import com.zhuosongkj.android.library.util.ActionBarUtil
@@ -162,10 +164,23 @@ class NewAddressActivity : BaseActivity() {
                 { adProvincess.addAll(it.data) })
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 666 || resultCode == Activity.RESULT_OK && data != null) {
-            detailEdt.setText(data!!.getStringExtra("title") + " " + data.getStringExtra("message"))
+        if (requestCode == 666 && resultCode == Activity.RESULT_OK && data != null) {
+            val poiItem = data.getParcelableExtra<PoiItem>(KEY_DATA)
+            detailEdt.setText(poiItem.snippet + poiItem.title)
+            val province = Province()
+            province.id = poiItem.provinceCode.toInt()
+            province.name = poiItem.provinceName
+            val city = City()
+            city.id = poiItem.cityCode.toInt()
+            city.name = poiItem.cityName
+            val county = County()
+            county.id = poiItem.adCode.toInt()
+            county.name = poiItem.adName
+            selectedAddress = AddressIn(province, city, county)
+            addressTxt.text = selectedAddress.toString()
         }
     }
 
