@@ -23,7 +23,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
-        versionName "0.5.2"
+        versionName "0.5.3"
         javaCompileOptions { annotationProcessorOptions { includeCompileClasspath = true } }
         //  buildConfigField "String", "API_HOST", "\"http://lv.qingheliying.cn\""//API Host
         // buildConfigField "String", "API_HOST", "\"http://apis.juhe.cn/cook/\""
@@ -39,26 +39,6 @@ android {
         }
         debug {
             signingConfig signingConfigs.release
-        }
-    }
-    allprojects {
-        repositories {
-            flatDir {
-                dirs 'libs'
-            }
-            google()
-            jcenter()
-            maven { url 'https://dl.bintray.com/lingguoding/maven/' }
-            maven { url "https://jitpack.io" }
-            maven { url "https://maven.google.com" }
-        }
-    }
-    android {
-
-        //指定jdk版本
-        compileOptions {
-            sourceCompatibility JavaVersion.VERSION_1_8
-            targetCompatibility JavaVersion.VERSION_1_8
         }
     }
 }
@@ -179,7 +159,4 @@ dependencies {
     implementation project(path: ':recycler_banner_library')
     implementation "androidx.core:core-ktx:+"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-}
-repositories {
-    mavenCentral()
 }
