@@ -1,22 +1,18 @@
 package com.zskjprojectj.andouclient.activity.hotel
 
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.Button
-import android.widget.EditText
-import android.widget.LinearLayout
-import android.widget.PopupWindow
-import android.widget.TextView
-
+import android.widget.*
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import butterknife.BindView
+import butterknife.OnClick
 import com.blankj.utilcode.util.ActivityUtils
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
@@ -35,12 +31,8 @@ import com.zskjprojectj.andouclient.http.BaseObserver
 import com.zskjprojectj.andouclient.http.HttpRxObservable
 import com.zskjprojectj.andouclient.utils.BarUtils
 import com.zskjprojectj.andouclient.utils.GridSectionAverageGapItemDecoration
-
 import java.io.IOException
-import java.util.ArrayList
-
-import butterknife.BindView
-import butterknife.OnClick
+import java.util.*
 
 
 class HotelFilterActivity : BaseActivity() {
@@ -422,7 +414,7 @@ class HotelFilterActivity : BaseActivity() {
     companion object {
 
 
-        fun start(hotelId: String) {
+        fun start(hotelId: String?) {
 
             val bundle = Bundle()
             bundle.putString("hotelId", hotelId)
