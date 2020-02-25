@@ -3,17 +3,19 @@ package com.zskjprojectj.andouclient.activity
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.widget.CheckBox
+import androidx.core.os.bundleOf
 import chihane.jdaddressselector.AddressProvider
 import chihane.jdaddressselector.AddressProvider.AddressReceiver
 import chihane.jdaddressselector.model.City
 import chihane.jdaddressselector.model.County
 import chihane.jdaddressselector.model.Province
 import chihane.jdaddressselector.model.Street
+import com.blankj.utilcode.util.ActivityUtils
 import com.zhuosongkj.android.library.app.BaseActivity
 import com.zhuosongkj.android.library.util.ActionBarUtil
 import com.zhuosongkj.android.library.util.RequestUtil
 import com.zskjprojectj.andouclient.R
+import com.zskjprojectj.andouclient.activity.MyaddressActivity.KEY_DATA
 import com.zskjprojectj.andouclient.http.ApiUtils
 import com.zskjprojectj.andouclient.model.ADProvince
 import com.zskjprojectj.andouclient.model.Address
@@ -26,24 +28,19 @@ import java.util.*
 
 class NewAddressActivity : BaseActivity() {
     val adProvincess: MutableList<ADProvince> = ArrayList()
-    var addresss: AddressIn? = null
-
+    var selectedAddress: AddressIn? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val address = intent.getSerializableExtra(MyaddressActivity.KEY_DATA) as Address
-        val defaultCbx = findViewById<CheckBox>(R.id.defaultCkb)
-        if (address == null) { // topView.setTitle("新增地址");
+        val editAddress = intent.getSerializableExtra(KEY_DATA) as? Address
+        if (editAddress == null) {
             ActionBarUtil.setTitle(mActivity, "新增地址")
-        } else { //topView.setTitle("修改地址");
+        } else {
             ActionBarUtil.setTitle(mActivity, "修改地址")
-            nameEdt.setText(address.name)
-            mobileEdt.setText(address.mobile)
-            detailEdt.setText(address.address)
-            defaultCbx.isChecked = address.is_defualt == "1"
+            nameEdt.setText(editAddress.name)
+            mobileEdt.setText(editAddress.mobile)
+            detailEdt.setText(editAddress.address)
+            defaultCbx.isChecked = editAddress.is_defualt == "1"
         }
-        RequestUtil.request(mActivity, true, true,
-                { ApiUtils.getApiService().districts() },
-                { adProvincess.addAll(it.data) })
         ry_selectaddress.setOnClickListener {
             val dialog = AddressBottomDialog.show(mActivity)
             dialog.setTitles("收货地址")
@@ -100,28 +97,24 @@ class NewAddressActivity : BaseActivity() {
                 }
             })
             dialog.setOnAddressSelectedListener { province: Province?, city: City?, county: County?, street: Street? ->
-                addresss = AddressIn(province, city, county)
-                addressTxt!!.text = addresss.toString()
+                selectedAddress = AddressIn(province, city, county)
+                addressTxt.text = selectedAddress.toString()
                 dialog.dismiss()
             }
         }
+        ry_locationaddress.setOnClickListener {
+            ActivityUtils.startActivityForResult(mActivity, SelectLocationActivity::class.java, 666)
+        }
         saveBtn.setOnClickListener {
-            val nameStr = nameEdt.text.toString().trim { it <= ' ' }
-            val mobileStr = mobileEdt.text.toString().trim { it <= ' ' }
-            val detailStr = detailEdt.getText().toString().trim { it <= ' ' }
-            if (nameStr.isEmpty()) {
-                ToastUtil.showToast("收件人不能为空!")
-                return@setOnClickListener
+            val nameStr = nameEdt.text.toString()
+            val mobileStr = mobileEdt.text.toString()
+            val detailStr = detailEdt.text.toString()
+            when {
+                nameStr.isEmpty() -> ToastUtil.showToast("收件人不能为空!")
+                mobileStr.isEmpty() -> ToastUtil.showToast("手机号不能为空!")
+                detailStr.isEmpty() -> ToastUtil.showToast("详细地址不能为空!")
             }
-            if (mobileStr.isEmpty()) {
-                ToastUtil.showToast("手机号不能为空!")
-                return@setOnClickListener
-            }
-            if (detailStr.isEmpty()) {
-                ToastUtil.showToast("详细地址不能为空!")
-                return@setOnClickListener
-            }
-            if (address == null) {
+            if (editAddress == null) {
                 RequestUtil.request(mActivity, true, false,
                         {
                             ApiUtils.getApiService().addAddress(
@@ -129,9 +122,9 @@ class NewAddressActivity : BaseActivity() {
                                     LoginInfoUtil.getToken()
                                     , nameStr
                                     , mobileStr
-                                    , "11"
-                                    , "1101"
-                                    , "110101"
+                                    , selectedAddress?.province?.id.toString()
+                                    , selectedAddress?.city?.id.toString()
+                                    , selectedAddress?.county?.id.toString()
                                     , detailStr
                                     , if (defaultCbx.isChecked) "1" else "0"
                             )
@@ -145,14 +138,14 @@ class NewAddressActivity : BaseActivity() {
                 RequestUtil.request(mActivity, true, false,
                         {
                             ApiUtils.getApiService().editAddress(
-                                    address.id,
+                                    editAddress.id,
                                     LoginInfoUtil.getUid(),
                                     LoginInfoUtil.getToken()
                                     , nameStr
                                     , mobileStr
-                                    , "11"
-                                    , "1101"
-                                    , "110101"
+                                    , selectedAddress?.province?.id.toString()
+                                    , selectedAddress?.city?.id.toString()
+                                    , selectedAddress?.county?.id.toString()
                                     , detailStr
                                     , if (defaultCbx.isChecked) "1" else "0"
                             )
@@ -164,24 +157,27 @@ class NewAddressActivity : BaseActivity() {
                         })
             }
         }
-        ry_locationaddress.setOnClickListener {
-            val intent = Intent(mActivity, SelectLocationActivity::class.java)
-            startActivityForResult(intent, REQUEST_CODE_SELECT_BD_LOCATION)
-        }
+        RequestUtil.request(mActivity, true, true,
+                { ApiUtils.getApiService().districts() },
+                { adProvincess.addAll(it.data) })
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (data != null) {
-            if (requestCode == REQUEST_CODE_SELECT_BD_LOCATION || resultCode == Activity.RESULT_OK) {
-                detailEdt!!.setText(data.getStringExtra("title") + " " + data.getStringExtra("message"))
-            }
+        if (requestCode == 666 || resultCode == Activity.RESULT_OK && data != null) {
+            detailEdt.setText(data!!.getStringExtra("title") + " " + data.getStringExtra("message"))
         }
     }
 
     override fun getContentView() = R.layout.activity_new_address
 
     companion object {
-        const val REQUEST_CODE_SELECT_BD_LOCATION = 101
+        fun start(activity: Activity, address: Address?, requestCode: Int) {
+            ActivityUtils.startActivityForResult(
+                    bundleOf(Pair(KEY_DATA, address)),
+                    activity,
+                    NewAddressActivity::class.java,
+                    requestCode)
+        }
     }
 }

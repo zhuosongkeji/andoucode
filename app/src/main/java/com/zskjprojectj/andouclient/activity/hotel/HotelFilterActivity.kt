@@ -422,7 +422,7 @@ class HotelFilterActivity : BaseActivity() {
     companion object {
 
 
-        fun start(hotelId: String) {
+        fun start(hotelId: String?) {
 
             val bundle = Bundle()
             bundle.putString("hotelId", hotelId)

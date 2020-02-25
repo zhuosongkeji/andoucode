@@ -30,6 +30,9 @@ android {
 
         buildConfigField "String", "API_HOST", "\"http://andou.zhuosongkj.com/index.php/\""
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        ndk {
+            abiFilters "armeabi", "armeabi-v7a", "arm64-v8a", "x86","x86_64"
+        }
     }
     buildTypes {
         release {
@@ -133,7 +136,7 @@ dependencies {
     //搜索功能
     implementation 'com.amap.api:search:latest.integration'
 
-    implementation 'com.amap.api:map2d:latest.integration'
+    implementation 'com.amap.api:3dmap:latest.integration'
 
     //旋转木马相册
     implementation 'com.chenlittleping:recyclercoverflow:1.0.6'

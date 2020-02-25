@@ -24,15 +24,15 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
-import com.amap.api.maps2d.AMap;
-import com.amap.api.maps2d.CameraUpdateFactory;
-import com.amap.api.maps2d.MapView;
-import com.amap.api.maps2d.UiSettings;
-import com.amap.api.maps2d.model.BitmapDescriptorFactory;
-import com.amap.api.maps2d.model.CameraPosition;
-import com.amap.api.maps2d.model.LatLng;
-import com.amap.api.maps2d.model.Marker;
-import com.amap.api.maps2d.model.MarkerOptions;
+import com.amap.api.maps.AMap;
+import com.amap.api.maps.CameraUpdateFactory;
+import com.amap.api.maps.MapView;
+import com.amap.api.maps.UiSettings;
+import com.amap.api.maps.model.BitmapDescriptorFactory;
+import com.amap.api.maps.model.CameraPosition;
+import com.amap.api.maps.model.LatLng;
+import com.amap.api.maps.model.Marker;
+import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.core.PoiItem;
 import com.amap.api.services.geocoder.GeocodeResult;
@@ -65,7 +65,7 @@ import io.reactivex.annotations.NonNull;
  * @author yizhubao
  */
 public class ShareLocationActivity extends Activity {
-    private MapView        mMapView;
+    private MapView mMapView;
     private ImageView      mIvBack;
     private ImageView      mIvSearch;
     private ImageView      mIvLocation;
@@ -76,9 +76,9 @@ public class ShareLocationActivity extends Activity {
     private List<PoiItem>  mList;
     private PoiItem        userSelectPoiItem;
 
-    private AMap   mAMap;
+    private AMap mAMap;
     private Marker mMarker, mLocationGpsMarker, mSelectByListMarker;
-    private UiSettings      mUiSettings;
+    private UiSettings mUiSettings;
     private PoiSearch       mPoiSearch;
     private PoiSearch.Query mQuery;
     private boolean         isSearchData = false;//是否搜索地址数据
@@ -355,7 +355,7 @@ public class ShareLocationActivity extends Activity {
 //        mTransAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
     }
     private void initView() {
-        mMapView = (MapView) findViewById(R.id.map);
+        mMapView = (MapView) findViewById(R.id.mapView);
         mIvBack = (ImageView) findViewById(R.id.iv_back);
         mIvSearch = (ImageView) findViewById(R.id.iv_search);
         mIvLocation = (ImageView) findViewById(R.id.iv_location);
@@ -486,7 +486,7 @@ public class ShareLocationActivity extends Activity {
                     .draggable(true));
         }
         mMarker.setPosition(new LatLng(latitude, longitude));
-        mAMap.invalidate();
+        //mAMap.invalidate();
 
     }
 
@@ -505,7 +505,7 @@ public class ShareLocationActivity extends Activity {
                     .draggable(true));
         }
         mLocationGpsMarker.setPosition(new LatLng(latitude, longitude));
-        mAMap.invalidate();
+        //mAMap.invalidate();
 
     }
 
@@ -527,7 +527,7 @@ public class ShareLocationActivity extends Activity {
         if (!mSelectByListMarker.isVisible()) {
             mSelectByListMarker.setVisible(true);
         }
-        mAMap.invalidate();
+        //mAMap.invalidate();
 
     }
 

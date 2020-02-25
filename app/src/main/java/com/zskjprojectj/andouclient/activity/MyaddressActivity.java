@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.blankj.utilcode.util.ActivityUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.adapter.MyaddressAdapter;
@@ -57,7 +58,7 @@ public class MyaddressActivity extends BaseActivity {
         getBarDistance(mTitleView);
         mHeaderTitle.setText("我的地址");
         adapter.openLoadAnimation();
-        adapter.setOnItemChildClickListener((adapter, view, position) -> {
+        adapter.setOnItemChildClickListener((adapter1, view, position) -> {
             if (view.getId() == R.id.deleteBtn) {
                 HttpRxObservable.getObservable(ApiUtils.getApiService().delAddress(
                         LoginInfoUtil.getUid(),
@@ -71,9 +72,7 @@ public class MyaddressActivity extends BaseActivity {
                     }
                 });
             } else if (view.getId() == R.id.editBtn) {
-                Intent intent = new Intent(mAt, NewAddressActivity.class);
-                intent.putExtra(KEY_DATA, this.adapter.getItem(position));
-                startActivityForResult(intent, 666);
+                NewAddressActivity.Companion.start(mAt, adapter.getItem(position), 666);
             }
         });
         mRecycler.addItemDecoration(new DividerItemDecoration(mAt, DividerItemDecoration.VERTICAL));
@@ -81,11 +80,11 @@ public class MyaddressActivity extends BaseActivity {
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter1, View view, int position) {
-                Intent intent=new Intent();
-                intent.putExtra("name",adapter.getItem(position).name);
-                intent.putExtra("address",adapter.getItem(position).address);
-                intent.putExtra("tel",adapter.getItem(position).mobile);
-                setResult(RESULT_OK,intent);
+                Intent intent = new Intent();
+                intent.putExtra("name", adapter.getItem(position).name);
+                intent.putExtra("address", adapter.getItem(position).address);
+                intent.putExtra("tel", adapter.getItem(position).mobile);
+                setResult(RESULT_OK, intent);
                 finish();
             }
         });
@@ -97,7 +96,7 @@ public class MyaddressActivity extends BaseActivity {
         mRecycler.setLayoutManager(new LinearLayoutManager(mAt));
         btn_addressadd = findViewById(R.id.btn_addressadd);
         btn_addressadd.setOnClickListener(view ->
-                startActivityForResult(new Intent(mAt, NewAddressActivity.class), 666));
+                ActivityUtils.startActivityForResult(mAt, NewAddressActivity.class, 666));
     }
 
     @Override
