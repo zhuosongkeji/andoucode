@@ -122,7 +122,7 @@ public class MallHomepageFragment1 extends BaseFragment {
         specialProductsAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                MallGoodsDetailsActivity.start(bargain_goods.get(position).getId(),"PUTONG");
+                MallGoodsDetailsActivity.start(bargain_goods.get(position).getId());
             }
         });
 
@@ -138,7 +138,7 @@ public class MallHomepageFragment1 extends BaseFragment {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
 
-                MallGoodsDetailsActivity.start(recommend_goods.get(position).getId(),"PUTONG");
+                MallGoodsDetailsActivity.start(recommend_goods.get(position).getId());
             }
         });
 

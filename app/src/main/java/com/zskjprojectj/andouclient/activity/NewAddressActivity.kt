@@ -41,7 +41,7 @@ class NewAddressActivity : BaseActivity() {
             nameEdt.setText(editAddress.name)
             mobileEdt.setText(editAddress.mobile)
             detailEdt.setText(editAddress.address)
-            defaultCbx.isChecked = editAddress.is_defualt == "1"
+            defaultCbx.isChecked = editAddress.is_default == "1"
         }
         ry_selectaddress.setOnClickListener {
             val dialog = AddressBottomDialog.show(mActivity)

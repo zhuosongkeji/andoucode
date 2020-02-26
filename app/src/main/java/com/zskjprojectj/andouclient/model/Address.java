@@ -6,7 +6,7 @@ public class Address implements Serializable {
     public String id;
     public String name;
     public String mobile;
-    public String is_defualt;
+    public String is_default;
     public String address;
     public String province;
     public String city;

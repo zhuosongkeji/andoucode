@@ -21,11 +21,11 @@ import com.zskjprojectj.andouclient.utils.KEY_IS_SPECIAL
 import kotlinx.android.synthetic.main.activity_mall_goods_list.ll_price_comprehensive
 import kotlinx.android.synthetic.main.activity_mall_goods_list.ll_selector_price
 import kotlinx.android.synthetic.main.activity_mall_goods_list.ll_selector_sales
+import kotlinx.android.synthetic.main.activity_mall_goods_list.mCapacitySort
 import kotlinx.android.synthetic.main.activity_mall_goods_list.mIvCapacitySort
 import kotlinx.android.synthetic.main.activity_mall_goods_list.mIvScreen
 import kotlinx.android.synthetic.main.activity_mall_goods_list.mIvSelectorImg
 import kotlinx.android.synthetic.main.activity_mall_goods_list.mSearchEditText
-import kotlinx.android.synthetic.main.activity_mall_goods_list.mCapacitySort
 import kotlinx.android.synthetic.main.activity_mall_goods_list.mTvScreen
 import kotlinx.android.synthetic.main.activity_mall_goods_list.mTvSelectorStar
 import kotlinx.android.synthetic.main.activity_mall_goods_list.recyclerView
@@ -44,7 +44,7 @@ class MallSearchGoodsActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         adapter.setOnItemClickListener { _, _, position ->
-            MallGoodsDetailsActivity.start(adapter.getItem(position)?.id,"PUTONG") }
+            MallGoodsDetailsActivity.start(adapter.getItem(position)?.id) }
         pageLoadUtil = PageLoadUtil.get(mActivity, recyclerView, adapter, refreshLayout)
         mSearchEditText.requestFocus()
         KeyboardUtils.showSoftInput(mSearchEditText)

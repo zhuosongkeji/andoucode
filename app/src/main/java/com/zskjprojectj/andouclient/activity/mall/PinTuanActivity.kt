@@ -5,7 +5,6 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import butterknife.OnClick
 import com.blankj.utilcode.util.BarUtils
 import com.bumptech.glide.Glide
 import com.google.android.material.appbar.AppBarLayout
@@ -59,7 +58,8 @@ class PinTuanActivity : BaseActivity() {
         }
         tabLayout.setViewPager(viewPager, titles, mActivity, pinTuanFragments)
         pinTuanMustAdapter.setOnItemClickListener { _, _, position ->
-            MallGoodsDetailsActivity.start(pinTuanMustAdapter.getItem(position)?.id,"PINTUAN")
+            val pinTuanGoods = pinTuanMustAdapter.getItem(position)
+            MallGoodsDetailsActivity.start(pinTuanGoods?.goods_id, "PINTUAN", pinTuanGoods?.id)
         }
     }
 
@@ -89,16 +89,9 @@ class PinTuanActivity : BaseActivity() {
         (view.findViewById<View>(R.id.recommendPriceTxt) as TextView).text = FormatUtil.getMoneyString(goods.price)
         (view.findViewById<View>(R.id.recommendPeopleTxt) as TextView).text = goods.people.toString() + "人团"
         view.setOnClickListener {
-            MallGoodsDetailsActivity.start(goods.goods_id,"PINTUAN")
+            MallGoodsDetailsActivity.start(goods.goods_id, "PINTUAN", goods.id)
         }
     }
 
     override fun getContentView() = R.layout.activity_pin_tuan
-
-//    @OnClick(R.id.recommendGoods1, R.id.recommendGoods2, R.id.recommendGoods3)
-//    fun pinTuanClick(view: View) {
-//        when (view.id) {
-//            R.id.recommendGoods1, R.id.recommendGoods2, R.id.recommendGoods3 -> MallGoodsDetailsActivity.start("23","PINTUAN")
-//        }
-//    }
 }

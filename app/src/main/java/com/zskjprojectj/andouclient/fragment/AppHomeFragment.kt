@@ -99,7 +99,7 @@ class AppHomeFragment : BaseFragment() {
         hotelAdapter.setOnItemClickListener { _, _, position -> HotelDetailActivity.start(hotelAdapter.getItem(position)!!.id) }
         recommendProductsAdapter.bindToRecyclerView(view.findViewById(R.id.goodsRecyclerView))
         recommendProductsAdapter.setOnItemClickListener { _, _, position ->
-            MallGoodsDetailsActivity.start(recommendProductsAdapter.getItem(position)!!.id,"PUTONG") }
+            MallGoodsDetailsActivity.start(recommendProductsAdapter.getItem(position)!!.id) }
         ll_see_more.setOnClickListener {
             (activity as AppHomeActivity).mNavigationBar.selectTab(1)
         }

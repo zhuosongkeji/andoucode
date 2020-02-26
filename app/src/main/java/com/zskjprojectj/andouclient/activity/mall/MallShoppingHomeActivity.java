@@ -184,7 +184,7 @@ public class MallShoppingHomeActivity extends BaseActivity {
         ));
         adapter.openLoadAnimation();
         adapter.setOnItemClickListener((adapter1, view, position) ->
-                MallGoodsDetailsActivity.start(adapter.getItem(position).getId(),"PUTONG"));
+                MallGoodsDetailsActivity.start(adapter.getItem(position).getId()));
 
     }
 

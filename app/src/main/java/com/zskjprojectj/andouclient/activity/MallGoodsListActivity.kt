@@ -34,7 +34,8 @@ class MallGoodsListActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         mSearchEditText.setOnClickListener { MallSearchGoodsActivity.start() }
         adapter.setOnItemClickListener { _, _, position ->
-            MallGoodsDetailsActivity.start(adapter.getItem(position)?.id,"PUTONG") }
+            MallGoodsDetailsActivity.start(adapter.getItem(position)?.id)
+        }
         pageLoadUtil = PageLoadUtil.get(mActivity, recyclerView, adapter, refreshLayout)
         pageLoadUtil?.load {
             ApiUtils.getApiService().mallGoodsList(

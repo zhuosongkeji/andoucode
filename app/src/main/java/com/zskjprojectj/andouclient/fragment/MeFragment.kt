@@ -27,9 +27,6 @@ class MeFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        if (isLogin()) {
-            loginBtn.visibility = View.GONE
-        }
         loginBtn.setOnClickListener {
             LoginActivity.start(mFragment, 666)
         }
@@ -67,6 +64,8 @@ class MeFragment : BaseFragment() {
     private fun loadData() {
         if (!isLogin()) {
             return
+        } else {
+            loginBtn.visibility = View.GONE
         }
         RequestUtil.request(mActivity, true, true,
                 { ApiUtils.getApiService().getpersonal(LoginInfoUtil.getUid(), LoginInfoUtil.getToken()) },

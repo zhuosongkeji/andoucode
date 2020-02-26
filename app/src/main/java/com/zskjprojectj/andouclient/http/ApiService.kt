@@ -2,62 +2,15 @@ package com.zskjprojectj.andouclient.http
 
 import com.google.gson.JsonElement
 import com.zhuosongkj.android.library.model.BaseResult
-import com.zhuosongkj.android.library.model.IListData
 import com.zhuosongkj.android.library.model.ListData
-import com.zskjprojectj.andouclient.entity.AboutusBean
-import com.zskjprojectj.andouclient.entity.BrowsingBean
-import com.zskjprojectj.andouclient.entity.CheckLogisticsBean
-import com.zskjprojectj.andouclient.entity.EnvelopesBean
-import com.zskjprojectj.andouclient.entity.IndexHomeBean
-import com.zskjprojectj.andouclient.entity.InformationBean
-import com.zskjprojectj.andouclient.entity.InvitationBean
-import com.zskjprojectj.andouclient.entity.MerchantHomeTypeBean
-import com.zskjprojectj.andouclient.entity.MyFocusonBean
-import com.zskjprojectj.andouclient.entity.MycollectionBean
-import com.zskjprojectj.andouclient.entity.MymessageBean
-import com.zskjprojectj.andouclient.entity.NewuserBean
-import com.zskjprojectj.andouclient.entity.RefundReasonBean
-import com.zskjprojectj.andouclient.entity.PersonalBean
-import com.zskjprojectj.andouclient.entity.SetBean
-import com.zskjprojectj.andouclient.entity.TestBean
-import com.zskjprojectj.andouclient.entity.ViproteBean
-import com.zskjprojectj.andouclient.entity.WXPayBean
-import com.zskjprojectj.andouclient.entity.WalletrecharBean
-import com.zskjprojectj.andouclient.entity.hotel.HotelCategoryBean
-import com.zskjprojectj.andouclient.entity.hotel.HotelDetailCommentBean
-import com.zskjprojectj.andouclient.entity.hotel.HotelDetailReserveBean
-import com.zskjprojectj.andouclient.entity.hotel.HotelDetailsBean
-import com.zskjprojectj.andouclient.entity.hotel.HotelHomeBean
-import com.zskjprojectj.andouclient.entity.hotel.HotelHomeDetailsBean
-import com.zskjprojectj.andouclient.entity.hotel.HotelSearchConditionBean
-import com.zskjprojectj.andouclient.entity.hotel.HotelSettlementBean
-import com.zskjprojectj.andouclient.entity.hotel.HotelrefundreasonBean
-import com.zskjprojectj.andouclient.entity.hotel.MeHotelBean
-import com.zskjprojectj.andouclient.entity.hotel.MeHotelDetailsBean
-import com.zskjprojectj.andouclient.entity.mall.MallBuyBean
-import com.zskjprojectj.andouclient.entity.mall.MallBuyNowBean
-import com.zskjprojectj.andouclient.entity.mall.MallCarBean
-import com.zskjprojectj.andouclient.entity.mall.MallCommentBean
-import com.zskjprojectj.andouclient.entity.mall.MallDetailsBean
-import com.zskjprojectj.andouclient.entity.mall.MallGoodsCateBean
-import com.zskjprojectj.andouclient.entity.mall.MallGoodsDetailsDataBean
-import com.zskjprojectj.andouclient.entity.mall.MallGoodsListBean
-import com.zskjprojectj.andouclient.entity.mall.MallHomeDataBean
-import com.zskjprojectj.andouclient.entity.mall.MallPayWaysBean
-import com.zskjprojectj.andouclient.entity.mall.MallSettlementBean
-import com.zskjprojectj.andouclient.entity.mall.MallShoppingHomeBean
+import com.zskjprojectj.andouclient.entity.*
+import com.zskjprojectj.andouclient.entity.hotel.*
+import com.zskjprojectj.andouclient.entity.mall.*
 import com.zskjprojectj.andouclient.model.*
-
 import io.reactivex.Observable
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.GET
-import retrofit2.http.Multipart
-import retrofit2.http.POST
-import retrofit2.http.Part
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface ApiService {
 
@@ -418,9 +371,9 @@ interface ApiService {
                    @Field("mobile") mobile: String,
                    @Field("province_id") province_id: String,
                    @Field("city_id") city_id: String,
-                   @Field("area_id") area_id: String,
+                   @Field("district_id") district_id: String,
                    @Field("address") address: String,
-                   @Field("is_defualt") is_defualt: String): Observable<BaseResult<Any>>
+                   @Field("is_default") is_default: String): Observable<BaseResult<Any>>
 
     /**
      * 修改收货地址
@@ -434,16 +387,16 @@ interface ApiService {
                     @Field("tel") mobile: String,
                     @Field("province_id") province_id: String,
                     @Field("city_id") city_id: String,
-                    @Field("area_id") area_id: String,
+                    @Field("district_id") district_id: String,
                     @Field("address") address: String,
-                    @Field("is_defualt") is_defualt: String): Observable<BaseResult<Any>>
+                    @Field("is_default") is_default: String): Observable<BaseResult<Any>>
 
     /**
      * 设置默认收货地址
      */
-    @POST("api/Usersaddress/defualt")
+    @POST("api/Usersaddress/default")
     @FormUrlEncoded
-    fun defualtAddress(@Field("id") id: String,
+    fun defaultAddress(@Field("id") id: String,
                        @Field("uid") uid: String,
                        @Field("token") token: String): Observable<BaseResult<Any>>
 
@@ -1253,4 +1206,14 @@ interface ApiService {
     @FormUrlEncoded
     @POST("api/goods/sec_details")
     fun miaoShaDetails(@Field("sec_id") sec_id: String): Observable<BaseResult<MiaoShaDetails>>
+
+    @FormUrlEncoded
+    @POST("api/group/group_order")
+    fun getGroupOrder(@Field("uid") uid: String,
+                      @Field("token") token: String,
+                      @Field("num") num: Int,
+                      @Field("puzzle_id") puzzle_id: String,
+                      @Field("open_join") open_join: Int,
+                      @Field("group_id") group_id: String?
+    ): Observable<BaseResult<GetGroupOrderResponse>>
 }

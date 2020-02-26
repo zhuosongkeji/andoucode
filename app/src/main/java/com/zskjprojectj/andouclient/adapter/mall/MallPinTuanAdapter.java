@@ -1,6 +1,5 @@
 package com.zskjprojectj.andouclient.adapter.mall;
 
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -33,7 +32,7 @@ public class MallPinTuanAdapter extends BaseAdapter<PinTuanDetails.TeamListBean>
     }
 
     public void setEndTime(String endtime) {
-        endTime = endtime;
+        this.endTime = endtime;
     }
 
 
@@ -57,18 +56,16 @@ public class MallPinTuanAdapter extends BaseAdapter<PinTuanDetails.TeamListBean>
 
 
     private void countTime() {
-        Date date = TimeUtils.string2Date(endTime, new SimpleDateFormat("HH:mm", Locale.getDefault()));
+        Date date = TimeUtils.string2Date(endTime, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()));
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, date.getHours());
-        calendar.set(Calendar.MINUTE, date.getMinutes());
-        calendar.set(Calendar.SECOND, 0);
+        calendar.setTime(date);
         long endTime = calendar.getTime().getTime();
         long currentTime = System.currentTimeMillis();
         offset = (endTime - currentTime) / 1000;
         if (offset > 0) {
             secondTxt.setText(String.valueOf(offset % 60));
             minuteTxt.setText(String.valueOf(offset / 60 % 60));
-            hourTxt.setText(String.valueOf(offset / 60 / 60 % 24));
+            hourTxt.setText(String.valueOf(offset / 60 / 60));
             offset -= 1;
         }
     }
