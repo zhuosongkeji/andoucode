@@ -35,7 +35,7 @@ class SettingActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         ActionBarUtil.setTitle(mActivity, "设置")
         checkUpdateBtn.setOnClickListener {
-            Beta.checkAppUpgrade(true, true)
+            Beta.checkUpgrade(true, false)
         }
         img_setpic.setOnClickListener(View.OnClickListener { startSelectPic(555) })
         btn_exit.setOnClickListener(View.OnClickListener {
