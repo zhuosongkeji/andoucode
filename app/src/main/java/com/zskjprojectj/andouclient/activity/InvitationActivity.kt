@@ -1,8 +1,10 @@
 package com.zskjprojectj.andouclient.activity
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
+import com.blankj.utilcode.util.BarUtils
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.zhuosongkj.android.library.app.BaseActivity
@@ -16,6 +18,8 @@ import kotlinx.android.synthetic.main.activity_invitation.*
 class InvitationActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        BarUtils.setStatusBarColor(mActivity, Color.parseColor("#FC692B"))
+        BarUtils.setStatusBarLightMode(mActivity, false)
         RequestUtil.request(mActivity, true, true,
                 { ApiUtils.getApiService().invitationsvip(LoginInfoUtil.getUid(), LoginInfoUtil.getToken()) },
                 {
