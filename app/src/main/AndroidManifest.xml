@@ -145,7 +145,7 @@
             android:name=".activity.InvitationActivity"
             android:screenOrientation="portrait" /> <!-- 商城订单 -->
         <activity
-            android:name=".activity.ShoporderActivity"
+            android:name=".activity.MallOrderListActivity"
             android:screenOrientation="portrait" /> <!-- 酒店订单 -->
         <activity
             android:name=".activity.HotelorderActivity"
@@ -261,7 +261,7 @@
             android:name=".activity.ShareLocationActivity"
             android:screenOrientation="portrait" /> <!-- 添加新地址 -->
         <activity
-            android:name=".activity.MesettingActivity"
+            android:name=".activity.SettingActivity"
             android:screenOrientation="portrait" /> <!-- 个人中心设置界面 -->
         <activity
             android:name=".activity.ModifyaboutusActivity"

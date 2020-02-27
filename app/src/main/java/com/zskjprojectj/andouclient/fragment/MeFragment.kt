@@ -7,6 +7,7 @@ import android.view.Gravity
 import android.view.View
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.BarUtils
+import com.blankj.utilcode.util.ToastUtils
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.request.RequestOptions
@@ -32,6 +33,9 @@ class MeFragment : BaseFragment() {
         loginBtn.setOnClickListener {
             LoginActivity.start(mFragment, 666)
         }
+        iv_message.setOnClickListener {
+            ToastUtils.showShort("功能还在开发中...")
+        }
         mTitleView.setPadding(0, BarUtils.getStatusBarHeight(), 0, 0)
         img_touxiang.setOnClickListener { startActivity(Intent(context, OpeningmemberActivity::class.java)) }
         mycenter_vegetablemarket_layout.setOnClickListener { startActivity(Intent(context, VegetableMarketActivity::class.java)) }
@@ -40,7 +44,7 @@ class MeFragment : BaseFragment() {
         mycenter_myrelease_layout.setOnClickListener { ToastUtil.showToast("功能暂未开通敬请期待....") }
         mycenter_hotelorder_layout.setOnClickListener { startActivity(Intent(context, HotelorderActivity::class.java)) }
         mycenter_shoporder_layout.setOnClickListener {
-            startActivity(Intent(context, ShoporderActivity::class.java))
+            startActivity(Intent(context, MallOrderListActivity::class.java))
         }
         mycenter_restaurant_layout.setOnClickListener { ActivityUtils.startActivity(RestaurantOrderListActivity::class.java) }
         mycenter_invitation_with_courtesy_layout.setOnClickListener { startActivity(Intent(context, InvitationActivity::class.java)) }
@@ -55,12 +59,11 @@ class MeFragment : BaseFragment() {
         mycenter_browsing_layout.setOnClickListener { startActivity(Intent(context, HistoryActivity::class.java)) }
         mycenter_myaddress_layout.setOnClickListener { startActivity(Intent(context, MyaddressActivity::class.java)) }
         mycenter_myscore_layout.setOnClickListener { startActivity(Intent(context, MyscoreActivity::class.java)) }
-        mycenter_mymessage_layout.setOnClickListener { startActivity(Intent(context, MymessageActivity::class.java)) }
         mycenter_business_residence_layout.setOnClickListener { startActivity(Intent(context, BusinessresidenceActivity::class.java)) }
         mycenter_downloadapp_layout.setOnClickListener { startActivity(Intent(context, DownloadappActivity::class.java)) }
         mycenter_operationvideo_layout.setOnClickListener { startActivity(Intent(context, OperationvideoActivity::class.java)) }
         mycenter_myfocuson_layout.setOnClickListener { startActivity(Intent(context, MyFocusonActivity::class.java)) }
-        img_meset.setOnClickListener { startActivity(Intent(context, MesettingActivity::class.java)) }
+        img_meset.setOnClickListener { startActivity(Intent(context, SettingActivity::class.java)) }
         dataLoader = {
             if (isLogin()) {
                 loginBtn.visibility = View.GONE

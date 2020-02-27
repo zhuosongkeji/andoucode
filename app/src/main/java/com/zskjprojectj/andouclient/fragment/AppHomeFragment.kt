@@ -173,6 +173,9 @@ class AppHomeFragment : BaseFragment() {
                     .apply(RequestOptions().placeholder(R.mipmap.ic_placeholder))
                     .into(view as ImageView)
         }
+        bannertop.setOnItemClickListener { banner, model, view, position ->
+            ToastUtils.showShort("功能正在开发中...")
+        }
         bannertop.setAutoPlayAble(true)
         bannertop.setIsClipChildrenMode(true)
     }

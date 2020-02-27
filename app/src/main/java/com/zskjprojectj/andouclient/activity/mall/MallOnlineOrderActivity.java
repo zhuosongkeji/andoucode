@@ -21,7 +21,7 @@ import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.MyaddressActivity;
-import com.zskjprojectj.andouclient.activity.ShoporderActivity;
+import com.zskjprojectj.andouclient.activity.MallOrderListActivity;
 import com.zskjprojectj.andouclient.adapter.mall.MallBuyInfoAdapter;
 import com.zskjprojectj.andouclient.adapter.mall.PayWaysAdapter;
 import com.zskjprojectj.andouclient.base.BaseActivity;
@@ -273,7 +273,7 @@ public class MallOnlineOrderActivity extends BaseActivity {
     //5.接收消息
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void intentEventBus(PaySuccessEvent paySuccessEvent) {
-        Intent intent = new Intent(MallOnlineOrderActivity.this, ShoporderActivity.class);
+        Intent intent = new Intent(MallOnlineOrderActivity.this, MallOrderListActivity.class);
         intent.putExtra("flag", "MallPaySuccess");
         startActivity(intent);
         finish();
