@@ -106,7 +106,7 @@ class AppHomeFragment : BaseFragment() {
         hotelRecyclerView.addItemDecoration(DividerItemDecoration(mActivity, DividerItemDecoration.VERTICAL))
         hotelAdapter.bindToRecyclerView(hotelRecyclerView)
         hotelAdapter.setOnItemClickListener { _, _, position -> HotelDetailActivity.start(hotelAdapter.getItem(position)!!.id) }
-        recommendProductsAdapter.bindToRecyclerView(view.findViewById(R.id.goodsRecyclerView))
+        recommendProductsAdapter.bindToRecyclerView(goodsRecyclerView)
         recommendProductsAdapter.setOnItemClickListener { _, _, position ->
             MallGoodsDetailsActivity.start(recommendProductsAdapter.getItem(position)!!.id)
         }

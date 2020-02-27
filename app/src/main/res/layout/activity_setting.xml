@@ -248,6 +248,7 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/checkUpdateBtn"
             android:layout_width="match_parent"
             android:layout_height="69dp"
             android:background="@color/white"

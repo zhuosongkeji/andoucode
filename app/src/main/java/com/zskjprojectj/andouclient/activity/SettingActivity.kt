@@ -13,6 +13,7 @@ import com.blankj.utilcode.util.AppUtils
 import com.bumptech.glide.Glide
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureMimeType
+import com.tencent.bugly.beta.Beta
 import com.zhuosongkj.android.library.app.BaseActivity
 import com.zhuosongkj.android.library.util.ActionBarUtil
 import com.zhuosongkj.android.library.util.RequestUtil
@@ -33,6 +34,9 @@ class SettingActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ActionBarUtil.setTitle(mActivity, "设置")
+        checkUpdateBtn.setOnClickListener {
+            Beta.checkAppUpgrade(true, true)
+        }
         img_setpic.setOnClickListener(View.OnClickListener { startSelectPic(555) })
         btn_exit.setOnClickListener(View.OnClickListener {
             RequestUtil.request(mActivity, true, false,
