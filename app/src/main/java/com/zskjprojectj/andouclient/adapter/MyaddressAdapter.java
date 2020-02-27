@@ -23,9 +23,9 @@ public class MyaddressAdapter extends BaseQuickAdapter<Address, BaseViewHolder> 
         helper.setText(R.id.nameTxt, item.name)
                 .setText(R.id.mobileTxt, item.mobile)
                 .setText(R.id.addressTxt, item.province + item.city + item.area + item.address)
-//                .setVisible(R.id.defaultCkb, !item.is_default.equals("1"))
+//                .setVisible(R.id.defaultCkb, !item.is_defualt.equals("1"))
                 .setOnCheckedChangeListener(R.id.defaultCbx, null)
-                .setChecked(R.id.defaultCbx, item.is_default.equals("1"))
+                .setChecked(R.id.defaultCbx, item.is_defualt.equals("1"))
                 .setOnCheckedChangeListener(R.id.defaultCbx, (buttonView, isChecked) ->
                         HttpRxObservable.getObservable(ApiUtils.getApiService().defaultAddress(
                                 item.id,
@@ -35,9 +35,9 @@ public class MyaddressAdapter extends BaseQuickAdapter<Address, BaseViewHolder> 
                                     @Override
                                     public void onHandleSuccess(Object o) throws IOException {
                                         for (Address address : getData()) {
-                                            address.is_default = "0";
+                                            address.is_defualt = "0";
                                         }
-                                        item.is_default = "1";
+                                        item.is_defualt = "1";
                                         notifyDataSetChanged();
                                     }
                                 }))

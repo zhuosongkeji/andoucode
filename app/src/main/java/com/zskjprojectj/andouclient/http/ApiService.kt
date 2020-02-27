@@ -373,7 +373,7 @@ interface ApiService {
                    @Field("city_id") city_id: String,
                    @Field("district_id") district_id: String,
                    @Field("address") address: String,
-                   @Field("is_default") is_default: String): Observable<BaseResult<Any>>
+                   @Field("is_defualt") is_defualt: String): Observable<BaseResult<Any>>
 
     /**
      * 修改收货地址
@@ -389,7 +389,7 @@ interface ApiService {
                     @Field("city_id") city_id: String,
                     @Field("district_id") district_id: String,
                     @Field("address") address: String,
-                    @Field("is_default") is_default: String): Observable<BaseResult<Any>>
+                    @Field("is_defualt") is_defualt: String): Observable<BaseResult<Any>>
 
     /**
      * 设置默认收货地址

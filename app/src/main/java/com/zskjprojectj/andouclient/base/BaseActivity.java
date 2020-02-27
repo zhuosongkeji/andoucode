@@ -2,14 +2,14 @@ package com.zskjprojectj.andouclient.base;
 
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
-
+import com.bugtags.library.Bugtags;
 import com.gyf.immersionbar.ImmersionBar;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.zskjprojectj.andouclient.R;
@@ -18,7 +18,6 @@ import com.zskjprojectj.andouclient.utils.BarUtils;
 import com.zskjprojectj.andouclient.view.TopView;
 
 import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import es.dmoral.toasty.Toasty;
 import io.reactivex.annotations.Nullable;
 
@@ -63,6 +62,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatA
 
     //设置布局数据
     protected abstract void setRootView();
+
     //findView
     protected abstract void initViews();
 
@@ -133,6 +133,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatA
         super.onResume();
         if (mListener != null)
             mListener.onResume();
+        Bugtags.onResume(this);
     }
 
     @Override
@@ -140,6 +141,13 @@ public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatA
         super.onPause();
         if (mListener != null)
             mListener.onPause();
+        Bugtags.onResume(this);
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        Bugtags.onDispatchTouchEvent(this, event);
+        return super.dispatchTouchEvent(event);
     }
 
     @Override
@@ -156,13 +164,12 @@ public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatA
 
     }
 
-    protected void getBarDistance(View view){
+    protected void getBarDistance(View view) {
         //设置状态栏的高度
         LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) view.getLayoutParams();
         layoutParams.topMargin = BarUtils.getStatusBarHeight(this) + layoutParams.topMargin;
         view.setLayoutParams(layoutParams);
     }
-
 
 
 }
