@@ -63,7 +63,7 @@ class MeFragment : BaseFragment() {
         mycenter_downloadapp_layout.setOnClickListener { startActivity(Intent(context, DownloadappActivity::class.java)) }
         mycenter_operationvideo_layout.setOnClickListener { startActivity(Intent(context, OperationvideoActivity::class.java)) }
         mycenter_myfocuson_layout.setOnClickListener { startActivity(Intent(context, MyFocusonActivity::class.java)) }
-        img_meset.setOnClickListener { startActivity(Intent(context, MesettingActivity::class.java)) }
+        img_meset.setOnClickListener { startActivity(Intent(context, SettingActivity::class.java)) }
         dataLoader = {
             if (isLogin()) {
                 loginBtn.visibility = View.GONE
