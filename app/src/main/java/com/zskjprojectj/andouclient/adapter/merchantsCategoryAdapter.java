@@ -29,7 +29,7 @@ public class merchantsCategoryAdapter extends BaseQuickAdapter<IndexHomeBean.Mer
 
     @Override
     protected void convert(BaseViewHolder helper, IndexHomeBean.MerchantsBean item) {
-        String url = UrlUtil.getImageUrl("/"+item.getLogo_img());
+        String url = UrlUtil.INSTANCE.getImageUrl("/"+item.getLogo_img());
         Log.d(TAG, "url===: "+url);
         Glide.with(mContext).load(url).apply(new RequestOptions()
         .placeholder(R.drawable.default_image).error(R.drawable.default_image)).into((ImageView) helper.getView(R.id.check_in_busiess1_image));

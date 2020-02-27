@@ -54,7 +54,7 @@ public class RestaurantOrderListAdapter extends BaseAdapter<RestaurantOrder> {
                 .addOnClickListener(R.id.cancelBtn)
                 .addOnClickListener(R.id.detailBtn);
         Glide.with(helper.itemView.getContext())
-                .load(UrlUtil.getImageUrl(item.logo_img))
+                .load(UrlUtil.INSTANCE.getImageUrl(item.logo_img))
                 .apply(new RequestOptions().placeholder(R.mipmap.ic_placeholder))
                 .into((ImageView) helper.itemView.findViewById(R.id.logoImg));
     }

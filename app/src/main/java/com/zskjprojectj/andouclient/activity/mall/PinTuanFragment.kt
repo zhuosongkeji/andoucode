@@ -17,7 +17,7 @@ class PinTuanFragment(private val pinTuanType: PinTuanType) : BaseFragment() {
         adapter.onItemChildClickListener =
                 BaseQuickAdapter.OnItemChildClickListener { _, _, position: Int ->
                     val pinTuanGoods = adapter.getItem(position)
-                    MallGoodsDetailsActivity.start(pinTuanGoods?.goods_id, "PINTUAN", pinTuanGoods?.id)
+                    MallGoodsDetailsActivity.start(pinTuanGoods?.goods_id, MallGoodsDetailsActivity.TYPE_PIN_TUAN, pinTuanGoods?.id)
                 }
         val pagetUtil = PageLoadUtil.get(mActivity, recyclerView, adapter, refreshLayout)
         pagetUtil.load {

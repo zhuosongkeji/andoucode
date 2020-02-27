@@ -144,7 +144,7 @@ public class RestaurantBillActivity extends BaseActivity {
         }
         ViewUtil.setText(mActivity, R.id.nameTxt, bill.getMerchantName());
         Glide.with(mActivity)
-                .load(UrlUtil.getImageUrl(bill.getMerchantLogo()))
+                .load(UrlUtil.INSTANCE.getImageUrl(bill.getMerchantLogo()))
                 .apply(new RequestOptions().placeholder(R.mipmap.ic_placeholder))
                 .into((ImageView) findViewById(R.id.logoImg));
         adapter.setNewData(getNextSevenDate());
@@ -230,7 +230,7 @@ public class RestaurantBillActivity extends BaseActivity {
         ViewUtil.setText(foodView, R.id.countTxt, String.valueOf(cartFood.num));
         ViewUtil.setText(foodView, R.id.amountTxt, FormatUtil.getMoneyString(cartFood.getAmount()));
         Glide.with(activity)
-                .load(UrlUtil.getImageUrl(cartFood.image))
+                .load(UrlUtil.INSTANCE.getImageUrl(cartFood.image))
                 .apply(new RequestOptions().placeholder(R.mipmap.ic_placeholder))
                 .into((ImageView) foodView.findViewById(R.id.img));
         foodContainer.addView(foodView);

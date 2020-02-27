@@ -30,6 +30,6 @@ public class FacilityAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, String item) {
-        Glide.with(mContext).load(UrlUtil.getImageUrl(item)).into((ImageView) helper.getView(R.id.imgbgall));
+        Glide.with(mContext).load(UrlUtil.INSTANCE.getImageUrl(item)).into((ImageView) helper.getView(R.id.imgbgall));
     }
 }

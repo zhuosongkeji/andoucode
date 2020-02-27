@@ -68,7 +68,7 @@ public class HomeItemAdapter extends BaseAdapter {
         }
         viewHold.tv_name.setText(towcateBean.name);
 
-        Glide.with(context).load(UrlUtil.getImageUrl(towcateBean.img)).into(viewHold.iv_icon);
+        Glide.with(context).load(UrlUtil.INSTANCE.getImageUrl(towcateBean.img)).into(viewHold.iv_icon);
 
         return convertView;
 

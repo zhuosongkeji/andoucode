@@ -35,7 +35,7 @@ public class HotelResultAdapter  extends BaseQuickAdapter<HotelHomeBean,BaseView
     protected void convert(BaseViewHolder helper, HotelHomeBean item) {
 
 
-        Glide.with(mContext).load(UrlUtil.getImageUrl(item.getLogo_img())).apply(new RequestOptions()
+        Glide.with(mContext).load(UrlUtil.INSTANCE.getImageUrl(item.getLogo_img())).apply(new RequestOptions()
                 .placeholder(R.drawable.default_image).error(R.drawable.default_image)).into((ImageView) helper.getView(R.id.busiess_tupian1_image));
 
         helper.setText(R.id.busiess_name1_textview,item.getName());

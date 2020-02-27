@@ -82,7 +82,7 @@ public class RestaurantOrderDetailActivity extends BaseActivity {
                     RestaurantReviewActivity.start(mActivity, data, 666));
         }
         Glide.with(mActivity)
-                .load(UrlUtil.getImageUrl(data.logo_img))
+                .load(UrlUtil.INSTANCE.getImageUrl(data.logo_img))
                 .apply(new RequestOptions().placeholder(R.mipmap.ic_placeholder))
                 .into((ImageView) findViewById(R.id.logoImg));
         Glide.with(mActivity)

@@ -23,7 +23,7 @@ public class ReviewAdapter extends BaseAdapter<Review> {
                 .setText(R.id.contentTxt, item.content);
         ((ScaleRatingBar) helper.itemView.findViewById(R.id.ratingBar)).setRating(item.stars);
         Glide.with(helper.itemView.getContext())
-                .load(UrlUtil.getImageUrl(item.avator))
+                .load(UrlUtil.INSTANCE.getImageUrl(item.avator))
                 .apply(new RequestOptions().placeholder(R.mipmap.ic_placeholder))
                 .into((ImageView) helper.itemView.findViewById(R.id.avatarImg));
     }

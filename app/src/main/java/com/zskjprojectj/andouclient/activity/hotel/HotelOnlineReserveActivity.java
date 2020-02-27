@@ -116,7 +116,7 @@ public class HotelOnlineReserveActivity extends BaseActivity {
         home_id = hotelSettlementBean.getRoom().getId();
 
 
-        Glide.with(mAt).load(UrlUtil.getImageUrl(hotelSettlementBean.getRoom().getImg()))
+        Glide.with(mAt).load(UrlUtil.INSTANCE.getImageUrl(hotelSettlementBean.getRoom().getImg()))
                 .apply(new RequestOptions().placeholder(R.drawable.default_image).error(R.drawable.default_image)).into((ImageView) findViewById(R.id.hotel_image));
 
         ((TextView) findViewById(R.id.hotel_name)).setText(hotelSettlementBean.getRoom().getName());

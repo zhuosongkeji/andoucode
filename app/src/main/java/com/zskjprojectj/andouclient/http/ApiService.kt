@@ -185,7 +185,7 @@ interface ApiService {
      */
     @POST("api/goods/goods")
     @FormUrlEncoded
-    fun mallDetailsShow(@Field("id") id: String, @Field("uid") uid: String): Observable<BaseResult<MallGoodsDetailsDataBean>>
+    fun mallDetailsShow(@Field("id") id: String?, @Field("uid") uid: String): Observable<BaseResult<MallGoodsDetailsDataBean>>
 
     /**
      * 获取商城商品分类
@@ -216,7 +216,7 @@ interface ApiService {
      */
     @POST("api/goods/collection")
     @FormUrlEncoded
-    fun mallGoodsCollection(@Field("id") id: String, @Field("uid") uid: String, @Field("token") token: String, @Field("type") type: String): Observable<BaseResult<Any>>
+    fun mallGoodsCollection(@Field("id") id: String?, @Field("uid") uid: String, @Field("token") token: String, @Field("type") type: String): Observable<BaseResult<Any>>
 
     /**
      * 店铺收藏/取消收藏
@@ -250,7 +250,7 @@ interface ApiService {
      */
     @POST("api/goods/specslist")
     @FormUrlEncoded
-    fun buySpecification(@Field("id") id: String): Observable<BaseResult<MallBuyBean>>
+    fun buySpecification(@Field("id") id: String?): Observable<BaseResult<MallBuyBean>>
 
 
     /**
@@ -283,9 +283,9 @@ interface ApiService {
     @FormUrlEncoded
     fun MallBuyNow(@Field("uid") uid: String,
                    @Field("token") token: String,
-                   @Field("goods_id") goods_id: String,
-                   @Field("merchant_id") merchant_id: String,
-                   @Field("goods_sku_id") goods_sku_id: String,
+                   @Field("goods_id") goods_id: String?,
+                   @Field("merchant_id") merchant_id: String?,
+                   @Field("goods_sku_id") goods_sku_id: String?,
                    @Field("num") num: String): Observable<BaseResult<MallBuyNowBean>>
 
     /**
@@ -407,9 +407,9 @@ interface ApiService {
     @FormUrlEncoded
     fun addCar(@Field("uid") uid: String,
                @Field("token") token: String,
-               @Field("goods_id") goods_id: String,
-               @Field("merchant_id") merchant_id: String,
-               @Field("goods_sku_id") goods_sku_id: String): Observable<BaseResult<Any>>
+               @Field("goods_id") goods_id: String?,
+               @Field("merchant_id") merchant_id: String?,
+               @Field("goods_sku_id") goods_sku_id: String?): Observable<BaseResult<Any>>
 
     /**
      * 购物车列表
@@ -1216,4 +1216,11 @@ interface ApiService {
                       @Field("open_join") open_join: Int,
                       @Field("group_id") group_id: String?
     ): Observable<BaseResult<GetGroupOrderResponse>>
+
+    @FormUrlEncoded
+    @POST("api/goods/sec_goods")
+    fun miaosha(@Field("uid") uid: String,
+                      @Field("token") token: String,
+                      @Field("sec_id") sec_id: String
+    ): Observable<BaseResult<MiaoShaResponse>>
 }

@@ -47,7 +47,7 @@ public class HotelordercancleActivity extends BaseActivity {
     @BindView(R.id.tv_refund_reason)
     TextView mRefundReason;
 
-    @BindView(R.id.tv_price)
+    @BindView(R.id.mTvPrice)
     TextView mPrice;
 
     @BindView(R.id.et_dec)

@@ -185,7 +185,7 @@
             android:gravity="center">
 
             <TextView
-                android:id="@+id/tv_price"
+                android:id="@+id/mTvPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="价格"

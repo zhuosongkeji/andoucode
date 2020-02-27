@@ -19,7 +19,7 @@ public class CategoryLevelAdapter extends BaseAdapter<MallGoodsCateBean> {
     @Override
     protected void convert(BaseViewHolder helper, MallGoodsCateBean item) {
         Glide.with(helper.itemView.getContext())
-                .load(UrlUtil.getImageUrl(item.img))
+                .load(UrlUtil.INSTANCE.getImageUrl(item.img))
                 .apply(new RequestOptions().placeholder(R.mipmap.ic_placeholder))
                 .into((ImageView) helper.itemView.findViewById(R.id.img));
         helper.setText(R.id.titleTxt, item.name);

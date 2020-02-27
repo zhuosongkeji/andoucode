@@ -23,7 +23,7 @@ public class HistoryAdapter extends BaseQuickAdapter<BrowsingBean, BaseViewHolde
     @Override
     protected void convert(BaseViewHolder helper, BrowsingBean item) {
         helper.setText(R.id.busiess_name1_textview, item.getName()).setText(R.id.busiess_address1_textview, item.getAddress()).setText(R.id.tv_browsingnum, item.getTel()).setText(R.id.busiess_dianzancount1_textview, item.getPraise_num());
-        Glide.with(mContext).load(UrlUtil.getImageUrl(item.getLogo_img())).into((ImageView) helper.getView(R.id.busiess_tupian1_image));
+        Glide.with(mContext).load(UrlUtil.INSTANCE.getImageUrl(item.getLogo_img())).into((ImageView) helper.getView(R.id.busiess_tupian1_image));
         ScaleRatingBar scaleRatingBar = helper.getView(R.id.simpleRatingBars);
         String stars_all = item.getStars_all();
         float starNum = Float.parseFloat(stars_all);

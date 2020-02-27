@@ -145,7 +145,7 @@ public class HotelDetailReserveFragment extends BaseFragment {
             public void loadBanner(XBanner banner, Object model, View view, int position) {
 //                加载本地图片展示
                 XBannerBean urlList = (XBannerBean) model;
-                String url = UrlUtil.getImageUrl(urlList.getImageUrl());
+                String url = UrlUtil.INSTANCE.getImageUrl(urlList.getImageUrl());
                 Glide.with(mAty).load(url).apply(new RequestOptions()
                         .placeholder(R.drawable.default_image).error(R.drawable.default_image)).into((ImageView) view);
             }

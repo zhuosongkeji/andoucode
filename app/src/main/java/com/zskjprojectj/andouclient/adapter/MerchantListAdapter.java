@@ -19,13 +19,13 @@ public class MerchantListAdapter extends BaseQuickAdapter<Merchant, BaseViewHold
     @Override
     protected void convert(BaseViewHolder helper, Merchant item) {
         Glide.with(helper.itemView)
-                .load(UrlUtil.getImageUrl(item.logo_img))
+                .load(UrlUtil.INSTANCE.getImageUrl(item.logo_img))
                 .apply(new RequestOptions().placeholder(R.drawable.default_image))
                 .into((ImageView) helper.itemView.findViewById(R.id.busiess_tupian1_image));
         helper.setText(R.id.busiess_name1_textview, item.name)
                 .setText(R.id.busiess_dianzancount1_textview, item.praise_num + "")
                 .setText(R.id.busiess_address1_textview, item.address)
-                .setText(R.id.tv_price, item.price);
+                .setText(R.id.mTvPrice, item.price);
 
         String stars_all = item.stars_all;
         float aFloat = Float.parseFloat(stars_all);

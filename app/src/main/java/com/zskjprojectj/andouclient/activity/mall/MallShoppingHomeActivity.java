@@ -81,7 +81,7 @@ public class MallShoppingHomeActivity extends BaseActivity {
     ImageView mIvVolume;
 
     //价格
-    @BindView(R.id.tv_price)
+    @BindView(R.id.mTvPrice)
     TextView mTvPrice;
 
     //价格图标
@@ -149,7 +149,7 @@ public class MallShoppingHomeActivity extends BaseActivity {
             @Override
             public void onHandleSuccess(MallShoppingHomeBean mallShoppingHomeBean) throws IOException {
                 mTvShoppingName.setText(mallShoppingHomeBean.getName());
-                Glide.with(MallShoppingHomeActivity.this).load(UrlUtil.getImageUrl(mallShoppingHomeBean.getLogo_img()))
+                Glide.with(MallShoppingHomeActivity.this).load(UrlUtil.INSTANCE.getImageUrl(mallShoppingHomeBean.getLogo_img()))
                         .apply(new RequestOptions()
                                 .placeholder(R.mipmap.ic_default_head_photo).error(R.mipmap.ic_default_head_photo))
                         .into(mIvShoppingHeadpic);
@@ -162,7 +162,7 @@ public class MallShoppingHomeActivity extends BaseActivity {
                     isfocuson = true;
                     ivisfocuson.setVisibility(View.GONE);
                 }
-                Glide.with(MallShoppingHomeActivity.this).load(UrlUtil.getImageUrl(mallShoppingHomeBean.getBanner_img())).into(mIvShoppingBackground);
+                Glide.with(MallShoppingHomeActivity.this).load(UrlUtil.INSTANCE.getImageUrl(mallShoppingHomeBean.getBanner_img())).into(mIvShoppingBackground);
                 typeBeanList = mallShoppingHomeBean.getType();
             }
         });
@@ -184,7 +184,7 @@ public class MallShoppingHomeActivity extends BaseActivity {
         ));
         adapter.openLoadAnimation();
         adapter.setOnItemClickListener((adapter1, view, position) ->
-                MallGoodsDetailsActivity.start(adapter.getItem(position).getId()));
+                MallGoodsDetailsActivity.Companion.start(adapter.getItem(position).getId(), null, null));
 
     }
 
@@ -276,7 +276,7 @@ public class MallShoppingHomeActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.ll_sale_volume,R.id.busiess_back_image, R.id.ll_price_star, R.id.iv_Goods_search, R.id.mall_merchants_focuson})
+    @OnClick({R.id.ll_sale_volume, R.id.busiess_back_image, R.id.ll_price_star, R.id.iv_Goods_search, R.id.mall_merchants_focuson})
     public void clickView(View view) {
         switch (view.getId()) {
             case R.id.busiess_back_image:

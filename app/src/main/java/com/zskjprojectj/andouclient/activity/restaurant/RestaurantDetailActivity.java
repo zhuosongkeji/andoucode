@@ -164,7 +164,7 @@ public class RestaurantDetailActivity extends BaseActivity {
         ViewUtil.setText(mActivity, R.id.likeTxt, restaurant.praise_num);
         ViewUtil.setText(mActivity, R.id.addressTxt, restaurant.address);
         Glide.with(mActivity)
-                .load(UrlUtil.getImageUrl(restaurant.banner_img))
+                .load(UrlUtil.INSTANCE.getImageUrl(restaurant.banner_img))
                 .apply(new RequestOptions()
                         .placeholder(R.mipmap.ic_placeholder)
                         .centerCrop())

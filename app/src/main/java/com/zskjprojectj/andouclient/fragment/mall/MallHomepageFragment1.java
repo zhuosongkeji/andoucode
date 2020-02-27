@@ -122,7 +122,7 @@ public class MallHomepageFragment1 extends BaseFragment {
         specialProductsAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                MallGoodsDetailsActivity.start(bargain_goods.get(position).getId());
+                MallGoodsDetailsActivity.Companion.start(bargain_goods.get(position).getId(), null, null);
             }
         });
 
@@ -138,7 +138,7 @@ public class MallHomepageFragment1 extends BaseFragment {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
 
-                MallGoodsDetailsActivity.start(recommend_goods.get(position).getId());
+                MallGoodsDetailsActivity.Companion.start(recommend_goods.get(position).getId(),null,null);
             }
         });
 
@@ -182,7 +182,7 @@ public class MallHomepageFragment1 extends BaseFragment {
                 //1、此处使用的Glide加载图片，可自行替换自己项目中的图片加载框架
                 //2、返回的图片路径为Object类型，你只需要强转成你传输的类型就行，切记不要胡乱强转！
                 MallHomeDataBean.BannerBean model1 = (MallHomeDataBean.BannerBean) model;
-                String url = UrlUtil.getImageUrl(model1.getImg());
+                String url = UrlUtil.INSTANCE.getImageUrl(model1.getImg());
                 Glide.with(mAty).load(url).apply(new RequestOptions()
                         .placeholder(R.drawable.default_image).error(R.drawable.default_image)).into((ImageView) view);
 

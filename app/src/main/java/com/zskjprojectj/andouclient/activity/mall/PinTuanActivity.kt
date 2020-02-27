@@ -59,7 +59,7 @@ class PinTuanActivity : BaseActivity() {
         tabLayout.setViewPager(viewPager, titles, mActivity, pinTuanFragments)
         pinTuanMustAdapter.setOnItemClickListener { _, _, position ->
             val pinTuanGoods = pinTuanMustAdapter.getItem(position)
-            MallGoodsDetailsActivity.start(pinTuanGoods?.goods_id, "PINTUAN", pinTuanGoods?.id)
+            MallGoodsDetailsActivity.start(pinTuanGoods?.goods_id, MallGoodsDetailsActivity.TYPE_PIN_TUAN, pinTuanGoods?.id)
         }
     }
 
@@ -89,7 +89,7 @@ class PinTuanActivity : BaseActivity() {
         (view.findViewById<View>(R.id.recommendPriceTxt) as TextView).text = FormatUtil.getMoneyString(goods.price)
         (view.findViewById<View>(R.id.recommendPeopleTxt) as TextView).text = goods.people.toString() + "人团"
         view.setOnClickListener {
-            MallGoodsDetailsActivity.start(goods.goods_id, "PINTUAN", goods.id)
+            MallGoodsDetailsActivity.start(goods.goods_id, MallGoodsDetailsActivity.TYPE_PIN_TUAN, goods.id)
         }
     }
 

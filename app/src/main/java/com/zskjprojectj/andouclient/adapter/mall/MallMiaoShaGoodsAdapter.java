@@ -23,7 +23,7 @@ public class MallMiaoShaGoodsAdapter extends BaseAdapter<MiaoShaGoods> {
             ImageView img = helper.itemView.findViewById(R.id.img);
             img.getLayoutParams().height = img.getWidth();
             Glide.with(helper.itemView.getContext())
-                    .load(UrlUtil.getImageUrl(item.img))
+                    .load(UrlUtil.INSTANCE.getImageUrl(item.img))
                     .into((ImageView) helper.getView(R.id.img));
         }, 1);
     }

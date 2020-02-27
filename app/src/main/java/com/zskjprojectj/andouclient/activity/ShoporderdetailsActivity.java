@@ -111,7 +111,7 @@ public class ShoporderdetailsActivity extends BaseActivity {
             ((TextView) view.findViewById(R.id.countTxt)).setText("x" + goods.num);
             goodsPrice = goods.price;
             ((TextView) view.findViewById(R.id.priceTxt)).setText("￥" + goods.price);
-            Glide.with(mAt).load(UrlUtil.getImageUrl(goods.img))
+            Glide.with(mAt).load(UrlUtil.INSTANCE.getImageUrl(goods.img))
                     .apply(new RequestOptions().placeholder(R.drawable.default_image))
                     .into((ImageView) view.findViewById(R.id.meshop_pic));
             ((ViewGroup) findViewById(R.id.goodsContainer)).addView(view);

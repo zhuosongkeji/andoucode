@@ -70,7 +70,7 @@ public class HotelDetailFacilityFragment extends BaseFragment {
               //  ToastUtil.showToast("sdsafd");
                 ArrayList<LocalMedia> localMedia=new ArrayList<>();
                 for (String s : mDataList) {
-                    localMedia.add(new LocalMedia(UrlUtil.getImageUrl(s),0, PictureMimeType.ofImage(), PictureMimeType.JPEG));
+                    localMedia.add(new LocalMedia(UrlUtil.INSTANCE.getImageUrl(s),0, PictureMimeType.ofImage(), PictureMimeType.JPEG));
                 }
                 PictureSelector.create(mAty)
                         .themeStyle(R.style.picture_default_style)

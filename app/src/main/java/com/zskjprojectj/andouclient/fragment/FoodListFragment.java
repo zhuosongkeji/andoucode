@@ -89,7 +89,7 @@ public class FoodListFragment extends BaseFragment {
                             holder.getConvertView().findViewById(R.id.closeBtn)
                                     .setOnClickListener(v -> dialog.dismiss());
                             Glide.with(mActivity)
-                                    .load(UrlUtil.getImageUrl(food.image))
+                                    .load(UrlUtil.INSTANCE.getImageUrl(food.image))
                                     .apply(new RequestOptions().centerCrop().placeholder(R.mipmap.ic_placeholder))
                                     .into((ImageView) holder.getConvertView().findViewById(R.id.img));
                         }

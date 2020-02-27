@@ -19,7 +19,7 @@ public class RestaurantCategoryAdapter extends BaseAdapter<RestaurantCategory> {
     protected void convert(BaseViewHolder helper, RestaurantCategory item) {
         helper.setText(R.id.nameTxt, item.name);
         Glide.with(helper.itemView.getContext())
-                .load(UrlUtil.getImageUrl(item.img))
+                .load(UrlUtil.INSTANCE.getImageUrl(item.img))
                 .apply(new RequestOptions().placeholder(R.mipmap.ic_placeholder))
                 .into((ImageView) helper.itemView.findViewById(R.id.iconImg));
     }

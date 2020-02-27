@@ -2,14 +2,10 @@ package com.zskjprojectj.andouclient.adapter.hotel;
 
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
-
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.entity.hotel.HotelSearchConditionBean;
-
-import java.util.List;
 
 /**
  * 项目名称： andoucode
@@ -30,8 +26,8 @@ public class HotelStarAdapter extends BaseQuickAdapter<HotelSearchConditionBean.
 
     @Override
     protected void convert(BaseViewHolder helper, HotelSearchConditionBean.StarBean item) {
-        helper.setText(R.id.tv_price, item.getName());
-        TextView mPrice = helper.getView(R.id.tv_price);
+        helper.setText(R.id.mTvPrice, item.getName());
+        TextView mPrice = helper.getView(R.id.mTvPrice);
         int p = helper.getLayoutPosition();
         if (SELECTOR_POSITION == p) {
             mPrice.setSelected(true);

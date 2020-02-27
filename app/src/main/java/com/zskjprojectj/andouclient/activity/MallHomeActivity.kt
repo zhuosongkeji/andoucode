@@ -2,9 +2,12 @@ package com.zskjprojectj.andouclient.activity
 
 import android.graphics.Color
 import android.os.Bundle
+import androidx.core.os.bundleOf
+import com.blankj.utilcode.util.ActivityUtils
 import com.zhuosongkj.android.library.app.BaseActivity
 import com.zhuosongkj.android.library.util.ActionBarUtil
 import com.zskjprojectj.andouclient.R
+import com.zskjprojectj.andouclient.activity.MyaddressActivity.KEY_DATA
 import com.zskjprojectj.andouclient.fragment.MallCategoryFragment
 import com.zskjprojectj.andouclient.fragment.MallShoppingFragment
 import com.zskjprojectj.andouclient.fragment.mall.MallHomepageFragment1
@@ -40,16 +43,15 @@ class MallHomeActivity : BaseActivity() {
                     false
                 }
                 .build()
-        navigationBar.selectTab(0)
-        val id = intent.getStringExtra("id")
-        if ("MallShopping" == id) {
-            navigationBar.selectTab(2)
-        }
-        val tag = intent.getStringExtra("tag")
-        if ("backHome" == tag) {
-            navigationBar.selectTab(0)
-        }
+        val index = intent.getIntExtra(KEY_DATA, 0)
+        navigationBar.selectTab(index)
     }
 
     override fun getContentView() = R.layout.activity_mall_home
+
+    companion object {
+        fun start(index: Int = 0) {
+            ActivityUtils.startActivity(bundleOf(Pair(KEY_DATA, index)), MallHomeActivity::class.java)
+        }
+    }
 }

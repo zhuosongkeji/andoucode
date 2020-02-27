@@ -30,10 +30,10 @@ public class PlatformshoppingcartAdapter extends BaseAdapter<CartItem> {
     @Override
     protected void convert(BaseViewHolder helper, CartItem item) {
         Glide.with(helper.itemView.getContext())
-                .load(UrlUtil.getImageUrl(item.logo_img))
+                .load(UrlUtil.INSTANCE.getImageUrl(item.logo_img))
                 .into((ImageView) helper.itemView.findViewById(R.id.shopIconImg));
         Glide.with(helper.itemView.getContext())
-                .load(UrlUtil.getImageUrl(item.img))
+                .load(UrlUtil.INSTANCE.getImageUrl(item.img))
                 .into((ImageView) helper.itemView.findViewById(R.id.img_cartgoodspic));
 
         helper.setText(R.id.shopNameTxt, item.merchant_name)

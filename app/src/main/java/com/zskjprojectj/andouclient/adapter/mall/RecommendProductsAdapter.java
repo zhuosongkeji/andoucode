@@ -35,7 +35,7 @@ public class RecommendProductsAdapter extends BaseQuickAdapter<MallHomeDataBean.
     protected void convert(BaseViewHolder helper, MallHomeDataBean.RecommendGoodsBean item) {
 
         // 加载推荐产品图片
-        Glide.with(mContext).load(UrlUtil.getImageUrl(item.getImg()))
+        Glide.with(mContext).load(UrlUtil.INSTANCE.getImageUrl(item.getImg()))
                 .transition(new DrawableTransitionOptions().crossFade())
                 .into((ImageView) helper.getView(R.id.iv_products_image));
 

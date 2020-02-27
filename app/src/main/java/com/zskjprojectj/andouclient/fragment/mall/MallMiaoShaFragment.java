@@ -29,6 +29,8 @@ import java.util.TimerTask;
 
 import butterknife.BindView;
 
+import static com.zskjprojectj.andouclient.activity.mall.MallGoodsDetailsActivity.TYPE_MIAO_SHA;
+
 public class MallMiaoShaFragment extends BaseFragment {
 
     public MallMiaoShaFragment(MiaoSha miaoSha) {
@@ -73,12 +75,13 @@ public class MallMiaoShaFragment extends BaseFragment {
         adapter.setOnItemChildClickListener(
                 (adapter1, view, position) -> {
                     MiaoShaGoods goods = adapter.getItem(position);
-                    MallGoodsDetailsActivity.start(goods.goods_id, "MIAOSHA", goods.sec_id);
+                    MallGoodsDetailsActivity.Companion.start(goods.goods_id, TYPE_MIAO_SHA, goods.sec_id)
+                    ;
                 });
         goodsAdapter.setOnItemClickListener(
                 (adapter1, view, position) -> {
                     MiaoShaGoods goods = adapter.getItem(position);
-                    MallGoodsDetailsActivity.start(goods.goods_id, "MIAOSHA", goods.sec_id);
+                    MallGoodsDetailsActivity.Companion.start(goods.goods_id, TYPE_MIAO_SHA, goods.sec_id);
                 });
         PageLoadUtil<MiaoShaGoods> pageLoadUtil = PageLoadUtil.get(mActivity, mRvMiaoShaGoods, adapter, refreshLayout);
         pageLoadUtil.load(() -> ApiUtils.getApiService().miaoShaList(miaoSha.getStartTimeParam(), pageLoadUtil.page)

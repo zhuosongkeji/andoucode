@@ -215,7 +215,7 @@ class HotelFilterActivity : BaseActivity() {
             mPopWindow!!.dismiss()
         }
         //价格
-        contentView.findViewById<View>(R.id.tv_price).setOnClickListener {
+        contentView.findViewById<View>(R.id.mTvPrice).setOnClickListener {
             pageLoadUtil!!.load {
                 ApiUtils.getApiService().hotelHomeList(
                         keywords,

@@ -23,8 +23,8 @@ public class MycollectionAdapter extends BaseQuickAdapter<MycollectionBean, Base
     protected void convert(BaseViewHolder helper, MycollectionBean item) {
         helper.setText(R.id.collection_name_textview,item.getName())
                 .setText(R.id.collection_price_textview,"￥"+item.getPrice());
-        Log.d(TAG, "convert: "+UrlUtil.getImageUrl(item.getImg()));
-        Glide.with(mContext).load(UrlUtil.getImageUrl(item.getImg())).into((ImageView) helper.getView(R.id.collection_tupian_image));
+        Log.d(TAG, "convert: "+ UrlUtil.INSTANCE.getImageUrl(item.getImg()));
+        Glide.with(mContext).load(UrlUtil.INSTANCE.getImageUrl(item.getImg())).into((ImageView) helper.getView(R.id.collection_tupian_image));
         helper.addOnClickListener(R.id.btn_check_the_goods);
     }
 }

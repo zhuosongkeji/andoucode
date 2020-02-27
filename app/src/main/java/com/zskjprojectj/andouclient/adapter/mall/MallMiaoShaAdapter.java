@@ -25,17 +25,17 @@ public class MallMiaoShaAdapter extends BaseAdapter<MiaoShaGoods> {
         helper.setText(R.id.tv_title, item.name)
                 .setText(R.id.tv_progress, "已抢" + item.kill_percent + "%")
                 .setProgress(R.id.progressbar, item.kill_percent)
-                .setText(R.id.tv_price, "￥" + FormatUtil.getMoneyString(item.kill_price))
+                .setText(R.id.mTvPrice, "￥" + FormatUtil.getMoneyString(item.kill_price))
                 .setText(R.id.original_price, "￥" + FormatUtil.getMoneyString(item.price))
                 .setGone(R.id.hot_buy, miaoSha.getState() == MiaoSha.State.JIN_XING_ZHONG);
         if (miaoSha.getState() != MiaoSha.State.JIN_XING_ZHONG) {
-            helper.setText(R.id.tv_buy_now, miaoSha.getState().title);
+            helper.setText(R.id.mBuyNow, miaoSha.getState().title);
         } else {
-            helper.setText(R.id.tv_buy_now, "马上抢");
+            helper.setText(R.id.mBuyNow, "马上抢");
         }
         TextView textView = helper.getView(R.id.original_price);
         textView.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-        helper.addOnClickListener(R.id.tv_buy_now);
-        Glide.with(mContext).load(UrlUtil.getImageUrl(item.img)).into((ImageView) helper.getView(R.id.miaoshaimg));
+        helper.addOnClickListener(R.id.mBuyNow);
+        Glide.with(mContext).load(UrlUtil.INSTANCE.getImageUrl(item.img)).into((ImageView) helper.getView(R.id.miaoshaimg));
     }
 }

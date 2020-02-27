@@ -1,7 +1,5 @@
 package com.zskjprojectj.andouclient.adapter.mall;
 
-import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
@@ -12,7 +10,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.willy.ratingbar.ScaleRatingBar;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.utils.UrlUtil;import com.zskjprojectj.andouclient.base.BaseUrl;
+import com.zskjprojectj.andouclient.utils.UrlUtil;
 import com.zskjprojectj.andouclient.entity.mall.MallCommentBean;
 
 import java.util.List;
@@ -34,10 +32,10 @@ public class MallCommentAdapter extends BaseQuickAdapter<MallCommentBean, BaseVi
 
     @Override
     protected void convert(BaseViewHolder helper, MallCommentBean item) {
-        Glide.with(mContext).load(UrlUtil.getImageUrl(item.getAvator()))
+        Glide.with(mContext).load(UrlUtil.INSTANCE.getImageUrl(item.getAvator()))
                 .transition(new DrawableTransitionOptions().crossFade())
-                .into((ImageView) helper.getView(R.id.iv_headPic));
-        helper.setText(R.id.tv_name,item.getName());
+                .into((ImageView) helper.getView(R.id.IvHeadPic));
+        helper.setText(R.id.mTvName,item.getName());
         helper.setText(R.id.tv_time,item.getCreated_at());
         helper.setText(R.id.tv_des,item.getContent());
 

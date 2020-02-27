@@ -199,7 +199,7 @@ public class MesettingActivity extends BaseActivity {
                 tv_usersetname.setText(setBean.getName());
                 tv_usersetphone.setText(setBean.getMobile());
                 tv_usersetversion.setText("当前版本" + setBean.getEdition());
-                Glide.with(mAt).load(UrlUtil.getImageUrl(setBean.getAvator()))
+                Glide.with(mAt).load(UrlUtil.INSTANCE.getImageUrl(setBean.getAvator()))
                         .apply(new RequestOptions().bitmapTransform(new CircleCrop()))
                         .into((ImageView) findViewById(R.id.img_setpic));
             }

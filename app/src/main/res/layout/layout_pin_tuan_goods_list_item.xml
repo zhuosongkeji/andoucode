@@ -97,7 +97,7 @@
                 android:textSize="12sp" />
 
             <TextView
-                android:id="@+id/tv_buy_now"
+                android:id="@+id/mBuyNow"
                 android:layout_width="65dp"
                 android:layout_height="28dp"
                 android:background="@drawable/bg_pin_tuan_03"

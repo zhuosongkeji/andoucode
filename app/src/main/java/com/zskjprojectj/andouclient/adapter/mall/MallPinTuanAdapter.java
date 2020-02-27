@@ -39,9 +39,9 @@ public class MallPinTuanAdapter extends BaseAdapter<PinTuanDetails.TeamListBean>
     @Override
     protected void convert(BaseViewHolder helper, PinTuanDetails.TeamListBean item) {
 
-        Glide.with(mContext).load(UrlUtil.getImageUrl(item.getCaptain_avatar())).into((ImageView) helper.getView(R.id.iv_headPic));
+        Glide.with(mContext).load(UrlUtil.INSTANCE.getImageUrl(item.getCaptain_avatar())).into((ImageView) helper.getView(R.id.IvHeadPic));
         helper.setText(R.id.tv_pintuan_person, item.getLeft_member() + "人");
-        helper.addOnClickListener(R.id.tv_buy_now);
+        helper.addOnClickListener(R.id.mBuyNow);
 
         hourTxt = helper.getView(R.id.hourTxt);
         minuteTxt = helper.getView(R.id.minuteTxt);

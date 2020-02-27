@@ -34,7 +34,7 @@ public class HotelCateGoryAdapter extends BaseQuickAdapter<HotelCategoryBean, Ba
     @Override
     protected void convert(BaseViewHolder helper, HotelCategoryBean item) {
 
-        Glide.with(mContext).load(UrlUtil.getImageUrl(item.getImg())).apply(new RequestOptions()
+        Glide.with(mContext).load(UrlUtil.INSTANCE.getImageUrl(item.getImg())).apply(new RequestOptions()
                 .placeholder(R.drawable.default_image).error(R.drawable.default_image)).into((ImageView) helper.getView(R.id.iv_hotel_category_img));
         helper.setText(R.id.tv_hotel_category_name,item.getName());
 

@@ -2,14 +2,10 @@ package com.zskjprojectj.andouclient.adapter.hotel;
 
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
-
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.entity.hotel.HotelSearchConditionBean;
-
-import java.util.List;
 
 public class HotelPriceAdapter extends BaseQuickAdapter<HotelSearchConditionBean.PriceRangeBean, BaseViewHolder> {
 
@@ -23,8 +19,8 @@ public class HotelPriceAdapter extends BaseQuickAdapter<HotelSearchConditionBean
     @Override
     protected void convert(BaseViewHolder helper, HotelSearchConditionBean.PriceRangeBean item) {
         String price = item.getStart() + "~" + item.getEnd();
-        helper.setText(R.id.tv_price, price);
-        TextView mPrice = helper.getView(R.id.tv_price);
+        helper.setText(R.id.mTvPrice, price);
+        TextView mPrice = helper.getView(R.id.mTvPrice);
         int p = helper.getLayoutPosition();
         if (SELECTOR_POSITION == p) {
             mPrice.setSelected(true);

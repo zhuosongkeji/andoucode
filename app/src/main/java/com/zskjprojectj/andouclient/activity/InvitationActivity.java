@@ -66,11 +66,11 @@ public class InvitationActivity extends BaseActivity {
                 @Override
                 public void onHandleSuccess(InvitationBean invitationBean) throws IOException {
 //                  zxing(invitationBean.getQrcode());
-                    Glide.with(mAt).load(UrlUtil.getImageUrl(invitationBean.getAvator()))
+                    Glide.with(mAt).load(UrlUtil.INSTANCE.getImageUrl(invitationBean.getAvator()))
                             .apply(new RequestOptions().bitmapTransform(new CircleCrop()))
                             .into((ImageView)findViewById(R.id.img_toptouxiang));
                   //  Glide.with(mAt).load(UrlUtil.getImageUrl(invitationBean.getQrcode())).into((img_toptouxiang));
-                    Glide.with(mAt).load(UrlUtil.getImageUrl(invitationBean.getQrcode()))
+                    Glide.with(mAt).load(UrlUtil.INSTANCE.getImageUrl(invitationBean.getQrcode()))
                             .apply(new RequestOptions().placeholder(R.drawable.default_image))
                             .into((ImageView)findViewById(R.id.img_code));
                     tv_username.setText(invitationBean.getName());

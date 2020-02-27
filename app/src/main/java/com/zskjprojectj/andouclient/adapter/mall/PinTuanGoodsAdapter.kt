@@ -26,6 +26,6 @@ class PinTuanGoodsAdapter : BaseAdapter<PinTuanGoods>(R.layout.layout_pin_tuan_g
         Glide.with(mContext)
                 .load(item.img)
                 .into((helper.getView<View>(R.id.img) as ImageView))
-        helper.addOnClickListener(R.id.tv_buy_now)
+        helper.addOnClickListener(R.id.mBuyNow)
     }
 }

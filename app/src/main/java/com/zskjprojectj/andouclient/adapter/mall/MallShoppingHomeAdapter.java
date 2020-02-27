@@ -33,7 +33,7 @@ public class MallShoppingHomeAdapter extends BaseQuickAdapter<MallShoppingHomeBe
 
     @Override
     protected void convert(BaseViewHolder helper, MallShoppingHomeBean.GoodsBean item) {
-        Glide.with(mContext).load(UrlUtil.getImageUrl(item.getImg())).into((ImageView) helper.getView(R.id.iv_goods_img));
+        Glide.with(mContext).load(UrlUtil.INSTANCE.getImageUrl(item.getImg())).into((ImageView) helper.getView(R.id.iv_goods_img));
         helper.setText(R.id.tv_goods_name,item.getNameX());
         helper.setText(R.id.tv_goods_price,"¥"+item.getPrice());
     }

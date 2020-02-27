@@ -34,7 +34,7 @@ public class RestaurantAdapter extends BaseAdapter<Restaurant> implements Header
         changeImageLayout(helper, ListUtil.isEmpty(item.cai) ? 1 : item.cai.size());
         if (ListUtil.isEmpty(item.cai)) {
             GlideUtil.load(((Activity) helper.itemView.getContext()),
-                    UrlUtil.getImageUrl(item.banner_img), R.mipmap.ic_placeholder,
+                    UrlUtil.INSTANCE.getImageUrl(item.banner_img), R.mipmap.ic_placeholder,
                     helper.itemView.findViewById(R.id.img1), SizeUtils.dp2px(4));
         } else {
             for (int i = 0; i < item.cai.size(); i++) {
@@ -52,7 +52,7 @@ public class RestaurantAdapter extends BaseAdapter<Restaurant> implements Header
                         break;
                 }
                 GlideUtil.load(((Activity) helper.itemView.getContext()),
-                        UrlUtil.getImageUrl(food.image), R.mipmap.ic_placeholder,
+                        UrlUtil.INSTANCE.getImageUrl(food.image), R.mipmap.ic_placeholder,
                         helper.itemView.findViewById(imageViewRes), SizeUtils.dp2px(4));
             }
         }
