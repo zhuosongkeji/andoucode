@@ -3,6 +3,7 @@ package com.zskjprojectj.andouclient.base;
 import android.app.Application;
 import android.widget.ImageView;
 
+import com.bugtags.library.Bugtags;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.tencent.bugly.Bugly;
@@ -36,6 +37,7 @@ public class BaseApplication extends Application {
             LoginInfoUtil.saveLoginInfo("", "");
         };
         Bugly.init(getApplicationContext(), "f184c5e735", BuildConfig.DEBUG);
+        Bugtags.start("bcb6809d0785875785a9599892aceb19", this, Bugtags.BTGInvocationEventBubble);
     }
 
     public static BaseApplication getInstance() {

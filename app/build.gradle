@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
-
+apply plugin: 'com.bugtags.library.plugin'
 android {
     compileSdkVersion 28
     signingConfigs {
@@ -46,7 +46,12 @@ android {
         sourceCompatibility = 1.8
     }
 }
-
+bugtags {
+    //自动上传符号表功能配置，如果需要根据 build varint 配置，请参考帮助中心->符号表->Android 符号表->配置自动上传符号表
+    appKey "bcb6809d0785875785a9599892aceb19"  //这里是你的 appKey
+    appSecret "53896b4411df187b1876a1bce547eb49"    //这里是你的 appSecret，管理员在设置页可以查看
+    mappingUploadEnabled true
+}
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
@@ -166,4 +171,7 @@ dependencies {
 
     implementation 'com.tencent.bugly:crashreport_upgrade:latest.release'
     implementation 'com.tencent.bugly:nativecrashreport:latest.release'
+
+    implementation 'com.bugtags.library:bugtags-lib:latest.integration'
+
 }
