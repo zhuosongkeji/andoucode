@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureMimeType
 import com.zhuosongkj.android.library.app.BaseActivity
+import com.zhuosongkj.android.library.util.ActionBarUtil
 import com.zhuosongkj.android.library.util.RequestUtil
 import com.zskjprojectj.andouclient.R
 import com.zskjprojectj.andouclient.activity.LoginActivity
@@ -31,6 +32,7 @@ import java.io.File
 class SettingActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        ActionBarUtil.setTitle(mActivity, "设置")
         img_setpic.setOnClickListener(View.OnClickListener { startSelectPic(555) })
         btn_exit.setOnClickListener(View.OnClickListener {
             RequestUtil.request(mActivity, true, false,

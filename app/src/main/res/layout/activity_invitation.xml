@@ -1,77 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#FF532E">
-
-        <RelativeLayout
-            android:id="@+id/mTitleView"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_50"
-            android:background="#FF532E">
-
-            <ImageView
-                android:id="@+id/mHeaderBack"
-                android:layout_width="@dimen/dp_9"
-                android:layout_height="@dimen/dp_15"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/dp_15"
-                android:background="@mipmap/back_icon" />
-
-            <TextView
-                android:id="@+id/mHeaderTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="标题"
-                android:textColor="@color/white"
-                android:textSize="@dimen/typeface14sp" />
-
-            <ImageView
-                android:id="@+id/img_meset"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/dp_20"
-                android:src="@mipmap/distributor_center_settings"
-                android:visibility="gone" />
-        </RelativeLayout>
-    </LinearLayout>
-
-    <RelativeLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@mipmap/invitation_bg">
 
-        <RelativeLayout
-
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/dp_155"
-            android:background="@mipmap/bg">
+            android:layout_gravity="center"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="30dp"
+            android:background="@mipmap/bg"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="20dp">
 
             <TextView
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/dp_10"
                 android:text="好友每消费一笔即可返利"
                 android:textColor="#FF532C"
                 android:textSize="@dimen/typeface18sp" />
 
             <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/title"
-                android:layout_centerInParent="true"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/dp_10"
                 android:background="@mipmap/bg_one">
 
@@ -83,14 +45,16 @@
                     android:layout_marginTop="@dimen/dp_10"
                     android:src="@mipmap/invitation_youfriend" />
 
-                <ImageView
+                <com.makeramen.roundedimageview.RoundedImageView
                     android:id="@+id/img_toptouxiang"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/img_friend"
                     android:layout_centerInParent="true"
                     android:layout_marginTop="@dimen/dp_10"
-                    android:src="@mipmap/usertouxiang_icon" />
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/ic_placeholder"
+                    app:riv_oval="true" />
 
                 <TextView
                     android:id="@+id/tv_username"
@@ -99,18 +63,19 @@
                     android:layout_below="@id/img_toptouxiang"
                     android:layout_centerInParent="true"
                     android:layout_marginTop="@dimen/dp_10"
-                    android:text="卓松科技"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/typeface15sp" />
+                    android:textSize="@dimen/typeface15sp"
+                    tools:text="卓松科技" />
 
                 <ImageView
                     android:id="@+id/img_code"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
                     android:layout_below="@id/tv_username"
                     android:layout_centerInParent="true"
                     android:layout_marginTop="@dimen/dp_10"
-                    android:src="@mipmap/usercode_icon" />
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/ic_placeholder" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -121,8 +86,6 @@
                     android:text="被邀请用户消费获得返利即可提现"
                     android:textColor="@color/white" />
             </RelativeLayout>
-        </RelativeLayout>
-
-    </RelativeLayout>
-
+        </LinearLayout>
+    </FrameLayout>
 </LinearLayout>
