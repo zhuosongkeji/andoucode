@@ -5,19 +5,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:orientation="vertical"
     tools:context=".activity.mall.MallShoppingHomeActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="160dp">
+        android:layout_height="200dp">
 
         <ImageView
             android:id="@+id/iv_shopping_background"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:src="@drawable/bg_mall_shopping" />
+            android:src="@drawable/picture_icon_placeholder" />
 
 
         <RelativeLayout
@@ -43,14 +45,16 @@
                 android:textSize="@dimen/typeface14sp" />
         </RelativeLayout>
 
-        <ImageView
+        <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/iv_shopping_headpic"
             android:layout_width="@dimen/dp_40"
             android:layout_height="@dimen/dp_40"
             android:layout_alignParentBottom="true"
             android:layout_marginLeft="@dimen/dp_16"
             android:layout_marginBottom="@dimen/dp_19"
-            android:src="@mipmap/bg_mall_shop_headpic" />
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_placeholder"
+            app:riv_corner_radius="2dp" />
 
         <TextView
             android:id="@+id/tv_shopping_name"
@@ -227,8 +231,8 @@
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
+        android:layout_height="match_parent"
+        app:srlEnableRefresh="false">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
