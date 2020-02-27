@@ -25,7 +25,8 @@ public class MerchantListAdapter extends BaseQuickAdapter<Merchant, BaseViewHold
         helper.setText(R.id.busiess_name1_textview, item.name)
                 .setText(R.id.busiess_dianzancount1_textview, item.praise_num + "")
                 .setText(R.id.busiess_address1_textview, item.address)
-                .setText(R.id.mTvPrice, item.price);
+                .setText(R.id.busiess_tel_textview,item.tel);
+        helper.addOnClickListener(R.id.see_busiess);
 
         String stars_all = item.stars_all;
         float aFloat = Float.parseFloat(stars_all);

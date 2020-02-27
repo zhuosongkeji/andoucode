@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:paddingStart="15dp"
     android:paddingTop="20dp"
@@ -19,13 +20,20 @@
         android:id="@+id/busiess_name1_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/busiess_tupian1_image"
+        android:layout_toEndOf="@+id/busiess_tupian1_image"
         tools:text="精尚来公寓酒店"
         android:textColor="#ff323232"
         android:textSize="12sp" />
 
+    <ImageView
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_toEndOf="@+id/busiess_name1_textview"
+        android:layout_marginStart="8dp"
+        android:src="@mipmap/ic_vip"/>
+
+
     <com.willy.ratingbar.ScaleRatingBar
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/simpleRatingBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -82,39 +90,58 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_3"
             android:maxLines="1"
+            android:ellipsize="end"
             tools:text="重庆市南岸区南坪万达广场"
             android:textColor="#969696"
             android:textSize="10sp" />
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/hotel_tel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/busiess_tupian1_image"
-        android:layout_toRightOf="@+id/busiess_tupian1_image"
+        android:layout_below="@+id/hotel_address"
+        android:layout_marginTop="@dimen/dp_5"
+        android:layout_toEndOf="@+id/busiess_tupian1_image"
         android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="¥"
-            android:textColor="#FF493E"
-            android:textSize="@dimen/typeface10sp" />
+        <ImageView
+            android:layout_width="9dp"
+            android:layout_height="9dp"
+            android:layout_gravity="center"
+            android:src="@mipmap/ic_iphone" />
 
         <TextView
-            android:id="@+id/mTvPrice"
+            android:id="@+id/busiess_tel_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="187"
-            android:textColor="#FF493E"
-            android:textSize="14sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="起"
+            android:layout_marginStart="@dimen/dp_3"
+            android:maxLines="1"
+            android:ellipsize="end"
+            tools:text="023-8888888"
             android:textColor="#969696"
-            android:textSize="@dimen/dp_10" />
+            android:textSize="10sp" />
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/busiess_tupian1_image"
+        android:background="#f7f7f7"/>
+
+    <TextView
+        android:id="@+id/see_busiess"
+        android:layout_width="70dp"
+        android:layout_height="25dp"
+        android:text="查看商家"
+        android:gravity="center"
+        android:background="@drawable/bg_see_busiess"
+        android:textColor="#ffffff"
+        android:textSize="10sp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignBottom="@+id/busiess_tupian1_image"
+
+        />
 
 </RelativeLayout>

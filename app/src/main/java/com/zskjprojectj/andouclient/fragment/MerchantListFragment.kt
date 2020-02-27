@@ -38,7 +38,8 @@ class MerchantListFragment : BaseFragment() {
         super.onActivityCreated(savedInstanceState)
         actionBarContainer.setPadding(0, BarUtils.getStatusBarHeight(), 0, 0)
         recyclerView?.addItemDecoration(DividerItemDecoration(mActivity, DividerItemDecoration.VERTICAL))
-        adapter.setOnItemClickListener { _, _, position ->
+
+        adapter.setOnItemChildClickListener { _, _, position ->
             when (adapter.getItem(position)?.merchant_type_id) {
                 "2" -> MallShoppingHomeActivity.start(adapter.getItem(position)?.id)
                 "3" -> HotelDetailActivity.start(adapter.getItem(position)?.id)
