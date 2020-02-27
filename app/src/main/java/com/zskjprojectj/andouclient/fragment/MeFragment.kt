@@ -25,6 +25,8 @@ import q.rorbin.badgeview.QBadgeView
 
 class MeFragment : BaseFragment() {
 
+    var dataLoader: (() -> (Unit))? = null
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         loginBtn.setOnClickListener {
@@ -59,65 +61,62 @@ class MeFragment : BaseFragment() {
         mycenter_operationvideo_layout.setOnClickListener { startActivity(Intent(context, OperationvideoActivity::class.java)) }
         mycenter_myfocuson_layout.setOnClickListener { startActivity(Intent(context, MyFocusonActivity::class.java)) }
         img_meset.setOnClickListener { startActivity(Intent(context, MesettingActivity::class.java)) }
-    }
-
-    private fun loadData() {
-        if (!isLogin()) {
-            return
-        } else {
-            loginBtn.visibility = View.GONE
+        dataLoader = {
+            if (isLogin()) {
+                loginBtn.visibility = View.GONE
+                RequestUtil.request(mActivity, true, true,
+                        { ApiUtils.getApiService().getpersonal(LoginInfoUtil.getUid(), LoginInfoUtil.getToken()) },
+                        { result ->
+                            tv_nickname.text = result.data.name
+                            tv_collectionnum.text = result.data.collect
+                            tv_focusonnum.text = result.data.focus
+                            tv_browsenum.text = result.data.record
+                            tv_moneynum.text = result.data.money
+                            tv_integralnumm.text = result.data.integral
+                            if ("0" == result.data.status) {
+                                img_showvip.setImageResource(R.mipmap.putongvip)
+                            } else {
+                                img_showvip.setImageResource(R.mipmap.vipplusicon)
+                            }
+                            val numhotel = Integer.parseInt(result.data.booksordernum)
+                            val numfood = Integer.parseInt(result.data.foodsordernum)
+                            val nummall = Integer.parseInt(result.data.goodordernum)
+                            QBadgeView(context).bindTarget(img_hotelnum).setBadgeNumber(numhotel).setBadgeTextSize(8f, true).setBadgeGravity(Gravity.END or Gravity.TOP).setOnDragStateChangedListener { dragState, badge, targetView ->
+                                if (Badge.OnDragStateChangedListener.STATE_SUCCEED == dragState) {
+                                    badge.hide(true)
+                                }
+                            }
+                            QBadgeView(context).bindTarget(img_mallnum).setBadgeNumber(nummall).setBadgeTextSize(8f, true).setBadgeGravity(Gravity.END or Gravity.TOP).setOnDragStateChangedListener { dragState, badge, targetView ->
+                                if (Badge.OnDragStateChangedListener.STATE_SUCCEED == dragState) {
+                                    badge.hide(true)
+                                }
+                            }
+                            QBadgeView(context).bindTarget(img_restaurantnum).setBadgeNumber(numfood).setBadgeTextSize(8f, true).setBadgeGravity(Gravity.END or Gravity.TOP).setOnDragStateChangedListener { dragState, badge, targetView ->
+                                if (Badge.OnDragStateChangedListener.STATE_SUCCEED == dragState) {
+                                    badge.hide(true)
+                                }
+                            }
+                            Glide.with(mActivity).load(UrlUtil.getImageUrl(result.data.avator)).apply(RequestOptions.bitmapTransform(CircleCrop())).into(img_touxiang)
+                        })
+            }
         }
-        RequestUtil.request(mActivity, true, true,
-                { ApiUtils.getApiService().getpersonal(LoginInfoUtil.getUid(), LoginInfoUtil.getToken()) },
-                { result ->
-                    tv_nickname.text = result.data.name
-                    tv_collectionnum.text = result.data.collect
-                    tv_focusonnum.text = result.data.focus
-                    tv_browsenum.text = result.data.record
-                    tv_moneynum.text = result.data.money
-                    tv_integralnumm.text = result.data.integral
-                    if ("0" == result.data.status) {
-                        img_showvip.setImageResource(R.mipmap.putongvip)
-                    } else {
-                        img_showvip.setImageResource(R.mipmap.vipplusicon)
-                    }
-                    val numhotel = Integer.parseInt(result.data.booksordernum)
-                    val numfood = Integer.parseInt(result.data.foodsordernum)
-                    val nummall = Integer.parseInt(result.data.goodordernum)
-                    QBadgeView(context).bindTarget(img_hotelnum).setBadgeNumber(numhotel).setBadgeTextSize(8f, true).setBadgeGravity(Gravity.END or Gravity.TOP).setOnDragStateChangedListener { dragState, badge, targetView ->
-                        if (Badge.OnDragStateChangedListener.STATE_SUCCEED == dragState) {
-                            badge.hide(true)
-                        }
-                    }
-                    QBadgeView(context).bindTarget(img_mallnum).setBadgeNumber(nummall).setBadgeTextSize(8f, true).setBadgeGravity(Gravity.END or Gravity.TOP).setOnDragStateChangedListener { dragState, badge, targetView ->
-                        if (Badge.OnDragStateChangedListener.STATE_SUCCEED == dragState) {
-                            badge.hide(true)
-                        }
-                    }
-                    QBadgeView(context).bindTarget(img_restaurantnum).setBadgeNumber(numfood).setBadgeTextSize(8f, true).setBadgeGravity(Gravity.END or Gravity.TOP).setOnDragStateChangedListener { dragState, badge, targetView ->
-                        if (Badge.OnDragStateChangedListener.STATE_SUCCEED == dragState) {
-                            badge.hide(true)
-                        }
-                    }
-                    Glide.with(mActivity).load(UrlUtil.getImageUrl(result.data.avator)).apply(RequestOptions.bitmapTransform(CircleCrop())).into(img_touxiang)
-                })
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 666 && resultCode == Activity.RESULT_OK) {
             loginBtn.visibility = View.GONE
-            loadData()
+            dataLoader?.invoke()
         }
     }
 
     override fun onResume() {
         super.onResume()
-        loadData()
+        dataLoader?.invoke()
     }
 
     fun refresh() {
-        loadData()
+        dataLoader?.invoke()
     }
 
     override fun getContentView() = R.layout.fragment_me

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#F7F7F7"
@@ -35,12 +36,12 @@
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/img_setpic"
-                app:riv_oval="true"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:src="@mipmap/touxiangright" />
+                android:src="@mipmap/ic_placeholder"
+                app:riv_oval="true" />
         </RelativeLayout>
 
         <View
@@ -71,9 +72,9 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="32dp"
-                android:text="幕看日西城"
                 android:textColor="#999999"
-                android:textSize="@dimen/typeface12sp" />
+                android:textSize="@dimen/typeface12sp"
+                tools:text="幕看日西城" />
 
             <ImageView
 
@@ -112,9 +113,9 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="32dp"
-                android:text="19923803819"
                 android:textColor="#999999"
-                android:textSize="@dimen/typeface12sp" />
+                android:textSize="@dimen/typeface12sp"
+                tools:text="19923803819" />
 
             <ImageView
 
@@ -274,9 +275,9 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="32dp"
-                android:text="当前版本1.1.0"
                 android:textColor="#999999"
-                android:textSize="@dimen/typeface12sp" />
+                android:textSize="@dimen/typeface12sp"
+                tools:text="当前版本1.1.0" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -349,7 +350,9 @@
             android:id="@+id/btn_exit"
             android:layout_width="match_parent"
             android:layout_height="44dp"
+            android:layout_marginStart="15dp"
             android:layout_marginTop="@dimen/dp_25"
+            android:layout_marginEnd="15dp"
             android:layout_marginBottom="51dp"
             android:background="@drawable/shape_button"
             android:text="退出登录"

@@ -15,6 +15,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.AppUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
@@ -62,6 +63,7 @@ public class MesettingActivity extends BaseActivity {
     private RelativeLayout rl_modifythephone, rl_modifythepassword, rl_modifyfeedback, rl_modifyaboutus, rl_clear, rl_modifythenickname;
     private Button btn_exit;
     private static final int REQUEST_CODE_TOUXIANG_LOGO = 555;
+
     @Override
     protected void setRootView() {
         setContentView(R.layout.activity_setting);
@@ -180,6 +182,7 @@ public class MesettingActivity extends BaseActivity {
         findViewById(R.id.protocolContainer).setOnClickListener(v ->
                 dialog = DialogUtil.showProtocolDialogNoBtns(mAt));
     }
+
     private void startSelectPic(int requestCode) {
         PictureSelector.create(this)
                 .openGallery(PictureMimeType.ofImage())
@@ -193,12 +196,12 @@ public class MesettingActivity extends BaseActivity {
 
     @Override
     public void getDataFromServer() {
+        tv_usersetversion.setText("当前版本" + AppUtils.getAppVersionName());
         HttpRxObservable.getObservable(ApiUtils.getApiService().set(LoginInfoUtil.getUid(), LoginInfoUtil.getToken())).subscribe(new BaseObserver<SetBean>(mAt) {
             @Override
             public void onHandleSuccess(SetBean setBean) throws IOException {
                 tv_usersetname.setText(setBean.getName());
                 tv_usersetphone.setText(setBean.getMobile());
-                tv_usersetversion.setText("当前版本" + setBean.getEdition());
                 Glide.with(mAt).load(UrlUtil.INSTANCE.getImageUrl(setBean.getAvator()))
                         .apply(new RequestOptions().bitmapTransform(new CircleCrop()))
                         .into((ImageView) findViewById(R.id.img_setpic));
@@ -215,8 +218,7 @@ public class MesettingActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != Activity.RESULT_OK) return;
-        if (requestCode==REQUEST_CODE_LOGIN)
-        {
+        if (requestCode == REQUEST_CODE_LOGIN) {
             getDataFromServer();
             return;
         }
@@ -225,10 +227,9 @@ public class MesettingActivity extends BaseActivity {
             path = PictureSelector.obtainMultipleResult(data).get(0).getPath();
         }
         ImageView imageView = null;
-        switch (requestCode)
-        {
-            case  REQUEST_CODE_TOUXIANG_LOGO:
-                imageView=img_setpic;
+        switch (requestCode) {
+            case REQUEST_CODE_TOUXIANG_LOGO:
+                imageView = img_setpic;
                 break;
         }
         File file = new File(path);
@@ -238,18 +239,18 @@ public class MesettingActivity extends BaseActivity {
         RequestBody token = RequestBody.create(MediaType.parse("multipart/form-data"), LoginInfoUtil.getToken());
         ImageView finalImageView = imageView;
         String finalPath = path;
-        HttpRxObservable.getObservable(ApiUtils.getApiService().uploadImg(uid,token,body)).subscribe(new BaseObserver<String>(mAt) {
+        HttpRxObservable.getObservable(ApiUtils.getApiService().uploadImg(uid, token, body)).subscribe(new BaseObserver<String>(mAt) {
 
             @Override
             public void onHandleSuccess(String s) throws IOException {
-            //    finalImageView.setTag(s);
-              HttpRxObservable.getObservable(ApiUtils.getApiService().user_pictures(LoginInfoUtil.getUid(),LoginInfoUtil.getToken(),s)).subscribe(new BaseObserver<String>(mAt) {
-                  @Override
-                   public void onHandleSuccess(String s) throws IOException {
+                //    finalImageView.setTag(s);
+                HttpRxObservable.getObservable(ApiUtils.getApiService().user_pictures(LoginInfoUtil.getUid(), LoginInfoUtil.getToken(), s)).subscribe(new BaseObserver<String>(mAt) {
+                    @Override
+                    public void onHandleSuccess(String s) throws IOException {
                         BitmapUtil.recycle(finalImageView);
                         finalImageView.setImageBitmap(BitmapFactory.decodeFile(finalPath));
-                 }
-              });
+                    }
+                });
 
             }
 
