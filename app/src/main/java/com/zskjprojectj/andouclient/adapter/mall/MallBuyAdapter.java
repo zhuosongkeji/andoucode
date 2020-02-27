@@ -18,8 +18,8 @@ import java.util.List;
 import java.util.Set;
 
 public class MallBuyAdapter extends BaseQuickAdapter<MallBuyBean.SpecInfo, BaseViewHolder> {
-    public MallBuyAdapter(int layoutResId, @Nullable List<MallBuyBean.SpecInfo> data) {
-        super(layoutResId, data);
+    public MallBuyAdapter(int layoutResId) {
+        super(layoutResId);
     }
 
     @Override

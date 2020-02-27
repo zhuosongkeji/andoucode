@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -38,7 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/mOrderImg"
             android:layout_alignParentEnd="true"
-            android:text="¥288"
+            android:text="0"
             android:textColor="#F54029"
             android:textSize="@dimen/typeface12sp" />
 
@@ -62,7 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/mOrderImg"
             android:layout_alignParentEnd="true"
-            android:text="X1"
+            tools:text="X1"
             android:textColor="#787878"
             android:textSize="@dimen/typeface12sp" />
 

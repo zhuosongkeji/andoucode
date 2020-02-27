@@ -57,7 +57,7 @@ class MallGoodsDetailsActivity : BaseActivity() {
     private var orderName: String? = null
     private val timer = Timer()
     private var offset: Long = 0
-    var type = ""
+    var type: String? = ""
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -94,6 +94,8 @@ class MallGoodsDetailsActivity : BaseActivity() {
                         { ApiUtils.getApiService().miaoShaDetails(controlId) },
                         {
                             miaoshaprice.text = it.data.kill_price
+                            price.text = it.data.old_price
+                            price.paint.flags = Paint.STRIKE_THRU_TEXT_FLAG
                             timer.schedule(object : TimerTask() {
                                 override fun run() {
                                     timerContainer.postDelayed({ countTime(it.data.end_time) }, 1)
@@ -136,6 +138,7 @@ class MallGoodsDetailsActivity : BaseActivity() {
                                 tv_total_member.text = "已有" + it.data.total_member + "人参团"
                                 pinTuanAdapter.setNewData(it.data.team_list)
                                 pinTuanAdapter.setEndTime(it.data.group_goods.finish_time)
+                                pintuan_tv_buy_now.text="¥${it.data.group_goods.price}\n我要开团"
                             }
                         })
                 pintuan_add_shopping.setOnClickListener {
@@ -243,13 +246,11 @@ class MallGoodsDetailsActivity : BaseActivity() {
                         bannerData.add(XBannerBean(imgUrl))
                     }
                     banner.setBannerData(bannerData)
-
                     mMallGoodsName.text = goodsDetail?.name
-                    mTvPrice.text = goodsDetail?.price
-                    if (type == TYPE_MIAO_SHA) {
-                        price.text = "￥${goodsDetail?.price}"
-                        price.paint.flags = Paint.STRIKE_THRU_TEXT_FLAG
+                    if(type!= TYPE_PIN_TUAN){
+                        mTvPrice.text = goodsDetail?.price
                     }
+                    pintuan_add_shopping.text="¥${goodsDetail?.price}\n单独购买"
                     tv_goods_dilivery.text = goodsDetail?.dilivery
                     mTvGoodsVolume.text = goodsDetail?.volume
                     mTvGoodsStoreNum.text = goodsDetail?.store_num
@@ -335,7 +336,7 @@ class MallGoodsDetailsActivity : BaseActivity() {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun initBuyNow(res: ArrayList<MallBuyBean.SpecInfo>, price: HashMap<String, MallBuyBean.PriceInfo>) {
+    private fun initBuyNow(specInfos: ArrayList<MallBuyBean.SpecInfo>, price: HashMap<String, MallBuyBean.PriceInfo>) {
         bottomDialog = Dialog(this, R.style.BottomDialog)
         bottomDialog?.window?.decorView?.setPadding(0, 0, 0, 0)
         bottomDialog?.window?.attributes?.width = WindowManager.LayoutParams.MATCH_PARENT
@@ -350,7 +351,8 @@ class MallGoodsDetailsActivity : BaseActivity() {
         val mGoodsPrice = dialogContentView.findViewById<TextView>(R.id.tv_goods_price_a)
         val mBuyRecycler = dialogContentView.findViewById<RecyclerView>(R.id.rv_buy_recyclerview)
         mBuyRecycler.layoutManager = LinearLayoutManager(mBuyRecycler.context)
-        val buyAdapter = MallBuyAdapter(R.layout.mall_buy_item, res)
+        val buyAdapter = MallBuyAdapter(R.layout.mall_buy_item)
+        buyAdapter.setNewData(specInfos)
         mBuyRecycler.adapter = buyAdapter
         buyAdapter.setItemClickKind(MallBuyAdapter.ItemClickKind { spec, kind ->
             for (re in res) {

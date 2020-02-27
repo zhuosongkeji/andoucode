@@ -84,7 +84,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_toRightOf="@+id/rmb"
                                     android:layout_weight="1"
-                                    android:text="119.00"
+                                    tools:text="119.00"
                                     android:textColor="#ffffffff"
                                     android:textSize="24sp" />
 
@@ -110,7 +110,7 @@
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    android:text="￥138"
+                                    tools:text="￥138"
                                     android:textColor="#fffefefe"
                                     android:textSize="13sp" />
 
@@ -223,7 +223,7 @@
                                     android:layout_centerVertical="true"
                                     android:layout_marginLeft="@dimen/dp_3"
                                     android:layout_toRightOf="@+id/tv_flag"
-                                    android:text="288"
+                                    tools:text="288"
                                     android:textColor="#FE5F50"
                                     android:textSize="@dimen/typeface17sp" />
                             </LinearLayout>
@@ -664,7 +664,7 @@
                         android:layout_weight="1"
                         android:background="#EFA13B"
                         android:gravity="center"
-                        android:text="¥199\n单独购买"
+                        tools:text="¥199\n单独购买"
                         android:textColor="@color/white"
                         android:textSize="@dimen/typeface13sp" />
 
@@ -677,7 +677,7 @@
                         android:drawableLeft="@mipmap/icon_buynow_pay"
                         android:gravity="center"
                         android:paddingLeft="@dimen/dp_15"
-                        android:text="¥89\n我要开团"
+                        tools:text="¥89\n我要开团"
                         android:textColor="@color/white"
                         android:textSize="@dimen/typeface13sp" />
 

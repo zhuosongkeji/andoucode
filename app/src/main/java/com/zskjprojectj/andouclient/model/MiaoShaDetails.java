@@ -12,4 +12,5 @@ public class MiaoShaDetails {
     public String end_time;
     public String sec_status;
     public String now;
+    public String old_price;
 }

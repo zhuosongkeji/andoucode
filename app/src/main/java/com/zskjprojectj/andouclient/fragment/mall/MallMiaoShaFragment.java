@@ -80,7 +80,7 @@ public class MallMiaoShaFragment extends BaseFragment {
                 });
         goodsAdapter.setOnItemClickListener(
                 (adapter1, view, position) -> {
-                    MiaoShaGoods goods = adapter.getItem(position);
+                    MiaoShaGoods goods = goodsAdapter.getItem(position);
                     MallGoodsDetailsActivity.Companion.start(goods.goods_id, TYPE_MIAO_SHA, goods.sec_id);
                 });
         PageLoadUtil<MiaoShaGoods> pageLoadUtil = PageLoadUtil.get(mActivity, mRvMiaoShaGoods, adapter, refreshLayout);
