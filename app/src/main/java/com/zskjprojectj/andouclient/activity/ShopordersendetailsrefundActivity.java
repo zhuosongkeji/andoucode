@@ -130,7 +130,7 @@ public class ShopordersendetailsrefundActivity extends BaseActivity {
         goodsdetail = (OrderDetail.Goodsdetail) getIntent().getSerializableExtra("details");
 
         Glide.with(mAt).load(UrlUtil.INSTANCE.getImageUrl(goodsdetail.img)).apply(new RequestOptions()
-                .error(R.drawable.default_image).placeholder(R.drawable.default_image)).into(mPicLeft);
+                .placeholder(R.mipmap.ic_placeholder)).into(mPicLeft);
         mGoodsDetails.setText(getSpec(goodsdetail.attr_value));
         mGoodsName.setText(goodsdetail.name);
         mGoodsPrice.setText("¥" + goodsdetail.price);

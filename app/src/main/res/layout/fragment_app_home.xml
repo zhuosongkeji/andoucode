@@ -208,11 +208,41 @@
                 android:layout_height="10dp"
                 android:background="@color/colorGray" />
 
-            <include
-                layout="@layout/main_online_broadcast"
-                android:visibility="gone"
+            <ImageView
+                android:id="@+id/tempBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:scaleType="fitStart"
+                android:src="@mipmap/ic_temp" />
 
-                />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/colorGray" />
+
+            <ImageView
+                android:id="@+id/temp2Btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:paddingEnd="-3dp"
+                android:scaleType="fitStart"
+                android:src="@mipmap/temp2" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/colorGray" />
+
+            <ImageView
+                android:id="@+id/temp3Btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:paddingEnd="-3dp"
+                android:scaleType="fitStart"
+                android:src="@mipmap/temp3" />
 
             <View
                 android:layout_width="match_parent"

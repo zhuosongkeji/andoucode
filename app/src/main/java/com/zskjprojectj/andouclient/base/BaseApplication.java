@@ -5,6 +5,7 @@ import android.widget.ImageView;
 
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
+import com.tencent.bugly.Bugly;
 import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.BuildConfig;
 import com.zskjprojectj.andouclient.R;
@@ -34,6 +35,7 @@ public class BaseApplication extends Application {
             LoginActivity.Companion.start(activity, BaseObserver.REQUEST_CODE_LOGIN);
             LoginInfoUtil.saveLoginInfo("", "");
         };
+        Bugly.init(getApplicationContext(), "f184c5e735", BuildConfig.DEBUG);
     }
 
     public static BaseApplication getInstance() {

@@ -37,8 +37,8 @@ public class MallBuyInfoAdapter extends BaseQuickAdapter<MallSettlementBean.Deta
         Glide.with(mContext)
              .load(UrlUtil.INSTANCE.getImageUrl(item.getImg()))
              .apply(new RequestOptions()
-             .placeholder(R.drawable.default_image)
-             .error(R.drawable.default_image))
+             .placeholder(R.mipmap.ic_placeholder)
+             )
              .into((ImageView) helper.getView(R.id.mOrderImg));
 
         helper.setText(R.id.tv_online_order_name,item.getName());

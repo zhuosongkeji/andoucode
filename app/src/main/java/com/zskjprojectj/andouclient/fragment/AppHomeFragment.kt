@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.BarUtils
+import com.blankj.utilcode.util.ToastUtils
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.zaaach.citypicker.CityPicker
@@ -26,9 +27,10 @@ import com.zskjprojectj.andouclient.activity.AppHomeActivity
 import com.zskjprojectj.andouclient.activity.BookingorderActivity
 import com.zskjprojectj.andouclient.activity.MallHomeActivity
 import com.zskjprojectj.andouclient.activity.QrCodeActivity
-import com.zskjprojectj.andouclient.activity.hotel.HotelHomeActivity
 import com.zskjprojectj.andouclient.activity.hotel.HotelDetailActivity
+import com.zskjprojectj.andouclient.activity.hotel.HotelHomeActivity
 import com.zskjprojectj.andouclient.activity.mall.MallGoodsDetailsActivity
+import com.zskjprojectj.andouclient.activity.mall.MallSearchGoodsActivity
 import com.zskjprojectj.andouclient.activity.mall.MallShoppingHomeActivity
 import com.zskjprojectj.andouclient.activity.restaurant.RestaurantDetailActivity
 import com.zskjprojectj.andouclient.activity.restaurant.RestaurantHomeActivity
@@ -51,7 +53,6 @@ import com.zskjprojectj.andouclient.view.RedPacketViewHolder
 import kotlinx.android.synthetic.main.dialog_red_packet.view.*
 import kotlinx.android.synthetic.main.fragment_app_home.*
 import kotlinx.android.synthetic.main.main_make_an_appointment.*
-import kotlinx.android.synthetic.main.main_online_broadcast.*
 import kotlinx.android.synthetic.main.text_view.view.*
 import java.util.*
 
@@ -73,6 +74,15 @@ class AppHomeFragment : BaseFragment() {
         initActionBar()
         initCoverFlow()
         initXBanner()
+        tempBtn.setOnClickListener {
+            ToastUtils.showShort("该功能正在开发中...")
+        }
+        temp2Btn.setOnClickListener {
+            ToastUtils.showShort("该功能正在开发中...")
+        }
+        temp3Btn.setOnClickListener {
+            ToastUtils.showShort("该功能正在开发中...")
+        }
         merchantsAdapter.bindToRecyclerView(rv_merchants)
         merchantsAdapter.setOnItemClickListener { _, _, position ->
             when (merchantsAdapter.getItem(position)!!.merchant_type_id) {
@@ -81,7 +91,6 @@ class AppHomeFragment : BaseFragment() {
                 "4" -> RestaurantDetailActivity.start(merchantsAdapter.getItem(position)?.id)
             }
         }
-        onlinebroadcast_see_more_layout.setOnClickListener { ToastUtil.showToast("功能持续完成中......") }
         appointment_see_more_layout.setOnClickListener { startActivity(Intent(context, BookingorderActivity::class.java)) }
         onlinebooking_see_more_layout.setOnClickListener { ActivityUtils.startActivity(RestaurantHomeActivity::class.java) }
         loadData()
@@ -99,7 +108,8 @@ class AppHomeFragment : BaseFragment() {
         hotelAdapter.setOnItemClickListener { _, _, position -> HotelDetailActivity.start(hotelAdapter.getItem(position)!!.id) }
         recommendProductsAdapter.bindToRecyclerView(view.findViewById(R.id.goodsRecyclerView))
         recommendProductsAdapter.setOnItemClickListener { _, _, position ->
-            MallGoodsDetailsActivity.start(recommendProductsAdapter.getItem(position)!!.id) }
+            MallGoodsDetailsActivity.start(recommendProductsAdapter.getItem(position)!!.id)
+        }
         ll_see_more.setOnClickListener {
             (activity as AppHomeActivity).mNavigationBar.selectTab(1)
         }
@@ -133,6 +143,9 @@ class AppHomeFragment : BaseFragment() {
         }
         actionBarContainer.setPadding(0, BarUtils.getStatusBarHeight(), 0, 0)
         sha.setOnClickListener { ActivityUtils.startActivity(QrCodeActivity::class.java) }
+        mSearchEditText.setOnClickListener {
+            MallSearchGoodsActivity.start()
+        }
     }
 
     private fun initCoverFlow() {
@@ -155,8 +168,10 @@ class AppHomeFragment : BaseFragment() {
                 ScreenUtil.getScreenWidth(mActivity) / 2)
         bannertop.loadImage { _, model, view, _ ->
             val model1 = model as IndexHomeBean.BannerBean
-            Glide.with(mActivity).load(UrlUtil.getImageUrl(model1.img)).apply(RequestOptions()
-                    .placeholder(R.drawable.default_image).error(R.drawable.default_image)).into(view as ImageView)
+            Glide.with(mActivity)
+                    .load(UrlUtil.getImageUrl(model1.img))
+                    .apply(RequestOptions().placeholder(R.mipmap.ic_placeholder))
+                    .into(view as ImageView)
         }
         bannertop.setAutoPlayAble(true)
         bannertop.setIsClipChildrenMode(true)
@@ -213,13 +228,15 @@ class AppHomeFragment : BaseFragment() {
                     })
         }
         RequestUtil.request(mActivity, true, true,
-                { ApiUtils.getApiService().hotelHomeList(
-                        keywords,
-                        startPrice,
-                        endPrice,
-                        hotelStar,
-                        ""
-                ) },
+                {
+                    ApiUtils.getApiService().hotelHomeList(
+                            keywords,
+                            startPrice,
+                            endPrice,
+                            hotelStar,
+                            ""
+                    )
+                },
                 { result ->
                     hotelAdapter.setNewData(
                             result.data.subList(0, if (result.data.size >= 3) 3 else result.data.size))

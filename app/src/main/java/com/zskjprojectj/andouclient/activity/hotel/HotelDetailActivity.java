@@ -194,7 +194,7 @@ public class HotelDetailActivity extends BaseActivity {
                         });
                         //背景图片
                         Glide.with(mActivity).load(UrlUtil.INSTANCE.getImageUrl(hotelDetailsBean.getDoor_img()))
-                                .apply(new RequestOptions().placeholder(R.drawable.default_image).error(R.drawable.default_image))
+                                .apply(new RequestOptions().placeholder(R.mipmap.ic_placeholder))
                                 .into((ImageView) findViewById(R.id.iv_hotel_details_img));
                         //酒店名字
                         ((TextView) findViewById(R.id.hotel_name)).setText(hotelDetailsBean.getName());

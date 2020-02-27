@@ -20,7 +20,7 @@ public class MerchantListAdapter extends BaseQuickAdapter<Merchant, BaseViewHold
     protected void convert(BaseViewHolder helper, Merchant item) {
         Glide.with(helper.itemView)
                 .load(UrlUtil.INSTANCE.getImageUrl(item.logo_img))
-                .apply(new RequestOptions().placeholder(R.drawable.default_image))
+                .apply(new RequestOptions().placeholder(R.mipmap.ic_placeholder))
                 .into((ImageView) helper.itemView.findViewById(R.id.busiess_tupian1_image));
         helper.setText(R.id.busiess_name1_textview, item.name)
                 .setText(R.id.busiess_dianzancount1_textview, item.praise_num + "")

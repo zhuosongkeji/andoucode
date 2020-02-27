@@ -36,7 +36,7 @@ public class HotelHomeAdapter extends BaseQuickAdapter<HotelHomeBean, BaseViewHo
     protected void convert(BaseViewHolder helper, HotelHomeBean item) {
 
         Glide.with(mContext).load(UrlUtil.INSTANCE.getImageUrl(item.getLogo_img())).apply(new RequestOptions()
-        .placeholder(R.drawable.default_image).error(R.drawable.default_image)).into((ImageView) helper.getView(R.id.busiess_tupian1_image));
+        .placeholder(R.mipmap.ic_placeholder)).into((ImageView) helper.getView(R.id.busiess_tupian1_image));
 
         helper.setText(R.id.busiess_name1_textview,item.getName());
 

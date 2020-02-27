@@ -48,11 +48,11 @@ public class MeShopFragmentAdapter extends BaseQuickAdapter<Order, BaseViewHolde
         helper.setGone(R.id.btn_comment, OrderStatus.DAI_PING_JIA.status.equals(item.status));
         Glide.with(mContext).load(UrlUtil.INSTANCE.getImageUrl(item.img))
                 .transition(new DrawableTransitionOptions().crossFade())
-                .apply(new RequestOptions().placeholder(R.drawable.default_image))
+                .apply(new RequestOptions().placeholder(R.mipmap.ic_placeholder))
                 .into((ImageView) helper.getView(R.id.meshop_pic));
         Glide.with(mContext).load(UrlUtil.INSTANCE.getImageUrl(item.logo_img))
                 .transition(new DrawableTransitionOptions().crossFade())
-                .apply(new RequestOptions().placeholder(R.drawable.default_image))
+                .apply(new RequestOptions().placeholder(R.mipmap.ic_placeholder))
                 .into((ImageView) helper.getView(R.id.shopIconImg));
     }
 

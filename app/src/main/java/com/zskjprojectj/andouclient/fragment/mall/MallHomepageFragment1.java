@@ -184,7 +184,7 @@ public class MallHomepageFragment1 extends BaseFragment {
                 MallHomeDataBean.BannerBean model1 = (MallHomeDataBean.BannerBean) model;
                 String url = UrlUtil.INSTANCE.getImageUrl(model1.getImg());
                 Glide.with(mAty).load(url).apply(new RequestOptions()
-                        .placeholder(R.drawable.default_image).error(R.drawable.default_image)).into((ImageView) view);
+                        .placeholder(R.mipmap.ic_placeholder)).into((ImageView) view);
 
             }
         });

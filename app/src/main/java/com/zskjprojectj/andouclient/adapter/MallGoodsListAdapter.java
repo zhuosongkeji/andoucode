@@ -23,7 +23,7 @@ public class MallGoodsListAdapter extends BaseQuickAdapter<MallGoodsListBean, Ba
     protected void convert(BaseViewHolder helper, MallGoodsListBean item) {
 
         Glide.with(mContext).load(UrlUtil.INSTANCE.getImageUrl(item.getImg())).apply(new RequestOptions()
-                .placeholder(R.drawable.default_image).error(R.drawable.default_image)).into((ImageView) helper.getView(R.id.iv_mall_list_img));
+                .placeholder(R.mipmap.ic_placeholder)).into((ImageView) helper.getView(R.id.iv_mall_list_img));
 
         helper.setText(R.id.tv_mall_list_name,item.getName());
         helper.setText(R.id.tv_mall_list_price,"¥"+item.getPrice());

@@ -71,7 +71,7 @@ public class InvitationActivity extends BaseActivity {
                             .into((ImageView)findViewById(R.id.img_toptouxiang));
                   //  Glide.with(mAt).load(UrlUtil.getImageUrl(invitationBean.getQrcode())).into((img_toptouxiang));
                     Glide.with(mAt).load(UrlUtil.INSTANCE.getImageUrl(invitationBean.getQrcode()))
-                            .apply(new RequestOptions().placeholder(R.drawable.default_image))
+                            .apply(new RequestOptions().placeholder(R.mipmap.ic_placeholder))
                             .into((ImageView)findViewById(R.id.img_code));
                     tv_username.setText(invitationBean.getName());
                 }

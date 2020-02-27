@@ -22,7 +22,7 @@ android {
         applicationId "com.zskjprojectj.andouclient"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 1
+        versionCode 2
         versionName "0.5.3"
         javaCompileOptions { annotationProcessorOptions { includeCompileClasspath = true } }
         //  buildConfigField "String", "API_HOST", "\"http://lv.qingheliying.cn\""//API Host
@@ -163,4 +163,7 @@ dependencies {
     implementation project(path: ':recycler_banner_library')
     implementation "androidx.core:core-ktx:+"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    implementation 'com.tencent.bugly:crashreport_upgrade:latest.release'
+    implementation 'com.tencent.bugly:nativecrashreport:latest.release'
 }

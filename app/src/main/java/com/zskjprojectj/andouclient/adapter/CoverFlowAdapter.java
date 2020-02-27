@@ -55,7 +55,7 @@ public class CoverFlowAdapter extends RecyclerView.Adapter<CoverFlowAdapter.View
         String url = UrlUtil.INSTANCE.getImageUrl(merchant_type.get(position % merchant_type.size()).getImg());
         Log.d("wangbin", "url: " + url);
         Glide.with(mContext).load(url).apply(new RequestOptions()
-                .placeholder(R.drawable.default_image).error(R.drawable.default_image)).into(holder.imageView);
+                .placeholder(R.mipmap.ic_placeholder)).into(holder.imageView);
 
         holder.itemView.setOnClickListener(v -> {
             if (clickCb != null) {

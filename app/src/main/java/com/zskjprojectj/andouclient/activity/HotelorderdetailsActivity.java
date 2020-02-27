@@ -158,7 +158,7 @@ public class HotelorderdetailsActivity extends BaseActivity {
         ((TextView) findViewById(R.id.created_at)).setText(meHotelDetailsBean.getCreated_at());
         ((TextView) findViewById(R.id.pay_way)).setText(meHotelDetailsBean.getPay_way());
         Glide.with(mAt).load(UrlUtil.INSTANCE.getImageUrl(meHotelDetailsBean.getImg())).apply(new RequestOptions()
-                .placeholder(R.drawable.default_image).error(R.drawable.default_image)).into((ImageView) findViewById(R.id.img_iconleft));
+                .placeholder(R.mipmap.ic_placeholder)).into((ImageView) findViewById(R.id.img_iconleft));
 
     }
 

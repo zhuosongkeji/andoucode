@@ -1,6 +1,9 @@
 package com.zskjprojectj.andouclient.adapter.hotel;
 
+import android.view.View;
 import android.widget.ImageView;
+
+import androidx.annotation.Nullable;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -10,6 +13,8 @@ import com.willy.ratingbar.ScaleRatingBar;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.utils.UrlUtil;
 import com.zskjprojectj.andouclient.entity.hotel.HotelDetailCommentBean;
+
+import java.util.List;
 
 /**
  * 项目名称： andoucode
@@ -31,7 +36,7 @@ public class CommentAdapter extends BaseQuickAdapter<HotelDetailCommentBean, Bas
     protected void convert(BaseViewHolder helper, HotelDetailCommentBean item) {
 
         Glide.with(mContext).load(UrlUtil.INSTANCE.getImageUrl(item.getAvator())).apply(new RequestOptions()
-        .placeholder(R.drawable.default_image).error(R.drawable.default_image)).into((ImageView) helper.getView(R.id.IvHeadPic));
+        .placeholder(R.mipmap.ic_placeholder)).into((ImageView) helper.getView(R.id.IvHeadPic));
 
         helper.setText(R.id.mTvName,item.getName())
                 .setText(R.id.tv_time,item.getCreated_at())

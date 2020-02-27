@@ -42,7 +42,7 @@ public class ReserveAdapter extends BaseQuickAdapter<HotelDetailReserveBean.Hote
                 .setText(R.id.hotel_des,item.getName());
         if (item.getImg().size()!=0) {
             Glide.with(mContext).load(UrlUtil.INSTANCE.getImageUrl(item.getImg().get(0))).apply(new RequestOptions()
-                    .placeholder(R.drawable.default_image).error(R.drawable.default_image))
+                    .placeholder(R.mipmap.ic_placeholder))
                     .into((ImageView) helper.getView(R.id.hotel_image));
         }
 

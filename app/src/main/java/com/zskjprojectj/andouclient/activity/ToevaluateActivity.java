@@ -64,7 +64,7 @@ public class ToevaluateActivity extends BaseActivity {
 
 
         Glide.with(this).load(UrlUtil.INSTANCE.getImageUrl(img)).apply(new RequestOptions()
-                .placeholder(R.drawable.default_image).error(R.drawable.default_image)).into(mGoodsImg);
+                .placeholder(R.mipmap.ic_placeholder)).into(mGoodsImg);
 
 
 
