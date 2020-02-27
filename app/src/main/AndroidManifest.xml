@@ -145,7 +145,7 @@
             android:name=".activity.InvitationActivity"
             android:screenOrientation="portrait" /> <!-- 商城订单 -->
         <activity
-            android:name=".activity.ShoporderActivity"
+            android:name=".activity.MallOrderListActivity"
             android:screenOrientation="portrait" /> <!-- 酒店订单 -->
         <activity
             android:name=".activity.HotelorderActivity"

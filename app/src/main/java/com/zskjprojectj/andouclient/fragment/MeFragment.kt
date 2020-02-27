@@ -44,7 +44,7 @@ class MeFragment : BaseFragment() {
         mycenter_myrelease_layout.setOnClickListener { ToastUtil.showToast("功能暂未开通敬请期待....") }
         mycenter_hotelorder_layout.setOnClickListener { startActivity(Intent(context, HotelorderActivity::class.java)) }
         mycenter_shoporder_layout.setOnClickListener {
-            startActivity(Intent(context, ShoporderActivity::class.java))
+            startActivity(Intent(context, MallOrderListActivity::class.java))
         }
         mycenter_restaurant_layout.setOnClickListener { ActivityUtils.startActivity(RestaurantOrderListActivity::class.java) }
         mycenter_invitation_with_courtesy_layout.setOnClickListener { startActivity(Intent(context, InvitationActivity::class.java)) }

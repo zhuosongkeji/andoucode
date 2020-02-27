@@ -41,9 +41,6 @@ import java.io.IOException;
 import butterknife.BindView;
 import io.reactivex.Observable;
 
-/**
- * 我的商城全部订单
- */
 public class MeShopFragment extends BaseFragment {
 
     @BindView(R.id.refreshLayout)
