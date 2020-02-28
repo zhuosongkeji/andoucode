@@ -326,7 +326,10 @@ interface ApiService {
                       @Field("token") token: String,
                       @Field("sNo") sNo: String,
                       @Field("pay_id") pay_id: String,
-                      @Field("is_integral") is_integral: String
+                      @Field("is_integral") is_integral: String,
+                      @Field("puzzle_id") puzzle_id: String,
+                      @Field("open_join") open_join: String,
+                      @Field("group_id") group_id: String
     ): Observable<BaseResult<WXPayBean>>
 
     /**
@@ -1200,19 +1203,22 @@ interface ApiService {
      * 团购明细
      */
     @GET("api/group/puzzle_detail/{id}")
-    fun tuangouDetails(@Path("id") id: String): Observable<BaseResult<PinTuanDetails>>
+    fun tuangouDetails(@Path("id") id: String?): Observable<BaseResult<PinTuanDetails>>
 
 
     @FormUrlEncoded
     @POST("api/goods/sec_details")
-    fun miaoShaDetails(@Field("sec_id") sec_id: String): Observable<BaseResult<MiaoShaDetails>>
+    fun miaoShaDetails(@Field("sec_id") sec_id: String?): Observable<BaseResult<MiaoShaDetails>>
 
+    /**
+     * goods - 开团/拼团订单
+     */
     @FormUrlEncoded
     @POST("api/group/group_order")
     fun getGroupOrder(@Field("uid") uid: String,
                       @Field("token") token: String,
-                      @Field("num") num: Int,
-                      @Field("puzzle_id") puzzle_id: String,
+                      @Field("num") num: String,
+                      @Field("puzzle_id") puzzle_id: String?,
                       @Field("open_join") open_join: Int,
                       @Field("group_id") group_id: String?
     ): Observable<BaseResult<GetGroupOrderResponse>>
@@ -1220,8 +1226,8 @@ interface ApiService {
     @FormUrlEncoded
     @POST("api/goods/sec_goods")
     fun miaosha(@Field("uid") uid: String,
-                @Field("token") token: String,
-                @Field("sec_id") sec_id: String
+                      @Field("token") token: String,
+                      @Field("sec_id") sec_id: String?
     ): Observable<BaseResult<MiaoShaResponse>>
 
     @FormUrlEncoded

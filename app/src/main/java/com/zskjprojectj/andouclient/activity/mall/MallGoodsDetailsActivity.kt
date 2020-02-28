@@ -20,6 +20,7 @@ import com.blankj.utilcode.util.TimeUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.facebook.common.logging.LoggingDelegate
 import com.zhuosongkj.android.library.app.BaseActivity
 import com.zhuosongkj.android.library.util.ActionBarUtil
 import com.zhuosongkj.android.library.util.RequestUtil
@@ -37,34 +38,35 @@ import com.zskjprojectj.andouclient.fragment.mall.MallGoodsCommentFragment
 import com.zskjprojectj.andouclient.fragment.mall.MallGoodsDetailFragment
 import com.zskjprojectj.andouclient.http.ApiUtils
 import com.zskjprojectj.andouclient.model.GetGroupOrderResponse
+import com.zskjprojectj.andouclient.model.PinTuanDetails
 import com.zskjprojectj.andouclient.model.UserIn.Role.KEY_TYPE
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil
 import com.zskjprojectj.andouclient.utils.ToastUtil
 import com.zskjprojectj.andouclient.utils.UrlUtil
 import kotlinx.android.synthetic.main.activity_mall_goods_details.*
+import kotlinx.android.synthetic.main.dialog_buy_now.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
 class MallGoodsDetailsActivity : BaseActivity() {
     var goodsDetail: MallGoodsDetailsDataBean? = null
-
+    var groupGoods: PinTuanDetails.GroupGoodsBean? = null
     private var bottomDialog: Dialog? = null
     var goodsId: String? = null
     private var isCollection = false
     val res: ArrayList<MallBuyBean.SpecInfo> = arrayListOf()
     private val pinTuanAdapter = MallPinTuanAdapter()
-    //订单标题
-    private var orderName: String? = null
     private val timer = Timer()
     private var offset: Long = 0
     var type: String? = ""
+    private var controlId: String? = ""
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ActionBarUtil.setTitle(mActivity, "商品详情")
         goodsId = intent.getStringExtra(GOODS_ID)
         type = intent.getStringExtra(KEY_TYPE)
-        val controlId = intent.getStringExtra(KEY_DATA)
+        controlId = intent.getStringExtra(KEY_DATA)
         when (type) {
             TYPE_MIAO_SHA -> {
                 miaoShaContainer.visibility = View.VISIBLE
@@ -82,7 +84,7 @@ class MallGoodsDetailsActivity : BaseActivity() {
                                 )
                             },
                             {
-                                MallOnlineOrderActivity.start(it.data.order_sn)
+                                MallOnlineOrderActivity.start(it.data.order_sn, "", "", "")
                             },
                             {
                                 if (it.contains("请填写收货地址")) {
@@ -112,25 +114,13 @@ class MallGoodsDetailsActivity : BaseActivity() {
                 pinTuanAdapter.bindToRecyclerView(tv_pintuan)
                 pinTuanAdapter.setOnItemChildClickListener { _, view, position ->
                     val team = pinTuanAdapter.getItem(position)
-                    RequestUtil.request<GetGroupOrderResponse>(mActivity, true, false,
-                            {
-                                ApiUtils.getApiService().getGroupOrder(
-                                        LoginInfoUtil.getUid(),
-                                        LoginInfoUtil.getToken(),
-                                        1,
-                                        controlId,
-                                        2,
-                                        team?.group_id
-                                )
-                            },
-                            { result ->
-                                MallOnlineOrderActivity.start(result.data.order_sn)
-                            })
+                    initPinTuanDialog("参团", team?.group_id)
                 }
                 RequestUtil.request(mActivity, true, true,
                         { ApiUtils.getApiService().tuangouDetails(controlId) },
                         {
                             if ("0" == it.data.group_goods.code) {
+                                groupGoods = it.data.group_goods
                                 mTvPrice.text = it.data.group_goods.price
                                 tv_pintuan_number.text = it.data.group_goods.top_member + "人拼"
                                 mTvGoodsVolume.text = it.data.group_goods.sale_total
@@ -138,27 +128,16 @@ class MallGoodsDetailsActivity : BaseActivity() {
                                 tv_total_member.text = "已有" + it.data.total_member + "人参团"
                                 pinTuanAdapter.setNewData(it.data.team_list)
                                 pinTuanAdapter.setEndTime(it.data.group_goods.finish_time)
-                                pintuan_tv_buy_now.text="¥${it.data.group_goods.price}\n我要开团"
+                                pintuan_tv_buy_now.text = "¥${it.data.group_goods.price}\n我要开团"
+                                pintuan_add_shopping.text = "¥${it.data.group_goods.old_price}\n单独购买"
                             }
                         })
                 pintuan_add_shopping.setOnClickListener {
                     goToBuy()
                 }
                 pintuan_tv_buy_now.setOnClickListener {
-                    RequestUtil.request<GetGroupOrderResponse>(mActivity, true, false,
-                            {
-                                ApiUtils.getApiService().getGroupOrder(
-                                        LoginInfoUtil.getUid(),
-                                        LoginInfoUtil.getToken(),
-                                        1,
-                                        controlId,
-                                        1,
-                                        null
-                                )
-                            },
-                            { result ->
-                                MallOnlineOrderActivity.start(result.data.order_sn)
-                            })
+
+                    initPinTuanDialog("开团", "")
                 }
             }
             else -> mBuyNow.setOnClickListener {
@@ -247,10 +226,9 @@ class MallGoodsDetailsActivity : BaseActivity() {
                     }
                     banner.setBannerData(bannerData)
                     mMallGoodsName.text = goodsDetail?.name
-                    if(type!= TYPE_PIN_TUAN){
+                    if (type != TYPE_PIN_TUAN) {
                         mTvPrice.text = goodsDetail?.price
                     }
-                    pintuan_add_shopping.text="¥${goodsDetail?.price}\n单独购买"
                     tv_goods_dilivery.text = goodsDetail?.dilivery
                     mTvGoodsVolume.text = goodsDetail?.volume
                     mTvGoodsStoreNum.text = goodsDetail?.store_num
@@ -271,6 +249,88 @@ class MallGoodsDetailsActivity : BaseActivity() {
                         iviscollection.setImageResource(R.mipmap.ic_heart_mall)
                     }
                 })
+    }
+
+    private fun initPinTuanDialog(tuanType: String, groupId: String?) {
+        bottomDialog = Dialog(this, R.style.BottomDialog)
+        bottomDialog?.window?.decorView?.setPadding(0, 0, 0, 0)
+        bottomDialog?.window?.attributes?.width = WindowManager.LayoutParams.MATCH_PARENT
+        bottomDialog?.window?.decorView?.setBackgroundColor(Color.TRANSPARENT)
+        val dialogContentView = LayoutInflater.from(this).inflate(R.layout.dialog_buy_now, null)
+        dialogContentView.normal_buy.visibility = View.GONE
+        dialogContentView.rv_buy_recyclerview.visibility=View.GONE
+        dialogContentView.tv_buynow_pintuan.visibility = View.VISIBLE
+        Glide.with(mActivity).load(UrlUtil.getImageUrl(goodsDetail?.img))
+                .apply(RequestOptions().placeholder(R.drawable.default_image).error(R.drawable.default_image))
+                .into(dialogContentView.findViewById(R.id.orderImg))
+        val mOrderName = dialogContentView.findViewById<TextView>(R.id.tv_order_name)
+        mOrderName.text = goodsDetail?.name
+        val mGoodsNum = dialogContentView.findViewById<TextView>(R.id.tv_goods_num_a)
+        mGoodsNum.text = groupGoods?.storage
+        val mGoodsPrice = dialogContentView.findViewById<TextView>(R.id.tv_goods_price_a)
+        mGoodsPrice.text = groupGoods?.price
+        val mSub = dialogContentView.findViewById<ImageView>(R.id.btn_sub)
+        val mAdd = dialogContentView.findViewById<ImageView>(R.id.btn_add)
+        val mNum = dialogContentView.findViewById<TextView>(R.id.tv_num)
+        val mCancle = dialogContentView.findViewById<ImageView>(R.id.iv_cancle)
+        mCancle.setOnClickListener { bottomDialog?.dismiss() }
+        mAdd.setOnClickListener {
+            val number = mNum.text.toString()
+            var i = Integer.parseInt(number)
+            i += 1
+            val addNumber = Integer.toString(i)
+            mNum.text = addNumber
+        }
+
+        mSub.setOnClickListener {
+            val number = mNum.text.toString()
+            var i = Integer.parseInt(number)
+            if (i > 1) {
+                i -= 1
+                val addNumber = Integer.toString(i)
+                mNum.text = addNumber
+            }
+        }
+        bottomDialog?.setContentView(dialogContentView)
+        bottomDialog?.window?.setGravity(Gravity.BOTTOM)
+        bottomDialog?.setCanceledOnTouchOutside(true)
+        bottomDialog?.window?.setWindowAnimations(R.style.BottomDialog_Animation)
+        bottomDialog?.show()
+        dialogContentView.tv_buynow_pintuan.setOnClickListener {
+            if ("开团".equals(tuanType)) {
+                RequestUtil.request<GetGroupOrderResponse>(mActivity, true, false,
+                        {
+                            ApiUtils.getApiService().getGroupOrder(
+                                    LoginInfoUtil.getUid(),
+                                    LoginInfoUtil.getToken(),
+                                    mNum.text.toString(),
+                                    controlId,
+                                    1,
+                                    null
+                            )
+                        },
+                        { result ->
+                            MallOnlineOrderActivity.start(result.data.order_sn, result.data.puzzle_id, result.data.open_join, result.data.group_id)
+                            bottomDialog?.dismiss()
+                        })
+            } else if ("参团".equals(tuanType)) {
+                RequestUtil.request<GetGroupOrderResponse>(mActivity, true, false,
+                        {
+                            ApiUtils.getApiService().getGroupOrder(
+                                    LoginInfoUtil.getUid(),
+                                    LoginInfoUtil.getToken(),
+                                    mNum.text.toString(),
+                                    controlId,
+                                    2,
+                                    groupId
+                            )
+                        },
+                        { result ->
+                            MallOnlineOrderActivity.start(result.data.order_sn, result.data.puzzle_id, result.data.open_join, result.data.group_id)
+                            bottomDialog?.dismiss()
+                        })
+            }
+        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -346,7 +406,7 @@ class MallGoodsDetailsActivity : BaseActivity() {
                 .apply(RequestOptions().placeholder(R.drawable.default_image).error(R.drawable.default_image))
                 .into(dialogContentView.findViewById(R.id.orderImg))
         val mOrderName = dialogContentView.findViewById<TextView>(R.id.tv_order_name)
-        mOrderName.text = orderName
+        mOrderName.text = goodsDetail?.name
         val mGoodsNum = dialogContentView.findViewById<TextView>(R.id.tv_goods_num_a)
         val mGoodsPrice = dialogContentView.findViewById<TextView>(R.id.tv_goods_price_a)
         val mBuyRecycler = dialogContentView.findViewById<RecyclerView>(R.id.rv_buy_recyclerview)
@@ -434,7 +494,7 @@ class MallGoodsDetailsActivity : BaseActivity() {
                         )
                     },
                     {
-                        MallOnlineOrderActivity.start(it.data.order_sn)
+                        MallOnlineOrderActivity.start(it.data.order_sn, "", "", "")
                         bottomDialog?.dismiss()
                     },
                     {
