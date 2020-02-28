@@ -20,7 +20,7 @@ import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.activity.MyaddressActivity;
+import com.zskjprojectj.andouclient.activity.MyAddressActivity;
 import com.zskjprojectj.andouclient.activity.MallOrderListActivity;
 import com.zskjprojectj.andouclient.adapter.mall.MallBuyInfoAdapter;
 import com.zskjprojectj.andouclient.adapter.mall.PayWaysAdapter;
@@ -98,7 +98,7 @@ public class MallOnlineOrderActivity extends BaseActivity {
 
     @OnClick(R.id.rl_selector_address)
     public void clickAddress(){
-        Intent intent=new Intent(MallOnlineOrderActivity.this, MyaddressActivity.class);
+        Intent intent=new Intent(MallOnlineOrderActivity.this, MyAddressActivity.class);
 
         startActivityForResult(intent,SELECTORADDRESS);
     }

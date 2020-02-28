@@ -13,8 +13,8 @@ import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 
 import java.io.IOException;
 
-public class MyaddressAdapter extends BaseQuickAdapter<Address, BaseViewHolder> {
-    public MyaddressAdapter() {
+public class MyAddressAdapter extends BaseQuickAdapter<Address, BaseViewHolder> {
+    public MyAddressAdapter() {
         super(R.layout.item_myaddress);
     }
 
@@ -23,7 +23,6 @@ public class MyaddressAdapter extends BaseQuickAdapter<Address, BaseViewHolder> 
         helper.setText(R.id.nameTxt, item.name)
                 .setText(R.id.mobileTxt, item.mobile)
                 .setText(R.id.addressTxt, item.province + item.city + item.area + item.address)
-//                .setVisible(R.id.defaultCkb, !item.is_defualt.equals("1"))
                 .setOnCheckedChangeListener(R.id.defaultCbx, null)
                 .setChecked(R.id.defaultCbx, item.is_defualt.equals("1"))
                 .setOnCheckedChangeListener(R.id.defaultCbx, (buttonView, isChecked) ->

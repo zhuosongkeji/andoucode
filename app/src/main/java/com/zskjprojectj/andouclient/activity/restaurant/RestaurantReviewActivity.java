@@ -8,7 +8,6 @@ import android.widget.EditText;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.willy.ratingbar.ScaleRatingBar;
 import com.zhuosongkj.android.library.app.BaseActivity;
-import com.zhuosongkj.android.library.model.BaseResult;
 import com.zhuosongkj.android.library.util.ActionBarUtil;
 import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zhuosongkj.android.library.util.ViewUtil;
@@ -20,9 +19,8 @@ import com.zskjprojectj.andouclient.utils.ToastUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import io.reactivex.Observable;
 
-import static com.zskjprojectj.andouclient.activity.MyaddressActivity.KEY_DATA;
+import static com.zskjprojectj.andouclient.utils.ConstantKt.KEY_DATA;
 
 public class RestaurantReviewActivity extends BaseActivity {
 

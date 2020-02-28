@@ -1,19 +1,14 @@
 package com.zskjprojectj.andouclient.activity.hotel;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ActivityUtils;
@@ -27,15 +22,10 @@ import com.shizhefei.view.indicator.transition.OnTransitionTextListener;
 import com.willy.ratingbar.ScaleRatingBar;
 import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zhuosongkj.android.library.util.ActionBarUtil;
-import com.zhuosongkj.android.library.util.RequestUtil;
-import com.zhuosongkj.android.library.util.ViewUtil;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.base.BasePresenter;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 import com.zskjprojectj.andouclient.utils.MapUtil;
-import com.zskjprojectj.andouclient.utils.ToastUtil;
 import com.zskjprojectj.andouclient.utils.UrlUtil;
-import com.zskjprojectj.andouclient.base.BaseUrl;
 import com.zskjprojectj.andouclient.entity.hotel.HotelDetailsBean;
 import com.zskjprojectj.andouclient.fragment.hotel.HotelDetailCommentFragment;
 import com.zskjprojectj.andouclient.fragment.hotel.HotelDetailFacilityFragment;
@@ -44,7 +34,6 @@ import com.zskjprojectj.andouclient.fragment.hotel.HotelDetailReserveFragment;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
-import com.zskjprojectj.andouclient.model.Merchant;
 import com.blankj.utilcode.util.BarUtils;
 
 import java.io.IOException;
@@ -53,8 +42,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-
-import static com.zskjprojectj.andouclient.activity.MyaddressActivity.KEY_DATA;
 
 /**
  * 酒店详情页

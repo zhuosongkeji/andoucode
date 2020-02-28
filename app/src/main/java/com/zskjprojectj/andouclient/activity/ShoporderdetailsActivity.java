@@ -30,7 +30,7 @@ import java.io.IOException;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-import static com.zskjprojectj.andouclient.activity.MyaddressActivity.KEY_DATA;
+import static com.zskjprojectj.andouclient.utils.ConstantKt.KEY_DATA;
 
 public class ShoporderdetailsActivity extends BaseActivity {
 
@@ -116,7 +116,7 @@ public class ShoporderdetailsActivity extends BaseActivity {
                     .into((ImageView) view.findViewById(R.id.meshop_pic));
             ((ViewGroup) findViewById(R.id.goodsContainer)).addView(view);
         }
-        ((TextView) findViewById(R.id.totalTxt)).setText("￥" +goodsPrice);
+        ((TextView) findViewById(R.id.totalTxt)).setText("￥" + goodsPrice);
         ((TextView) findViewById(R.id.totalCountTxt)).setText("共" + order.allnum + "个商品(合计)");
         ((TextView) findViewById(R.id.freightTxt)).setText("+￥" + order.shipping_free);
         ((TextView) findViewById(R.id.costTxt)).setText("￥" + order.pay_money);
@@ -130,7 +130,7 @@ public class ShoporderdetailsActivity extends BaseActivity {
                 @Override
                 public void onClick(View v) {
                     //退款//退货
-                    ShopordersendetailsrefundActivity.start("refund",order.details.get(0));
+                    ShopordersendetailsrefundActivity.start("refund", order.details.get(0));
                     finish();
                 }
             });
@@ -141,7 +141,7 @@ public class ShoporderdetailsActivity extends BaseActivity {
                 @Override
                 public void onClick(View v) {
                     //退款//退货
-                    ShopordersendetailsrefundActivity.start("sales_return",order.details.get(0));
+                    ShopordersendetailsrefundActivity.start("sales_return", order.details.get(0));
                     finish();
                 }
             });

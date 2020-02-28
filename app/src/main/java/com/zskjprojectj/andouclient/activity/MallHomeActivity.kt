@@ -7,7 +7,7 @@ import com.blankj.utilcode.util.ActivityUtils
 import com.zhuosongkj.android.library.app.BaseActivity
 import com.zhuosongkj.android.library.util.ActionBarUtil
 import com.zskjprojectj.andouclient.R
-import com.zskjprojectj.andouclient.activity.MyaddressActivity.KEY_DATA
+import com.zskjprojectj.andouclient.utils.KEY_DATA
 import com.zskjprojectj.andouclient.fragment.MallCategoryFragment
 import com.zskjprojectj.andouclient.fragment.MallShoppingFragment
 import com.zskjprojectj.andouclient.fragment.mall.MallHomepageFragment1

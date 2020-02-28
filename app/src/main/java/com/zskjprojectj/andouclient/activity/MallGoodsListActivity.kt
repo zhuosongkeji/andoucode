@@ -9,13 +9,13 @@ import com.lxj.xpopup.interfaces.SimpleCallback
 import com.zhuosongkj.android.library.app.BaseActivity
 import com.zhuosongkj.android.library.util.PageLoadUtil
 import com.zskjprojectj.andouclient.R
-import com.zskjprojectj.andouclient.activity.MyaddressActivity.KEY_DATA
 import com.zskjprojectj.andouclient.activity.mall.MallGoodsDetailsActivity
 import com.zskjprojectj.andouclient.activity.mall.MallSearchGoodsActivity
 import com.zskjprojectj.andouclient.adapter.MallGoodsListAdapter
 import com.zskjprojectj.andouclient.entity.mall.MallGoodsListBean
 import com.zskjprojectj.andouclient.http.ApiUtils
 import com.zskjprojectj.andouclient.utils.CustomPartShadowPopupView
+import com.zskjprojectj.andouclient.utils.KEY_DATA
 import com.zskjprojectj.andouclient.utils.KEY_IS_RECOMMEND
 import com.zskjprojectj.andouclient.utils.KEY_IS_SPECIAL
 import kotlinx.android.synthetic.main.activity_mall_goods_list.*

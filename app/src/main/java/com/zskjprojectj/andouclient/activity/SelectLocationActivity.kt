@@ -7,33 +7,65 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import com.amap.api.maps.AMap
 import com.amap.api.maps.CameraUpdateFactory
 import com.amap.api.maps.model.BitmapDescriptorFactory
+import com.amap.api.maps.model.CameraPosition
 import com.amap.api.maps.model.MyLocationStyle
 import com.amap.api.services.core.LatLonPoint
 import com.amap.api.services.core.PoiItem
+import com.amap.api.services.geocoder.*
 import com.amap.api.services.poisearch.PoiResult
 import com.amap.api.services.poisearch.PoiSearch
 import com.blankj.utilcode.util.KeyboardUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.chad.library.adapter.base.loadmore.LoadMoreView
+import com.zaaach.citypicker.CityPicker
+import com.zaaach.citypicker.adapter.OnPickListener
+import com.zaaach.citypicker.model.City
+import com.zaaach.citypicker.model.LocateState
+import com.zaaach.citypicker.model.LocatedCity
 import com.zhuosongkj.android.library.app.BaseActivity
 import com.zhuosongkj.android.library.util.ActionBarUtil
 import com.zskjprojectj.andouclient.R
-import com.zskjprojectj.andouclient.activity.MyaddressActivity.KEY_DATA
 import com.zskjprojectj.andouclient.adapter.PoiItemListAdapter
+import com.zskjprojectj.andouclient.utils.KEY_DATA
 import kotlinx.android.synthetic.main.activity_select_location.*
-
 
 class SelectLocationActivity : BaseActivity() {
 
     val adapter = PoiItemListAdapter()
     var poiSearch: PoiSearch? = null
     val poiSearchQuery = PoiSearch.Query("", "", "")
+    var regeocodeAddress: RegeocodeAddress? = null
+    var refresh: Boolean = true
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ActionBarUtil.setTitle(mActivity, "定位地址")
         initSearchBar()
+        selectCityBtn.setOnClickListener {
+            CityPicker.from(mActivity)
+                    .enableAnimation(true)
+                    .setOnPickListener(object : OnPickListener {
+                        override fun onPick(position: Int, data: City) {
+                            cityTxt.text = data.name
+                        }
+
+                        override fun onCancel() {
+                        }
+
+                        override fun onLocate() {
+                            baseContentView.postDelayed({
+                                CityPicker.from(mActivity).locateComplete(
+                                        LocatedCity(regeocodeAddress?.city,
+                                                regeocodeAddress?.province,
+                                                regeocodeAddress?.cityCode),
+                                        LocateState.SUCCESS)
+                            }, 1000)
+                        }
+                    })
+                    .show()
+        }
         adapter.bindToRecyclerView(recyclerView)
         adapter.setOnItemClickListener { _, _, position ->
             val intent = Intent()
@@ -65,6 +97,15 @@ class SelectLocationActivity : BaseActivity() {
         mapView.onCreate(savedInstanceState)
         mapView.map.uiSettings.isMyLocationButtonEnabled = true
         mapView.map.isMyLocationEnabled = true
+        mapView.map.setOnCameraChangeListener(object : AMap.OnCameraChangeListener {
+            override fun onCameraChangeFinish(result: CameraPosition?) {
+                refresh = true
+                searchLocationPoi(result?.target?.latitude, result?.target?.longitude)
+            }
+
+            override fun onCameraChange(p0: CameraPosition?) {
+            }
+        })
         val myLocationStyle = MyLocationStyle()
         myLocationStyle.myLocationIcon(BitmapDescriptorFactory.fromResource(R.mipmap.location_blue))
         myLocationStyle.interval(2000)
@@ -73,9 +114,20 @@ class SelectLocationActivity : BaseActivity() {
         myLocationStyle.strokeColor(Color.TRANSPARENT)
         mapView.map.myLocationStyle = myLocationStyle
         mapView.map.setOnMyLocationChangeListener {
+            refresh = true
+            val geoCoderSearch = GeocodeSearch(mActivity)
+            geoCoderSearch.setOnGeocodeSearchListener(object : GeocodeSearch.OnGeocodeSearchListener {
+                override fun onRegeocodeSearched(result: RegeocodeResult?, p1: Int) {
+                    cityTxt.text = result?.regeocodeAddress?.city
+                    regeocodeAddress = result?.regeocodeAddress
+                }
+
+                override fun onGeocodeSearched(result: GeocodeResult?, p1: Int) {
+                }
+            })
+            geoCoderSearch.getFromLocationAsyn(RegeocodeQuery(LatLonPoint(it.latitude, it.longitude), 1000F, GeocodeSearch.AMAP))
             mapView.map.moveCamera(CameraUpdateFactory.zoomTo(17F))
             poiSearch = PoiSearch(mActivity, poiSearchQuery)
-            poiSearch?.bound = PoiSearch.SearchBound(LatLonPoint(it.latitude, it.longitude), 20 * 1000)
             poiSearch?.setOnPoiSearchListener(object : PoiSearch.OnPoiSearchListener {
                 override fun onPoiItemSearched(p0: PoiItem?, p1: Int) {
                 }
@@ -84,7 +136,12 @@ class SelectLocationActivity : BaseActivity() {
                     if (code == 1000) {
                         if (result.pois.size > 0) {
                             adapter.loadMoreComplete()
-                            adapter.addData(result.pois)
+                            if (refresh) {
+                                refresh = false
+                                adapter.setNewData(result.pois)
+                            } else {
+                                adapter.addData(result.pois)
+                            }
                             poiSearchQuery.pageNum += 1
                         } else {
                             adapter.loadMoreEnd()
@@ -95,13 +152,20 @@ class SelectLocationActivity : BaseActivity() {
                     }
                 }
             })
-            poiSearch?.searchPOIAsyn()
+            searchLocationPoi(it.latitude, it.longitude)
         }
+    }
+
+    private fun searchLocationPoi(lat: Double?, long: Double?) {
+        poiSearch?.bound = PoiSearch.SearchBound(
+                LatLonPoint(lat ?: 0.0, long ?: 0.0),
+                20 * 1000)
+        poiSearch?.searchPOIAsyn()
     }
 
     private fun initSearchBar() {
         val searchResultAdapter = PoiItemListAdapter()
-        var poiSearchQuery = PoiSearch.Query("", "", "")
+        var poiSearchQuery = PoiSearch.Query("", "", cityTxt.text.toString())
         val poiSearch = PoiSearch(mActivity, poiSearchQuery)
         poiSearch.setOnPoiSearchListener(object : PoiSearch.OnPoiSearchListener {
             override fun onPoiItemSearched(p0: PoiItem?, p1: Int) {
@@ -125,7 +189,7 @@ class SelectLocationActivity : BaseActivity() {
         searchResultAdapter.bindToRecyclerView(searchResultRecyclerView)
         searchResultAdapter.setOnItemClickListener { _, _, position ->
             val intent = Intent()
-            intent.putExtra(KEY_DATA, adapter.getItem(position))
+            intent.putExtra(KEY_DATA, searchResultAdapter.getItem(position))
             setResult(Activity.RESULT_OK, intent)
             finish()
         }
@@ -164,14 +228,14 @@ class SelectLocationActivity : BaseActivity() {
             }
 
             override fun afterTextChanged(s: Editable) {
-                poiSearchQuery = PoiSearch.Query(s.toString(), "", "重庆市")
+                poiSearchQuery = PoiSearch.Query(s.toString(), "", cityTxt.text.toString())
                 poiSearch.query = poiSearchQuery
                 poiSearch.searchPOIAsyn()
             }
         })
         cancelBtn.setOnClickListener {
             keywordEdt.setText("")
-            keywordEdt.isFocusable = false
+            keywordEdt.clearFocus()
             KeyboardUtils.hideSoftInput(keywordEdt)
             it.visibility = View.GONE
             searchResultAdapter.setNewData(null)

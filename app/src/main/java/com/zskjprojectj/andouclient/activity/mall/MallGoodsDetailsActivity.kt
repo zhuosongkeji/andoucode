@@ -25,8 +25,8 @@ import com.zhuosongkj.android.library.util.ActionBarUtil
 import com.zhuosongkj.android.library.util.RequestUtil
 import com.zskjprojectj.andouclient.R
 import com.zskjprojectj.andouclient.activity.MallHomeActivity
-import com.zskjprojectj.andouclient.activity.MyaddressActivity
-import com.zskjprojectj.andouclient.activity.MyaddressActivity.KEY_DATA
+import com.zskjprojectj.andouclient.activity.MyAddressActivity
+import com.zskjprojectj.andouclient.utils.KEY_DATA
 import com.zskjprojectj.andouclient.adapter.mall.MallBuyAdapter
 import com.zskjprojectj.andouclient.adapter.mall.MallPinTuanAdapter
 import com.zskjprojectj.andouclient.entity.XBannerBean
@@ -86,7 +86,7 @@ class MallGoodsDetailsActivity : BaseActivity() {
                             },
                             {
                                 if (it.contains("请填写收货地址")) {
-                                    startActivity(Intent(mActivity, MyaddressActivity::class.java))
+                                    startActivity(Intent(mActivity, MyAddressActivity::class.java))
                                 }
                             })
                 }
@@ -439,7 +439,7 @@ class MallGoodsDetailsActivity : BaseActivity() {
                     },
                     {
                         if (it.contains("请填写收货地址")) {
-                            startActivity(Intent(mActivity, MyaddressActivity::class.java))
+                            startActivity(Intent(mActivity, MyAddressActivity::class.java))
                         }
                     })
         })

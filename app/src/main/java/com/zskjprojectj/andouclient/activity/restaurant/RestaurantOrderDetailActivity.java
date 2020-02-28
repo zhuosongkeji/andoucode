@@ -26,14 +26,13 @@ import com.zskjprojectj.andouclient.model.Food;
 import com.zskjprojectj.andouclient.model.RestaurantOrder;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 import com.zskjprojectj.andouclient.utils.MapUtil;
-import com.zskjprojectj.andouclient.utils.ToastUtil;
 import com.zskjprojectj.andouclient.utils.UrlUtil;
 
 import java.math.BigDecimal;
 
 import butterknife.BindView;
 
-import static com.zskjprojectj.andouclient.activity.MyaddressActivity.KEY_DATA;
+import static com.zskjprojectj.andouclient.utils.ConstantKt.KEY_DATA;
 
 public class RestaurantOrderDetailActivity extends BaseActivity {
 

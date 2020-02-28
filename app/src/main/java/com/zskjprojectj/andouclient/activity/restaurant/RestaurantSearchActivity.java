@@ -22,7 +22,8 @@ import com.zskjprojectj.andouclient.utils.ToastUtil;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-import static com.zskjprojectj.andouclient.activity.MyaddressActivity.KEY_DATA;
+import static com.zskjprojectj.andouclient.utils.ConstantKt.KEY_DATA;
+
 
 public class RestaurantSearchActivity extends BaseActivity {
 

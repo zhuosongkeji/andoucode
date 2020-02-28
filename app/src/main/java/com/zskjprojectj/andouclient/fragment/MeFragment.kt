@@ -55,7 +55,7 @@ class MeFragment : BaseFragment() {
         }
         mycenter_mycollection_layout.setOnClickListener { startActivity(Intent(context, MycollectionActivity::class.java)) }
         mycenter_browsing_layout.setOnClickListener { startActivity(Intent(context, HistoryActivity::class.java)) }
-        mycenter_myaddress_layout.setOnClickListener { startActivity(Intent(context, MyaddressActivity::class.java)) }
+        mycenter_myaddress_layout.setOnClickListener { MyAddressActivity.start(mActivity, false) }
         mycenter_myscore_layout.setOnClickListener { startActivity(Intent(context, MyscoreActivity::class.java)) }
         mycenter_business_residence_layout.setOnClickListener { startActivity(Intent(context, BusinessresidenceActivity::class.java)) }
         mycenter_downloadapp_layout.setOnClickListener { startActivity(Intent(context, DownloadappActivity::class.java)) }

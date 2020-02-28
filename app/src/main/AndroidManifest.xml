@@ -55,7 +55,10 @@
         </activity>
         <activity android:name=".activity.TieBaReleaseActivity" />
         <activity android:name=".activity.mall.PinTuanActivity" />
-        <activity android:name=".activity.SelectLocationActivity" />
+        <activity
+            android:name=".activity.SelectLocationActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/DefaultCityPickerTheme" />
         <activity android:name=".activity.mall.MallMiaoShaActivity" />
         <activity
             android:name=".activity.restaurant.RestaurantSearchActivity"
@@ -179,7 +182,7 @@
             android:name=".activity.HistoryActivity"
             android:screenOrientation="portrait" /> <!-- 浏览痕迹 -->
         <activity
-            android:name=".activity.MyaddressActivity"
+            android:name=".activity.MyAddressActivity"
             android:screenOrientation="portrait" /> <!-- 我的地址 -->
         <activity
             android:name=".activity.MyscoreActivity"
