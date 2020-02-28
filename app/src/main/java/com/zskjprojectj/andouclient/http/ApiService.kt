@@ -1248,4 +1248,6 @@ interface ApiService {
                      @Field("contact_info") contact_info: String,
                      @Field("top_post") top_post: Boolean): Observable<BaseResult<Any>>
 
+    @GET("api/tieba/types")
+    fun tieBaTypes(): Observable<BaseResult<List<TieBaType>>>
 }
