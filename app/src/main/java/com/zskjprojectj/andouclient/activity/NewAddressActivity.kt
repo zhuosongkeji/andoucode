@@ -19,8 +19,6 @@ import com.zhuosongkj.android.library.util.ActionBarUtil
 import com.zhuosongkj.android.library.util.RequestUtil
 import com.zskjprojectj.andouclient.R
 import com.zskjprojectj.andouclient.http.ApiUtils
-import com.zskjprojectj.andouclient.model.ADProvince
-import com.zskjprojectj.andouclient.model.Address
 import com.zskjprojectj.andouclient.model.AddressIn
 import com.zskjprojectj.andouclient.utils.KEY_DATA
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil
@@ -30,79 +28,84 @@ import kotlinx.android.synthetic.main.activity_new_address.*
 import java.util.*
 
 class NewAddressActivity : BaseActivity() {
-    val adProvincess: MutableList<ADProvince> = ArrayList()
     var selectedAddress: AddressIn? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val editAddress = intent.getSerializableExtra(KEY_DATA) as? Address
-        if (editAddress == null) {
+        val id = intent.getStringExtra(KEY_DATA)
+        if (id == null) {
             ActionBarUtil.setTitle(mActivity, "新增地址")
         } else {
             ActionBarUtil.setTitle(mActivity, "修改地址")
-            nameEdt.setText(editAddress.name)
-            mobileEdt.setText(editAddress.mobile)
-            detailEdt.setText(editAddress.address)
-            defaultCbx.isChecked = editAddress.is_defualt == "1"
-//            val province = Province()
-//            province.id = editAddress.province.
-//            province.name = poiItem.provinceName
-//            val city = City()
-//            city.id = poiItem.cityCode.toInt()
-//            city.name = poiItem.cityName
-//            val county = County()
-//            county.id = poiItem.adCode.toInt()
-//            county.name = poiItem.adName
-//            selectedAddress = AddressIn(province, city, county)
+            RequestUtil.request(mActivity, true, true, {
+                ApiUtils.getApiService().addressDetail(
+                        LoginInfoUtil.getUid(),
+                        LoginInfoUtil.getToken(),
+                        id
+                )
+            }, {
+                nameEdt.setText(it.data.name)
+                mobileEdt.setText(it.data.mobile)
+                detailEdt.setText(it.data.address)
+                defaultCbx.isChecked = it.data.is_defualt == "1"
+                val province = Province()
+                province.id = it.data.province_id.toInt()
+                province.name = it.data.province
+                val city = City()
+                city.id = it.data.city_id.toInt()
+                city.name = it.data.city
+                val county = County()
+                county.id = it.data.district_id.toInt()
+                county.name = it.data.area
+                selectedAddress = AddressIn(province, city, county)
+            })
         }
         ry_selectaddress.setOnClickListener {
             val dialog = AddressBottomDialog.show(mActivity)
             dialog.setTitles("收货地址")
             dialog.setAddressProvider(object : AddressProvider {
                 override fun provideProvinces(addressReceiver: AddressReceiver<Province>) {
-                    val provinces = ArrayList<Province>()
-                    for (adProvince in adProvincess) {
-                        val province = Province()
-                        province.id = adProvince.id
-                        province.name = adProvince.name
-                        provinces.add(province)
-                    }
-                    addressReceiver.send(provinces)
+                    RequestUtil.request(mActivity, true, false,
+                            { ApiUtils.getApiService().districts() },
+                            {
+                                val provinces = ArrayList<Province>()
+                                for (district in it.data) {
+                                    val province = Province()
+                                    province.id = district.id
+                                    province.name = district.name
+                                    provinces.add(province)
+                                }
+                                addressReceiver.send(provinces)
+                            })
                 }
 
                 override fun provideCitiesWith(provinceId: Int, addressReceiver: AddressReceiver<City>) {
-                    val cities = ArrayList<City>()
-                    for (adProvince in adProvincess) {
-                        if (adProvince.id == provinceId) {
-                            for (adCity in adProvince.cities) {
-                                val city = City()
-                                city.id = adCity.id
-                                city.name = adCity.name
-                                city.province_id = adCity.pid
-                                cities.add(city)
-                            }
-                            break
-                        }
-                    }
-                    addressReceiver.send(cities)
+                    RequestUtil.request(mActivity, true, false,
+                            { ApiUtils.getApiService().districts(provinceId) },
+                            {
+                                val cities = ArrayList<City>()
+                                for (district in it.data) {
+                                    val city = City()
+                                    city.id = district.id
+                                    city.name = district.name
+                                    cities.add(city)
+                                }
+                                addressReceiver.send(cities)
+                            })
                 }
 
                 override fun provideCountiesWith(cityId: Int, addressReceiver: AddressReceiver<County>) {
-                    val counties = ArrayList<County>()
-                    for (adProvince in adProvincess) {
-                        for (adCity in adProvince.cities) {
-                            if (adCity.id == cityId) {
-                                for (adArea in adCity.getAreas()) {
+                    RequestUtil.request(mActivity, true, false,
+                            { ApiUtils.getApiService().districts(cityId) },
+                            {
+                                val counties = ArrayList<County>()
+                                for (district in it.data) {
                                     val county = County()
-                                    county.id = adArea.id
-                                    county.name = adArea.name
-                                    county.city_id = adArea.pid
+                                    county.id = district.id
+                                    county.name = district.name
                                     counties.add(county)
                                 }
-                                break
-                            }
-                        }
-                    }
-                    addressReceiver.send(counties)
+                                addressReceiver.send(counties)
+                            })
                 }
 
                 override fun provideStreetsWith(countyId: Int, addressReceiver: AddressReceiver<Street>) {
@@ -128,7 +131,8 @@ class NewAddressActivity : BaseActivity() {
                 detailStr.isEmpty() -> ToastUtils.showShort("详细地址不能为空!")
                 selectedAddress == null -> ToastUtils.showShort("请选择省市区!")
                 else -> {
-                    if (editAddress == null) {
+                    val id = intent.getStringExtra(KEY_DATA)
+                    if (id == null) {
                         RequestUtil.request(mActivity, true, false,
                                 {
                                     ApiUtils.getApiService().addAddress(
@@ -152,7 +156,7 @@ class NewAddressActivity : BaseActivity() {
                         RequestUtil.request(mActivity, true, false,
                                 {
                                     ApiUtils.getApiService().editAddress(
-                                            editAddress.id,
+                                            id,
                                             LoginInfoUtil.getUid(),
                                             LoginInfoUtil.getToken()
                                             , nameStr
@@ -173,9 +177,6 @@ class NewAddressActivity : BaseActivity() {
                 }
             }
         }
-        RequestUtil.request(mActivity, true, true,
-                { ApiUtils.getApiService().districts() },
-                { adProvincess.addAll(it.data) })
     }
 
     @SuppressLint("SetTextI18n")
@@ -201,9 +202,9 @@ class NewAddressActivity : BaseActivity() {
     override fun getContentView() = R.layout.activity_new_address
 
     companion object {
-        fun start(activity: Activity, address: Address?, requestCode: Int) {
+        fun start(activity: Activity, id: String?, requestCode: Int) {
             ActivityUtils.startActivityForResult(
-                    bundleOf(Pair(KEY_DATA, address)),
+                    bundleOf(Pair(KEY_DATA, id)),
                     activity,
                     NewAddressActivity::class.java,
                     requestCode)
