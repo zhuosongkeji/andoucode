@@ -51,9 +51,7 @@ class MeFragment : BaseFragment() {
         mycenter_mywallet_layout.setOnClickListener { startActivity(Intent(context, MywalletActivity::class.java)) }
         mycenter_releas_layout.setOnClickListener { startActivity(Intent(context, MyreleaseActivity::class.java)) }
         mycenter_shoppingcart_layout.setOnClickListener {
-            val intent = Intent(mActivity, MallHomeActivity::class.java)
-            intent.putExtra("id", "MallShopping")
-            startActivity(intent)
+            MallHomeActivity.start(2)
         }
         mycenter_mycollection_layout.setOnClickListener { startActivity(Intent(context, MycollectionActivity::class.java)) }
         mycenter_browsing_layout.setOnClickListener { startActivity(Intent(context, HistoryActivity::class.java)) }
