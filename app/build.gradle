@@ -22,8 +22,8 @@ android {
         applicationId "com.zskjprojectj.andouclient"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 6
-        versionName "0.5.6"
+        versionCode 7
+        versionName "0.5.7"
         javaCompileOptions { annotationProcessorOptions { includeCompileClasspath = true } }
         //  buildConfigField "String", "API_HOST", "\"http://lv.qingheliying.cn\""//API Host
         // buildConfigField "String", "API_HOST", "\"http://apis.juhe.cn/cook/\""
@@ -128,8 +128,7 @@ dependencies {
     //旋转木马相册
     implementation 'com.chenlittleping:recyclercoverflow:1.0.6'
     //城市定位
-    //implementation 'com.zaaach:citypicker:2.0.3'	//必选
-    implementation project(':citypicker')
+    implementation 'com.zaaach:citypicker:2.0.3'	//必选
     //RatingBar
     implementation 'com.github.ome450901:SimpleRatingBar:1.4.3'
 
@@ -173,5 +172,4 @@ dependencies {
     implementation 'com.tencent.bugly:nativecrashreport:latest.release'
 
     implementation 'com.bugtags.library:bugtags-lib:latest.integration'
-
 }

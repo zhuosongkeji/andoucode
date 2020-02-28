@@ -11,7 +11,7 @@ import com.lxj.xpopup.util.KeyboardUtils
 import com.zhuosongkj.android.library.app.BaseActivity
 import com.zhuosongkj.android.library.util.PageLoadUtil
 import com.zskjprojectj.andouclient.R
-import com.zskjprojectj.andouclient.activity.MyaddressActivity.KEY_DATA
+import com.zskjprojectj.andouclient.utils.KEY_DATA
 import com.zskjprojectj.andouclient.adapter.MallGoodsListAdapter
 import com.zskjprojectj.andouclient.entity.mall.MallGoodsListBean
 import com.zskjprojectj.andouclient.http.ApiUtils

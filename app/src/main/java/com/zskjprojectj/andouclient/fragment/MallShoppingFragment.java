@@ -17,7 +17,7 @@ import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zhuosongkj.android.library.app.BaseFragment;
 import com.zhuosongkj.android.library.util.PageLoadUtil;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.activity.MyaddressActivity;
+import com.zskjprojectj.andouclient.activity.MyAddressActivity;
 import com.zskjprojectj.andouclient.activity.mall.MallOnlineOrderActivity;
 import com.zskjprojectj.andouclient.adapter.PlatformshoppingcartAdapter;
 import com.zskjprojectj.andouclient.entity.mall.MallCarBean;
@@ -213,7 +213,7 @@ public class MallShoppingFragment extends BaseFragment {
                     public void onError(Throwable e) {
                         super.onError(e);
                         if ("请填写收货地址".equals(e.getMessage())){
-                            startActivity(new Intent(mActivity, MyaddressActivity.class));
+                            startActivity(new Intent(mActivity, MyAddressActivity.class));
                         }
 
                     }

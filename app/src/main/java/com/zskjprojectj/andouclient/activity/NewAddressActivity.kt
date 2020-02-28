@@ -13,15 +13,16 @@ import chihane.jdaddressselector.model.Province
 import chihane.jdaddressselector.model.Street
 import com.amap.api.services.core.PoiItem
 import com.blankj.utilcode.util.ActivityUtils
+import com.blankj.utilcode.util.ToastUtils
 import com.zhuosongkj.android.library.app.BaseActivity
 import com.zhuosongkj.android.library.util.ActionBarUtil
 import com.zhuosongkj.android.library.util.RequestUtil
 import com.zskjprojectj.andouclient.R
-import com.zskjprojectj.andouclient.activity.MyaddressActivity.KEY_DATA
 import com.zskjprojectj.andouclient.http.ApiUtils
 import com.zskjprojectj.andouclient.model.ADProvince
 import com.zskjprojectj.andouclient.model.Address
 import com.zskjprojectj.andouclient.model.AddressIn
+import com.zskjprojectj.andouclient.utils.KEY_DATA
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil
 import com.zskjprojectj.andouclient.utils.ToastUtil
 import com.zskjprojectj.andouclient.view.AddressBottomDialog
@@ -42,6 +43,16 @@ class NewAddressActivity : BaseActivity() {
             mobileEdt.setText(editAddress.mobile)
             detailEdt.setText(editAddress.address)
             defaultCbx.isChecked = editAddress.is_defualt == "1"
+//            val province = Province()
+//            province.id = editAddress.province.
+//            province.name = poiItem.provinceName
+//            val city = City()
+//            city.id = poiItem.cityCode.toInt()
+//            city.name = poiItem.cityName
+//            val county = County()
+//            county.id = poiItem.adCode.toInt()
+//            county.name = poiItem.adName
+//            selectedAddress = AddressIn(province, city, county)
         }
         ry_selectaddress.setOnClickListener {
             val dialog = AddressBottomDialog.show(mActivity)
@@ -104,7 +115,7 @@ class NewAddressActivity : BaseActivity() {
                 dialog.dismiss()
             }
         }
-        ry_locationaddress.setOnClickListener {
+        selectLocationBtn.setOnClickListener {
             ActivityUtils.startActivityForResult(mActivity, SelectLocationActivity::class.java, 666)
         }
         saveBtn.setOnClickListener {
@@ -112,51 +123,54 @@ class NewAddressActivity : BaseActivity() {
             val mobileStr = mobileEdt.text.toString()
             val detailStr = detailEdt.text.toString()
             when {
-                nameStr.isEmpty() -> ToastUtil.showToast("收件人不能为空!")
-                mobileStr.isEmpty() -> ToastUtil.showToast("手机号不能为空!")
-                detailStr.isEmpty() -> ToastUtil.showToast("详细地址不能为空!")
-            }
-            if (editAddress == null) {
-                RequestUtil.request(mActivity, true, false,
-                        {
-                            ApiUtils.getApiService().addAddress(
-                                    LoginInfoUtil.getUid(),
-                                    LoginInfoUtil.getToken()
-                                    , nameStr
-                                    , mobileStr
-                                    , selectedAddress?.province?.id.toString()
-                                    , selectedAddress?.city?.id.toString()
-                                    , selectedAddress?.county?.id.toString()
-                                    , detailStr
-                                    , if (defaultCbx.isChecked) "1" else "0"
-                            )
-                        },
-                        {
-                            ToastUtil.showToast("保存成功!")
-                            setResult(Activity.RESULT_OK)
-                            finish()
-                        })
-            } else {
-                RequestUtil.request(mActivity, true, false,
-                        {
-                            ApiUtils.getApiService().editAddress(
-                                    editAddress.id,
-                                    LoginInfoUtil.getUid(),
-                                    LoginInfoUtil.getToken()
-                                    , nameStr
-                                    , mobileStr
-                                    , selectedAddress?.province?.id.toString()
-                                    , selectedAddress?.city?.id.toString()
-                                    , selectedAddress?.county?.id.toString()
-                                    , detailStr
-                                    , if (defaultCbx.isChecked) "1" else "0"
-                            )
-                        },
-                        {
-                            ToastUtil.showToast("保存成功!")
-                            setResult(Activity.RESULT_OK)
-                            finish()
-                        })
+                nameStr.isEmpty() -> ToastUtils.showShort("收件人不能为空!")
+                mobileStr.isEmpty() -> ToastUtils.showShort("手机号不能为空!")
+                detailStr.isEmpty() -> ToastUtils.showShort("详细地址不能为空!")
+                selectedAddress == null -> ToastUtils.showShort("请选择省市区!")
+                else -> {
+                    if (editAddress == null) {
+                        RequestUtil.request(mActivity, true, false,
+                                {
+                                    ApiUtils.getApiService().addAddress(
+                                            LoginInfoUtil.getUid(),
+                                            LoginInfoUtil.getToken()
+                                            , nameStr
+                                            , mobileStr
+                                            , selectedAddress?.province?.id.toString()
+                                            , selectedAddress?.city?.id.toString()
+                                            , selectedAddress?.county?.id.toString()
+                                            , detailStr
+                                            , if (defaultCbx.isChecked) "1" else "0"
+                                    )
+                                },
+                                {
+                                    ToastUtil.showToast("保存成功!")
+                                    setResult(Activity.RESULT_OK)
+                                    finish()
+                                })
+                    } else {
+                        RequestUtil.request(mActivity, true, false,
+                                {
+                                    ApiUtils.getApiService().editAddress(
+                                            editAddress.id,
+                                            LoginInfoUtil.getUid(),
+                                            LoginInfoUtil.getToken()
+                                            , nameStr
+                                            , mobileStr
+                                            , selectedAddress?.province?.id.toString()
+                                            , selectedAddress?.city?.id.toString()
+                                            , selectedAddress?.county?.id.toString()
+                                            , detailStr
+                                            , if (defaultCbx.isChecked) "1" else "0"
+                                    )
+                                },
+                                {
+                                    ToastUtil.showToast("保存成功!")
+                                    setResult(Activity.RESULT_OK)
+                                    finish()
+                                })
+                    }
+                }
             }
         }
         RequestUtil.request(mActivity, true, true,

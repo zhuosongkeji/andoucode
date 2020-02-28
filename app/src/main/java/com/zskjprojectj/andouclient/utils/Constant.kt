@@ -1,5 +1,6 @@
 package com.zskjprojectj.andouclient.utils
 
+const val KEY_DATA = "KEY_DATA"
 const val KEY_PROTOCOL_AGREED = "KEY_PROTOCOL_AGREED"
 const val KEY_NEED_SHOW_GUIDE = "KEY_NEED_SHOW_GUID"
 const val KEY_IS_RECOMMEND = "recommend"

@@ -6,28 +6,35 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".activity.SelectLocationActivity">
-    <!--搜索栏-->
+
     <LinearLayout
-        android:id="@+id/header_title"
         android:layout_width="match_parent"
         android:layout_height="61dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:padding="@dimen/dp_10">
 
-        <TextView
+        <LinearLayout
+            android:id="@+id/selectCityBtn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_14"
-            android:text="重庆"
-            android:textColor="#323232"
-            android:textSize="@dimen/dp_16" />
+            android:layout_height="match_parent"
+            android:gravity="center_vertical">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_5"
-            android:background="@mipmap/ic_busiess_xiala" />
+            <TextView
+                android:id="@+id/cityTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_14"
+                android:text="北京"
+                android:textColor="#323232"
+                android:textSize="@dimen/dp_16" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_5"
+                android:background="@mipmap/ic_busiess_xiala" />
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/ll_search"
@@ -74,19 +81,30 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <com.amap.api.maps.MapView
-                android:id="@+id/mapView"
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="2" />
+                android:layout_weight="3">
+
+                <com.amap.api.maps.MapView
+                    android:id="@+id/mapView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:adjustViewBounds="true"
+                    android:src="@mipmap/ic_location_02" />
+            </FrameLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="3"
-                android:paddingStart="15dp"
-                android:paddingEnd="15dp"
+                android:layout_weight="4"
+                android:overScrollMode="never"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
         </LinearLayout>
 
@@ -95,6 +113,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#FFFFFF"
+            android:overScrollMode="never"
             android:visibility="gone"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
     </FrameLayout>

@@ -8,7 +8,7 @@ import com.blankj.utilcode.util.KeyboardUtils
 import com.zhuosongkj.android.library.app.BaseActivity
 import com.zhuosongkj.android.library.util.ActionBarUtil
 import com.zskjprojectj.andouclient.R
-import com.zskjprojectj.andouclient.activity.MyaddressActivity.KEY_DATA
+import com.zskjprojectj.andouclient.utils.KEY_DATA
 import com.zskjprojectj.andouclient.adapter.SquareCommentAdapter
 import com.zskjprojectj.andouclient.adapter.SquareImgAdapter
 import com.zskjprojectj.andouclient.adapter.bindTieZi
@@ -16,7 +16,6 @@ import com.zskjprojectj.andouclient.entity.TieZi
 import com.zskjprojectj.andouclient.model.Comment
 import kotlinx.android.synthetic.main.activity_tiebadetails_view.*
 import kotlinx.android.synthetic.main.activity_tiebadetails_view.recyclerView
-import kotlinx.android.synthetic.main.item_squarefragment.*
 import kotlinx.android.synthetic.main.item_squarefragment.view.*
 
 class TieBaDetailsActivity : BaseActivity() {

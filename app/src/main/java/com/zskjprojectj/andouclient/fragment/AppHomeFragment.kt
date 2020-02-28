@@ -3,7 +3,6 @@ package com.zskjprojectj.andouclient.fragment
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -15,10 +14,6 @@ import com.blankj.utilcode.util.ToastUtils
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.zaaach.citypicker.CityPicker
-import com.zaaach.citypicker.adapter.OnPickListener
-import com.zaaach.citypicker.model.City
-import com.zaaach.citypicker.model.LocateState
-import com.zaaach.citypicker.model.LocatedCity
 import com.zhuosongkj.android.library.app.BaseFragment
 import com.zhuosongkj.android.library.model.ListData
 import com.zhuosongkj.android.library.util.RequestUtil
@@ -122,23 +117,9 @@ class AppHomeFragment : BaseFragment() {
     }
 
     private fun initActionBar() {
-        ly_citychoose!!.setOnClickListener {
-            CityPicker.from(context)
+        ly_citychoose.setOnClickListener {
+            CityPicker.from(mActivity)
                     .enableAnimation(true)
-                    .setLocatedCity(null)
-                    .setHotCities(arrayListOf())
-                    .setOnPickListener(object : OnPickListener {
-                        override fun onPick(position: Int, data: City) {
-                            tv_cityinfo!!.text = String.format("%s", data.name)
-                        }
-
-                        override fun onCancel() {
-                        }
-
-                        override fun onLocate() {
-                            Handler().postDelayed({ CityPicker.from(context).locateComplete(LocatedCity("重庆", "广东", "101280601"), LocateState.SUCCESS) }, 3000)
-                        }
-                    })
                     .show()
         }
         actionBarContainer.setPadding(0, BarUtils.getStatusBarHeight(), 0, 0)

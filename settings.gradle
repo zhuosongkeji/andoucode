@@ -1,1 +1,1 @@
-include ':app', ':citypicker', ':library', ':recycler_banner_library'
+include ':app', ':library', ':recycler_banner_library'
