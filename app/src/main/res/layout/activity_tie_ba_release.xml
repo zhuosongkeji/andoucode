@@ -66,6 +66,7 @@
             android:background="#f7f7f7" />
 
         <LinearLayout
+            android:id="@+id/typeContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#FFFFFF"
@@ -85,10 +86,13 @@
                 android:textSize="14sp" />
 
             <TextView
+                android:id="@+id/typeTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="招聘信息"
-                android:textColor="#ff959595"
+                android:gravity="end"
+                android:hint="请选择招聘信息"
+                android:textColor="#666666"
+                android:textColorHint="#ff959595"
                 android:textSize="14sp" />
 
             <ImageView

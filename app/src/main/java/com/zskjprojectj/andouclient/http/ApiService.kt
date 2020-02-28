@@ -1241,11 +1241,13 @@ interface ApiService {
     @FormUrlEncoded
     @POST("api/tieba/post")
     fun releaseTieBa(@Field("uid") user_id: String,
-                   @Field("title") title: String,
-                   @Field("content") content: String,
-                   @Field("images") images: String,
-                   @Field("type_id") type_id: String,
-                   @Field("contact_info") contact_info: String,
-                   @Field("top_post") top_post: Boolean): Observable<BaseResult<Any>>
+                     @Field("title") title: String,
+                     @Field("content") content: String,
+                     @Field("images") images: String,
+                     @Field("type_id") type_id: String,
+                     @Field("contact_info") contact_info: String,
+                     @Field("top_post") top_post: Boolean): Observable<BaseResult<Any>>
 
+    @GET("api/tieba/types")
+    fun tieBaTypes(): Observable<BaseResult<List<TieBaType>>>
 }
