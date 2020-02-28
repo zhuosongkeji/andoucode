@@ -18,7 +18,7 @@ class TieBaReleaseActivity : BaseActivity() {
 
     val adapter = SelectPicAdapter(6)
     var selectedType: TieBaType? = null
-    private var is_top: Boolean = true
+    private var is_top: String = ""
 
     override fun getContentView() = R.layout.activity_tie_ba_release
 
@@ -39,7 +39,11 @@ class TieBaReleaseActivity : BaseActivity() {
                     })
         }
         submitBtn.setOnClickListener {
-            is_top = yes.isChecked
+            if(yes.isChecked){
+                is_top="1"
+            }else{
+                is_top="0"
+            }
             when {
                 selectedType == null -> {
                     ToastUtils.showShort("请选择发帖类型")

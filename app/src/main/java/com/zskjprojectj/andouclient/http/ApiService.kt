@@ -1246,7 +1246,7 @@ interface ApiService {
                      @Field("images") images: String? = null,
                      @Field("type_id") type_id: Long?,
                      @Field("contact_info") contact_info: String,
-                     @Field("top_post") top_post: Boolean): Observable<BaseResult<Any>>
+                     @Field("top_post") top_post: String): Observable<BaseResult<Any>>
 
     @GET("api/tieba/types")
     fun tieBaTypes(): Observable<BaseResult<List<TieBaType>>>
