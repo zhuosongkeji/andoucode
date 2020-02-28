@@ -205,7 +205,7 @@ public class MallShoppingFragment extends BaseFragment {
                     public void onHandleSuccess(MallCarBean mallCarBean) throws IOException {
                         String order_sn = mallCarBean.getOrder_sn();
 
-                        MallOnlineOrderActivity.start(order_sn);
+                        MallOnlineOrderActivity.start(order_sn,"","","");
 
                     }
 

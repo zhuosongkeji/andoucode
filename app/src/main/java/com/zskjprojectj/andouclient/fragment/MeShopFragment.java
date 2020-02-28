@@ -66,7 +66,7 @@ public class MeShopFragment extends BaseFragment {
                 ShoporderdetailsActivity.start(adapter.getItem(position));
                 //去付款
             } else if (view1.getId() == R.id.btn_gotopayment) {
-                MallOnlineOrderActivity.start(adapter.getItem(position).order_id);
+                MallOnlineOrderActivity.start(adapter.getItem(position).order_id,"","","");
                 //确认收货
             } else if (view1.getId() == R.id.btn_getgoods) {
                 CustomViewDialog dialog = new CustomViewDialog(mActivity, R.layout.confirm_receipt_view, new int[]{

@@ -85,7 +85,7 @@ public class ShoporderdetailsActivity extends BaseActivity {
             findViewById(R.id.daifukuanContainer).setVisibility(View.VISIBLE);
             findViewById(R.id.btn_gotopaymentdetail).setVisibility(View.VISIBLE);
             findViewById(R.id.btn_gotopaymentdetail).setOnClickListener(v ->
-                    MallOnlineOrderActivity.start(order.order_sn));
+                    MallOnlineOrderActivity.start(order.order_sn,"","",""));
             findViewById(R.id.btn_refund).setVisibility(View.GONE);
         } else if (OrderStatus.DAI_FA_HUO.status.equals(order.status)) {
             findViewById(R.id.daifahuoContainer).setVisibility(View.VISIBLE);
