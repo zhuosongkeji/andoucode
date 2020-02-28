@@ -27,8 +27,6 @@ public class MeShopFragmentAdapter extends BaseQuickAdapter<Order, BaseViewHolde
 
     @Override
     protected void convert(BaseViewHolder helper, Order item) {
-        Log.d("wangbin", "convert: " + item.num);
-
         helper.setText(R.id.shopNameTxt, item.mname)
                 .setText(R.id.orderNumTxt, "订单编号:" + item.order_id)
                 .setText(R.id.titleTxt, item.name)
@@ -59,6 +57,8 @@ public class MeShopFragmentAdapter extends BaseQuickAdapter<Order, BaseViewHolde
     private String getStatusStr(String status) {
         //10-未支付 20-已支付 40-已发货 50-交易成功（确认收货） 60-交易关闭（已评论）
         switch (status) {
+            case "0":
+                return "已取消";
             case "10":
                 return "待付款";
             case "20":

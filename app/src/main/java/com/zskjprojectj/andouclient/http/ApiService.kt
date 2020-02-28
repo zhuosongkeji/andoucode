@@ -1226,7 +1226,19 @@ interface ApiService {
     @FormUrlEncoded
     @POST("api/goods/sec_goods")
     fun miaosha(@Field("uid") uid: String,
-                      @Field("token") token: String,
-                      @Field("sec_id") sec_id: String?
+                @Field("token") token: String,
+                @Field("sec_id") sec_id: String?
     ): Observable<BaseResult<MiaoShaResponse>>
+
+
+    @FormUrlEncoded
+    @POST("api/tieba/post")
+    fun releaseTieBa(@Field("uid") user_id: String,
+                   @Field("title") title: String,
+                   @Field("content") content: String,
+                   @Field("images") images: String,
+                   @Field("type_id") type_id: String,
+                   @Field("contact_info") contact_info: String,
+                   @Field("top_post") top_post: Boolean): Observable<BaseResult<Any>>
+
 }
