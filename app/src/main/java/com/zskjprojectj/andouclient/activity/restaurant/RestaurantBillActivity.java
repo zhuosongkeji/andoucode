@@ -118,6 +118,9 @@ public class RestaurantBillActivity extends BaseActivity {
             RequestUtil.request(mActivity, true, false,
                     () -> ApiUtils.getApiService().getBookInfo(LoginInfoUtil.getUid(), bill.getMerchantId()),
                     result -> {
+                        if (result.data.integral == 0) {
+                            scoreContainer.setEnabled(false);
+                        }
                         ViewUtil.setText(mActivity, R.id.scoreTxt, String.valueOf(result.data.integral));
                         scoreContainer.setOnClickListener(v -> {
                             scoreContainer.setSelected(!scoreContainer.isSelected());

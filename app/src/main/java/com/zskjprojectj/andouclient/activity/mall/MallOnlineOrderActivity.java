@@ -88,7 +88,6 @@ public class MallOnlineOrderActivity extends BaseActivity {
     TextView mIvIntegral;
 
 
-
     private String order_sn;
     private String puzzle_id;
     private String open_join;
@@ -97,13 +96,13 @@ public class MallOnlineOrderActivity extends BaseActivity {
     private final static int WXPAY = 1;
     private final static int YUEPAY = 4;
     private String is_integral = "0";
-    private final int SELECTORADDRESS=1;
+    private final int SELECTORADDRESS = 1;
 
     @OnClick(R.id.rl_selector_address)
-    public void clickAddress(){
-        Intent intent=new Intent(MallOnlineOrderActivity.this, MyAddressActivity.class);
+    public void clickAddress() {
+        Intent intent = new Intent(MallOnlineOrderActivity.this, MyAddressActivity.class);
 
-        startActivityForResult(intent,SELECTORADDRESS);
+        startActivityForResult(intent, SELECTORADDRESS);
     }
 
     @Override
@@ -117,6 +116,7 @@ public class MallOnlineOrderActivity extends BaseActivity {
         EventBus.getDefault().register(MallOnlineOrderActivity.this);
 
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -147,7 +147,7 @@ public class MallOnlineOrderActivity extends BaseActivity {
 
     }
 
-    public static void start(String order_sn,String puzzle_id,String open_join,String group_id) {
+    public static void start(String order_sn, String puzzle_id, String open_join, String group_id) {
         Bundle bundle = new Bundle();
         bundle.putSerializable("order_sn", order_sn);
         bundle.putSerializable("puzzle_id", puzzle_id);
@@ -182,6 +182,10 @@ public class MallOnlineOrderActivity extends BaseActivity {
 
                 mTvOrderMoney.setText("¥" + mallSettlementBean.getOrder_money());
                 mMallOrderMoney.setText("¥" + mallSettlementBean.getOrder_money());
+                int score = Integer.parseInt(mallSettlementBean.getIntegral());
+                if (score == 0) {
+                    cbSelector.setEnabled(false);
+                }
                 mIvIntegral.setText(mallSettlementBean.getIntegral());
 
                 cbSelector.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -255,7 +259,7 @@ public class MallOnlineOrderActivity extends BaseActivity {
                 });
                 break;
             case YUEPAY:
-                Log.d(TAG, "pintuan"+puzzle_id+"  "+open_join+"  "+group_id);
+                Log.d(TAG, "pintuan" + puzzle_id + "  " + open_join + "  " + group_id);
                 new AlertDialog.Builder(mAt)
                         .setTitle("温馨提示")
                         .setMessage("确定用余额支付该订单吗？")
@@ -286,6 +290,7 @@ public class MallOnlineOrderActivity extends BaseActivity {
         }
 
     }
+
     //5.接收消息
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void intentEventBus(PaySuccessEvent paySuccessEvent) {
@@ -336,15 +341,15 @@ public class MallOnlineOrderActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode==RESULT_OK){
-            if (requestCode==SELECTORADDRESS){
+        if (resultCode == RESULT_OK) {
+            if (requestCode == SELECTORADDRESS) {
                 String name = data.getStringExtra("name");
                 mTvClientName.setText(name);
                 String address = data.getStringExtra("address");
                 mTvClientAddress.setText(address);
                 String tel = data.getStringExtra("tel");
                 mTvClientPhone.setText(tel);
-                Log.d(TAG, "onActivityResult: "+name+address+tel);
+                Log.d(TAG, "onActivityResult: " + name + address + tel);
             }
         }
     }
