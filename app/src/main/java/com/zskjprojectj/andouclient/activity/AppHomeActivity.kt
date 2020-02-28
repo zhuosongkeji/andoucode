@@ -8,22 +8,16 @@ import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
-
+import androidx.fragment.app.Fragment
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.next.easynavigation.view.EasyNavigationBar
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.zhuosongkj.android.library.app.BaseActivity
-import com.zhuosongkj.android.library.util.ActionBarUtil
 import com.zskjprojectj.andouclient.R
-import com.zskjprojectj.andouclient.fragment.AppHomeFragment
-import com.zskjprojectj.andouclient.fragment.InfoPageFragment
-import com.zskjprojectj.andouclient.fragment.MeFragment
-import com.zskjprojectj.andouclient.fragment.MerchantListFragment
-import com.zskjprojectj.andouclient.fragment.TieBaFragment
-import com.zskjprojectj.andouclient.utils.LogUtil
-
+import com.zskjprojectj.andouclient.fragment.*
 import com.zskjprojectj.andouclient.http.BaseObserver.REQUEST_CODE_LOGIN
+import com.zskjprojectj.andouclient.utils.LogUtil
 import kotlinx.android.synthetic.main.activity_app_home.*
 
 class AppHomeActivity : BaseActivity() {
@@ -46,11 +40,11 @@ class AppHomeActivity : BaseActivity() {
                         R.mipmap.info_icon,
                         R.mipmap.tieba_icon_check,
                         R.mipmap.me_icon_check))
-                .fragmentList(arrayListOf(
+                .fragmentList(arrayListOf<Fragment>(
                         AppHomeFragment(),
                         MerchantListFragment(),
                         TieBaFragment(),
-                        InfoPageFragment(),
+                        MessageFragment(),
                         MeFragment()))
                 .anim(null)
                 .addLayoutRule(EasyNavigationBar.RULE_BOTTOM)

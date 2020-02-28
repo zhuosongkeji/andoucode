@@ -91,21 +91,13 @@ class SelectLocationActivity : BaseActivity() {
             }
         })
         adapter.setEnableLoadMore(true)
+        adapter.disableLoadMoreIfNotFullPage(recyclerView)
         adapter.setOnLoadMoreListener({
             poiSearch?.searchPOIAsyn()
         }, recyclerView)
         mapView.onCreate(savedInstanceState)
         mapView.map.uiSettings.isMyLocationButtonEnabled = true
         mapView.map.isMyLocationEnabled = true
-        mapView.map.setOnCameraChangeListener(object : AMap.OnCameraChangeListener {
-            override fun onCameraChangeFinish(result: CameraPosition?) {
-                refresh = true
-                searchLocationPoi(result?.target?.latitude, result?.target?.longitude)
-            }
-
-            override fun onCameraChange(p0: CameraPosition?) {
-            }
-        })
         val myLocationStyle = MyLocationStyle()
         myLocationStyle.myLocationIcon(BitmapDescriptorFactory.fromResource(R.mipmap.location_blue))
         myLocationStyle.interval(2000)
@@ -114,12 +106,19 @@ class SelectLocationActivity : BaseActivity() {
         myLocationStyle.strokeColor(Color.TRANSPARENT)
         mapView.map.myLocationStyle = myLocationStyle
         mapView.map.setOnMyLocationChangeListener {
-            refresh = true
             val geoCoderSearch = GeocodeSearch(mActivity)
             geoCoderSearch.setOnGeocodeSearchListener(object : GeocodeSearch.OnGeocodeSearchListener {
                 override fun onRegeocodeSearched(result: RegeocodeResult?, p1: Int) {
                     cityTxt.text = result?.regeocodeAddress?.city
                     regeocodeAddress = result?.regeocodeAddress
+                    mapView.map.setOnCameraChangeListener(object : AMap.OnCameraChangeListener {
+                        override fun onCameraChangeFinish(result: CameraPosition?) {
+                            searchLocationPoi(result?.target?.latitude, result?.target?.longitude)
+                        }
+
+                        override fun onCameraChange(p0: CameraPosition?) {
+                        }
+                    })
                 }
 
                 override fun onGeocodeSearched(result: GeocodeResult?, p1: Int) {
@@ -152,11 +151,11 @@ class SelectLocationActivity : BaseActivity() {
                     }
                 }
             })
-            searchLocationPoi(it.latitude, it.longitude)
         }
     }
 
     private fun searchLocationPoi(lat: Double?, long: Double?) {
+        refresh = true
         poiSearch?.bound = PoiSearch.SearchBound(
                 LatLonPoint(lat ?: 0.0, long ?: 0.0),
                 20 * 1000)

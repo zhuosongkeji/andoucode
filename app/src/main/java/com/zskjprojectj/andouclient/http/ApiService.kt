@@ -976,8 +976,8 @@ interface ApiService {
      *
      * @return
      */
-    @POST("api/common/district")
-    fun districts(): Observable<BaseResult<List<ADProvince>>>
+    @GET("api/common/district")
+    fun districts(@Query("id") provinceId: Int? = null): Observable<BaseResult<List<District>>>
 
     /**
      * 图片上传
@@ -1229,6 +1229,13 @@ interface ApiService {
                 @Field("token") token: String,
                 @Field("sec_id") sec_id: String?
     ): Observable<BaseResult<MiaoShaResponse>>
+
+    @FormUrlEncoded
+    @POST("Usersaddress/details")
+    fun addressDetail(@Field("uid") uid: String,
+                      @Field("token") token: String,
+                      @Field("id") id: String?
+    ): Observable<BaseResult<Address>>
 
 
     @FormUrlEncoded

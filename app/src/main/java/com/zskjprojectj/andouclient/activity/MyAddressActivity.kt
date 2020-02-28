@@ -42,7 +42,7 @@ class MyAddressActivity : BaseActivity() {
                             loadData()
                         })
             } else if (view.id == R.id.editBtn) {
-                NewAddressActivity.start(mActivity, adapter.getItem(position), 666)
+                NewAddressActivity.start(mActivity, adapter.getItem(position)?.id, 666)
             }
         }
         if (intent.getBooleanExtra(KEY_DATA, false)) {
