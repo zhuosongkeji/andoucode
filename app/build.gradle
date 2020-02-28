@@ -22,8 +22,8 @@ android {
         applicationId "com.zskjprojectj.andouclient"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 8
-        versionName "0.5.8"
+        versionCode 9
+        versionName "0.5.9"
         javaCompileOptions { annotationProcessorOptions { includeCompileClasspath = true } }
         //  buildConfigField "String", "API_HOST", "\"http://lv.qingheliying.cn\""//API Host
         // buildConfigField "String", "API_HOST", "\"http://apis.juhe.cn/cook/\""

@@ -1,6 +1,5 @@
 package com.zskjprojectj.andouclient.activity
 
-import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder
@@ -42,6 +41,9 @@ class TieBaReleaseActivity : BaseActivity() {
         submitBtn.setOnClickListener {
             is_top = yes.isChecked
             when {
+                selectedType == null -> {
+                    ToastUtils.showShort("请选择发帖类型")
+                }
                 TextUtils.isEmpty(titleTxt.text.toString()) -> {
                     ToastUtils.showShort("请输入标题!")
                 }
@@ -58,7 +60,7 @@ class TieBaReleaseActivity : BaseActivity() {
                                         titleTxt.text.toString(),
                                         contentTxt.text.toString(),
                                         null,
-                                        "1",
+                                        selectedType?.id,
                                         phoneTxt.text.toString(),
                                         is_top)
                             },

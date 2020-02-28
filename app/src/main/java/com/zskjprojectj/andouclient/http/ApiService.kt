@@ -1244,7 +1244,7 @@ interface ApiService {
                      @Field("title") title: String,
                      @Field("content") content: String,
                      @Field("images") images: String? = null,
-                     @Field("type_id") type_id: String,
+                     @Field("type_id") type_id: Long?,
                      @Field("contact_info") contact_info: String,
                      @Field("top_post") top_post: Boolean): Observable<BaseResult<Any>>
 
