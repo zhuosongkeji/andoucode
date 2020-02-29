@@ -182,7 +182,7 @@ class NewAddressActivity : BaseActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 666 && resultCode == Activity.RESULT_OK && data != null) {
-            val poiItem = data.getParcelableExtra<PoiItem>(KEY_DATA)
+            val poiItem = data.getParcelableExtra<PoiItem>(KEY_DATA) ?: return
             detailEdt.setText(poiItem.snippet + poiItem.title)
             val province = Province()
             province.id = poiItem.provinceCode.toInt()
