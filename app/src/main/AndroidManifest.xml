@@ -39,7 +39,8 @@
         android:usesCleartextTraffic="true"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning,LockedOrientationActivity"
         tools:targetApi="m">
-        <activity android:name=".activity.TieBaMessageActivity"></activity>
+        <activity android:name=".activity.MessageListActivity"></activity>
+        <activity android:name=".activity.TieBaMessageActivity" />
         <activity
             android:name=".activity.mall.MallSearchGoodsActivity"
             android:screenOrientation="portrait" />

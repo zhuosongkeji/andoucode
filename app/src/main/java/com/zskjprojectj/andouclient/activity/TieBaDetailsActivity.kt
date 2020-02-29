@@ -61,6 +61,7 @@ class TieBaDetailsActivity : BaseActivity() {
                         commentContainer.visibility = View.GONE
                         commentEdt.setText("")
                         KeyboardUtils.hideSoftInput(commentEdt)
+                        adapter.addData(0, it.data)
                     })
         }
     }
