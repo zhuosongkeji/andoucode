@@ -30,6 +30,7 @@ public class PageLoadUtil<T> {
         this.activity = activity;
         this.adapter = adapter;
         this.refreshLayout = refreshLayout;
+        adapter.setHeaderAndEmpty(true);
         this.adapter.bindToRecyclerView(recyclerView);
         adapter.setLoadMoreView(new LoadMoreView() {
 

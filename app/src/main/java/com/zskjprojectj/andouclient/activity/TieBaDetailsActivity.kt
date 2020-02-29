@@ -33,8 +33,9 @@ class TieBaDetailsActivity : BaseActivity() {
         pageLoadUtil.load({
             ApiUtils.getApiService().tieBaDetail(id, pageLoadUtil.page)
         }, { _, result ->
-            if (result is TieBa)
+            if (result is TieBa) {
                 bindData(result)
+            }
         })
         adapter.setOnItemClickListener { _, _, position ->
             showCommentContainer("回复 ：${adapter.getItem(position)?.name}", adapter.getItem(position)?.id)
