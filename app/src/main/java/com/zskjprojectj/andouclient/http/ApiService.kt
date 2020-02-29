@@ -1200,7 +1200,7 @@ interface ApiService {
     /**
      * 团购明细
      */
-    @GET("api/group/group_list")
+    @GET("api/group/puzzle_detail/{id}")
     fun tuangouDetails(@Path("id") id: String?): Observable<BaseResult<PinTuanDetails>>
 
 
@@ -1264,7 +1264,7 @@ interface ApiService {
 
 
     @FormUrlEncoded
-    @POST("api/tieba/comment")
+    @POST("api/tieba/upvote")
     fun tieBaLike(@Field("uid") uid: String,
                      @Field("post_id") post_id: String?,
                      @Field("vote") vote: String
