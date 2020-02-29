@@ -8,34 +8,37 @@ import com.chad.library.adapter.base.BaseViewHolder
 import com.zhuosongkj.android.library.adapter.BaseAdapter
 import com.zskjprojectj.andouclient.R
 import com.zskjprojectj.andouclient.entity.TieZi
+import com.zskjprojectj.andouclient.model.TieBa
 import kotlinx.android.synthetic.main.item_squarefragment.view.*
 
-class SquareAdapter : BaseAdapter<TieZi>(R.layout.item_squarefragment) {
+class SquareAdapter : BaseAdapter<TieBa>(R.layout.item_squarefragment) {
 
     val adapter = SquareImgAdapter()
     val commentAdapter = SquareCommentAdapter()
 
 
-    override fun convert(helper: BaseViewHolder, item: TieZi) {
+    override fun convert(helper: BaseViewHolder, item: TieBa) {
         bindTieZi(mContext, helper.itemView, item, adapter, true)
         helper.itemView.commentRecyclerView.adapter = commentAdapter
         commentAdapter.setNewData(item.comments)
+        commentAdapter.notifyDataSetChanged()
     }
 }
 
-fun bindTieZi(context: Context, view: View, item: TieZi,
+fun bindTieZi(context: Context, view: View, item: TieBa,
               adapter: SquareImgAdapter, commentVisible: Boolean) {
     view.nameTxt.text = item.name
     view.contentTxt.text = item.content
-    view.dateTxt.text = item.time
-    view.likeTxt.text = item.like.toString()
-    view.commentTxt.text = item.comment.toString()
-    view.shareTxt.text = item.share.toString()
+//    view.dateTxt.text = item.time
+    view.likeTxt.text = item.vote
+    view.commentTxt.text = item.comment_count
+    view.shareTxt.text = item.share
     view.titleTxt.text = item.title
-    Glide.with(context).load(item.avatar)
+    Glide.with(context).load(item.avator)
             .apply(RequestOptions().placeholder(R.mipmap.ic_placeholder))
             .into(view.avatarImg)
     view.recyclerView.adapter = adapter
-    adapter.setNewData(item.imgs)
+    adapter.setNewData(item.images)
+    adapter.notifyDataSetChanged()
     view.commentRecyclerView.visibility = if (commentVisible) View.VISIBLE else View.GONE
 }

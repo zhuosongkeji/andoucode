@@ -14,6 +14,7 @@ import com.zskjprojectj.andouclient.adapter.SquareImgAdapter
 import com.zskjprojectj.andouclient.adapter.bindTieZi
 import com.zskjprojectj.andouclient.entity.TieZi
 import com.zskjprojectj.andouclient.model.Comment
+import com.zskjprojectj.andouclient.model.TieBa
 import kotlinx.android.synthetic.main.activity_tiebadetails_view.*
 import kotlinx.android.synthetic.main.activity_tiebadetails_view.recyclerView
 import kotlinx.android.synthetic.main.item_squarefragment.view.*
@@ -27,7 +28,7 @@ class TieBaDetailsActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         ActionBarUtil.setTitle(mActivity, "贴吧详情")
         adapter.bindToRecyclerView(recyclerView)
-        bindData(intent.getSerializableExtra(KEY_DATA) as TieZi)
+        bindData(intent.getSerializableExtra(KEY_DATA) as TieBa)
         adapter.setOnItemClickListener { _, _, position ->
             showCommentContainer("回复 ：${adapter.getItem(position)?.name}")
         }
@@ -50,7 +51,7 @@ class TieBaDetailsActivity : BaseActivity() {
         }
     }
 
-    fun bindData(tieZi: TieZi) {
+    fun bindData(tieZi: TieBa) {
         val view = layoutInflater.inflate(R.layout.item_squarefragment, null)
         view.commentBtn.setOnClickListener {
             showCommentContainer("你想说什么就说吧")
@@ -58,15 +59,15 @@ class TieBaDetailsActivity : BaseActivity() {
         bindTieZi(mActivity, view, tieZi, imgAdapter, false)
         adapter.addHeaderView(view)
         adapter.addHeaderView(layoutInflater.inflate(R.layout.layout_comment_text, null))
-        for (i in 0..10) {
-            adapter.addData(Comment.test)
-        }
+//        for (i in 0..10) {
+//            adapter.addData(Comment.test)
+//        }
     }
 
     override fun getContentView() = R.layout.activity_tiebadetails_view
 
     companion object {
-        fun start(data: TieZi?) {
+        fun start(data: TieBa?) {
             ActivityUtils.startActivity(
                     bundleOf(Pair(KEY_DATA, data)), TieBaDetailsActivity::class.java)
         }

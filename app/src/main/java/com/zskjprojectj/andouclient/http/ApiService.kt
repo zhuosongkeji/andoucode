@@ -1202,7 +1202,7 @@ interface ApiService {
     /**
      * 团购明细
      */
-    @GET("api/group/puzzle_detail/{id}")
+    @GET("api/group/group_list")
     fun tuangouDetails(@Path("id") id: String?): Observable<BaseResult<PinTuanDetails>>
 
 
@@ -1250,4 +1250,10 @@ interface ApiService {
 
     @GET("api/tieba/types")
     fun tieBaTypes(): Observable<BaseResult<List<TieBaType>>>
+
+
+    @GET("api/tieba/list")
+    fun tieBaList(@Query("uid") uid: String,
+                  @Query("type") type: String?=null,
+                  @Query("page") page: Int): Observable<BaseResult<ListData<TieBa>>>
 }
