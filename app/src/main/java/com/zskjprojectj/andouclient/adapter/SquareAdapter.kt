@@ -13,32 +13,29 @@ import kotlinx.android.synthetic.main.item_squarefragment.view.*
 
 class SquareAdapter : BaseAdapter<TieBa>(R.layout.item_squarefragment) {
 
-    val adapter = SquareImgAdapter()
-    val commentAdapter = SquareCommentAdapter()
-
-
     override fun convert(helper: BaseViewHolder, item: TieBa) {
-        bindTieZi(mContext, helper.itemView, item, adapter, true)
+        val adapter = SquareImgAdapter()
+        val commentAdapter = SquareCommentAdapter()
+        bindTieZi(mContext, helper.itemView, item, adapter, item.comment_count.toInt()>0)
         helper.itemView.commentRecyclerView.adapter = commentAdapter
         commentAdapter.setNewData(item.comments)
-        commentAdapter.notifyDataSetChanged()
+        helper.addOnClickListener(R.id.likeView)
     }
 }
 
-fun bindTieZi(context: Context, view: View, item: TieBa,
+fun bindTieZi(context: Context, view: View, item: TieBa?,
               adapter: SquareImgAdapter, commentVisible: Boolean) {
-    view.nameTxt.text = item.name
-    view.contentTxt.text = item.content
+    view.nameTxt.text = item?.name
+    view.contentTxt.text = item?.content
 //    view.dateTxt.text = item.time
-    view.likeTxt.text = item.vote
-    view.commentTxt.text = item.comment_count
-    view.shareTxt.text = item.share
-    view.titleTxt.text = item.title
-    Glide.with(context).load(item.avator)
+    view.likeTxt.text = item?.vote
+    view.commentTxt.text = item?.comment_count
+    view.shareTxt.text = item?.share
+    view.titleTxt.text = item?.title
+    Glide.with(context).load(item?.avator)
             .apply(RequestOptions().placeholder(R.mipmap.ic_placeholder))
             .into(view.avatarImg)
     view.recyclerView.adapter = adapter
-    adapter.setNewData(item.images)
-    adapter.notifyDataSetChanged()
+    adapter.setNewData(item?.images)
     view.commentRecyclerView.visibility = if (commentVisible) View.VISIBLE else View.GONE
 }

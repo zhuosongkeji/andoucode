@@ -7,38 +7,52 @@ import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.KeyboardUtils
 import com.zhuosongkj.android.library.app.BaseActivity
 import com.zhuosongkj.android.library.util.ActionBarUtil
+import com.zhuosongkj.android.library.util.RequestUtil
 import com.zskjprojectj.andouclient.R
-import com.zskjprojectj.andouclient.utils.KEY_DATA
 import com.zskjprojectj.andouclient.adapter.SquareCommentAdapter
 import com.zskjprojectj.andouclient.adapter.SquareImgAdapter
 import com.zskjprojectj.andouclient.adapter.bindTieZi
-import com.zskjprojectj.andouclient.entity.TieZi
-import com.zskjprojectj.andouclient.model.Comment
+import com.zskjprojectj.andouclient.http.ApiUtils
 import com.zskjprojectj.andouclient.model.TieBa
+import com.zskjprojectj.andouclient.utils.KEY_DATA
+import com.zskjprojectj.andouclient.utils.LoginInfoUtil
 import kotlinx.android.synthetic.main.activity_tiebadetails_view.*
-import kotlinx.android.synthetic.main.activity_tiebadetails_view.recyclerView
 import kotlinx.android.synthetic.main.item_squarefragment.view.*
 
 class TieBaDetailsActivity : BaseActivity() {
 
     val adapter = SquareCommentAdapter()
     val imgAdapter = SquareImgAdapter()
+    var tieZi:TieBa?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ActionBarUtil.setTitle(mActivity, "贴吧详情")
         adapter.bindToRecyclerView(recyclerView)
-        bindData(intent.getSerializableExtra(KEY_DATA) as TieBa)
+        tieZi=intent.getSerializableExtra(KEY_DATA) as TieBa
+        bindData(tieZi)
         adapter.setOnItemClickListener { _, _, position ->
-            showCommentContainer("回复 ：${adapter.getItem(position)?.name}")
+            showCommentContainer("回复 ：${adapter.getItem(position)?.name}", tieZi!!.comments[position].id)
         }
     }
 
-    private fun showCommentContainer(hint: String) {
+    private fun showCommentContainer(hint: String,id:String?) {
         commentContainer.visibility = View.VISIBLE
         commentEdt.hint = hint
         commentEdt.requestFocus()
         KeyboardUtils.showSoftInput(commentEdt)
+        sendComment.setOnClickListener {
+            RequestUtil.request(mActivity,true,false,
+                    { ApiUtils.getApiService().replyComment(
+                            LoginInfoUtil.getUid(),
+                            tieZi?.id,
+                            commentEdt.text.toString(),
+                            id
+                    ) },
+                    { commentContainer.visibility = View.GONE
+                        commentEdt.setText("")
+                        KeyboardUtils.hideSoftInput(commentEdt)})
+        }
     }
 
     override fun onBackPressed() {
@@ -51,10 +65,10 @@ class TieBaDetailsActivity : BaseActivity() {
         }
     }
 
-    fun bindData(tieZi: TieBa) {
+    fun bindData(tieZi: TieBa?) {
         val view = layoutInflater.inflate(R.layout.item_squarefragment, null)
         view.commentBtn.setOnClickListener {
-            showCommentContainer("你想说什么就说吧")
+            showCommentContainer("你想说什么就说吧",null)
         }
         bindTieZi(mActivity, view, tieZi, imgAdapter, false)
         adapter.addHeaderView(view)

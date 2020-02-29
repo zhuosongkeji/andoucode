@@ -1243,8 +1243,30 @@ interface ApiService {
     fun tieBaTypes(): Observable<BaseResult<List<TieBaType>>>
 
 
+    /**
+     * 贴吧列表
+     */
     @GET("api/tieba/list")
     fun tieBaList(@Query("uid") uid: String,
                   @Query("type") type: String?=null,
                   @Query("page") page: Int): Observable<BaseResult<ListData<TieBa>>>
+
+    /**
+     * 回复贴吧评论
+     */
+    @FormUrlEncoded
+    @POST("api/tieba/comment")
+    fun replyComment(@Field("uid") uid: String,
+                      @Field("post_id") post_id: String?,
+                      @Field("content") content: String,
+                      @Field("comment_id") comment_id: String?=null
+    ): Observable<BaseResult<TieBa.CommentsBean>>
+
+
+    @FormUrlEncoded
+    @POST("api/tieba/comment")
+    fun tieBaLike(@Field("uid") uid: String,
+                     @Field("post_id") post_id: String?,
+                     @Field("vote") vote: String
+    ): Observable<BaseResult<Any>>
 }

@@ -1,9 +1,10 @@
 package com.zskjprojectj.andouclient.model;
 
 
+import java.io.Serializable;
 import java.util.List;
 
-public class TieBa {
+public class TieBa implements Serializable {
 
 
     /**
@@ -20,7 +21,7 @@ public class TieBa {
      * comments : [{"id":13,"name":"啊啊    就","content":"新增评论 10"},{"id":12,"name":"啊啊    就","content":"新增评论 9","to":"A_超"},{"id":11,"name":"啊啊    就","content":"新增评论 8"}]
      */
 
-    private int id;
+    private String id;
     private int user_id;
     private String title;
     private String vote;
@@ -32,11 +33,11 @@ public class TieBa {
     private List<String> images;
     private List<CommentsBean> comments;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -128,16 +129,16 @@ public class TieBa {
          * to : A_超
          */
 
-        private int id;
+        private String id;
         private String name;
         private String content;
         private String to;
 
-        public int getId() {
+        public String getId() {
             return id;
         }
 
-        public void setId(int id) {
+        public void setId(String id) {
             this.id = id;
         }
 
