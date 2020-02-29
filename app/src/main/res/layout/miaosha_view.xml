@@ -95,7 +95,7 @@
                 android:layout_centerVertical="true"
                 android:textColor="#fffc371f"
                 android:textSize="16sp"
-                tools:text="￥99" />
+                tools:text="¥99" />
 
             <TextView
                 android:id="@+id/original_price"
@@ -106,7 +106,7 @@
                 android:layout_toRightOf="@+id/mTvPrice"
                 android:textColor="#ff999999"
                 android:textSize="11sp"
-                tools:text="￥128" />
+                tools:text="¥128" />
 
 
             <TextView

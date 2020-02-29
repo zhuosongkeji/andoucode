@@ -65,7 +65,7 @@
                 android:id="@+id/tv_goods_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="￥288"
+                android:text="¥288"
                 android:textColor="#E01212"
                 android:textSize="@dimen/typeface12sp" />
 
@@ -156,7 +156,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="￥288"
+            android:text="¥288"
             android:textColor="@color/red"
             android:textSize="@dimen/typeface12sp" />
     </LinearLayout>

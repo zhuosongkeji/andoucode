@@ -54,9 +54,10 @@ class NewAddressActivity : BaseActivity() {
                 city.id = it.data.city_id.toInt()
                 city.name = it.data.city
                 val county = County()
-                county.id = it.data.district_id.toInt()
+                county.id = it.data.area_id.toInt()
                 county.name = it.data.area
                 selectedAddress = AddressIn(province, city, county)
+                addressTxt.text = selectedAddress.toString()
             })
         }
         ry_selectaddress.setOnClickListener {
@@ -64,7 +65,7 @@ class NewAddressActivity : BaseActivity() {
             dialog.setTitles("收货地址")
             dialog.setAddressProvider(object : AddressProvider {
                 override fun provideProvinces(addressReceiver: AddressReceiver<Province>) {
-                    RequestUtil.request(mActivity, true, false,
+                    RequestUtil.request(mActivity, false, false,
                             { ApiUtils.getApiService().districts() },
                             {
                                 val provinces = ArrayList<Province>()
@@ -79,7 +80,7 @@ class NewAddressActivity : BaseActivity() {
                 }
 
                 override fun provideCitiesWith(provinceId: Int, addressReceiver: AddressReceiver<City>) {
-                    RequestUtil.request(mActivity, true, false,
+                    RequestUtil.request(mActivity, false, false,
                             { ApiUtils.getApiService().districts(provinceId) },
                             {
                                 val cities = ArrayList<City>()
@@ -94,7 +95,7 @@ class NewAddressActivity : BaseActivity() {
                 }
 
                 override fun provideCountiesWith(cityId: Int, addressReceiver: AddressReceiver<County>) {
-                    RequestUtil.request(mActivity, true, false,
+                    RequestUtil.request(mActivity, false, false,
                             { ApiUtils.getApiService().districts(cityId) },
                             {
                                 val counties = ArrayList<County>()
@@ -140,8 +141,6 @@ class NewAddressActivity : BaseActivity() {
                                             LoginInfoUtil.getToken()
                                             , nameStr
                                             , mobileStr
-                                            , selectedAddress?.province?.id.toString()
-                                            , selectedAddress?.city?.id.toString()
                                             , selectedAddress?.county?.id.toString()
                                             , detailStr
                                             , if (defaultCbx.isChecked) "1" else "0"
@@ -183,7 +182,7 @@ class NewAddressActivity : BaseActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 666 && resultCode == Activity.RESULT_OK && data != null) {
-            val poiItem = data.getParcelableExtra<PoiItem>(KEY_DATA)
+            val poiItem = data.getParcelableExtra<PoiItem>(KEY_DATA) ?: return
             detailEdt.setText(poiItem.snippet + poiItem.title)
             val province = Province()
             province.id = poiItem.provinceCode.toInt()

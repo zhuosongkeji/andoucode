@@ -76,7 +76,7 @@ public class MyscoreActivity extends BaseActivity {
         )).subscribe(new BaseObserver<IntegralDetail>(mAt) {
             @Override
             public void onHandleSuccess(IntegralDetail integralDetail) throws IOException {
-                ((TextView) findViewById(R.id.tv_jfnum)).setText("￥" + integralDetail.integral);
+                ((TextView) findViewById(R.id.tv_jfnum)).setText("¥" + integralDetail.integral);
                 adapter.setNewData(integralDetail.log);
             }
         });

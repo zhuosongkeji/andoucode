@@ -67,7 +67,7 @@ public class OpeningmemberActivity extends BaseActivity {
         HttpRxObservable.getObservable(ApiUtils.getApiService().vip_rote(LoginInfoUtil.getUid(),LoginInfoUtil.getToken())).subscribe(new BaseObserver<ViproteBean>(mAt) {
             @Override
             public void onHandleSuccess(ViproteBean viproteBean) throws IOException {
-                tv_openprice.setText("￥"+viproteBean.getPrice());
+                tv_openprice.setText("¥"+viproteBean.getPrice());
                 String details = viproteBean.getVip_rote();
                 Log.d(TAG, "onHandleSuccess:+ " + details);
                 String htmlData = getHtmlData(details);

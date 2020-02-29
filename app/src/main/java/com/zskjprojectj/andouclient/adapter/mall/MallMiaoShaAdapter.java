@@ -25,8 +25,8 @@ public class MallMiaoShaAdapter extends BaseAdapter<MiaoShaGoods> {
         helper.setText(R.id.tv_title, item.name)
                 .setText(R.id.tv_progress, "已抢" + item.kill_percent + "%")
                 .setProgress(R.id.progressbar, item.kill_percent)
-                .setText(R.id.mTvPrice, "￥" + FormatUtil.getMoneyString(item.kill_price))
-                .setText(R.id.original_price, "￥" + FormatUtil.getMoneyString(item.price))
+                .setText(R.id.mTvPrice, "¥" + FormatUtil.getMoneyString(item.kill_price))
+                .setText(R.id.original_price, "¥" + FormatUtil.getMoneyString(item.price))
                 .setGone(R.id.hot_buy, miaoSha.getState() == MiaoSha.State.JIN_XING_ZHONG);
         if (miaoSha.getState() != MiaoSha.State.JIN_XING_ZHONG) {
             helper.setText(R.id.mBuyNow, miaoSha.getState().title);

@@ -372,8 +372,6 @@ interface ApiService {
                    @Field("token") token: String,
                    @Field("name") name: String,
                    @Field("mobile") mobile: String,
-                   @Field("province_id") province_id: String,
-                   @Field("city_id") city_id: String,
                    @Field("district_id") district_id: String,
                    @Field("address") address: String,
                    @Field("is_defualt") is_defualt: String): Observable<BaseResult<Any>>
@@ -709,8 +707,8 @@ interface ApiService {
                       @Field("star_price") star_price: String?,
                       @Field("end_price") end_price: String?,
                       @Field("stars_all") stars_all: String?,
-                      @Field("type") type: String = "",
-                      @Field("page") page: Int = 1)
+                      @Field("type") type: String? = "",
+                      @Field("page") page: Int? = 1)
             : Observable<BaseResult<ListData<HotelHomeBean>>>
 
 
@@ -1231,22 +1229,15 @@ interface ApiService {
     ): Observable<BaseResult<MiaoShaResponse>>
 
     @FormUrlEncoded
-    @POST("Usersaddress/details")
+    @POST("api/Usersaddress/details")
     fun addressDetail(@Field("uid") uid: String,
                       @Field("token") token: String,
                       @Field("id") id: String?
     ): Observable<BaseResult<Address>>
 
 
-    @FormUrlEncoded
     @POST("api/tieba/post")
-    fun releaseTieBa(@Field("uid") user_id: String,
-                     @Field("title") title: String,
-                     @Field("content") content: String,
-                     @Field("images") images: String? = null,
-                     @Field("type_id") type_id: Long?,
-                     @Field("contact_info") contact_info: String,
-                     @Field("top_post") top_post: String): Observable<BaseResult<Any>>
+    fun releaseTieBa(@Body file: RequestBody): Observable<BaseResult<Any>>
 
     @GET("api/tieba/types")
     fun tieBaTypes(): Observable<BaseResult<List<TieBaType>>>

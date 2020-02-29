@@ -13,5 +13,5 @@ public class Address implements Serializable {
     public String area;
     public String province_id;
     public String city_id;
-    public String district_id;
+    public String area_id;
 }

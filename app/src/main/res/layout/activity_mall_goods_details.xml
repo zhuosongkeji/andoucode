@@ -74,7 +74,7 @@
                                     android:id="@+id/rmb"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="￥"
+                                    android:text="¥"
                                     android:textColor="#fffefefe"
                                     android:textSize="14sp" />
 
@@ -110,7 +110,7 @@
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    tools:text="￥138"
+                                    tools:text="¥138"
                                     android:textColor="#fffefefe"
                                     android:textSize="13sp" />
 
