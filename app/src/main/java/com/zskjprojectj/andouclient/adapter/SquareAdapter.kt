@@ -7,7 +7,6 @@ import com.bumptech.glide.request.RequestOptions
 import com.chad.library.adapter.base.BaseViewHolder
 import com.zhuosongkj.android.library.adapter.BaseAdapter
 import com.zskjprojectj.andouclient.R
-import com.zskjprojectj.andouclient.entity.TieZi
 import com.zskjprojectj.andouclient.model.TieBa
 import kotlinx.android.synthetic.main.item_squarefragment.view.*
 
@@ -16,8 +15,9 @@ class SquareAdapter : BaseAdapter<TieBa>(R.layout.item_squarefragment) {
     override fun convert(helper: BaseViewHolder, item: TieBa) {
         val adapter = SquareImgAdapter()
         val commentAdapter = SquareCommentAdapter()
-        bindTieZi(mContext, helper.itemView, item, adapter, item.comment_count.toInt()>0)
+        bindTieZi(mContext, helper.itemView, item, adapter, item.comment_count.toInt() > 0)
         helper.itemView.commentRecyclerView.adapter = commentAdapter
+        helper.itemView.commentRecyclerView.setOnTouchListener { _, event -> helper.itemView.onTouchEvent(event) }
         commentAdapter.setNewData(item.comments)
         helper.addOnClickListener(R.id.likeView)
     }
@@ -36,6 +36,7 @@ fun bindTieZi(context: Context, view: View, item: TieBa?,
             .apply(RequestOptions().placeholder(R.mipmap.ic_placeholder))
             .into(view.avatarImg)
     view.recyclerView.adapter = adapter
+    view.recyclerView.setOnTouchListener { _, event -> view.onTouchEvent(event) }
     adapter.setNewData(item?.images)
     view.commentRecyclerView.visibility = if (commentVisible) View.VISIBLE else View.GONE
 }
