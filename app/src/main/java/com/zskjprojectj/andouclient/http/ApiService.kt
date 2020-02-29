@@ -707,8 +707,8 @@ interface ApiService {
                       @Field("star_price") star_price: String?,
                       @Field("end_price") end_price: String?,
                       @Field("stars_all") stars_all: String?,
-                      @Field("type") type: String = "",
-                      @Field("page") page: Int = 1)
+                      @Field("type") type: String? = "",
+                      @Field("page") page: Int? = 1)
             : Observable<BaseResult<ListData<HotelHomeBean>>>
 
 
