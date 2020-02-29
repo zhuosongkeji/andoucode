@@ -16,19 +16,12 @@ import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.zhuosongkj.android.library.app.BaseActivity;
-import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.utils.GlideEngine;
-import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
-import com.zskjprojectj.andouclient.utils.UrlUtil;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
-
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 
 public class UploadPicAdapter extends BaseQuickAdapter<UploadPicAdapter.SelectPic, BaseViewHolder> {
 
@@ -57,7 +50,7 @@ public class UploadPicAdapter extends BaseQuickAdapter<UploadPicAdapter.SelectPi
             helper.setVisible(R.id.deleteBtn, true);
             helper.itemView.setOnClickListener(null);
             Glide.with(helper.itemView)
-                    .load(UrlUtil.INSTANCE.getImageUrl(item.path))
+                    .load(item.path)
                     .apply(new RequestOptions().placeholder(R.mipmap.ic_placeholder))
                     .into((ImageView) helper.itemView.findViewById(R.id.picImg));
             helper.itemView.findViewById(R.id.deleteBtn).setOnClickListener(v -> {
@@ -82,19 +75,24 @@ public class UploadPicAdapter extends BaseQuickAdapter<UploadPicAdapter.SelectPi
                     path = localMedia.getPath();
                 }
                 File file = new File(path);
-                RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpg"), file);
-                MultipartBody.Part body = MultipartBody.Part.createFormData("img", file.getName(), requestFile);
-                RequestBody uid = RequestBody.create(MediaType.parse("multipart/form-data"), LoginInfoUtil.getUid());
-                RequestBody token = RequestBody.create(MediaType.parse("multipart/form-data"), LoginInfoUtil.getToken());
-                RequestUtil.request(activity, true, false,
-                        () -> ApiUtils.getApiService().uploadImg(uid, token, body)
-                        , result -> {
-                            remove(getItemCount() - 1);
-                            SelectPic selectPic = new SelectPic();
-                            selectPic.path = result.data;
-                            addData(selectPic);
-                            checkAddBtn();
-                        });
+                remove(getItemCount() - 1);
+                SelectPic selectPic = new SelectPic();
+                selectPic.path = path;
+                addData(selectPic);
+                checkAddBtn();
+//                RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpg"), file);
+//                MultipartBody.Part body = MultipartBody.Part.createFormData("img", file.getName(), requestFile);
+//                RequestBody uid = RequestBody.create(MediaType.parse("multipart/form-data"), LoginInfoUtil.getUid());
+//                RequestBody token = RequestBody.create(MediaType.parse("multipart/form-data"), LoginInfoUtil.getToken());
+//                RequestUtil.request(activity, true, false,
+//                        () -> ApiUtils.getApiService().uploadImg(uid, token, body)
+//                        , result -> {
+//                            remove(getItemCount() - 1);
+//                            SelectPic selectPic = new SelectPic();
+//                            selectPic.path = result.data;
+//                            addData(selectPic);
+//                            checkAddBtn();
+//                        });
             }
         }
     }
@@ -107,6 +105,17 @@ public class UploadPicAdapter extends BaseQuickAdapter<UploadPicAdapter.SelectPi
             }
         }
         return count;
+    }
+
+    public ArrayList<SelectPic> getSelectedPics() {
+        ArrayList<SelectPic> selectPics = new ArrayList<>();
+        for (SelectPic datum : getData()) {
+            if (datum.path.isEmpty()) {
+                continue;
+            }
+            selectPics.add(datum);
+        }
+        return selectPics;
     }
 
     public static class SelectPic {

@@ -65,7 +65,7 @@ class NewAddressActivity : BaseActivity() {
             dialog.setTitles("收货地址")
             dialog.setAddressProvider(object : AddressProvider {
                 override fun provideProvinces(addressReceiver: AddressReceiver<Province>) {
-                    RequestUtil.request(mActivity, true, false,
+                    RequestUtil.request(mActivity, false, false,
                             { ApiUtils.getApiService().districts() },
                             {
                                 val provinces = ArrayList<Province>()
@@ -80,7 +80,7 @@ class NewAddressActivity : BaseActivity() {
                 }
 
                 override fun provideCitiesWith(provinceId: Int, addressReceiver: AddressReceiver<City>) {
-                    RequestUtil.request(mActivity, true, false,
+                    RequestUtil.request(mActivity, false, false,
                             { ApiUtils.getApiService().districts(provinceId) },
                             {
                                 val cities = ArrayList<City>()
@@ -95,7 +95,7 @@ class NewAddressActivity : BaseActivity() {
                 }
 
                 override fun provideCountiesWith(cityId: Int, addressReceiver: AddressReceiver<County>) {
-                    RequestUtil.request(mActivity, true, false,
+                    RequestUtil.request(mActivity, false, false,
                             { ApiUtils.getApiService().districts(cityId) },
                             {
                                 val counties = ArrayList<County>()

@@ -117,7 +117,7 @@ public class MallmerchantsbusinessinActivity extends BaseActivity {
             dialog.setAddressProvider(new AddressProvider() {
                 @Override
                 public void provideProvinces(AddressReceiver<Province> addressReceiver) {
-                    RequestUtil.request(mActivity, true, false,
+                    RequestUtil.request(mActivity, false, false,
                             () -> ApiUtils.getApiService().districts(null),
                             result -> {
                                 ArrayList<Province> provinces = new ArrayList<>();
@@ -133,7 +133,7 @@ public class MallmerchantsbusinessinActivity extends BaseActivity {
 
                 @Override
                 public void provideCitiesWith(int provinceId, AddressReceiver<City> addressReceiver) {
-                    RequestUtil.request(mActivity, true, false,
+                    RequestUtil.request(mActivity, false, false,
                             () -> ApiUtils.getApiService().districts(provinceId),
                             result -> {
                                 ArrayList<City> cities = new ArrayList<City>();
@@ -149,7 +149,7 @@ public class MallmerchantsbusinessinActivity extends BaseActivity {
 
                 @Override
                 public void provideCountiesWith(int cityId, AddressReceiver<County> addressReceiver) {
-                    RequestUtil.request(mActivity, true, false,
+                    RequestUtil.request(mActivity, false, false,
                             () -> ApiUtils.getApiService().districts(cityId),
                             result -> {
                                 ArrayList<County> counties = new ArrayList();

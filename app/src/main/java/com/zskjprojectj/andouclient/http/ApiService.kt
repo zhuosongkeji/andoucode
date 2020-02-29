@@ -1236,15 +1236,8 @@ interface ApiService {
     ): Observable<BaseResult<Address>>
 
 
-    @FormUrlEncoded
     @POST("api/tieba/post")
-    fun releaseTieBa(@Field("uid") user_id: String,
-                     @Field("title") title: String,
-                     @Field("content") content: String,
-                     @Field("images") images: String? = null,
-                     @Field("type_id") type_id: Long?,
-                     @Field("contact_info") contact_info: String,
-                     @Field("top_post") top_post: String): Observable<BaseResult<Any>>
+    fun releaseTieBa(@Body file: RequestBody): Observable<BaseResult<Any>>
 
     @GET("api/tieba/types")
     fun tieBaTypes(): Observable<BaseResult<List<TieBaType>>>

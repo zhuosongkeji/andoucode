@@ -14,6 +14,11 @@ import com.zskjprojectj.andouclient.http.ApiUtils
 import com.zskjprojectj.andouclient.model.TieBaType
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil
 import kotlinx.android.synthetic.main.activity_tie_ba_release.*
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import java.io.File
+
 
 class TieBaReleaseActivity : BaseActivity() {
 
@@ -51,15 +56,22 @@ class TieBaReleaseActivity : BaseActivity() {
                     ToastUtils.showShort("请输入手机号!")
                 }
                 else -> {
-                    RequestUtil.request(mActivity, true, true,
+                    val builder = MultipartBody.Builder()
+                    builder.setType(MultipartBody.FORM)
+                    builder.addFormDataPart("uid", LoginInfoUtil.getUid())
+                    builder.addFormDataPart("title", titleTxt.text.toString())
+                    builder.addFormDataPart("content", contentTxt.text.toString())
+                    builder.addFormDataPart("type_id", selectedType!!.id.toString())
+                    builder.addFormDataPart("contact_info", phoneTxt.text.toString())
+                    builder.addFormDataPart("top_post", if (yes.isChecked) "1" else "0")
+                    adapter.selectedPics.forEach {
+                        val file = File(it.path)
+                        builder.addFormDataPart("images[]", file.name, RequestBody.create(MediaType.parse("multipart/form-data"), file))
+                    }
+                    val requestBody = builder.build()
+                    RequestUtil.request(mActivity, true, false,
                             {
-                                ApiUtils.getApiService().releaseTieBa(LoginInfoUtil.getUid(),
-                                        titleTxt.text.toString(),
-                                        contentTxt.text.toString(),
-                                        null,
-                                        selectedType?.id,
-                                        phoneTxt.text.toString(),
-                                        if (yes.isChecked) "1" else "0")
+                                ApiUtils.getApiService().releaseTieBa(requestBody)
                             },
                             {
                                 ToastUtils.showShort("发帖成功")
