@@ -39,6 +39,7 @@ class SelectLocationActivity : BaseActivity() {
     val poiSearchQuery = PoiSearch.Query("", "", "")
     var regeocodeAddress: RegeocodeAddress? = null
     var refresh: Boolean = true
+    var refreshSearch: Boolean = true
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ActionBarUtil.setTitle(mActivity, "定位地址")
@@ -174,7 +175,12 @@ class SelectLocationActivity : BaseActivity() {
                 if (code == 1000) {
                     if (result.pois.size > 0) {
                         searchResultAdapter.loadMoreComplete()
-                        searchResultAdapter.addData(result.pois)
+                        if (refreshSearch) {
+                            refreshSearch = false
+                            searchResultAdapter.setNewData(result.pois)
+                        } else {
+                            searchResultAdapter.addData(result.pois)
+                        }
                         poiSearchQuery.pageNum += 1
                     } else {
                         searchResultAdapter.loadMoreEnd()
@@ -227,6 +233,7 @@ class SelectLocationActivity : BaseActivity() {
             }
 
             override fun afterTextChanged(s: Editable) {
+                refreshSearch = true
                 poiSearchQuery = PoiSearch.Query(s.toString(), "", cityTxt.text.toString())
                 poiSearch.query = poiSearchQuery
                 poiSearch.searchPOIAsyn()

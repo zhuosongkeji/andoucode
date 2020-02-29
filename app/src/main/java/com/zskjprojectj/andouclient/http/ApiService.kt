@@ -1248,7 +1248,7 @@ interface ApiService {
      */
     @GET("api/tieba/list")
     fun tieBaList(@Query("uid") uid: String,
-                  @Query("type") type: String?=null,
+                  @Query("type") type: String? = null,
                   @Query("page") page: Int): Observable<BaseResult<ListData<TieBa>>>
 
     /**
@@ -1257,16 +1257,21 @@ interface ApiService {
     @FormUrlEncoded
     @POST("api/tieba/comment")
     fun replyComment(@Field("uid") uid: String,
-                      @Field("post_id") post_id: String?,
-                      @Field("content") content: String,
-                      @Field("comment_id") comment_id: String?=null
+                     @Field("post_id") post_id: String?,
+                     @Field("content") content: String,
+                     @Field("comment_id") comment_id: String? = null
     ): Observable<BaseResult<TieBa.CommentsBean>>
 
 
     @FormUrlEncoded
-    @POST("api/tieba/comment")
+    @POST("api/tieba/upvote")
     fun tieBaLike(@Field("uid") uid: String,
-                     @Field("post_id") post_id: String?,
-                     @Field("vote") vote: String
+                  @Field("post_id") post_id: String?,
+                  @Field("vote") vote: String
     ): Observable<BaseResult<Any>>
+
+    @GET("api/tieba/detail")
+    fun tieBaDetail(@Query("post_id") post_id: String?,
+                    @Query("page") page: Int
+    ): Observable<BaseResult<TieBa>>
 }

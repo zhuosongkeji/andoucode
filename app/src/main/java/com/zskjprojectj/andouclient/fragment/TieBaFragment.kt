@@ -2,7 +2,6 @@ package com.zskjprojectj.andouclient.fragment
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.BarUtils
 import com.zhuosongkj.android.library.app.BaseFragment
@@ -20,7 +19,7 @@ class TieBaFragment : BaseFragment() {
                 arrayOf("广场", "我的"),
                 activity,
                 arrayListOf(SquareFragment(), MyTieBaFragment()))
-        view.commentDetails.setOnClickListener {
+        view.releaseBtn.setOnClickListener {
             ActivityUtils.startActivityForResult(
                     mFragment, TieBaReleaseActivity::class.java, 666)
         }
