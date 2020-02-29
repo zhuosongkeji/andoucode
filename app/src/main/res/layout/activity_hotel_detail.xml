@@ -117,23 +117,24 @@
                 android:layout_height="@dimen/dp_10"
                 android:background="#F7F7F7" />
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:paddingLeft="@dimen/dp_15"
-                android:paddingTop="@dimen/dp_19"
+                android:paddingTop="15dp"
                 android:paddingRight="@dimen/dp_15"
-                android:paddingBottom="@dimen/dp_19">
+                android:paddingBottom="15dp">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:text="商家评分"
                     android:textColor="#323232"
                     android:textSize="@dimen/typeface12sp" />
 
-                <com.willy.ratingbar.ScaleRatingBar xmlns:app="http://schemas.android.com/apk/res-auto"
+                <com.willy.ratingbar.ScaleRatingBar
                     android:id="@+id/simpleRatingBar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -146,12 +147,7 @@
                     app:srb_starHeight="13dp"
                     app:srb_starPadding="4dp"
                     app:srb_starWidth="14dp" />
-            </RelativeLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="#F7F7F7" />
+            </LinearLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -179,11 +175,6 @@
                     android:textSize="@dimen/typeface12sp" />
 
             </RelativeLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="#F7F7F7" />
         </LinearLayout>
 
         <FrameLayout
