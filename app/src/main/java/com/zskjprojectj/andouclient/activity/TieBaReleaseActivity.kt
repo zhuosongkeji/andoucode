@@ -1,5 +1,6 @@
 package com.zskjprojectj.andouclient.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder
@@ -8,7 +9,7 @@ import com.zhuosongkj.android.library.app.BaseActivity
 import com.zhuosongkj.android.library.util.ActionBarUtil
 import com.zhuosongkj.android.library.util.RequestUtil
 import com.zskjprojectj.andouclient.R
-import com.zskjprojectj.andouclient.adapter.SelectPicAdapter
+import com.zskjprojectj.andouclient.adapter.UploadPicAdapter
 import com.zskjprojectj.andouclient.http.ApiUtils
 import com.zskjprojectj.andouclient.model.TieBaType
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil
@@ -16,16 +17,13 @@ import kotlinx.android.synthetic.main.activity_tie_ba_release.*
 
 class TieBaReleaseActivity : BaseActivity() {
 
-    val adapter = SelectPicAdapter(6)
+    val adapter = UploadPicAdapter(6)
     var selectedType: TieBaType? = null
-    private var is_top: String = ""
-
-    override fun getContentView() = R.layout.activity_tie_ba_release
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ActionBarUtil.setTitle(mActivity, "发布贴吧信息")
         adapter.bindToRecyclerView(recyclerView)
+        adapter.activity = mActivity
         typeContainer.setOnClickListener {
             RequestUtil.request(mActivity, true, false,
                     { ApiUtils.getApiService().tieBaTypes() },
@@ -39,11 +37,6 @@ class TieBaReleaseActivity : BaseActivity() {
                     })
         }
         submitBtn.setOnClickListener {
-            if(yes.isChecked){
-                is_top="1"
-            }else{
-                is_top="0"
-            }
             when {
                 selectedType == null -> {
                     ToastUtils.showShort("请选择发帖类型")
@@ -66,7 +59,7 @@ class TieBaReleaseActivity : BaseActivity() {
                                         null,
                                         selectedType?.id,
                                         phoneTxt.text.toString(),
-                                        is_top)
+                                        if (yes.isChecked) "1" else "0")
                             },
                             {
                                 ToastUtils.showShort("发帖成功")
@@ -76,4 +69,11 @@ class TieBaReleaseActivity : BaseActivity() {
             }
         }
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        adapter.onActivityResult(requestCode, resultCode, data)
+    }
+
+    override fun getContentView() = R.layout.activity_tie_ba_release
 }

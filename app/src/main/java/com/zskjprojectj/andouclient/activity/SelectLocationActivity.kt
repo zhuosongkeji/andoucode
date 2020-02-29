@@ -59,7 +59,7 @@ class SelectLocationActivity : BaseActivity() {
                                 CityPicker.from(mActivity).locateComplete(
                                         LocatedCity(regeocodeAddress?.city,
                                                 regeocodeAddress?.province,
-                                                regeocodeAddress?.cityCode),
+                                                regeocodeAddress?.adCode),
                                         LocateState.SUCCESS)
                             }, 1000)
                         }

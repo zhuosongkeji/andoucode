@@ -8,22 +8,34 @@ import android.widget.ImageView;
 import androidx.annotation.Nullable;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
+import com.zhuosongkj.android.library.app.BaseActivity;
+import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
+import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.utils.GlideEngine;
+import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
+import com.zskjprojectj.andouclient.utils.UrlUtil;
 
+import java.io.File;
 import java.util.List;
 
-public class SelectPicAdapter extends BaseQuickAdapter<SelectPicAdapter.SelectPic, BaseViewHolder> {
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
-    public int selectPicCount;
+public class UploadPicAdapter extends BaseQuickAdapter<UploadPicAdapter.SelectPic, BaseViewHolder> {
 
-    public SelectPicAdapter(int selectPicCount) {
+    private int selectPicCount;
+    public BaseActivity activity;
+
+    public UploadPicAdapter(int selectPicCount) {
         super(R.layout.layout_select_pic);
         this.selectPicCount = selectPicCount;
         addData(new SelectPic());
@@ -45,7 +57,8 @@ public class SelectPicAdapter extends BaseQuickAdapter<SelectPicAdapter.SelectPi
             helper.setVisible(R.id.deleteBtn, true);
             helper.itemView.setOnClickListener(null);
             Glide.with(helper.itemView)
-                    .load(item.path)
+                    .load(UrlUtil.INSTANCE.getImageUrl(item.path))
+                    .apply(new RequestOptions().placeholder(R.mipmap.ic_placeholder))
                     .into((ImageView) helper.itemView.findViewById(R.id.picImg));
             helper.itemView.findViewById(R.id.deleteBtn).setOnClickListener(v -> {
                 remove(helper.getAdapterPosition());
@@ -62,18 +75,27 @@ public class SelectPicAdapter extends BaseQuickAdapter<SelectPicAdapter.SelectPi
 
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == PictureConfig.CHOOSE_REQUEST && resultCode == Activity.RESULT_OK) {
-            remove(getItemCount() - 1);
             List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
             for (LocalMedia localMedia : selectList) {
-                SelectPic selectPic = new SelectPic();
                 String path = localMedia.getAndroidQToPath();
                 if (TextUtils.isEmpty(path)) {
-                    path = PictureSelector.obtainMultipleResult(data).get(0).getPath();
+                    path = localMedia.getPath();
                 }
-                selectPic.path = path;
-                addData(selectPic);
+                File file = new File(path);
+                RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpg"), file);
+                MultipartBody.Part body = MultipartBody.Part.createFormData("img", file.getName(), requestFile);
+                RequestBody uid = RequestBody.create(MediaType.parse("multipart/form-data"), LoginInfoUtil.getUid());
+                RequestBody token = RequestBody.create(MediaType.parse("multipart/form-data"), LoginInfoUtil.getToken());
+                RequestUtil.request(activity, true, false,
+                        () -> ApiUtils.getApiService().uploadImg(uid, token, body)
+                        , result -> {
+                            remove(getItemCount() - 1);
+                            SelectPic selectPic = new SelectPic();
+                            selectPic.path = result.data;
+                            addData(selectPic);
+                            checkAddBtn();
+                        });
             }
-            checkAddBtn();
         }
     }
 
@@ -87,7 +109,7 @@ public class SelectPicAdapter extends BaseQuickAdapter<SelectPicAdapter.SelectPi
         return count;
     }
 
-    public class SelectPic {
+    public static class SelectPic {
         public String path = "";
     }
 }

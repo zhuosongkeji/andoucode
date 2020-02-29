@@ -372,8 +372,6 @@ interface ApiService {
                    @Field("token") token: String,
                    @Field("name") name: String,
                    @Field("mobile") mobile: String,
-                   @Field("province_id") province_id: String,
-                   @Field("city_id") city_id: String,
                    @Field("district_id") district_id: String,
                    @Field("address") address: String,
                    @Field("is_defualt") is_defualt: String): Observable<BaseResult<Any>>
@@ -1231,7 +1229,7 @@ interface ApiService {
     ): Observable<BaseResult<MiaoShaResponse>>
 
     @FormUrlEncoded
-    @POST("Usersaddress/details")
+    @POST("api/Usersaddress/details")
     fun addressDetail(@Field("uid") uid: String,
                       @Field("token") token: String,
                       @Field("id") id: String?

@@ -54,9 +54,10 @@ class NewAddressActivity : BaseActivity() {
                 city.id = it.data.city_id.toInt()
                 city.name = it.data.city
                 val county = County()
-                county.id = it.data.district_id.toInt()
+                county.id = it.data.area_id.toInt()
                 county.name = it.data.area
                 selectedAddress = AddressIn(province, city, county)
+                addressTxt.text = selectedAddress.toString()
             })
         }
         ry_selectaddress.setOnClickListener {
@@ -140,8 +141,6 @@ class NewAddressActivity : BaseActivity() {
                                             LoginInfoUtil.getToken()
                                             , nameStr
                                             , mobileStr
-                                            , selectedAddress?.province?.id.toString()
-                                            , selectedAddress?.city?.id.toString()
                                             , selectedAddress?.county?.id.toString()
                                             , detailStr
                                             , if (defaultCbx.isChecked) "1" else "0"
