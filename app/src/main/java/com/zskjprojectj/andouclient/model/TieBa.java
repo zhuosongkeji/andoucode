@@ -1,25 +1,12 @@
 package com.zskjprojectj.andouclient.model;
 
 
+import com.zhuosongkj.android.library.model.IListData;
+
 import java.io.Serializable;
-import java.util.List;
+import java.util.ArrayList;
 
-public class TieBa implements Serializable {
-
-
-    /**
-     * id : 2
-     * user_id : 46
-     * title : 测试发帖标题
-     * vote : 1
-     * share : 0
-     * content : 发帖内容
-     * name : 啊啊    就
-     * avator : http://andou.zhuosongkj.com/uploads/20200221/H6AkcKpbB88LR2z5AUzz0HJrn9AqtuCTPcd57bfc.jpeg
-     * comment_count : 13
-     * images : ["http://andou.zhuosongkj.com/post/202002/2020022815064323095.jpg","http://andou.zhuosongkj.com/post/202002/2020022815064322377.gif"]
-     * comments : [{"id":13,"name":"啊啊    就","content":"新增评论 10"},{"id":12,"name":"啊啊    就","content":"新增评论 9","to":"A_超"},{"id":11,"name":"啊啊    就","content":"新增评论 8"}]
-     */
+public class TieBa implements Serializable, IListData<TieBa.CommentsBean> {
 
     private String id;
     private int user_id;
@@ -30,8 +17,8 @@ public class TieBa implements Serializable {
     private String name;
     private String avator;
     private String comment_count;
-    private List<String> images;
-    private List<CommentsBean> comments;
+    private ArrayList<String> images = new ArrayList<>();
+    private ArrayList<CommentsBean> comments = new ArrayList<>();
 
     public String getId() {
         return id;
@@ -105,30 +92,28 @@ public class TieBa implements Serializable {
         this.comment_count = comment_count;
     }
 
-    public List<String> getImages() {
+    public ArrayList<String> getImages() {
         return images;
     }
 
-    public void setImages(List<String> images) {
+    public void setImages(ArrayList<String> images) {
         this.images = images;
     }
 
-    public List<CommentsBean> getComments() {
+    public ArrayList<CommentsBean> getComments() {
         return comments;
     }
 
-    public void setComments(List<CommentsBean> comments) {
+    public void setComments(ArrayList<CommentsBean> comments) {
         this.comments = comments;
     }
 
-    public static class CommentsBean {
-        /**
-         * id : 13
-         * name : 啊啊    就
-         * content : 新增评论 10
-         * to : A_超
-         */
+    @Override
+    public ArrayList<CommentsBean> getDataList() {
+        return comments;
+    }
 
+    public static class CommentsBean implements Serializable {
         private String id;
         private String name;
         private String content;
