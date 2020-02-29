@@ -74,7 +74,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerInParent="true"
-                        android:text="￥18"
+                        android:text="¥18"
 
                         android:textSize="20sp" />
                 </RelativeLayout>
@@ -166,7 +166,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/shape_button_c"
-                android:text="包厢\n100￥" />
+                android:text="包厢\n100¥" />
         </LinearLayout>
 
         <RelativeLayout
@@ -210,7 +210,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginLeft="@dimen/dp_10"
                 android:layout_marginRight="@dimen/dp_10"
-                android:text="114￥" />
+                android:text="114¥" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -229,7 +229,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginLeft="@dimen/dp_10"
                 android:layout_marginRight="@dimen/dp_10"
-                android:text="100￥"
+                android:text="100¥"
                 android:textColor="@color/red" />
         </RelativeLayout>
     </LinearLayout>
@@ -238,7 +238,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <Button
-            android:text="订单总额:154￥"
+            android:text="订单总额:154¥"
             android:layout_weight="0.3"
             android:background="@color/colorWhite"
             android:layout_width="wrap_content"

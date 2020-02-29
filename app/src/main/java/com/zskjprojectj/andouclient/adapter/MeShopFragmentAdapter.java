@@ -33,7 +33,7 @@ public class MeShopFragmentAdapter extends BaseQuickAdapter<Order, BaseViewHolde
                 .setText(R.id.priceTxt, FormatUtil.getMoneyString(item.price))
                 .setText(R.id.countTxt, String.valueOf(item.num))
                 .setText(R.id.statusTxt, getStatusStr(item.status))
-                .setText(R.id.total, "￥" + item.pay_money)
+                .setText(R.id.total, "¥" + item.pay_money)
                 .setText(R.id.specTxt, getSpec(item.attr_value))
                 .addOnClickListener(R.id.btn_orderdetails)
                 .addOnClickListener(R.id.btn_gotopayment)

@@ -142,7 +142,7 @@ public class HotelorderdetailsActivity extends BaseActivity {
         ((TextView) findViewById(R.id.tv_house_price)).setText("¥" + meHotelDetailsBean.getPrice());
         ((TextView) findViewById(R.id.tv_house_all_price)).setText("¥" + meHotelDetailsBean.getMoney());
         ((TextView) findViewById(R.id.tv_all_price)).setText(meHotelDetailsBean.getPay_money());
-        ((TextView) findViewById(R.id.tv_integral)).setText("-￥"+meHotelDetailsBean.getIntegral());
+        ((TextView) findViewById(R.id.tv_integral)).setText("-¥"+meHotelDetailsBean.getIntegral());
 
         //入住时间
         String start_time = meHotelDetailsBean.getStart_time();

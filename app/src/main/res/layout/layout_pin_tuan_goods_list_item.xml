@@ -57,7 +57,7 @@
                 android:id="@+id/oldPriceTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="￥128"
+                android:text="¥128"
                 android:textColor="#ffb6b6b6"
                 android:textSize="12sp" />
 

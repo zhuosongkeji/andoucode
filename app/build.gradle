@@ -128,7 +128,7 @@ dependencies {
     //旋转木马相册
     implementation 'com.chenlittleping:recyclercoverflow:1.0.6'
     //城市定位
-    implementation 'com.zaaach:citypicker:2.0.3'	//必选
+    implementation 'com.zaaach:citypicker:2.0.3'    //必选
     //RatingBar
     implementation 'com.github.ome450901:SimpleRatingBar:1.4.3'
 

@@ -86,7 +86,7 @@
                 android:textColor="@color/red"
                 android:layout_marginLeft="@dimen/dp_15"
                 android:layout_marginTop="@dimen/dp_17"
-                android:text="￥288"
+                android:text="¥288"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <TextView
@@ -99,7 +99,7 @@
     </RelativeLayout>
     <TextView
         android:layout_marginTop="@dimen/dp_15"
-        android:text="合计:￥288"
+        android:text="合计:¥288"
         android:layout_marginRight="15dp"
         android:layout_gravity="center|right"
         android:layout_width="wrap_content"

@@ -95,12 +95,12 @@ public class RestaurantOrderDetailActivity extends BaseActivity {
         ViewUtil.setText(mActivity, R.id.dinnerDateTxt, data.dinnertime);
         ViewUtil.setText(mActivity, R.id.peopleCountTxt, data.people + "人");
         ViewUtil.setText(mActivity, R.id.psTxt, data.remark);
-        ViewUtil.setText(mActivity, R.id.amountTxt, "￥" + data.prices);
+        ViewUtil.setText(mActivity, R.id.amountTxt, "¥" + data.prices);
         ViewUtil.setText(mActivity, R.id.useScoreCountTxt, Double.valueOf(data.integral) > 0 ? "-" + data.integral : data.integral);
         if (TextUtils.isEmpty(data.pay_money)) {
-            ViewUtil.setText(mActivity, R.id.payAmountTxt, "￥" + FormatUtil.getMoneyString(new BigDecimal(data.prices).subtract(new BigDecimal(data.integral)).doubleValue()));
+            ViewUtil.setText(mActivity, R.id.payAmountTxt, "¥" + FormatUtil.getMoneyString(new BigDecimal(data.prices).subtract(new BigDecimal(data.integral)).doubleValue()));
         } else {
-            ViewUtil.setText(mActivity, R.id.payAmountTxt, "￥" + FormatUtil.getMoneyString(new BigDecimal(data.pay_money).doubleValue()));
+            ViewUtil.setText(mActivity, R.id.payAmountTxt, "¥" + FormatUtil.getMoneyString(new BigDecimal(data.pay_money).doubleValue()));
         }
         ViewUtil.setText(mActivity, R.id.payWayTxt, getPayWayStr(data.method));
         for (Food food : data.foods) {

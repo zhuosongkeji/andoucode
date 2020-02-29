@@ -114,7 +114,7 @@ public class MywalletActivity extends BaseActivity {
         )).subscribe(new BaseObserver<BalanceDetail>(mAt) {
             @Override
             public void onHandleSuccess(BalanceDetail balanceDetail) throws IOException {
-                ((TextView) findViewById(R.id.tv_balanceofnum)).setText("￥" + balanceDetail.money);
+                ((TextView) findViewById(R.id.tv_balanceofnum)).setText("¥" + balanceDetail.money);
                 meBalancesubsidiaryFragment.addData(balanceDetail.log, true);
             }
         });
@@ -125,7 +125,7 @@ public class MywalletActivity extends BaseActivity {
         )).subscribe(new BaseObserver<BalanceDetail>(mAt) {
             @Override
             public void onHandleSuccess(BalanceDetail balanceDetail) throws IOException {
-                ((TextView) findViewById(R.id.tv_balanceofnum)).setText("￥" + balanceDetail.money);
+                ((TextView) findViewById(R.id.tv_balanceofnum)).setText("¥" + balanceDetail.money);
                 meCashFragment.addData(balanceDetail.log, true);
             }
         });

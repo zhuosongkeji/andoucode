@@ -18,7 +18,7 @@ public class MallMiaoShaGoodsAdapter extends BaseAdapter<MiaoShaGoods> {
 
     @Override
     protected void convert(BaseViewHolder helper, MiaoShaGoods item) {
-        helper.setText(R.id.priceTxt, "￥" + FormatUtil.getMoneyString(item.kill_price));
+        helper.setText(R.id.priceTxt, "¥" + FormatUtil.getMoneyString(item.kill_price));
         helper.itemView.postDelayed(() -> {
             ImageView img = helper.itemView.findViewById(R.id.img);
             img.getLayoutParams().height = img.getWidth();

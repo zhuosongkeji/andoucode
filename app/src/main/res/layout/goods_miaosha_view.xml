@@ -21,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        tools:text="￥268"
+        tools:text="¥268"
         android:textColor="#fffc371f"
         android:textSize="15sp" />
 

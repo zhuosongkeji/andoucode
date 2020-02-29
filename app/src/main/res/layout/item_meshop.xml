@@ -113,7 +113,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="￥"
+                        android:text="¥"
                         android:textColor="#fff34545"
                         android:textSize="12sp" />
 
@@ -185,7 +185,7 @@
             android:id="@+id/total"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="￥288"
+            android:text="¥288"
             android:textColor="@color/red" />
     </LinearLayout>
 

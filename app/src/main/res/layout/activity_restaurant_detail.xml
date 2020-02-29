@@ -340,7 +340,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="￥"
+                    android:text="¥"
                     android:textColor="#fff5f6f8"
                     android:textSize="15sp" />
 

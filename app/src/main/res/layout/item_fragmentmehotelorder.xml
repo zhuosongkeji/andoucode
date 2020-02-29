@@ -105,7 +105,7 @@
             android:layout_marginLeft="@dimen/dp_16"
             android:layout_marginTop="@dimen/dp_18"
             android:layout_marginEnd="@dimen/dp_16"
-            android:text="￥288"
+            android:text="¥288"
             android:textColor="#F34545"
             android:textSize="@dimen/typeface12sp" />
     </RelativeLayout>

@@ -39,7 +39,7 @@ public class PlatformshoppingcartAdapter extends BaseAdapter<CartItem> {
         helper.setText(R.id.shopNameTxt, item.merchant_name)
                 .setText(R.id.tv_cartgoodsname, item.goods_name)
                 //价格
-                .setText(R.id.tv_cartgoodprice, "￥" + item.price)
+                .setText(R.id.tv_cartgoodprice, "¥" + item.price)
                 //数量
                 .setText(R.id.tv_num, item.num + "")
                 .addOnClickListener(R.id.btn_add)

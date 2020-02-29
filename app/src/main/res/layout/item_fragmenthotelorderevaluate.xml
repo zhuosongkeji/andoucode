@@ -104,7 +104,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_15"
                 android:layout_marginTop="@dimen/dp_17"
-                android:text="￥288"
+                android:text="¥288"
                 android:textColor="@color/red"
                 android:textSize="@dimen/typeface15sp" />
         </RelativeLayout>
@@ -116,7 +116,7 @@
         android:layout_gravity="center|right"
         android:layout_marginTop="@dimen/dp_15"
         android:layout_marginRight="15dp"
-        android:text="合计:￥288"
+        android:text="合计:¥288"
         android:textColor="@color/red" />
 
     <View
