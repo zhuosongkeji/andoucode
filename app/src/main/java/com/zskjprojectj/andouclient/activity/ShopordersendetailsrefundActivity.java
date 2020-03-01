@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.bumptech.glide.Glide;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.zskjprojectj.andouclient.R;
@@ -38,6 +39,7 @@ import com.zskjprojectj.andouclient.model.OrderDetail;
 import com.zskjprojectj.andouclient.utils.GlideEngine;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
+import com.zskjprojectj.andouclient.utils.UrlUtil;
 
 import java.io.File;
 import java.io.IOException;
