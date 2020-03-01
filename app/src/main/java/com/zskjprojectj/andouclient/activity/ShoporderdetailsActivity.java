@@ -134,7 +134,7 @@ public class ShoporderdetailsActivity extends BaseActivity {
                 @Override
                 public void onClick(View v) {
                     //退款//退货
-                    ShopordersendetailsrefundActivity.start("refund", order.details.get(0));
+                    ShopordersendetailsrefundActivity.start("refund", order);
                     finish();
                 }
             });
@@ -145,7 +145,7 @@ public class ShoporderdetailsActivity extends BaseActivity {
                 @Override
                 public void onClick(View v) {
                     //退款//退货
-                    ShopordersendetailsrefundActivity.start("sales_return", order.details.get(0));
+                    ShopordersendetailsrefundActivity.start("sales_return", order);
                     finish();
                 }
             });

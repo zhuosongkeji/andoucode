@@ -20,6 +20,7 @@
         android:layout_gravity="center_horizontal|bottom"
         android:padding="5dp"
         android:textColor="#FFFFFF"
+        android:visibility="gone"
         tools:text="1.1.1" />
 
     <androidx.viewpager.widget.ViewPager
