@@ -1,6 +1,7 @@
 package com.zskjprojectj.andouclient.activity;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -85,7 +86,7 @@ public class ShoporderdetailsActivity extends BaseActivity {
             findViewById(R.id.daifukuanContainer).setVisibility(View.VISIBLE);
             findViewById(R.id.btn_gotopaymentdetail).setVisibility(View.VISIBLE);
             findViewById(R.id.btn_gotopaymentdetail).setOnClickListener(v ->
-                    MallOnlineOrderActivity.start(order.order_sn,"","",""));
+                    MallOnlineOrderActivity.start(order.order_sn, "", "", ""));
             findViewById(R.id.btn_refund).setVisibility(View.GONE);
         } else if (OrderStatus.DAI_FA_HUO.status.equals(order.status)) {
             findViewById(R.id.daifahuoContainer).setVisibility(View.VISIBLE);
@@ -96,7 +97,10 @@ public class ShoporderdetailsActivity extends BaseActivity {
             findViewById(R.id.daishouhuoContainer).setVisibility(View.VISIBLE);
         }
         ((TextView) findViewById(R.id.orderNumTxt)).setText("订单编号：" + order.order_sn);
-        ((TextView) findViewById(R.id.dateTxt)).setText("支付时间：" + order.pay_time);
+        if (!TextUtils.isEmpty(order.pay_time)) {
+            ((TextView) findViewById(R.id.dateTxt)).setVisibility(View.VISIBLE);
+            ((TextView) findViewById(R.id.dateTxt)).setText("支付时间：" + order.pay_time);
+        }
         ((TextView) findViewById(R.id.receiverName)).setText("收件人：" + order.userinfo.name);
         ((TextView) findViewById(R.id.addressTxt)).setText("收货地址：" +
                 order.userinfo.province +
