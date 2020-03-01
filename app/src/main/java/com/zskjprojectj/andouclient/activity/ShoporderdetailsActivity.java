@@ -133,7 +133,7 @@ public class ShoporderdetailsActivity extends BaseActivity {
             findViewById(R.id.btn_refund).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ShopordersendetailsrefundActivity.start("refund", order.details.get(0));
+                    ShopordersendetailsrefundActivity.start("refund", order);
                 }
             });
 
@@ -142,7 +142,7 @@ public class ShoporderdetailsActivity extends BaseActivity {
             findViewById(R.id.btn_refund).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ShopordersendetailsrefundActivity.start("sales_return", order.details.get(0));
+                    ShopordersendetailsrefundActivity.start("sales_return", order);
                 }
             });
 

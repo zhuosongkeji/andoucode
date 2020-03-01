@@ -12,7 +12,7 @@
 
     <com.zskjprojectj.andouclient.view.TopView
         android:id="@+id/alltopview"
-        android:layout_width="match_parent "
+        android:layout_width="match_parent"
         android:layout_height="@dimen/dp_50"
         app:topview_left="@mipmap/back_icon" />
 
@@ -74,8 +74,10 @@
                     android:id="@+id/iv_client_into"
                     android:layout_width="6dp"
                     android:layout_height="@dimen/dp_11"
+                    android:layout_alignTop="@+id/tv_client_phone"
+                    android:layout_alignBottom="@+id/tv_client_phone"
                     android:layout_alignParentEnd="true"
-                    android:background="@mipmap/icon_right_arrows" />
+                    android:src="@mipmap/icon_right_arrows" />
 
             </RelativeLayout>
 

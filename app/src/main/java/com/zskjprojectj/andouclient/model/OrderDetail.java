@@ -12,7 +12,7 @@ public class OrderDetail extends Order {
     public String allnum;
     public String order_money;
 
-    public class UserUnfo {
+    public class UserUnfo implements Serializable{
         public String name;
         public String address;
         public String mobile;

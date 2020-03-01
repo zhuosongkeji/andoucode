@@ -395,6 +395,9 @@ class MallGoodsDetailsActivity : BaseActivity() {
     @SuppressLint("SetTextI18n")
     private fun initBuyNow(specInfos: ArrayList<MallBuyBean.SpecInfo>, price: HashMap<String, MallBuyBean.PriceInfo>) {
         bottomDialog = Dialog(this, R.style.BottomDialog)
+        bottomDialog?.setOnDismissListener {
+            res.clear()
+        }
         bottomDialog?.window?.decorView?.setPadding(0, 0, 0, 0)
         bottomDialog?.window?.attributes?.width = WindowManager.LayoutParams.MATCH_PARENT
         bottomDialog?.window?.decorView?.setBackgroundColor(Color.TRANSPARENT)
