@@ -11,11 +11,11 @@ import com.lxj.xpopup.util.KeyboardUtils
 import com.zhuosongkj.android.library.app.BaseActivity
 import com.zhuosongkj.android.library.util.PageLoadUtil
 import com.zskjprojectj.andouclient.R
-import com.zskjprojectj.andouclient.utils.KEY_DATA
 import com.zskjprojectj.andouclient.adapter.MallGoodsListAdapter
 import com.zskjprojectj.andouclient.entity.mall.MallGoodsListBean
 import com.zskjprojectj.andouclient.http.ApiUtils
 import com.zskjprojectj.andouclient.utils.CustomPartShadowPopupView
+import com.zskjprojectj.andouclient.utils.KEY_DATA
 import com.zskjprojectj.andouclient.utils.KEY_IS_RECOMMEND
 import com.zskjprojectj.andouclient.utils.KEY_IS_SPECIAL
 import kotlinx.android.synthetic.main.activity_mall_goods_list.ll_price_comprehensive
@@ -44,7 +44,8 @@ class MallSearchGoodsActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         adapter.setOnItemClickListener { _, _, position ->
-            MallGoodsDetailsActivity.start(adapter.getItem(position)?.id) }
+            MallGoodsDetailsActivity.start(adapter.getItem(position)?.id)
+        }
         pageLoadUtil = PageLoadUtil.get(mActivity, recyclerView, adapter, refreshLayout)
         mSearchEditText.requestFocus()
         KeyboardUtils.showSoftInput(mSearchEditText)
@@ -66,8 +67,8 @@ class MallSearchGoodsActivity : BaseActivity() {
                         startSort,
                         pageLoadUtil?.page ?: 1
                 )
-            }, { refresh, data ->
-                if (refresh && data.dataList.size == 0) {
+            }, { _, _ ->
+                if (adapter.data.size == 0) {
                     sortContainer.visibility = View.GONE
                 } else {
                     sortContainer.visibility = View.VISIBLE
