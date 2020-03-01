@@ -21,7 +21,6 @@ import com.zskjprojectj.andouclient.utils.LoginInfoUtil.isLogin
 import com.zskjprojectj.andouclient.utils.ToastUtil
 import com.zskjprojectj.andouclient.utils.UrlUtil
 import kotlinx.android.synthetic.main.fragment_me.*
-import q.rorbin.badgeview.Badge
 import q.rorbin.badgeview.QBadgeView
 
 class MeFragment : BaseFragment() {
@@ -82,21 +81,21 @@ class MeFragment : BaseFragment() {
                             val numhotel = Integer.parseInt(result.data.booksordernum)
                             val numfood = Integer.parseInt(result.data.foodsordernum)
                             val nummall = Integer.parseInt(result.data.goodordernum)
-                            QBadgeView(context).bindTarget(img_hotelnum).setBadgeNumber(numhotel).setBadgeTextSize(8f, true).setBadgeGravity(Gravity.END or Gravity.TOP).setOnDragStateChangedListener { dragState, badge, targetView ->
-                                if (Badge.OnDragStateChangedListener.STATE_SUCCEED == dragState) {
-                                    badge.hide(true)
-                                }
-                            }
-                            QBadgeView(context).bindTarget(img_mallnum).setBadgeNumber(nummall).setBadgeTextSize(8f, true).setBadgeGravity(Gravity.END or Gravity.TOP).setOnDragStateChangedListener { dragState, badge, targetView ->
-                                if (Badge.OnDragStateChangedListener.STATE_SUCCEED == dragState) {
-                                    badge.hide(true)
-                                }
-                            }
-                            QBadgeView(context).bindTarget(img_restaurantnum).setBadgeNumber(numfood).setBadgeTextSize(8f, true).setBadgeGravity(Gravity.END or Gravity.TOP).setOnDragStateChangedListener { dragState, badge, targetView ->
-                                if (Badge.OnDragStateChangedListener.STATE_SUCCEED == dragState) {
-                                    badge.hide(true)
-                                }
-                            }
+                            QBadgeView(context)
+                                    .bindTarget(img_hotelnum)
+                                    .setBadgeNumber(numhotel)
+                                    .setBadgeTextSize(8f, true)
+                                    .badgeGravity = Gravity.END or Gravity.TOP
+                            QBadgeView(context)
+                                    .bindTarget(img_mallnum)
+                                    .setBadgeNumber(nummall)
+                                    .setBadgeTextSize(8f, true)
+                                    .badgeGravity = Gravity.END or Gravity.TOP
+                            QBadgeView(context)
+                                    .bindTarget(img_restaurantnum)
+                                    .setBadgeNumber(numfood)
+                                    .setBadgeTextSize(8f, true)
+                                    .badgeGravity = Gravity.END or Gravity.TOP
                             Glide.with(mActivity).load(UrlUtil.getImageUrl(result.data.avator)).apply(RequestOptions.bitmapTransform(CircleCrop())).into(img_touxiang)
                         })
             }

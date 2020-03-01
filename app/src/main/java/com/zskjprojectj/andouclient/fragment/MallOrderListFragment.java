@@ -21,7 +21,7 @@ import com.zskjprojectj.andouclient.activity.CheckthelogisticsActivity;
 import com.zskjprojectj.andouclient.activity.ShoporderdetailsActivity;
 import com.zskjprojectj.andouclient.activity.ToevaluateActivity;
 import com.zskjprojectj.andouclient.activity.mall.MallOnlineOrderActivity;
-import com.zskjprojectj.andouclient.adapter.MeShopFragmentAdapter;
+import com.zskjprojectj.andouclient.adapter.MallOrderListAdapter;
 import com.zskjprojectj.andouclient.event.OrderStateChangedEvent;
 import com.zskjprojectj.andouclient.fragment.hotel.CustomViewDialog;
 import com.zskjprojectj.andouclient.http.ApiUtils;
@@ -41,17 +41,17 @@ import java.io.IOException;
 import butterknife.BindView;
 import io.reactivex.Observable;
 
-public class MeShopFragment extends BaseFragment {
+public class MallOrderListFragment extends BaseFragment {
 
     @BindView(R.id.refreshLayout)
     SmartRefreshLayout mRefreshLayout;
 
     private RecyclerView mRecycler;
-    MeShopFragmentAdapter adapter = new MeShopFragmentAdapter();
+    MallOrderListAdapter adapter = new MallOrderListAdapter();
     String state;
     private PageLoadUtil<Order> pageLoadUtil;
 
-    public MeShopFragment(String state) {
+    public MallOrderListFragment(String state) {
         this.state = state;
     }
 
@@ -156,6 +156,6 @@ public class MeShopFragment extends BaseFragment {
 
     @Override
     protected int getContentView() {
-        return R.layout.fragment_shopallorder;
+        return R.layout.fragment_mall_order_list;
     }
 }

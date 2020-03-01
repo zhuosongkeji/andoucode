@@ -2,7 +2,6 @@ package com.zskjprojectj.andouclient.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -14,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 
 import com.blankj.utilcode.util.ActivityUtils;
+import com.bumptech.glide.Glide;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.zhuosongkj.android.library.app.BaseActivity;
@@ -25,10 +25,10 @@ import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.model.AddressIn;
 import com.zskjprojectj.andouclient.model.District;
 import com.zskjprojectj.andouclient.model.UserIn;
-import com.zskjprojectj.andouclient.utils.BitmapUtil;
 import com.zskjprojectj.andouclient.utils.GlideEngine;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
+import com.zskjprojectj.andouclient.utils.UrlUtil;
 import com.zskjprojectj.andouclient.view.AddressBottomDialog;
 
 import java.io.File;
@@ -89,6 +89,9 @@ public class MallmerchantsbusinessinActivity extends BaseActivity {
 
     AddressIn address;
     int type;
+    private String bannerImgPath = "";
+    private String logoImgPath = "";
+    private String licenseImgPath = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -234,9 +237,9 @@ public class MallmerchantsbusinessinActivity extends BaseActivity {
                     address.county.id,
                     addressStr,
                     description,
-                    (String) bannerImg.getTag(),
-                    (String) logoImg.getTag(),
-                    (String) licenseImg.getTag())).subscribe(new BaseObserver<Object>(mActivity) {
+                    bannerImgPath,
+                    logoImgPath,
+                    licenseImgPath)).subscribe(new BaseObserver<Object>(mActivity) {
                 @Override
                 public void onHandleSuccess(Object o) throws IOException {
                     ActivityUtils.startActivity(ApplyforsuccessfulActivity.class);
@@ -286,9 +289,14 @@ public class MallmerchantsbusinessinActivity extends BaseActivity {
 
                 @Override
                 public void onHandleSuccess(String s) throws IOException {
-                    finalImageView.setTag(s);
-                    BitmapUtil.recycle(finalImageView);
-                    finalImageView.setImageBitmap(BitmapFactory.decodeFile(finalPath));
+                    if (finalImageView == logoImg) {
+                        logoImgPath = s;
+                    } else if (finalImageView == bannerImg) {
+                        bannerImgPath = s;
+                    } else if (finalImageView == licenseImg) {
+                        licenseImgPath = s;
+                    }
+                    Glide.with(mActivity).load(UrlUtil.INSTANCE.getImageUrl(s)).into(finalImageView);
                 }
 
                 @Override
@@ -303,9 +311,6 @@ public class MallmerchantsbusinessinActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        BitmapUtil.recycle(logoImg);
-        BitmapUtil.recycle(bannerImg);
-        BitmapUtil.recycle(licenseImg);
     }
 
     public static void start(Activity activity, UserIn.Role.Type type, int requestCode) {

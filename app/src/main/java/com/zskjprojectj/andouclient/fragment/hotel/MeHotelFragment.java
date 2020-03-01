@@ -88,6 +88,6 @@ public class MeHotelFragment extends BaseFragment {
 
     @Override
     protected int getContentView() {
-        return R.layout.fragment_shopallorder;
+        return R.layout.fragment_mall_order_list;
     }
 }

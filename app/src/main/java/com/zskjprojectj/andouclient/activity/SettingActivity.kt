@@ -3,7 +3,6 @@ package com.zskjprojectj.andouclient.activity
 import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
-import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
@@ -108,15 +107,13 @@ class SettingActivity : BaseActivity() {
         val uid = RequestBody.create(MediaType.parse("multipart/form-data"), LoginInfoUtil.getUid())
         val token = RequestBody.create(MediaType.parse("multipart/form-data"), LoginInfoUtil.getToken())
         val finalImageView = imageView
-        val finalPath = path
         RequestUtil.request(mActivity, true, false,
                 { ApiUtils.getApiService().uploadImg(uid, token, body) },
                 {
                     RequestUtil.request(mActivity, true, false,
                             { ApiUtils.getApiService().user_pictures(LoginInfoUtil.getUid(), LoginInfoUtil.getToken(), it.data) },
-                            {
-                                BitmapUtil.recycle(finalImageView)
-                                finalImageView!!.setImageBitmap(BitmapFactory.decodeFile(finalPath))
+                            { result ->
+                                Glide.with(mActivity).load(UrlUtil.getImageUrl(result.data)).into(finalImageView!!)
                             })
                 })
     }

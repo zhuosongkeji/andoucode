@@ -1,6 +1,5 @@
 package com.zskjprojectj.andouclient.adapter;
 
-import android.util.Log;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -10,18 +9,15 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.zhuosongkj.android.library.util.FormatUtil;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.utils.UrlUtil;
-import com.zskjprojectj.andouclient.base.BaseUrl;
 import com.zskjprojectj.andouclient.model.Order;
 import com.zskjprojectj.andouclient.model.OrderStatus;
-
-import java.util.List;
+import com.zskjprojectj.andouclient.utils.UrlUtil;
 
 /**
  * 个人中心商城订单全部订单适配器对象
  */
-public class MeShopFragmentAdapter extends BaseQuickAdapter<Order, BaseViewHolder> {
-    public MeShopFragmentAdapter() {
+public class MallOrderListAdapter extends BaseQuickAdapter<Order, BaseViewHolder> {
+    public MallOrderListAdapter() {
         super(R.layout.item_meshop);
     }
 

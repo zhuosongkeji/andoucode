@@ -5,7 +5,7 @@ import com.flyco.tablayout.listener.OnTabSelectListener
 import com.zhuosongkj.android.library.app.BaseActivity
 import com.zhuosongkj.android.library.util.ActionBarUtil
 import com.zskjprojectj.andouclient.R
-import com.zskjprojectj.andouclient.fragment.MeShopFragment
+import com.zskjprojectj.andouclient.fragment.MallOrderListFragment
 import kotlinx.android.synthetic.main.activity_mall_order_list.*
 
 class MallOrderListActivity : BaseActivity() {
@@ -16,11 +16,11 @@ class MallOrderListActivity : BaseActivity() {
         tabLayout.setViewPager(viewPager,
                 arrayOf("全部订单", "待付款", "待发货", "待收货", "待评价"),
                 mActivity,
-                arrayListOf(MeShopFragment(""),
-                        MeShopFragment("10"),
-                        MeShopFragment("20"),
-                        MeShopFragment("40"),
-                        MeShopFragment("50")))
+                arrayListOf(MallOrderListFragment(""),
+                        MallOrderListFragment("10"),
+                        MallOrderListFragment("20"),
+                        MallOrderListFragment("40"),
+                        MallOrderListFragment("50")))
         tabLayout.setOnTabSelectListener(object : OnTabSelectListener {
             override fun onTabSelect(position: Int) {
                 when (position) {

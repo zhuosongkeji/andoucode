@@ -110,7 +110,7 @@ public class ShoporderdetailsActivity extends BaseActivity {
         ((TextView) findViewById(R.id.mobileTxt)).setText(order.userinfo.mobile);
         for (OrderDetail.Goodsdetail goods : order.details) {
             View view = LayoutInflater.from(mAt).inflate(R.layout.layout_goods_item, null);
-            ((TextView) view.findViewById(R.id.goodsTitleTxt)).setText(goods.name);
+            ((TextView) view.findViewById(R.id.titleTxt)).setText(goods.name);
             ((TextView) view.findViewById(R.id.specTxt)).setText(getSpec(goods.attr_value));
             ((TextView) view.findViewById(R.id.countTxt)).setText("x" + goods.num);
             goodsPrice = goods.price;
@@ -133,9 +133,7 @@ public class ShoporderdetailsActivity extends BaseActivity {
             findViewById(R.id.btn_refund).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //退款//退货
                     ShopordersendetailsrefundActivity.start("refund", order.details.get(0));
-                    finish();
                 }
             });
 
@@ -144,9 +142,7 @@ public class ShoporderdetailsActivity extends BaseActivity {
             findViewById(R.id.btn_refund).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //退款//退货
                     ShopordersendetailsrefundActivity.start("sales_return", order.details.get(0));
-                    finish();
                 }
             });
 

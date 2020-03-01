@@ -3,11 +3,9 @@ package com.zskjprojectj.andouclient.activity;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,7 +36,6 @@ import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.model.OrderDetail;
-import com.zskjprojectj.andouclient.utils.BitmapUtil;
 import com.zskjprojectj.andouclient.utils.GlideEngine;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
@@ -99,7 +96,7 @@ public class ShopordersendetailsrefundActivity extends BaseActivity {
     private String reasonId;
     private static final int REQUEST_CODE_SELECT_IMG = 123;
     private String content;
-    private String image;
+    private String image = "";
 
     @Override
     protected void setRootView() {
@@ -251,16 +248,6 @@ public class ShopordersendetailsrefundActivity extends BaseActivity {
                 if (TextUtils.isEmpty(reasonId)) {
                     ToastUtil.showToast("请选择退货理由!");
                 } else {
-                    if ((String) mImage.getTag() == null) {
-                        image = "";
-                    }
-                    Log.d(TAG, "clickView: "
-                            + LoginInfoUtil.getUid() + "\n"
-                            + LoginInfoUtil.getToken() + "\n"
-                            + goodsdetail.id + "\n"
-                            + reasonId + "\n"
-                            + content + "\n"
-                            + (String) mImage.getTag() + "\n");
                     HttpRxObservable.getObservable(ApiUtils.getApiService().mallrefund(
                             LoginInfoUtil.getUid(),
                             LoginInfoUtil.getToken(),
@@ -295,22 +282,18 @@ public class ShopordersendetailsrefundActivity extends BaseActivity {
         if (requestCode == REQUEST_CODE_SELECT_IMG) {
             imageView = mImage;
         }
-
-
         File file = new File(path);
         RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpg"), file);
         MultipartBody.Part body = MultipartBody.Part.createFormData("img", file.getName(), requestFile);
         RequestBody uid = RequestBody.create(MediaType.parse("multipart/form-data"), LoginInfoUtil.getUid());
         RequestBody token = RequestBody.create(MediaType.parse("multipart/form-data"), LoginInfoUtil.getToken());
         ImageView finalImageView = imageView;
-        String finalPath = path;
         HttpRxObservable.getObservable(ApiUtils.getApiService().uploadImg(uid, token, body)).subscribe(new BaseObserver<String>(mAt) {
 
             @Override
             public void onHandleSuccess(String s) throws IOException {
-                finalImageView.setTag(s);
-                BitmapUtil.recycle(finalImageView);
-                finalImageView.setImageBitmap(BitmapFactory.decodeFile(finalPath));
+                image = s;
+                Glide.with(mAt).load(UrlUtil.INSTANCE.getImageUrl(s)).into(finalImageView);
             }
 
             @Override
@@ -319,11 +302,5 @@ public class ShopordersendetailsrefundActivity extends BaseActivity {
             }
         });
 
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        BitmapUtil.recycle(mImage);
     }
 }
