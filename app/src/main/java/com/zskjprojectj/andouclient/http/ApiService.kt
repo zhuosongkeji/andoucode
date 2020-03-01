@@ -372,7 +372,7 @@ interface ApiService {
                    @Field("token") token: String,
                    @Field("name") name: String,
                    @Field("mobile") mobile: String,
-                   @Field("district_id") district_id: String,
+                   @Field("area_id") area_id: String,
                    @Field("address") address: String,
                    @Field("is_defualt") is_defualt: String): Observable<BaseResult<Any>>
 
@@ -386,9 +386,7 @@ interface ApiService {
                     @Field("token") token: String,
                     @Field("name") name: String,
                     @Field("tel") mobile: String,
-                    @Field("province_id") province_id: String,
-                    @Field("city_id") city_id: String,
-                    @Field("district_id") district_id: String,
+                    @Field("area_id") area_id: String,
                     @Field("address") address: String,
                     @Field("is_defualt") is_defualt: String): Observable<BaseResult<Any>>
 

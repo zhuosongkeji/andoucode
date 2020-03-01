@@ -20,14 +20,12 @@ import com.blankj.utilcode.util.TimeUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.facebook.common.logging.LoggingDelegate
 import com.zhuosongkj.android.library.app.BaseActivity
 import com.zhuosongkj.android.library.util.ActionBarUtil
 import com.zhuosongkj.android.library.util.RequestUtil
 import com.zskjprojectj.andouclient.R
 import com.zskjprojectj.andouclient.activity.MallHomeActivity
 import com.zskjprojectj.andouclient.activity.MyAddressActivity
-import com.zskjprojectj.andouclient.utils.KEY_DATA
 import com.zskjprojectj.andouclient.adapter.mall.MallBuyAdapter
 import com.zskjprojectj.andouclient.adapter.mall.MallPinTuanAdapter
 import com.zskjprojectj.andouclient.entity.XBannerBean
@@ -40,11 +38,10 @@ import com.zskjprojectj.andouclient.http.ApiUtils
 import com.zskjprojectj.andouclient.model.GetGroupOrderResponse
 import com.zskjprojectj.andouclient.model.PinTuanDetails
 import com.zskjprojectj.andouclient.model.UserIn.Role.KEY_TYPE
-import com.zskjprojectj.andouclient.utils.LoginInfoUtil
-import com.zskjprojectj.andouclient.utils.ToastUtil
-import com.zskjprojectj.andouclient.utils.UrlUtil
+import com.zskjprojectj.andouclient.utils.*
 import kotlinx.android.synthetic.main.activity_mall_goods_details.*
 import kotlinx.android.synthetic.main.dialog_buy_now.view.*
+import org.greenrobot.eventbus.EventBus
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -258,7 +255,7 @@ class MallGoodsDetailsActivity : BaseActivity() {
         bottomDialog?.window?.decorView?.setBackgroundColor(Color.TRANSPARENT)
         val dialogContentView = LayoutInflater.from(this).inflate(R.layout.dialog_buy_now, null)
         dialogContentView.normal_buy.visibility = View.GONE
-        dialogContentView.rv_buy_recyclerview.visibility=View.GONE
+        dialogContentView.rv_buy_recyclerview.visibility = View.GONE
         dialogContentView.tv_buynow_pintuan.visibility = View.VISIBLE
         Glide.with(mActivity).load(UrlUtil.getImageUrl(goodsDetail?.img))
                 .apply(RequestOptions().placeholder(R.drawable.default_image).error(R.drawable.default_image))
@@ -466,6 +463,7 @@ class MallGoodsDetailsActivity : BaseActivity() {
                     },
                     {
                         ToastUtil.showToast("加入购物车成功")
+                        EventBus.getDefault().post(PaySuccessEvent())
                         bottomDialog?.dismiss()
                     })
         }

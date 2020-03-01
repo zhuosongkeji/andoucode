@@ -43,19 +43,19 @@ class NewAddressActivity : BaseActivity() {
                         id
                 )
             }, {
-                nameEdt.setText(it.data.name)
-                mobileEdt.setText(it.data.mobile)
-                detailEdt.setText(it.data.address)
-                defaultCbx.isChecked = it.data.is_defualt == "1"
+                nameEdt.setText(it.data?.name)
+                mobileEdt.setText(it.data?.mobile)
+                detailEdt.setText(it.data?.address)
+                defaultCbx.isChecked = it.data?.is_defualt == "1"
                 val province = Province()
-                province.id = it.data.province_id.toInt()
-                province.name = it.data.province
+                province.id = it.data?.province_id?.toInt() ?: 0
+                province.name = it.data?.province
                 val city = City()
-                city.id = it.data.city_id.toInt()
-                city.name = it.data.city
+                city.id = it.data?.city_id?.toInt() ?: 0
+                city.name = it.data?.city
                 val county = County()
-                county.id = it.data.area_id.toInt()
-                county.name = it.data.area
+                county.id = it.data?.area_id?.toInt() ?: 0
+                county.name = it.data?.area
                 selectedAddress = AddressIn(province, city, county)
                 addressTxt.text = selectedAddress.toString()
             })
@@ -69,7 +69,7 @@ class NewAddressActivity : BaseActivity() {
                             { ApiUtils.getApiService().districts() },
                             {
                                 val provinces = ArrayList<Province>()
-                                for (district in it.data) {
+                                it.data?.forEach { district ->
                                     val province = Province()
                                     province.id = district.id
                                     province.name = district.name
@@ -84,7 +84,7 @@ class NewAddressActivity : BaseActivity() {
                             { ApiUtils.getApiService().districts(provinceId) },
                             {
                                 val cities = ArrayList<City>()
-                                for (district in it.data) {
+                                it.data?.forEach { district ->
                                     val city = City()
                                     city.id = district.id
                                     city.name = district.name
@@ -99,7 +99,7 @@ class NewAddressActivity : BaseActivity() {
                             { ApiUtils.getApiService().districts(cityId) },
                             {
                                 val counties = ArrayList<County>()
-                                for (district in it.data) {
+                                it.data?.forEach { district ->
                                     val county = County()
                                     county.id = district.id
                                     county.name = district.name
@@ -141,7 +141,8 @@ class NewAddressActivity : BaseActivity() {
                                             LoginInfoUtil.getToken()
                                             , nameStr
                                             , mobileStr
-                                            , selectedAddress?.county?.id.toString()
+                                            , selectedAddress?.county?.id?.toString()
+                                            ?: selectedAddress?.city?.id.toString()
                                             , detailStr
                                             , if (defaultCbx.isChecked) "1" else "0"
                                     )
@@ -160,9 +161,8 @@ class NewAddressActivity : BaseActivity() {
                                             LoginInfoUtil.getToken()
                                             , nameStr
                                             , mobileStr
-                                            , selectedAddress?.province?.id.toString()
-                                            , selectedAddress?.city?.id.toString()
-                                            , selectedAddress?.county?.id.toString()
+                                            , selectedAddress?.county?.id?.toString()
+                                            ?: selectedAddress?.city?.id.toString()
                                             , detailStr
                                             , if (defaultCbx.isChecked) "1" else "0"
                                     )

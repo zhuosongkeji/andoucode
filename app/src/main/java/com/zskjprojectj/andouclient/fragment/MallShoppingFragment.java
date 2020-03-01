@@ -56,7 +56,6 @@ public class MallShoppingFragment extends BaseFragment {
     TextView mShippingAllPrice;
 
 
-
     @BindView(R.id.cb_selectorcb)
     AppCompatCheckBox mCheckBox;
 
@@ -134,7 +133,13 @@ public class MallShoppingFragment extends BaseFragment {
         pageLoadUtil.load(() -> ApiUtils.getApiService().cart(
                 LoginInfoUtil.getUid(),
                 LoginInfoUtil.getToken(),
-                pageLoadUtil.page));
+                pageLoadUtil.page), (refresh, result) -> {
+            if (adapter.getData().size() > 0) {
+                view.findViewById(R.id.pay_all).setVisibility(View.VISIBLE);
+            } else {
+                view.findViewById(R.id.pay_all).setVisibility(View.GONE);
+            }
+        });
     }
 
     @Override
@@ -155,7 +160,7 @@ public class MallShoppingFragment extends BaseFragment {
     public void backEventBus(PayCancle payCancle) {
 
         pageLoadUtil.refresh();
-        if (mCheckBox.isSelected()){
+        if (mCheckBox.isSelected()) {
             mCheckBox.performClick();
         }
     }
@@ -205,14 +210,14 @@ public class MallShoppingFragment extends BaseFragment {
                     public void onHandleSuccess(MallCarBean mallCarBean) throws IOException {
                         String order_sn = mallCarBean.getOrder_sn();
 
-                        MallOnlineOrderActivity.start(order_sn,"","","");
+                        MallOnlineOrderActivity.start(order_sn, "", "", "");
 
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         super.onError(e);
-                        if ("请填写收货地址".equals(e.getMessage())){
+                        if ("请填写收货地址".equals(e.getMessage())) {
                             startActivity(new Intent(mActivity, MyAddressActivity.class));
                         }
 

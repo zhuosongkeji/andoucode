@@ -7,10 +7,10 @@ import com.blankj.utilcode.util.ActivityUtils
 import com.zhuosongkj.android.library.app.BaseActivity
 import com.zhuosongkj.android.library.util.ActionBarUtil
 import com.zskjprojectj.andouclient.R
-import com.zskjprojectj.andouclient.utils.KEY_DATA
 import com.zskjprojectj.andouclient.fragment.MallCategoryFragment
 import com.zskjprojectj.andouclient.fragment.MallShoppingFragment
 import com.zskjprojectj.andouclient.fragment.mall.MallHomepageFragment1
+import com.zskjprojectj.andouclient.utils.KEY_DATA
 import kotlinx.android.synthetic.main.activity_mall_home.*
 
 class MallHomeActivity : BaseActivity() {
@@ -35,16 +35,21 @@ class MallHomeActivity : BaseActivity() {
                 .fragmentManager(supportFragmentManager)
                 .canScroll(true)
                 .onTabClickListener { _, position ->
-                    when (position) {
-                        0 -> ActionBarUtil.setVisible(mActivity, false)
-                        1 -> ActionBarUtil.setTitle(mActivity, "商品分类")
-                        2 -> ActionBarUtil.setTitle(mActivity, "购物车")
-                    }
+                    changeActionBarTitle(position)
                     false
                 }
                 .build()
         val index = intent.getIntExtra(KEY_DATA, 0)
+        changeActionBarTitle(index)
         navigationBar.selectTab(index)
+    }
+
+    private fun changeActionBarTitle(index: Int) {
+        when (index) {
+            0 -> ActionBarUtil.setVisible(mActivity, false)
+            1 -> ActionBarUtil.setTitle(mActivity, "商品分类")
+            2 -> ActionBarUtil.setTitle(mActivity, "购物车")
+        }
     }
 
     override fun getContentView() = R.layout.activity_mall_home

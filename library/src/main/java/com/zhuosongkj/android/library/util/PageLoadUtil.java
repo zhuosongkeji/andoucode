@@ -75,14 +75,13 @@ public class PageLoadUtil<T> {
         }
         RequestUtil.request(activity, false, false, observableProvider
                 , result -> {
-                    if (onLoadListener != null) {
-                        onLoadListener.onLoad(needRefresh, result.data);
-                    }
                     adapter.setEmptyView(R.layout.layout_empty_view);
                     page += 1;
                     if (needRefresh) {
                         if (result.data != null) {
                             adapter.setNewData(result.data.getDataList());
+                        } else {
+                            adapter.setNewData(null);
                         }
                         if (result.data == null || result.data.getDataList() == null || result.data.getDataList().size() == 0) {
                             adapter.loadMoreEnd(true);
@@ -97,6 +96,9 @@ public class PageLoadUtil<T> {
                             }
                             adapter.loadMoreComplete();
                         }
+                    }
+                    if (onLoadListener != null) {
+                        onLoadListener.onLoad(needRefresh, result.data);
                     }
                 }, msg -> refreshLayout.postDelayed(() -> {
                     if (needRefresh) {

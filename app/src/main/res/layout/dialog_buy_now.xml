@@ -27,9 +27,9 @@
                 android:layout_marginTop="@dimen/dp_13"
                 android:ellipsize="end"
                 android:maxLines="2"
-                tools:text="亲润孕妇化妆品套装BB霜遮瑕 孕妇护肤品豆...... "
                 android:textColor="#404040"
-                android:textSize="@dimen/typeface12sp" />
+                android:textSize="@dimen/typeface12sp"
+                tools:text="亲润孕妇化妆品套装BB霜遮瑕 孕妇护肤品豆...... " />
 
             <ImageView
                 android:id="@+id/iv_cancle"
@@ -44,7 +44,8 @@
             android:id="@+id/rv_buy_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:layout_marginTop="20dp" />
+            android:layout_marginTop="20dp"
+            android:overScrollMode="never" />
 
 
         <View

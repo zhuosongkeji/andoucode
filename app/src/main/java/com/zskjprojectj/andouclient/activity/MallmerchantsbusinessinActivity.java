@@ -121,11 +121,13 @@ public class MallmerchantsbusinessinActivity extends BaseActivity {
                             () -> ApiUtils.getApiService().districts(null),
                             result -> {
                                 ArrayList<Province> provinces = new ArrayList<>();
-                                for (District district : result.data) {
-                                    Province province = new Province();
-                                    province.id = district.id;
-                                    province.name = district.name;
-                                    provinces.add(province);
+                                if (result.data != null) {
+                                    for (District district : result.data) {
+                                        Province province = new Province();
+                                        province.id = district.id;
+                                        province.name = district.name;
+                                        provinces.add(province);
+                                    }
                                 }
                                 addressReceiver.send(provinces);
                             });
@@ -136,12 +138,14 @@ public class MallmerchantsbusinessinActivity extends BaseActivity {
                     RequestUtil.request(mActivity, false, false,
                             () -> ApiUtils.getApiService().districts(provinceId),
                             result -> {
-                                ArrayList<City> cities = new ArrayList<City>();
-                                for (District district : result.data) {
-                                    City city = new City();
-                                    city.id = district.id;
-                                    city.name = district.name;
-                                    cities.add(city);
+                                ArrayList<City> cities = new ArrayList<>();
+                                if (result.data != null) {
+                                    for (District district : result.data) {
+                                        City city = new City();
+                                        city.id = district.id;
+                                        city.name = district.name;
+                                        cities.add(city);
+                                    }
                                 }
                                 addressReceiver.send(cities);
                             });
@@ -152,12 +156,14 @@ public class MallmerchantsbusinessinActivity extends BaseActivity {
                     RequestUtil.request(mActivity, false, false,
                             () -> ApiUtils.getApiService().districts(cityId),
                             result -> {
-                                ArrayList<County> counties = new ArrayList();
-                                for (District district : result.data) {
-                                    County county = new County();
-                                    county.id = district.id;
-                                    county.name = district.name;
-                                    counties.add(county);
+                                ArrayList<County> counties = new ArrayList<>();
+                                if (result.data != null) {
+                                    for (District district : result.data) {
+                                        County county = new County();
+                                        county.id = district.id;
+                                        county.name = district.name;
+                                        counties.add(county);
+                                    }
                                 }
                                 addressReceiver.send(counties);
                             });

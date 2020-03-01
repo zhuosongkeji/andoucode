@@ -8,7 +8,6 @@ import android.widget.TextView;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
-import com.zskjprojectj.andouclient.utils.PaySuccessBackEvent;
 import com.zskjprojectj.andouclient.utils.PaySuccessEvent;
 
 import org.greenrobot.eventbus.EventBus;
@@ -46,6 +45,12 @@ public class MallPaySuccessActivity extends BaseActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().post(new PaySuccessEvent());
+    }
+
+    @Override
     protected BasePresenter createPresenter() {
         return null;
     }
@@ -54,7 +59,6 @@ public class MallPaySuccessActivity extends BaseActivity {
     public void clickBack(View view) {
         switch (view.getId()) {
             case R.id.mHeaderBack:
-                EventBus.getDefault().post(new PaySuccessBackEvent());
                 finish();
                 break;
             case R.id.btn_see_order:
@@ -63,7 +67,6 @@ public class MallPaySuccessActivity extends BaseActivity {
 //                intent.putExtra("flag","MallPaySuccess");
 //                startActivity(intent);
                 finish();
-                EventBus.getDefault().post(new PaySuccessEvent());
                 break;
 
             default:

@@ -33,7 +33,7 @@ class TieBaDetailsActivity : BaseActivity() {
         pageLoadUtil.load({
             ApiUtils.getApiService().tieBaDetail(id, pageLoadUtil.page)
         }, { _, result ->
-            if (result is TieBa) {
+            if (result is TieBa && baseContentView.tag == null) {
                 bindData(result)
             }
         })
@@ -76,7 +76,8 @@ class TieBaDetailsActivity : BaseActivity() {
         }
     }
 
-    fun bindData(tieZi: TieBa?) {
+    private fun bindData(tieZi: TieBa?) {
+        baseContentView.tag = Any()
         val view = layoutInflater.inflate(R.layout.item_squarefragment, null)
         view.commentBtn.setOnClickListener {
             showCommentContainer("你想说什么就说吧", null)
