@@ -13,6 +13,7 @@ import chihane.jdaddressselector.model.Province
 import chihane.jdaddressselector.model.Street
 import com.amap.api.services.core.PoiItem
 import com.blankj.utilcode.util.ActivityUtils
+import com.blankj.utilcode.util.RegexUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.zhuosongkj.android.library.app.BaseActivity
 import com.zhuosongkj.android.library.util.ActionBarUtil
@@ -128,7 +129,7 @@ class NewAddressActivity : BaseActivity() {
             val detailStr = detailEdt.text.toString()
             when {
                 nameStr.isEmpty() -> ToastUtils.showShort("收件人不能为空!")
-                mobileStr.isEmpty() -> ToastUtils.showShort("手机号不能为空!")
+                RegexUtils.isMobileSimple(mobileStr) -> ToastUtils.showShort("手机号不正确!")
                 detailStr.isEmpty() -> ToastUtils.showShort("详细地址不能为空!")
                 selectedAddress == null -> ToastUtils.showShort("请选择省市区!")
                 else -> {
