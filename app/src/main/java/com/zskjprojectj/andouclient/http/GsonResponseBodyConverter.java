@@ -22,7 +22,6 @@ public class GsonResponseBodyConverter<T> implements Converter<ResponseBody, T> 
         try {
             String response = value.string();
             response = response.replace(",\"data\":\"\"", "");
-            response = response.replace(",\"data\":[]", "");
             T result = adapter.fromJson(response);
             String j = result.getClass().getSimpleName();
             return result;
