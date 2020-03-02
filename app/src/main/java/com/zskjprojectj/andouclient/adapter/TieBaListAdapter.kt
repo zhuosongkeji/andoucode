@@ -52,6 +52,7 @@ fun bindTieZi(context: Context, view: View, item: TieBa?,
     view.contentTxt.text = item?.content
     view.dateTxt.text = item?.created_at
     view.likeTxt.text = item?.vote
+    view.isTop.visibility = if (item?.top_post == 1) View.VISIBLE else View.GONE
     view.likeView.setOnClickListener {
         RequestUtil.request(context as BaseActivity?, true, false,
                 {
