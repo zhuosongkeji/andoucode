@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.TextUtils
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder
 import com.blankj.utilcode.util.ActivityUtils
+import com.blankj.utilcode.util.RegexUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.zhuosongkj.android.library.app.BaseActivity
 import com.zhuosongkj.android.library.util.ActionBarUtil
@@ -55,8 +56,8 @@ class TieBaReleaseActivity : BaseActivity() {
                 TextUtils.isEmpty(contentTxt.text.toString()) -> {
                     ToastUtils.showShort("请输入内容!")
                 }
-                TextUtils.isEmpty(phoneTxt.text.toString()) -> {
-                    ToastUtils.showShort("请输入手机号!")
+                RegexUtils.isMobileSimple(phoneTxt.text.toString()) -> {
+                    ToastUtils.showShort("请输入正确手机号!")
                 }
                 else -> {
                     val builder = MultipartBody.Builder()
