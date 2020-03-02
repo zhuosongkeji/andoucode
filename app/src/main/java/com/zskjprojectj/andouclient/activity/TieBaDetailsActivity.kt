@@ -5,6 +5,7 @@ import android.view.View
 import androidx.core.os.bundleOf
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.KeyboardUtils
+import com.blankj.utilcode.util.ToastUtils
 import com.zhuosongkj.android.library.app.BaseActivity
 import com.zhuosongkj.android.library.util.ActionBarUtil
 import com.zhuosongkj.android.library.util.PageLoadUtil
@@ -58,6 +59,7 @@ class TieBaDetailsActivity : BaseActivity() {
                         )
                     },
                     {
+                        ToastUtils.showShort("回复成功!")
                         commentContainer.visibility = View.GONE
                         commentEdt.setText("")
                         KeyboardUtils.hideSoftInput(commentEdt)

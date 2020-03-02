@@ -1272,4 +1272,11 @@ interface ApiService {
     fun tieBaDetail(@Query("post_id") post_id: String?,
                     @Query("page") page: Int
     ): Observable<BaseResult<TieBa>>
+
+    @GET("api/info/list")
+    fun messageTypeList(@Query("uid") uid: String?,
+                        @Query("level") level: Int = 1,
+                        @Query("type_id") type_id: Int? = 1,
+                        @Query("page") page: Int = 1
+    ): Observable<BaseResult<MessageTypeResponse>>
 }
