@@ -41,7 +41,6 @@ class TieBaListAdapter : BaseAdapter<TieBa>(R.layout.item_squarefragment) {
         helper.itemView.commentRecyclerView.adapter = commentAdapter
         helper.itemView.commentRecyclerView.setOnTouchListener { _, event -> helper.itemView.onTouchEvent(event) }
         commentAdapter.setNewData(item.comments)
-        helper.addOnClickListener(R.id.shareView)
     }
 }
 
@@ -94,7 +93,7 @@ fun bindTieZi(context: Context, view: View, item: TieBa?,
             requestShare(context, item?.id, SendMessageToWX.Req.WXSceneSession)
         }
         dialogContentView.weixinquan.setOnClickListener {
-            requestShare(context,item?.id, SendMessageToWX.Req.WXSceneTimeline)
+            requestShare(context, item?.id, SendMessageToWX.Req.WXSceneTimeline)
         }
         dialogContentView.qq.setOnClickListener {
 
