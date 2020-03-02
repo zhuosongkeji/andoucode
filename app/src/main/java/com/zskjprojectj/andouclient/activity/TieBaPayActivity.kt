@@ -67,52 +67,42 @@ class TieBaPayActivity : BaseActivity() {
             if (TextUtils.isEmpty(payId)) {
                 ToastUtil.showToast("请选择支付方式")
             } else {
-                RequestUtil.request(mActivity, true, false,
-                        {
-                            ApiUtils.getApiService().tieBaOrder(
-                                    LoginInfoUtil.getUid(),
-                                    post_id,
-                                    method,
-                                    payId)
-                        },
-                        {
-                            when (payId?.toInt()) {
-                                WXPAY -> {
+                when (payId?.toInt()) {
+                    WXPAY -> {
+                        RequestUtil.request(mActivity, true, false,
+                                {
+                                    ApiUtils.getApiService().tieBaOrder(
+                                            LoginInfoUtil.getUid(),
+                                            post_id,
+                                            method,
+                                            payId)
+                                },
+                                { startWXPay(it.data.params) })
+                    }
+                    YUEPAY -> {
+                        AlertDialog.Builder(mActivity)
+                                .setTitle("温馨提示")
+                                .setMessage("确定用余额支付该订单吗？")
+                                .setNegativeButton("取消", null)
+                                .setPositiveButton("确定"
+                                ) { _: DialogInterface?, _: Int ->
                                     RequestUtil.request(mActivity, true, false,
                                             {
-                                                ApiUtils.getApiService().MallWXPayWays(
+                                                ApiUtils.getApiService().tieBaOrder(
                                                         LoginInfoUtil.getUid(),
-                                                        LoginInfoUtil.getToken(),
-                                                        it.data.oder_sn,
+                                                        post_id,
+                                                        method,
                                                         payId)
                                             },
-                                            { startWXPay(it.data) })
+                                            {
+                                                ActivityUtils.startActivity(MallPaySuccessActivity::class.java)
+                                                setResult(Activity.RESULT_OK)
+                                                finish()
+                                            })
                                 }
-                                YUEPAY -> {
-                                    AlertDialog.Builder(mActivity)
-                                            .setTitle("温馨提示")
-                                            .setMessage("确定用余额支付该订单吗？")
-                                            .setNegativeButton("取消", null)
-                                            .setPositiveButton("确定"
-                                            ) { _: DialogInterface?, _: Int ->
-                                                RequestUtil.request(mActivity, true, false,
-                                                        {
-                                                            ApiUtils.getApiService().MallWXPayWays(
-                                                                    LoginInfoUtil.getUid(),
-                                                                    LoginInfoUtil.getToken(),
-                                                                    it.data.oder_sn,
-                                                                    payId)
-                                                        },
-                                                        {
-                                                            ActivityUtils.startActivity(MallPaySuccessActivity::class.java)
-                                                            setResult(Activity.RESULT_OK)
-                                                            finish()
-                                                        })
-                                            }
-                                            .show()
-                                }
-                            }
-                        })
+                                .show()
+                    }
+                }
             }
         }
     }

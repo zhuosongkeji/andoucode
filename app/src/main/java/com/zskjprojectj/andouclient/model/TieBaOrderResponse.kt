@@ -1,3 +1,5 @@
 package com.zskjprojectj.andouclient.model
 
-class TieBaOrderResponse(val oder_sn: String)
+import com.zskjprojectj.andouclient.entity.WXPayBean
+
+class TieBaOrderResponse(val params: WXPayBean)

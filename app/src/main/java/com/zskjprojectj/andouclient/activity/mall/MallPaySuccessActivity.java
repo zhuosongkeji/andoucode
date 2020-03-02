@@ -72,6 +72,5 @@ public class MallPaySuccessActivity extends BaseActivity {
             default:
                 break;
         }
-
     }
 }
