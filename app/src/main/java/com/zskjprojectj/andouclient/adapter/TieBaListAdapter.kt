@@ -14,7 +14,9 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.target.Target
+import com.bumptech.glide.request.transition.Transition
 import com.chad.library.adapter.base.BaseViewHolder
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX
 import com.tencent.mm.opensdk.modelmsg.WXMediaMessage
@@ -91,9 +93,11 @@ fun bindTieZi(context: Context, view: View, item: TieBa?,
 
         dialogContentView.weixin.setOnClickListener {
             requestShare(context, item?.id, SendMessageToWX.Req.WXSceneSession)
+            shareDialog.dismiss()
         }
         dialogContentView.weixinquan.setOnClickListener {
             requestShare(context, item?.id, SendMessageToWX.Req.WXSceneTimeline)
+            shareDialog.dismiss()
         }
         dialogContentView.qq.setOnClickListener {
 
@@ -108,32 +112,30 @@ fun requestShare(context: Context, postId: String?, type: Int) {
     RequestUtil.request(context as BaseActivity, true, false,
             { ApiUtils.getApiService().tieBaShare(postId) },
             {
-                Glide.with(context).asBitmap().addListener(object : RequestListener<Bitmap> {
-                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Bitmap>?, isFirstResource: Boolean): Boolean {
-                        return false
-                    }
-
-                    override fun onResourceReady(resource: Bitmap?, model: Any?, target: Target<Bitmap>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-                        val api = WXAPIFactory.createWXAPI(context, Constants.APP_ID, false)// 检查手机或者模拟器是否安装了微信
-                        if (!api.isWXAppInstalled) {
-                            ToastUtils.showLong("您还没有安装微信")
-                            return false
-                        }
-                        val webpage = WXWebpageObject()
-                        webpage.webpageUrl = it.data.link
-                        val msg = WXMediaMessage(webpage)
-                        msg.title = it.data.title
-                        msg.description = it.data.desc
-                        val os = ByteArrayOutputStream()
-                        resource?.compress(Bitmap.CompressFormat.JPEG, 100, os)
-                        msg.thumbData = os.toByteArray()
-                        val req = SendMessageToWX.Req()
-                        req.transaction = "webpage"
-                        req.message = msg
-                        req.scene = type
-                        api.sendReq(req)
-                        return true
-                    }
-                })
+                Glide.with(context)
+                        .asBitmap()
+                        .load(it.data.img)
+                        .into(object : SimpleTarget<Bitmap>() {
+                            override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                                val api = WXAPIFactory.createWXAPI(context, Constants.APP_ID, false)// 检查手机或者模拟器是否安装了微信
+                                if (!api.isWXAppInstalled) {
+                                    ToastUtils.showLong("您还没有安装微信")
+                                    return
+                                }
+                                val webpage = WXWebpageObject()
+                                webpage.webpageUrl = it.data.link
+                                val msg = WXMediaMessage(webpage)
+                                msg.title = it.data.title
+                                msg.description = it.data.desc
+                                val os = ByteArrayOutputStream()
+                                resource.compress(Bitmap.CompressFormat.JPEG, 100, os)
+                                msg.thumbData = os.toByteArray()
+                                val req = SendMessageToWX.Req()
+                                req.transaction = "webpage"
+                                req.message = msg
+                                req.scene = type
+                                api.sendReq(req)
+                            }
+                        })
             })
 }
