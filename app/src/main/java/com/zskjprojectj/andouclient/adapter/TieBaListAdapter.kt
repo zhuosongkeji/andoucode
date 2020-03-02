@@ -1,18 +1,36 @@
 package com.zskjprojectj.andouclient.adapter
 
+import android.app.Dialog
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.Color
+import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.View
+import android.view.WindowManager
+import com.blankj.utilcode.util.ToastUtils
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.Target
 import com.chad.library.adapter.base.BaseViewHolder
+import com.tencent.mm.opensdk.modelmsg.SendMessageToWX
+import com.tencent.mm.opensdk.modelmsg.WXMediaMessage
+import com.tencent.mm.opensdk.modelmsg.WXWebpageObject
+import com.tencent.mm.opensdk.openapi.WXAPIFactory
 import com.zhuosongkj.android.library.adapter.BaseAdapter
 import com.zhuosongkj.android.library.app.BaseActivity
 import com.zhuosongkj.android.library.util.RequestUtil
 import com.zskjprojectj.andouclient.R
 import com.zskjprojectj.andouclient.http.ApiUtils
 import com.zskjprojectj.andouclient.model.TieBa
+import com.zskjprojectj.andouclient.utils.Constants
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil
+import kotlinx.android.synthetic.main.dialog_share_tieba.view.*
 import kotlinx.android.synthetic.main.item_squarefragment.view.*
+import java.io.ByteArrayOutputStream
 
 class TieBaListAdapter : BaseAdapter<TieBa>(R.layout.item_squarefragment) {
 
@@ -60,4 +78,63 @@ fun bindTieZi(context: Context, view: View, item: TieBa?,
     view.recyclerView.setOnTouchListener { _, event -> view.onTouchEvent(event) }
     adapter.setNewData(item?.images)
     view.commentRecyclerView.visibility = if (commentVisible) View.VISIBLE else View.GONE
+    view.shareView.setOnClickListener {
+        val shareDialog = Dialog(context, R.style.BottomDialog)
+        shareDialog.window?.decorView?.setPadding(0, 0, 0, 0)
+        shareDialog.window?.attributes?.width = WindowManager.LayoutParams.MATCH_PARENT
+        shareDialog.window?.decorView?.setBackgroundColor(Color.TRANSPARENT)
+        val dialogContentView = LayoutInflater.from(context).inflate(R.layout.dialog_share_tieba, null)
+        shareDialog.setContentView(dialogContentView)
+        shareDialog.window?.setGravity(Gravity.BOTTOM)
+        shareDialog.setCanceledOnTouchOutside(true)
+        shareDialog.window?.setWindowAnimations(R.style.BottomDialog_Animation)
+        shareDialog.show()
+
+        dialogContentView.weixin.setOnClickListener {
+            requestShare(context, item?.id, SendMessageToWX.Req.WXSceneSession)
+        }
+        dialogContentView.weixinquan.setOnClickListener {
+            requestShare(context,item?.id, SendMessageToWX.Req.WXSceneTimeline)
+        }
+        dialogContentView.qq.setOnClickListener {
+
+        }
+        dialogContentView.qqquan.setOnClickListener {
+
+        }
+    }
+}
+
+fun requestShare(context: Context, postId: String?, type: Int) {
+    RequestUtil.request(context as BaseActivity, true, false,
+            { ApiUtils.getApiService().tieBaShare(postId) },
+            {
+                Glide.with(context).asBitmap().addListener(object : RequestListener<Bitmap> {
+                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Bitmap>?, isFirstResource: Boolean): Boolean {
+                        return false
+                    }
+
+                    override fun onResourceReady(resource: Bitmap?, model: Any?, target: Target<Bitmap>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                        val api = WXAPIFactory.createWXAPI(context, Constants.APP_ID, false)// 检查手机或者模拟器是否安装了微信
+                        if (!api.isWXAppInstalled) {
+                            ToastUtils.showLong("您还没有安装微信")
+                            return false
+                        }
+                        val webpage = WXWebpageObject()
+                        webpage.webpageUrl = it.data.link
+                        val msg = WXMediaMessage(webpage)
+                        msg.title = it.data.title
+                        msg.description = it.data.desc
+                        val os = ByteArrayOutputStream()
+                        resource?.compress(Bitmap.CompressFormat.JPEG, 100, os)
+                        msg.thumbData = os.toByteArray()
+                        val req = SendMessageToWX.Req()
+                        req.transaction = "webpage"
+                        req.message = msg
+                        req.scene = type
+                        api.sendReq(req)
+                        return true
+                    }
+                })
+            })
 }
