@@ -14,12 +14,14 @@ import com.zhuosongkj.android.library.util.RequestUtil
 import com.zskjprojectj.andouclient.R
 import com.zskjprojectj.andouclient.adapter.UploadPicAdapter
 import com.zskjprojectj.andouclient.http.ApiUtils
+import com.zskjprojectj.andouclient.http.PostSuccessEvent
 import com.zskjprojectj.andouclient.model.TieBaType
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil
 import kotlinx.android.synthetic.main.activity_tie_ba_release.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import org.greenrobot.eventbus.EventBus
 import java.io.File
 
 
@@ -56,7 +58,7 @@ class TieBaReleaseActivity : BaseActivity() {
                 TextUtils.isEmpty(contentTxt.text.toString()) -> {
                     ToastUtils.showShort("请输入内容!")
                 }
-                RegexUtils.isMobileSimple(phoneTxt.text.toString()) -> {
+                !RegexUtils.isMobileSimple(phoneTxt.text.toString()) -> {
                     ToastUtils.showShort("请输入正确手机号!")
                 }
                 else -> {
@@ -84,6 +86,7 @@ class TieBaReleaseActivity : BaseActivity() {
                                 } else {
                                     ToastUtils.showShort("发帖成功!")
                                     TieBaDetailsActivity.start(postId.toString())
+                                    EventBus.getDefault().post(PostSuccessEvent())
                                     finish()
                                 }
                             })
@@ -97,6 +100,7 @@ class TieBaReleaseActivity : BaseActivity() {
         adapter.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 666 && resultCode == Activity.RESULT_OK) {
             ToastUtils.showShort("发帖成功!")
+            EventBus.getDefault().post(PostSuccessEvent())
             TieBaDetailsActivity.start(postId.toString())
             finish()
         }
