@@ -1,9 +1,11 @@
 package com.zskjprojectj.andouclient.activity
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder
+import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.zhuosongkj.android.library.app.BaseActivity
 import com.zhuosongkj.android.library.util.ActionBarUtil
@@ -24,6 +26,7 @@ class TieBaReleaseActivity : BaseActivity() {
 
     val adapter = UploadPicAdapter(6)
     var selectedType: TieBaType? = null
+    var postId = 0L
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ActionBarUtil.setTitle(mActivity, "发布贴吧信息")
@@ -74,8 +77,14 @@ class TieBaReleaseActivity : BaseActivity() {
                                 ApiUtils.getApiService().releaseTieBa(requestBody)
                             },
                             {
-                                ToastUtils.showShort("发帖成功")
-                                finish()
+                                postId = it.data.post_id
+                                if (yes.isChecked) {
+                                    TieBaPayActivity.start(mActivity, postId, 666)
+                                } else {
+                                    ToastUtils.showShort("发帖成功!")
+                                    TieBaDetailsActivity.start(postId.toString())
+                                    finish()
+                                }
                             })
                 }
             }
@@ -85,6 +94,11 @@ class TieBaReleaseActivity : BaseActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         adapter.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 666 && resultCode == Activity.RESULT_OK) {
+            ToastUtils.showShort("发帖成功!")
+            TieBaDetailsActivity.start(postId.toString())
+            finish()
+        }
     }
 
     override fun getContentView() = R.layout.activity_tie_ba_release

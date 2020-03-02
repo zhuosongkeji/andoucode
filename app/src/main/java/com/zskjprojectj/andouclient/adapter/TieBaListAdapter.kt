@@ -23,6 +23,7 @@ class TieBaListAdapter : BaseAdapter<TieBa>(R.layout.item_squarefragment) {
         helper.itemView.commentRecyclerView.adapter = commentAdapter
         helper.itemView.commentRecyclerView.setOnTouchListener { _, event -> helper.itemView.onTouchEvent(event) }
         commentAdapter.setNewData(item.comments)
+        helper.addOnClickListener(R.id.shareView)
     }
 }
 

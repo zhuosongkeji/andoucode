@@ -79,9 +79,10 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_3"
             android:maxLines="1"
+            android:ellipsize="end"
             android:text="重庆市南岸区南坪万达广场"
             android:textColor="#969696"
-            android:textSize="@dimen/typeface9sp" />
+            android:textSize="11sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -110,6 +111,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="起"
+            android:layout_marginStart="5dp"
             android:textColor="#969696"
             android:textSize="@dimen/dp_10" />
     </LinearLayout>
