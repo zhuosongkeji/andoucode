@@ -50,7 +50,7 @@ fun bindTieZi(context: Context, view: View, item: TieBa?,
               adapter: SquareImgAdapter, commentVisible: Boolean) {
     view.nameTxt.text = item?.name
     view.contentTxt.text = item?.content
-    view.dateTxt.text = item.created_at
+    view.dateTxt.text = item?.created_at
     view.likeTxt.text = item?.vote
     view.likeView.setOnClickListener {
         RequestUtil.request(context as BaseActivity?, true, false,
