@@ -325,11 +325,11 @@ interface ApiService {
     fun MallWXPayWays(@Field("uid") uid: String,
                       @Field("token") token: String,
                       @Field("sNo") sNo: String,
-                      @Field("pay_id") pay_id: String,
-                      @Field("is_integral") is_integral: String,
-                      @Field("puzzle_id") puzzle_id: String,
-                      @Field("open_join") open_join: String,
-                      @Field("group_id") group_id: String
+                      @Field("pay_id") pay_id: String?,
+                      @Field("is_integral") is_integral: String = "0",
+                      @Field("puzzle_id") puzzle_id: String? = null,
+                      @Field("open_join") open_join: String? = null,
+                      @Field("group_id") group_id: String? = null
     ): Observable<BaseResult<WXPayBean>>
 
     /**
@@ -1235,7 +1235,7 @@ interface ApiService {
 
 
     @POST("api/tieba/post")
-    fun releaseTieBa(@Body file: RequestBody): Observable<BaseResult<Any>>
+    fun releaseTieBa(@Body file: RequestBody): Observable<BaseResult<TieBaReleaseResponse>>
 
     @GET("api/tieba/types")
     fun tieBaTypes(): Observable<BaseResult<List<TieBaType>>>
@@ -1279,4 +1279,15 @@ interface ApiService {
                         @Query("type_id") type_id: Int? = 1,
                         @Query("page") page: Int = 1
     ): Observable<BaseResult<MessageTypeResponse>>
+
+    @GET("api/tieba/share")
+    fun tieBaShare(@Query("post_id") post_id: String?): Observable<BaseResult<TieBaShare>>
+
+    @FormUrlEncoded
+    @POST("api/tieba/create_top_order")
+    fun tieBaOrder(@Field("uid") uid: String,
+                  @Field("post_id") post_id: Long?,
+                  @Field("method") method: String,
+                  @Field("pay_way") pay_way: String?
+    ): Observable<BaseResult<TieBaOrderResponse>>
 }

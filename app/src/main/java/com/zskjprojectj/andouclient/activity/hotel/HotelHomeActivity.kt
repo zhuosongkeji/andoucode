@@ -72,6 +72,7 @@ class HotelHomeActivity : BaseActivity() {
         }
         mTvSetLike.setOnClickListener {
             val bottomDialog = Dialog(this, R.style.BottomDialog)
+
             val contentView = LayoutInflater.from(this).inflate(R.layout.dialog_hotel_star_price, null)
             val priceAdapter = HotelPriceAdapter(R.layout.item_section_content)
             priceAdapter.bindToRecyclerView(contentView.rv_price_recycler)
@@ -87,13 +88,9 @@ class HotelHomeActivity : BaseActivity() {
             }
             contentView.rv_price_recycler.addItemDecoration(GridSectionAverageGapItemDecoration(10f, 10f, 0f, 10f))
             contentView.rv_star_recycler.addItemDecoration(GridSectionAverageGapItemDecoration(10f, 10f, 0f, 10f))
-            bottomDialog.setContentView(contentView)
             bottomDialog.window?.decorView?.setPadding(0, 0, 0, 0)
-            window.attributes.width = WindowManager.LayoutParams.MATCH_PARENT
-            window.decorView.setBackgroundColor(Color.TRANSPARENT)
-            bottomDialog.window?.setGravity(Gravity.BOTTOM)
-            bottomDialog.setCanceledOnTouchOutside(true)
-            bottomDialog.window?.setWindowAnimations(R.style.BottomDialog_Animation)
+            bottomDialog.window?.attributes?.width = WindowManager.LayoutParams.MATCH_PARENT
+            bottomDialog.window?.decorView?.setBackgroundColor(Color.TRANSPARENT)
             contentView.bt_cancle.setOnClickListener {
                 priceAdapter.cancel(-1)
                 priceAdapter.notifyDataSetChanged()
@@ -122,6 +119,10 @@ class HotelHomeActivity : BaseActivity() {
                         starAdapter.setNewData(it.data.star)
                         bottomDialog.show()
                     })
+            bottomDialog.setContentView(contentView)
+            bottomDialog.window?.setGravity(Gravity.BOTTOM)
+            bottomDialog.setCanceledOnTouchOutside(true)
+            bottomDialog.window?.setWindowAnimations(R.style.BottomDialog_Animation)
         }
         refreshLayout.setEnableRefresh(false)
         RequestUtil.request(mActivity, true, true,
