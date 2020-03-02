@@ -16,10 +16,8 @@ import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zhuosongkj.android.library.model.IListData;
 import com.zhuosongkj.android.library.ui.RefreshHeaderView;
 
-import java.util.List;
-
 public class PageLoadUtil<T> {
-    public int page;
+    public int page = 1;
     private BaseQuickAdapter<T, BaseViewHolder> adapter;
     private SmartRefreshLayout refreshLayout;
     private BaseActivity activity;
@@ -32,6 +30,7 @@ public class PageLoadUtil<T> {
         this.activity = activity;
         this.adapter = adapter;
         this.refreshLayout = refreshLayout;
+        adapter.setHeaderAndEmpty(true);
         this.adapter.bindToRecyclerView(recyclerView);
         adapter.setLoadMoreView(new LoadMoreView() {
 
@@ -76,24 +75,30 @@ public class PageLoadUtil<T> {
         }
         RequestUtil.request(activity, false, false, observableProvider
                 , result -> {
-                    if (onLoadListener != null) {
-                        onLoadListener.onLoad(needRefresh, result.data);
-                    }
                     adapter.setEmptyView(R.layout.layout_empty_view);
                     page += 1;
                     if (needRefresh) {
-                        adapter.setNewData(result.data.getDataList());
-                        if (result.data.getDataList().size() == 0) {
+                        if (result.data != null) {
+                            adapter.setNewData(result.data.getDataList());
+                        } else {
+                            adapter.setNewData(null);
+                        }
+                        if (result.data == null || result.data.getDataList() == null || result.data.getDataList().size() == 0) {
                             adapter.loadMoreEnd(true);
                         }
                         refreshLayout.finishRefresh();
                     } else {
-                        if (result.data.getDataList().size() == 0) {
+                        if (result.data == null || result.data.getDataList() == null || result.data.getDataList().size() == 0) {
                             adapter.loadMoreEnd();
                         } else {
-                            adapter.addData(result.data.getDataList());
+                            if (result.data != null) {
+                                adapter.addData(result.data.getDataList());
+                            }
                             adapter.loadMoreComplete();
                         }
+                    }
+                    if (onLoadListener != null) {
+                        onLoadListener.onLoad(needRefresh, result.data);
                     }
                 }, msg -> refreshLayout.postDelayed(() -> {
                     if (needRefresh) {

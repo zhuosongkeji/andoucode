@@ -15,13 +15,18 @@
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:padding="@dimen/dp_10">
+        <FrameLayout
+            android:id="@+id/mHeaderBack"
+            android:layout_width="40dp"
+            android:layout_height="50dp"
+            android:paddingStart="15dp">
 
-        <ImageView
-            android:id="@+id/iv_header_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_14"
-            android:background="@mipmap/icon_back_black" />
+            <ImageView
+                android:layout_width="8.5dp"
+                android:layout_height="15dp"
+                android:layout_gravity="center_vertical"
+                android:src="@mipmap/icon_back_black" />
+        </FrameLayout>
 
         <TextView
             android:layout_width="wrap_content"
@@ -48,7 +53,7 @@
             android:gravity="center_vertical">
 
             <EditText
-                android:id="@+id/edit_search"
+                android:id="@+id/keywordEdt"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/dp_10"
@@ -80,7 +85,7 @@
         android:background="#F1F1F1" />
     <!--分类-->
     <LinearLayout
-        android:id="@+id/ll_classify"
+        android:id="@+id/mClassify"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -115,7 +120,7 @@
             android:gravity="center">
 
             <TextView
-                android:id="@+id/tv_selector_star"
+                android:id="@+id/mTvSelectorStar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="价格/星级"
@@ -136,7 +141,7 @@
             android:gravity="center">
 
             <TextView
-                android:id="@+id/tv_capacity_sort"
+                android:id="@+id/mCapacitySort"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="智能排序"
@@ -158,7 +163,7 @@
             android:gravity="center">
 
             <TextView
-                android:id="@+id/tv_screen"
+                android:id="@+id/mTvScreen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="筛选"
@@ -185,7 +190,7 @@
 
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_recycler"
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>

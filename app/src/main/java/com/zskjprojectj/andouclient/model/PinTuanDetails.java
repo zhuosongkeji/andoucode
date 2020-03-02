@@ -57,6 +57,15 @@ public class PinTuanDetails {
         private String finish_time;
         private String code;
         private String sale_total;
+        private String old_price;
+
+        public String getOld_price() {
+            return old_price;
+        }
+
+        public void setOld_price(String old_price) {
+            this.old_price = old_price;
+        }
 
         public String getPrice() {
             return price;

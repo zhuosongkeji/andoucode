@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -15,7 +16,7 @@
             android:layout_width="30dp"
             android:layout_height="22dp"
             android:layout_margin="@dimen/dp_15"
-            android:src="@mipmap/shop_icon"/>
+            android:src="@mipmap/shop_icon" />
 
         <TextView
             android:id="@+id/shopNameTxt"
@@ -61,75 +62,110 @@
             android:textSize="@dimen/typeface15sp" />
     </RelativeLayout>
 
-    <RelativeLayout
-        android:layout_width="345dp"
-        android:layout_height="112dp"
-        android:layout_gravity="center"
-        android:background="@mipmap/shopbg">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="15dp"
+        android:background="#fff8f8f8"
+        android:orientation="horizontal"
+        android:paddingStart="15dp"
+        android:paddingTop="17dp"
+        android:paddingEnd="15dp"
+        android:paddingBottom="5dp">
 
-        <ImageView
+        <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/meshop_pic"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="90dp"
+            android:scaleType="centerCrop"
+            app:riv_corner_radius="4dp"
+            tools:src="@mipmap/ic_placeholder" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_15"
-            android:layout_marginTop="@dimen/dp_17"
-            android:layout_marginBottom="@dimen/dp_5"
-            android:src="@mipmap/one_test" />
+            android:layout_marginStart="15dp"
+            android:orientation="vertical">
 
-        <RelativeLayout
-            android:id="@+id/ry_center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/meshop_pic">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/titleTxt"
-                android:layout_width="135dp"
+                <TextView
+                    android:id="@+id/titleTxt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:lines="2"
+                    android:textColor="#ff646464"
+                    android:textSize="12sp"
+                    tools:text="亲润孕妇化妆品套装BB霜遮瑕孕遮瑕孕遮B霜遮瑕孕遮瑕孕遮瑕B霜遮瑕孕遮瑕孕遮瑕瑕孕遮瑕孕妇护" />
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="35dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="¥"
+                        android:textColor="#fff34545"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/priceTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#fff34545"
+                        android:textSize="12sp"
+                        tools:text="288" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_15"
-                android:layout_marginTop="@dimen/dp_17"
-                android:maxLines="2"
-                android:ellipsize="end"
-                android:text="亲润孕妇化妆品套装"
-                android:textColor="#646464" />
+                android:layout_marginTop="30dp">
 
-            <TextView
-                android:id="@+id/specTxt"
-                android:layout_width="135dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginLeft="@dimen/dp_15"
-                android:maxLines="1"
-                android:ellipsize="end"
-                android:text="四件套"
-                android:textColor="#646464" />
-        </RelativeLayout>
+                <TextView
+                    android:id="@+id/specTxt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:lines="2"
+                    android:textColor="#ff969696"
+                    android:textSize="12sp"
+                    tools:text="四件套" />
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/ry_center">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="35dp">
 
-            <TextView
-                android:id="@+id/priceTxt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_15"
-                android:layout_marginTop="@dimen/dp_17"
-                android:text="￥288"
-                android:textColor="@color/red"
-                android:textSize="@dimen/typeface15sp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="X"
+                        android:textColor="#ff969696"
+                        android:textSize="12sp" />
 
-            <TextView
-                android:id="@+id/countTxt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginLeft="@dimen/dp_15"
-                android:text="X1"
-                android:textColor="#646464" />
-        </RelativeLayout>
-    </RelativeLayout>
+                    <TextView
+                        android:id="@+id/countTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#ff969696"
+                        android:textSize="12sp"
+                        tools:text="1" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -149,7 +185,7 @@
             android:id="@+id/total"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="￥288"
+            android:text="¥288"
             android:textColor="@color/red" />
     </LinearLayout>
 
@@ -176,6 +212,7 @@
             android:text="订单详情"
             android:textColor="#969696"
             android:textSize="@dimen/typeface11sp" />
+
         <Button
             android:id="@+id/btn_check_logistics"
             android:layout_width="76dp"
@@ -185,7 +222,7 @@
             android:text="查看物流"
             android:textColor="#969696"
             android:textSize="@dimen/typeface11sp"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/btn_gotopayment"
@@ -199,6 +236,7 @@
             android:textSize="@dimen/typeface11sp"
             android:visibility="gone"
             tools:visibility="visible" />
+
         <Button
             android:id="@+id/btn_comment"
             android:layout_width="90dp"

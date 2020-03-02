@@ -90,7 +90,7 @@ public class GlideTool {
     }
 
     public static void glideNoCropNoDis(Context context, String uri, ImageView view) {
-        //Glide.with(context).load(uri).error(R.mipmap.ic_placeholder).diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(true).into(view);
+        //Glide.with(context).load(uri).diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(true).into(view);
     }
 
     /**

@@ -43,7 +43,7 @@
         android:background="#F3F3F3" />
 
     <TextView
-        android:id="@+id/tv_price"
+        android:id="@+id/mTvPrice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"

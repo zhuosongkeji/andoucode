@@ -12,10 +12,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.HotelorderdetailsActivity;
 import com.zskjprojectj.andouclient.adapter.MehotelorderAdapter;
-import com.zskjprojectj.andouclient.adapter.hotel.CommentAdapter;
 import com.zskjprojectj.andouclient.base.BaseFragment;
 import com.zskjprojectj.andouclient.entity.MehotelorderBean;
-import com.zskjprojectj.andouclient.entity.hotel.HotelDetailCommentBean;
 
 import java.util.ArrayList;
 
@@ -28,7 +26,7 @@ public class MeHotelorderFragment extends BaseFragment {
     private ArrayList<MehotelorderBean> mDataList;
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
-        mRecycler=view.findViewById(R.id.rv_recycler);
+        mRecycler=view.findViewById(R.id.recyclerView);
         mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 

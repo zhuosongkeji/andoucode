@@ -19,7 +19,6 @@ import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.exceptions.Exceptions;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.HttpException;
 
@@ -146,7 +145,9 @@ public class RequestUtil {
     private static void showProgressDialog(BaseActivity activity) {
         setupProgressBar(activity);
         ImageView progressBar = activity.findViewById(R.id.progressBar);
-        ((AnimationDrawable) progressBar.getDrawable()).start();
+        if (progressBar.getDrawable() instanceof AnimationDrawable) {
+            ((AnimationDrawable) progressBar.getDrawable()).start();
+        }
     }
 
     private static void setupProgressBar(BaseActivity activity) {

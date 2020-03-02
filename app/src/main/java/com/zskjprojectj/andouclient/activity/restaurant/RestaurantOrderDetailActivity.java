@@ -26,14 +26,13 @@ import com.zskjprojectj.andouclient.model.Food;
 import com.zskjprojectj.andouclient.model.RestaurantOrder;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 import com.zskjprojectj.andouclient.utils.MapUtil;
-import com.zskjprojectj.andouclient.utils.ToastUtil;
 import com.zskjprojectj.andouclient.utils.UrlUtil;
 
 import java.math.BigDecimal;
 
 import butterknife.BindView;
 
-import static com.zskjprojectj.andouclient.activity.MyaddressActivity.KEY_DATA;
+import static com.zskjprojectj.andouclient.utils.ConstantKt.KEY_DATA;
 
 public class RestaurantOrderDetailActivity extends BaseActivity {
 
@@ -82,7 +81,7 @@ public class RestaurantOrderDetailActivity extends BaseActivity {
                     RestaurantReviewActivity.start(mActivity, data, 666));
         }
         Glide.with(mActivity)
-                .load(UrlUtil.getImageUrl(data.logo_img))
+                .load(UrlUtil.INSTANCE.getImageUrl(data.logo_img))
                 .apply(new RequestOptions().placeholder(R.mipmap.ic_placeholder))
                 .into((ImageView) findViewById(R.id.logoImg));
         Glide.with(mActivity)
@@ -96,12 +95,12 @@ public class RestaurantOrderDetailActivity extends BaseActivity {
         ViewUtil.setText(mActivity, R.id.dinnerDateTxt, data.dinnertime);
         ViewUtil.setText(mActivity, R.id.peopleCountTxt, data.people + "人");
         ViewUtil.setText(mActivity, R.id.psTxt, data.remark);
-        ViewUtil.setText(mActivity, R.id.amountTxt, "￥" + data.prices);
+        ViewUtil.setText(mActivity, R.id.amountTxt, "¥" + data.prices);
         ViewUtil.setText(mActivity, R.id.useScoreCountTxt, Double.valueOf(data.integral) > 0 ? "-" + data.integral : data.integral);
         if (TextUtils.isEmpty(data.pay_money)) {
-            ViewUtil.setText(mActivity, R.id.payAmountTxt, "￥" + FormatUtil.getMoneyString(new BigDecimal(data.prices).subtract(new BigDecimal(data.integral)).doubleValue()));
+            ViewUtil.setText(mActivity, R.id.payAmountTxt, "¥" + FormatUtil.getMoneyString(new BigDecimal(data.prices).subtract(new BigDecimal(data.integral)).doubleValue()));
         } else {
-            ViewUtil.setText(mActivity, R.id.payAmountTxt, "￥" + FormatUtil.getMoneyString(new BigDecimal(data.pay_money).doubleValue()));
+            ViewUtil.setText(mActivity, R.id.payAmountTxt, "¥" + FormatUtil.getMoneyString(new BigDecimal(data.pay_money).doubleValue()));
         }
         ViewUtil.setText(mActivity, R.id.payWayTxt, getPayWayStr(data.method));
         for (Food food : data.foods) {

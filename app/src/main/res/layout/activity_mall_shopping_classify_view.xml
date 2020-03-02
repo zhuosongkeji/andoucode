@@ -8,7 +8,7 @@
     android:orientation="vertical">
 <androidx.recyclerview.widget.RecyclerView
     android:layout_marginTop="@dimen/dp_10"
-    android:id="@+id/rv_recycler"
+    android:id="@+id/recyclerView"
     android:layout_width="match_parent"
     android:layout_height="180dp"/>
 
@@ -18,7 +18,7 @@
         android:layout_height="45dp"
         android:layout_marginTop="@dimen/dp_20"
         android:layout_marginBottom="@dimen/dp_10"
-        android:layout_below="@+id/rv_recycler"
+        android:layout_below="@+id/recyclerView"
         android:layout_alignParentEnd="true"
         android:background="@drawable/button_add_confirm"
         android:textColor="@color/white"

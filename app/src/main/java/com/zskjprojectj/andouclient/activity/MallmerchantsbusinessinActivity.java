@@ -2,7 +2,6 @@ package com.zskjprojectj.andouclient.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -14,30 +13,27 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 
 import com.blankj.utilcode.util.ActivityUtils;
+import com.bumptech.glide.Glide;
 import com.luck.picture.lib.PictureSelector;
-import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
+import com.zhuosongkj.android.library.app.BaseActivity;
+import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.base.BaseActivity;
-import com.zskjprojectj.andouclient.base.BasePresenter;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
-import com.zskjprojectj.andouclient.model.ADArea;
-import com.zskjprojectj.andouclient.model.ADCity;
-import com.zskjprojectj.andouclient.model.ADProvince;
 import com.zskjprojectj.andouclient.model.AddressIn;
+import com.zskjprojectj.andouclient.model.District;
 import com.zskjprojectj.andouclient.model.UserIn;
-import com.zskjprojectj.andouclient.utils.BitmapUtil;
 import com.zskjprojectj.andouclient.utils.GlideEngine;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
+import com.zskjprojectj.andouclient.utils.UrlUtil;
 import com.zskjprojectj.andouclient.view.AddressBottomDialog;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -60,10 +56,10 @@ public class MallmerchantsbusinessinActivity extends BaseActivity {
     private static final int REQUEST_CODE_SELECT_LOGO = 666;
     private static final int REQUEST_CODE_SELECT_BANNER = 667;
     private static final int REQUEST_CODE_SELECT_LICENSE = 668;
-    private static final  int REQUEST_CODE_SELECT_POSITION=669;
-    @BindView(R.id.header_title_view)
+    private static final int REQUEST_CODE_SELECT_POSITION = 669;
+    @BindView(R.id.mTitleView)
     RelativeLayout mTitleView;
-    @BindView(R.id.tv_header_title)
+    @BindView(R.id.mHeaderTitle)
     TextView mHeaderTitle;
 
     @BindView(R.id.nameEdt)
@@ -93,96 +89,87 @@ public class MallmerchantsbusinessinActivity extends BaseActivity {
 
     AddressIn address;
     int type;
-    final List<ADProvince> adProvincess = new ArrayList<>();
-    @Override
-    protected void setRootView() {
-        setContentView(R.layout.activity_mallmerchantsbusinessin);
-    }
+    private String bannerImgPath = "";
+    private String logoImgPath = "";
+    private String licenseImgPath = "";
 
     @Override
-    protected void initData(Bundle savedInstanceState) {
-        getBarDistance(mTitleView);
-        //mHeaderTitle.setText("商城商家入驻");
-    }
-
-    @Override
-    protected void initViews() {
-          type = getIntent().getIntExtra(KEY_TYPE, UserIn.Role.Type.MALL.typeInt);
-         addressDetailEdt.setOnClickListener(new View.OnClickListener() {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        type = getIntent().getIntExtra(KEY_TYPE, UserIn.Role.Type.MALL.typeInt);
+        addressDetailEdt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 //                jumpActivity(ShareLocationActivity.class);
-                Intent intent=new Intent(mAt,ShareLocationActivity.class);
-                startActivityForResult(intent,REQUEST_CODE_SELECT_POSITION);
+                Intent intent = new Intent(mActivity, ShareLocationActivity.class);
+                startActivityForResult(intent, REQUEST_CODE_SELECT_POSITION);
 
             }
         });
         if (type == UserIn.Role.Type.HOTEL.typeInt) {
             mHeaderTitle.setText("酒店商家入驻");
         } else if (type == UserIn.Role.Type.MALL.typeInt) {
-           // ActionBarUtil.setTitle(MallmerchantsbusinessinActivity.this, "商城商家入驻");
+            // ActionBarUtil.setTitle(MallmerchantsbusinessinActivity.this, "商城商家入驻");
             mHeaderTitle.setText("商城商家入驻");
         } else if (type == UserIn.Role.Type.RESTAURANT.typeInt) {
 
             mHeaderTitle.setText("饭店商家入驻");
         }
-       HttpRxObservable.getObservable(ApiUtils.getApiService().districts()).subscribe(new BaseObserver<List<ADProvince>>(mAt) {
-           @Override
-           public void onHandleSuccess(List<ADProvince> adProvinces) throws IOException {
-               adProvincess.addAll(adProvinces);
-           }
-       });
         addressTxt.setOnClickListener(v -> {
             AddressBottomDialog dialog = AddressBottomDialog.show(this);
             dialog.setAddressProvider(new AddressProvider() {
                 @Override
                 public void provideProvinces(AddressReceiver<Province> addressReceiver) {
-                    ArrayList<Province> provinces = new ArrayList<>();
-                    for (ADProvince adProvince : adProvincess) {
-                        Province province = new Province();
-                        province.id = adProvince.id;
-                        province.name = adProvince.name;
-                        provinces.add(province);
-                    }
-                    addressReceiver.send(provinces);
+                    RequestUtil.request(mActivity, false, false,
+                            () -> ApiUtils.getApiService().districts(null),
+                            result -> {
+                                ArrayList<Province> provinces = new ArrayList<>();
+                                if (result.data != null) {
+                                    for (District district : result.data) {
+                                        Province province = new Province();
+                                        province.id = district.id;
+                                        province.name = district.name;
+                                        provinces.add(province);
+                                    }
+                                }
+                                addressReceiver.send(provinces);
+                            });
                 }
 
                 @Override
                 public void provideCitiesWith(int provinceId, AddressReceiver<City> addressReceiver) {
-                    ArrayList<City> cities = new ArrayList<>();
-                    for (ADProvince adProvince : adProvincess) {
-                        if (adProvince.id == provinceId) {
-                            for (ADCity adCity : adProvince.cities) {
-                                City city = new City();
-                                city.id = adCity.id;
-                                city.name = adCity.name;
-                                city.province_id = adCity.pid;
-                                cities.add(city);
-                            }
-                            break;
-                        }
-                    }
-                    addressReceiver.send(cities);
+                    RequestUtil.request(mActivity, false, false,
+                            () -> ApiUtils.getApiService().districts(provinceId),
+                            result -> {
+                                ArrayList<City> cities = new ArrayList<>();
+                                if (result.data != null) {
+                                    for (District district : result.data) {
+                                        City city = new City();
+                                        city.id = district.id;
+                                        city.name = district.name;
+                                        cities.add(city);
+                                    }
+                                }
+                                addressReceiver.send(cities);
+                            });
                 }
 
                 @Override
                 public void provideCountiesWith(int cityId, AddressReceiver<County> addressReceiver) {
-                    ArrayList<County> counties = new ArrayList<>();
-                    for (ADProvince adProvince : adProvincess) {
-                        for (ADCity adCity : adProvince.cities) {
-                            if (adCity.id == cityId) {
-                                for (ADArea adArea : adCity.getAreas()) {
-                                    County county = new County();
-                                    county.id = adArea.id;
-                                    county.name = adArea.name;
-                                    county.city_id = adArea.pid;
-                                    counties.add(county);
+                    RequestUtil.request(mActivity, false, false,
+                            () -> ApiUtils.getApiService().districts(cityId),
+                            result -> {
+                                ArrayList<County> counties = new ArrayList<>();
+                                if (result.data != null) {
+                                    for (District district : result.data) {
+                                        County county = new County();
+                                        county.id = district.id;
+                                        county.name = district.name;
+                                        counties.add(county);
+                                    }
                                 }
-                                break;
-                            }
-                        }
-                    }
-                    addressReceiver.send(counties);
+                                addressReceiver.send(counties);
+                            });
                 }
 
                 @Override
@@ -210,18 +197,13 @@ public class MallmerchantsbusinessinActivity extends BaseActivity {
                 .forResult(requestCode);
     }
 
-    @Override
-    public void getDataFromServer() {
-
-    }
-
     @OnClick(R.id.confirmBtn)
     void onConfirmBtn() {
         String name = nameEdt.getText().toString();
         String contactName = contactNameEdt.getText().toString();
         String contactMobile = contactMobileEdt.getText().toString();
         String addressStr = addressTxt.getText().toString();
-         String addressDetail = addressDetailEdt.getText().toString();
+        String addressDetail = addressDetailEdt.getText().toString();
         String description = descriptionEdt.getText().toString();
         if (TextUtils.isEmpty(name)) {
             ToastUtil.showToast("请输入商户名称!");
@@ -244,25 +226,25 @@ public class MallmerchantsbusinessinActivity extends BaseActivity {
         } else if (TextUtils.isEmpty((String) licenseImg.getTag())) {
             ToastUtil.showToast("请添加营业执照!");
         } else {
-                HttpRxObservable.getObservable(ApiUtils.getApiService().uploadMerchantsInfo(  LoginInfoUtil.getUid(),
-                        LoginInfoUtil.getToken(),
-                        type,
-                        name,
-                        contactName,
-                        contactMobile,
-                        address.province.id,
-                        address.city.id,
-                        address.county.id,
-                        addressStr,
-                        description,
-                        (String) bannerImg.getTag(),
-                        (String) logoImg.getTag(),
-                        (String) licenseImg.getTag())).subscribe(new BaseObserver<Object>(mAt) {
-                    @Override
-                    public void onHandleSuccess(Object o) throws IOException {
-                        jumpActivity(ApplyforsuccessfulActivity.class);
-                        finish();
-                    }
+            HttpRxObservable.getObservable(ApiUtils.getApiService().uploadMerchantsInfo(LoginInfoUtil.getUid(),
+                    LoginInfoUtil.getToken(),
+                    type,
+                    name,
+                    contactName,
+                    contactMobile,
+                    address.province.id,
+                    address.city.id,
+                    address.county.id,
+                    addressStr,
+                    description,
+                    bannerImgPath,
+                    logoImgPath,
+                    licenseImgPath)).subscribe(new BaseObserver<Object>(mActivity) {
+                @Override
+                public void onHandleSuccess(Object o) throws IOException {
+                    ActivityUtils.startActivity(ApplyforsuccessfulActivity.class);
+                    finish();
+                }
 
                 @Override
                 public void onError(Throwable e) {
@@ -276,10 +258,9 @@ public class MallmerchantsbusinessinActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != Activity.RESULT_OK) return;
-        if(requestCode==REQUEST_CODE_SELECT_POSITION)
-        {
-                addressDetailEdt.setText(data.getStringExtra("result"));
-        }else {
+        if (requestCode == REQUEST_CODE_SELECT_POSITION) {
+            addressDetailEdt.setText(data.getStringExtra("result"));
+        } else {
             String path = PictureSelector.obtainMultipleResult(data).get(0).getAndroidQToPath();
             if (TextUtils.isEmpty(path)) {
                 path = PictureSelector.obtainMultipleResult(data).get(0).getPath();
@@ -304,13 +285,18 @@ public class MallmerchantsbusinessinActivity extends BaseActivity {
             RequestBody token = RequestBody.create(MediaType.parse("multipart/form-data"), LoginInfoUtil.getToken());
             ImageView finalImageView = imageView;
             String finalPath = path;
-            HttpRxObservable.getObservable(ApiUtils.getApiService().uploadImg(uid,token,body)).subscribe(new BaseObserver<String>(mAt) {
+            HttpRxObservable.getObservable(ApiUtils.getApiService().uploadImg(uid, token, body)).subscribe(new BaseObserver<String>(mActivity) {
 
                 @Override
                 public void onHandleSuccess(String s) throws IOException {
-                    finalImageView.setTag(s);
-                    BitmapUtil.recycle(finalImageView);
-                    finalImageView.setImageBitmap(BitmapFactory.decodeFile(finalPath));
+                    if (finalImageView == logoImg) {
+                        logoImgPath = s;
+                    } else if (finalImageView == bannerImg) {
+                        bannerImgPath = s;
+                    } else if (finalImageView == licenseImg) {
+                        licenseImgPath = s;
+                    }
+                    Glide.with(mActivity).load(UrlUtil.INSTANCE.getImageUrl(s)).into(finalImageView);
                 }
 
                 @Override
@@ -325,14 +311,6 @@ public class MallmerchantsbusinessinActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        BitmapUtil.recycle(logoImg);
-        BitmapUtil.recycle(bannerImg);
-        BitmapUtil.recycle(licenseImg);
-    }
-
-    @Override
-    protected BasePresenter createPresenter() {
-        return null;
     }
 
     public static void start(Activity activity, UserIn.Role.Type type, int requestCode) {
@@ -341,8 +319,13 @@ public class MallmerchantsbusinessinActivity extends BaseActivity {
         ActivityUtils.startActivityForResult(bundle, activity, MallmerchantsbusinessinActivity.class, requestCode);
     }
 
-    @OnClick(R.id.iv_header_back)
+    @OnClick(R.id.mHeaderBack)
     public void clickView() {
         finish();
+    }
+
+    @Override
+    protected int getContentView() {
+        return R.layout.activity_mallmerchantsbusinessin;
     }
 }

@@ -30,7 +30,6 @@ import com.zskjprojectj.andouclient.activity.mall.MallPaySuccessActivity;
 import com.zskjprojectj.andouclient.adapter.restaurant.DateAdapter;
 import com.zskjprojectj.andouclient.entity.WXPayBean;
 import com.zskjprojectj.andouclient.event.RestaurantPaySuccess;
-import com.zskjprojectj.andouclient.http.ApiService;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.model.Food;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
@@ -52,7 +51,7 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-import static com.zskjprojectj.andouclient.activity.MyaddressActivity.KEY_DATA;
+import static com.zskjprojectj.andouclient.utils.ConstantKt.KEY_DATA;
 
 public class RestaurantBillActivity extends BaseActivity {
 
@@ -119,6 +118,9 @@ public class RestaurantBillActivity extends BaseActivity {
             RequestUtil.request(mActivity, true, false,
                     () -> ApiUtils.getApiService().getBookInfo(LoginInfoUtil.getUid(), bill.getMerchantId()),
                     result -> {
+                        if (result.data.integral == 0) {
+                            scoreContainer.setEnabled(false);
+                        }
                         ViewUtil.setText(mActivity, R.id.scoreTxt, String.valueOf(result.data.integral));
                         scoreContainer.setOnClickListener(v -> {
                             scoreContainer.setSelected(!scoreContainer.isSelected());
@@ -144,7 +146,7 @@ public class RestaurantBillActivity extends BaseActivity {
         }
         ViewUtil.setText(mActivity, R.id.nameTxt, bill.getMerchantName());
         Glide.with(mActivity)
-                .load(UrlUtil.getImageUrl(bill.getMerchantLogo()))
+                .load(UrlUtil.INSTANCE.getImageUrl(bill.getMerchantLogo()))
                 .apply(new RequestOptions().placeholder(R.mipmap.ic_placeholder))
                 .into((ImageView) findViewById(R.id.logoImg));
         adapter.setNewData(getNextSevenDate());
@@ -230,7 +232,7 @@ public class RestaurantBillActivity extends BaseActivity {
         ViewUtil.setText(foodView, R.id.countTxt, String.valueOf(cartFood.num));
         ViewUtil.setText(foodView, R.id.amountTxt, FormatUtil.getMoneyString(cartFood.getAmount()));
         Glide.with(activity)
-                .load(UrlUtil.getImageUrl(cartFood.image))
+                .load(UrlUtil.INSTANCE.getImageUrl(cartFood.image))
                 .apply(new RequestOptions().placeholder(R.mipmap.ic_placeholder))
                 .into((ImageView) foodView.findViewById(R.id.img));
         foodContainer.addView(foodView);

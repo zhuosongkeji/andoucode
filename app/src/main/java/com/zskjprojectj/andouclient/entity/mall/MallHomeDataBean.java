@@ -167,7 +167,7 @@ public class MallHomeDataBean {
             textView.setText(name);
 
             ImageView imageView = itemView.findViewById(R.id.iv_item_icon);
-            Glide.with(imageView.getContext()).load(UrlUtil.getImageUrl(img)).into(imageView);
+            Glide.with(imageView.getContext()).load(UrlUtil.INSTANCE.getImageUrl(img)).into(imageView);
         }
     }
 

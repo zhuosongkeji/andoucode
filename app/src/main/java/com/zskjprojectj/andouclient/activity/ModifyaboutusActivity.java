@@ -48,8 +48,8 @@ public class ModifyaboutusActivity extends BaseActivity {
 
             @Override
             public void onHandleSuccess(AboutusBean aboutusBean) throws IOException {
-                Glide.with(mAt).load(UrlUtil.getImageUrl(aboutusBean.getImage()))
-                        .apply(new RequestOptions().placeholder(R.drawable.default_image).error(R.drawable.default_image)).into(img_about);
+                Glide.with(mAt).load(UrlUtil.INSTANCE.getImageUrl(aboutusBean.getImage()))
+                        .apply(new RequestOptions().placeholder(R.mipmap.ic_placeholder)).into(img_about);
                 tv_abouttitle.setText(aboutusBean.getTitle());
                 tv_aboutcontent.setText(aboutusBean.getContent());
                 tv_aboutvalue.setText("当前版本"+aboutusBean.getValue());

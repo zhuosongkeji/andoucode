@@ -1,6 +1,7 @@
 package com.zskjprojectj.andouclient.activity;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,13 +31,13 @@ import java.io.IOException;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-import static com.zskjprojectj.andouclient.activity.MyaddressActivity.KEY_DATA;
+import static com.zskjprojectj.andouclient.utils.ConstantKt.KEY_DATA;
 
 public class ShoporderdetailsActivity extends BaseActivity {
 
-    @BindView(R.id.header_title_view)
+    @BindView(R.id.mTitleView)
     RelativeLayout mTitleView;
-    @BindView(R.id.tv_header_title)
+    @BindView(R.id.mHeaderTitle)
     TextView mHeaderTitle;
 
     private Button btn_gotopaymentdetail;
@@ -85,7 +86,7 @@ public class ShoporderdetailsActivity extends BaseActivity {
             findViewById(R.id.daifukuanContainer).setVisibility(View.VISIBLE);
             findViewById(R.id.btn_gotopaymentdetail).setVisibility(View.VISIBLE);
             findViewById(R.id.btn_gotopaymentdetail).setOnClickListener(v ->
-                    MallOnlineOrderActivity.start(order.order_sn));
+                    MallOnlineOrderActivity.start(order.order_sn, "", "", ""));
             findViewById(R.id.btn_refund).setVisibility(View.GONE);
         } else if (OrderStatus.DAI_FA_HUO.status.equals(order.status)) {
             findViewById(R.id.daifahuoContainer).setVisibility(View.VISIBLE);
@@ -96,7 +97,10 @@ public class ShoporderdetailsActivity extends BaseActivity {
             findViewById(R.id.daishouhuoContainer).setVisibility(View.VISIBLE);
         }
         ((TextView) findViewById(R.id.orderNumTxt)).setText("订单编号：" + order.order_sn);
-        ((TextView) findViewById(R.id.dateTxt)).setText("支付时间：" + order.pay_time);
+        if (!TextUtils.isEmpty(order.pay_time)) {
+            ((TextView) findViewById(R.id.dateTxt)).setVisibility(View.VISIBLE);
+            ((TextView) findViewById(R.id.dateTxt)).setText("支付时间：" + order.pay_time);
+        }
         ((TextView) findViewById(R.id.receiverName)).setText("收件人：" + order.userinfo.name);
         ((TextView) findViewById(R.id.addressTxt)).setText("收货地址：" +
                 order.userinfo.province +
@@ -106,20 +110,20 @@ public class ShoporderdetailsActivity extends BaseActivity {
         ((TextView) findViewById(R.id.mobileTxt)).setText(order.userinfo.mobile);
         for (OrderDetail.Goodsdetail goods : order.details) {
             View view = LayoutInflater.from(mAt).inflate(R.layout.layout_goods_item, null);
-            ((TextView) view.findViewById(R.id.goodsTitleTxt)).setText(goods.name);
+            ((TextView) view.findViewById(R.id.titleTxt)).setText(goods.name);
             ((TextView) view.findViewById(R.id.specTxt)).setText(getSpec(goods.attr_value));
             ((TextView) view.findViewById(R.id.countTxt)).setText("x" + goods.num);
             goodsPrice = goods.price;
-            ((TextView) view.findViewById(R.id.priceTxt)).setText("￥" + goods.price);
-            Glide.with(mAt).load(UrlUtil.getImageUrl(goods.img))
-                    .apply(new RequestOptions().placeholder(R.drawable.default_image))
+            ((TextView) view.findViewById(R.id.priceTxt)).setText("¥" + goods.price);
+            Glide.with(mAt).load(UrlUtil.INSTANCE.getImageUrl(goods.img))
+                    .apply(new RequestOptions().placeholder(R.mipmap.ic_placeholder))
                     .into((ImageView) view.findViewById(R.id.meshop_pic));
             ((ViewGroup) findViewById(R.id.goodsContainer)).addView(view);
         }
-        ((TextView) findViewById(R.id.totalTxt)).setText("￥" +goodsPrice);
+        ((TextView) findViewById(R.id.totalTxt)).setText("¥" + goodsPrice);
         ((TextView) findViewById(R.id.totalCountTxt)).setText("共" + order.allnum + "个商品(合计)");
-        ((TextView) findViewById(R.id.freightTxt)).setText("+￥" + order.shipping_free);
-        ((TextView) findViewById(R.id.costTxt)).setText("￥" + order.pay_money);
+        ((TextView) findViewById(R.id.freightTxt)).setText("+¥" + order.shipping_free);
+        ((TextView) findViewById(R.id.costTxt)).setText("¥" + order.pay_money);
 
 
         /**
@@ -129,9 +133,7 @@ public class ShoporderdetailsActivity extends BaseActivity {
             findViewById(R.id.btn_refund).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //退款//退货
-                    ShopordersendetailsrefundActivity.start("refund",order.details.get(0));
-                    finish();
+                    ShopordersendetailsrefundActivity.start("refund", order);
                 }
             });
 
@@ -140,9 +142,7 @@ public class ShoporderdetailsActivity extends BaseActivity {
             findViewById(R.id.btn_refund).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //退款//退货
-                    ShopordersendetailsrefundActivity.start("sales_return",order.details.get(0));
-                    finish();
+                    ShopordersendetailsrefundActivity.start("sales_return", order);
                 }
             });
 
@@ -170,7 +170,7 @@ public class ShoporderdetailsActivity extends BaseActivity {
         ActivityUtils.startActivity(bundle, ShoporderdetailsActivity.class);
     }
 
-    @OnClick(R.id.iv_header_back)
+    @OnClick(R.id.mHeaderBack)
     public void clickView() {
         finish();
     }

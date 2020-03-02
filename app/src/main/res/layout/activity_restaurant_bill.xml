@@ -446,7 +446,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="end"
-                        android:text="￥"
+                        android:text="¥"
                         android:textColor="#ff1c1c1c"
                         android:textSize="12sp" />
 
@@ -504,7 +504,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="￥"
+                        android:text="¥"
                         android:textColor="#fff34545"
                         android:textSize="15sp" />
 
@@ -630,7 +630,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="￥"
+                        android:text="¥"
                         android:textColor="#fff34545"
                         android:textSize="12sp" />
 

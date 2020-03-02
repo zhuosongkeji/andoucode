@@ -237,7 +237,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="@dimen/dp_15"
-                    android:text="￥187"
+                    android:text="¥187"
                     android:textColor="@color/red" />
             </RelativeLayout>
 
@@ -309,7 +309,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="@dimen/dp_15"
-                    android:text="￥187"
+                    android:text="¥187"
                     android:textColor="#646464"
                     android:textSize="@dimen/typeface12sp" />
             </RelativeLayout>
@@ -333,7 +333,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="@dimen/dp_15"
-                    android:text="-￥2.5"
+                    android:text="-¥2.5"
                     android:textColor="#646464"
                     android:textSize="@dimen/typeface12sp" />
             </RelativeLayout>

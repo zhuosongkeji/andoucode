@@ -89,13 +89,13 @@
             android:gravity="center_vertical">
 
             <TextView
-                android:id="@+id/tv_price"
+                android:id="@+id/mTvPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:textColor="#fffc371f"
                 android:textSize="16sp"
-                tools:text="￥99" />
+                tools:text="¥99" />
 
             <TextView
                 android:id="@+id/original_price"
@@ -103,14 +103,14 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="13dp"
-                android:layout_toRightOf="@+id/tv_price"
+                android:layout_toRightOf="@+id/mTvPrice"
                 android:textColor="#ff999999"
                 android:textSize="11sp"
-                tools:text="￥128" />
+                tools:text="¥128" />
 
 
             <TextView
-                android:id="@+id/tv_buy_now"
+                android:id="@+id/mBuyNow"
                 android:layout_width="60dp"
                 android:layout_height="23dp"
                 android:layout_alignParentEnd="true"

@@ -8,7 +8,7 @@
     <include layout="@layout/view_top_bar" />
 
     <com.amap.api.maps2d.MapView
-        android:id="@+id/map"
+        android:id="@+id/mapView"
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:visibility="gone"
@@ -57,7 +57,7 @@
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_recycler"
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 </LinearLayout>

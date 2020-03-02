@@ -1,16 +1,12 @@
 package com.zskjprojectj.andouclient.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
 
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
 
-import butterknife.BindView;
 import butterknife.OnClick;
 
 public class CommentSuccessActivity extends BaseActivity {
@@ -45,7 +41,7 @@ public class CommentSuccessActivity extends BaseActivity {
 
     @OnClick(R.id.btn_back_home)
     public void clickBack(){
-        Intent intent=new Intent(mAt,MallMainActivity.class);
+        Intent intent=new Intent(mAt, MallHomeActivity.class);
         intent.putExtra("tag","backHome");
         startActivity(intent);
     }

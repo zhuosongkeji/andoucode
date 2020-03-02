@@ -12,10 +12,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.ShoporderdetailsActivity;
 import com.zskjprojectj.andouclient.activity.mall.MallOnlineOrderActivity;
-import com.zskjprojectj.andouclient.adapter.MeShopFragmentAdapter;
 import com.zskjprojectj.andouclient.adapter.MeShoppaymentAdapter;
 import com.zskjprojectj.andouclient.base.BaseFragment;
-import com.zskjprojectj.andouclient.entity.MeShopFragmentBean;
 import com.zskjprojectj.andouclient.entity.MeShoppaymentBean;
 
 import java.util.ArrayList;
@@ -28,7 +26,7 @@ public class MeShoppaymentFragment extends BaseFragment {
     private ArrayList<MeShoppaymentBean> mDataList;
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
-        mRecycler=view.findViewById(R.id.rv_recycler);
+        mRecycler=view.findViewById(R.id.recyclerView);
         mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 

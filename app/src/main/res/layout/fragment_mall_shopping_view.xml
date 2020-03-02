@@ -92,7 +92,7 @@
                 android:layout_alignBottom="@+id/img_cartgoodspic"
                 android:layout_marginLeft="@dimen/dp_10"
                 android:layout_toRightOf="@+id/img_cartgoodspic"
-                android:text="￥119"
+                android:text="¥119"
                 android:textColor="@color/red" />
 
 

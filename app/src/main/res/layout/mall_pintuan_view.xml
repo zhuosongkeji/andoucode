@@ -6,7 +6,7 @@
     android:padding="3dp">
 
     <ImageView
-        android:id="@+id/iv_headPic"
+        android:id="@+id/IvHeadPic"
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:background="@mipmap/ic_touxiang"
@@ -108,7 +108,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/tv_buy_now"
+        android:id="@+id/mBuyNow"
         android:layout_width="60dp"
         android:layout_height="23dp"
         android:layout_gravity="center_vertical"

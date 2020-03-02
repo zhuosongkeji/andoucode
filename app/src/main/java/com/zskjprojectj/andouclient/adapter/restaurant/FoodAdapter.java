@@ -27,7 +27,7 @@ public class FoodAdapter extends BaseAdapter<Food> {
                 .addOnClickListener(R.id.subBtn)
                 .addOnClickListener(R.id.addBtn);
         Glide.with(helper.itemView.getContext())
-                .load(UrlUtil.getImageUrl(item.image))
+                .load(UrlUtil.INSTANCE.getImageUrl(item.image))
                 .into((ImageView) helper.itemView.findViewById(R.id.img));
     }
 }

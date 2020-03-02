@@ -1,12 +1,5 @@
 package com.zskjprojectj.andouclient.activity.mall;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatCheckBox;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,33 +7,25 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatCheckBox;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.blankj.utilcode.util.ActivityUtils;
-import com.bumptech.glide.Glide;
-import com.raizlabs.android.dbflow.sql.language.Condition;
-import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
-import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
-import com.tencent.mm.opensdk.modelmsg.WXTextObject;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.activity.MyaddressActivity;
-import com.zskjprojectj.andouclient.activity.ShoporderActivity;
-import com.zskjprojectj.andouclient.activity.hotel.HotelOnlineReserveActivity;
+import com.zskjprojectj.andouclient.activity.MyAddressActivity;
+import com.zskjprojectj.andouclient.activity.MallOrderListActivity;
 import com.zskjprojectj.andouclient.adapter.mall.MallBuyInfoAdapter;
 import com.zskjprojectj.andouclient.adapter.mall.PayWaysAdapter;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
-import com.zskjprojectj.andouclient.utils.PayCancle;
-import com.zskjprojectj.andouclient.utils.PaySuccessBackEvent;
-import com.zskjprojectj.andouclient.utils.PaySuccessEvent;
-import com.zskjprojectj.andouclient.utils.ToastUtil;
-import com.zskjprojectj.andouclient.utils.UrlUtil;
-import com.zskjprojectj.andouclient.base.BaseUrl;
 import com.zskjprojectj.andouclient.entity.WXPayBean;
 import com.zskjprojectj.andouclient.entity.mall.MallPayWaysBean;
 import com.zskjprojectj.andouclient.entity.mall.MallSettlementBean;
@@ -48,6 +33,10 @@ import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
+import com.zskjprojectj.andouclient.utils.PayCancle;
+import com.zskjprojectj.andouclient.utils.PaySuccessBackEvent;
+import com.zskjprojectj.andouclient.utils.PaySuccessEvent;
+import com.zskjprojectj.andouclient.utils.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -99,19 +88,21 @@ public class MallOnlineOrderActivity extends BaseActivity {
     TextView mIvIntegral;
 
 
-
     private String order_sn;
+    private String puzzle_id;
+    private String open_join;
+    private String group_id;
     private String payId;
     private final static int WXPAY = 1;
     private final static int YUEPAY = 4;
     private String is_integral = "0";
-    private final int SELECTORADDRESS=1;
+    private final int SELECTORADDRESS = 1;
 
     @OnClick(R.id.rl_selector_address)
-    public void clickAddress(){
-        Intent intent=new Intent(MallOnlineOrderActivity.this, MyaddressActivity.class);
+    public void clickAddress() {
+        Intent intent = new Intent(MallOnlineOrderActivity.this, MyAddressActivity.class);
 
-        startActivityForResult(intent,SELECTORADDRESS);
+        startActivityForResult(intent, SELECTORADDRESS);
     }
 
     @Override
@@ -125,6 +116,7 @@ public class MallOnlineOrderActivity extends BaseActivity {
         EventBus.getDefault().register(MallOnlineOrderActivity.this);
 
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -136,6 +128,9 @@ public class MallOnlineOrderActivity extends BaseActivity {
     @Override
     protected void initViews() {
         order_sn = getIntent().getStringExtra("order_sn");
+        puzzle_id = getIntent().getStringExtra("puzzle_id");
+        open_join = getIntent().getStringExtra("open_join");
+        group_id = getIntent().getStringExtra("group_id");
         Log.d("wangbin", "initViews: " + order_sn);
         topView.setTitle("在线下单");
         topView.setBackOnClickListener(new View.OnClickListener() {
@@ -152,9 +147,12 @@ public class MallOnlineOrderActivity extends BaseActivity {
 
     }
 
-    public static void start(String order_sn) {
+    public static void start(String order_sn, String puzzle_id, String open_join, String group_id) {
         Bundle bundle = new Bundle();
         bundle.putSerializable("order_sn", order_sn);
+        bundle.putSerializable("puzzle_id", puzzle_id);
+        bundle.putSerializable("open_join", open_join);
+        bundle.putSerializable("group_id", group_id);
         ActivityUtils.startActivity(bundle, MallOnlineOrderActivity.class);
     }
 
@@ -184,6 +182,10 @@ public class MallOnlineOrderActivity extends BaseActivity {
 
                 mTvOrderMoney.setText("¥" + mallSettlementBean.getOrder_money());
                 mMallOrderMoney.setText("¥" + mallSettlementBean.getOrder_money());
+                int score = Integer.parseInt(mallSettlementBean.getIntegral());
+                if (score == 0) {
+                    cbSelector.setEnabled(false);
+                }
                 mIvIntegral.setText(mallSettlementBean.getIntegral());
 
                 cbSelector.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -245,7 +247,10 @@ public class MallOnlineOrderActivity extends BaseActivity {
                         LoginInfoUtil.getToken(),
                         order_sn,
                         payId,
-                        is_integral
+                        is_integral,
+                        puzzle_id,
+                        open_join,
+                        group_id
                 )).subscribe(new BaseObserver<WXPayBean>(mAt) {
                     @Override
                     public void onHandleSuccess(WXPayBean wxPayBean) throws IOException {
@@ -254,6 +259,7 @@ public class MallOnlineOrderActivity extends BaseActivity {
                 });
                 break;
             case YUEPAY:
+                Log.d(TAG, "pintuan" + puzzle_id + "  " + open_join + "  " + group_id);
                 new AlertDialog.Builder(mAt)
                         .setTitle("温馨提示")
                         .setMessage("确定用余额支付该订单吗？")
@@ -265,7 +271,10 @@ public class MallOnlineOrderActivity extends BaseActivity {
                                             LoginInfoUtil.getToken(),
                                             order_sn,
                                             payId,
-                                            is_integral
+                                            is_integral,
+                                            puzzle_id,
+                                            open_join,
+                                            group_id
                                     )).subscribe(new BaseObserver<WXPayBean>(mAt) {
                                         @Override
                                         public void onHandleSuccess(WXPayBean wxPayBean) throws IOException {
@@ -281,10 +290,11 @@ public class MallOnlineOrderActivity extends BaseActivity {
         }
 
     }
+
     //5.接收消息
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void intentEventBus(PaySuccessEvent paySuccessEvent) {
-        Intent intent = new Intent(MallOnlineOrderActivity.this, ShoporderActivity.class);
+        Intent intent = new Intent(MallOnlineOrderActivity.this, MallOrderListActivity.class);
         intent.putExtra("flag", "MallPaySuccess");
         startActivity(intent);
         finish();
@@ -331,15 +341,15 @@ public class MallOnlineOrderActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode==RESULT_OK){
-            if (requestCode==SELECTORADDRESS){
+        if (resultCode == RESULT_OK) {
+            if (requestCode == SELECTORADDRESS) {
                 String name = data.getStringExtra("name");
                 mTvClientName.setText(name);
                 String address = data.getStringExtra("address");
                 mTvClientAddress.setText(address);
                 String tel = data.getStringExtra("tel");
                 mTvClientPhone.setText(tel);
-                Log.d(TAG, "onActivityResult: "+name+address+tel);
+                Log.d(TAG, "onActivityResult: " + name + address + tel);
             }
         }
     }

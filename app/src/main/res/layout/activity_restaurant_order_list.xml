@@ -8,7 +8,7 @@
     <com.flyco.tablayout.SlidingTabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:background="#FFFFFF"
         app:tl_indicator_color="#5ED3AE"
         app:tl_indicator_corner_radius="1.5dp"

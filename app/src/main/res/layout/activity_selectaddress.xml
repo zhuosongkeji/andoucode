@@ -61,7 +61,7 @@
     </LinearLayout>
 
     <com.amap.api.maps2d.MapView
-        android:id="@+id/map"
+        android:id="@+id/mapView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline5"
@@ -112,10 +112,10 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintEnd_toEndOf="@+id/map"
-        app:layout_constraintLeft_toLeftOf="@id/map"
-        app:layout_constraintRight_toRightOf="@id/map"
-        app:layout_constraintStart_toStartOf="@+id/map"
+        app:layout_constraintEnd_toEndOf="@+id/mapView"
+        app:layout_constraintLeft_toLeftOf="@id/mapView"
+        app:layout_constraintRight_toRightOf="@id/mapView"
+        app:layout_constraintStart_toStartOf="@+id/mapView"
         app:srcCompat="@mipmap/location_on_map"/>
 
     <androidx.constraintlayout.widget.Guideline

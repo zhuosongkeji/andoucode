@@ -11,9 +11,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.adapter.BalancesubsidiaryAdapter;
 import com.zskjprojectj.andouclient.base.BaseFragment;
-import com.zskjprojectj.andouclient.entity.BalancesubsidiaryBean;
-
-import java.util.ArrayList;
 
 /**
  * 提现明细
@@ -22,7 +19,7 @@ public class WithdrawalsubsidiaryFragment extends BaseFragment {
     private RecyclerView mRecycler;
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
-        mRecycler = view.findViewById(R.id.rv_recycler);
+        mRecycler = view.findViewById(R.id.recyclerView);
         mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 

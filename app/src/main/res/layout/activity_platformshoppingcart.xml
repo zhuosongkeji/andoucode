@@ -14,7 +14,7 @@
         android:layout_alignParentTop="true">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_recycler"
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/pay_all"
@@ -52,7 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_marginLeft="@dimen/dp_10"
-            android:text="合计:￥0"
+            android:text="合计:¥0"
             android:textColor="@color/red" />
 
         <Button

@@ -4,19 +4,36 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/rootView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/dp_20"
-        android:layout_marginBottom="@dimen/dp_10"
-        android:text="@string/login_txt"
-        android:textColor="@color/black_28"
-        android:textSize="@dimen/typeface21sp" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:fitsSystemWindows="true">
+
+        <FrameLayout
+            android:id="@+id/backBtn"
+            android:layout_width="40dp"
+            android:layout_height="50dp"
+            android:paddingStart="15dp">
+
+            <ImageView
+                android:layout_width="8.5dp"
+                android:layout_height="15dp"
+                android:layout_gravity="center_vertical"
+                android:src="@mipmap/icon_back_black" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/rootView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/login_txt"
+            android:textColor="@color/black_28"
+            android:textSize="@dimen/typeface21sp" />
+    </FrameLayout>
 
     <EditText
-        android:id="@+id/et_loginphonenum"
+        android:id="@+id/registered_phonenum"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp_10"
@@ -24,11 +41,12 @@
         android:layout_marginRight="@dimen/dp_10"
         android:background="@drawable/shape_edit"
         android:drawableLeft="@mipmap/registered_phonenum"
-        android:drawablePadding="@dimen/dp_5"
+        android:drawablePadding="10dp"
         android:hint="@string/login_phonenum"
-        android:textColorHint="#919191"
-        android:textColor="#919191"
+        android:inputType="phone"
         android:padding="@dimen/dp_10"
+        android:textColor="#919191"
+        android:textColorHint="#919191"
         android:textSize="@dimen/typeface12sp" />
 
     <EditText
@@ -40,10 +58,12 @@
         android:layout_marginRight="@dimen/dp_10"
         android:background="@drawable/shape_edit"
         android:drawableLeft="@mipmap/editverification_code"
+        android:drawablePadding="10dp"
         android:hint="@string/login_pwd"
+        android:inputType="textPassword"
         android:padding="@dimen/dp_10"
-        android:textColorHint="#919191"
         android:textColor="#919191"
+        android:textColorHint="#919191"
         android:textSize="@dimen/typeface12sp" />
 
     <Button
@@ -64,7 +84,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/btn_newregistered"
+            android:id="@+id/btnNewregistered"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_10"
@@ -117,7 +137,7 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/iv_fingerprint_login"
+            android:id="@+id/fingerprint_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -141,5 +161,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="bottom"
-        android:background="@mipmap/icon_login_beijin" />
+        android:scaleType="centerCrop"
+        android:src="@mipmap/icon_login_beijin" />
 </LinearLayout>

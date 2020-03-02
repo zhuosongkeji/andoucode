@@ -66,6 +66,7 @@
             android:background="#f7f7f7" />
 
         <LinearLayout
+            android:id="@+id/typeContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#FFFFFF"
@@ -85,10 +86,13 @@
                 android:textSize="14sp" />
 
             <TextView
+                android:id="@+id/typeTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="招聘信息"
-                android:textColor="#ff959595"
+                android:gravity="end"
+                android:hint="请选择招聘信息"
+                android:textColor="#666666"
+                android:textColorHint="#ff959595"
                 android:textSize="14sp" />
 
             <ImageView
@@ -111,10 +115,7 @@
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingStart="15dp"
-
-            android:paddingTop="21dp"
-            android:paddingEnd="15dp"
-            android:paddingBottom="21dp">
+            android:paddingEnd="15dp">
 
             <TextView
                 android:layout_width="0dp"
@@ -129,7 +130,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@null"
+                android:gravity="end"
                 android:hint="请输入联系方式"
+                android:paddingTop="21dp"
+                android:paddingBottom="21dp"
                 android:textColor="#666666"
                 android:textColorHint="#ff959595"
                 android:textSize="14sp" />
@@ -148,9 +152,7 @@
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingStart="15dp"
-            android:paddingTop="21dp"
-            android:paddingEnd="15dp"
-            android:paddingBottom="21dp">
+            android:paddingEnd="15dp">
 
             <TextView
                 android:layout_width="0dp"
@@ -162,38 +164,32 @@
 
             <RadioButton
                 android:id="@+id/yes"
-                android:layout_width="13dp"
-                android:layout_height="13dp"
-                android:background="@drawable/selector_radiobutton"
-                android:button="@null"
-                android:checked="true" />
-
-            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="置顶"
+                android:button="@drawable/selector_radiobutton"
+                android:checked="true"
+                android:paddingTop="21dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="21dp"
+                android:text="  置顶"
                 android:textColor="#ff959595"
                 android:textSize="14sp" />
 
             <RadioButton
                 android:id="@+id/no"
-                android:layout_width="13dp"
-                android:layout_height="13dp"
-                android:layout_marginStart="33dp"
-                android:background="@drawable/selector_radiobutton"
-                android:button="@null" />
-
-            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="不置顶"
+                android:layout_marginStart="20dp"
+                android:button="@drawable/selector_radiobutton"
+                android:paddingTop="21dp"
+                android:paddingBottom="21dp"
+                android:text="  不置顶"
                 android:textColor="#ff959595"
                 android:textSize="14sp" />
         </RadioGroup>
 
         <TextView
+            android:id="@+id/submitBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"

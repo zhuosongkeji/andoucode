@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:fitsSystemWindows="true">
+
+        <FrameLayout
+            android:id="@+id/backBtn"
+            android:layout_width="40dp"
+            android:layout_height="50dp"
+            android:paddingStart="15dp">
+
+            <ImageView
+                android:layout_width="8.5dp"
+                android:layout_height="15dp"
+                android:layout_gravity="center_vertical"
+                android:src="@mipmap/icon_back_black" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/rootView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="注册"
+            android:textColor="@color/black_28"
+            android:textSize="@dimen/typeface21sp" />
+    </FrameLayout>
+
+    <EditText
+        android:id="@+id/mobileEdt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:background="@drawable/shape_edit"
+        android:drawableLeft="@mipmap/registered_phonenum"
+        android:drawablePadding="10dp"
+        android:hint="@string/login_phonenum"
+        android:inputType="phone"
+        android:padding="@dimen/dp_10"
+        android:textColor="#919191"
+        android:textColorHint="#919191"
+        android:textSize="@dimen/typeface12sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="@dimen/dp_10">
+
+        <EditText
+            android:id="@+id/codeEdt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:background="@drawable/shape_edit"
+            android:drawableLeft="@mipmap/verification_code"
+            android:drawablePadding="10dp"
+            android:hint="@string/registered_input_yanzhenma"
+            android:padding="@dimen/dp_10"
+            android:textColor="#919191"
+            android:textColorHint="#919191"
+            android:textSize="@dimen/typeface12sp" />
+
+        <Button
+            android:id="@+id/getCodeBtn"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_weight="1"
+            android:background="@drawable/shape_button"
+            android:padding="@dimen/dp_10"
+            android:text="@string/registered_yanzhenma"
+            android:textColor="@color/colorWhite" />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/passwordEdt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:background="@drawable/shape_edit"
+        android:drawableLeft="@mipmap/editverification_code"
+        android:drawablePadding="10dp"
+        android:hint="@string/login_pwd"
+        android:inputType="textPassword"
+        android:padding="@dimen/dp_10"
+        android:textColor="#919191"
+        android:textColorHint="#919191"
+        android:textSize="@dimen/typeface12sp" />
+
+    <Button
+        android:id="@+id/registered_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginRight="@dimen/dp_10"
+        android:background="@drawable/sl_bg_btn"
+        android:padding="@dimen/dp_10"
+        android:text="@string/login_registered"
+        android:textColor="@color/colorWhite" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginRight="@dimen/dp_10"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/registered_agree_xieyi_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:checked="true"
+            android:drawableLeft="@drawable/agree_selector" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:text="@string/registered_txt"
+            android:textSize="@dimen/typeface14sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/yinsi_xieyi_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="《用户协议》《隐私政策》"
+            android:textColor="#5ED3AE"
+            android:textSize="@dimen/typeface14sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="right">
+
+            <TextView
+                android:id="@+id/registered_login_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/login_txt1"
+                android:textColor="#5ED3AE"
+                android:textSize="@dimen/typeface14sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_20"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <View
+            android:layout_width="120dp"
+            android:layout_height="1dp"
+            android:background="@color/black_28" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp_20"
+            android:text="@string/registered_fast" />
+
+        <View
+            android:layout_width="120dp"
+            android:layout_height="1dp"
+            android:background="@color/black_28" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/registered_login_fast_qq_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@mipmap/icon_qq" />
+
+        <ImageView
+            android:id="@+id/registered_login_fast_weixin_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@mipmap/icon_weixin" />
+
+        <ImageView
+            android:id="@+id/registered_login_fast_weibo_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@mipmap/icon_weibo" />
+
+        <ImageView
+            android:id="@+id/registered_login_fast_baidu_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@mipmap/icon_baidu" />
+    </LinearLayout>
+</LinearLayout>

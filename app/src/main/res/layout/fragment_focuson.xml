@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -17,11 +18,12 @@
             android:layout_height="match_parent">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_recycler"
+                android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_above="@+id/pay_all"
-                android:background="@color/white" />
+                android:background="@color/white"
+                android:overScrollMode="never" />
         </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
 
@@ -32,7 +34,9 @@
             android:layout_alignParentBottom="true"
             android:background="@color/white"
             android:paddingLeft="@dimen/dp_10"
-            android:paddingRight="@dimen/dp_10">
+            android:paddingRight="@dimen/dp_10"
+            android:visibility="gone"
+            tools:visibility="visible">
 
             <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/cb_selectorcb"
@@ -58,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:layout_marginLeft="@dimen/dp_10"
-                android:text="合计:￥0"
+                android:text="合计:¥0"
                 android:textColor="@color/red" />
 
             <Button

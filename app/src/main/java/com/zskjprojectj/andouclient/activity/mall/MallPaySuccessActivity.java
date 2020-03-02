@@ -8,7 +8,6 @@ import android.widget.TextView;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
-import com.zskjprojectj.andouclient.utils.PaySuccessBackEvent;
 import com.zskjprojectj.andouclient.utils.PaySuccessEvent;
 
 import org.greenrobot.eventbus.EventBus;
@@ -18,10 +17,10 @@ import butterknife.OnClick;
 
 public class MallPaySuccessActivity extends BaseActivity {
 
-    @BindView(R.id.tv_header_title)
+    @BindView(R.id.mHeaderTitle)
     TextView mHeaderTitle;
 
-    @BindView(R.id.header_title_view)
+    @BindView(R.id.mTitleView)
     RelativeLayout mHeaderTitleView;
 
     @Override
@@ -46,15 +45,20 @@ public class MallPaySuccessActivity extends BaseActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().post(new PaySuccessEvent());
+    }
+
+    @Override
     protected BasePresenter createPresenter() {
         return null;
     }
 
-    @OnClick({R.id.iv_header_back, R.id.btn_see_order})
+    @OnClick({R.id.mHeaderBack, R.id.btn_see_order})
     public void clickBack(View view) {
         switch (view.getId()) {
-            case R.id.iv_header_back:
-                EventBus.getDefault().post(new PaySuccessBackEvent());
+            case R.id.mHeaderBack:
                 finish();
                 break;
             case R.id.btn_see_order:
@@ -63,7 +67,6 @@ public class MallPaySuccessActivity extends BaseActivity {
 //                intent.putExtra("flag","MallPaySuccess");
 //                startActivity(intent);
                 finish();
-                EventBus.getDefault().post(new PaySuccessEvent());
                 break;
 
             default:

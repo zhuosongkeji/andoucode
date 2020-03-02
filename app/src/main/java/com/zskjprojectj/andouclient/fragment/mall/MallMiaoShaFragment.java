@@ -1,10 +1,6 @@
 package com.zskjprojectj.andouclient.fragment.mall;
 
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -15,10 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.blankj.utilcode.util.TimeUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.zhuosongkj.android.library.app.BaseFragment;
-import com.zhuosongkj.android.library.model.BaseResult;
-import com.zhuosongkj.android.library.model.IListData;
 import com.zhuosongkj.android.library.util.PageLoadUtil;
-import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.mall.MallGoodsDetailsActivity;
 import com.zskjprojectj.andouclient.adapter.mall.MallMiaoShaAdapter;
@@ -35,6 +28,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import butterknife.BindView;
+
+import static com.zskjprojectj.andouclient.activity.mall.MallGoodsDetailsActivity.TYPE_MIAO_SHA;
 
 public class MallMiaoShaFragment extends BaseFragment {
 
@@ -78,9 +73,16 @@ public class MallMiaoShaFragment extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
         goodsAdapter.bindToRecyclerView(mRvGoodGoods);
         adapter.setOnItemChildClickListener(
-                (adapter1, view, position) -> MallGoodsDetailsActivity.start(adapter.getItem(position).id));
+                (adapter1, view, position) -> {
+                    MiaoShaGoods goods = adapter.getItem(position);
+                    MallGoodsDetailsActivity.Companion.start(goods.goods_id, TYPE_MIAO_SHA, goods.sec_id)
+                    ;
+                });
         goodsAdapter.setOnItemClickListener(
-                (adapter1, view, position) -> MallGoodsDetailsActivity.start(goodsAdapter.getItem(position).id));
+                (adapter1, view, position) -> {
+                    MiaoShaGoods goods = goodsAdapter.getItem(position);
+                    MallGoodsDetailsActivity.Companion.start(goods.goods_id, TYPE_MIAO_SHA, goods.sec_id);
+                });
         PageLoadUtil<MiaoShaGoods> pageLoadUtil = PageLoadUtil.get(mActivity, mRvMiaoShaGoods, adapter, refreshLayout);
         pageLoadUtil.load(() -> ApiUtils.getApiService().miaoShaList(miaoSha.getStartTimeParam(), pageLoadUtil.page)
                 , (refresh, data) -> {

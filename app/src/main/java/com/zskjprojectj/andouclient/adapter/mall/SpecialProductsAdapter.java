@@ -34,9 +34,9 @@ public class SpecialProductsAdapter extends BaseQuickAdapter<MallHomeDataBean.Ba
     protected void convert(BaseViewHolder helper, MallHomeDataBean.BargainGoodsBean item) {
 
         // 加载特价产品图片
-        Glide.with(mContext).load(UrlUtil.getImageUrl(item.getImg()))
+        Glide.with(mContext).load(UrlUtil.INSTANCE.getImageUrl(item.getImg()))
                 .transition(new DrawableTransitionOptions().crossFade())
-                .apply(new RequestOptions().placeholder(R.drawable.default_image))
+                .apply(new RequestOptions().placeholder(R.mipmap.ic_placeholder))
                 .into((ImageView) helper.getView(R.id.iv_products_image));
 
         //特价产品介绍

@@ -1,35 +1,24 @@
 package com.zskjprojectj.andouclient.fragment.hotel;
 
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zhuosongkj.android.library.app.BaseFragment;
-import com.zhuosongkj.android.library.model.BaseResult;
-import com.zhuosongkj.android.library.model.IListData;
 import com.zhuosongkj.android.library.util.PageLoadUtil;
-import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.HotelorderdetailsActivity;
 import com.zskjprojectj.andouclient.activity.HotelordergotoevaluationActivity;
 import com.zskjprojectj.andouclient.adapter.hotel.MeHotelAdapter;
 import com.zskjprojectj.andouclient.entity.hotel.MeHotelBean;
 import com.zskjprojectj.andouclient.http.ApiUtils;
-import com.zskjprojectj.andouclient.http.BaseObserver;
-import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 
-import java.io.IOException;
-import java.util.List;
-
 import butterknife.BindView;
-import io.reactivex.Observable;
 
 /**
  * 项目名称： andoucode
@@ -43,7 +32,7 @@ import io.reactivex.Observable;
  */
 public class MeHotelFragment extends BaseFragment {
 
-    @BindView(R.id.rv_recycler)
+    @BindView(R.id.recyclerView)
     RecyclerView mRvRecycler;
 
     @BindView(R.id.refreshLayout)
@@ -99,6 +88,6 @@ public class MeHotelFragment extends BaseFragment {
 
     @Override
     protected int getContentView() {
-        return R.layout.fragment_shopallorder;
+        return R.layout.fragment_mall_order_list;
     }
 }

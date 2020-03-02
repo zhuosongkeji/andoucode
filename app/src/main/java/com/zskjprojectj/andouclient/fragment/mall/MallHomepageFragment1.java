@@ -1,6 +1,5 @@
 package com.zskjprojectj.andouclient.fragment.mall;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -10,44 +9,35 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-
-
 import com.stx.xhb.xbanner.XBanner;
 import com.wihaohao.PageGridView;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.activity.ClassificationofgoodsActivity;
+import com.zskjprojectj.andouclient.activity.MallGoodsListActivity;
 import com.zskjprojectj.andouclient.activity.mall.MallGoodsDetailsActivity;
 import com.zskjprojectj.andouclient.activity.mall.MallMiaoShaActivity;
+import com.zskjprojectj.andouclient.activity.mall.MallSearchGoodsActivity;
 import com.zskjprojectj.andouclient.activity.mall.PinTuanActivity;
 import com.zskjprojectj.andouclient.adapter.mall.RecommendProductsAdapter;
 import com.zskjprojectj.andouclient.adapter.mall.SpecialProductsAdapter;
 import com.zskjprojectj.andouclient.base.BaseFragment;
-import com.zskjprojectj.andouclient.utils.UrlUtil;
 import com.zskjprojectj.andouclient.entity.mall.MallHomeDataBean;
 import com.zskjprojectj.andouclient.http.ApiException;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.utils.ScreenUtil;
+import com.zskjprojectj.andouclient.utils.UrlUtil;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
-/**
- * 项目名称： andoucode
- * 包名：com.zskjprojectj.andouclient.fragment.mall
- * author: Bin email:wangdabin2333@163.com
- * time: 2019/12/9 19:55
- * des:
- * 修改人：
- * 修改时间：
- * 修改备注：
- */
+
 public class MallHomepageFragment1 extends BaseFragment {
 
 
@@ -67,14 +57,10 @@ public class MallHomepageFragment1 extends BaseFragment {
 
 
     private List<MallHomeDataBean.BannerBean> banner;
-    //推荐产品
-    private String recommend = "1";
-    //特价产品
-    private String special = "1";
 
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
-
+        view.findViewById(R.id.temp4Btn).setOnClickListener(view1 -> ToastUtils.showShort("功能正在开发中..."));
     }
 
     @Override
@@ -100,7 +86,7 @@ public class MallHomepageFragment1 extends BaseFragment {
                         mGridView.setOnItemClickListener(new PageGridView.OnItemClickListener() {
                             @Override
                             public void onItemClick(int position) {
-                                ClassificationofgoodsActivity.getCataId(category.get(position).getId());
+                                MallGoodsListActivity.Companion.start(null, null, category.get(position).getId());
                             }
                         });
 
@@ -134,7 +120,7 @@ public class MallHomepageFragment1 extends BaseFragment {
         specialProductsAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                MallGoodsDetailsActivity.start(bargain_goods.get(position).getId());
+                MallGoodsDetailsActivity.Companion.start(bargain_goods.get(position).getId(), null, null);
             }
         });
 
@@ -150,7 +136,7 @@ public class MallHomepageFragment1 extends BaseFragment {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
 
-                MallGoodsDetailsActivity.start(recommend_goods.get(position).getId());
+                MallGoodsDetailsActivity.Companion.start(recommend_goods.get(position).getId(), null, null);
             }
         });
 
@@ -194,9 +180,9 @@ public class MallHomepageFragment1 extends BaseFragment {
                 //1、此处使用的Glide加载图片，可自行替换自己项目中的图片加载框架
                 //2、返回的图片路径为Object类型，你只需要强转成你传输的类型就行，切记不要胡乱强转！
                 MallHomeDataBean.BannerBean model1 = (MallHomeDataBean.BannerBean) model;
-                String url = UrlUtil.getImageUrl(model1.getImg());
+                String url = UrlUtil.INSTANCE.getImageUrl(model1.getImg());
                 Glide.with(mAty).load(url).apply(new RequestOptions()
-                        .placeholder(R.drawable.default_image).error(R.drawable.default_image)).into((ImageView) view);
+                        .placeholder(R.mipmap.ic_placeholder)).into((ImageView) view);
 
             }
         });
@@ -209,23 +195,18 @@ public class MallHomepageFragment1 extends BaseFragment {
         switch (view.getId()) {
 
             case R.id.rl_search:
-                startActivity(new Intent(mAty, ClassificationofgoodsActivity.class));
+                MallSearchGoodsActivity.Companion.start();
                 break;
-
             case R.id.img_back:
                 mAty.finish();
                 break;
             //推荐
             case R.id.tv_recommend_see_more:
-                Intent recommenIntent = new Intent(mAty, ClassificationofgoodsActivity.class);
-                recommenIntent.putExtra("recommend", recommend);
-                mAty.startActivity(recommenIntent);
+                MallGoodsListActivity.Companion.start("1", null, null);
                 break;
             //特价
             case R.id.tv_special_see_more:
-                Intent specialIntent = new Intent(mAty, ClassificationofgoodsActivity.class);
-                specialIntent.putExtra("special", special);
-                mAty.startActivity(specialIntent);
+                MallGoodsListActivity.Companion.start(null, "1", null);
                 break;
             //搜索按钮
             case R.id.search_image:

@@ -72,7 +72,7 @@
                 <TextView
                     android:id="@+id/tv_cartgoodprice"
                     android:layout_width="wrap_content"
-                    android:text="￥119"
+                    android:text="¥119"
                     android:textColor="@color/red"
                     android:layout_height="wrap_content"/>
                <Button

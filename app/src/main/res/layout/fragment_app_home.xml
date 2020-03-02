@@ -25,14 +25,6 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="@dimen/dp_15"
-                    android:src="@mipmap/back_icon"
-                    android:visibility="gone" />
-
                 <TextView
                     android:id="@+id/tv_cityinfo"
                     android:layout_width="wrap_content"
@@ -59,7 +51,7 @@
                 android:background="@drawable/shape_layout">
 
                 <TextView
-                    android:id="@+id/search_edittext"
+                    android:id="@+id/mSearchEditText"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="15dp"
@@ -206,19 +198,51 @@
                 android:id="@+id/rv_merchants"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:paddingLeft="@dimen/dp_15"
-                android:paddingBottom="@dimen/dp_20" />
+                android:paddingBottom="@dimen/dp_20"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
                 android:background="@color/colorGray" />
 
-            <include
-                layout="@layout/main_online_broadcast"
-                android:visibility="gone"
+            <ImageView
+                android:id="@+id/tempBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:scaleType="fitStart"
+                android:src="@mipmap/ic_temp" />
 
-                />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/colorGray" />
+
+            <ImageView
+                android:id="@+id/temp2Btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:paddingEnd="-3dp"
+                android:scaleType="fitStart"
+                android:src="@mipmap/temp2" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/colorGray" />
+
+            <ImageView
+                android:id="@+id/temp3Btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:paddingEnd="-3dp"
+                android:scaleType="fitStart"
+                android:src="@mipmap/temp3" />
 
             <View
                 android:layout_width="match_parent"
@@ -433,6 +457,14 @@
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                     app:spanCount="2" />
             </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="25dp"
+                android:gravity="center"
+                android:text="~已经滑到最底下了~"
+                android:textColor="#A7A7A7" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </LinearLayout>

@@ -14,10 +14,10 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class BindSuccessActivity extends BaseActivity {
-    @BindView(R.id.tv_header_title)
+    @BindView(R.id.mHeaderTitle)
     TextView mHeaderTitle;
 
-    @BindView(R.id.header_title_view)
+    @BindView(R.id.mTitleView)
     RelativeLayout mHeaderTitleView;
     @Override
     protected void setRootView() {
@@ -44,12 +44,12 @@ public class BindSuccessActivity extends BaseActivity {
     protected BasePresenter createPresenter() {
         return null;
     }
-    @OnClick({R.id.iv_header_back, R.id.btn_jumpmain})
+    @OnClick({R.id.mHeaderBack, R.id.btn_jumpmain})
     public void clickBack(View view)
     {
         switch (view.getId())
         {
-            case  R.id.iv_header_back:
+            case  R.id.mHeaderBack:
                 finish();
                 break;
             case R.id.btn_jumpmain:

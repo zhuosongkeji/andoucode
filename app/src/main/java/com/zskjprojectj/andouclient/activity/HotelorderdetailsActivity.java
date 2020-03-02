@@ -15,19 +15,16 @@ import com.bumptech.glide.request.RequestOptions;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
-import com.zskjprojectj.andouclient.utils.UrlUtil;import com.zskjprojectj.andouclient.base.BaseUrl;
+import com.zskjprojectj.andouclient.utils.UrlUtil;
 import com.zskjprojectj.andouclient.entity.hotel.MeHotelBean;
 import com.zskjprojectj.andouclient.entity.hotel.MeHotelDetailsBean;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.model.HotelOrderStatus;
-import com.zskjprojectj.andouclient.model.Order;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
-import com.zskjprojectj.andouclient.utils.ToastUtil;
 
 import java.io.IOException;
-import java.io.Serializable;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -38,16 +35,16 @@ import butterknife.OnClick;
 
 public class HotelorderdetailsActivity extends BaseActivity {
 
-    @BindView(R.id.header_title_view)
+    @BindView(R.id.mTitleView)
     RelativeLayout mTitleView;
-    @BindView(R.id.tv_header_title)
+    @BindView(R.id.mHeaderTitle)
     TextView mHeaderTitle;
 
 
     private Button btn_hotelordercancle;
     private MeHotelBean meHotelBean;
 
-    @OnClick(R.id.iv_header_back)
+    @OnClick(R.id.mHeaderBack)
     public void clickView(){
         finish();
     }
@@ -145,7 +142,7 @@ public class HotelorderdetailsActivity extends BaseActivity {
         ((TextView) findViewById(R.id.tv_house_price)).setText("¥" + meHotelDetailsBean.getPrice());
         ((TextView) findViewById(R.id.tv_house_all_price)).setText("¥" + meHotelDetailsBean.getMoney());
         ((TextView) findViewById(R.id.tv_all_price)).setText(meHotelDetailsBean.getPay_money());
-        ((TextView) findViewById(R.id.tv_integral)).setText("-￥"+meHotelDetailsBean.getIntegral());
+        ((TextView) findViewById(R.id.tv_integral)).setText("-¥"+meHotelDetailsBean.getIntegral());
 
         //入住时间
         String start_time = meHotelDetailsBean.getStart_time();
@@ -160,8 +157,8 @@ public class HotelorderdetailsActivity extends BaseActivity {
         ((TextView) findViewById(R.id.tv_order_number)).setText(meHotelDetailsBean.getBook_sn());
         ((TextView) findViewById(R.id.created_at)).setText(meHotelDetailsBean.getCreated_at());
         ((TextView) findViewById(R.id.pay_way)).setText(meHotelDetailsBean.getPay_way());
-        Glide.with(mAt).load(UrlUtil.getImageUrl(meHotelDetailsBean.getImg())).apply(new RequestOptions()
-                .placeholder(R.drawable.default_image).error(R.drawable.default_image)).into((ImageView) findViewById(R.id.img_iconleft));
+        Glide.with(mAt).load(UrlUtil.INSTANCE.getImageUrl(meHotelDetailsBean.getImg())).apply(new RequestOptions()
+                .placeholder(R.mipmap.ic_placeholder)).into((ImageView) findViewById(R.id.img_iconleft));
 
     }
 

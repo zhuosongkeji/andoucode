@@ -57,7 +57,7 @@
                 android:id="@+id/oldPriceTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="￥128"
+                android:text="¥128"
                 android:textColor="#ffb6b6b6"
                 android:textSize="12sp" />
 
@@ -97,7 +97,7 @@
                 android:textSize="12sp" />
 
             <TextView
-                android:id="@+id/tv_buy_now"
+                android:id="@+id/mBuyNow"
                 android:layout_width="65dp"
                 android:layout_height="28dp"
                 android:background="@drawable/bg_pin_tuan_03"

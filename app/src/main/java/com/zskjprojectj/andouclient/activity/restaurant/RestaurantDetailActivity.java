@@ -1,9 +1,7 @@
 package com.zskjprojectj.andouclient.activity.restaurant;
 
 import android.app.Activity;
-import android.content.ComponentName;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -50,8 +48,8 @@ import java.util.Date;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-import static com.zskjprojectj.andouclient.activity.MyaddressActivity.KEY_DATA;
 import static com.zskjprojectj.andouclient.http.BaseObserver.REQUEST_CODE_LOGIN;
+import static com.zskjprojectj.andouclient.utils.ConstantKt.KEY_DATA;
 
 public class RestaurantDetailActivity extends BaseActivity {
 
@@ -164,7 +162,7 @@ public class RestaurantDetailActivity extends BaseActivity {
         ViewUtil.setText(mActivity, R.id.likeTxt, restaurant.praise_num);
         ViewUtil.setText(mActivity, R.id.addressTxt, restaurant.address);
         Glide.with(mActivity)
-                .load(UrlUtil.getImageUrl(restaurant.banner_img))
+                .load(UrlUtil.INSTANCE.getImageUrl(restaurant.banner_img))
                 .apply(new RequestOptions()
                         .placeholder(R.mipmap.ic_placeholder)
                         .centerCrop())

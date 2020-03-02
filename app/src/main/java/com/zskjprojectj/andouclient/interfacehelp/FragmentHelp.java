@@ -2,9 +2,9 @@ package com.zskjprojectj.andouclient.interfacehelp;
 
 
 import com.zskjprojectj.andouclient.fragment.AppHomeFragment;
-import com.zskjprojectj.andouclient.fragment.InfoPageFragment;
-import com.zskjprojectj.andouclient.fragment.MePageFragment;
-import com.zskjprojectj.andouclient.fragment.MerchantsPageFragment;
+import com.zskjprojectj.andouclient.fragment.MessageFragment;
+import com.zskjprojectj.andouclient.fragment.MeFragment;
+import com.zskjprojectj.andouclient.fragment.MerchantListFragment;
 import com.zskjprojectj.andouclient.fragment.TieBaFragment;
 
 /**
@@ -12,10 +12,10 @@ import com.zskjprojectj.andouclient.fragment.TieBaFragment;
  */
 public class FragmentHelp {
     private static AppHomeFragment appHomeFragment;//首页
-    private static MerchantsPageFragment merchantsPageFragment;//商家
-    private static InfoPageFragment infoPageFragment;//信息
+    private static MerchantListFragment merchantListFragment;//商家
+    private static MessageFragment messageFragment;//信息
     private static TieBaFragment tieBaFragment;//贴吧
-    private static MePageFragment mePageFragment;//我的
+    private static MeFragment meFragment;//我的
     public  static ChangeFragment schangeFragment;//改变选中的fragment接口
     /**
      * 依次初始化每个碎片对象
@@ -31,23 +31,23 @@ public class FragmentHelp {
     /**
      * 商家
      */
-    public static MerchantsPageFragment getMerchantsPageFragment()
+    public static MerchantListFragment getMerchantListFragment()
     {
-        if (merchantsPageFragment == null) {
-            merchantsPageFragment = new MerchantsPageFragment();
+        if (merchantListFragment == null) {
+            merchantListFragment = new MerchantListFragment();
         }
-        return merchantsPageFragment;
+        return merchantListFragment;
     }
     /**
      * 信息
      */
-    public static  InfoPageFragment getInfoPageFragment()
+    public static MessageFragment getMessageFragment()
     {
-        if (infoPageFragment==null)
+        if (messageFragment ==null)
         {
-            infoPageFragment=new InfoPageFragment();
+            messageFragment =new MessageFragment();
         }
-        return infoPageFragment;
+        return messageFragment;
     }
     /**
      * 贴吧
@@ -62,13 +62,13 @@ public class FragmentHelp {
     /**
      * 我的
      */
-    public static MePageFragment getMePageFragment()
+    public static MeFragment getMePageFragment()
     {
-        if (mePageFragment==null)
+        if (meFragment ==null)
         {
-            mePageFragment=new MePageFragment();
+            meFragment =new MeFragment();
         }
-        return  mePageFragment;
+        return meFragment;
     }
     /**
      * 设置被选中的Fragment

@@ -11,18 +11,18 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/iv_headPic"
+            android:id="@+id/IvHeadPic"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:background="@mipmap/ic_touxiang"
             android:scaleType="centerCrop" />
 
         <TextView
-            android:id="@+id/tv_name"
+            android:id="@+id/mTvName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_10"
-            android:layout_toRightOf="@+id/iv_headPic"
+            android:layout_toRightOf="@+id/IvHeadPic"
             android:text="暮看日西沉"
             android:textColor="#646464"
             android:textSize="@dimen/typeface12sp" />
@@ -31,8 +31,8 @@
             android:id="@+id/tv_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_name"
-            android:layout_alignStart="@+id/tv_name"
+            android:layout_below="@+id/mTvName"
+            android:layout_alignStart="@+id/mTvName"
             android:layout_marginTop="@dimen/dp_4"
             android:text="2019-08-19  10:20"
             android:textColor="#969696"

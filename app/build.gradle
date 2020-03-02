@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
-
+apply plugin: 'com.bugtags.library.plugin'
 android {
     compileSdkVersion 28
     signingConfigs {
@@ -22,14 +22,15 @@ android {
         applicationId "com.zskjprojectj.andouclient"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 1
-        versionName "0.5.1"
+        versionCode 14
+        versionName "0.6.4"
         javaCompileOptions { annotationProcessorOptions { includeCompileClasspath = true } }
         //  buildConfigField "String", "API_HOST", "\"http://lv.qingheliying.cn\""//API Host
         // buildConfigField "String", "API_HOST", "\"http://apis.juhe.cn/cook/\""
 
         buildConfigField "String", "API_HOST", "\"http://andou.zhuosongkj.com/index.php/\""
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
     }
     buildTypes {
         release {
@@ -40,28 +41,17 @@ android {
             signingConfig signingConfigs.release
         }
     }
-    allprojects {
-        repositories {
-            flatDir {
-                dirs 'libs'
-            }
-            google()
-            jcenter()
-            maven { url 'https://dl.bintray.com/lingguoding/maven/' }
-            maven { url "https://jitpack.io" }
-            maven { url "https://maven.google.com" }
-        }
-    }
-    android {
-
-        //指定jdk版本
-        compileOptions {
-            sourceCompatibility JavaVersion.VERSION_1_8
-            targetCompatibility JavaVersion.VERSION_1_8
-        }
+    compileOptions {
+        targetCompatibility = 1.8
+        sourceCompatibility = 1.8
     }
 }
-
+bugtags {
+    //自动上传符号表功能配置，如果需要根据 build varint 配置，请参考帮助中心->符号表->Android 符号表->配置自动上传符号表
+    appKey "bcb6809d0785875785a9599892aceb19"  //这里是你的 appKey
+    appSecret "53896b4411df187b1876a1bce547eb49"    //这里是你的 appSecret，管理员在设置页可以查看
+    mappingUploadEnabled true
+}
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
@@ -133,13 +123,12 @@ dependencies {
     //搜索功能
     implementation 'com.amap.api:search:latest.integration'
 
-    implementation 'com.amap.api:map2d:latest.integration'
+    implementation 'com.amap.api:3dmap:latest.integration'
 
     //旋转木马相册
     implementation 'com.chenlittleping:recyclercoverflow:1.0.6'
     //城市定位
-    //implementation 'com.zaaach:citypicker:2.0.3'	//必选
-    implementation project(':citypicker')
+    implementation 'com.zaaach:citypicker:2.0.3'    //必选
     //RatingBar
     implementation 'com.github.ome450901:SimpleRatingBar:1.4.3'
 
@@ -178,7 +167,9 @@ dependencies {
     implementation project(path: ':recycler_banner_library')
     implementation "androidx.core:core-ktx:+"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-}
-repositories {
-    mavenCentral()
+
+    implementation 'com.tencent.bugly:crashreport_upgrade:latest.release'
+    implementation 'com.tencent.bugly:nativecrashreport:latest.release'
+
+    implementation 'com.bugtags.library:bugtags-lib:latest.integration'
 }

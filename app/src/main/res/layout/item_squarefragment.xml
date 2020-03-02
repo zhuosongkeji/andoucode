@@ -62,7 +62,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="80dp"
+            android:overScrollMode="never"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:spanCount="3" />
 
@@ -82,12 +83,14 @@
                 tools:text="2019-08-21  13:49" />
 
             <LinearLayout
+                android:id="@+id/likeView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingTop="17dp">
 
                 <ImageView
+                    android:id="@+id/likeIcn"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
                     android:scaleType="centerInside"

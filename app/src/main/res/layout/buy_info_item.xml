@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -15,7 +16,7 @@
         android:paddingBottom="21dp">
 
         <ImageView
-            android:id="@+id/iv_online_order_image"
+            android:id="@+id/mOrderImg"
             android:layout_width="83dp"
             android:layout_height="@dimen/dp_75"
             android:src="@drawable/mall_goods_details_pic" />
@@ -27,7 +28,7 @@
             android:layout_marginLeft="@dimen/dp_15"
             android:maxLines="2"
             android:ellipsize="end"
-            android:layout_toRightOf="@+id/iv_online_order_image"
+            android:layout_toRightOf="@+id/mOrderImg"
             android:text="亲润孕妇化妆品套装BB霜遮瑕 孕妇护肤品豆...... "
             android:textColor="#404040"
             android:textSize="@dimen/typeface12sp" />
@@ -36,9 +37,9 @@
             android:id="@+id/tv_online_order_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/iv_online_order_image"
+            android:layout_alignTop="@+id/mOrderImg"
             android:layout_alignParentEnd="true"
-            android:text="¥288"
+            android:text="0"
             android:textColor="#F54029"
             android:textSize="@dimen/typeface12sp" />
 
@@ -46,9 +47,9 @@
             android:id="@+id/tv_online_order_option"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/iv_online_order_image"
+            android:layout_alignBottom="@+id/mOrderImg"
             android:layout_marginLeft="@dimen/dp_15"
-            android:layout_toRightOf="@+id/iv_online_order_image"
+            android:layout_toRightOf="@+id/mOrderImg"
             android:text="四件套"
             android:maxLines="1"
             android:ellipsize="end"
@@ -60,9 +61,9 @@
             android:id="@+id/tv_online_order_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/iv_online_order_image"
+            android:layout_alignBottom="@+id/mOrderImg"
             android:layout_alignParentEnd="true"
-            android:text="X1"
+            tools:text="X1"
             android:textColor="#787878"
             android:textSize="@dimen/typeface12sp" />
 

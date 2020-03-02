@@ -22,10 +22,10 @@ class PinTuanGoodsAdapter : BaseAdapter<PinTuanGoods>(R.layout.layout_pin_tuan_g
                 .setText(R.id.newPriceTxt, FormatUtil.getMoneyString(item.price))
         val textView = helper.getView<TextView>(R.id.oldPriceTxt)
         textView.paint.flags = Paint.STRIKE_THRU_TEXT_FLAG
-        textView.text = "￥${FormatUtil.getMoneyString(item.oldPrice)}"
+        textView.text = "¥${FormatUtil.getMoneyString(item.oldPrice)}"
         Glide.with(mContext)
                 .load(item.img)
                 .into((helper.getView<View>(R.id.img) as ImageView))
-        helper.addOnClickListener(R.id.tv_buy_now)
+        helper.addOnClickListener(R.id.mBuyNow)
     }
 }

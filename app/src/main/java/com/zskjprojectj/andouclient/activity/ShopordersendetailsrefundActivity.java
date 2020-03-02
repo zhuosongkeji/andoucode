@@ -3,11 +3,9 @@ package com.zskjprojectj.andouclient.activity;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,12 +13,10 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,21 +24,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureMimeType;
-import com.yhao.floatwindow.FloatWindow;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.adapter.CauseRecyclerAdapter;
+import com.zskjprojectj.andouclient.adapter.TuiKuanAdapter;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
 import com.zskjprojectj.andouclient.entity.RefundReasonBean;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
-import com.zskjprojectj.andouclient.model.Order;
 import com.zskjprojectj.andouclient.model.OrderDetail;
-import com.zskjprojectj.andouclient.utils.BitmapUtil;
 import com.zskjprojectj.andouclient.utils.GlideEngine;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
@@ -63,28 +56,19 @@ import okhttp3.RequestBody;
  */
 public class ShopordersendetailsrefundActivity extends BaseActivity {
 
-    @BindView(R.id.tv_header_title)
+    @BindView(R.id.mHeaderTitle)
     TextView mHeaderTitle;
 
-    @BindView(R.id.header_title_view)
+    @BindView(R.id.mTitleView)
     RelativeLayout mTitleView;
 
-    @BindView(R.id.img_picleft)
-    ImageView mPicLeft;
 
-    @BindView(R.id.tv_goods_name)
-    TextView mGoodsName;
 
-    @BindView(R.id.tv_goods_details)
-    TextView mGoodsDetails;
+    @BindView(R.id.recyclerView)
+    RecyclerView recyclerView;
 
-    @BindView(R.id.tv_goods_price)
-    TextView mGoodsPrice;
 
-    @BindView(R.id.tv_goods_num)
-    TextView mGoodsNum;
-
-    @BindView(R.id.tv_cause)
+    @BindView(R.id.ly_refundreason)
     TextView mCause;
 
     @BindView(R.id.tv_tui_price)
@@ -99,11 +83,11 @@ public class ShopordersendetailsrefundActivity extends BaseActivity {
     private RelativeLayout select_cause;
     private Dialog bottomDialog;
     private String type;
-    private OrderDetail.Goodsdetail goodsdetail;
+    private OrderDetail orderdetail;
     private String reasonId;
     private static final int REQUEST_CODE_SELECT_IMG = 123;
     private String content;
-    private String image;
+    private String image = "";
 
     @Override
     protected void setRootView() {
@@ -131,17 +115,13 @@ public class ShopordersendetailsrefundActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-        goodsdetail = (OrderDetail.Goodsdetail) getIntent().getSerializableExtra("details");
+        orderdetail = (OrderDetail) getIntent().getSerializableExtra("details");
+        mTuiPrice.setText(orderdetail.order_money);
+        TuiKuanAdapter adapter=new TuiKuanAdapter();
+        adapter.bindToRecyclerView(recyclerView);
+        adapter.setNewData(orderdetail.details);
 
-        Glide.with(mAt).load(UrlUtil.getImageUrl(goodsdetail.img)).apply(new RequestOptions()
-                .error(R.drawable.default_image).placeholder(R.drawable.default_image)).into(mPicLeft);
-        mGoodsDetails.setText(getSpec(goodsdetail.attr_value));
-        mGoodsName.setText(goodsdetail.name);
-        mGoodsPrice.setText("¥" + goodsdetail.price);
-        mTuiPrice.setText("¥" + goodsdetail.price);
-        mGoodsNum.setText("X" + goodsdetail.num);
-        select_cause = findViewById(R.id.select_cause);
-        select_cause.setOnClickListener(new View.OnClickListener() {
+        mCause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 HttpRxObservable.getObservable(ApiUtils.getApiService().refundreason()).subscribe(new BaseObserver<List<RefundReasonBean>>(mAt) {
@@ -156,13 +136,7 @@ public class ShopordersendetailsrefundActivity extends BaseActivity {
         });
     }
 
-    private String getSpec(String[] attr_value) {
-        StringBuilder builder = new StringBuilder();
-        for (String s : attr_value) {
-            builder.append(s).append("+");
-        }
-        return builder.substring(0, builder.length() - 1);
-    }
+
 
     @Override
     public void getDataFromServer() {
@@ -234,7 +208,7 @@ public class ShopordersendetailsrefundActivity extends BaseActivity {
     }
 
 
-    public static void start(String type, OrderDetail.Goodsdetail goodsdetail) {
+    public static void start(String type, OrderDetail goodsdetail) {
 
         Bundle bundle = new Bundle();
         bundle.putString("type", type);
@@ -244,10 +218,10 @@ public class ShopordersendetailsrefundActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.iv_header_back, R.id.btn_commit})
+    @OnClick({R.id.mHeaderBack, R.id.btn_commit})
     public void clickView(View view) {
         switch (view.getId()) {
-            case R.id.iv_header_back:
+            case R.id.mHeaderBack:
                 finish();
                 break;
             case R.id.btn_commit:
@@ -255,20 +229,10 @@ public class ShopordersendetailsrefundActivity extends BaseActivity {
                 if (TextUtils.isEmpty(reasonId)) {
                     ToastUtil.showToast("请选择退货理由!");
                 } else {
-                    if ((String) mImage.getTag() == null) {
-                        image = "";
-                    }
-                    Log.d(TAG, "clickView: "
-                            + LoginInfoUtil.getUid() + "\n"
-                            + LoginInfoUtil.getToken() + "\n"
-                            + goodsdetail.id + "\n"
-                            + reasonId + "\n"
-                            + content + "\n"
-                            + (String) mImage.getTag() + "\n");
                     HttpRxObservable.getObservable(ApiUtils.getApiService().mallrefund(
                             LoginInfoUtil.getUid(),
                             LoginInfoUtil.getToken(),
-                            goodsdetail.id,
+                            orderdetail.order_id,
                             reasonId,
                             content,
                             image
@@ -299,22 +263,18 @@ public class ShopordersendetailsrefundActivity extends BaseActivity {
         if (requestCode == REQUEST_CODE_SELECT_IMG) {
             imageView = mImage;
         }
-
-
         File file = new File(path);
         RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpg"), file);
         MultipartBody.Part body = MultipartBody.Part.createFormData("img", file.getName(), requestFile);
         RequestBody uid = RequestBody.create(MediaType.parse("multipart/form-data"), LoginInfoUtil.getUid());
         RequestBody token = RequestBody.create(MediaType.parse("multipart/form-data"), LoginInfoUtil.getToken());
         ImageView finalImageView = imageView;
-        String finalPath = path;
         HttpRxObservable.getObservable(ApiUtils.getApiService().uploadImg(uid, token, body)).subscribe(new BaseObserver<String>(mAt) {
 
             @Override
             public void onHandleSuccess(String s) throws IOException {
-                finalImageView.setTag(s);
-                BitmapUtil.recycle(finalImageView);
-                finalImageView.setImageBitmap(BitmapFactory.decodeFile(finalPath));
+                image = s;
+                Glide.with(mAt).load(UrlUtil.INSTANCE.getImageUrl(s)).into(finalImageView);
             }
 
             @Override
@@ -323,11 +283,5 @@ public class ShopordersendetailsrefundActivity extends BaseActivity {
             }
         });
 
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        BitmapUtil.recycle(mImage);
     }
 }

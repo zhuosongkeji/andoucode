@@ -1,137 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:background="#F7F7F7"
+    android:orientation="vertical"
+    android:paddingBottom="10dp">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_10">
+        android:background="#FFFFFF"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10">
+
+            <TextView
+                android:id="@+id/nameTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:textColor="#323232"
+                android:textSize="@dimen/typeface15sp"
+                android:textStyle="bold"
+                tools:text="卓松科技" />
+
+            <TextView
+                android:id="@+id/mobileTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/dp_10"
+                android:textColor="#323232"
+                android:textSize="@dimen/typeface15sp"
+                android:textStyle="bold"
+                tools:text="18688888888" />
+        </RelativeLayout>
 
         <TextView
-            android:id="@+id/nameTxt"
+            android:id="@+id/addressTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_10"
-            android:text="卓松科技"
-            android:textColor="#323232"
-            android:textSize="@dimen/typeface15sp" />
+            android:layout_marginTop="@dimen/dp_18"
+            android:text="重庆市\t南岸区\t南坪\t重庆市南岸区南坪万达广场1号写字楼"
+            android:textColor="#787878"
+            android:textSize="@dimen/typeface12sp" />
 
-        <TextView
-            android:id="@+id/mobileTxt"
+        <View
             android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_marginLeft="@dimen/dp_15"
+            android:layout_marginTop="@dimen/dp_15"
+            android:layout_marginRight="@dimen/dp_15"
+            android:background="#E8E8E8" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/dp_17"
             android:layout_marginRight="@dimen/dp_10"
-            android:text="18688888888"
-            android:textColor="#323232"
-            android:textSize="@dimen/typeface15sp" />
-    </RelativeLayout>
+            android:paddingBottom="10dp">
 
-    <TextView
-        android:id="@+id/addressTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dp_10"
-        android:layout_marginTop="@dimen/dp_18"
-        android:text="重庆市\t南岸区\t南坪\t重庆市南岸区南坪万达广场1号写字楼"
-        android:textColor="#787878"
-        android:textSize="@dimen/typeface12sp" />
-
-    <View
-        android:layout_marginRight="@dimen/dp_15"
-        android:layout_marginLeft="@dimen/dp_15"
-        android:layout_width="wrap_content"
-        android:layout_height="1dp"
-        android:layout_marginTop="@dimen/dp_15"
-        android:background="#E8E8E8" />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_17"
-        android:layout_marginRight="@dimen/dp_10">
-
-        <!--        <LinearLayout-->
-        <!--            android:id="@+id/defaultCkb"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:orientation="horizontal"-->
-        <!--            android:layout_height="@dimen/dp_20">-->
-        <!--            <ImageView-->
-        <!--                android:layout_marginLeft="12dp"-->
-        <!--                android:layout_gravity="center"-->
-        <!--                android:src="@mipmap/addresscheck"-->
-        <!--                android:layout_width="wrap_content"-->
-        <!--                android:layout_height="wrap_content"/>-->
-        <!--            <TextView-->
-        <!--                android:layout_gravity="center"-->
-        <!--                android:textColor="@color/colorNavy"-->
-        <!--                android:layout_marginLeft="@dimen/dp_10"-->
-        <!--                android:text="默认地址"-->
-        <!--                android:textSize="@dimen/typeface15sp"-->
-        <!--                android:layout_width="wrap_content"-->
-        <!--                android:layout_height="wrap_content"/>-->
-        <!--        </LinearLayout>-->
-        <CheckBox
-            android:id="@+id/defaultCkb"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="默认地址"
-            android:textColor="@color/colorNavy"
-            android:textSize="@dimen/typeface15sp" />
-
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <ImageView
+            <CheckBox
+                android:id="@+id/defaultCbx"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:src="@mipmap/addresstheeditoricon" />
+                android:layout_marginStart="12dp"
+                android:text="默认地址"
+                android:textColor="@color/colorNavy"
+                android:textSize="@dimen/typeface15sp" />
 
-            <TextView
-                android:id="@+id/editBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="@dimen/dp_100"
-                android:paddingRight="@dimen/dp_5"
-                android:text="编辑"
-                android:textColor="#787878" />
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:src="@mipmap/addresstodeleteicon" />
-
-            <TextView
-                android:id="@+id/deleteBtn"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="5dp"
-                android:text="删除"
-                android:textColor="#787878" />
-        </LinearLayout>
+                android:gravity="center"
+                android:orientation="horizontal">
 
-    </RelativeLayout>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/addresstheeditoricon" />
+
+                <TextView
+                    android:id="@+id/editBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="@dimen/dp_100"
+                    android:paddingRight="@dimen/dp_5"
+                    android:text="编辑"
+                    android:textColor="#787878" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/addresstodeleteicon" />
+
+                <TextView
+                    android:id="@+id/deleteBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
+                    android:text="删除"
+                    android:textColor="#787878" />
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
 </LinearLayout>

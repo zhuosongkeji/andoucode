@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.zskjprojectj.andouclient">
+    package="com.zskjprojectj.andouclient"
+    tools:ignore="ProtectedPermissions">
     <!-- 拨打电话的权限，这里必须要添加权限，否则当点击电话号码的时候程序会崩溃 -->
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.INTERNET" /> <!-- 允许程序访问WiFi网络信息 -->
@@ -18,7 +19,14 @@
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" /> <!-- 用于申请获取蓝牙信息进行室内定位 -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" /> <!-- 腾讯Bugly -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
     <application
         android:name=".base.BaseApplication"
@@ -29,8 +37,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
-        tools:ignore="AllowBackup,GoogleAppIndexingWarning"
+        tools:ignore="AllowBackup,GoogleAppIndexingWarning,LockedOrientationActivity"
         tools:targetApi="m">
+        <activity android:name=".activity.MessageListActivity"></activity>
+        <activity android:name=".activity.TieBaMessageActivity" />
+        <activity
+            android:name=".activity.mall.MallSearchGoodsActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.SplashActivity"
             android:screenOrientation="portrait">
@@ -40,9 +53,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.TieBaReleaseActivity"/>
+        <activity android:name=".activity.TieBaReleaseActivity" />
         <activity android:name=".activity.mall.PinTuanActivity" />
-        <activity android:name=".activity.SelectLocationActivity" />
+        <activity
+            android:name=".activity.SelectLocationActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/DefaultCityPickerTheme" />
         <activity android:name=".activity.mall.MallMiaoShaActivity" />
         <activity
             android:name=".activity.restaurant.RestaurantSearchActivity"
@@ -56,7 +72,6 @@
         <activity android:name=".activity.CommentSuccessActivity" />
         <activity android:name=".activity.mall.MallPaySuccessActivity" />
         <activity android:name=".activity.TieBaDetailsActivity" />
-
         <activity
             android:name=".activity.mall.MallOnlineOrderActivity"
             android:screenOrientation="portrait" />
@@ -96,13 +111,13 @@
             android:name=".activity.hotel.HotelFilterActivity"
             android:screenOrientation="portrait" /> <!-- 酒店预约-列表 -->
         <activity
-            android:name=".activity.hotel.HotelActivity"
+            android:name=".activity.hotel.HotelHomeActivity"
             android:screenOrientation="portrait" /> <!-- 酒店预约-主页 -->
         <activity
             android:name=".activity.LoginActivity"
             android:screenOrientation="portrait" /> <!-- 注册界面 -->
         <activity
-            android:name=".activity.RegisteredActivity"
+            android:name=".activity.RegisterActivity"
             android:screenOrientation="portrait" /> <!-- 主界面 -->
         <activity
             android:name=".activity.ForgetActivity"
@@ -133,7 +148,7 @@
             android:name=".activity.InvitationActivity"
             android:screenOrientation="portrait" /> <!-- 商城订单 -->
         <activity
-            android:name=".activity.ShoporderActivity"
+            android:name=".activity.MallOrderListActivity"
             android:screenOrientation="portrait" /> <!-- 酒店订单 -->
         <activity
             android:name=".activity.HotelorderActivity"
@@ -164,10 +179,10 @@
             android:name=".activity.MycollectionActivity"
             android:screenOrientation="portrait" /> <!-- 我的收藏 -->
         <activity
-            android:name=".activity.BrowsingActivity"
+            android:name=".activity.HistoryActivity"
             android:screenOrientation="portrait" /> <!-- 浏览痕迹 -->
         <activity
-            android:name=".activity.MyaddressActivity"
+            android:name=".activity.MyAddressActivity"
             android:screenOrientation="portrait" /> <!-- 我的地址 -->
         <activity
             android:name=".activity.MyscoreActivity"
@@ -236,20 +251,20 @@
             android:name=".activity.ShopordersendetailsrefundActivity"
             android:screenOrientation="portrait" /> <!-- 商城申请退款 -->
         <activity
-            android:name=".activity.ClassificationofgoodsActivity"
+            android:name=".activity.MallGoodsListActivity"
             android:screenOrientation="portrait" /> <!-- 分类页详细 -->
         <activity
-            android:name=".activity.MallMainActivity"
+            android:name=".activity.MallHomeActivity"
             android:screenOrientation="portrait" /> <!-- 全面屏 -->
         <!-- 地址选择 -->
         <activity
-            android:name=".activity.NewaddressActivity"
+            android:name=".activity.NewAddressActivity"
             android:screenOrientation="portrait" /> <!-- 新增地址 -->
         <activity
             android:name=".activity.ShareLocationActivity"
             android:screenOrientation="portrait" /> <!-- 添加新地址 -->
         <activity
-            android:name=".activity.MesettingActivity"
+            android:name=".activity.SettingActivity"
             android:screenOrientation="portrait" /> <!-- 个人中心设置界面 -->
         <activity
             android:name=".activity.ModifyaboutusActivity"
@@ -313,7 +328,21 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.ApplyforsuccessfulActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" /> <!-- 腾讯Bugly -->
+        <activity
+            android:name="com.tencent.bugly.beta.ui.BetaActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale"
+            android:theme="@android:style/Theme.Translucent" />
+
+        <provider
+            android:name=".utils.BuglyFileProvider"
+            android:authorities="${applicationId}.fileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
     </application>
 
 </manifest>

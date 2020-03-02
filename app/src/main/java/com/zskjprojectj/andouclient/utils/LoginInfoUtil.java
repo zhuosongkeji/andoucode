@@ -18,4 +18,8 @@ public class LoginInfoUtil {
         SharedPreferencesManager.getInstance().setString(User.KEY_UID, uid);
         SharedPreferencesManager.getInstance().setString(User.KEY_TOKEN, token);
     }
+
+    public static Boolean isLogin() {
+        return !LoginInfoUtil.getToken().isEmpty();
+    }
 }

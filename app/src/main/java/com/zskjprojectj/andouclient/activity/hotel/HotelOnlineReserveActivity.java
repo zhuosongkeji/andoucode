@@ -58,9 +58,9 @@ import butterknife.OnClick;
 
 public class HotelOnlineReserveActivity extends BaseActivity {
 
-    @BindView(R.id.header_title_view)
+    @BindView(R.id.mTitleView)
     RelativeLayout mHeaderTitleView;
-    @BindView(R.id.tv_header_title)
+    @BindView(R.id.mHeaderTitle)
     TextView mHeaderTitle;
 
     //人数
@@ -116,8 +116,8 @@ public class HotelOnlineReserveActivity extends BaseActivity {
         home_id = hotelSettlementBean.getRoom().getId();
 
 
-        Glide.with(mAt).load(UrlUtil.getImageUrl(hotelSettlementBean.getRoom().getImg()))
-                .apply(new RequestOptions().placeholder(R.drawable.default_image).error(R.drawable.default_image)).into((ImageView) findViewById(R.id.hotel_image));
+        Glide.with(mAt).load(UrlUtil.INSTANCE.getImageUrl(hotelSettlementBean.getRoom().getImg()))
+                .apply(new RequestOptions().placeholder(R.mipmap.ic_placeholder)).into((ImageView) findViewById(R.id.hotel_image));
 
         ((TextView) findViewById(R.id.hotel_name)).setText(hotelSettlementBean.getRoom().getName());
         ((TextView) findViewById(R.id.hotel_des)).setText(hotelSettlementBean.getRoom().getHouse_name());
@@ -196,10 +196,10 @@ public class HotelOnlineReserveActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.iv_header_back, R.id.bt_minus, R.id.bt_add, R.id.tv_reserve, R.id.rv_slector_time})
+    @OnClick({R.id.mHeaderBack, R.id.bt_minus, R.id.bt_add, R.id.tv_reserve, R.id.rv_slector_time})
     public void clickBack(View view) {
         switch (view.getId()) {
-            case R.id.iv_header_back:
+            case R.id.mHeaderBack:
                 finish();
                 break;
             //减

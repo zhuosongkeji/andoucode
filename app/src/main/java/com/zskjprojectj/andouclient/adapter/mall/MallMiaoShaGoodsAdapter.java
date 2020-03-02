@@ -18,12 +18,12 @@ public class MallMiaoShaGoodsAdapter extends BaseAdapter<MiaoShaGoods> {
 
     @Override
     protected void convert(BaseViewHolder helper, MiaoShaGoods item) {
-        helper.setText(R.id.priceTxt, "￥" + FormatUtil.getMoneyString(item.kill_price));
+        helper.setText(R.id.priceTxt, "¥" + FormatUtil.getMoneyString(item.kill_price));
         helper.itemView.postDelayed(() -> {
             ImageView img = helper.itemView.findViewById(R.id.img);
             img.getLayoutParams().height = img.getWidth();
             Glide.with(helper.itemView.getContext())
-                    .load(UrlUtil.getImageUrl(item.img))
+                    .load(UrlUtil.INSTANCE.getImageUrl(item.img))
                     .into((ImageView) helper.getView(R.id.img));
         }, 1);
     }

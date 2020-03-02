@@ -22,6 +22,6 @@ public class MerchantAdapter extends BaseQuickAdapter<MerchantHomeTypeBean.Merch
 
     @Override
     protected void convert(BaseViewHolder helper, MerchantHomeTypeBean.MerchantTypeBean item) {
-        helper.setText(R.id.tv_popu_unlimited,item.getType_name());
+        helper.setText(R.id.mPopuunlimited,item.getType_name());
     }
 }

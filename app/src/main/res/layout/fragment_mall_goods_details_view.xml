@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
@@ -25,20 +26,20 @@
         <TextView
             android:id="@+id/tv_products_des"
             android:layout_width="match_parent"
-            android:layout_height="33dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/dp_14"
             android:ellipsize="end"
-            android:maxLines="2"
-            android:text="飞利浦(PHILIPS) 电动牙刷 成人 声波震动钻石系列......."
+            android:singleLine="true"
             android:textColor="#202020"
-            android:textSize="@dimen/typeface12sp" />
+            android:textSize="@dimen/typeface12sp"
+            tools:text="飞利浦(PHILIPS) 电动牙刷 成人 声波震动钻石系列......." />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_5"
             android:layout_gravity="center_vertical"
+            android:layout_marginTop="@dimen/dp_5"
             android:orientation="horizontal">
 
             <TextView
@@ -56,7 +57,8 @@
                 android:layout_marginLeft="@dimen/dp_2"
                 android:text="1299"
                 android:textColor="#FE5F50"
-                android:textSize="@dimen/typeface10sp" />
+                android:textSize="13sp"
+                android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
 

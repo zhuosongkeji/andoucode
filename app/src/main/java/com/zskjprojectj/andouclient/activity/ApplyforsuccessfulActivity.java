@@ -12,9 +12,9 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class ApplyforsuccessfulActivity extends BaseActivity {
-    @BindView(R.id.header_title_view)
+    @BindView(R.id.mTitleView)
     RelativeLayout mTitleView;
-    @BindView(R.id.tv_header_title)
+    @BindView(R.id.mHeaderTitle)
     TextView mHeaderTitle;
     @Override
     protected void setRootView() {
@@ -36,7 +36,7 @@ public class ApplyforsuccessfulActivity extends BaseActivity {
     public void getDataFromServer() {
 
     }
-    @OnClick(R.id.iv_header_back)
+    @OnClick(R.id.mHeaderBack)
     public void clickView() {
         finish();
     }

@@ -10,12 +10,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.activity.ShoporderforthegoodsdetailsActivity;
 import com.zskjprojectj.andouclient.activity.ToevaluateActivity;
-import com.zskjprojectj.andouclient.adapter.MeShopforthegoodsAdapter;
 import com.zskjprojectj.andouclient.adapter.MeShoptoevaluateAdapter;
 import com.zskjprojectj.andouclient.base.BaseFragment;
-import com.zskjprojectj.andouclient.entity.MeShopforthegoodsBean;
 import com.zskjprojectj.andouclient.entity.MeShoptoevaluateBean;
 
 import java.util.ArrayList;
@@ -28,7 +25,7 @@ public class MeShoptoevaluateFragment extends BaseFragment {
     private ArrayList<MeShoptoevaluateBean> mDataList;
     @Override
     protected void initViews(View view, Bundle savedInstanceState) {
-        mRecycler=view.findViewById(R.id.rv_recycler);
+        mRecycler=view.findViewById(R.id.recyclerView);
         mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 

@@ -15,7 +15,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
-        android:layout_marginBottom="200dp"
         android:text="暂无内容"
         android:textColor="#999999"
         android:textSize="14sp" />
