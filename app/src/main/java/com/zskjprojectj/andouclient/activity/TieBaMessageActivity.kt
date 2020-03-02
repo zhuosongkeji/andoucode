@@ -16,9 +16,6 @@ class TieBaMessageActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         ActionBarUtil.setTitle(mActivity, "贴吧消息")
         likeMessageBtn.setOnClickListener {
-            MessageListActivity.start(0)
-        }
-        commentMessageBtn.setOnClickListener {
             MessageListActivity.start(3)
         }
         commentMessageBtn.setOnClickListener {
@@ -44,6 +41,10 @@ class TieBaMessageActivity : BaseActivity() {
                 })
     }
 
+    override fun onResume() {
+        super.onResume()
+        loadData()
+    }
 
     override fun getContentView() = R.layout.activity_tie_ba_message
 }

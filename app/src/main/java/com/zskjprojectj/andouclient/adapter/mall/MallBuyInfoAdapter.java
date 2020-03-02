@@ -35,14 +35,14 @@ public class MallBuyInfoAdapter extends BaseQuickAdapter<MallSettlementBean.Deta
     protected void convert(BaseViewHolder helper, MallSettlementBean.DetailsBean item) {
 
         Glide.with(mContext)
-             .load(UrlUtil.INSTANCE.getImageUrl(item.getImg()))
-             .apply(new RequestOptions()
-             .placeholder(R.mipmap.ic_placeholder)
-             )
-             .into((ImageView) helper.getView(R.id.mOrderImg));
+                .load(UrlUtil.INSTANCE.getImageUrl(item.getImg()))
+                .apply(new RequestOptions()
+                        .placeholder(R.mipmap.ic_placeholder)
+                )
+                .into((ImageView) helper.getView(R.id.mOrderImg));
 
-        helper.setText(R.id.tv_online_order_name,item.getName());
-        helper.setText(R.id.tv_online_order_price,"¥"+item.getPrice());
+        helper.setText(R.id.tv_online_order_name, item.getName());
+        helper.setText(R.id.tv_online_order_price, "¥" + item.getPrice());
 
         StringBuffer buffer = new StringBuffer();
         List<String> attr_value = item.getAttr_value();
@@ -50,9 +50,8 @@ public class MallBuyInfoAdapter extends BaseQuickAdapter<MallSettlementBean.Deta
             buffer.append(s).append("-");
         }
         String stringOption = buffer.substring(0, buffer.length() - 1);
-        helper.setText(R.id.tv_online_order_option,stringOption);
-        helper.setText(R.id.tv_online_order_number,"X"+item.getNum());
-
+        helper.setText(R.id.tv_online_order_option, stringOption);
+        helper.setText(R.id.tv_online_order_number, "X" + item.getNum());
 
 
     }

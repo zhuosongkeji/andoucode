@@ -14,7 +14,7 @@ import com.zskjprojectj.andouclient.model.TieBa
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil
 import kotlinx.android.synthetic.main.item_squarefragment.view.*
 
-class SquareAdapter : BaseAdapter<TieBa>(R.layout.item_squarefragment) {
+class TieBaListAdapter : BaseAdapter<TieBa>(R.layout.item_squarefragment) {
 
     override fun convert(helper: BaseViewHolder, item: TieBa) {
         val adapter = SquareImgAdapter()

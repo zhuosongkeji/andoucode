@@ -1279,4 +1279,17 @@ interface ApiService {
                         @Query("type_id") type_id: Int? = 1,
                         @Query("page") page: Int = 1
     ): Observable<BaseResult<MessageTypeResponse>>
+
+    @GET("api/info/list")
+    fun messageList(@Query("uid") uid: String?,
+                    @Query("level") level: Int = 3,
+                    @Query("type_id") type_id: Int? = 1,
+                    @Query("page") page: Int = 1
+    ): Observable<BaseResult<MessageListResponse>>
+
+    @FormUrlEncoded
+    @POST("api/info/read")
+    fun readMessage(@Field("uid") uid: String?,
+                    @Field("info_id") info_id: String?
+    ): Observable<BaseResult<MessageListResponse>>
 }

@@ -13,18 +13,33 @@
         android:paddingStart="15dp"
         android:paddingEnd="15dp">
 
-        <com.makeramen.roundedimageview.RoundedImageView
-            android:id="@+id/avatarImg"
+        <FrameLayout
             android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/ic_placeholder"
-            app:riv_oval="true" />
+            android:layout_height="40dp">
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/avatarImg"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/ic_placeholder"
+                app:riv_oval="true" />
+
+            <ImageView
+                android:id="@+id/unreadImg"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                tools:visibility="visible"
+                android:layout_gravity="end"
+                android:src="@drawable/bg_badge"
+                android:visibility="gone" />
+        </FrameLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
+            android:layout_weight="1"
             android:orientation="vertical">
 
             <LinearLayout
@@ -32,34 +47,40 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/fromUserNameTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="亲润旗舰店"
                     android:textColor="#60D3AC"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    tools:text="亲润旗舰店" />
 
                 <TextView
+                    android:id="@+id/controlTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="  评论了你的帖子  "
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
                     android:textColor="#ff333333"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    tools:text="评论了你的帖子" />
 
                 <TextView
+                    android:id="@+id/postTitleTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=" 《亲润旗舰店的崛起》 "
                     android:textColor="#60D3AC"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    tools:text=" 《亲润旗舰店的崛起》 " />
             </LinearLayout>
 
             <TextView
+                android:id="@+id/dateTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:text="2019-09-15    16:23"
                 android:textColor="#ff999999"
-                android:textSize="10sp"
-                android:text="2019-09-15    16:23" />
+                android:textSize="10sp" />
         </LinearLayout>
     </LinearLayout>
 
