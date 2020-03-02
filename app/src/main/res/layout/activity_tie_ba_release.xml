@@ -132,6 +132,7 @@
                 android:background="@null"
                 android:gravity="end"
                 android:hint="请输入联系方式"
+                android:inputType="phone"
                 android:paddingTop="21dp"
                 android:paddingBottom="21dp"
                 android:textColor="#666666"
