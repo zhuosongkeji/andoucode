@@ -24,7 +24,7 @@ class SquareImgAdapter : BaseAdapter<String>(R.layout.squareimg_view) {
                     .isNotPreviewDownload(true)
                     .loadImageEngine(GlideEngine.createGlideEngine())
                     .openExternalPreview(helper.adapterPosition, data.map {
-                        LocalMedia(UrlUtil.getImageUrl(item), 0, PictureMimeType.ofImage(), PictureMimeType.JPEG)
+                        LocalMedia(UrlUtil.getImageUrl(it), 0, PictureMimeType.ofImage(), PictureMimeType.JPEG)
                     });
         }
     }
