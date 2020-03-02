@@ -10,6 +10,7 @@ import androidx.appcompat.app.AlertDialog;
 import com.tencent.mm.opensdk.constants.ConstantsAPI;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
+import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
@@ -32,7 +33,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 
 
     private IWXAPI api;
-
+    private String exData;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,15 +60,21 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 
     @Override
     public void onReq(BaseReq baseReq) {
-
+        if (baseReq instanceof PayReq) {
+            exData = ((PayReq) baseReq).extData;
+        }
     }
 
     @Override
     public void onResp(BaseResp baseResp) {
-         finish();
+        finish();
         if (baseResp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
             if (baseResp.errCode == 0) {
-             startActivity(new Intent(WXPayEntryActivity.this, MallPaySuccessActivity.class));
+                if ("tiebapay".equals(exData)) {
+                    MallPaySuccessActivity.start("tieba");
+                } else {
+                    startActivity(new Intent(WXPayEntryActivity.this, MallPaySuccessActivity.class));
+                }
             } else if (baseResp.errCode == -1) {
                 ToastUtil.showToast("支付错误" + baseResp.errStr);
 

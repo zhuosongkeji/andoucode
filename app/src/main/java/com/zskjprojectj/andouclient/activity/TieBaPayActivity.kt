@@ -21,11 +21,11 @@ import com.zskjprojectj.andouclient.adapter.mall.PayWaysAdapter
 import com.zskjprojectj.andouclient.entity.WXPayBean
 import com.zskjprojectj.andouclient.http.ApiUtils
 import com.zskjprojectj.andouclient.model.WxPay
-import com.zskjprojectj.andouclient.utils.Constants
-import com.zskjprojectj.andouclient.utils.KEY_DATA
-import com.zskjprojectj.andouclient.utils.LoginInfoUtil
-import com.zskjprojectj.andouclient.utils.ToastUtil
+import com.zskjprojectj.andouclient.utils.*
 import kotlinx.android.synthetic.main.activity_tie_ba_pay.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 class TieBaPayActivity : BaseActivity() {
     private var payId: String? = null
@@ -36,6 +36,7 @@ class TieBaPayActivity : BaseActivity() {
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        EventBus.getDefault().register(this)
         ActionBarUtil.setTitle(mActivity, "置顶选择")
         post_id = intent.getLongExtra(KEY_DATA, 0L)
         RequestUtil.request(mActivity, true, false,
@@ -141,7 +142,14 @@ class TieBaPayActivity : BaseActivity() {
         req.nonceStr = wxPayBean.noncestr
         req.timeStamp = wxPayBean.timestamp
         req.sign = wxPayBean.sign
+        req.extData = "tiebapay"
         msgApi.sendReq(req)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onPaySuccess(event: PaySuccessEvent) {
+        setResult(Activity.RESULT_OK)
+        finish()
     }
 
     companion object {
@@ -155,4 +163,9 @@ class TieBaPayActivity : BaseActivity() {
     }
 
     override fun getContentView() = R.layout.activity_tie_ba_pay
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
+    }
 }
