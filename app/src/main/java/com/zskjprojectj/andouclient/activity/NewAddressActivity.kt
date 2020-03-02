@@ -129,7 +129,7 @@ class NewAddressActivity : BaseActivity() {
             val detailStr = detailEdt.text.toString()
             when {
                 nameStr.isEmpty() -> ToastUtils.showShort("收件人不能为空!")
-                RegexUtils.isMobileSimple(mobileStr) -> ToastUtils.showShort("手机号不正确!")
+                !RegexUtils.isMobileSimple(mobileStr) -> ToastUtils.showShort("手机号不正确!")
                 detailStr.isEmpty() -> ToastUtils.showShort("详细地址不能为空!")
                 selectedAddress == null -> ToastUtils.showShort("请选择省市区!")
                 else -> {
