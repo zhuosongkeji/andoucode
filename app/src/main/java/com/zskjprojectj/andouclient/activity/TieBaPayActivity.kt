@@ -1,14 +1,15 @@
 package com.zskjprojectj.andouclient.activity
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
-import androidx.appcompat.widget.ToolbarWidgetWrapper
 import androidx.core.os.bundleOf
 import com.blankj.utilcode.util.ActivityUtils
+import com.blankj.utilcode.util.ToastUtils
 import com.tencent.mm.opensdk.modelpay.PayReq
 import com.tencent.mm.opensdk.openapi.WXAPIFactory
 import com.zhuosongkj.android.library.app.BaseActivity
@@ -19,6 +20,8 @@ import com.zskjprojectj.andouclient.activity.mall.MallPaySuccessActivity
 import com.zskjprojectj.andouclient.adapter.mall.PayWaysAdapter
 import com.zskjprojectj.andouclient.entity.WXPayBean
 import com.zskjprojectj.andouclient.http.ApiUtils
+import com.zskjprojectj.andouclient.model.WxPay
+import com.zskjprojectj.andouclient.utils.Constants
 import com.zskjprojectj.andouclient.utils.KEY_DATA
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil
 import com.zskjprojectj.andouclient.utils.ToastUtil
@@ -29,7 +32,8 @@ class TieBaPayActivity : BaseActivity() {
     private val WXPAY = 1
     private val YUEPAY = 4
     var post_id = 0L
-    var method = ""
+    var method = "1"
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ActionBarUtil.setTitle(mActivity, "置顶选择")
@@ -47,11 +51,22 @@ class TieBaPayActivity : BaseActivity() {
             clearBtnState()
             if (!it.isSelected)
                 it.isSelected = true
+            when {
+                oneDayBtn.isSelected -> {
+                    price.text = "¥10"
+                }
+                twoDayBtn.isSelected -> {
+                    price.text = "¥20"
+                }
+                threeDayBtn.isSelected -> {
+                    price.text = "¥30"
+                }
+            }
         }
         oneDayBtn.setOnClickListener(clickListener)
         twoDayBtn.setOnClickListener(clickListener)
         threeDayBtn.setOnClickListener(clickListener)
-
+        oneDayBtn.performClick()
         pay.setOnClickListener {
             when {
                 oneDayBtn.isSelected -> {
@@ -60,12 +75,12 @@ class TieBaPayActivity : BaseActivity() {
                 twoDayBtn.isSelected -> {
                     method = "2"
                 }
-                twoDayBtn.isSelected -> {
+                threeDayBtn.isSelected -> {
                     method = "3"
                 }
             }
             if (TextUtils.isEmpty(payId)) {
-                ToastUtil.showToast("请选择支付方式")
+                ToastUtils.showShort("请选择支付方式")
             } else {
                 when (payId?.toInt()) {
                     WXPAY -> {
@@ -95,7 +110,7 @@ class TieBaPayActivity : BaseActivity() {
                                                         payId)
                                             },
                                             {
-                                                ActivityUtils.startActivity(MallPaySuccessActivity::class.java)
+                                                MallPaySuccessActivity.start("tieBa")
                                                 setResult(Activity.RESULT_OK)
                                                 finish()
                                             })
@@ -113,17 +128,17 @@ class TieBaPayActivity : BaseActivity() {
         threeDayBtn.isSelected = false
     }
 
-    private fun startWXPay(wxPayBean: WXPayBean) {
-        val msgApi = WXAPIFactory.createWXAPI(mActivity, wxPayBean.appid)
+    private fun startWXPay(wxPayBean: WxPay) {
+        val msgApi = WXAPIFactory.createWXAPI(mActivity, Constants.APP_ID)
         //将该app注册到微信
-        msgApi.registerApp(wxPayBean.appid)
+        msgApi.registerApp(Constants.APP_ID)
         //        创建支付请求对象
         val req = PayReq()
-        req.appId = wxPayBean.appid
-        req.partnerId = wxPayBean.mch_id
-        req.prepayId = wxPayBean.prepay_id
+        req.appId = Constants.APP_ID
+        req.partnerId = wxPayBean.partnerid
+        req.prepayId = wxPayBean.prepayid
         req.packageValue = "Sign=WXPay"
-        req.nonceStr = wxPayBean.nonce_str
+        req.nonceStr = wxPayBean.noncestr
         req.timeStamp = wxPayBean.timestamp
         req.sign = wxPayBean.sign
         msgApi.sendReq(req)

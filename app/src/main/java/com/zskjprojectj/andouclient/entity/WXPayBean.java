@@ -36,6 +36,7 @@ public class WXPayBean {
     private String trade_type;
     private String timestamp;
 
+
     public String getAppid() {
         return appid;
     }

@@ -23,6 +23,7 @@
             android:layout_marginTop="94dp"
             android:src="@mipmap/bg_pay_success"/>
         <TextView
+            android:id="@+id/tv_hintText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="支付成功"
