@@ -54,25 +54,21 @@ public class BusinessresidenceActivity extends BaseActivity {
         restaurant_businessin_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              // jumpActivity(RestaurantbusinessinActivity.class);
-                MallmerchantsbusinessinActivity.start(mAt, UserIn.Role.Type.RESTAURANT,REQUEST_CODE_JOIN);
+                MallMerchantJoinActivity.Companion.start(mAt, UserIn.Role.Type.RESTAURANT, REQUEST_CODE_JOIN);
             }
         });
         //酒店商家
         hotel_businessin_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-               // jumpActivity(HotelbusinessinActivity.class);
-                MallmerchantsbusinessinActivity.start(mAt, UserIn.Role.Type.HOTEL,REQUEST_CODE_JOIN);
+                MallMerchantJoinActivity.Companion.start(mAt, UserIn.Role.Type.HOTEL, REQUEST_CODE_JOIN);
             }
         });
         //商城商家
         mallmerchants_businessin_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              //  jumpActivity(MallmerchantsbusinessinActivity.class);
-                MallmerchantsbusinessinActivity.start(mAt, UserIn.Role.Type.MALL,REQUEST_CODE_JOIN);
+                MallMerchantJoinActivity.Companion.start(mAt, UserIn.Role.Type.MALL, REQUEST_CODE_JOIN);
             }
         });
     }
@@ -90,6 +86,7 @@ public class BusinessresidenceActivity extends BaseActivity {
             finish();
         }
     }
+
     @Override
     protected BasePresenter createPresenter() {
         return null;

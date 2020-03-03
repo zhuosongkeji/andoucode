@@ -82,7 +82,7 @@
         android:background="#DDDDDD" />
 
     <LinearLayout
-        android:id="@+id/ry_selectaddress"
+        android:id="@+id/selectDistrictBtn"
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:gravity="center_vertical">
@@ -195,7 +195,7 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/detailEdt"
+                android:id="@+id/addressDetailEdt"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/dp_5"

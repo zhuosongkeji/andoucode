@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#F7F7F7"
     android:orientation="vertical"
-    tools:context=".activity.MallmerchantsbusinessinActivity">
+    tools:context=".activity.MallMerchantJoinActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -17,13 +17,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorNavy">
-                <include layout="@layout/base_title_view" />
-
-            </LinearLayout>
             <LinearLayout
                 android:id="@+id/restaurantTypeContainer"
                 android:layout_width="match_parent"
@@ -172,39 +165,59 @@
             </LinearLayout>
 
             <LinearLayout
-
+                android:id="@+id/selectDistrictBtn"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="1px"
                 android:background="#FFFFFF"
-                android:gravity="center_vertical"
-                android:paddingStart="15dp"
-                android:paddingEnd="15dp">
+                android:gravity="center_vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="店铺地址"
-                    android:textColor="#ff646464"
-                    android:textSize="12sp" />
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="11dp"
+                    android:text="店铺所在地区:"
+                    android:textColor="#646464" />
+
+                <LinearLayout
+                    android:id="@+id/selectLocationBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:paddingStart="20dp">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@mipmap/location_gps_black" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="15dp"
+                        android:text="定位"
+                        android:textColor="#333333"
+                        android:textSize="12sp" />
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/addressTxt"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_marginEnd="5dp"
                     android:layout_weight="1"
-                    android:background="@android:color/transparent"
                     android:gravity="end|center_vertical"
-                    android:hint="请选择"
-                    android:textColor="#ff969696"
+                    android:hint="点击选择"
+                    android:textColor="#646464"
                     android:textColorHint="#ffCCCCCC"
-                    android:textSize="12sp" />
+                    android:textSize="@dimen/typeface13sp" />
 
                 <ImageView
-                    android:layout_width="8dp"
-                    android:layout_height="12dp"
-                    android:layout_marginStart="9dp"
-                    android:scaleType="fitCenter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
                     android:src="@mipmap/ic_right_02" />
             </LinearLayout>
 
@@ -224,18 +237,19 @@
                     android:textColor="#ff646464"
                     android:textSize="12sp" />
 
-                <TextView
+                <EditText
                     android:id="@+id/addressDetailEdt"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="30dp"
+                    android:layout_marginLeft="@dimen/dp_5"
                     android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:gravity="end|center_vertical"
-                    android:hint="请输入详细地址"
-                    android:textColor="#ff969696"
+                    android:background="@null"
+                    android:gravity="end|center"
+                    android:hint="请输入收件详细地址"
+                    android:paddingLeft="@dimen/dp_11"
+                    android:textColor="#646464"
                     android:textColorHint="#ffCCCCCC"
-                    android:textSize="12sp" />
+                    android:textSize="@dimen/typeface12sp" />
 
                 <ImageView
                     android:layout_width="8dp"
