@@ -23,7 +23,6 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
         BarUtils.transparentStatusBar(this)
         BarUtils.setStatusBarLightMode(this, true)
-        versionTxt.text = "V${AppUtils.getAppVersionName()}"
         if (needShowProtocolDialog()) {
             showProtocolDialog()
         } else {
