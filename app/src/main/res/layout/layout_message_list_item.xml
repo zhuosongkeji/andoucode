@@ -29,10 +29,10 @@
                 android:id="@+id/unreadImg"
                 android:layout_width="10dp"
                 android:layout_height="10dp"
-                tools:visibility="visible"
                 android:layout_gravity="end"
                 android:src="@drawable/bg_badge"
-                android:visibility="gone" />
+                android:visibility="gone"
+                tools:visibility="visible" />
         </FrameLayout>
 
         <LinearLayout
@@ -77,7 +77,7 @@
                 android:id="@+id/dateTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:text="2019-09-15    16:23"
                 android:textColor="#ff999999"
                 android:textSize="10sp" />

@@ -201,7 +201,7 @@
             android:name=".activity.HotelbusinessinActivity"
             android:screenOrientation="portrait" /> <!-- 酒店商家入驻 -->
         <activity
-            android:name=".activity.MallmerchantsbusinessinActivity"
+            android:name=".activity.MallMerchantJoinActivity"
             android:screenOrientation="portrait" /> <!-- 商城商家入驻 -->
         <activity
             android:name=".activity.DownloadappActivity"
@@ -261,9 +261,7 @@
         <activity
             android:name=".activity.NewAddressActivity"
             android:screenOrientation="portrait" /> <!-- 新增地址 -->
-        <activity
-            android:name=".activity.ShareLocationActivity"
-            android:screenOrientation="portrait" /> <!-- 添加新地址 -->
+        <!-- 添加新地址 -->
         <activity
             android:name=".activity.SettingActivity"
             android:screenOrientation="portrait" /> <!-- 个人中心设置界面 -->
@@ -302,7 +300,6 @@
             android:exported="true"
             android:label="@string/app_name"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"
             android:taskAffinity="com.zskjprojectj.andouclient"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 

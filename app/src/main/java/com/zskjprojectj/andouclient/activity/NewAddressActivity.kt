@@ -46,7 +46,7 @@ class NewAddressActivity : BaseActivity() {
             }, {
                 nameEdt.setText(it.data?.name)
                 mobileEdt.setText(it.data?.mobile)
-                detailEdt.setText(it.data?.address)
+                addressDetailEdt.setText(it.data?.address)
                 defaultCbx.isChecked = it.data?.is_defualt == "1"
                 val province = Province()
                 province.id = it.data?.province_id?.toInt() ?: 0
@@ -61,7 +61,7 @@ class NewAddressActivity : BaseActivity() {
                 addressTxt.text = selectedAddress.toString()
             })
         }
-        ry_selectaddress.setOnClickListener {
+        selectDistrictBtn.setOnClickListener {
             val dialog = AddressBottomDialog.show(mActivity)
             dialog.setTitles("收货地址")
             dialog.setAddressProvider(object : AddressProvider {
@@ -126,10 +126,10 @@ class NewAddressActivity : BaseActivity() {
         saveBtn.setOnClickListener {
             val nameStr = nameEdt.text.toString()
             val mobileStr = mobileEdt.text.toString()
-            val detailStr = detailEdt.text.toString()
+            val detailStr = addressDetailEdt.text.toString()
             when {
                 nameStr.isEmpty() -> ToastUtils.showShort("收件人不能为空!")
-                RegexUtils.isMobileSimple(mobileStr) -> ToastUtils.showShort("手机号不正确!")
+                !RegexUtils.isMobileSimple(mobileStr) -> ToastUtils.showShort("手机号不正确!")
                 detailStr.isEmpty() -> ToastUtils.showShort("详细地址不能为空!")
                 selectedAddress == null -> ToastUtils.showShort("请选择省市区!")
                 else -> {
@@ -184,7 +184,7 @@ class NewAddressActivity : BaseActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 666 && resultCode == Activity.RESULT_OK && data != null) {
             val poiItem = data.getParcelableExtra<PoiItem>(KEY_DATA) ?: return
-            detailEdt.setText(poiItem.snippet + poiItem.title)
+            addressDetailEdt.setText(poiItem.snippet + poiItem.title)
             val province = Province()
             province.id = poiItem.provinceCode.toInt()
             province.name = poiItem.provinceName
