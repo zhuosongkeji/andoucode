@@ -25,7 +25,7 @@ import com.zskjprojectj.andouclient.utils.Util;
 public class TopView extends RelativeLayout {
     private Context mContext;
     public ImageView mBackImage;
-    private TextView mTitleView,mRightTitleView;
+    private TextView mTitleView, mRightTitleView;
     private ImageView mRightMenu;
 
     LayoutParams mBackParams;
@@ -38,32 +38,32 @@ public class TopView extends RelativeLayout {
     public TopView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
+
     public TopView(Context context) {
         this(context, null);
     }
+
     String mTitle;
     String mRighttitle;
     int mLeftImage;
     int rightImage;
     int dp8;
-    public TopView(Context context, AttributeSet attrs, int defStyleAttr)
-    {
+
+    public TopView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         mContext = context;
         if (isInEditMode())
             return;
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.TopView, defStyleAttr, 0);
-        for (int i = 0; i < array.length(); i++)
-        {
+        for (int i = 0; i < array.length(); i++) {
             int attr = array.getIndex(i);
-            switch (attr)
-            {
+            switch (attr) {
                 /**
                  * 左边图标
                  */
-               case R.styleable.TopView_topview_left:
-                mLeftImage = array.getResourceId(attr, -1);
-                break;
+                case R.styleable.TopView_topview_left:
+                    mLeftImage = array.getResourceId(attr, -1);
+                    break;
                 /**
                  * 中间文字
                  */
@@ -73,14 +73,14 @@ public class TopView extends RelativeLayout {
                 /**
                  * 右边图片的情况
                  */
-                case  R.styleable.TopView_topview_right:
+                case R.styleable.TopView_topview_right:
                     rightImage = array.getResourceId(attr, -1);
                     break;
                 /**
                  * 右边文字的情况
                  */
                 case R.styleable.TopView_topview_righttitle:
-                    mRighttitle=array.getString(attr);
+                    mRighttitle = array.getString(attr);
                     break;
                 default:
                     break;
@@ -90,29 +90,29 @@ public class TopView extends RelativeLayout {
         dp8 = Util.dp2px(getResources(), 8);
         mBackImage = new ImageView(mContext);
         mTitleView = new TextView(mContext);
-        mRightTitleView=new TextView(mContext);
+        mRightTitleView = new TextView(mContext);
         mRightMenu = new ImageView(mContext);
 
         //设置位置
         mBackParams = new LayoutParams(WARP_CONTENT, WARP_CONTENT);
         mTitleParams = new LayoutParams(WARP_CONTENT, WARP_CONTENT);
         mMenuParams = new LayoutParams(WARP_CONTENT, WARP_CONTENT);
-        mRightTitleParams=new LayoutParams(WARP_CONTENT, WARP_CONTENT);
+        mRightTitleParams = new LayoutParams(WARP_CONTENT, WARP_CONTENT);
         mTitleParams.addRule(CENTER_IN_PARENT);
         mRightTitleParams.addRule(ALIGN_PARENT_RIGHT);
         mRightTitleParams.addRule(CENTER_VERTICAL);
         mMenuParams.addRule(ALIGN_PARENT_RIGHT);
         mMenuParams.addRule(CENTER_VERTICAL);
-        mRightMenu.setPadding(dp8, 0, dp8,0);
+        mRightMenu.setPadding(dp8, 0, dp8, 0);
         mBackParams.addRule(CENTER_VERTICAL);
-        mBackImage.setPadding(dp8, 0, dp8,0);
+        mBackImage.setPadding(dp8, 0, dp8, 0);
         //添加位置
         addView(mBackImage, mBackParams);
         addView(mTitleView, mTitleParams);
-        addView(mRightTitleView,mRightTitleParams);
+        addView(mRightTitleView, mRightTitleParams);
         addView(mRightMenu, mMenuParams);
         mRightTitleView.setText(mRighttitle);
-        mRightTitleView.setPadding(dp8,0,dp8,0);
+        mRightTitleView.setPadding(dp8, 0, dp8, 0);
         mTitleView.setText(mTitle);
         mTitleView.setMaxLines(1);
         mTitleView.setPadding(5 * dp8, 0, 5 * dp8, 0);
@@ -128,16 +128,18 @@ public class TopView extends RelativeLayout {
         setBackgroundResource(R.color.colorNavy);
         //设置标题颜色
         mTitleView.setTextColor(ContextCompat.getColor(context, R.color.white));
-        mRightTitleView.setTextColor(ContextCompat.getColor(context,R.color.white));
+        mRightTitleView.setTextColor(ContextCompat.getColor(context, R.color.white));
         array.recycle();
     }
+
     public void setTitle(String text) {
         mTitleView.setText(text);
     }
-    public void setRightTitle(String text)
-    {
+
+    public void setRightTitle(String text) {
         mRightTitleView.setText(text);
     }
+
     public void setRightMenuRes(int resId) {
         this.mRightMenu.setImageResource(resId);
     }
@@ -145,19 +147,21 @@ public class TopView extends RelativeLayout {
     public void setBackImageRes(int resid) {
         this.mBackImage.setImageResource(resid);
     }
+
     //右边图片点击事件
     public void setRightMenuListener(OnClickListener mClick) {
         if (mClick != null) {
             mRightMenu.setOnClickListener(mClick);
         }
     }
+
     //设置右边文字点击事件
-    public void setRightTextListener(OnClickListener mTextClick)
-    {
+    public void setRightTextListener(OnClickListener mTextClick) {
         if (mTextClick != null) {
             mRightTitleView.setOnClickListener(mTextClick);
         }
     }
+
     public void setBackOnClickListener(OnClickListener mL) {
         if (mL != null) {
             mBackImage.setOnClickListener(mL);
@@ -167,8 +171,7 @@ public class TopView extends RelativeLayout {
     /**
      * 設置返回按鈕
      */
-    public void setFinishActivity(final Activity mActivity)
-    {
+    public void setFinishActivity(final Activity mActivity) {
         mBackImage.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
