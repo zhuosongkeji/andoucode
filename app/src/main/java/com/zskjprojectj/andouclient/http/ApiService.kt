@@ -1269,8 +1269,10 @@ interface ApiService {
     ): Observable<BaseResult<Any>>
 
     @GET("api/tieba/detail")
-    fun tieBaDetail(@Query("post_id") post_id: String?,
-                    @Query("page") page: Int
+    fun tieBaDetail(
+            @Query("uid") uid: String?,
+            @Query("post_id") post_id: String?,
+            @Query("page") page: Int
     ): Observable<BaseResult<TieBa>>
 
     @GET("api/info/list")
@@ -1299,8 +1301,8 @@ interface ApiService {
     @FormUrlEncoded
     @POST("api/tieba/create_top_order")
     fun tieBaOrder(@Field("uid") uid: String,
-                  @Field("post_id") post_id: Long?,
-                  @Field("method") method: String,
-                  @Field("pay_way") pay_way: String?
+                   @Field("post_id") post_id: Long?,
+                   @Field("method") method: String,
+                   @Field("pay_way") pay_way: String?
     ): Observable<BaseResult<TieBaOrderResponse>>
 }

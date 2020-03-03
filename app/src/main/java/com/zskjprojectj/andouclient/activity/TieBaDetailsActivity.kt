@@ -32,7 +32,7 @@ class TieBaDetailsActivity : BaseActivity() {
         id = intent.getStringExtra(KEY_DATA)
         val pageLoadUtil = PageLoadUtil.get(mActivity, recyclerView, adapter, refreshLayout)
         pageLoadUtil.load({
-            ApiUtils.getApiService().tieBaDetail(id, pageLoadUtil.page)
+            ApiUtils.getApiService().tieBaDetail(LoginInfoUtil.getUid(),id, pageLoadUtil.page)
         }, { _, result ->
             if (result is TieBa && baseContentView.tag == null) {
                 bindData(result)

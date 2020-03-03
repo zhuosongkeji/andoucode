@@ -97,6 +97,7 @@
                 android:paddingTop="17dp">
 
                 <ImageView
+                    android:id="@+id/like"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
                     android:scaleType="centerInside"

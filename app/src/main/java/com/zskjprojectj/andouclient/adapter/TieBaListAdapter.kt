@@ -53,21 +53,23 @@ fun bindTieZi(context: Context, view: View, item: TieBa?,
     view.dateTxt.text = item?.created_at
     view.likeTxt.text = item?.vote
     view.isTop.visibility = if (item?.top_post == 1) View.VISIBLE else View.GONE
-    view.likeView.isSelected = item?.is_vote == "1"
+    view.like.isSelected = item?.is_vote == "1"
     view.likeView.setOnClickListener {
         RequestUtil.request(context as BaseActivity?, true, false,
                 {
                     ApiUtils.getApiService().tieBaLike(
                             LoginInfoUtil.getUid(),
                             item?.id,
-                            if (it.isSelected) "0" else "1")
+                            if (item?.is_vote=="1") "0" else "1")
                 },
                 {
                     RequestUtil.request(context, true, false, {
-                        ApiUtils.getApiService().tieBaDetail(item?.id, 1)
+                        ApiUtils.getApiService().tieBaDetail(LoginInfoUtil.getUid(),item?.id, 1)
                     }, {
                         item?.vote = it.data.vote
+                        item?.is_vote=it.data.is_vote
                         view.likeTxt.text = item?.vote
+                        view.like.isSelected = item?.is_vote == "1"
                     })
                 })
     }
