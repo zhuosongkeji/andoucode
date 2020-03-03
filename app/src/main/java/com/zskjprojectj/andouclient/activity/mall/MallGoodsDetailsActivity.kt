@@ -5,6 +5,7 @@ import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.Paint
+import android.net.Uri
 import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -184,7 +185,9 @@ class MallGoodsDetailsActivity : BaseActivity() {
             MallHomeActivity.start(2)
         }
         tv_Mall_service.setOnClickListener {
-            ToastUtils.showShort("暂无客服")
+            val myCallIntent = Intent(Intent.ACTION_DIAL,
+                    Uri.parse("tel:" + goodsDetail?.tel));
+            startActivity(myCallIntent)
         }
         add_shopping.setOnClickListener {
             goToBuy()

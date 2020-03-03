@@ -52,11 +52,19 @@ public class MallGoodsDetailsDataBean {
     private String dilivery;
     private String store_num;
     private String volume;
+    private String tel;
     private String is_collection;
     private MerchantBean merchant;
     private List<String> album;
     public boolean isMiaoSha;
 
+    public String getTel() {
+        return tel;
+    }
+
+    public void setTel(String tel) {
+        this.tel = tel;
+    }
 
     public String getStore_num() {
         return store_num;
