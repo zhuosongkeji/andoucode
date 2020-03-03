@@ -50,7 +50,7 @@ public class RestaurantOrderListFragment extends BaseFragment {
                     RestaurantBillActivity.start(mActivity, order, 666);
                     break;
                 case R.id.cancelBtn:
-                    RestaurantRefundActivity.start(mActivity, order.order_sn, 666);
+                    RestaurantRefundActivity.Companion.start(mActivity, order.order_sn, 666);
                     break;
             }
         });

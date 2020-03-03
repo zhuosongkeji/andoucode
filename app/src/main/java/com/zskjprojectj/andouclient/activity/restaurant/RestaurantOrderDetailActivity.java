@@ -68,7 +68,7 @@ public class RestaurantOrderDetailActivity extends BaseActivity {
             findViewById(R.id.controlBtnContainer).setVisibility(View.VISIBLE);
             cancelBtn.setVisibility(View.VISIBLE);
             cancelBtn.setOnClickListener(v ->
-                    RestaurantRefundActivity.start(mActivity, data.order_sn, 666));
+                    RestaurantRefundActivity.Companion.start(mActivity, data.order_sn, 666));
         } else if (data.status == RestaurantOrder.STATE.DAI_ZHI_FU.stateInt) {
             findViewById(R.id.controlBtnContainer).setVisibility(View.VISIBLE);
             payTxtBtn.setVisibility(View.VISIBLE);
