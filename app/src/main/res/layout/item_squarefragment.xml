@@ -97,11 +97,10 @@
                 android:paddingTop="17dp">
 
                 <ImageView
-                    android:id="@+id/likeIcn"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
                     android:scaleType="centerInside"
-                    android:src="@mipmap/dianzhan" />
+                    android:src="@drawable/sl_like_btn" />
 
                 <TextView
                     android:id="@+id/likeTxt"

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include layout="@layout/fragment_square" />
+    <include layout="@layout/fragment_tieba_list" />
 
     <FrameLayout
         android:id="@+id/loginBtn"

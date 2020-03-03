@@ -7,11 +7,10 @@ import android.view.View
 import com.zskjprojectj.andouclient.R
 import com.zskjprojectj.andouclient.activity.LoginActivity
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil
-import kotlinx.android.synthetic.main.fragment_circleoffriends.view.*
+import kotlinx.android.synthetic.main.fragment_my_tieba.view.*
 
-
-class MyTieBaFragment : SquareFragment() {
-    override fun getContentView() = R.layout.fragment_circleoffriends
+class MyTieBaFragment : TieBaListFragment() {
+    override fun getContentView() = R.layout.fragment_my_tieba
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -23,10 +22,12 @@ class MyTieBaFragment : SquareFragment() {
         }
     }
 
+    override fun getType() = "mine"
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && requestCode == 666) {
-            //登录成功后刷新
+            loadData()
             view.loginBtn.visibility = View.GONE
         }
     }

@@ -15,6 +15,7 @@ public class TieBa implements Serializable, IListData<TieBa.CommentsBean> {
     private String share;
     private String content;
     public String created_at;
+    public String is_vote;
     private String name;
     private String avator;
     public int top_post;

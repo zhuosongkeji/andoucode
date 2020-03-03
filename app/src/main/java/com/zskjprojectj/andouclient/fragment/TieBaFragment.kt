@@ -18,7 +18,7 @@ class TieBaFragment : BaseFragment() {
                 viewPager,
                 arrayOf("广场", "我的"),
                 activity,
-                arrayListOf(SquareFragment(), MyTieBaFragment()))
+                arrayListOf(TieBaListFragment(), MyTieBaFragment()))
         view.releaseBtn.setOnClickListener {
             ActivityUtils.startActivityForResult(
                     mFragment, TieBaReleaseActivity::class.java, 666)
