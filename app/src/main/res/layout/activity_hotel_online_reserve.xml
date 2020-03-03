@@ -393,7 +393,8 @@
                 android:id="@+id/rv_pay_ways"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:overScrollMode="never" />
+                android:overScrollMode="never"
+                android:paddingTop="15dp" />
 
 
             <View
