@@ -3,7 +3,6 @@ package com.zskjprojectj.andouclient.activity;
 import android.app.Dialog;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +11,6 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -21,28 +19,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.zhuosongkj.android.library.app.BaseActivity;
+import com.zhuosongkj.android.library.util.ActionBarUtil;
+import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.adapter.hotel.HotelRefundAdapter;
-import com.zskjprojectj.andouclient.base.BaseActivity;
-import com.zskjprojectj.andouclient.base.BasePresenter;
 import com.zskjprojectj.andouclient.entity.hotel.HotelrefundreasonBean;
 import com.zskjprojectj.andouclient.http.ApiUtils;
-import com.zskjprojectj.andouclient.http.BaseObserver;
-import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 
-import java.io.IOException;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
 public class HotelordercancleActivity extends BaseActivity {
-
-    @BindView(R.id.mTitleView)
-    RelativeLayout mTitleView;
-    @BindView(R.id.mHeaderTitle)
-    TextView mHeaderTitle;
 
     @BindView(R.id.tv_refund_reason)
     TextView mRefundReason;
@@ -62,78 +53,50 @@ public class HotelordercancleActivity extends BaseActivity {
     private String refund_msg;
     private String pay_money;
 
-    @OnClick({R.id.mHeaderBack, R.id.rv_refund_reason, R.id.btn_commint})
-    public void clickView(View view) {
-        switch (view.getId()) {
-            case R.id.mHeaderBack:
-                finish();
-                break;
-            case R.id.rv_refund_reason:
-
-                HttpRxObservable.getObservable(ApiUtils.getApiService().hotelrefundreason(
-                        LoginInfoUtil.getUid(),
-                        LoginInfoUtil.getToken(),
-                        merchant_id
-                )).subscribe(new BaseObserver<List<HotelrefundreasonBean>>(mAt) {
-                    @Override
-                    public void onHandleSuccess(List<HotelrefundreasonBean> hotelrefundreasonBeans) throws IOException {
-                        initBuyNow(hotelrefundreasonBeans);
-                    }
-                });
-                break;
-            case R.id.btn_commint:
-                Log.d("wangbin", "clickView: " + LoginInfoUtil.getUid() + "\n"
-                        + LoginInfoUtil.getToken() + "\n"
-                        + book_sn + "\n"
-                        + reasonId + "\n"
-                        + refund_msg + "\n"
-                );
-
-
-                refund_msg= metDec.getText().toString();
-                HttpRxObservable.getObservable(ApiUtils.getApiService().hotelrefund(
-                        LoginInfoUtil.getUid(),
-                        LoginInfoUtil.getToken(),
-                        book_sn,
-                        reasonId,
-                        refund_msg
-                )).subscribe(new BaseObserver<Object>(mAt) {
-                    @Override
-                    public void onHandleSuccess(Object o) throws IOException {
-                        //TODO 酒店取消订单
-                        ToastUtils.showShort("取消订单成功");
-                        finish();
-                    }
-                });
-                break;
-        }
-
-    }
 
     @Override
-    protected void setRootView() {
-        setContentView(R.layout.activity_hotelordercancle);
-    }
-
-    @Override
-    protected void initData(Bundle savedInstanceState) {
-        mHeaderTitle.setText("申请退款");
-        getBarDistance(mTitleView);
-    }
-
-    @Override
-    protected void initViews() {
-
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ActionBarUtil.setTitle(mActivity, "申请退款");
         merchant_id = getIntent().getStringExtra("merchant_id");
         id = getIntent().getStringExtra("id");
         book_sn = getIntent().getStringExtra("book_sn");
         pay_money = getIntent().getStringExtra("pay_money");
-
         mPrice.setText("¥" + pay_money);
     }
 
-    @Override
-    public void getDataFromServer() {
+    @OnClick({R.id.rv_refund_reason, R.id.btn_commint})
+    public void clickView(View view) {
+        switch (view.getId()) {
+            case R.id.rv_refund_reason:
+                RequestUtil.request(mActivity, true, false,
+                        () -> ApiUtils.getApiService().hotelrefundreason(
+                                LoginInfoUtil.getUid(),
+                                LoginInfoUtil.getToken(),
+                                merchant_id
+                        ),
+                        result -> {
+                            initBuyNow(result.data);
+                        }
+                );
+                break;
+            case R.id.btn_commint:
+                refund_msg = metDec.getText().toString();
+                RequestUtil.request(mActivity, true, true,
+                        () -> ApiUtils.getApiService().hotelrefund(
+                                LoginInfoUtil.getUid(),
+                                LoginInfoUtil.getToken(),
+                                book_sn,
+                                reasonId,
+                                refund_msg
+                        ),
+                        result -> {
+                            ToastUtils.showShort("取消订单成功");
+                            finish();
+                        }
+                );
+                break;
+        }
 
     }
 
@@ -186,18 +149,17 @@ public class HotelordercancleActivity extends BaseActivity {
         bottomDialog.show();
     }
 
-    @Override
-    protected BasePresenter createPresenter() {
-        return null;
-    }
-
     public static void start(String merchant_id, String id, String book_sn, String pay_money) {
-
         Bundle bundle = new Bundle();
         bundle.putString("merchant_id", merchant_id);
         bundle.putString("id", id);
         bundle.putString("book_sn", book_sn);
         bundle.putString("pay_money", pay_money);
         ActivityUtils.startActivity(bundle, HotelordercancleActivity.class);
+    }
+
+    @Override
+    protected int getContentView() {
+        return R.layout.activity_hotelordercancle;
     }
 }
