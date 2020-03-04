@@ -27,7 +27,6 @@ class MallOrderCancelActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         ActionBarUtil.setTitle(mActivity, "取消订单")
         val orderId = intent.getStringExtra("order_id")
-        Log.d("wangbin",orderId)
         rv_refund_reason.setOnClickListener {
             //条件选择器
             val pvOptions: OptionsPickerView<String> = OptionsPickerBuilder(mActivity, OnOptionsSelectListener { options1, option2, options3, v ->
@@ -46,7 +45,7 @@ class MallOrderCancelActivity : BaseActivity() {
                         {
                             ApiUtils.getApiService().cancelOrder(
                                     LoginInfoUtil.getUid(),
-                                    orderId.toLong(),
+                                    orderId,
                                     reasonId,
                                     et_dec.text.toString()
                             )

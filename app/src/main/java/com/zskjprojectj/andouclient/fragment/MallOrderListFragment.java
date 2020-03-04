@@ -68,7 +68,7 @@ public class MallOrderListFragment extends BaseFragment {
                 ShoporderdetailsActivity.start(adapter.getItem(position));
                 //取消订单
             }else if(view1.getId()==R.id.btn_cancel_order){
-                MallOrderCancelActivity.start(adapter.getItem(position).id);
+                MallOrderCancelActivity.start(adapter.getItem(position).order_id);
                 //去付款
             } else if (view1.getId() == R.id.btn_gotopayment) {
                 MallOnlineOrderActivity.start(adapter.getItem(position).order_id,"","","");

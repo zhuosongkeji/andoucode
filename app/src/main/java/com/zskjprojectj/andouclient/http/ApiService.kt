@@ -1309,7 +1309,7 @@ interface ApiService {
     @FormUrlEncoded
     @POST("api/order/cancel")
     fun cancelOrder(@Field("uid") uid: String,
-                    @Field("order_id") order_id: Long,
+                    @Field("order_sn") order_id: String,
                     @Field("reason_id") reason_id: String?,
                     @Field("reason") reason: String? = null
     ): Observable<BaseResult<Any>>
