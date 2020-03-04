@@ -39,10 +39,17 @@
         android:usesCleartextTraffic="true"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning,LockedOrientationActivity"
         tools:targetApi="m">
-        <activity android:name=".activity.mall.MallOrderCancelActivity"></activity>
-        <activity android:name=".activity.TieBaPayActivity" />
-        <activity android:name=".activity.MessageListActivity" />
-        <activity android:name=".activity.TieBaMessageActivity" />
+        <activity android:name=".activity.mall.MallOrderCancelActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.TieBaPayActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.MessageListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.TieBaMessageActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.mall.MallSearchGoodsActivity"
             android:screenOrientation="portrait" />
@@ -55,25 +62,51 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.TieBaReleaseActivity" />
-        <activity android:name=".activity.mall.PinTuanActivity" />
+        <activity
+            android:name=".activity.TieBaReleaseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.mall.PinTuanActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.SelectLocationActivity"
             android:screenOrientation="portrait"
+
             android:theme="@style/DefaultCityPickerTheme" />
-        <activity android:name=".activity.mall.MallMiaoShaActivity" />
+        <activity
+            android:name=".activity.mall.MallMiaoShaActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.restaurant.RestaurantSearchActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".activity.restaurant.RestaurantRefundActivity" />
-        <activity android:name=".activity.restaurant.RestaurantReviewActivity" />
-        <activity android:name=".activity.restaurant.RestaurantOrderDetailActivity" />
-        <activity android:name=".activity.restaurant.RestaurantBillActivity" />
-        <activity android:name=".activity.restaurant.RestaurantDetailActivity" />
-        <activity android:name=".activity.restaurant.RestaurantHomeActivity" />
-        <activity android:name=".activity.CommentSuccessActivity" />
-        <activity android:name=".activity.mall.MallPaySuccessActivity" />
-        <activity android:name=".activity.TieBaDetailsActivity" />
+        <activity
+            android:name=".activity.restaurant.RestaurantRefundActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.restaurant.RestaurantReviewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.restaurant.RestaurantOrderDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.restaurant.RestaurantBillActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.restaurant.RestaurantDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.restaurant.RestaurantHomeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.CommentSuccessActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.mall.MallPaySuccessActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.TieBaDetailsActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.mall.MallOnlineOrderActivity"
             android:screenOrientation="portrait" />
@@ -127,6 +160,7 @@
         <activity
             android:name=".activity.AppHomeActivity"
             android:screenOrientation="portrait"
+
             android:theme="@style/DefaultCityPickerTheme" />
         <activity
             android:name=".activity.MerchantsInfoActivity"
@@ -325,9 +359,7 @@
         <activity
             android:name=".activity.WeixinbingphoneActivity"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.ApplyforsuccessfulActivity"
-            android:screenOrientation="portrait" /> <!-- 腾讯Bugly -->
+        <activity android:name=".activity.ApplyforsuccessfulActivity" /> <!-- 腾讯Bugly -->
         <activity
             android:name="com.tencent.bugly.beta.ui.BetaActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale"
@@ -343,5 +375,4 @@
                 android:resource="@xml/provider_paths" />
         </provider>
     </application>
-
 </manifest>
