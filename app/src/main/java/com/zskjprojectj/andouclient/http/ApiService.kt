@@ -1305,4 +1305,14 @@ interface ApiService {
                    @Field("method") method: String,
                    @Field("pay_way") pay_way: String?
     ): Observable<BaseResult<TieBaOrderResponse>>
+
+    @FormUrlEncoded
+    @POST("api/order/cancel")
+    fun cancelOrder(@Field("uid") uid: String,
+                    @Field("order_id") order_id: Long,
+                    @Field("reason_id") reason_id: String?,
+                    @Field("reason") reason: String? = null
+    ): Observable<BaseResult<Any>>
+
+
 }

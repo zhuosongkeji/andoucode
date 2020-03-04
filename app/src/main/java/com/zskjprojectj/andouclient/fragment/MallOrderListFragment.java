@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zhuosongkj.android.library.app.BaseFragment;
@@ -21,6 +22,7 @@ import com.zskjprojectj.andouclient.activity.CheckthelogisticsActivity;
 import com.zskjprojectj.andouclient.activity.ShoporderdetailsActivity;
 import com.zskjprojectj.andouclient.activity.ToevaluateActivity;
 import com.zskjprojectj.andouclient.activity.mall.MallOnlineOrderActivity;
+import com.zskjprojectj.andouclient.activity.mall.MallOrderCancelActivity;
 import com.zskjprojectj.andouclient.adapter.MallOrderListAdapter;
 import com.zskjprojectj.andouclient.event.OrderStateChangedEvent;
 import com.zskjprojectj.andouclient.fragment.hotel.CustomViewDialog;
@@ -64,6 +66,9 @@ public class MallOrderListFragment extends BaseFragment {
             //订单详情
             if (view1.getId() == R.id.btn_orderdetails) {
                 ShoporderdetailsActivity.start(adapter.getItem(position));
+                //取消订单
+            }else if(view1.getId()==R.id.btn_cancel_order){
+                MallOrderCancelActivity.start(adapter.getItem(position).id);
                 //去付款
             } else if (view1.getId() == R.id.btn_gotopayment) {
                 MallOnlineOrderActivity.start(adapter.getItem(position).order_id,"","","");

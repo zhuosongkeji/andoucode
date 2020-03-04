@@ -35,8 +35,10 @@ public class MallOrderListAdapter extends BaseQuickAdapter<Order, BaseViewHolder
                 .addOnClickListener(R.id.btn_gotopayment)
                 .addOnClickListener(R.id.btn_getgoods)
                 .addOnClickListener(R.id.btn_check_logistics)
+                .addOnClickListener(R.id.btn_cancel_order)
                 .addOnClickListener(R.id.btn_comment);
         helper.setGone(R.id.btn_gotopayment, OrderStatus.DAI_FU_KUAN.status.equals(item.status));
+        helper.setGone(R.id.btn_cancel_order, OrderStatus.DAI_FU_KUAN.status.equals(item.status));
         helper.setGone(R.id.btn_getgoods, OrderStatus.DAI_SHOU_HUO.status.equals(item.status));
         helper.setGone(R.id.btn_check_logistics, OrderStatus.DAI_SHOU_HUO.status.equals(item.status));
         helper.setGone(R.id.btn_comment, OrderStatus.DAI_PING_JIA.status.equals(item.status));

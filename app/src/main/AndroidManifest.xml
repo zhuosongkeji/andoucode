@@ -39,7 +39,8 @@
         android:usesCleartextTraffic="true"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning,LockedOrientationActivity"
         tools:targetApi="m">
-        <activity android:name=".activity.TieBaPayActivity"></activity>
+        <activity android:name=".activity.mall.MallOrderCancelActivity"></activity>
+        <activity android:name=".activity.TieBaPayActivity" />
         <activity android:name=".activity.MessageListActivity" />
         <activity android:name=".activity.TieBaMessageActivity" />
         <activity

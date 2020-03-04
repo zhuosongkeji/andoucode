@@ -112,9 +112,9 @@ public class ShoporderdetailsActivity extends BaseActivity {
             View view = LayoutInflater.from(mAt).inflate(R.layout.layout_goods_item, null);
             ((TextView) view.findViewById(R.id.titleTxt)).setText(goods.name);
             ((TextView) view.findViewById(R.id.specTxt)).setText(getSpec(goods.attr_value));
-            ((TextView) view.findViewById(R.id.countTxt)).setText("x" + goods.num);
+            ((TextView) view.findViewById(R.id.countTxt)).setText(goods.num);
             goodsPrice = goods.price;
-            ((TextView) view.findViewById(R.id.priceTxt)).setText("¥" + goods.price);
+            ((TextView) view.findViewById(R.id.priceTxt)).setText(goods.price);
             Glide.with(mAt).load(UrlUtil.INSTANCE.getImageUrl(goods.img))
                     .apply(new RequestOptions().placeholder(R.mipmap.ic_placeholder))
                     .into((ImageView) view.findViewById(R.id.meshop_pic));
