@@ -1,7 +1,6 @@
 package com.zskjprojectj.andouclient.activity.mall
 
 import android.os.Bundle
-import android.util.Log
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener
 import com.bigkoo.pickerview.view.OptionsPickerView
@@ -13,6 +12,7 @@ import com.zhuosongkj.android.library.util.RequestUtil
 import com.zskjprojectj.andouclient.R
 import com.zskjprojectj.andouclient.event.OrderStateChangedEvent
 import com.zskjprojectj.andouclient.http.ApiUtils
+import com.zskjprojectj.andouclient.model.CancelOption
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil
 import kotlinx.android.synthetic.main.activity_mall_order_cancel.*
 import org.greenrobot.eventbus.EventBus
@@ -21,20 +21,24 @@ import org.greenrobot.eventbus.EventBus
 class MallOrderCancelActivity : BaseActivity() {
 
     private var reasonId: String? = ""
-    private var cancelType: String? = null
-    var stringArrayList: ArrayList<String> = arrayListOf<String>("我不想买了", "信息填写错误重新拍", "卖家缺货", "其他原因")
+    private var options: ArrayList<CancelOption> = arrayListOf(
+            CancelOption("1", "我不想买了"),
+            CancelOption("2", "信息填写错误重新拍"),
+            CancelOption("3", "卖家缺货"),
+            CancelOption("4", "其他原因"))
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ActionBarUtil.setTitle(mActivity, "取消订单")
         val orderId = intent.getStringExtra("order_id")
         rv_refund_reason.setOnClickListener {
             //条件选择器
-            val pvOptions: OptionsPickerView<String> = OptionsPickerBuilder(mActivity, OnOptionsSelectListener { options1, option2, options3, v ->
-                reasonTxt.text = (stringArrayList[options1])
-                cancelType = (stringArrayList[options1])
-                reasonId = (options1 + 1).toString()
-            }).build<String>()
-            pvOptions.setPicker(stringArrayList)
+            val pvOptions: OptionsPickerView<CancelOption> = OptionsPickerBuilder(mActivity, OnOptionsSelectListener { options1, option2, options3, v ->
+                val option = options[options1]
+                reasonTxt.text = option.name
+                reasonId = option.id
+            }).build<CancelOption>()
+            pvOptions.setPicker(options)
             pvOptions.show()
         }
         btn_commint.setOnClickListener {
