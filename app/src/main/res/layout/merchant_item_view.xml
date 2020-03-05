@@ -146,7 +146,6 @@
             android:text="查看商家"
             android:textColor="#ffffff"
             android:textSize="10sp"
-
             />
 
     </RelativeLayout>

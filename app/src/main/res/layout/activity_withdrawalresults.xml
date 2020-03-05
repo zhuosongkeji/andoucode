@@ -4,7 +4,6 @@
     android:orientation="vertical"
     android:background="@color/white"
     android:layout_height="match_parent">
-    <include layout="@layout/view_top_bar"/>
     <ImageView
         android:layout_marginTop="94dp"
         android:src="@mipmap/withdrawalresults_icon"

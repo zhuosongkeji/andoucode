@@ -2,18 +2,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dp_15"
+        android:padding="15dp"
         android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/iv_order_img"
-            android:layout_width="@dimen/dp_30"
-            android:layout_height="@dimen/dp_30"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:scaleType="centerCrop"
             android:src="@mipmap/hotelicon" />
 
         <TextView
@@ -21,10 +23,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginStart="@dimen/dp_11"
-            android:text="精尚来公寓酒店"
+            android:layout_marginStart="11dp"
+            tools:text="精尚来公寓酒店"
             android:textColor="#323232"
-            android:textSize="@dimen/typeface12sp" />
+            android:textSize="12sp" />
     </LinearLayout>
 
     <View
@@ -37,7 +39,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dp_15">
+       android:padding="15dp">
 
         <TextView
             android:id="@+id/tv_order_number"
@@ -52,7 +54,7 @@
             android:id="@+id/tv_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:text="待入住"
             android:textColor="#F34545"
@@ -67,11 +69,12 @@
 
         <ImageView
             android:id="@+id/iv_house_img"
-            android:layout_width="@dimen/dp_100"
+            android:layout_width="100dp"
             android:layout_height="90dp"
-            android:layout_marginLeft="@dimen/dp_15"
+            android:layout_marginStart="@dimen/dp_15"
             android:layout_marginTop="@dimen/dp_17"
             android:layout_marginBottom="@dimen/dp_5"
+            android:scaleType="centerCrop"
             android:src="@mipmap/hotelbg" />
 
 
@@ -81,7 +84,7 @@
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/iv_house_img"
             android:layout_marginStart="@dimen/dp_15"
-            android:layout_toRightOf="@+id/iv_house_img"
+            android:layout_toEndOf="@+id/iv_house_img"
             android:text="阳光大床房（带大阳台）"
             android:textColor="#646464"
             android:textSize="@dimen/typeface12sp" />
@@ -113,13 +116,17 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dp_15">
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/tv_house_all_price"
+            android:layout_toStartOf="@+id/tv_house_all_price"
             android:text="合计："
             android:textColor="#787878"
             android:textSize="@dimen/typeface12sp" />
@@ -146,10 +153,10 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_15"
-        android:layout_marginEnd="@dimen/dp_15"
-        android:paddingTop="@dimen/dp_15"
-        android:paddingBottom="@dimen/dp_15">
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="21dp">
 
 
         <Button
