@@ -35,15 +35,16 @@
         app:srb_starWidth="14dp" />
 
     <ImageView
+        android:visibility="gone"
         android:id="@+id/busiess_dianzan1_image"
         android:layout_width="15dp"
         android:layout_height="15dp"
         android:layout_gravity="center"
         android:layout_toLeftOf="@+id/focuson_dianzancount1_textview"
-        android:src="@mipmap/ic_zan"
-        android:visibility="gone" />
+        android:src="@mipmap/ic_zan" />
 
     <TextView
+        android:visibility="gone"
         android:id="@+id/focuson_dianzancount1_textview"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
@@ -52,8 +53,7 @@
         android:layout_marginLeft="@dimen/dp_5"
         android:text="1366"
         android:textColor="@color/colorNavy"
-        android:textSize="@dimen/typeface14sp"
-        android:visibility="gone" />
+        android:textSize="@dimen/typeface14sp" />
 
     <LinearLayout
         android:id="@+id/hotel_address"
@@ -114,25 +114,4 @@
         android:layout_marginTop="85dp"
         android:background="@mipmap/btn_zhutiyanse"
         android:text="查看商家" />
-
-    <LinearLayout
-        android:id="@+id/mall_merchants_focuson"
-        android:layout_width="wrap_content"
-        android:layout_height="25dp"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="@dimen/dp_22"
-        android:background="@mipmap/lyfocusionbg"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/tv_mall_merchants_focuson"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="已关注"
-            android:textColor="@color/white"
-            android:textSize="@dimen/typeface12sp" />
-
-    </LinearLayout>
 </RelativeLayout>
