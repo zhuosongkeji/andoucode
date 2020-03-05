@@ -192,9 +192,7 @@
         <activity
             android:name=".activity.FoodorderActivity"
             android:screenOrientation="portrait" /> <!-- 我的钱包 -->
-        <activity
-            android:name=".activity.MyreleaseActivity"
-            android:screenOrientation="portrait" /> <!-- 余额充值 -->
+        <!-- 余额充值 -->
         <activity
             android:name=".activity.BalanceofprepaidActivity"
             android:screenOrientation="portrait" /> <!-- 在线商城 -->

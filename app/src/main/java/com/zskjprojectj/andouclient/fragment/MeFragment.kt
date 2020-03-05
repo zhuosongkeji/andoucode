@@ -48,7 +48,7 @@ class MeFragment : BaseFragment() {
         mycenter_restaurant_layout.setOnClickListener { ActivityUtils.startActivity(RestaurantOrderListActivity::class.java) }
         mycenter_invitation_with_courtesy_layout.setOnClickListener { startActivity(Intent(context, InvitationActivity::class.java)) }
         mycenter_mywallet_layout.setOnClickListener { startActivity(Intent(context, MywalletActivity::class.java)) }
-        mycenter_releas_layout.setOnClickListener { startActivity(Intent(context, MyreleaseActivity::class.java)) }
+        mycenter_releas_layout.setOnClickListener { ActivityUtils.startActivity(mActivity,TieBaReleaseActivity::class.java) }
         mycenter_shoppingcart_layout.setOnClickListener {
             MallHomeActivity.start(2)
         }

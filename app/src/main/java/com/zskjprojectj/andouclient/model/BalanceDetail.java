@@ -4,5 +4,5 @@ import java.util.ArrayList;
 
 public class BalanceDetail {
     public ArrayList<BalanceLog> log = new ArrayList<>();
-    public float money;
+    public String money;
 }
