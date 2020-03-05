@@ -30,7 +30,7 @@ open class TieBaListFragment : BaseFragment() {
         loadData()
     }
 
-    protected fun loadData() {
+    protected open fun loadData() {
         pageLoadUtil.load {
             ApiUtils.getApiService().tieBaList(
                     LoginInfoUtil.getUid(),
