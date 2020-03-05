@@ -24,11 +24,12 @@ import com.bumptech.glide.request.RequestOptions;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+import com.zhuosongkj.android.library.app.BaseActivity;
+import com.zhuosongkj.android.library.util.ActionBarUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.HotelorderActivity;
 import com.zskjprojectj.andouclient.activity.mall.MallPaySuccessActivity;
 import com.zskjprojectj.andouclient.adapter.mall.PayWaysAdapter;
-import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
 import com.zskjprojectj.andouclient.entity.hotel.HotelSettlementBean;
 import com.zskjprojectj.andouclient.entity.mall.MallPayWaysBean;
@@ -105,20 +106,17 @@ public class HotelOnlineReserveActivity extends BaseActivity {
     private String is_integral = "0";
 
     @Override
-    protected void setRootView() {
-        setContentView(R.layout.activity_hotel_online_reserve);
-    }
-
-    @Override
-    protected void initData(Bundle savedInstanceState) {
-
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ActionBarUtil.setTitle(mActivity, "在线预订");
+        hotelSettlementBean = (HotelSettlementBean) getIntent().getSerializableExtra("hotelSettlementBean");
         //商户ID
         merchant_id = hotelSettlementBean.getRoom().getMerchant_id();
         //房间ID
         home_id = hotelSettlementBean.getRoom().getId();
 
 
-        Glide.with(mAt).load(UrlUtil.INSTANCE.getImageUrl(hotelSettlementBean.getRoom().getImg()))
+        Glide.with(mActivity).load(UrlUtil.INSTANCE.getImageUrl(hotelSettlementBean.getRoom().getImg()))
                 .apply(new RequestOptions().placeholder(R.mipmap.ic_placeholder)).into((ImageView) findViewById(R.id.hotel_image));
 
         ((TextView) findViewById(R.id.hotel_name)).setText(hotelSettlementBean.getRoom().getName());
@@ -146,40 +144,15 @@ public class HotelOnlineReserveActivity extends BaseActivity {
                 }
             }
         });
-
-
         //1、注册广播
         EventBus.getDefault().register(HotelOnlineReserveActivity.this);
-
-
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        //2、解除注册
-        EventBus.getDefault().unregister(HotelOnlineReserveActivity.this);
-    }
-
-    @Override
-    protected void initViews() {
-        getBarDistance(mHeaderTitleView);
-        mHeaderTitle.setText("在线预订");
-
-        hotelSettlementBean = (HotelSettlementBean) getIntent().getSerializableExtra("hotelSettlementBean");
-
-    }
-
-    @Override
-    public void getDataFromServer() {
-
         //请求支付方式
-        HttpRxObservable.getObservable(ApiUtils.getApiService().getMallPayWays()).subscribe(new BaseObserver<List<MallPayWaysBean>>(mAt) {
+        HttpRxObservable.getObservable(ApiUtils.getApiService().getMallPayWays()).subscribe(new BaseObserver<List<MallPayWaysBean>>(mActivity) {
             @Override
             public void onHandleSuccess(List<MallPayWaysBean> mallPayWaysBeans) throws IOException {
-                mRvPayWays.setLayoutManager(new LinearLayoutManager(mAt));
+                mRvPayWays.setLayoutManager(new LinearLayoutManager(mActivity));
                 PayWaysAdapter adapter = new PayWaysAdapter(R.layout.pay_ways_item, mallPayWaysBeans);
-                mRvPayWays.addItemDecoration(new DividerItemDecoration(mAt, DividerItemDecoration.VERTICAL));
+                mRvPayWays.addItemDecoration(new DividerItemDecoration(mActivity, DividerItemDecoration.VERTICAL));
                 mRvPayWays.setAdapter(adapter);
                 adapter.setItemPayWays(new PayWaysAdapter.ItemPayWays() {
                     @Override
@@ -189,21 +162,19 @@ public class HotelOnlineReserveActivity extends BaseActivity {
                 });
             }
         });
-
     }
+
 
     @Override
-    protected BasePresenter createPresenter() {
-        return null;
+    protected void onDestroy() {
+        super.onDestroy();
+        //2、解除注册
+        EventBus.getDefault().unregister(HotelOnlineReserveActivity.this);
     }
 
-
-    @OnClick({R.id.mHeaderBack, R.id.bt_minus, R.id.bt_add, R.id.tv_reserve, R.id.rv_slector_time})
+    @OnClick({R.id.bt_minus, R.id.bt_add, R.id.tv_reserve, R.id.rv_slector_time})
     public void clickBack(View view) {
         switch (view.getId()) {
-            case R.id.mHeaderBack:
-                finish();
-                break;
             //减
             case R.id.bt_minus:
                 String personNum = mPersonNumber.getText().toString();
@@ -268,16 +239,16 @@ public class HotelOnlineReserveActivity extends BaseActivity {
                                     payId,
                                     is_integral
 
-                            )).subscribe(new BaseObserver<WxPay>(mAt) {
+                            )).subscribe(new BaseObserver<WxPay>(mActivity) {
                                 @Override
                                 public void onHandleSuccess(WxPay wxPay) throws IOException {
-                                    PayUtil.INSTANCE.startWXPay(mAt, wxPay);
+                                    PayUtil.INSTANCE.startWXPay(mActivity, wxPay);
                                 }
                             });
                             break;
                         case YUEPAY:
 
-                            new AlertDialog.Builder(mAt)
+                            new AlertDialog.Builder(mActivity)
                                     .setTitle("温馨提示")
                                     .setMessage("确定用余额支付该订单吗？")
                                     .setNegativeButton("取消", null)
@@ -297,7 +268,7 @@ public class HotelOnlineReserveActivity extends BaseActivity {
                                                         payId,
                                                         is_integral
 
-                                                )).subscribe(new BaseObserver<WxPay>(mAt) {
+                                                )).subscribe(new BaseObserver<WxPay>(mActivity) {
                                                     @Override
                                                     public void onHandleSuccess(WxPay WxPay) throws IOException {
                                                         startActivity(new Intent(HotelOnlineReserveActivity.this, MallPaySuccessActivity.class));
@@ -370,5 +341,10 @@ public class HotelOnlineReserveActivity extends BaseActivity {
     private String getTime(Date date) {//可根据需要自行截取数据显示
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         return format.format(date);
+    }
+
+    @Override
+    protected int getContentView() {
+        return R.layout.activity_hotel_online_reserve;
     }
 }

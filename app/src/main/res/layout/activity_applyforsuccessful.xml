@@ -1,31 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:layout_height="match_parent">
-    <LinearLayout
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorNavy">
+        android:background="@mipmap/applyforsuccessfubg">
 
-        <include layout="@layout/base_title_view" />
-    </LinearLayout>
-    <RelativeLayout
-        android:background="@mipmap/applyforsuccessfubg"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
         <ImageView
-            android:layout_centerInParent="true"
-            android:src="@mipmap/applyforsuccessfulicon"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@mipmap/applyforsuccessfulicon" />
     </RelativeLayout>
+
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginTop="@dimen/dp_50"
         android:text="申请成功待后台审核"
-        android:layout_gravity="center"
-        android:textSize="@dimen/typeface14sp"
         android:textColor="#333333"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:textSize="@dimen/typeface14sp" />
 </LinearLayout>

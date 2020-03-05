@@ -5,28 +5,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
+import com.zhuosongkj.android.library.app.BaseActivity;
+import com.zhuosongkj.android.library.util.ActionBarUtil;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.base.BaseActivity;
-import com.zskjprojectj.andouclient.base.BasePresenter;
 import com.zskjprojectj.andouclient.model.UserIn;
-
-import butterknife.BindView;
-import butterknife.OnClick;
 
 /**
  * 商家入驻
  */
 public class BusinessresidenceActivity extends BaseActivity {
     public static final int REQUEST_CODE_JOIN = 666;
-    @BindView(R.id.mTitleView)
-    RelativeLayout mTitleView;
-    @BindView(R.id.mHeaderTitle)
-    TextView mHeaderTitle;
-
     //饭店商家入驻
     private RelativeLayout restaurant_businessin_layout;
     //酒店商家入驻
@@ -35,18 +26,9 @@ public class BusinessresidenceActivity extends BaseActivity {
     private RelativeLayout mallmerchants_businessin_layout;
 
     @Override
-    protected void setRootView() {
-        setContentView(R.layout.activity_businessresidence);
-    }
-
-    @Override
-    protected void initData(Bundle savedInstanceState) {
-        getBarDistance(mTitleView);
-        mHeaderTitle.setText("商家入驻");
-    }
-
-    @Override
-    protected void initViews() {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ActionBarUtil.setTitle(mActivity, "商家入驻");
         restaurant_businessin_layout = findViewById(R.id.restaurant_businessin_layout);
         hotel_businessin_layout = findViewById(R.id.hotel_businessin_layout);
         mallmerchants_businessin_layout = findViewById(R.id.mallmerchants_businessin_layout);
@@ -54,29 +36,25 @@ public class BusinessresidenceActivity extends BaseActivity {
         restaurant_businessin_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MallMerchantJoinActivity.Companion.start(mAt, UserIn.Role.Type.RESTAURANT, REQUEST_CODE_JOIN);
+                MallMerchantJoinActivity.Companion.start(mActivity, UserIn.Role.Type.RESTAURANT, REQUEST_CODE_JOIN);
             }
         });
         //酒店商家
         hotel_businessin_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MallMerchantJoinActivity.Companion.start(mAt, UserIn.Role.Type.HOTEL, REQUEST_CODE_JOIN);
+                MallMerchantJoinActivity.Companion.start(mActivity, UserIn.Role.Type.HOTEL, REQUEST_CODE_JOIN);
             }
         });
         //商城商家
         mallmerchants_businessin_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MallMerchantJoinActivity.Companion.start(mAt, UserIn.Role.Type.MALL, REQUEST_CODE_JOIN);
+                MallMerchantJoinActivity.Companion.start(mActivity, UserIn.Role.Type.MALL, REQUEST_CODE_JOIN);
             }
         });
     }
 
-    @Override
-    public void getDataFromServer() {
-
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -88,13 +66,7 @@ public class BusinessresidenceActivity extends BaseActivity {
     }
 
     @Override
-    protected BasePresenter createPresenter() {
-        return null;
+    protected int getContentView() {
+        return R.layout.activity_businessresidence;
     }
-
-    @OnClick(R.id.mHeaderBack)
-    public void clickView() {
-        finish();
-    }
-
 }

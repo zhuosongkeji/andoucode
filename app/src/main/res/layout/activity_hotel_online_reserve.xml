@@ -4,16 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorNavy"
+    android:background="@color/white"
     android:orientation="vertical"
     tools:context=".activity.hotel.HotelOnlineReserveActivity">
-
-    <include layout="@layout/base_title_view" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
         android:scrollbars="none">
 
         <LinearLayout
@@ -24,7 +21,6 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
                 android:padding="@dimen/dp_15">
 
                 <ImageView

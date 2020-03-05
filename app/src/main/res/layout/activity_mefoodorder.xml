@@ -4,11 +4,6 @@
     android:orientation="vertical"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <com.zskjprojectj.andouclient.view.TopView
-        android:id="@+id/alltopview"
-        app:topview_left="@mipmap/back_icon"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_50"/>
 
     <com.shizhefei.view.indicator.FixedIndicatorView
         android:id="@+id/indicator"

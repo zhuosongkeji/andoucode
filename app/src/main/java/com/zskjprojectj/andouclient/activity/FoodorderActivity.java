@@ -15,8 +15,9 @@ import androidx.viewpager.widget.ViewPager;
 import com.shizhefei.view.indicator.FixedIndicatorView;
 import com.shizhefei.view.indicator.IndicatorViewPager;
 import com.shizhefei.view.indicator.slidebar.ColorBar;
+import com.zhuosongkj.android.library.app.BaseActivity;
+import com.zhuosongkj.android.library.util.ActionBarUtil;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
 import com.zskjprojectj.andouclient.fragment.MeFoodorderCancelledFragment;
 import com.zskjprojectj.andouclient.fragment.MeFoodorderEvaluateFragment;
@@ -36,29 +37,22 @@ public class FoodorderActivity extends BaseActivity {
     private ViewPager viewPager;
     //第三方指示器
     private IndicatorViewPager indicatorViewPager;
-    @Override
-    protected void setRootView() {
-        setContentView(R.layout.activity_mefoodorder);
-    }
 
     @Override
-    protected void initData(Bundle savedInstanceState) {
-        topView.setTitle("美食订单");
-    }
-
-    @Override
-    protected void initViews() {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ActionBarUtil.setTitle(mActivity, "美食订单");
         //这个FixedindicatorView是平分tab的屏幕长度的
         indicator = (FixedIndicatorView) findViewById(R.id.indicator);
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         list = new ArrayList<Fragment>();
-        Fragment meFoodorderFragment=new MeFoodorderFragment();
+        Fragment meFoodorderFragment = new MeFoodorderFragment();
         list.add(meFoodorderFragment);
-        Fragment meFoodorderReservationFragment=new MeFoodorderReservationFragment();
+        Fragment meFoodorderReservationFragment = new MeFoodorderReservationFragment();
         list.add(meFoodorderReservationFragment);
-        Fragment meFoodorderEvaluateFragment=new MeFoodorderEvaluateFragment();
+        Fragment meFoodorderEvaluateFragment = new MeFoodorderEvaluateFragment();
         list.add(meFoodorderEvaluateFragment);
-        Fragment meFoodorderCancelledFragment=new MeFoodorderCancelledFragment();
+        Fragment meFoodorderCancelledFragment = new MeFoodorderCancelledFragment();
         list.add(meFoodorderCancelledFragment);
         indicatorViewPager = new IndicatorViewPager(indicator, viewPager);
         indicatorViewPager.setAdapter(adapter);
@@ -67,21 +61,12 @@ public class FoodorderActivity extends BaseActivity {
         viewPager.setOffscreenPageLimit(1);//缓存的左右页面的个数都是1
     }
 
-    @Override
-    public void getDataFromServer() {
-
-    }
-
-    @Override
-    protected BasePresenter createPresenter() {
-        return null;
-    }
     /**
      * 指示器适配器对形象
      */
-    public IndicatorViewPager.IndicatorFragmentPagerAdapter adapter=new IndicatorViewPager.IndicatorFragmentPagerAdapter(getSupportFragmentManager())
-    {
-        private String[] tabNames = {"全部订单", "我的预订", "待评价","已取消"};
+    public IndicatorViewPager.IndicatorFragmentPagerAdapter adapter = new IndicatorViewPager.IndicatorFragmentPagerAdapter(getSupportFragmentManager()) {
+        private String[] tabNames = {"全部订单", "我的预订", "待评价", "已取消"};
+
         @Override
         public int getCount() {
             return list.size();
@@ -106,4 +91,9 @@ public class FoodorderActivity extends BaseActivity {
             return fragment;
         }
     };
+
+    @Override
+    protected int getContentView() {
+        return R.layout.activity_mefoodorder;
+    }
 }
