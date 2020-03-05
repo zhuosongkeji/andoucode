@@ -1,49 +1,23 @@
 package com.zskjprojectj.andouclient.activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
+import com.blankj.utilcode.util.BarUtils;
+import com.zhuosongkj.android.library.app.BaseActivity;
+import com.zhuosongkj.android.library.util.ActionBarUtil;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.base.BaseActivity;
-import com.zskjprojectj.andouclient.base.BasePresenter;
-
-import butterknife.BindView;
-import butterknife.OnClick;
 
 public class DownloadappActivity extends BaseActivity {
 
-    @BindView(R.id.mTitleView)
-    RelativeLayout mTitleView;
-    @BindView(R.id.mHeaderTitle)
-    TextView mHeaderTitle;
-
-    @OnClick(R.id.mHeaderBack)
-    public void clickView(){
-        finish();
-    }
     @Override
-    protected void setRootView() {
-        setContentView(R.layout.activity_downloadapp);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        BarUtils.setStatusBarColor(mActivity, Color.parseColor("#F54740"));
     }
 
     @Override
-    protected void initData(Bundle savedInstanceState) {
-
-    }
-
-    @Override
-    protected void initViews() {
-        mHeaderTitle.setText("下载APP");
-    }
-
-    @Override
-    public void getDataFromServer() {
-
-    }
-
-    @Override
-    protected BasePresenter createPresenter() {
-        return null;
+    protected int getContentView() {
+        return R.layout.activity_downloadapp;
     }
 }

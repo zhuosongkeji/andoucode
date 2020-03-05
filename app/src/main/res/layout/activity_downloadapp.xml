@@ -7,46 +7,6 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#F64843">
-
-        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/mTitleView"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_50"
-            android:background="#F64843">
-
-            <ImageView
-                android:id="@+id/mHeaderBack"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:padding="@dimen/dp_15"
-                android:src="@mipmap/back_icon" />
-
-            <TextView
-                android:id="@+id/mHeaderTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="标题"
-                android:textColor="@color/white"
-                android:textSize="@dimen/typeface14sp" />
-
-            <ImageView
-                android:id="@+id/img_meset"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/dp_20"
-                android:src="@mipmap/distributor_center_settings"
-                android:visibility="gone" />
-        </RelativeLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@mipmap/downlodeapp_bg"
         android:orientation="vertical">
@@ -75,34 +35,44 @@
                 android:layout_marginTop="@dimen/dp_30"
                 android:src="@mipmap/newuser_icon" />
 
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_horizontal"
-                android:background="@mipmap/icon_hongbao"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal">
 
                 <ImageView
-                    android:id="@+id/img_downway"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center|center_vertical"
-                    android:layout_marginTop="@dimen/dp_115"
-                    android:src="@mipmap/downway_icon" />
+                    android:src="@mipmap/icon_hongbao" />
 
-                <ImageView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center|center_vertical"
-                    android:src="@mipmap/usercode_icon" />
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center|center_vertical"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:src="@mipmap/saomiaoxiazai_icon" />
-            </LinearLayout>
+                    <ImageView
+                        android:id="@+id/img_downway"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|center_vertical"
+                        android:layout_marginTop="@dimen/dp_115"
+                        android:src="@mipmap/downway_icon" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|center_vertical"
+                        android:src="@mipmap/usercode_icon" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|center_vertical"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:src="@mipmap/saomiaoxiazai_icon" />
+                </LinearLayout>
+            </FrameLayout>
 
         </LinearLayout>
 
