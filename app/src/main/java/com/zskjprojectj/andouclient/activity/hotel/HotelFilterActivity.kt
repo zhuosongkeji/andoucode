@@ -24,7 +24,6 @@ import com.zskjprojectj.andouclient.adapter.hotel.Catagory1Adapter
 import com.zskjprojectj.andouclient.adapter.hotel.HotelPriceAdapter
 import com.zskjprojectj.andouclient.adapter.hotel.HotelResultAdapter
 import com.zskjprojectj.andouclient.adapter.hotel.HotelStarAdapter
-import com.zskjprojectj.andouclient.entity.hotel.CategoryBean
 import com.zskjprojectj.andouclient.entity.hotel.HotelHomeBean
 import com.zskjprojectj.andouclient.entity.hotel.HotelSearchConditionBean
 import com.zskjprojectj.andouclient.http.ApiUtils
@@ -37,8 +36,6 @@ import kotlinx.android.synthetic.main.activity_hotel_filter.*
 import kotlinx.android.synthetic.main.dialog_hotel_location.view.*
 import kotlinx.android.synthetic.main.dialog_hotel_star_price.view.*
 import java.io.IOException
-import java.util.*
-import kotlin.collections.ArrayList
 
 
 class HotelFilterActivity : BaseActivity() {
@@ -324,8 +321,6 @@ class HotelFilterActivity : BaseActivity() {
             ApiUtils.getApiService().districts()
         }, {
             initCatagory1(contentView, it.data)
-            initCatagory2(contentView)
-            initCatagory3(contentView)
         })
     }
 
@@ -335,49 +330,59 @@ class HotelFilterActivity : BaseActivity() {
         catagory1Adapter?.openLoadAnimation()
         view.catagory1.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
         view.catagory1.adapter = catagory1Adapter
-
-        catagory1Adapter?.onItemChildClickListener = BaseQuickAdapter.OnItemChildClickListener { _, _, position ->
+        catagory1Adapter?.setOnItemClickListener { _, _, position ->
             val level1Item = catagory1Adapter?.getItem(position)
             catagory1Adapter?.select(position)
+            provinceId = level1Item?.id.toString()
             RequestUtil.request(mActivity, true, false, {
                 ApiUtils.getApiService().districts(level1Item?.id)
-            }, {
-                catagory2Adapter?.setNewData(it.data)
-
+            }, { cityResult ->
+                initCatagory2(view, cityResult.data)
+                catagory2Adapter?.onItemClickListener?.onItemClick(catagory2Adapter, null, 0)
             })
-
-//            catagory2Adapter?.select(0)
-//            catagory3Adapter?.setNewData(catagory1Adapter?.getItem(position)?.categories?.get(0)?.categories)
-//            catagory3Adapter?.select(0)
         }
-
+        catagory1Adapter?.onItemClickListener?.onItemClick(catagory1Adapter, null, 0)
     }
 
-    private fun initCatagory2(view: View) {
+    private fun initCatagory2(view: View, data: List<District>) {
         view.catagory2.layoutManager = LinearLayoutManager(this)
-
-        catagory2Adapter = Catagory1Adapter(R.layout.catagory1_item_view, arrayListOf())
+        catagory2Adapter = Catagory1Adapter(R.layout.catagory1_item_view, data)
         catagory2Adapter?.openLoadAnimation()
         view.catagory2.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
         view.catagory2.adapter = catagory2Adapter
-
-        catagory2Adapter?.onItemChildClickListener = BaseQuickAdapter.OnItemChildClickListener { adapter, view, position ->
+        catagory2Adapter?.setOnItemClickListener { _, _, position ->
+            val level2Item = catagory2Adapter?.getItem(position)
             catagory2Adapter?.select(position)
-            catagory3Adapter?.setNewData(arrayListOf())
-            catagory3Adapter?.select(0)
+            cityId = level2Item?.id.toString()
+            RequestUtil.request(mActivity, true, false, {
+                ApiUtils.getApiService().districts(level2Item?.id)
+            }, { areaResult ->
+                if (!areaResult.data.isNullOrEmpty()) {
+                    RequestUtil.request(mActivity, true, false, {
+                        ApiUtils.getApiService().districts(areaResult.data[0].id)
+                    }, {
+                        initCatagory3(view, areaResult.data)
+                    })
+                } else {
+                    mPopWindow?.dismiss()
+                    tv_location.text = level2Item?.name
+                }
+            })
         }
     }
 
-    private fun initCatagory3(view: View) {
+    private fun initCatagory3(view: View, data: List<District>) {
         view.catagory3.layoutManager = LinearLayoutManager(this)
-
-
-        catagory3Adapter = Catagory1Adapter(R.layout.catagory1_item_view, arrayListOf())
+        catagory3Adapter = Catagory1Adapter(R.layout.catagory1_item_view, data)
         catagory3Adapter?.openLoadAnimation()
         view.catagory3.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
         view.catagory3.adapter = catagory3Adapter
-
-        catagory3Adapter?.onItemChildClickListener = BaseQuickAdapter.OnItemChildClickListener { adapter, view, position -> catagory3Adapter?.select(position) }
+        catagory3Adapter?.setOnItemClickListener { _, _, position ->
+            val level3Item = catagory3Adapter?.getItem(position)
+            areaId = level3Item?.id.toString()
+            mPopWindow?.dismiss()
+            tv_location.text = level3Item?.name
+        }
     }
 
     override fun getContentView() = R.layout.activity_hotel_filter

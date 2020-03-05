@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class Catagory1Adapter extends BaseQuickAdapter<District, BaseViewHolder> {
 
-    private int mSelectedIndex = 0;
+    private int mSelectedIndex = -1;
 
 
     public Catagory1Adapter(int layoutResId, @Nullable List<District> data) {
@@ -34,8 +34,7 @@ public class Catagory1Adapter extends BaseQuickAdapter<District, BaseViewHolder>
     @Override
     protected void convert(BaseViewHolder helper, District item) {
         helper.setText(R.id.catagory1_content, item.name);
-        helper.addOnClickListener(R.id.catagory1_content);
-        int layoutPosition = helper.getLayoutPosition();
+         int layoutPosition = helper.getLayoutPosition();
         if (mSelectedIndex == layoutPosition) {
             helper.setTextColor(R.id.catagory1_content, Color.parseColor("#5ED3AE"));
         } else {
