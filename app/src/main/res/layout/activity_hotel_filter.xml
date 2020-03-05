@@ -15,6 +15,7 @@
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:padding="@dimen/dp_10">
+
         <FrameLayout
             android:id="@+id/mHeaderBack"
             android:layout_width="40dp"
@@ -47,7 +48,6 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/dp_20"
             android:layout_weight="1"
             android:background="@drawable/search_background_style"
             android:gravity="center_vertical">
@@ -66,15 +66,6 @@
                 android:textColor="#919191"
                 android:textColorHint="#919191"
                 android:textSize="@dimen/typeface14sp" />
-
-            <ImageButton
-                android:id="@+id/btn_clear"
-                android:layout_width="@dimen/dp_20"
-                android:layout_height="@dimen/dp_20"
-                android:layout_marginRight="@dimen/dp_10"
-                android:paddingStart="@dimen/dp_20"
-                android:background="@mipmap/ic_search" />
-
         </LinearLayout>
 
     </LinearLayout>
@@ -159,8 +150,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:visibility="gone"
-            android:gravity="center">
+            android:gravity="center"
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/mTvScreen"

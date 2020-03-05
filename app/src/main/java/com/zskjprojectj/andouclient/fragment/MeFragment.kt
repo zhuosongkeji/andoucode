@@ -59,7 +59,7 @@ class MeFragment : BaseFragment() {
         mycenter_business_residence_layout.setOnClickListener { startActivity(Intent(context, BusinessresidenceActivity::class.java)) }
         mycenter_downloadapp_layout.setOnClickListener { startActivity(Intent(context, DownloadappActivity::class.java)) }
         mycenter_operationvideo_layout.setOnClickListener { startActivity(Intent(context, OperationvideoActivity::class.java)) }
-        mycenter_myfocuson_layout.setOnClickListener { startActivity(Intent(context, MyFocusonActivity::class.java)) }
+        mycenter_myfocuson_layout.setOnClickListener { startActivity(Intent(context, MyFollowActivity::class.java)) }
         img_meset.setOnClickListener { startActivity(Intent(context, SettingActivity::class.java)) }
         dataLoader = {
             if (isLogin()) {

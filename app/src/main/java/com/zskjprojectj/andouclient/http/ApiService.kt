@@ -1272,7 +1272,7 @@ interface ApiService {
     fun tieBaDetail(
             @Query("uid") uid: String?,
             @Query("post_id") post_id: String?,
-            @Query("page") page: Int
+            @Query("page") page: Int?
     ): Observable<BaseResult<TieBa>>
 
     @GET("api/info/list")

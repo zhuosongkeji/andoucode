@@ -26,13 +26,14 @@ class TieBaDetailsActivity : BaseActivity() {
     val adapter = SquareCommentAdapter()
     val imgAdapter = SquareImgAdapter()
     var id = ""
+    var pageLoadUtil: PageLoadUtil<TieBa.CommentsBean>? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ActionBarUtil.setTitle(mActivity, "贴吧详情")
         id = intent.getStringExtra(KEY_DATA)
-        val pageLoadUtil = PageLoadUtil.get(mActivity, recyclerView, adapter, refreshLayout)
-        pageLoadUtil.load({
-            ApiUtils.getApiService().tieBaDetail(LoginInfoUtil.getUid(),id, pageLoadUtil.page)
+        pageLoadUtil = PageLoadUtil.get(mActivity, recyclerView, adapter, refreshLayout)
+        pageLoadUtil?.load({
+            ApiUtils.getApiService().tieBaDetail(LoginInfoUtil.getUid(), id, pageLoadUtil?.page)
         }, { _, result ->
             if (result is TieBa && baseContentView.tag == null) {
                 bindData(result)
@@ -63,7 +64,7 @@ class TieBaDetailsActivity : BaseActivity() {
                         commentContainer.visibility = View.GONE
                         commentEdt.setText("")
                         KeyboardUtils.hideSoftInput(commentEdt)
-                        adapter.addData(0, it.data)
+                        pageLoadUtil?.refresh()
                     })
         }
     }

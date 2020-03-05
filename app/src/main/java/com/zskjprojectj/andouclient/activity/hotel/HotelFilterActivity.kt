@@ -105,8 +105,8 @@ class HotelFilterActivity : BaseActivity() {
     private fun initViews() {
         hotelId = intent.getStringExtra("hotelId")
         recyclerView.layoutManager = LinearLayoutManager(this)
-        btn_clear.setOnClickListener {
-            val content = keywordEdt.text.toString().trim { it <= ' ' }
+        keywordEdt.setOnEditorActionListener { _, _, _ ->
+            val content = keywordEdt.text.toString()
             pageLoadUtil?.load {
                 ApiUtils.getApiService().hotelHomeList(
                         content,
@@ -116,6 +116,7 @@ class HotelFilterActivity : BaseActivity() {
                         type,
                         pageLoadUtil?.page)
             }
+            return@setOnEditorActionListener true
         }
         ll_selector_location.setOnClickListener {
             initLocation()
@@ -363,9 +364,7 @@ class HotelFilterActivity : BaseActivity() {
         catagory3Adapter?.onItemChildClickListener = BaseQuickAdapter.OnItemChildClickListener { adapter, view, position -> catagory3Adapter?.select(position) }
     }
 
-    override fun getContentView(): Int {
-        return R.layout.activity_hotel_filter
-    }
+    override fun getContentView() = R.layout.activity_hotel_filter
 
     companion object {
 
