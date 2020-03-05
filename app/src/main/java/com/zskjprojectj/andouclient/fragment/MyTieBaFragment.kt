@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import com.zskjprojectj.andouclient.R
 import com.zskjprojectj.andouclient.activity.LoginActivity
+import com.zskjprojectj.andouclient.http.ApiUtils
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil
 import kotlinx.android.synthetic.main.fragment_my_tieba.view.*
 
@@ -17,8 +18,14 @@ class MyTieBaFragment : TieBaListFragment() {
         view.loginBtn.setOnClickListener {
             LoginActivity.start(mFragment, 666)
         }
-        if (LoginInfoUtil.getToken().isNotEmpty()) {
+    }
+
+    override fun loadData() {
+        if (LoginInfoUtil.isLogin()) {
             view.loginBtn.visibility = View.GONE
+            super.loadData()
+        } else {
+            view.loginBtn.visibility = View.VISIBLE
         }
     }
 
@@ -28,7 +35,6 @@ class MyTieBaFragment : TieBaListFragment() {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && requestCode == 666) {
             loadData()
-            view.loginBtn.visibility = View.GONE
         }
     }
 }
