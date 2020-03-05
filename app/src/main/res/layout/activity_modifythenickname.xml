@@ -4,25 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F7F7F7"
     android:orientation="vertical">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorNavy">
 
-        <include layout="@layout/base_title_view" />
-    </LinearLayout>
     <EditText
         android:id="@+id/infoEdt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFFFFF"
-        android:hint="请输入内容"
-        android:paddingStart="15dp"
-        android:paddingTop="20dp"
-        android:paddingEnd="15dp"
-        android:paddingBottom="20dp"
+        android:background="@drawable/shape_edit"
+        android:hint="请输入姓名"
+        android:padding="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:textColorHint="#999999"
+        android:layout_marginTop="15dp"
         android:textColor="#ff646464"
         android:textSize="14sp" />
 

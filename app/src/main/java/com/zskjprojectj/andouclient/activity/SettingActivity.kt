@@ -56,7 +56,9 @@ class SettingActivity : BaseActivity() {
         rl_modifyaboutus.setOnClickListener { ActivityUtils.startActivity(ModifyaboutusActivity::class.java) }
         rl_clear.setOnClickListener {
             val s = tv_msize.text.toString()
-            val promtOnlyExtraDialog = PromtOnlyExtraDialog(mActivity, R.style.dialog, "系统提示", "是否清理缓存$s", "清理", PromtOnlyExtraDialog.OnCloseListener { dialog, confirm ->
+            val promtOnlyExtraDialog = PromtOnlyExtraDialog(mActivity,
+                    R.style.dialog, "系统提示", "是否清理缓存$s", "清理",
+                    PromtOnlyExtraDialog.OnCloseListener { dialog, confirm ->
                 if (confirm) {
                     DataCleanManager.clearAllCache(mActivity)
                     ToastUtil.showToast("清理成功!")
@@ -112,9 +114,21 @@ class SettingActivity : BaseActivity() {
                 {
                     RequestUtil.request(mActivity, true, false,
                             { ApiUtils.getApiService().user_pictures(LoginInfoUtil.getUid(), LoginInfoUtil.getToken(), it.data) },
-                            { result ->
-                                Glide.with(mActivity).load(UrlUtil.getImageUrl(result.data)).into(finalImageView!!)
+                            { _ ->
+                                Glide.with(mActivity).load(getImageUrl(it.data)).into(finalImageView!!)
                             })
+                })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        RequestUtil.request(mActivity, true, true,
+                { ApiUtils.getApiService().set(LoginInfoUtil.getUid(), LoginInfoUtil.getToken()) },
+                {
+                    tv_usersetname.text = it.data.name
+                    tv_usersetphone.text = it.data.mobile
+                    Glide.with(mActivity).load(getImageUrl(it.data.avator))
+                            .into(img_setpic)
                 })
     }
 
