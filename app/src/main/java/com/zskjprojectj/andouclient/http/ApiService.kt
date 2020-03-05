@@ -701,15 +701,16 @@ interface ApiService {
      */
     @POST("api/hotel/hotellist")
     @FormUrlEncoded
-    fun hotelHomeList(@Field("keywords") keywords: String?,
-                      @Field("star_price") star_price: String?,
-                      @Field("end_price") end_price: String?,
-                      @Field("stars_all") stars_all: String?,
-                      @Field("type") type: String? = "",
-                      @Field("province_id") province_id: String? = null,
-                      @Field("city_id") city_id: String? = null,
-                      @Field("area_id") area_id: String? = null,
-                      @Field("page") page: Int? = 1)
+    fun hotelHomeList(
+            @Field("province_id") province_id: String? = null,
+            @Field("city_id") city_id: String? = null,
+            @Field("area_id") area_id: String? = null,
+            @Field("keywords") keywords: String?,
+            @Field("star_price") star_price: String?,
+            @Field("end_price") end_price: String?,
+            @Field("stars_all") stars_all: String?,
+            @Field("type") type: String? = "",
+            @Field("page") page: Int? = 1)
             : Observable<BaseResult<ListData<HotelHomeBean>>>
 
 

@@ -133,14 +133,14 @@ class HotelHomeActivity : BaseActivity() {
         val pageLoadUtil = PageLoadUtil.get(mActivity, recyclerView, hoteladapter, refreshLayout)
         pageLoadUtil.load {
             ApiUtils.getApiService().hotelHomeList(
+                    null,
+                    null,
+                    null,
                     keywords,
                     startPrice,
                     endPrice,
                     hotelStar,
                     "",
-                    null,
-                    null,
-                    null,
                     pageLoadUtil.page)
         }
     }

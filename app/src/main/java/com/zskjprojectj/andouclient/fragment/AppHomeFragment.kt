@@ -214,6 +214,9 @@ class AppHomeFragment : BaseFragment() {
         RequestUtil.request(mActivity, true, true,
                 {
                     ApiUtils.getApiService().hotelHomeList(
+                            null,
+                            null,
+                            null,
                             keywords,
                             startPrice,
                             endPrice,

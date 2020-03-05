@@ -94,14 +94,14 @@ class HotelFilterActivity : BaseActivity() {
         pageLoadUtil = PageLoadUtil.get(mActivity, recyclerView, adapter, refreshLayout)
         pageLoadUtil?.load {
             ApiUtils.getApiService().hotelHomeList(
+                    provinceId,
+                    cityId,
+                    areaId,
                     keywords,
                     startPrice,
                     endPrice,
                     hotelStar,
                     type,
-                    provinceId,
-                    cityId,
-                    areaId,
                     pageLoadUtil?.page)
         }
         adapter.openLoadAnimation()
@@ -118,14 +118,14 @@ class HotelFilterActivity : BaseActivity() {
             val content = keywordEdt.text.toString()
             pageLoadUtil?.load {
                 ApiUtils.getApiService().hotelHomeList(
+                        provinceId,
+                        cityId,
+                        areaId,
                         content,
                         startPrice,
                         endPrice,
                         hotelStar,
                         type,
-                        provinceId,
-                        cityId,
-                        areaId,
                         pageLoadUtil?.page)
             }
             return@setOnEditorActionListener true
@@ -169,14 +169,14 @@ class HotelFilterActivity : BaseActivity() {
         contentView.findViewById<View>(R.id.tv_unlimited).setOnClickListener {
             pageLoadUtil?.load {
                 ApiUtils.getApiService().hotelHomeList(
+                        provinceId,
+                        cityId,
+                        areaId,
                         keywords,
                         startPrice,
                         endPrice,
                         hotelStar,
                         type,
-                        provinceId,
-                        cityId,
-                        areaId,
                         pageLoadUtil?.page)
             }
             mPopWindow?.dismiss()
@@ -185,14 +185,14 @@ class HotelFilterActivity : BaseActivity() {
         contentView.findViewById<View>(R.id.tv_distance).setOnClickListener {
             pageLoadUtil?.load {
                 ApiUtils.getApiService().hotelHomeList(
+                        provinceId,
+                        cityId,
+                        areaId,
                         keywords,
                         startPrice,
                         endPrice,
                         hotelStar,
                         "1",
-                        provinceId,
-                        cityId,
-                        areaId,
                         pageLoadUtil?.page)
             }
             mPopWindow?.dismiss()
@@ -201,14 +201,14 @@ class HotelFilterActivity : BaseActivity() {
         contentView.findViewById<View>(R.id.mTvPrice).setOnClickListener {
             pageLoadUtil?.load {
                 ApiUtils.getApiService().hotelHomeList(
+                        provinceId,
+                        cityId,
+                        areaId,
                         keywords,
                         startPrice,
                         endPrice,
                         hotelStar,
                         "2",
-                        provinceId,
-                        cityId,
-                        areaId,
                         pageLoadUtil?.page)
             }
             mPopWindow?.dismiss()
@@ -300,14 +300,14 @@ class HotelFilterActivity : BaseActivity() {
 
             pageLoadUtil?.load {
                 ApiUtils.getApiService().hotelHomeList(
+                        provinceId,
+                        cityId,
+                        areaId,
                         keywords,
                         item?.start,
                         item?.end,
                         starAdapter?.getItem(HotelPriceAdapter.SELECTOR_POSITION)?.name,
                         type,
-                        provinceId,
-                        cityId,
-                        areaId,
                         pageLoadUtil?.page)
             }
 
