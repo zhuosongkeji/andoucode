@@ -17,8 +17,8 @@ import com.zskjprojectj.andouclient.entity.MyFocusonBean;
 
 import java.util.List;
 
-public class MyFocusonAdapter extends BaseQuickAdapter<MyFocusonBean, BaseViewHolder> {
-    public MyFocusonAdapter(int layoutResId, @Nullable List<MyFocusonBean> data) {
+public class MyFollowAdapter extends BaseQuickAdapter<MyFocusonBean, BaseViewHolder> {
+    public MyFollowAdapter(int layoutResId, @Nullable List<MyFocusonBean> data) {
         super(layoutResId, data);
     }
 
@@ -28,9 +28,7 @@ public class MyFocusonAdapter extends BaseQuickAdapter<MyFocusonBean, BaseViewHo
                 .setText(R.id.busiess_address1_textview, item.getAddress())
                 .setText(R.id.tv_focusonnum, item.getTel())
                 .setText(R.id.focuson_dianzancount1_textview, item.getPraise_num());
-
-        Glide.with(mContext).load(UrlUtil.INSTANCE.getImageUrl(item.getLogo_img()))
-                .into((ImageView) helper.getView(R.id.focuson_tupian1_image));
+        Glide.with(mContext).load(UrlUtil.INSTANCE.getImageUrl(item.getLogo_img())).into((ImageView) helper.getView(R.id.focuson_tupian1_image));
         helper.addOnClickListener(R.id.btn_focusoncheckmerchants);
         ScaleRatingBar scaleRatingBar = helper.getView(R.id.simpleRatingBar);
         String stars_all = item.getStars_all();

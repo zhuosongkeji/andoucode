@@ -18,6 +18,7 @@ import com.blankj.utilcode.util.ActivityUtils
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zhuosongkj.android.library.app.BaseActivity
 import com.zhuosongkj.android.library.util.PageLoadUtil
+import com.zhuosongkj.android.library.util.RequestUtil
 import com.zskjprojectj.andouclient.R
 import com.zskjprojectj.andouclient.adapter.hotel.Catagory1Adapter
 import com.zskjprojectj.andouclient.adapter.hotel.HotelPriceAdapter
@@ -29,6 +30,7 @@ import com.zskjprojectj.andouclient.entity.hotel.HotelSearchConditionBean
 import com.zskjprojectj.andouclient.http.ApiUtils
 import com.zskjprojectj.andouclient.http.BaseObserver
 import com.zskjprojectj.andouclient.http.HttpRxObservable
+import com.zskjprojectj.andouclient.model.District
 import com.zskjprojectj.andouclient.utils.BarUtils
 import com.zskjprojectj.andouclient.utils.GridSectionAverageGapItemDecoration
 import kotlinx.android.synthetic.main.activity_hotel_filter.*
@@ -36,6 +38,7 @@ import kotlinx.android.synthetic.main.dialog_hotel_location.view.*
 import kotlinx.android.synthetic.main.dialog_hotel_star_price.view.*
 import java.io.IOException
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class HotelFilterActivity : BaseActivity() {
@@ -49,7 +52,6 @@ class HotelFilterActivity : BaseActivity() {
     private var catagory2Adapter: Catagory1Adapter? = null
     private var catagory3Adapter: Catagory1Adapter? = null
     private var catagory1Adapter: Catagory1Adapter? = null
-    private var datalist1: ArrayList<CategoryBean> = arrayListOf()
 
     private var priceAdapter: HotelPriceAdapter? = null
     private var starAdapter: HotelStarAdapter? = null
@@ -68,6 +70,10 @@ class HotelFilterActivity : BaseActivity() {
     private var hotelId: String? = null
     internal var adapter = HotelResultAdapter()
     private var pageLoadUtil: PageLoadUtil<HotelHomeBean>? = null
+
+    var provinceId: String? = null
+    var cityId: String? = null
+    var areaId: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -93,6 +99,9 @@ class HotelFilterActivity : BaseActivity() {
                     endPrice,
                     hotelStar,
                     type,
+                    provinceId,
+                    cityId,
+                    areaId,
                     pageLoadUtil?.page)
         }
         adapter.openLoadAnimation()
@@ -114,6 +123,9 @@ class HotelFilterActivity : BaseActivity() {
                         endPrice,
                         hotelStar,
                         type,
+                        provinceId,
+                        cityId,
+                        areaId,
                         pageLoadUtil?.page)
             }
             return@setOnEditorActionListener true
@@ -162,6 +174,9 @@ class HotelFilterActivity : BaseActivity() {
                         endPrice,
                         hotelStar,
                         type,
+                        provinceId,
+                        cityId,
+                        areaId,
                         pageLoadUtil?.page)
             }
             mPopWindow?.dismiss()
@@ -175,6 +190,9 @@ class HotelFilterActivity : BaseActivity() {
                         endPrice,
                         hotelStar,
                         "1",
+                        provinceId,
+                        cityId,
+                        areaId,
                         pageLoadUtil?.page)
             }
             mPopWindow?.dismiss()
@@ -188,6 +206,9 @@ class HotelFilterActivity : BaseActivity() {
                         endPrice,
                         hotelStar,
                         "2",
+                        provinceId,
+                        cityId,
+                        areaId,
                         pageLoadUtil?.page)
             }
             mPopWindow?.dismiss()
@@ -284,6 +305,9 @@ class HotelFilterActivity : BaseActivity() {
                         item?.end,
                         starAdapter?.getItem(HotelPriceAdapter.SELECTOR_POSITION)?.name,
                         type,
+                        provinceId,
+                        cityId,
+                        areaId,
                         pageLoadUtil?.page)
             }
 
@@ -296,43 +320,35 @@ class HotelFilterActivity : BaseActivity() {
     private fun initLocation() {
         val contentView = LayoutInflater.from(this).inflate(R.layout.dialog_hotel_location, null)
         initPopuWindow(contentView, tv_location)
-
-        datalist1 = ArrayList()
-        for (i in 0..4) {
-            val databean = CategoryBean()
-            databean.content = "一级$i"
-            for (j in 0..4) {
-                val dataBean2 = CategoryBean()
-                dataBean2.content = "二级$i$j"
-                for (k in 0..4) {
-                    val dataBean3 = CategoryBean()
-                    dataBean3.content = "三级$i$j$k"
-                    dataBean2.categories.add(dataBean3)
-                }
-                databean.categories.add(dataBean2)
-            }
-            datalist1.add(databean)
-        }
-
-
-        initCatagory1(contentView)
-        initCatagory2(contentView)
-        initCatagory3(contentView)
+        RequestUtil.request(mActivity, true, false, {
+            ApiUtils.getApiService().districts()
+        }, {
+            initCatagory1(contentView, it.data)
+            initCatagory2(contentView)
+            initCatagory3(contentView)
+        })
     }
 
-    private fun initCatagory1(view: View) {
+    private fun initCatagory1(view: View, data: List<District>) {
         view.catagory1.layoutManager = LinearLayoutManager(this)
-        catagory1Adapter = Catagory1Adapter(R.layout.catagory1_item_view, datalist1)
+        catagory1Adapter = Catagory1Adapter(R.layout.catagory1_item_view, data)
         catagory1Adapter?.openLoadAnimation()
         view.catagory1.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
         view.catagory1.adapter = catagory1Adapter
 
-        catagory1Adapter?.onItemChildClickListener = BaseQuickAdapter.OnItemChildClickListener { adapter, view, position ->
+        catagory1Adapter?.onItemChildClickListener = BaseQuickAdapter.OnItemChildClickListener { _, _, position ->
+            val level1Item = catagory1Adapter?.getItem(position)
             catagory1Adapter?.select(position)
-            catagory2Adapter?.setNewData(catagory1Adapter?.getItem(position)?.categories)
-            catagory2Adapter?.select(0)
-            catagory3Adapter?.setNewData(catagory1Adapter?.getItem(position)?.categories?.get(0)?.categories)
-            catagory3Adapter?.select(0)
+            RequestUtil.request(mActivity, true, false, {
+                ApiUtils.getApiService().districts(level1Item?.id)
+            }, {
+                catagory2Adapter?.setNewData(it.data)
+
+            })
+
+//            catagory2Adapter?.select(0)
+//            catagory3Adapter?.setNewData(catagory1Adapter?.getItem(position)?.categories?.get(0)?.categories)
+//            catagory3Adapter?.select(0)
         }
 
     }
@@ -340,14 +356,14 @@ class HotelFilterActivity : BaseActivity() {
     private fun initCatagory2(view: View) {
         view.catagory2.layoutManager = LinearLayoutManager(this)
 
-        catagory2Adapter = Catagory1Adapter(R.layout.catagory1_item_view, datalist1[0].categories)
+        catagory2Adapter = Catagory1Adapter(R.layout.catagory1_item_view, arrayListOf())
         catagory2Adapter?.openLoadAnimation()
         view.catagory2.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
         view.catagory2.adapter = catagory2Adapter
 
         catagory2Adapter?.onItemChildClickListener = BaseQuickAdapter.OnItemChildClickListener { adapter, view, position ->
             catagory2Adapter?.select(position)
-            catagory3Adapter?.setNewData(catagory2Adapter?.getItem(position)?.categories)
+            catagory3Adapter?.setNewData(arrayListOf())
             catagory3Adapter?.select(0)
         }
     }
@@ -356,7 +372,7 @@ class HotelFilterActivity : BaseActivity() {
         view.catagory3.layoutManager = LinearLayoutManager(this)
 
 
-        catagory3Adapter = Catagory1Adapter(R.layout.catagory1_item_view, datalist1[0].categories[0].categories)
+        catagory3Adapter = Catagory1Adapter(R.layout.catagory1_item_view, arrayListOf())
         catagory3Adapter?.openLoadAnimation()
         view.catagory3.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
         view.catagory3.adapter = catagory3Adapter

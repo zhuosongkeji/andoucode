@@ -138,6 +138,9 @@ class HotelHomeActivity : BaseActivity() {
                     endPrice,
                     hotelStar,
                     "",
+                    null,
+                    null,
+                    null,
                     pageLoadUtil.page)
         }
     }
