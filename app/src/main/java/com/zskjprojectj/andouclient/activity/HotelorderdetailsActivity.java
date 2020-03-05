@@ -12,8 +12,9 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.zhuosongkj.android.library.app.BaseActivity;
+import com.zhuosongkj.android.library.util.ActionBarUtil;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
 import com.zskjprojectj.andouclient.utils.UrlUtil;
 import com.zskjprojectj.andouclient.entity.hotel.MeHotelBean;
@@ -34,54 +35,26 @@ import butterknife.OnClick;
  */
 
 public class HotelorderdetailsActivity extends BaseActivity {
-
-    @BindView(R.id.mTitleView)
-    RelativeLayout mTitleView;
-    @BindView(R.id.mHeaderTitle)
-    TextView mHeaderTitle;
-
-
     private Button btn_hotelordercancle;
     private MeHotelBean meHotelBean;
 
-    @OnClick(R.id.mHeaderBack)
-    public void clickView(){
-        finish();
-    }
-
     @Override
-    protected void setRootView() {
-        setContentView(R.layout.activity_hotelorderdetails);
-    }
-
-    @Override
-    protected void initData(Bundle savedInstanceState) {
-        mHeaderTitle.setText("订单详情");
-        getBarDistance(mTitleView);
-    }
-
-    @Override
-    protected void initViews() {
-
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ActionBarUtil.setTitle(mActivity, "订单详情");
         meHotelBean = (MeHotelBean) getIntent().getSerializableExtra("MeHotelBean");
-
         btn_hotelordercancle = findViewById(R.id.btn_hotelordercancle);
         btn_hotelordercancle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                jumpActivity(HotelordercancleActivity.class);
+                ActivityUtils.startActivity(mActivity, HotelordercancleActivity.class);
             }
         });
-
-    }
-
-    @Override
-    public void getDataFromServer() {
         HttpRxObservable.getObservable(ApiUtils.getApiService().mehotelOrderDetails(
                 LoginInfoUtil.getUid(),
                 LoginInfoUtil.getToken(),
                 meHotelBean.getBook_sn()
-        )).subscribe(new BaseObserver<MeHotelDetailsBean>(mAt) {
+        )).subscribe(new BaseObserver<MeHotelDetailsBean>(mActivity) {
             @Override
             public void onHandleSuccess(MeHotelDetailsBean meHotelDetailsBean) throws IOException {
                 bindView(meHotelDetailsBean);
@@ -97,7 +70,7 @@ public class HotelorderdetailsActivity extends BaseActivity {
                 @Override
                 public void onClick(View v) {
                     HotelordercancleActivity.start(meHotelDetailsBean.getMerchant_id(),
-                            meHotelDetailsBean.getId(), meHotelDetailsBean.getBook_sn(),meHotelDetailsBean.getPay_money());
+                            meHotelDetailsBean.getId(), meHotelDetailsBean.getBook_sn(), meHotelDetailsBean.getPay_money());
                 }
             });
             //联系商家
@@ -142,7 +115,7 @@ public class HotelorderdetailsActivity extends BaseActivity {
         ((TextView) findViewById(R.id.tv_house_price)).setText("¥" + meHotelDetailsBean.getPrice());
         ((TextView) findViewById(R.id.tv_house_all_price)).setText("¥" + meHotelDetailsBean.getMoney());
         ((TextView) findViewById(R.id.tv_all_price)).setText(meHotelDetailsBean.getPay_money());
-        ((TextView) findViewById(R.id.tv_integral)).setText("-¥"+meHotelDetailsBean.getIntegral());
+        ((TextView) findViewById(R.id.tv_integral)).setText("-¥" + meHotelDetailsBean.getIntegral());
 
         //入住时间
         String start_time = meHotelDetailsBean.getStart_time();
@@ -157,15 +130,9 @@ public class HotelorderdetailsActivity extends BaseActivity {
         ((TextView) findViewById(R.id.tv_order_number)).setText(meHotelDetailsBean.getBook_sn());
         ((TextView) findViewById(R.id.created_at)).setText(meHotelDetailsBean.getCreated_at());
         ((TextView) findViewById(R.id.pay_way)).setText(meHotelDetailsBean.getPay_way());
-        Glide.with(mAt).load(UrlUtil.INSTANCE.getImageUrl(meHotelDetailsBean.getImg())).apply(new RequestOptions()
+        Glide.with(mActivity).load(UrlUtil.INSTANCE.getImageUrl(meHotelDetailsBean.getImg())).apply(new RequestOptions()
                 .placeholder(R.mipmap.ic_placeholder)).into((ImageView) findViewById(R.id.img_iconleft));
 
-    }
-
-
-    @Override
-    protected BasePresenter createPresenter() {
-        return null;
     }
 
     public static void start(MeHotelBean meHotelBean) {
@@ -174,9 +141,14 @@ public class HotelorderdetailsActivity extends BaseActivity {
         ActivityUtils.startActivity(bundle, HotelorderdetailsActivity.class);
     }
 
-    private void call(String phoneNumber){
+    private void call(String phoneNumber) {
         Intent myCallIntent = new Intent(Intent.ACTION_DIAL,
                 Uri.parse("tel:" + phoneNumber));
         startActivity(myCallIntent);
+    }
+
+    @Override
+    protected int getContentView() {
+        return R.layout.activity_hotelorderdetails;
     }
 }

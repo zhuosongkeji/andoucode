@@ -2,7 +2,6 @@ package com.zskjprojectj.andouclient.activity;
 
 import android.graphics.Color;
 import android.os.Bundle;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,13 +13,12 @@ import androidx.viewpager.widget.ViewPager;
 import com.shizhefei.view.indicator.FixedIndicatorView;
 import com.shizhefei.view.indicator.IndicatorViewPager;
 import com.shizhefei.view.indicator.slidebar.ColorBar;
+import com.zhuosongkj.android.library.app.BaseActivity;
+import com.zhuosongkj.android.library.util.ActionBarUtil;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.base.BaseActivity;
-import com.zskjprojectj.andouclient.base.BasePresenter;
 import com.zskjprojectj.andouclient.fragment.MeAllordersFragment;
 import com.zskjprojectj.andouclient.fragment.MeCancelledFragment;
 import com.zskjprojectj.andouclient.fragment.MeToEvaluateFragment;
-import com.zskjprojectj.andouclient.view.TopView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,35 +32,21 @@ public class VegetableMarketActivity extends BaseActivity {
     private List<Fragment> list;
     private ViewPager viewPager;
     //第三方指示器
-   private IndicatorViewPager indicatorViewPager;
-    @Override
-    protected void setRootView() {
-        setContentView(R.layout.me_vegetable_market);
-    }
+    private IndicatorViewPager indicatorViewPager;
 
     @Override
-    protected void initData(Bundle savedInstanceState) {
-    }
-
-    @Override
-    protected void initViews() {
-        TopView alltopview=findViewById(R.id.alltopview);
-        alltopview.setTitle("菜市场订单");
-        alltopview.setBackOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ActionBarUtil.setTitle(mActivity, "菜市场订单");
         //这个FixedindicatorView是平分tab的屏幕长度的
         indicator = (FixedIndicatorView) findViewById(R.id.indicator);
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         list = new ArrayList<Fragment>();
-        Fragment meAllordersFragment=new MeAllordersFragment();
+        Fragment meAllordersFragment = new MeAllordersFragment();
         list.add(meAllordersFragment);
-        Fragment meToEvaluateFragment=new MeToEvaluateFragment();
+        Fragment meToEvaluateFragment = new MeToEvaluateFragment();
         list.add(meToEvaluateFragment);
-        Fragment meCancelledFragment=new MeCancelledFragment();
+        Fragment meCancelledFragment = new MeCancelledFragment();
         list.add(meCancelledFragment);
         indicatorViewPager = new IndicatorViewPager(indicator, viewPager);
         indicatorViewPager.setAdapter(adapter);
@@ -71,20 +55,13 @@ public class VegetableMarketActivity extends BaseActivity {
         viewPager.setOffscreenPageLimit(1);//缓存的左右页面的个数都是1
     }
 
-    @Override
-    public void getDataFromServer() {
 
-    }
-
-    @Override
-    protected BasePresenter createPresenter() {
-        return null;
-    }
     /**
      * 指示器适配器对形象
      */
-    public IndicatorViewPager.IndicatorFragmentPagerAdapter adapter=new IndicatorViewPager.IndicatorFragmentPagerAdapter(getSupportFragmentManager()) {
+    public IndicatorViewPager.IndicatorFragmentPagerAdapter adapter = new IndicatorViewPager.IndicatorFragmentPagerAdapter(getSupportFragmentManager()) {
         private String[] tabNames = {"全部订单", "待评价", "已取消"};
+
         @Override
         public int getCount() {
             return list.size();
@@ -110,4 +87,9 @@ public class VegetableMarketActivity extends BaseActivity {
             return fragment;
         }
     };
+
+    @Override
+    protected int getContentView() {
+        return R.layout.me_vegetable_market;
+    }
 }

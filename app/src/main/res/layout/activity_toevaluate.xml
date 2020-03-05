@@ -5,8 +5,6 @@
     android:background="#F7F7F7"
     android:orientation="vertical">
 
-    <include layout="@layout/view_top_bar" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="110dp"
@@ -34,9 +32,9 @@
                 android:id="@+id/tv_add_dec"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="产品描述"
-                android:maxLines="2"
                 android:ellipsize="end"
+                android:maxLines="2"
+                android:text="产品描述"
                 android:textColor="#646464"
                 android:textSize="@dimen/typeface12sp" />
 

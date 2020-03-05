@@ -4,43 +4,31 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.blankj.utilcode.util.ActivityUtils;
+import com.zhuosongkj.android.library.app.BaseActivity;
+import com.zhuosongkj.android.library.util.ActionBarUtil;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.base.BaseActivity;
-import com.zskjprojectj.andouclient.base.BasePresenter;
 
 /**
  * 待发货订单详情页面
  */
 public class ShoporderdsendetailsActivity extends BaseActivity {
-    private Button btn_shopordersendetailsrefund;
-    @Override
-    protected void setRootView() {
-        setContentView(R.layout.activity_shoporderdsendetails);
-    }
 
     @Override
-    protected void initData(Bundle savedInstanceState) {
-        topView.setTitle("商城订单");
-    }
-
-    @Override
-    protected void initViews() {
-        btn_shopordersendetailsrefund=findViewById(R.id.btn_shopordersendetailsrefund);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ActionBarUtil.setTitle(mActivity, "商城订单");
+        Button btn_shopordersendetailsrefund = findViewById(R.id.btn_shopordersendetailsrefund);
         btn_shopordersendetailsrefund.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                jumpActivity(ShopordersendetailsrefundActivity.class);
+                ActivityUtils.startActivity(mActivity, ShopordersendetailsrefundActivity.class);
             }
         });
     }
 
     @Override
-    public void getDataFromServer() {
-
-    }
-
-    @Override
-    protected BasePresenter createPresenter() {
-        return null;
+    protected int getContentView() {
+        return R.layout.activity_shoporderdsendetails;
     }
 }

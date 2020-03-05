@@ -13,7 +13,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -26,11 +25,11 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureMimeType;
+import com.zhuosongkj.android.library.app.BaseActivity;
+import com.zhuosongkj.android.library.util.ActionBarUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.adapter.CauseRecyclerAdapter;
 import com.zskjprojectj.andouclient.adapter.TuiKuanAdapter;
-import com.zskjprojectj.andouclient.base.BaseActivity;
-import com.zskjprojectj.andouclient.base.BasePresenter;
 import com.zskjprojectj.andouclient.entity.RefundReasonBean;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
@@ -55,32 +54,16 @@ import okhttp3.RequestBody;
  * 申请退款
  */
 public class ShopordersendetailsrefundActivity extends BaseActivity {
-
-    @BindView(R.id.mHeaderTitle)
-    TextView mHeaderTitle;
-
-    @BindView(R.id.mTitleView)
-    RelativeLayout mTitleView;
-
-
-
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
-
-
     @BindView(R.id.ly_refundreason)
     TextView mCause;
-
     @BindView(R.id.tv_tui_price)
     TextView mTuiPrice;
     @BindView(R.id.et_dec)
     EditText mEtDec;
-
     @BindView(R.id.iv_image)
     ImageView mImage;
-
-
-    private RelativeLayout select_cause;
     private Dialog bottomDialog;
     private String type;
     private OrderDetail orderdetail;
@@ -90,20 +73,14 @@ public class ShopordersendetailsrefundActivity extends BaseActivity {
     private String image = "";
 
     @Override
-    protected void setRootView() {
-        setContentView(R.layout.activity_shopordersendetailsrefund);
-    }
-
-    @Override
-    protected void initData(Bundle savedInstanceState) {
-        type = getIntent().getStringExtra("type");
-        getBarDistance(mTitleView);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         if ("sales_return".equals(type)) {
-            mHeaderTitle.setText("申请退货");
+            ActionBarUtil.setTitle(mActivity, "申请退货");
         } else if ("refund".equals(type)) {
-            mHeaderTitle.setText("申请退款");
+            ActionBarUtil.setTitle(mActivity, "申请退款");
         }
-
+        type = getIntent().getStringExtra("type");
         mImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,39 +88,27 @@ public class ShopordersendetailsrefundActivity extends BaseActivity {
             }
         });
 
-    }
-
-    @Override
-    protected void initViews() {
         orderdetail = (OrderDetail) getIntent().getSerializableExtra("details");
         mTuiPrice.setText(orderdetail.order_money);
-        TuiKuanAdapter adapter=new TuiKuanAdapter();
+        TuiKuanAdapter adapter = new TuiKuanAdapter();
         adapter.bindToRecyclerView(recyclerView);
         adapter.setNewData(orderdetail.details);
 
         mCause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                HttpRxObservable.getObservable(ApiUtils.getApiService().refundreason()).subscribe(new BaseObserver<List<RefundReasonBean>>(mAt) {
-                    @Override
-                    public void onHandleSuccess(List<RefundReasonBean> refundReasonBeans) throws IOException {
-                        initBuyNow(refundReasonBeans);
-                    }
-                });
+                HttpRxObservable.getObservable(ApiUtils.getApiService().refundreason())
+                        .subscribe(new BaseObserver<List<RefundReasonBean>>(mActivity) {
+                            @Override
+                            public void onHandleSuccess(List<RefundReasonBean> refundReasonBeans) throws IOException {
+                                initBuyNow(refundReasonBeans);
+                            }
+                        });
 
 
             }
         });
     }
-
-
-
-    @Override
-    public void getDataFromServer() {
-
-
-    }
-
 
     private void startSelectPic(int requestCode) {
         PictureSelector.create(this)
@@ -153,7 +118,6 @@ public class ShopordersendetailsrefundActivity extends BaseActivity {
                 .loadImageEngine(GlideEngine.createGlideEngine())
                 .forResult(requestCode);
     }
-
 
     /**
      * 弹出窗口
@@ -202,28 +166,16 @@ public class ShopordersendetailsrefundActivity extends BaseActivity {
         bottomDialog.show();
     }
 
-    @Override
-    protected BasePresenter createPresenter() {
-        return null;
-    }
-
-
     public static void start(String type, OrderDetail goodsdetail) {
-
         Bundle bundle = new Bundle();
         bundle.putString("type", type);
         bundle.putSerializable("details", goodsdetail);
         ActivityUtils.startActivity(bundle, ShopordersendetailsrefundActivity.class);
-
     }
 
-
-    @OnClick({R.id.mHeaderBack, R.id.btn_commit})
+    @OnClick({R.id.btn_commit})
     public void clickView(View view) {
         switch (view.getId()) {
-            case R.id.mHeaderBack:
-                finish();
-                break;
             case R.id.btn_commit:
                 content = mEtDec.getText().toString().trim();
                 if (TextUtils.isEmpty(reasonId)) {
@@ -236,7 +188,7 @@ public class ShopordersendetailsrefundActivity extends BaseActivity {
                             reasonId,
                             content,
                             image
-                    )).subscribe(new BaseObserver<Object>(mAt) {
+                    )).subscribe(new BaseObserver<Object>(mActivity) {
                         @Override
                         public void onHandleSuccess(Object o) throws IOException {
                             finish();
@@ -269,19 +221,23 @@ public class ShopordersendetailsrefundActivity extends BaseActivity {
         RequestBody uid = RequestBody.create(MediaType.parse("multipart/form-data"), LoginInfoUtil.getUid());
         RequestBody token = RequestBody.create(MediaType.parse("multipart/form-data"), LoginInfoUtil.getToken());
         ImageView finalImageView = imageView;
-        HttpRxObservable.getObservable(ApiUtils.getApiService().uploadImg(uid, token, body)).subscribe(new BaseObserver<String>(mAt) {
+        HttpRxObservable.getObservable(ApiUtils.getApiService().uploadImg(uid, token, body))
+                .subscribe(new BaseObserver<String>(mActivity) {
+                    @Override
+                    public void onHandleSuccess(String s) throws IOException {
+                        image = s;
+                        Glide.with(mActivity).load(UrlUtil.INSTANCE.getImageUrl(s)).into(finalImageView);
+                    }
 
-            @Override
-            public void onHandleSuccess(String s) throws IOException {
-                image = s;
-                Glide.with(mAt).load(UrlUtil.INSTANCE.getImageUrl(s)).into(finalImageView);
-            }
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                    }
+                });
+    }
 
-            @Override
-            public void onError(Throwable e) {
-                super.onError(e);
-            }
-        });
-
+    @Override
+    protected int getContentView() {
+        return R.layout.activity_shopordersendetailsrefund;
     }
 }

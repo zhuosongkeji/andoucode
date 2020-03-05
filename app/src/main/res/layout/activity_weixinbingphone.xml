@@ -4,8 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/view_top_bar" />
-
     <EditText
         android:id="@+id/et_bindphonenum"
         android:layout_width="match_parent"

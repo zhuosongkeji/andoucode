@@ -6,9 +6,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.zhuosongkj.android.library.app.BaseActivity;
+import com.zhuosongkj.android.library.util.ActionBarUtil;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.base.BaseActivity;
-import com.zskjprojectj.andouclient.base.BasePresenter;
 import com.zskjprojectj.andouclient.entity.AboutusBean;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
@@ -21,45 +21,31 @@ import java.io.IOException;
  * 关于我们
  */
 public class ModifyaboutusActivity extends BaseActivity {
-    private ImageView img_about;
-    private TextView tv_abouttitle,tv_aboutcontent,tv_aboutvalue,tv_aboutcopyright;
     @Override
-    protected void setRootView() {
-        setContentView(R.layout.activity_modifyaboutus);
-    }
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ActionBarUtil.setTitle(mActivity, "关于我们");
+        ImageView img_about = findViewById(R.id.img_about);
+        TextView tv_abouttitle = findViewById(R.id.tv_abouttitle);
+        TextView tv_aboutcontent = findViewById(R.id.tv_aboutcontent);
+        TextView tv_aboutvalue = findViewById(R.id.tv_aboutvalue);
+        TextView tv_aboutcopyright = findViewById(R.id.tv_aboutcopyright);
 
-    @Override
-    protected void initData(Bundle savedInstanceState) {
-        topView.setTitle("关于我们");
-    }
-
-    @Override
-    protected void initViews() {
-        img_about=findViewById(R.id.img_about);
-        tv_abouttitle=findViewById(R.id.tv_abouttitle);
-        tv_aboutcontent=findViewById(R.id.tv_aboutcontent);
-        tv_aboutvalue=findViewById(R.id.tv_aboutvalue);
-        tv_aboutcopyright=findViewById(R.id.tv_aboutcopyright);
-    }
-
-    @Override
-    public void getDataFromServer() {
-        HttpRxObservable.getObservable(ApiUtils.getApiService().about()).subscribe(new BaseObserver<AboutusBean>(mAt) {
-
+        HttpRxObservable.getObservable(ApiUtils.getApiService().about()).subscribe(new BaseObserver<AboutusBean>(mActivity) {
             @Override
             public void onHandleSuccess(AboutusBean aboutusBean) throws IOException {
-                Glide.with(mAt).load(UrlUtil.INSTANCE.getImageUrl(aboutusBean.getImage()))
+                Glide.with(mActivity).load(UrlUtil.INSTANCE.getImageUrl(aboutusBean.getImage()))
                         .apply(new RequestOptions().placeholder(R.mipmap.ic_placeholder)).into(img_about);
                 tv_abouttitle.setText(aboutusBean.getTitle());
                 tv_aboutcontent.setText(aboutusBean.getContent());
-                tv_aboutvalue.setText("当前版本"+aboutusBean.getValue());
-                tv_aboutcopyright.setText("版权所有:"+aboutusBean.getCopyright());
+                tv_aboutvalue.setText("当前版本" + aboutusBean.getValue());
+                tv_aboutcopyright.setText("版权所有:" + aboutusBean.getCopyright());
             }
         });
     }
 
     @Override
-    protected BasePresenter createPresenter() {
-        return null;
+    protected int getContentView() {
+        return R.layout.activity_modifyaboutus;
     }
 }

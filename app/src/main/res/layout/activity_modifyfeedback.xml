@@ -8,49 +8,45 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorNavy">
-        <include layout="@layout/base_title_view"/>
-
-    </LinearLayout>
-
-    <LinearLayout
         android:background="@color/white"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:paddingLeft="@dimen/dp_15"
         android:paddingTop="@dimen/dp_22"
         android:paddingBottom="@dimen/dp_22">
+
         <TextView
-            android:textColor="#646464"
-            android:textSize="@dimen/typeface13sp"
-            android:text="您宝贵的意见是我们最大的动力"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="您宝贵的意见是我们最大的动力"
+            android:textColor="#646464"
+            android:textSize="@dimen/typeface13sp" />
     </LinearLayout>
+
     <View
-        android:background="#F7F7F7"
         android:layout_width="match_parent"
-        android:layout_height="1dp"/>
+        android:layout_height="1dp"
+        android:background="#F7F7F7" />
+
     <EditText
         android:id="@+id/et_context"
+        android:layout_width="match_parent"
+        android:layout_height="270dp"
+        android:background="@color/white"
+        android:gravity="top"
+        android:hint="意见反馈"
         android:paddingLeft="@dimen/dp_15"
         android:paddingTop="@dimen/dp_15"
-        android:textSize="12sp"
         android:textColor="@color/black"
-        android:gravity="top"
         android:textColorHint="#9C9C9C"
-        android:hint="意见反馈"
-        android:background="@color/white"
-        android:layout_width="match_parent"
-        android:layout_height="270dp"/>
+        android:textSize="12sp" />
+
     <Button
         android:id="@+id/btn_postcontext"
-        android:layout_marginLeft="@dimen/dp_15"
-        android:layout_marginRight="@dimen/dp_15"
-        android:textColor="@color/white"
-        android:layout_marginTop="89dp"
-        android:text="提交"
-        android:background="@drawable/shape_button"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_15"
+        android:layout_marginTop="89dp"
+        android:layout_marginRight="@dimen/dp_15"
+        android:background="@drawable/shape_button"
+        android:text="提交"
+        android:textColor="@color/white" />
 </LinearLayout>

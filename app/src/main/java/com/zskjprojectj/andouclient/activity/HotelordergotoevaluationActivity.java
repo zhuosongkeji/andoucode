@@ -11,8 +11,9 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.willy.ratingbar.BaseRatingBar;
 import com.willy.ratingbar.ScaleRatingBar;
+import com.zhuosongkj.android.library.app.BaseActivity;
+import com.zhuosongkj.android.library.util.ActionBarUtil;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
@@ -30,11 +31,6 @@ import butterknife.OnClick;
  */
 public class HotelordergotoevaluationActivity extends BaseActivity {
 
-    @BindView(R.id.mTitleView)
-    RelativeLayout mTitleView;
-    @BindView(R.id.mHeaderTitle)
-    TextView mHeaderTitle;
-
     @BindView(R.id.simpleRatingBar)
     ScaleRatingBar mSimpleRatingBar;
 
@@ -50,41 +46,41 @@ public class HotelordergotoevaluationActivity extends BaseActivity {
     private String merchant_id;
     private String id;
     private String book_sn;
-    private String likeStatus="0";
+    private String likeStatus = "0";
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        merchant_id = getIntent().getStringExtra("merchant_id");
+        id = getIntent().getStringExtra("id");
+        book_sn = getIntent().getStringExtra("book_sn");
+        ActionBarUtil.setTitle(mActivity, "发布评论");
+        mSimpleRatingBar.setOnRatingChangeListener(new BaseRatingBar.OnRatingChangeListener() {
+            @Override
+            public void onRatingChange(BaseRatingBar ratingBar, float rating, boolean fromUser) {
+                mTvEvaluate.setText(getEvaluate((int) rating));
+            }
+        });
+    }
 
-    @OnClick({R.id.mHeaderBack, R.id.iv_like,R.id.btn_evaluate})
+    @OnClick({R.id.iv_like, R.id.btn_evaluate})
     public void clickView(View view) {
         switch (view.getId()) {
-            case R.id.mHeaderBack:
-                finish();
-                break;
             case R.id.iv_like:
-                if (mIvLike.isSelected()){
-                    likeStatus="0";
+                if (mIvLike.isSelected()) {
+                    likeStatus = "0";
                     mIvLike.setSelected(false);
-                }else {
+                } else {
                     mIvLike.setSelected(true);
 
-                    likeStatus="1";
+                    likeStatus = "1";
                 }
-//                HttpRxObservable.getObservable(ApiUtils.getApiService().addhotelfabulous(
-//                        LoginInfoUtil.getUid(),
-//                        LoginInfoUtil.getToken(),
-//                        merchant_id
-//                )).subscribe(new BaseObserver<Object>(mAt) {
-//                    @Override
-//                    public void onHandleSuccess(Object o) throws IOException {
-//
-//                    }
-//                });
                 break;
             case R.id.btn_evaluate:
                 float rating1 = mSimpleRatingBar.getRating();
-                int rat= (int) rating1;
+                int rat = (int) rating1;
 
                 String rating = String.valueOf(rat);
-                Log.d(TAG, "clickView: "+likeStatus+" "+rating);
                 HttpRxObservable.getObservable(ApiUtils.getApiService().addhotelcomment(
                         LoginInfoUtil.getUid(),
                         LoginInfoUtil.getToken(),
@@ -94,7 +90,7 @@ public class HotelordergotoevaluationActivity extends BaseActivity {
                         mEtEvaluateContent.getText().toString(),
                         rating,
                         likeStatus
-                )).subscribe(new BaseObserver<Object>(mAt) {
+                )).subscribe(new BaseObserver<Object>(mActivity) {
                     @Override
                     public void onHandleSuccess(Object o) throws IOException {
                         ToastUtil.showToast("评价成功");
@@ -105,45 +101,6 @@ public class HotelordergotoevaluationActivity extends BaseActivity {
         }
 
 
-    }
-
-
-    @Override
-    protected void setRootView() {
-        setContentView(R.layout.activity_hotelordergotoevaluation);
-    }
-
-    @Override
-    protected void initData(Bundle savedInstanceState) {
-        mHeaderTitle.setText("发布评论");
-        getBarDistance(mTitleView);
-
-        mSimpleRatingBar.setOnRatingChangeListener(new BaseRatingBar.OnRatingChangeListener() {
-            @Override
-            public void onRatingChange(BaseRatingBar ratingBar, float rating, boolean fromUser) {
-                mTvEvaluate.setText(getEvaluate((int) rating));
-            }
-        });
-    }
-
-    @Override
-    protected void initViews() {
-        merchant_id = getIntent().getStringExtra("merchant_id");
-        id = getIntent().getStringExtra("id");
-        book_sn = getIntent().getStringExtra("book_sn");
-
-    }
-
-    @Override
-    public void getDataFromServer() {
-
-
-
-    }
-
-    @Override
-    protected BasePresenter createPresenter() {
-        return null;
     }
 
     public static void start(String merchant_id, String id, String book_sn) {
@@ -175,4 +132,8 @@ public class HotelordergotoevaluationActivity extends BaseActivity {
     }
 
 
+    @Override
+    protected int getContentView() {
+        return R.layout.activity_hotelordergotoevaluation;
+    }
 }

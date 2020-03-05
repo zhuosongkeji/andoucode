@@ -13,11 +13,13 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
+import com.blankj.utilcode.util.ActivityUtils;
 import com.shizhefei.view.indicator.FixedIndicatorView;
 import com.shizhefei.view.indicator.IndicatorViewPager;
 import com.shizhefei.view.indicator.slidebar.ColorBar;
+import com.zhuosongkj.android.library.app.BaseActivity;
+import com.zhuosongkj.android.library.util.ActionBarUtil;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
 import com.zskjprojectj.andouclient.fragment.BalancesubsidiaryFragment;
 import com.zskjprojectj.andouclient.http.ApiUtils;
@@ -60,19 +62,9 @@ public class MywalletActivity extends BaseActivity {
     BalancesubsidiaryFragment meCashFragment = new BalancesubsidiaryFragment();
 
     @Override
-    protected void setRootView() {
-        setContentView(R.layout.activity_mywallet);
-    }
-
-    @Override
-    protected void initData(Bundle savedInstanceState) {
-
-        getBarDistance(mTitleView);
-        mHeaderTitle.setText("我的钱包");
-    }
-
-    @Override
-    protected void initViews() {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ActionBarUtil.setTitle(mActivity, "我的钱包");
         balanceofprepaid = findViewById(R.id.btn_balanceofprepaid);
         btn_withdrawal = findViewById(R.id.btn_withdrawal);
         EventBus.getDefault().register(this);
@@ -80,17 +72,14 @@ public class MywalletActivity extends BaseActivity {
         balanceofprepaid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                jumpActivity(BalanceofprepaidActivity.class);
-
-                // finish();
+                ActivityUtils.startActivity(mActivity, BalanceofprepaidActivity.class);
             }
         });
         //余额提现
         btn_withdrawal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                jumpActivity(WithdrawalActivity.class);
-                // finish();
+                ActivityUtils.startActivity(mActivity, WithdrawalActivity.class);
             }
         });
         //这个FixedindicatorView是平分tab的屏幕长度的
@@ -104,14 +93,15 @@ public class MywalletActivity extends BaseActivity {
         //设置滑动时的那一项的图形和颜色变化，ColorBar对应的是下划线的形状。
         indicator.setScrollBar(new ColorBar(getApplicationContext(), Color.parseColor("#5ed3ae"), 5));
         viewPager.setOffscreenPageLimit(1);//缓存的左右页面的个数都是1
+        getDataFromServer();
     }
 
-    @Override
-    public void getDataFromServer() {
+
+    private void getDataFromServer() {
         HttpRxObservable.getObservable(ApiUtils.getApiService().balanceDetail(
                 LoginInfoUtil.getUid(),
                 LoginInfoUtil.getToken()
-        )).subscribe(new BaseObserver<BalanceDetail>(mAt) {
+        )).subscribe(new BaseObserver<BalanceDetail>(mActivity) {
             @Override
             public void onHandleSuccess(BalanceDetail balanceDetail) throws IOException {
                 ((TextView) findViewById(R.id.tv_balanceofnum)).setText("¥" + balanceDetail.money);
@@ -122,18 +112,13 @@ public class MywalletActivity extends BaseActivity {
         HttpRxObservable.getObservable(ApiUtils.getApiService().cashDetail(
                 LoginInfoUtil.getUid(),
                 LoginInfoUtil.getToken()
-        )).subscribe(new BaseObserver<BalanceDetail>(mAt) {
+        )).subscribe(new BaseObserver<BalanceDetail>(mActivity) {
             @Override
             public void onHandleSuccess(BalanceDetail balanceDetail) throws IOException {
                 ((TextView) findViewById(R.id.tv_balanceofnum)).setText("¥" + balanceDetail.money);
                 meCashFragment.addData(balanceDetail.log, true);
             }
         });
-    }
-
-    @Override
-    protected BasePresenter createPresenter() {
-        return null;
     }
 
     /**
@@ -167,14 +152,13 @@ public class MywalletActivity extends BaseActivity {
         }
     };
 
-    @OnClick(R.id.mHeaderBack)
-    public void clickView() {
-        finish();
-    }
-
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void initnewData(PaySuccessEvent paySuccessEvent) {
-         getDataFromServer();
+        getDataFromServer();
+    }
 
+    @Override
+    protected int getContentView() {
+        return R.layout.activity_mywallet;
     }
 }

@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical">
-
-    <include layout="@layout/view_top_bar" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -16,8 +13,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
-
 
 
             <View
@@ -191,6 +186,7 @@
                     android:textColor="#646464"
                     android:textSize="@dimen/typeface12sp" />
             </RelativeLayout>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -214,6 +210,7 @@
                     android:textColor="#646464"
                     android:textSize="@dimen/typeface12sp" />
             </RelativeLayout>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -237,6 +234,7 @@
                     android:textColor="#646464"
                     android:textSize="@dimen/typeface12sp" />
             </RelativeLayout>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -260,6 +258,7 @@
                     android:textColor="@color/red"
                     android:textSize="@dimen/typeface12sp" />
             </RelativeLayout>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -292,10 +291,11 @@
                 android:background="#F7F7F7" />
 
             <RelativeLayout
-                android:layout_marginTop="@dimen/dp_10"
-                android:layout_marginBottom="@dimen/dp_10"
                 android:layout_width="match_parent"
-                android:layout_height="55dp">
+                android:layout_height="55dp"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginBottom="@dimen/dp_10">
+
                 <Button
                     android:id="@+id/btn_checkthelogistics"
                     android:layout_width="90dp"

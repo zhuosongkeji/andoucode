@@ -1,52 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@color/white"
-    android:orientation="vertical"
-    android:layout_height="match_parent">
-    <include layout="@layout/view_top_bar"/>
+    android:orientation="vertical">
+
     <ImageView
         android:id="@+id/img_about"
-        android:layout_marginTop="@dimen/dp_40"
-        android:src="@mipmap/andou_icon"
         android:layout_width="@dimen/dp_105"
+        android:layout_height="@dimen/dp_105"
         android:layout_gravity="center"
-        android:layout_height="@dimen/dp_105"/>
+        android:layout_marginTop="@dimen/dp_40"
+        android:src="@mipmap/andou_icon" />
+
     <TextView
         android:id="@+id/tv_abouttitle"
-        android:layout_marginTop="@dimen/dp_15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textSize="@dimen/typeface14sp"
+        android:layout_marginTop="@dimen/dp_15"
         android:text="吃喝玩乐  尽在安抖"
         android:textColor="#46A19A"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:textSize="@dimen/typeface14sp" />
+
     <TextView
         android:id="@+id/tv_aboutcontent"
-        android:textColor="#666666"
-        android:textSize="@dimen/typeface12sp"
-        android:text="安抖APP关于我们文字安抖APP关于我们文字，安抖APP关于我们文字安抖APP关于我们文字安抖APP关于我们文字安抖APP关于我们文字，安抖APP关于我们文字安抖APP关于我们文字，安抖APP关于我们文字安抖APP关于我们文字安抖APP关于我们文字安抖APP关于我们文字，安抖APP关于我们文字安抖APP关于我们文字，安抖APP关于我们文字安抖APP关于我们文字安抖APP关于我们文字安抖APP关于我们文字，安抖APP关于我们文字安抖APP关于我们文字安抖APP关于我们文字安抖APP关于我们文字。"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_15"
         android:layout_marginTop="@dimen/dp_30"
         android:layout_marginRight="@dimen/dp_15"
-        android:layout_marginLeft="@dimen/dp_15"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:text="安抖APP关于我们文字安抖APP关于我们文字，安抖APP关于我们文字安抖APP关于我们文字安抖APP关于我们文字安抖APP关于我们文字，安抖APP关于我们文字安抖APP关于我们文字，安抖APP关于我们文字安抖APP关于我们文字安抖APP关于我们文字安抖APP关于我们文字，安抖APP关于我们文字安抖APP关于我们文字，安抖APP关于我们文字安抖APP关于我们文字安抖APP关于我们文字安抖APP关于我们文字，安抖APP关于我们文字安抖APP关于我们文字安抖APP关于我们文字安抖APP关于我们文字。"
+        android:textColor="#666666"
+        android:textSize="@dimen/typeface12sp" />
+
     <TextView
         android:id="@+id/tv_aboutvalue"
-        android:textSize="@dimen/typeface12sp"
-        android:textColor="#666666"
-        android:text="当前版本：1.1.0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="86dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:text="当前版本：1.1.0"
+        android:textColor="#666666"
+        android:textSize="@dimen/typeface12sp" />
+
     <TextView
         android:id="@+id/tv_aboutcopyright"
-        android:textSize="@dimen/typeface12sp"
-        android:textColor="#666666"
-        android:text="版权所有：西豆科技发展重庆有限公司"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/dp_22"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:text="版权所有：西豆科技发展重庆有限公司"
+        android:textColor="#666666"
+        android:textSize="@dimen/typeface12sp" />
 </LinearLayout>
