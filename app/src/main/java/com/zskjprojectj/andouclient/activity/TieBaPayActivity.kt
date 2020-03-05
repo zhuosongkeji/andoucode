@@ -18,7 +18,6 @@ import com.zhuosongkj.android.library.util.RequestUtil
 import com.zskjprojectj.andouclient.R
 import com.zskjprojectj.andouclient.activity.mall.MallPaySuccessActivity
 import com.zskjprojectj.andouclient.adapter.mall.PayWaysAdapter
-import com.zskjprojectj.andouclient.entity.WXPayBean
 import com.zskjprojectj.andouclient.http.ApiUtils
 import com.zskjprojectj.andouclient.model.WxPay
 import com.zskjprojectj.andouclient.utils.*
@@ -93,7 +92,7 @@ class TieBaPayActivity : BaseActivity() {
                                             method,
                                             payId)
                                 },
-                                { startWXPay(it.data.params) })
+                                { PayUtil.startWXPay(mActivity,it.data.params) })
                     }
                     YUEPAY -> {
                         AlertDialog.Builder(mActivity)
@@ -129,22 +128,7 @@ class TieBaPayActivity : BaseActivity() {
         threeDayBtn.isSelected = false
     }
 
-    private fun startWXPay(wxPayBean: WxPay) {
-        val msgApi = WXAPIFactory.createWXAPI(mActivity, Constants.APP_ID)
-        //将该app注册到微信
-        msgApi.registerApp(Constants.APP_ID)
-        //        创建支付请求对象
-        val req = PayReq()
-        req.appId = Constants.APP_ID
-        req.partnerId = wxPayBean.partnerid
-        req.prepayId = wxPayBean.prepayid
-        req.packageValue = "Sign=WXPay"
-        req.nonceStr = wxPayBean.noncestr
-        req.timeStamp = wxPayBean.timestamp
-        req.sign = wxPayBean.sign
-        req.extData = "tiebapay"
-        msgApi.sendReq(req)
-    }
+
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onPaySuccess(event: PaySuccessEvent) {

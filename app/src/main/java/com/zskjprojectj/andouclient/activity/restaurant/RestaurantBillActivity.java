@@ -28,10 +28,10 @@ import com.zhuosongkj.android.library.util.ViewUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.mall.MallPaySuccessActivity;
 import com.zskjprojectj.andouclient.adapter.restaurant.DateAdapter;
-import com.zskjprojectj.andouclient.entity.WXPayBean;
 import com.zskjprojectj.andouclient.event.RestaurantPaySuccess;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.model.Food;
+import com.zskjprojectj.andouclient.model.WxPay;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 import com.zskjprojectj.andouclient.utils.PayUtil;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
@@ -246,7 +246,8 @@ public class RestaurantBillActivity extends BaseActivity {
 
     @OnClick(R.id.subBtn)
     void onSubBtnClick() {
-        if (num <= 0) return;
+        if (num <= 0)
+            return;
         num -= 1;
         numTxt.setText(String.valueOf(num));
     }
@@ -289,7 +290,7 @@ public class RestaurantBillActivity extends BaseActivity {
                                     dateStr + " " + timeStr,
                                     scoreContainer.isSelected() ? 1 : 0,
                                     getPayWay()
-                            ), result -> wxPayResult(new Gson().fromJson(result.data, WXPayBean.class)));
+                            ), result -> wxPayResult(new Gson().fromJson(result.data, WxPay.class)));
                 }
             }
         } else {
@@ -318,10 +319,10 @@ public class RestaurantBillActivity extends BaseActivity {
         EventBus.getDefault().post(new RestaurantPaySuccess());
     }
 
-    private void wxPayResult(WXPayBean wxPayBean) {
+    private void wxPayResult(WxPay wxPayBean) {
         setResult(Activity.RESULT_OK);
         finish();
-        PayUtil.startWXPay(mActivity, wxPayBean);
+        PayUtil.INSTANCE.startWXPay(mActivity, wxPayBean);
     }
 
     private int getPayWay() {

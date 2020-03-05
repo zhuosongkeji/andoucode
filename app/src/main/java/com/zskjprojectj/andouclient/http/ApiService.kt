@@ -330,7 +330,7 @@ interface ApiService {
                       @Field("puzzle_id") puzzle_id: String? = null,
                       @Field("open_join") open_join: String? = null,
                       @Field("group_id") group_id: String? = null
-    ): Observable<BaseResult<WXPayBean>>
+    ): Observable<BaseResult<WxPay>>
 
     /**
      * 微信充值
@@ -361,7 +361,7 @@ interface ApiService {
     fun vip_recharge(@Field("uid") uid: String,
                      @Field("token") token: String,
                      @Field("pay_id") pay_id: String
-    ): Observable<BaseResult<WXPayBean>>
+    ): Observable<BaseResult<WxPay>>
 
     /**
      * 新增收货地址
@@ -780,7 +780,7 @@ interface ApiService {
                    @Field("num") num: String,
                    @Field("day_num") day_num: String,
                    @Field("pay_way") pay_way: String,
-                   @Field("is_integral") is_integral: String): Observable<BaseResult<WXPayBean>>
+                   @Field("is_integral") is_integral: String): Observable<BaseResult<WxPay>>
 
     /**
      * list - 酒店订单
@@ -1148,7 +1148,7 @@ interface ApiService {
     @FormUrlEncoded
     @POST("api/gourmet/wxPay")
     fun wxPay(@Field("uid") user_id: String,
-              @Field("sNo") order_sn: String): Observable<BaseResult<WXPayBean>>
+              @Field("sNo") order_sn: String): Observable<BaseResult<WxPay>>
 
     @FormUrlEncoded
     @POST("api/gourmet/balancePay")

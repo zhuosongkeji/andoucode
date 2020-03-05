@@ -21,12 +21,13 @@ import com.zskjprojectj.andouclient.adapter.mall.PayWaysAdapter;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
 import com.zskjprojectj.andouclient.entity.ViproteBean;
-import com.zskjprojectj.andouclient.entity.WXPayBean;
 import com.zskjprojectj.andouclient.entity.mall.MallPayWaysBean;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
+import com.zskjprojectj.andouclient.model.WxPay;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
+import com.zskjprojectj.andouclient.utils.PayUtil;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
 
 import java.io.IOException;
@@ -51,6 +52,7 @@ public class OpeningmemberActivity extends BaseActivity {
     private Button btn_sure;
     private TextView tv_openprice;
     private WebView wv_webview;
+
     @Override
     protected void setRootView() {
         setContentView(R.layout.activity_openingmember);
@@ -61,45 +63,43 @@ public class OpeningmemberActivity extends BaseActivity {
         getBarDistance(mTitleView);
         mHeaderTitle.setText("开通会员");
         mRecycler = findViewById(R.id.rv_pay_ways);
-        tv_openprice=findViewById(R.id.tv_openprice);
-        wv_webview=findViewById(R.id.wv_webview);
+        tv_openprice = findViewById(R.id.tv_openprice);
+        wv_webview = findViewById(R.id.wv_webview);
         //请求信息
-        HttpRxObservable.getObservable(ApiUtils.getApiService().vip_rote(LoginInfoUtil.getUid(),LoginInfoUtil.getToken())).subscribe(new BaseObserver<ViproteBean>(mAt) {
+        HttpRxObservable.getObservable(ApiUtils.getApiService().vip_rote(LoginInfoUtil.getUid(), LoginInfoUtil.getToken())).subscribe(new BaseObserver<ViproteBean>(mAt) {
             @Override
             public void onHandleSuccess(ViproteBean viproteBean) throws IOException {
-                tv_openprice.setText("¥"+viproteBean.getPrice());
+                tv_openprice.setText("¥" + viproteBean.getPrice());
                 String details = viproteBean.getVip_rote();
                 Log.d(TAG, "onHandleSuccess:+ " + details);
                 String htmlData = getHtmlData(details);
-                System.out.println("tml"+htmlData);
-                wv_webview.loadData(htmlData,"text/html", "UTF-8");
+                System.out.println("tml" + htmlData);
+                wv_webview.loadData(htmlData, "text/html", "UTF-8");
                 wv_webview.setVerticalScrollBarEnabled(false);
                 wv_webview.setHorizontalScrollBarEnabled(false);
             }
         });
         mRecycler.setLayoutManager(new LinearLayoutManager(mAt));
-        btn_sure=findViewById(R.id.btn_sure);
+        btn_sure = findViewById(R.id.btn_sure);
         btn_sure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (TextUtils.isEmpty(payId))
-                {
+                if (TextUtils.isEmpty(payId)) {
                     ToastUtil.showToast("请选择支付方式");
                     return;
                 }
                 int id = Integer.parseInt(payId);
-                switch (id)
-                {
+                switch (id) {
                     case WXPAY:
                         HttpRxObservable.getObservable(ApiUtils.getApiService().vip_recharge(
                                 LoginInfoUtil.getUid(),
                                 LoginInfoUtil.getToken(),
                                 payId
 
-                        )).subscribe(new BaseObserver<WXPayBean>(mAt) {
+                        )).subscribe(new BaseObserver<WxPay>(mAt) {
                             @Override
-                            public void onHandleSuccess(WXPayBean wxPayBean) throws IOException {
-                                startWXPay(wxPayBean);
+                            public void onHandleSuccess(WxPay wxPay) throws IOException {
+                                PayUtil.INSTANCE.startWXPay(mAt, wxPay);
                             }
                         });
                         break;
@@ -139,46 +139,18 @@ public class OpeningmemberActivity extends BaseActivity {
         return null;
     }
 
-    private void startWXPay(WXPayBean wxPayBean) {
-        final IWXAPI msgApi = WXAPIFactory.createWXAPI(mAt, wxPayBean.getAppid());
-        //将该app注册到微信
-        msgApi.registerApp(wxPayBean.getAppid());
-
-//        创建支付请求对象
-        PayReq req = new PayReq();
-        req.appId = wxPayBean.getAppid();
-        req.partnerId = wxPayBean.getMch_id();
-        req.prepayId = wxPayBean.getPrepay_id();
-        req.packageValue = "Sign=WXPay";
-        req.nonceStr = wxPayBean.getNonce_str();
-        req.timeStamp = wxPayBean.getTimestamp();
-        req.sign = wxPayBean.getSign();
-        msgApi.sendReq(req);
-//        WXTextObject textObj = new WXTextObject();
-//        textObj.text = "测试分享";
-//
-////用 WXTextObject 对象初始化一个 WXMediaMessage 对象
-//        WXMediaMessage msg = new WXMediaMessage();
-//        msg.mediaObject = textObj;
-//        msg.description = "测试分享";
-//
-//        SendMessageToWX.Req req = new SendMessageToWX.Req();
-//        req.transaction = "text";
-//        req.message = msg;
-//        req.scene = SendMessageToWX.Req.WXSceneSession;
-////调用api接口，发送数据到微信
-//        msgApi.sendReq(req);
-    }
     @OnClick(R.id.mHeaderBack)
     public void clickView() {
         finish();
     }
+
     /**
      * 拼接html字符串片段
+     *
      * @param bodyHTML
      * @return
      */
-    private  String getHtmlData(String bodyHTML) {
+    private String getHtmlData(String bodyHTML) {
         String head = "<head>" +
                 "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"> " +
                 "<style>img{max-width:100% !important; width:auto; height:auto;}</style>" +

@@ -4,9 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-
 import com.tencent.mm.opensdk.constants.ConstantsAPI;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
@@ -14,9 +11,8 @@ import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
-import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.mall.MallPaySuccessActivity;
-import com.zskjprojectj.andouclient.utils.Constants;
+import com.zskjprojectj.andouclient.utils.ConstantKt;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
 
 /**
@@ -39,7 +35,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        api = WXAPIFactory.createWXAPI(this, Constants.APP_ID, false);
+        api = WXAPIFactory.createWXAPI(this, ConstantKt.WEI_XIN_APP_ID, false);
 
 
         try {

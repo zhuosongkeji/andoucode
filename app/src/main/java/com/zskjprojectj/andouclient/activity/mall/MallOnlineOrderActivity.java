@@ -26,16 +26,17 @@ import com.zskjprojectj.andouclient.adapter.mall.MallBuyInfoAdapter;
 import com.zskjprojectj.andouclient.adapter.mall.PayWaysAdapter;
 import com.zskjprojectj.andouclient.base.BaseActivity;
 import com.zskjprojectj.andouclient.base.BasePresenter;
-import com.zskjprojectj.andouclient.entity.WXPayBean;
 import com.zskjprojectj.andouclient.entity.mall.MallPayWaysBean;
 import com.zskjprojectj.andouclient.entity.mall.MallSettlementBean;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
+import com.zskjprojectj.andouclient.model.WxPay;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 import com.zskjprojectj.andouclient.utils.PayCancle;
 import com.zskjprojectj.andouclient.utils.PaySuccessBackEvent;
 import com.zskjprojectj.andouclient.utils.PaySuccessEvent;
+import com.zskjprojectj.andouclient.utils.PayUtil;
 import com.zskjprojectj.andouclient.utils.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -251,10 +252,10 @@ public class MallOnlineOrderActivity extends BaseActivity {
                         puzzle_id,
                         open_join,
                         group_id
-                )).subscribe(new BaseObserver<WXPayBean>(mAt) {
+                )).subscribe(new BaseObserver<WxPay>(mAt) {
                     @Override
-                    public void onHandleSuccess(WXPayBean wxPayBean) throws IOException {
-                        startWXPay(wxPayBean);
+                    public void onHandleSuccess(WxPay WxPay) throws IOException {
+                        PayUtil.INSTANCE.startWXPay(mAt, WxPay);
                     }
                 });
                 break;
@@ -275,9 +276,9 @@ public class MallOnlineOrderActivity extends BaseActivity {
                                             puzzle_id,
                                             open_join,
                                             group_id
-                                    )).subscribe(new BaseObserver<WXPayBean>(mAt) {
+                                    )).subscribe(new BaseObserver<WxPay>(mAt) {
                                         @Override
-                                        public void onHandleSuccess(WXPayBean wxPayBean) throws IOException {
+                                        public void onHandleSuccess(WxPay WxPay) throws IOException {
                                             Intent intent = new Intent(MallOnlineOrderActivity.this, MallPaySuccessActivity.class);
                                             startActivity(intent);
                                         }
@@ -303,39 +304,7 @@ public class MallOnlineOrderActivity extends BaseActivity {
     //5.接收消息
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void backEventBus(PaySuccessBackEvent paySuccessBackEvent) {
-
         finish();
-    }
-
-    private void startWXPay(WXPayBean wxPayBean) {
-        final IWXAPI msgApi = WXAPIFactory.createWXAPI(MallOnlineOrderActivity.this, wxPayBean.getAppid());
-        //将该app注册到微信
-        msgApi.registerApp(wxPayBean.getAppid());
-
-//        创建支付请求对象
-        PayReq req = new PayReq();
-        req.appId = wxPayBean.getAppid();
-        req.partnerId = wxPayBean.getMch_id();
-        req.prepayId = wxPayBean.getPrepay_id();
-        req.packageValue = "Sign=WXPay";
-        req.nonceStr = wxPayBean.getNonce_str();
-        req.timeStamp = wxPayBean.getTimestamp();
-        req.sign = wxPayBean.getSign();
-        msgApi.sendReq(req);
-//        WXTextObject textObj = new WXTextObject();
-//        textObj.text = "测试分享";
-//
-////用 WXTextObject 对象初始化一个 WXMediaMessage 对象
-//        WXMediaMessage msg = new WXMediaMessage();
-//        msg.mediaObject = textObj;
-//        msg.description = "测试分享";
-//
-//        SendMessageToWX.Req req = new SendMessageToWX.Req();
-//        req.transaction = "text";
-//        req.message = msg;
-//        req.scene = SendMessageToWX.Req.WXSceneSession;
-////调用api接口，发送数据到微信
-//        msgApi.sendReq(req);
     }
 
     @Override

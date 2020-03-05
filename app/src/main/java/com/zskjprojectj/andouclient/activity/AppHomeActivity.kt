@@ -91,19 +91,9 @@ class AppHomeActivity : BaseActivity() {
         rxPermissions.requestEach(*permissionsArr)
                 .subscribe { permission ->
                     when {
-                        permission.granted -> LogUtil.i("testRxPermission CallBack onPermissionsGranted() : " + permission.name +
-                                " request granted , to do something...")
-                        //todo somthing
                         permission.shouldShowRequestPermissionRationale -> {
-                            LogUtil.e("testRxPermission CallBack onPermissionsDenied() : " + permission.name + "request denied")
-                            //ToastUtil.showShort(instance, "拒绝权限，等待下次询问哦");
                             showPermissionAlertDialog(mActivity)
-                            //todo request permission again
                         }
-                        else -> LogUtil.e("testRxPermission CallBack onPermissionsDenied() : this " + permission.name + " is denied " +
-                                "and never ask again")
-                        // ToastUtil.showShort(instance, "拒绝权限，不再弹出询问框，请前往APP应用设置中打开此权限");
-                        //todo nothing
                     }
                 }
     }

@@ -16,10 +16,10 @@ import com.zskjprojectj.andouclient.R
 import com.zskjprojectj.andouclient.event.WeiXinLoginEvent
 import com.zskjprojectj.andouclient.http.ApiUtils
 import com.zskjprojectj.andouclient.http.BaseObserver
-import com.zskjprojectj.andouclient.utils.Constants
 import com.zskjprojectj.andouclient.utils.KEY_FOR_RESULT
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil
 import com.zskjprojectj.andouclient.utils.ToastUtil.showToast
+import com.zskjprojectj.andouclient.utils.WEI_XIN_APP_ID
 import kotlinx.android.synthetic.main.activity_login.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -63,12 +63,12 @@ class LoginActivity : BaseActivity() {
             ActivityUtils.startActivity(ForgetActivity::class.java)
         }
         img_weixinlogin.setOnClickListener(View.OnClickListener {
-            val api = WXAPIFactory.createWXAPI(this@LoginActivity, Constants.APP_ID, true)
+            val api = WXAPIFactory.createWXAPI(this@LoginActivity, WEI_XIN_APP_ID, true)
             if (!api.isWXAppInstalled) {
                 showToast("您手机尚未安装微信，请安装后再登录")
                 return@OnClickListener
             }
-            api.registerApp(Constants.APP_ID)
+            api.registerApp(WEI_XIN_APP_ID)
             val req = SendAuth.Req()
             req.scope = "snsapi_userinfo"
             req.state = "wechat_sdk_jj_login_state"

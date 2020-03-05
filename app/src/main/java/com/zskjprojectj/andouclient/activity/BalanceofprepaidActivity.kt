@@ -12,12 +12,11 @@ import com.zhuosongkj.android.library.util.ActionBarUtil
 import com.zhuosongkj.android.library.util.RequestUtil
 import com.zskjprojectj.andouclient.R
 import com.zskjprojectj.andouclient.adapter.mall.PayWaysAdapter
-import com.zskjprojectj.andouclient.entity.WXPayBean
 import com.zskjprojectj.andouclient.http.ApiUtils
 import com.zskjprojectj.andouclient.model.WxPay
-import com.zskjprojectj.andouclient.utils.Constants
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil
 import com.zskjprojectj.andouclient.utils.PaySuccessEvent
+import com.zskjprojectj.andouclient.utils.PayUtil
 import com.zskjprojectj.andouclient.utils.ToastUtil
 import kotlinx.android.synthetic.main.activity_balanceofprepaid.*
 import org.greenrobot.eventbus.EventBus
@@ -57,7 +56,7 @@ class BalanceofprepaidActivity : BaseActivity() {
                                                     payId
                                             )
                                         },
-                                        { result -> startWXPay(result.data) }
+                                        { result -> PayUtil.startWXPay(mActivity, result.data) }
                                 )
                             }
                         }
@@ -78,24 +77,6 @@ class BalanceofprepaidActivity : BaseActivity() {
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun paysucces(paySuccessEvent: PaySuccessEvent?) {
         finish()
-    }
-
-    private fun startWXPay(wxPayBean: WxPay?) {
-        if (wxPayBean == null) {
-            ToastUtils.showShort("后台返回支付信息为空!")
-            return;
-        }
-        val msgApi = WXAPIFactory.createWXAPI(mActivity, Constants.APP_ID)
-        msgApi.registerApp(Constants.APP_ID)
-        val req = PayReq()
-        req.appId = Constants.APP_ID
-        req.partnerId = wxPayBean.partnerid
-        req.prepayId = wxPayBean.prepayid
-        req.packageValue = "Sign=WXPay"
-        req.nonceStr = wxPayBean.noncestr
-        req.timeStamp = wxPayBean.timestamp
-        req.sign = wxPayBean.sign
-        msgApi.sendReq(req)
     }
 
     override fun getContentView() = R.layout.activity_balanceofprepaid

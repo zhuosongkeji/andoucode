@@ -11,16 +11,18 @@ import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.zskjprojectj.andouclient.event.WeiXinLoginEvent;
-import com.zskjprojectj.andouclient.utils.Constants;
+import com.zskjprojectj.andouclient.utils.ConstantKt;
 
 import org.greenrobot.eventbus.EventBus;
+
+import kotlin.io.ConstantsKt;
 
 public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        IWXAPI api = WXAPIFactory.createWXAPI(this, Constants.APP_ID, false);
+        IWXAPI api = WXAPIFactory.createWXAPI(this, ConstantKt.WEI_XIN_APP_ID, false);
         api.handleIntent(getIntent(), this);
     }
 

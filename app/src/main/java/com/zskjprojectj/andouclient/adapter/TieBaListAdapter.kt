@@ -10,12 +10,8 @@ import android.view.View
 import android.view.WindowManager
 import com.blankj.utilcode.util.ToastUtils
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.SimpleTarget
-import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
 import com.chad.library.adapter.base.BaseViewHolder
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX
@@ -28,8 +24,8 @@ import com.zhuosongkj.android.library.util.RequestUtil
 import com.zskjprojectj.andouclient.R
 import com.zskjprojectj.andouclient.http.ApiUtils
 import com.zskjprojectj.andouclient.model.TieBa
-import com.zskjprojectj.andouclient.utils.Constants
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil
+import com.zskjprojectj.andouclient.utils.WEI_XIN_APP_ID
 import kotlinx.android.synthetic.main.dialog_share_tieba.view.*
 import kotlinx.android.synthetic.main.item_squarefragment.view.*
 import java.io.ByteArrayOutputStream
@@ -121,7 +117,7 @@ fun requestShare(context: Context, postId: String?, type: Int) {
                         .load(it.data.img)
                         .into(object : SimpleTarget<Bitmap>() {
                             override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-                                val api = WXAPIFactory.createWXAPI(context, Constants.APP_ID, false)// 检查手机或者模拟器是否安装了微信
+                                val api = WXAPIFactory.createWXAPI(context, WEI_XIN_APP_ID, false)// 检查手机或者模拟器是否安装了微信
                                 if (!api.isWXAppInstalled) {
                                     ToastUtils.showLong("您还没有安装微信")
                                     return
