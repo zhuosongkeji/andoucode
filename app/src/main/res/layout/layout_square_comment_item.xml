@@ -14,7 +14,7 @@
         android:id="@+id/img"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:scaleType="centerInside"
+        android:scaleType="centerCrop"
         android:src="@mipmap/ic_placeholder"
         app:riv_oval="true" />
 
@@ -22,8 +22,8 @@
         android:id="@+id/contentTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
         android:layout_marginStart="7dp"
+        android:layout_marginTop="6dp"
         android:textColor="#646464"
         android:textSize="11sp"
         tools:text="大大坏蛋大大坏 回复 蛋大大坏蛋：坏蛋大大坏蛋大大坏坏蛋大大坏蛋大大坏坏蛋大大坏蛋大大坏坏蛋大大坏蛋大大坏坏蛋大大坏蛋大大坏坏蛋大大坏蛋大大坏大大坏蛋：" />

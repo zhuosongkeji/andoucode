@@ -2,16 +2,6 @@ package com.zskjprojectj.andouclient.entity;
 
 public class PersonalBean {
 
-    /**
-     * id : 15
-     * name : 用户:17318203548
-     * avator : /uploads/images/avators/201911/29//1575020535_VGSxFj53YP.jpg
-     * //    "goodordernum":"商城订单数",
-     * //            "foodsordernum":"饭店订单数",
-     * //            "booksordernum":"酒店订单数",
-     * grade : 该用户还不是Vip用户
-     */
-
     private int id;
     private String name;
     private String avator;
@@ -21,6 +11,7 @@ public class PersonalBean {
     private String foodsordernum;
     private String booksordernum;
     private String status;
+
     public String getStatus() {
         return status;
     }
@@ -28,6 +19,7 @@ public class PersonalBean {
     public void setStatus(String status) {
         this.status = status;
     }
+
     public String getGoodordernum() {
         return goodordernum;
     }
@@ -51,7 +43,6 @@ public class PersonalBean {
     public void setBooksordernum(String booksordernum) {
         this.booksordernum = booksordernum;
     }
-
 
 
     public String getMoney() {

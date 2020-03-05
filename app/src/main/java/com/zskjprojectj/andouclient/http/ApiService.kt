@@ -346,7 +346,7 @@ interface ApiService {
                               @Field("money") money: String,
                               @Field("mobile") mobile: String?,
                               @Field("method") method: String?
-    ): Observable<BaseResult<WXPayBean>>
+    ): Observable<BaseResult<WxPay>>
 
     /**
      * 会员购买

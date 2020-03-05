@@ -8,6 +8,7 @@ import com.zhuosongkj.android.library.adapter.BaseAdapter
 import com.zskjprojectj.andouclient.R
 import com.zskjprojectj.andouclient.model.Comment
 import com.zskjprojectj.andouclient.model.TieBa
+import com.zskjprojectj.andouclient.utils.UrlUtil
 import kotlinx.android.synthetic.main.layout_square_comment_item.view.*
 
 
@@ -19,9 +20,8 @@ class SquareCommentAdapter : BaseAdapter<TieBa.CommentsBean>(R.layout.layout_squ
         }
         builder.append("<font color='#5ED3AE'> : </font>${item.content}")
         helper.itemView.contentTxt.text = Html.fromHtml(builder.toString())
-
-//        Glide.with(mContext).load(item.avatar)
-//                .apply(RequestOptions().placeholder(R.mipmap.ic_placeholder))
-//                .into(helper.itemView.img)
+        Glide.with(mContext).load(UrlUtil.getImageUrl(item.avator))
+                .apply(RequestOptions().placeholder(R.mipmap.ic_placeholder))
+                .into(helper.itemView.img)
     }
 }

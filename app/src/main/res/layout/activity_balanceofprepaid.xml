@@ -67,7 +67,7 @@
             android:hint="@string/chongzhinum"
             android:padding="@dimen/dp_10"
             android:textColor="#565656"
-            android:textColorHint="#565656"
+            android:textColorHint="#999999"
             android:textSize="@dimen/typeface15sp" />
     </LinearLayout>
 
@@ -124,6 +124,8 @@
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:overScrollMode="never"
+            android:paddingTop="15dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
     </LinearLayout>
 

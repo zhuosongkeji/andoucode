@@ -121,6 +121,7 @@ public class TieBa implements Serializable, IListData<TieBa.CommentsBean> {
         private String name;
         private String content;
         private String to;
+        public String avator;
 
         public String getId() {
             return id;

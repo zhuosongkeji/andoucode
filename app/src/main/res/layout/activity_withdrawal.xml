@@ -1,142 +1,193 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="#F7F7F7"
-    android:orientation="vertical"
-    android:layout_height="match_parent">
-    <include layout="@layout/view_top_bar"/>
+    android:orientation="vertical">
+
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/dp_15"
         android:background="@color/white"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:orientation="vertical">
+
         <TextView
-            android:textSize="@dimen/typeface13sp"
-            android:textColor="#333333"
-            android:text="余额提现"
-            android:layout_marginTop="24dp"
-            android:layout_marginLeft="@dimen/dp_15"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <RelativeLayout
-            android:layout_marginTop="32dp"
-            android:layout_marginRight="@dimen/dp_15"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_15"
+            android:layout_marginTop="24dp"
+            android:text="余额提现"
+            android:textColor="#333333"
+            android:textSize="@dimen/typeface13sp" />
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_15"
+            android:layout_marginTop="32dp"
+            android:layout_marginRight="@dimen/dp_15">
+
             <EditText
                 android:id="@+id/amountEdt"
-                android:textSize="28sp"
-                android:textColor="#333333"
-                android:hint="请输入提现金额"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:background="@null"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:hint="请输入提现金额"
+                android:inputType="numberDecimal"
+                android:textColor="#333333"
+                android:textSize="28sp" />
+
             <TextView
-                android:text="全部提现"
-                android:textColor="#39D0B6"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
+                android:id="@+id/allBtn"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="35dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:text="全部提现"
+                android:textColor="#39D0B6" />
         </RelativeLayout>
+
         <View
-            android:layout_marginTop="@dimen/dp_17"
-            android:layout_marginLeft="@dimen/dp_15"
-            android:layout_marginRight="@dimen/dp_15"
-            android:background="#B9B9B9"
             android:layout_width="match_parent"
-            android:layout_height="1dp"/>
-        <LinearLayout
+            android:layout_height="1dp"
+            android:layout_marginLeft="@dimen/dp_15"
+            android:layout_marginTop="@dimen/dp_17"
             android:layout_marginRight="@dimen/dp_15"
+            android:background="#B9B9B9" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_15"
             android:layout_marginTop="@dimen/dp_13"
+            android:layout_marginRight="@dimen/dp_15"
             android:layout_marginBottom="@dimen/dp_15"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:orientation="horizontal">
+
             <ImageView
-                android:src="@mipmap/yue_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:src="@mipmap/yue_icon" />
+
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:text="当前余额:789.32"
-                android:layout_marginLeft="6dp"
-                android:textSize="@dimen/typeface12sp"
-                android:textColor="#888888"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="6dp"
+                    android:text="当前余额:"
+                    android:textColor="#888888"
+                    android:textSize="@dimen/typeface12sp" />
+
+                <TextView
+                    android:id="@+id/accountTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="6dp"
+                    android:text="0"
+                    android:textColor="#888888"
+                    android:textSize="@dimen/typeface12sp" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
+
     <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
         android:layout_marginTop="@dimen/dp_5"
-        android:layout_width="match_parent"
-        android:background="@color/white"
-        android:layout_height="55dp">
+        android:background="@color/white">
+
         <TextView
-            android:textColor="#565656"
-            android:textSize="@dimen/typeface13sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="15dp"
-            android:layout_centerVertical="true"
             android:text="联系方式"
+            android:textColor="#565656"
+            android:textSize="@dimen/typeface13sp" />
+
+        <EditText
+            android:id="@+id/phoneEdt"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <TextView
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:text="1335487618"
             android:layout_marginRight="32dp"
-            android:layout_alignParentRight="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:background="@null"
+            android:gravity="end|center_vertical"
+            android:hint="请输入联系方式"
+            android:inputType="phone"
+            android:textColor="#666666"
+            android:textColorHint="#999999"
+            android:textSize="15sp"
+            tools:text="1335487618" />
+
         <ImageView
-            android:layout_marginRight="@dimen/dp_15"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:src="@mipmap/ic_jiantouright_gary"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dp_15"
+            android:src="@mipmap/ic_jiantouright_gary" />
     </RelativeLayout>
+
     <View
-        android:background="#F7F7F7"
         android:layout_width="match_parent"
-        android:layout_height="1dp"/>
+        android:layout_height="1dp"
+        android:background="#F7F7F7" />
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:background="@color/white"
-        android:layout_height="55dp">
+        android:layout_height="55dp"
+        android:background="@color/white">
+
         <TextView
-            android:textColor="#565656"
-            android:textSize="@dimen/typeface13sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="15dp"
-            android:layout_centerVertical="true"
             android:text="请输入提现账号"
+            android:textColor="#565656"
+            android:textSize="@dimen/typeface13sp" />
+
+        <EditText
+            android:id="@+id/accountEdt"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <TextView
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:text="622****321"
             android:layout_marginRight="32dp"
-            android:layout_alignParentRight="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:background="@null"
+            android:gravity="end|center_vertical"
+            android:hint="请输入提现账号"
+            android:inputType="number"
+            android:textColor="#666666"
+            android:textColorHint="#999999" />
+
         <ImageView
-            android:layout_marginRight="@dimen/dp_15"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:src="@mipmap/ic_jiantouright_gary"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dp_15"
+            android:src="@mipmap/ic_jiantouright_gary" />
     </RelativeLayout>
+
     <Button
         android:id="@+id/btn_surewithdrawal"
-        android:textColor="@color/white"
-        android:text="确认提现"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginLeft="@dimen/dp_15"
         android:layout_marginTop="@dimen/dp_80"
         android:layout_marginRight="@dimen/dp_15"
-        android:layout_marginLeft="@dimen/dp_15"
         android:background="@drawable/shape_button_c"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"/>
+        android:text="确认提现"
+        android:textColor="@color/white" />
 </LinearLayout>

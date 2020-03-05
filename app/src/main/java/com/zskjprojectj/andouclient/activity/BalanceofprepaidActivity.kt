@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
 import androidx.recyclerview.widget.DividerItemDecoration
+import com.blankj.utilcode.util.ToastUtils
 import com.tencent.mm.opensdk.modelpay.PayReq
 import com.tencent.mm.opensdk.openapi.WXAPIFactory
 import com.zhuosongkj.android.library.app.BaseActivity
@@ -13,6 +14,8 @@ import com.zskjprojectj.andouclient.R
 import com.zskjprojectj.andouclient.adapter.mall.PayWaysAdapter
 import com.zskjprojectj.andouclient.entity.WXPayBean
 import com.zskjprojectj.andouclient.http.ApiUtils
+import com.zskjprojectj.andouclient.model.WxPay
+import com.zskjprojectj.andouclient.utils.Constants
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil
 import com.zskjprojectj.andouclient.utils.PaySuccessEvent
 import com.zskjprojectj.andouclient.utils.ToastUtil
@@ -77,15 +80,19 @@ class BalanceofprepaidActivity : BaseActivity() {
         finish()
     }
 
-    private fun startWXPay(wxPayBean: WXPayBean) {
-        val msgApi = WXAPIFactory.createWXAPI(mActivity, wxPayBean.appid)
-        msgApi.registerApp(wxPayBean.appid)
+    private fun startWXPay(wxPayBean: WxPay?) {
+        if (wxPayBean == null) {
+            ToastUtils.showShort("后台返回支付信息为空!")
+            return;
+        }
+        val msgApi = WXAPIFactory.createWXAPI(mActivity, Constants.APP_ID)
+        msgApi.registerApp(Constants.APP_ID)
         val req = PayReq()
-        req.appId = wxPayBean.appid
-        req.partnerId = wxPayBean.mch_id
-        req.prepayId = wxPayBean.prepay_id
+        req.appId = Constants.APP_ID
+        req.partnerId = wxPayBean.partnerid
+        req.prepayId = wxPayBean.prepayid
         req.packageValue = "Sign=WXPay"
-        req.nonceStr = wxPayBean.nonce_str
+        req.nonceStr = wxPayBean.noncestr
         req.timeStamp = wxPayBean.timestamp
         req.sign = wxPayBean.sign
         msgApi.sendReq(req)
