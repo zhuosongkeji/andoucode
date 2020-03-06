@@ -1,8 +1,6 @@
 package com.zskjprojectj.andouclient.fragment.mall;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -14,12 +12,8 @@ import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.adapter.mall.MallCommentAdapter;
 import com.zskjprojectj.andouclient.entity.mall.MallCommentBean;
-import com.zskjprojectj.andouclient.http.ApiException;
 import com.zskjprojectj.andouclient.http.ApiUtils;
-import com.zskjprojectj.andouclient.http.BaseObserver;
-import com.zskjprojectj.andouclient.http.HttpRxObservable;
 
-import java.io.IOException;
 import java.util.List;
 
 public class MallGoodsCommentFragment extends BaseFragment {
