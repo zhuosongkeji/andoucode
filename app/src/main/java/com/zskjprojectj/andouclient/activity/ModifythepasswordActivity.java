@@ -7,6 +7,7 @@ import android.widget.EditText;
 
 import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zhuosongkj.android.library.util.ActionBarUtil;
+import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
@@ -37,14 +38,11 @@ public class ModifythepasswordActivity extends BaseActivity {
                 }
                 CountDownTimerUtils countDownTimer = new CountDownTimerUtils(set_yanzhenma_button, 60000, 1000);
                 countDownTimer.start();
-                HttpRxObservable.getObservable(ApiUtils.getApiService().sendCode(mobileStr, "0"))
-                        .subscribe(new BaseObserver<Object>(mActivity) {
-                            @Override
-                            public void onHandleSuccess(Object o) throws IOException {
-                                ToastUtil.showToast("验证码短信已发送,请注意查收!");
-                            }
+                RequestUtil.request(mActivity, true, false,
+                        () -> ApiUtils.getApiService().sendCode(mobileStr, "0"),
+                        result -> {
+                            ToastUtil.showToast("验证码短信已发送,请注意查收!");
                         });
-
             }
         });
         set_button.setOnClickListener(new View.OnClickListener() {
@@ -65,18 +63,16 @@ public class ModifythepasswordActivity extends BaseActivity {
                     ToastUtil.showToast("请输入新的密码!");
                     return;
                 }
-
-                HttpRxObservable.getObservable(ApiUtils.getApiService().forgetPassword(
-                        mobileStr,
-                        passwordStr,
-                        codeStr
-                )).subscribe(new BaseObserver<Object>(mActivity) {
-                    @Override
-                    public void onHandleSuccess(Object o) throws IOException {
-                        ToastUtil.showToast("修改成功,请登录!");
-                        finish();
-                    }
-                });
+                RequestUtil.request(mActivity, true, false,
+                        () -> ApiUtils.getApiService().forgetPassword(
+                                mobileStr,
+                                passwordStr,
+                                codeStr
+                        ),
+                        result -> {
+                            ToastUtil.showToast("修改成功,请登录!");
+                            finish();
+                        });
             }
         });
     }

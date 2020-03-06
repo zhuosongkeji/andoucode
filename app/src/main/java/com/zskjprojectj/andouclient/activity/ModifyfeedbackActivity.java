@@ -8,6 +8,7 @@ import android.widget.EditText;
 
 import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zhuosongkj.android.library.util.ActionBarUtil;
+import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
@@ -33,15 +34,13 @@ public class ModifyfeedbackActivity extends BaseActivity {
                     ToastUtil.showToast("请输入您的意见信息");
                     return;
                 }
-                HttpRxObservable.getObservable(ApiUtils.getApiService().opinionindex(
-                        LoginInfoUtil.getUid(),
-                        LoginInfoUtil.getToken(),
-                        content))
-                        .subscribe(new BaseObserver<Object>(mActivity) {
-                            @Override
-                            public void onHandleSuccess(Object o) throws IOException {
-                                ToastUtil.showToast("提交成功");
-                            }
+                RequestUtil.request(mActivity, true, false,
+                        () -> ApiUtils.getApiService().opinionindex(
+                                LoginInfoUtil.getUid(),
+                                LoginInfoUtil.getToken(),
+                                content),
+                        result -> {
+                            ToastUtil.showToast("提交成功");
                         });
             }
         });

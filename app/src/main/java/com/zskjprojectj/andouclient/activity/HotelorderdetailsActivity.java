@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zhuosongkj.android.library.util.ActionBarUtil;
+import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.utils.UrlUtil;
 import com.zskjprojectj.andouclient.entity.hotel.MeHotelBean;
@@ -45,16 +46,17 @@ public class HotelorderdetailsActivity extends BaseActivity {
                 ActivityUtils.startActivity(mActivity, HotelordercancleActivity.class);
             }
         });
-        HttpRxObservable.getObservable(ApiUtils.getApiService().mehotelOrderDetails(
-                LoginInfoUtil.getUid(),
-                LoginInfoUtil.getToken(),
-                meHotelBean.getBook_sn()
-        )).subscribe(new BaseObserver<MeHotelDetailsBean>(mActivity) {
-            @Override
-            public void onHandleSuccess(MeHotelDetailsBean meHotelDetailsBean) throws IOException {
-                bindView(meHotelDetailsBean);
-            }
-        });
+
+        RequestUtil.request(mActivity, true, true,
+                () -> ApiUtils.getApiService().mehotelOrderDetails(
+                        LoginInfoUtil.getUid(),
+                        LoginInfoUtil.getToken(),
+                        meHotelBean.getBook_sn()
+                ),
+                result -> {
+                    bindView(result.data);
+                });
+
     }
 
     private void bindView(MeHotelDetailsBean meHotelDetailsBean) {

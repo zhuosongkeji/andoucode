@@ -18,7 +18,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="190dp"
+                android:layout_height="200dp"
                 android:background="@mipmap/distributor_center_beijin_top">
 
                 <FrameLayout
@@ -134,7 +134,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
-                    android:layout_marginBottom="@dimen/dp_5">
+                    android:layout_marginBottom="10dp">
 
                     <LinearLayout
                         android:id="@+id/mycenter_mycollection_layout"

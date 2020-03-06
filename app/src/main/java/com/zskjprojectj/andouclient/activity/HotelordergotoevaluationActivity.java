@@ -11,6 +11,7 @@ import com.willy.ratingbar.BaseRatingBar;
 import com.willy.ratingbar.ScaleRatingBar;
 import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zhuosongkj.android.library.util.ActionBarUtil;
+import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
@@ -76,24 +77,22 @@ public class HotelordergotoevaluationActivity extends BaseActivity {
             case R.id.btn_evaluate:
                 float rating1 = mSimpleRatingBar.getRating();
                 int rat = (int) rating1;
-
                 String rating = String.valueOf(rat);
-                HttpRxObservable.getObservable(ApiUtils.getApiService().addhotelcomment(
-                        LoginInfoUtil.getUid(),
-                        LoginInfoUtil.getToken(),
-                        id,
-                        book_sn,
-                        merchant_id,
-                        mEtEvaluateContent.getText().toString(),
-                        rating,
-                        likeStatus
-                )).subscribe(new BaseObserver<Object>(mActivity) {
-                    @Override
-                    public void onHandleSuccess(Object o) throws IOException {
-                        ToastUtil.showToast("评价成功");
-                        finish();
-                    }
-                });
+                RequestUtil.request(mActivity, true, false,
+                        () -> ApiUtils.getApiService().addhotelcomment(
+                                LoginInfoUtil.getUid(),
+                                LoginInfoUtil.getToken(),
+                                id,
+                                book_sn,
+                                merchant_id,
+                                mEtEvaluateContent.getText().toString(),
+                                rating,
+                                likeStatus
+                        ),
+                        result -> {
+                            ToastUtil.showToast("评价成功");
+                            finish();
+                        });
                 break;
         }
 

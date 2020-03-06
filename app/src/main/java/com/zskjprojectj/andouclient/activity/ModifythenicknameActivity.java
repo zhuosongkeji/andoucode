@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zhuosongkj.android.library.util.ActionBarUtil;
+import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
@@ -30,21 +31,14 @@ public class ModifythenicknameActivity extends BaseActivity {
                     ToastUtil.showToast("请输入昵称");
                     return;
                 }
-                HttpRxObservable.getObservable(ApiUtils.getApiService().user_head(
-                        LoginInfoUtil.getUid(),
-                        LoginInfoUtil.getToken(),
-                        username))
-                        .subscribe(new BaseObserver<Object>(mActivity) {
-                            @Override
-                            public void onHandleSuccess(Object o) {
-                                ToastUtil.showToast("修改成功");
-                                finish();
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                super.onError(e);
-                            }
+                RequestUtil.request(mActivity, true, false,
+                        () -> ApiUtils.getApiService().user_head(
+                                LoginInfoUtil.getUid(),
+                                LoginInfoUtil.getToken(),
+                                username),
+                        result -> {
+                            ToastUtil.showToast("修改成功");
+                            finish();
                         });
             }
         });
