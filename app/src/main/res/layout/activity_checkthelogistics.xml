@@ -5,8 +5,6 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <include layout="@layout/view_top_bar" />
-
     <com.amap.api.maps2d.MapView
         android:id="@+id/mapView"
         android:layout_width="match_parent"

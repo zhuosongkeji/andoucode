@@ -188,9 +188,7 @@
             android:screenOrientation="portrait" /> <!-- 在线商城 -->
         <!-- 在线商城主页 -->
         <!-- 在线预订详情页 -->
-        <activity
-            android:name=".activity.OrederSubmitbooking"
-            android:screenOrientation="portrait" /> <!-- 订单提交 -->
+        <!-- 订单提交 -->
         <activity
             android:name=".activity.OrdersuccessfullyActivity"
             android:screenOrientation="portrait" /> <!-- 订单提交结果 -->

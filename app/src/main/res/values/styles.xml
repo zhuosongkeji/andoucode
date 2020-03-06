@@ -29,14 +29,6 @@
         </item><!--背景透明   去掉背景色边框也就去掉了-->
         <item name="android:backgroundDimEnabled">false</item><!--模糊-->
     </style>
-    <!--顶部导航-->
-    <declare-styleable name="TopView">
-        <attr name="topview_title" format="string" />
-        <attr name="topview_left" format="reference" />
-        <attr name="topview_right" format="reference" />
-        <attr name="topview_righttitle" format="string" />
-    </declare-styleable>
-
     <style name="MainTitle">
         <item name="android:textSize">17sp</item>
     </style>

@@ -38,23 +38,29 @@
             android:visibility="gone"
             tools:visibility="visible">
 
-            <androidx.appcompat.widget.AppCompatCheckBox
-                android:id="@+id/cb_selectorcb"
+            <LinearLayout
+                android:id="@+id/selectAllBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/dp_10"
-                android:background="@null"
-                android:button="@drawable/selector_checkbox" />
+                android:gravity="center_vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/dp_6"
-                android:layout_toRightOf="@id/cb_selectorcb"
-                android:text="全选"
-                android:textColor="#5ED3AE" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:src="@drawable/selector_checkbox" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/dp_6"
+                    android:layout_toRightOf="@id/cb_selectorcb"
+                    android:text="全选"
+                    android:textColor="#5ED3AE" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/tv_shipping_all_price"
