@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical">
+
     <FrameLayout
         android:id="@+id/actionBarContainer"
         android:layout_width="match_parent"
@@ -95,8 +96,8 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:background="@color/colorGray" />
+        android:layout_height="1px"
+        android:background="#F7F7F7" />
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/refreshLayout"
@@ -108,6 +109,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
+            android:overScrollMode="never"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
