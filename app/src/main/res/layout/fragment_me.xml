@@ -24,14 +24,14 @@
                 <FrameLayout
                     android:id="@+id/mTitleView"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:background="#00000000">
 
                     <TextView
-                        android:id="@+id/mHeaderTitle"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="50dp"
                         android:layout_gravity="center"
+                        android:gravity="center"
                         android:text="会员中心"
                         android:textColor="@color/white"
                         android:textSize="@dimen/typeface14sp" />
@@ -63,7 +63,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/mTitleView"
-                    android:layout_marginTop="@dimen/dp_20"
                     android:orientation="horizontal">
 
                     <com.makeramen.roundedimageview.RoundedImageView
