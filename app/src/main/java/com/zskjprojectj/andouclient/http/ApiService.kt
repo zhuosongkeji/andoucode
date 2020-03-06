@@ -1,6 +1,7 @@
 package com.zskjprojectj.andouclient.http
 
 import com.google.gson.JsonElement
+import com.raizlabs.android.dbflow.sql.language.Condition
 import com.zhuosongkj.android.library.model.BaseResult
 import com.zhuosongkj.android.library.model.ListData
 import com.zskjprojectj.andouclient.entity.*
@@ -754,7 +755,9 @@ interface ApiService {
      */
     @POST("api/details/commnets")
     @FormUrlEncoded
-    fun hotelDetailsCommentList(@Field("id") id: String, @Field("page") page: String): Observable<BaseResult<List<HotelDetailCommentBean>>>
+    fun hotelDetailsCommentList(@Field("id") id: String?,
+                                @Field("page") page: Int
+    ): Observable<BaseResult<ListData<HotelDetailCommentBean>>>
 
 
     /**
