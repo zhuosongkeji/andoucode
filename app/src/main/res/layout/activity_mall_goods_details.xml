@@ -33,7 +33,6 @@
 
 
                     <LinearLayout
-                        android:id="@+id/ll_goods_content"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
@@ -90,7 +89,6 @@
 
 
                                 <TextView
-                                    android:id="@+id/tv_hint"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="距活动结束还有"
@@ -465,7 +463,6 @@
                                     android:src="@mipmap/ic_authentication_mall" />
 
                                 <TextView
-                                    android:id="@+id/tv_shop_authentication"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_alignBottom="@+id/iv_authentication"
@@ -476,7 +473,6 @@
                                     android:textSize="@dimen/typeface10sp" />
 
                                 <ImageView
-                                    android:id="@+id/iv_intent"
                                     android:layout_width="6dp"
                                     android:layout_height="@dimen/dp_11"
                                     android:layout_alignParentEnd="true"

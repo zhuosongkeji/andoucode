@@ -37,7 +37,6 @@
         app:srb_starWidth="14dp" />
 
     <ImageView
-        android:id="@+id/busiess_dianzan1_image"
         android:layout_width="12dp"
         android:layout_height="12dp"
         android:layout_alignTop="@+id/focuson_dianzancount1_textview"

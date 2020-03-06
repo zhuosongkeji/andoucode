@@ -5,14 +5,8 @@
     <string name="login_pwd">请输入密码</string>
     <string name="login_txt">登录</string>
     <string name="login_newuser">新会员注册>></string>
-    <string name="user_center">会员中心</string>
     <string name="login_forgotpassword">忘记密码</string>
     <string name="login_fast">快捷方式登录</string>
-    <string name="honm_page">首页</string>
-    <string name="merchants_page">商家</string>
-    <string name="info_page">信息</string>
-    <string name="tieba_page">贴吧</string>
-    <string name="me_page">我的</string>
     <string name="search">输入关键字搜索</string>
 
     <string name="registered_yanzhenma">获取验证码</string>
@@ -23,26 +17,11 @@
 
     <string name="see_more">查看更多</string>
     <string name="chihewanle">吃喝玩乐</string>
-    <string name="livebroadcast">在线直播</string>
-    <string name="broadcasting">正在直播</string>
     <string name="ordering_meals">外卖</string>
     <string name="online_ordering">饭店预约</string>
 
-    <string name="busiessclassify">商家分类</string>
-    <string name="address_select">地区筛选</string>
-    <string name="paixufangshi">排序方式</string>
-    <string name="message_classify">信息分类</string>
-    <string name="myrelease">我的发布</string>
-    <string name="my_order">我的订单</string>
-    <string name="all_order">全部订单</string>
-    <string name="center_obligations">待付款</string>
-    <string name="center_pendingshipment">待发货</string>
-    <string name="center_pendingreceipt">待收货</string>
-    <string name="center_tobeevaluated">待评价</string>
-    <string name="center_returngoods">退货/款</string>
     <string name="center_foodorder">美食订单</string>
     <string name="center_hotelorder">酒店订单</string>
-    <string name="center_restaurant">饭店订单</string>
     <string name="center_vegetablemarket">菜市场</string>
     <string name="center_shoporder">商城订单</string>
     <string name="center_invitation_with_courtesy">邀请有礼</string>
@@ -55,44 +34,16 @@
     <string name="center_myaddress">我的地址</string>
     <string name="center_qrcode">我的二维码</string>
     <string name="center_release">我的发布</string>
-    <string name="center_myscore">我的积分</string>
-    <string name="center_mymessage">我的消息</string>
     <string name="center_business_residence">商家入驻</string>
-    <string name="center_becomedistributior">成为配送员</string>
-    <string name="center_mylivebroadcast">我的直播</string>
     <string name="center_downloadapp">下载APP</string>
     <string name="center_operationvideo">操作视频</string>
     <string name="dangqianyue">当前余额</string>
     <string name="chongzhijine">充值金额</string>
     <string name="chongzhinum">请输入充值金额</string>
     <string name="callnum">充值账号</string>
-    <string name="callphonenum">请输入正确的联系电话</string>
     <string name="chongzhifangshi">请选择充值方式</string>
-    <string name="yinlianpay">银联支付</string>
-    <string name="hotel_stay">酒店住宿</string>
     <string name="hotel_hight_hotel">高端酒店</string>
-    <string name="hotel_chain_hotel">经济连锁</string>
-    <string name="hotel_boutique_hotel">精品酒店</string>
-    <string name="hotel_today_sale">今夜特价</string>
-    <string name="hotel_hour_home">钟点房</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <string name="totel_pay_hint1">● 入住前一天12:00之前,如申请退款订金全额退;</string>
-    <string name="hotel_pay_hint2">● 入住前一天12:00之后至入住当天12:00之前，如申请退款，扣除50%订金</string>
-    <string name="hotel_pay_hint3">● 入住后如提前退房，扣除已入住天数房款总额，再扣除未入住天数房款总额的50%</string>
-    <string name="hotel_pay_hint4">● 中午12:00之后默认当天已经入住，申请退款和提前退房时间以七星寓记录的时间为准</string>
-    <string name="hotel_pay_hint5">● 房屋入住时间为15:00，退房时间为12:00。</string>
-    <string name="hotel_pay_hint6">● 房间床单、被套、毛巾一客一换，消毒、清洗，放心使用。</string>
-    <string name="hotel_pay_hint7">● 请爱护房屋设施、损坏照价赔偿。</string>
-    <string name="hotel_pay_hint8">● 开放式阳台、请看管好小孩，严禁攀爬栏杆和在阳台嬉戏打闹，严禁高空抛物。</string>
-    <string name="hotel_pay_hint9">●不要在屋内大声喧哗。</string>
-    <string name="hotel_pay_hint10">●严禁从事黄、赌、毒等违法犯罪活动，一经发现移交公安处理。</string>
-    <string name="hotel_pay_hint11">●用电、用燃气注意安全第一。入住期间安全自负</string>
-    <string name="errcode_success">发送成功</string>
-    <string name="errcode_cancel">发送取消</string>
-    <string name="errcode_deny">发送被拒绝</string>
-    <string name="errcode_unsupported">不支持错误</string>
-    <string name="errcode_unknown">发送返回</string>
 </resources>

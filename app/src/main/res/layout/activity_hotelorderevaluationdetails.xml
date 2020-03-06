@@ -44,7 +44,6 @@
                     android:textSize="@dimen/typeface11sp" />
 
                 <Button
-                    android:id="@+id/btn_hotelorderevaluationdetailcall"
                     android:layout_width="65dp"
                     android:layout_height="@dimen/dp_22"
                     android:layout_marginLeft="@dimen/dp_22"

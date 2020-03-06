@@ -190,28 +190,24 @@
         android:visibility="gone">
 
         <ImageView
-            android:id="@+id/registered_login_fast_qq_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:src="@mipmap/icon_qq" />
 
         <ImageView
-            android:id="@+id/registered_login_fast_weixin_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:src="@mipmap/icon_weixin" />
 
         <ImageView
-            android:id="@+id/registered_login_fast_weibo_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:src="@mipmap/icon_weibo" />
 
         <ImageView
-            android:id="@+id/registered_login_fast_baidu_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"

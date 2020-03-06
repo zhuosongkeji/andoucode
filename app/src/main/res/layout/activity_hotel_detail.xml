@@ -84,7 +84,6 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/busiess_dianzan1_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -92,7 +91,6 @@
                     android:visibility="gone">
 
                     <ImageView
-                        android:id="@+id/busiess_dianzan1_image"
                         android:layout_width="@dimen/dp_12"
                         android:layout_height="@dimen/dp_12"
                         android:layout_gravity="center"
@@ -191,7 +189,6 @@
                 android:paddingBottom="20dp">
 
                 <ImageView
-                    android:id="@+id/ic_address"
                     android:layout_width="@dimen/dp_9"
                     android:layout_height="@dimen/dp_10"
                     android:src="@mipmap/ic_address_gary" />

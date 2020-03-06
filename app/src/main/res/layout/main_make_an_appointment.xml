@@ -67,7 +67,6 @@
                     android:layout_width="170dp"
                     android:layout_height="match_parent">
                     <TextView
-                        android:id="@+id/appointment_name1_textview"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center"
@@ -75,7 +74,6 @@
                         android:textColor="@color/colorBlack"
                         android:textSize="@dimen/typeface14sp" />
                     <ImageView
-                        android:id="@+id/appointment_v1"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_gravity="center"
@@ -92,7 +90,6 @@
                         android:layout_gravity="center"
                         android:src="@mipmap/ic_zan"/>
                     <TextView
-                        android:id="@+id/appointment_dianzan_count1"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center"
@@ -107,30 +104,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="22dp">
                 <ImageView
-                    android:id="@+id/appointment_plant_image1"
                     android:layout_width="17dp"
                     android:layout_height="17dp"
                     android:src="@mipmap/ic_plant"/>
                 <ImageView
-                    android:id="@+id/appointment_plant_image2"
-                    android:layout_width="17dp"
-                    android:layout_height="17dp"
-                    android:layout_marginLeft="@dimen/dp_3"
-                    android:src="@mipmap/ic_plant"/>
-                <ImageView
-                    android:id="@+id/appointment_plant_image3"
                     android:layout_width="17dp"
                     android:layout_height="17dp"
                     android:layout_marginLeft="@dimen/dp_3"
                     android:src="@mipmap/ic_plant"/>
                 <ImageView
-                    android:id="@+id/appointment_plant_image4"
                     android:layout_width="17dp"
                     android:layout_height="17dp"
                     android:layout_marginLeft="@dimen/dp_3"
                     android:src="@mipmap/ic_plant"/>
                 <ImageView
-                    android:id="@+id/appointment_plant_image5"
+                    android:layout_width="17dp"
+                    android:layout_height="17dp"
+                    android:layout_marginLeft="@dimen/dp_3"
+                    android:src="@mipmap/ic_plant"/>
+                <ImageView
                     android:layout_width="17dp"
                     android:layout_height="17dp"
                     android:layout_marginLeft="@dimen/dp_3"
@@ -140,20 +132,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="125dp">
                 <ImageView
-                    android:id="@+id/appointment_food_image1"
                     android:layout_width="0dp"
                     android:layout_height="118dp"
                     android:layout_weight="1"
                     android:background="@mipmap/ic_food1"/>
                 <ImageView
-                    android:id="@+id/appointment_food_image2"
                     android:layout_width="0dp"
                     android:layout_height="118dp"
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/dp_8"
                     android:background="@mipmap/ic_food2"/>
                 <ImageView
-                    android:id="@+id/appointment_food_image3"
                     android:layout_width="0dp"
                     android:layout_height="118dp"
                     android:layout_weight="1"
@@ -174,7 +163,6 @@
                     android:layout_width="170dp"
                     android:layout_height="match_parent">
                     <TextView
-                        android:id="@+id/appointment_name2_textview"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="欧诺拉西餐厅"
@@ -192,7 +180,6 @@
                         android:layout_gravity="center"
                         android:src="@mipmap/ic_zan"/>
                     <TextView
-                        android:id="@+id/appointment_dianzan_count2"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center"
@@ -207,30 +194,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="22dp">
                 <ImageView
-                    android:id="@+id/appointment_plant_image21"
                     android:layout_width="17dp"
                     android:layout_height="17dp"
                     android:src="@mipmap/ic_plant"/>
                 <ImageView
-                    android:id="@+id/appointment_plant_image22"
-                    android:layout_width="17dp"
-                    android:layout_height="17dp"
-                    android:layout_marginLeft="@dimen/dp_3"
-                    android:src="@mipmap/ic_plant"/>
-                <ImageView
-                    android:id="@+id/appointment_plant_image23"
                     android:layout_width="17dp"
                     android:layout_height="17dp"
                     android:layout_marginLeft="@dimen/dp_3"
                     android:src="@mipmap/ic_plant"/>
                 <ImageView
-                    android:id="@+id/appointment_plant_image24"
                     android:layout_width="17dp"
                     android:layout_height="17dp"
                     android:layout_marginLeft="@dimen/dp_3"
                     android:src="@mipmap/ic_plant"/>
                 <ImageView
-                    android:id="@+id/appointment_plant_image25"
+                    android:layout_width="17dp"
+                    android:layout_height="17dp"
+                    android:layout_marginLeft="@dimen/dp_3"
+                    android:src="@mipmap/ic_plant"/>
+                <ImageView
                     android:layout_width="17dp"
                     android:layout_height="17dp"
                     android:layout_marginLeft="@dimen/dp_3"
@@ -240,20 +222,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="125dp">
                 <ImageView
-                    android:id="@+id/appointment_food_image21"
                     android:layout_width="0dp"
                     android:layout_height="118dp"
                     android:layout_weight="1"
                     android:background="@mipmap/ic_food1"/>
                 <ImageView
-                    android:id="@+id/appointment_food_image22"
                     android:layout_width="0dp"
                     android:layout_height="118dp"
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/dp_8"
                     android:background="@mipmap/ic_food2"/>
                 <ImageView
-                    android:id="@+id/appointment_food_image23"
                     android:layout_width="0dp"
                     android:layout_height="118dp"
                     android:layout_weight="1"
@@ -273,7 +252,6 @@
                     android:layout_width="170dp"
                     android:layout_height="match_parent">
                     <TextView
-                        android:id="@+id/appointment_name3_textview"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="大城小厨"
@@ -291,7 +269,6 @@
                         android:layout_gravity="center"
                         android:src="@mipmap/ic_zan"/>
                     <TextView
-                        android:id="@+id/appointment_dianzan_count3"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center"
@@ -306,30 +283,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="22dp">
                 <ImageView
-                    android:id="@+id/appointment_plant_image31"
                     android:layout_width="17dp"
                     android:layout_height="17dp"
                     android:src="@mipmap/ic_plant"/>
                 <ImageView
-                    android:id="@+id/appointment_plant_image32"
-                    android:layout_width="17dp"
-                    android:layout_height="17dp"
-                    android:layout_marginLeft="@dimen/dp_3"
-                    android:src="@mipmap/ic_plant"/>
-                <ImageView
-                    android:id="@+id/appointment_plant_image33"
                     android:layout_width="17dp"
                     android:layout_height="17dp"
                     android:layout_marginLeft="@dimen/dp_3"
                     android:src="@mipmap/ic_plant"/>
                 <ImageView
-                    android:id="@+id/appointment_plant_image34"
                     android:layout_width="17dp"
                     android:layout_height="17dp"
                     android:layout_marginLeft="@dimen/dp_3"
                     android:src="@mipmap/ic_plant"/>
                 <ImageView
-                    android:id="@+id/appointment_plant_image35"
+                    android:layout_width="17dp"
+                    android:layout_height="17dp"
+                    android:layout_marginLeft="@dimen/dp_3"
+                    android:src="@mipmap/ic_plant"/>
+                <ImageView
                     android:layout_width="17dp"
                     android:layout_height="17dp"
                     android:layout_marginLeft="@dimen/dp_3"
@@ -339,20 +311,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="125dp">
                 <ImageView
-                    android:id="@+id/appointment_food_image31"
                     android:layout_width="0dp"
                     android:layout_height="118dp"
                     android:layout_weight="1"
                     android:src="@mipmap/ic_food1"/>
                 <ImageView
-                    android:id="@+id/appointment_food_image32"
                     android:layout_width="0dp"
                     android:layout_height="118dp"
                     android:layout_weight="1"
                     android:layout_marginLeft="@dimen/dp_8"
                     android:background="@mipmap/ic_food2"/>
                 <ImageView
-                    android:id="@+id/appointment_food_image33"
                     android:layout_width="0dp"
                     android:layout_height="118dp"
                     android:layout_weight="1"
