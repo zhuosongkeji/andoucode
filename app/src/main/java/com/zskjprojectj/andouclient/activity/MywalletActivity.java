@@ -71,8 +71,8 @@ public class MywalletActivity extends BaseActivity {
             }
         });
         //这个FixedindicatorView是平分tab的屏幕长度的
-        indicator = (FixedIndicatorView) findViewById(R.id.indicator);
-        viewPager = (ViewPager) findViewById(R.id.viewPager);
+        indicator = findViewById(R.id.indicator);
+        viewPager = findViewById(R.id.viewPager);
         list = new ArrayList<Fragment>();
         list.add(meBalancesubsidiaryFragment);
         list.add(meCashFragment);

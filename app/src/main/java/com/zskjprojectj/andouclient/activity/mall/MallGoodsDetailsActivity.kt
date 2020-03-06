@@ -186,7 +186,7 @@ class MallGoodsDetailsActivity : BaseActivity() {
         }
         tv_Mall_service.setOnClickListener {
             val myCallIntent = Intent(Intent.ACTION_DIAL,
-                    Uri.parse("tel:" + goodsDetail?.tel));
+                    Uri.parse("tel:" + goodsDetail?.tel))
             startActivity(myCallIntent)
         }
         add_shopping.setOnClickListener {

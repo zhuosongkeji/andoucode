@@ -41,11 +41,7 @@ public class CustomScrollView extends ScrollView {
                 float deltaX = x - mLastXIntercept;
                 //纵坐标位移增量
                 float deltaY = y - mLastYIntercept;
-                if (Math.abs(deltaX) < Math.abs(deltaY)) {
-                    intercepted = true;
-                } else {
-                    intercepted = false;
-                }
+                intercepted = Math.abs(deltaX) < Math.abs(deltaY);
                 break;
             }
             case MotionEvent.ACTION_UP: {

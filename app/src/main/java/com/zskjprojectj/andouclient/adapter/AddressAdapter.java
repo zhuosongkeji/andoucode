@@ -95,9 +95,9 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyHolder
 
         public MyHolder(View itemView) {
             super(itemView);
-            mTvTitle = (TextView) itemView.findViewById(R.id.tv_title);
-            mTvMessage = (TextView) itemView.findViewById(R.id.tv_message);
-            mCheckBox = (CheckBox) itemView.findViewById(R.id.checkBox);
+            mTvTitle = itemView.findViewById(R.id.tv_title);
+            mTvMessage = itemView.findViewById(R.id.tv_message);
+            mCheckBox = itemView.findViewById(R.id.checkBox);
         }
     }
 

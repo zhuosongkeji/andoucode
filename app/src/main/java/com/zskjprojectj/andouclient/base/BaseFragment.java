@@ -20,7 +20,6 @@ import com.zskjprojectj.andouclient.utils.BarUtils;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import es.dmoral.toasty.Toasty;
 
 
 public abstract class BaseFragment extends Fragment {
@@ -31,7 +30,6 @@ public abstract class BaseFragment extends Fragment {
     private boolean canExcute = true;//为了onActivityCreated中setUserVisibleHint方法只执行一次
     private boolean isFirstExcute = true;//标记页面是否是第一次加载，为了初始化只执行一次
     public void showToast(String str) {
-        Toasty.info(getActivity(), str, Toasty.LENGTH_SHORT).show();
     }
 
 

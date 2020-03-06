@@ -23,7 +23,7 @@ class MyFollowActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ActionBarUtil.setTitle(mActivity, "店铺关注")
-        recyclerView.setLayoutManager(LinearLayoutManager(mActivity))
+        recyclerView.layoutManager = LinearLayoutManager(mActivity)
         loadData()
     }
 

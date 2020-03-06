@@ -60,8 +60,8 @@ public class HomeItemAdapter extends BaseAdapter {
         if (convertView == null) {
             convertView = View.inflate(context, R.layout.item_home_category, null);
             viewHold = new ViewHold();
-            viewHold.tv_name = (TextView) convertView.findViewById(R.id.item_home_name);
-            viewHold.iv_icon = (ImageView) convertView.findViewById(R.id.item_album);
+            viewHold.tv_name = convertView.findViewById(R.id.item_home_name);
+            viewHold.iv_icon = convertView.findViewById(R.id.item_album);
             convertView.setTag(viewHold);
         } else {
             viewHold = (ViewHold) convertView.getTag();

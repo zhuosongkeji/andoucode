@@ -90,9 +90,9 @@ public class SearchActivity extends Activity {
     }
 
     private void initView() {
-        mIvBack = (ImageView) findViewById(R.id.iv_back);
-        mEtSearch = (EditText) findViewById(R.id.et_search);
-        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
+        mIvBack = findViewById(R.id.iv_back);
+        mEtSearch = findViewById(R.id.et_search);
+        mRecyclerView = findViewById(R.id.recyclerview);
     }
     private void initDatas() {
         mList = new ArrayList<>();
