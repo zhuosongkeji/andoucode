@@ -38,7 +38,7 @@
     <string name="center_downloadapp">下载APP</string>
     <string name="center_operationvideo">操作视频</string>
     <string name="dangqianyue">当前余额</string>
-    <string name="chongzhijine">充值金额</string>
+    <string name="chongzhijine">充值金额:</string>
     <string name="chongzhinum">请输入充值金额</string>
     <string name="callnum">充值账号</string>
     <string name="chongzhifangshi">请选择充值方式</string>

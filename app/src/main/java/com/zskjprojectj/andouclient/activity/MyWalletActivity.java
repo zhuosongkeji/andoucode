@@ -88,7 +88,7 @@ public class MyWalletActivity extends BaseActivity {
     }
 
     public IndicatorViewPager.IndicatorFragmentPagerAdapter adapter = new IndicatorViewPager.IndicatorFragmentPagerAdapter(getSupportFragmentManager()) {
-        private String[] tabNames = {"余额明细", "提现明细"};
+        private String[] tabNames = {"消费明细", "提现明细"};
 
         @Override
         public int getCount() {

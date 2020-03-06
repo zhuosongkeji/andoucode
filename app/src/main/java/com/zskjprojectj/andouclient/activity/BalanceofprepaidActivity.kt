@@ -4,16 +4,12 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
 import androidx.recyclerview.widget.DividerItemDecoration
-import com.blankj.utilcode.util.ToastUtils
-import com.tencent.mm.opensdk.modelpay.PayReq
-import com.tencent.mm.opensdk.openapi.WXAPIFactory
 import com.zhuosongkj.android.library.app.BaseActivity
 import com.zhuosongkj.android.library.util.ActionBarUtil
 import com.zhuosongkj.android.library.util.RequestUtil
 import com.zskjprojectj.andouclient.R
 import com.zskjprojectj.andouclient.adapter.mall.PayWaysAdapter
 import com.zskjprojectj.andouclient.http.ApiUtils
-import com.zskjprojectj.andouclient.model.WxPay
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil
 import com.zskjprojectj.andouclient.utils.PaySuccessEvent
 import com.zskjprojectj.andouclient.utils.PayUtil
