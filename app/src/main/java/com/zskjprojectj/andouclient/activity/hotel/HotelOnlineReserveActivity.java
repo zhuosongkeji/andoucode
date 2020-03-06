@@ -60,12 +60,6 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class HotelOnlineReserveActivity extends BaseActivity {
-
-    @BindView(R.id.mTitleView)
-    RelativeLayout mHeaderTitleView;
-    @BindView(R.id.mHeaderTitle)
-    TextView mHeaderTitle;
-
     //人数
     @BindView(R.id.tv_person_number)
     TextView mPersonNumber;
