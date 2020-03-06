@@ -22,15 +22,23 @@ public class ActionBarUtil {
         titleTxt.setText(title);
     }
 
-    public static void setRightAction(BaseActivity activity, String actionStr, View.OnClickListener onClickListener) {
+    public static TextView setRightAction(BaseActivity activity, String actionStr, View.OnClickListener onClickListener) {
         setupActionBar(activity, true);
         TextView rightActionTxt = getRightActionTxt(activity);
         rightActionTxt.setText(actionStr);
         rightActionTxt.setOnClickListener(onClickListener);
+        return rightActionTxt;
+    }
+
+    public static void clearRightAction(BaseActivity activity) {
+        setupActionBar(activity, true);
+        TextView rightActionTxt = getRightActionTxt(activity);
+        rightActionTxt.setText("");
+        rightActionTxt.setOnClickListener(null);
     }
 
     private static void setupActionBar(BaseActivity activity, boolean topOfContentView) {
-        setVisible(activity,true);
+        setVisible(activity, true);
         ViewGroup actionBarContainer = activity.findViewById(R.id.baseActionBarContainer);
         if (actionBarContainer.getChildCount() == 0) {
             LayoutInflater.from(activity).inflate(R.layout.layout_action_bar, actionBarContainer);

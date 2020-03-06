@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical">
+
+    <ImageView
+        android:id="@+id/stateImg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:src="@drawable/selector_checkbox" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="15dp"
+        android:paddingTop="20dp"
+        android:paddingEnd="15dp">
+
+        <ImageView
+            android:id="@+id/busiess_tupian1_image"
+            android:layout_width="115dp"
+            android:layout_height="90dp"
+            android:layout_marginEnd="@dimen/dp_20"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_placeholder" />
+
+        <TextView
+            android:id="@+id/busiess_name1_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/busiess_tupian1_image"
+            android:textColor="#ff323232"
+            android:textSize="12sp"
+            tools:text="精尚来公寓酒店" />
+
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="8dp"
+            android:layout_toEndOf="@+id/busiess_name1_textview"
+            android:src="@mipmap/ic_vip" />
+
+
+        <com.willy.ratingbar.ScaleRatingBar
+            android:id="@+id/simpleRatingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/busiess_name1_textview"
+            android:layout_marginStart="-5dp"
+            android:layout_marginTop="8dp"
+            android:layout_toEndOf="@+id/busiess_tupian1_image"
+            app:srb_drawableEmpty="@mipmap/ic_plant_gray"
+            app:srb_drawableFilled="@mipmap/ic_plant"
+            app:srb_isIndicator="true"
+            app:srb_numStars="5"
+            app:srb_starHeight="13dp"
+            app:srb_starPadding="4dp"
+            app:srb_starWidth="14dp" />
+
+
+        <ImageView
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_gravity="center"
+            android:layout_toLeftOf="@+id/busiess_dianzancount1_textview"
+            android:src="@mipmap/ic_zan" />
+
+        <TextView
+            android:id="@+id/busiess_dianzancount1_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:textColor="@color/colorNavy"
+            android:textSize="12sp"
+            tools:text="1366" />
+
+        <LinearLayout
+            android:id="@+id/hotel_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/simpleRatingBar"
+            android:layout_marginTop="@dimen/dp_5"
+            android:layout_toRightOf="@+id/busiess_tupian1_image"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="8dp"
+                android:layout_height="11dp"
+                android:layout_gravity="center"
+                android:src="@mipmap/ic_address_gary" />
+
+            <TextView
+                android:id="@+id/busiess_address1_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_3"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="#969696"
+                android:textSize="10sp"
+                tools:text="重庆市南岸区南坪万达广场" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/hotel_address"
+            android:layout_marginTop="@dimen/dp_5"
+            android:layout_toEndOf="@+id/busiess_tupian1_image"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="9dp"
+                android:layout_height="9dp"
+                android:layout_gravity="center"
+                android:src="@mipmap/ic_iphone" />
+
+            <TextView
+                android:id="@+id/busiess_tel_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_3"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="#969696"
+                android:textSize="10sp"
+                tools:text="023-8888888" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_below="@+id/busiess_tupian1_image"
+            android:layout_marginTop="15dp"
+            android:background="#f7f7f7" />
+
+        <TextView
+            android:layout_width="70dp"
+            android:layout_height="25dp"
+            android:layout_alignBottom="@+id/busiess_tupian1_image"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/bg_see_busiess"
+            android:gravity="center"
+            android:text="查看商家"
+            android:textColor="#ffffff"
+            android:textSize="10sp"
+
+            />
+
+    </RelativeLayout>
+</LinearLayout>

@@ -1,5 +1,7 @@
 package com.zhuosongkj.android.library.adapter;
 
+import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -15,6 +17,7 @@ public abstract class BaseAdapter<T> extends BaseQuickAdapter<T, BaseViewHolder>
     private final HashMap<T, Boolean> selectMap = new HashMap<>();
     public boolean isSelectedAll;
     public boolean isLoadMoreEnd;
+    protected SelectMode selectMode = SelectMode.NONE;
     public OnSelectedStateChangedListener onSelectedStateChangedListener;
 
     public BaseAdapter(int layoutResId) {
@@ -37,6 +40,27 @@ public abstract class BaseAdapter<T> extends BaseQuickAdapter<T, BaseViewHolder>
         notifyDataSetChanged();
         if (onSelectedStateChangedListener != null) {
             onSelectedStateChangedListener.onSelectedStateChanged();
+        }
+    }
+
+    private OnItemClickListener savedOnItemClickListener;
+
+    public void setSelectMode(SelectMode selectMode) {
+        if (this.selectMode != selectMode) {
+            this.selectMode = selectMode;
+            notifyDataSetChanged();
+        }
+        if (selectMode != SelectMode.NONE) {
+            savedOnItemClickListener = getOnItemClickListener();
+            setOnItemClickListener((adapter, view, position) -> {
+                T item = getItem(position);
+                setSelected(item, !selectMap.get(item), selectMode == SelectMode.SINGLE);
+            });
+        } else {
+            setSelectedAll(false);
+            if (savedOnItemClickListener != null) {
+                setOnItemClickListener(savedOnItemClickListener);
+            }
         }
     }
 
@@ -138,5 +162,9 @@ public abstract class BaseAdapter<T> extends BaseQuickAdapter<T, BaseViewHolder>
 
     public interface OnSelectedStateChangedListener {
         void onSelectedStateChanged();
+    }
+
+    public enum SelectMode {
+        NONE, SINGLE, MULTI
     }
 }
