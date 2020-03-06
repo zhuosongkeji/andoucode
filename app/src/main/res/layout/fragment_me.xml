@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorWhite">
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:overScrollMode="never">
@@ -769,8 +769,23 @@
 
                 </LinearLayout>
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/telBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingBottom="25dp"
+                android:text="客服电话：4008-789-809"
+                android:textColor="#ff8a8a8a"
+                android:textSize="12sp" />
         </LinearLayout>
-    </ScrollView>
+    </LinearLayout>
 
     <View
         android:id="@+id/loginBtn"

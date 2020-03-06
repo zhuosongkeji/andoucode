@@ -7,6 +7,7 @@ import android.view.Gravity
 import android.view.View
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.BarUtils
+import com.blankj.utilcode.util.IntentUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
@@ -46,7 +47,7 @@ class MeFragment : BaseFragment() {
         mycenter_restaurant_layout.setOnClickListener { ActivityUtils.startActivity(RestaurantOrderListActivity::class.java) }
         mycenter_invitation_with_courtesy_layout.setOnClickListener { startActivity(Intent(context, InvitationActivity::class.java)) }
         mycenter_mywallet_layout.setOnClickListener { startActivity(Intent(context, MyWalletActivity::class.java)) }
-        mycenter_releas_layout.setOnClickListener { ActivityUtils.startActivity(mActivity,TieBaReleaseActivity::class.java) }
+        mycenter_releas_layout.setOnClickListener { ActivityUtils.startActivity(mActivity, TieBaReleaseActivity::class.java) }
         mycenter_shoppingcart_layout.setOnClickListener {
             MallHomeActivity.start(2)
         }
@@ -97,6 +98,9 @@ class MeFragment : BaseFragment() {
                             Glide.with(mActivity).load(UrlUtil.getImageUrl(result.data.avator)).apply(RequestOptions.bitmapTransform(CircleCrop())).into(img_touxiang)
                         })
             }
+        }
+        telBtn.setOnClickListener {
+            startActivity(IntentUtils.getDialIntent("4008-789-809"))
         }
     }
 

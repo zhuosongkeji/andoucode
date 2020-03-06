@@ -10,12 +10,6 @@
     android:orientation="vertical"
     tools:context=".activity.mall.MallOnlineOrderActivity">
 
-    <com.zskjprojectj.andouclient.view.TopView
-        android:id="@+id/alltopview"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_50"
-        app:topview_left="@mipmap/back_icon" />
-
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -179,9 +173,9 @@
                 android:id="@+id/rv_pay_ways"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:overScrollMode="never"
-                android:paddingTop="15dp" />
+                android:paddingTop="15dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
 
             <View
