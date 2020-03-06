@@ -2,56 +2,47 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F7F7F7"
     android:orientation="vertical">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="176dp"
-        android:background="@color/white">
+        android:layout_width="@dimen/dp_155"
+        android:layout_height="127dp"
+        android:layout_marginStart="@dimen/dp_15"
+        android:layout_marginTop="28dp"
+        android:background="@mipmap/vipbg_box"
+        android:orientation="vertical">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dp_26"
+            android:text="会员plus"
+            android:textColor="#5ED3AE"
+            android:textSize="@dimen/typeface12sp" />
 
-        <LinearLayout
-            android:layout_width="@dimen/dp_155"
-            android:layout_height="127dp"
-            android:layout_marginLeft="@dimen/dp_15"
-            android:layout_marginTop="28dp"
-            android:background="@mipmap/vipbg_box"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/dp_26"
-                android:text="会员plus"
-                android:textColor="#5ED3AE"
-                android:textSize="@dimen/typeface12sp" />
-
-            <TextView
-                android:id="@+id/tv_openprice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/dp_15"
-                android:text="100"
-                android:textColor="#5ED3AE"
-                android:textSize="32sp" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/tv_openprice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dp_15"
+            android:text="100"
+            android:textColor="#5ED3AE"
+            android:textSize="32sp" />
     </LinearLayout>
 
-    <!--    <LinearLayout-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:paddingLeft="@dimen/dp_15"-->
-    <!--        android:orientation="vertical"-->
-    <!--        android:layout_marginTop="@dimen/dp_5"-->
-    <!--        android:background="@color/white">-->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_marginTop="20dp"
+        android:background="#f7f7f7" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dp_15"
-        android:layout_marginTop="21dp"
+        android:layout_marginStart="@dimen/dp_15"
+        android:layout_marginTop="26dp"
         android:text="会员plus权益："
         android:textColor="#333333"
         android:textSize="15sp" />
@@ -60,25 +51,30 @@
         android:id="@+id/wv_webview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dp_15"
-        android:layout_marginTop="@dimen/dp_20" />
-    <!--    </LinearLayout>-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:layout_marginTop="10dp"
-        android:background="#FFFFFF"
-        android:gravity="center_vertical"
-        android:paddingStart="15dp"
-        android:paddingEnd="15dp">
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginEnd="15dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="请选择支付方式"
-            android:textColor="#ff565656"
-            android:textSize="13sp" />
-    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_marginTop="20dp"
+        android:background="#f7f7f7" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="15dp"
+        android:paddingTop="21dp"
+        android:paddingBottom="21dp"
+        android:text="请选择支付方式"
+        android:textColor="#ff565656"
+        android:textSize="13sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#f7f7f7" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_pay_ways"
@@ -90,7 +86,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp_15"
-        android:layout_marginTop="@dimen/dp_15"
+        android:layout_marginTop="20dp"
         android:layout_marginRight="@dimen/dp_15"
         android:background="#5ED3AE"
         android:text="确认开通" />
