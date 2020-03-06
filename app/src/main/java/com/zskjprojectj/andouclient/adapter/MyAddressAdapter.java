@@ -4,6 +4,8 @@ import android.app.Activity;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.zhuosongkj.android.library.app.BaseActivity;
+import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
@@ -26,19 +28,17 @@ public class MyAddressAdapter extends BaseQuickAdapter<Address, BaseViewHolder> 
                 .setOnCheckedChangeListener(R.id.defaultCbx, null)
                 .setChecked(R.id.defaultCbx, item.is_defualt.equals("1"))
                 .setOnCheckedChangeListener(R.id.defaultCbx, (buttonView, isChecked) ->
-                        HttpRxObservable.getObservable(ApiUtils.getApiService().defaultAddress(
-                                item.id,
-                                LoginInfoUtil.getUid(),
-                                LoginInfoUtil.getToken()))
-                                .subscribe(new BaseObserver<Object>((Activity) helper.itemView.getContext()) {
-                                    @Override
-                                    public void onHandleSuccess(Object o) throws IOException {
-                                        for (Address address : getData()) {
-                                            address.is_defualt = "0";
-                                        }
-                                        item.is_defualt = "1";
-                                        notifyDataSetChanged();
+                        RequestUtil.request((BaseActivity) mContext, true, false,
+                                () -> ApiUtils.getApiService().defaultAddress(
+                                        item.id,
+                                        LoginInfoUtil.getUid(),
+                                        LoginInfoUtil.getToken()),
+                                result -> {
+                                    for (Address address : getData()) {
+                                        address.is_defualt = "0";
                                     }
+                                    item.is_defualt = "1";
+                                    notifyDataSetChanged();
                                 }))
                 .addOnClickListener(R.id.editBtn)
                 .addOnClickListener(R.id.deleteBtn);

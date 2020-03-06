@@ -67,11 +67,11 @@ public class MallOrderListFragment extends BaseFragment {
             if (view1.getId() == R.id.btn_orderdetails) {
                 ShoporderdetailsActivity.start(adapter.getItem(position));
                 //取消订单
-            }else if(view1.getId()==R.id.btn_cancel_order){
+            } else if (view1.getId() == R.id.btn_cancel_order) {
                 MallOrderCancelActivity.start(adapter.getItem(position).order_id);
                 //去付款
             } else if (view1.getId() == R.id.btn_gotopayment) {
-                MallOnlineOrderActivity.start(adapter.getItem(position).order_id,"","","");
+                MallOnlineOrderActivity.start(adapter.getItem(position).order_id, "", "", "");
                 //确认收货
             } else if (view1.getId() == R.id.btn_getgoods) {
                 CustomViewDialog dialog = new CustomViewDialog(mActivity, R.layout.confirm_receipt_view, new int[]{
@@ -84,21 +84,18 @@ public class MallOrderListFragment extends BaseFragment {
                                 dialog.dismiss();
                                 break;
                             case R.id.btn_confirm_receipt:
-                                HttpRxObservable.getObservable(ApiUtils.getApiService().confirm(
-                                        LoginInfoUtil.getUid(),
-                                        LoginInfoUtil.getToken(),
-                                        adapter.getItem(position).id
+                                RequestUtil.request(mActivity, true, false,
+                                        () -> ApiUtils.getApiService().confirm(
+                                                LoginInfoUtil.getUid(),
+                                                LoginInfoUtil.getToken(),
+                                                adapter.getItem(position).id
 
-                                )).subscribe(new BaseObserver<Object>(mActivity) {
-                                    @Override
-                                    public void onHandleSuccess(Object o) throws IOException {
-                                        EventBus.getDefault().post(new OrderStateChangedEvent());
-                                        ToastUtil.showToast("确认收货成功");
-                                        dialog.dismiss();
-                                    }
-                                });
-
-
+                                        ),
+                                        result -> {
+                                            EventBus.getDefault().post(new OrderStateChangedEvent());
+                                            ToastUtil.showToast("确认收货成功");
+                                            dialog.dismiss();
+                                        });
                                 break;
                         }
                     }

@@ -21,6 +21,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zhuosongkj.android.library.util.ActionBarUtil;
+import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.HotelorderActivity;
 import com.zskjprojectj.andouclient.activity.mall.MallPaySuccessActivity;
@@ -134,28 +135,26 @@ public class HotelOnlineReserveActivity extends BaseActivity {
         //1、注册广播
         EventBus.getDefault().register(HotelOnlineReserveActivity.this);
         //请求支付方式
-        HttpRxObservable.getObservable(ApiUtils.getApiService().getMallPayWays()).subscribe(new BaseObserver<List<MallPayWaysBean>>(mActivity) {
-            @Override
-            public void onHandleSuccess(List<MallPayWaysBean> mallPayWaysBeans) throws IOException {
-                mRvPayWays.setLayoutManager(new LinearLayoutManager(mActivity));
-                PayWaysAdapter adapter = new PayWaysAdapter(R.layout.pay_ways_item, mallPayWaysBeans);
-                mRvPayWays.addItemDecoration(new DividerItemDecoration(mActivity, DividerItemDecoration.VERTICAL));
-                mRvPayWays.setAdapter(adapter);
-                adapter.setItemPayWays(new PayWaysAdapter.ItemPayWays() {
-                    @Override
-                    public void getPayWays(String payWays, int position) {
-                        payId = mallPayWaysBeans.get(position).getId();
-                    }
+        RequestUtil.request(mActivity, true, true,
+                () -> ApiUtils.getApiService().getMallPayWays(),
+                result -> {
+                    mRvPayWays.setLayoutManager(new LinearLayoutManager(mActivity));
+                    PayWaysAdapter adapter = new PayWaysAdapter(R.layout.pay_ways_item, result.data);
+                    mRvPayWays.addItemDecoration(new DividerItemDecoration(mActivity, DividerItemDecoration.VERTICAL));
+                    mRvPayWays.setAdapter(adapter);
+                    adapter.setItemPayWays(new PayWaysAdapter.ItemPayWays() {
+                        @Override
+                        public void getPayWays(String payWays, int position) {
+                            payId = result.data.get(position).getId();
+                        }
+                    });
                 });
-            }
-        });
     }
 
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        //2、解除注册
         EventBus.getDefault().unregister(HotelOnlineReserveActivity.this);
     }
 
@@ -212,66 +211,56 @@ public class HotelOnlineReserveActivity extends BaseActivity {
 
                     switch (id) {
                         case WXPAY:
-                            HttpRxObservable.getObservable(ApiUtils.getApiService().hotelOrder(
-                                    LoginInfoUtil.getUid(),
-                                    LoginInfoUtil.getToken(),
-                                    home_id,
-                                    merchant_id,
-                                    start,
-                                    end,
-                                    name,
-                                    phone,
-                                    personNUm,
-                                    datNum,
-                                    payId,
-                                    is_integral
+                            RequestUtil.request(mActivity, true, false,
+                                    () -> ApiUtils.getApiService().hotelOrder(
+                                            LoginInfoUtil.getUid(),
+                                            LoginInfoUtil.getToken(),
+                                            home_id,
+                                            merchant_id,
+                                            start,
+                                            end,
+                                            name,
+                                            phone,
+                                            personNUm,
+                                            datNum,
+                                            payId,
+                                            is_integral
 
-                            )).subscribe(new BaseObserver<WxPay>(mActivity) {
-                                @Override
-                                public void onHandleSuccess(WxPay wxPay) throws IOException {
-                                    PayUtil.INSTANCE.startWXPay(mActivity, wxPay);
-                                }
-                            });
+                                    ),
+                                    result -> {
+                                        PayUtil.INSTANCE.startWXPay(mActivity, result.data);
+                                    });
                             break;
                         case YUEPAY:
-
                             new AlertDialog.Builder(mActivity)
                                     .setTitle("温馨提示")
                                     .setMessage("确定用余额支付该订单吗？")
                                     .setNegativeButton("取消", null)
                                     .setPositiveButton("确定",
-                                            (dialog, which) -> {
-                                                HttpRxObservable.getObservable(ApiUtils.getApiService().hotelOrder(
-                                                        LoginInfoUtil.getUid(),
-                                                        LoginInfoUtil.getToken(),
-                                                        home_id,
-                                                        merchant_id,
-                                                        start,
-                                                        end,
-                                                        name,
-                                                        phone,
-                                                        personNUm,
-                                                        datNum,
-                                                        payId,
-                                                        is_integral
-
-                                                )).subscribe(new BaseObserver<WxPay>(mActivity) {
-                                                    @Override
-                                                    public void onHandleSuccess(WxPay WxPay) throws IOException {
+                                            (dialog, which) -> RequestUtil.request(mActivity, true, false,
+                                                    () -> ApiUtils.getApiService().hotelOrder(
+                                                            LoginInfoUtil.getUid(),
+                                                            LoginInfoUtil.getToken(),
+                                                            home_id,
+                                                            merchant_id,
+                                                            start,
+                                                            end,
+                                                            name,
+                                                            phone,
+                                                            personNUm,
+                                                            datNum,
+                                                            payId,
+                                                            is_integral
+                                                    ),
+                                                    result -> {
                                                         startActivity(new Intent(HotelOnlineReserveActivity.this, MallPaySuccessActivity.class));
-                                                    }
-                                                });
-                                            })
+
+                                                    }))
                                     .show();
-
                             break;
-
                     }
-
                 }
-
                 break;
-
             case R.id.rv_slector_time:
                 new DatePopupWindow
                         .Builder(HotelOnlineReserveActivity.this, Calendar.getInstance().getTime(), view)

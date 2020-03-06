@@ -26,6 +26,7 @@ import com.lxj.xpopup.interfaces.SimpleCallback;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zhuosongkj.android.library.util.PageLoadUtil;
+import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.adapter.mall.MallShoppingHomeAdapter;
 import com.zskjprojectj.andouclient.adapter.mall.MallShoppingPopuAdapter;
@@ -44,7 +45,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class MallShoppingHomeActivity extends BaseActivity {
+public class MallDetailActivity extends BaseActivity {
 
     //商户名字
     @BindView(R.id.tv_shopping_name)
@@ -135,38 +136,35 @@ public class MallShoppingHomeActivity extends BaseActivity {
     private void initViews() {
         merchantId = getIntent().getStringExtra("merchant_id");
         mRecycler.setLayoutManager(new GridLayoutManager(this, 2));
+        RequestUtil.request(mActivity, true, true,
+                () -> ApiUtils.getApiService().mallMerchant(
+                        merchantId,
+                        LoginInfoUtil.getUid(),
+                        keyword,
+                        type_id,
+                        price_sort,
+                        volume_sort,
+                        1
 
-        HttpRxObservable.getObservable(ApiUtils.getApiService().mallMerchant(
-                merchantId,
-                LoginInfoUtil.getUid(),
-                keyword,
-                type_id,
-                price_sort,
-                volume_sort,
-                1
-
-        )).subscribe(new BaseObserver<MallShoppingHomeBean>(this) {
-            @Override
-            public void onHandleSuccess(MallShoppingHomeBean mallShoppingHomeBean) throws IOException {
-                mTvShoppingName.setText(mallShoppingHomeBean.getName());
-                Glide.with(MallShoppingHomeActivity.this).load(UrlUtil.INSTANCE.getImageUrl(mallShoppingHomeBean.getLogo_img()))
-                        .apply(new RequestOptions()
-                                .placeholder(R.mipmap.ic_default_head_photo).error(R.mipmap.ic_default_head_photo))
-                        .into(mIvShoppingHeadpic);
-                if ("0".equals(mallShoppingHomeBean.getStatus())) {
-                    mtvMallMerchantsFocuson.setText("关注");
-                    isfocuson = false;
-                    ivisfocuson.setVisibility(View.VISIBLE);
-                } else {
-                    mtvMallMerchantsFocuson.setText("已关注");
-                    isfocuson = true;
-                    ivisfocuson.setVisibility(View.GONE);
-                }
-                Glide.with(MallShoppingHomeActivity.this).load(UrlUtil.INSTANCE.getImageUrl(mallShoppingHomeBean.getBanner_img())).into(mIvShoppingBackground);
-                typeBeanList = mallShoppingHomeBean.getType();
-            }
-        });
-
+                ),
+                result -> {
+                    mTvShoppingName.setText(result.data.getName());
+                    Glide.with(MallDetailActivity.this).load(UrlUtil.INSTANCE.getImageUrl(result.data.getLogo_img()))
+                            .apply(new RequestOptions()
+                                    .placeholder(R.mipmap.ic_default_head_photo).error(R.mipmap.ic_default_head_photo))
+                            .into(mIvShoppingHeadpic);
+                    if ("0".equals(result.data.getStatus())) {
+                        mtvMallMerchantsFocuson.setText("关注");
+                        isfocuson = false;
+                        ivisfocuson.setVisibility(View.VISIBLE);
+                    } else {
+                        mtvMallMerchantsFocuson.setText("已关注");
+                        isfocuson = true;
+                        ivisfocuson.setVisibility(View.GONE);
+                    }
+                    Glide.with(MallDetailActivity.this).load(UrlUtil.INSTANCE.getImageUrl(result.data.getBanner_img())).into(mIvShoppingBackground);
+                    typeBeanList = result.data.getType();
+                });
     }
 
 
@@ -195,7 +193,7 @@ public class MallShoppingHomeActivity extends BaseActivity {
     @OnClick(R.id.ll_mall_shopping_classify)
     public void clickClassify() {
         //设置contentView
-        View contentView = LayoutInflater.from(MallShoppingHomeActivity.this).inflate(R.layout.activity_mall_shopping_classify_view, null);
+        View contentView = LayoutInflater.from(MallDetailActivity.this).inflate(R.layout.activity_mall_shopping_classify_view, null);
 
         mRecyclerPopu = contentView.findViewById(R.id.recyclerView);
         mConfirm = contentView.findViewById(R.id.confirm);
@@ -427,17 +425,15 @@ public class MallShoppingHomeActivity extends BaseActivity {
                     type = "0";
                     isfocuson = false;
                 }
-                HttpRxObservable.getObservable(ApiUtils.getApiService().mallgoodsfollow(merchantId
-                        ,
-                        LoginInfoUtil.getUid(),
-                        LoginInfoUtil.getToken(),
-                        type
-                )).subscribe(new BaseObserver<Object>(this) {
-                    @Override
-                    public void onHandleSuccess(Object o) throws IOException {
+                RequestUtil.request(mActivity, true, false,
+                        () -> ApiUtils.getApiService().mallgoodsfollow(
+                                merchantId,
+                                LoginInfoUtil.getUid(),
+                                LoginInfoUtil.getToken(),
+                                type
+                        ), result -> {
 
-                    }
-                });
+                        });
                 break;
         }
     }
@@ -446,12 +442,12 @@ public class MallShoppingHomeActivity extends BaseActivity {
     public static void start(String merchant_id) {
         Bundle bundle = new Bundle();
         bundle.putString("merchant_id", merchant_id);
-        ActivityUtils.startActivity(bundle, MallShoppingHomeActivity.class);
+        ActivityUtils.startActivity(bundle, MallDetailActivity.class);
 
     }
 
     @Override
     protected int getContentView() {
-        return R.layout.activity_mall_shopping_home;
+        return R.layout.activity_mall_detail;
     }
 }

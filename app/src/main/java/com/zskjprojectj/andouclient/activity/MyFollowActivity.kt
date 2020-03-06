@@ -3,7 +3,6 @@ package com.zskjprojectj.andouclient.activity
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zhuosongkj.android.library.app.BaseActivity
 import com.zhuosongkj.android.library.model.BaseResult
@@ -11,7 +10,7 @@ import com.zhuosongkj.android.library.util.ActionBarUtil
 import com.zhuosongkj.android.library.util.RequestUtil
 import com.zskjprojectj.andouclient.R
 import com.zskjprojectj.andouclient.activity.hotel.HotelDetailActivity
-import com.zskjprojectj.andouclient.activity.mall.MallShoppingHomeActivity
+import com.zskjprojectj.andouclient.activity.mall.MallDetailActivity
 import com.zskjprojectj.andouclient.activity.restaurant.RestaurantDetailActivity
 import com.zskjprojectj.andouclient.adapter.MyFollowAdapter
 import com.zskjprojectj.andouclient.entity.MyFocusonBean
@@ -36,7 +35,7 @@ class MyFollowActivity : BaseActivity() {
             recyclerView.adapter = adapter
             adapter.onItemChildClickListener = BaseQuickAdapter.OnItemChildClickListener { adapter1: BaseQuickAdapter<*, *>?, view: View?, position: Int ->
                 when (result.data[position].merchant_type_id) {
-                    "2" -> MallShoppingHomeActivity.start(result.data[position].id)
+                    "2" -> MallDetailActivity.start(result.data[position].id)
                     "3" -> HotelDetailActivity.start(result.data[position].id)
                     "4" -> RestaurantDetailActivity.start(result.data[position].id)
                     "5" -> {

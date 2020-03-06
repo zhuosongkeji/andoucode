@@ -18,7 +18,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.TimeUtils
-import com.blankj.utilcode.util.ToastUtils
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.zhuosongkj.android.library.app.BaseActivity
@@ -193,10 +192,10 @@ class MallGoodsDetailsActivity : BaseActivity() {
             goToBuy()
         }
         tv_mall_home.setOnClickListener {
-            MallShoppingHomeActivity.start(goodsDetail?.merchant_id)
+            MallDetailActivity.start(goodsDetail?.merchant_id)
         }
         mShopHome.setOnClickListener {
-            MallShoppingHomeActivity.start(goodsDetail?.merchant_id)
+            MallDetailActivity.start(goodsDetail?.merchant_id)
         }
         mDiscount.setOnClickListener {
             initDiscount()
