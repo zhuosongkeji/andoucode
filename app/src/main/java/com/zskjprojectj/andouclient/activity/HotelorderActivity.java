@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -19,18 +18,10 @@ import com.shizhefei.view.indicator.slidebar.ColorBar;
 import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zhuosongkj.android.library.util.ActionBarUtil;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.base.BasePresenter;
-import com.zskjprojectj.andouclient.fragment.MeHotelorderFragment;
-import com.zskjprojectj.andouclient.fragment.MeHotelordercancelledFragment;
-import com.zskjprojectj.andouclient.fragment.MeHotelorderevaluateFragment;
-import com.zskjprojectj.andouclient.fragment.MeHotelorderstayinFragment;
 import com.zskjprojectj.andouclient.fragment.hotel.MeHotelFragment;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.OnClick;
 
 /**
  * 酒店预订

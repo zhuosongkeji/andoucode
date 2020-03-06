@@ -1,11 +1,9 @@
 package com.zskjprojectj.andouclient.activity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ActivityUtils;
@@ -14,7 +12,6 @@ import com.willy.ratingbar.ScaleRatingBar;
 import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zhuosongkj.android.library.util.ActionBarUtil;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.base.BasePresenter;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;

@@ -18,17 +18,12 @@ import com.shizhefei.view.indicator.slidebar.ColorBar;
 import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zhuosongkj.android.library.util.ActionBarUtil;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.fragment.BalancesubsidiaryFragment;
+import com.zskjprojectj.andouclient.fragment.AccountChangeListFragment;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.model.BalanceDetail;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
-import com.zskjprojectj.andouclient.utils.PaySuccessEvent;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -37,7 +32,7 @@ import java.util.List;
 /**
  * 我的钱包
  */
-public class MywalletActivity extends BaseActivity {
+public class MyWalletActivity extends BaseActivity {
 
     private FixedIndicatorView indicator;
     //碎片集合
@@ -46,8 +41,8 @@ public class MywalletActivity extends BaseActivity {
     //第三方指示器
     private IndicatorViewPager indicatorViewPager;
     private Button balanceofprepaid, btn_withdrawal;
-    BalancesubsidiaryFragment meBalancesubsidiaryFragment = new BalancesubsidiaryFragment();
-    BalancesubsidiaryFragment meCashFragment = new BalancesubsidiaryFragment();
+    AccountChangeListFragment meAccountChangeListFragment = new AccountChangeListFragment(0);
+    AccountChangeListFragment meCashFragment = new AccountChangeListFragment(1);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +50,6 @@ public class MywalletActivity extends BaseActivity {
         ActionBarUtil.setTitle(mActivity, "我的钱包");
         balanceofprepaid = findViewById(R.id.btn_balanceofprepaid);
         btn_withdrawal = findViewById(R.id.btn_withdrawal);
-        EventBus.getDefault().register(this);
         //设置点击事件
         balanceofprepaid.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,44 +68,25 @@ public class MywalletActivity extends BaseActivity {
         indicator = findViewById(R.id.indicator);
         viewPager = findViewById(R.id.viewPager);
         list = new ArrayList<Fragment>();
-        list.add(meBalancesubsidiaryFragment);
+        list.add(meAccountChangeListFragment);
         list.add(meCashFragment);
         indicatorViewPager = new IndicatorViewPager(indicator, viewPager);
         indicatorViewPager.setAdapter(adapter);
         //设置滑动时的那一项的图形和颜色变化，ColorBar对应的是下划线的形状。
         indicator.setScrollBar(new ColorBar(getApplicationContext(), Color.parseColor("#5ed3ae"), 5));
         viewPager.setOffscreenPageLimit(1);//缓存的左右页面的个数都是1
-        getDataFromServer();
-    }
-
-
-    private void getDataFromServer() {
-        HttpRxObservable.getObservable(ApiUtils.getApiService().balanceDetail(
-                LoginInfoUtil.getUid(),
-                LoginInfoUtil.getToken()
-        )).subscribe(new BaseObserver<BalanceDetail>(mActivity) {
-            @Override
-            public void onHandleSuccess(BalanceDetail balanceDetail) throws IOException {
-                ((TextView) findViewById(R.id.tv_balanceofnum)).setText("¥" + balanceDetail.money);
-                meBalancesubsidiaryFragment.addData(balanceDetail.log, true);
-            }
-        });
-
         HttpRxObservable.getObservable(ApiUtils.getApiService().cashDetail(
                 LoginInfoUtil.getUid(),
-                LoginInfoUtil.getToken()
+                LoginInfoUtil.getToken(),
+                1
         )).subscribe(new BaseObserver<BalanceDetail>(mActivity) {
             @Override
             public void onHandleSuccess(BalanceDetail balanceDetail) throws IOException {
                 ((TextView) findViewById(R.id.tv_balanceofnum)).setText("¥" + balanceDetail.money);
-                meCashFragment.addData(balanceDetail.log, true);
             }
         });
     }
 
-    /**
-     * 指示器适配器对形象
-     */
     public IndicatorViewPager.IndicatorFragmentPagerAdapter adapter = new IndicatorViewPager.IndicatorFragmentPagerAdapter(getSupportFragmentManager()) {
         private String[] tabNames = {"余额明细", "提现明细"};
 
@@ -140,13 +115,8 @@ public class MywalletActivity extends BaseActivity {
         }
     };
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void initnewData(PaySuccessEvent paySuccessEvent) {
-        getDataFromServer();
-    }
-
     @Override
     protected int getContentView() {
-        return R.layout.activity_mywallet;
+        return R.layout.activity_my_wallet;
     }
 }

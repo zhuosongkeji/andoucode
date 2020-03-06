@@ -5,9 +5,9 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.model.BalanceLog;
 
-public class BalancesubsidiaryAdapter extends BaseQuickAdapter<BalanceLog, BaseViewHolder> {
+public class AccountChangeListAdapter extends BaseQuickAdapter<BalanceLog, BaseViewHolder> {
 
-    public BalancesubsidiaryAdapter() {
+    public AccountChangeListAdapter() {
         super(R.layout.item_balancesubsidiary);
     }
 

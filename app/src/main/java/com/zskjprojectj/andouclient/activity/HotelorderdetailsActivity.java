@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ActivityUtils;
@@ -15,7 +14,6 @@ import com.bumptech.glide.request.RequestOptions;
 import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zhuosongkj.android.library.util.ActionBarUtil;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.base.BasePresenter;
 import com.zskjprojectj.andouclient.utils.UrlUtil;
 import com.zskjprojectj.andouclient.entity.hotel.MeHotelBean;
 import com.zskjprojectj.andouclient.entity.hotel.MeHotelDetailsBean;
@@ -26,9 +24,6 @@ import com.zskjprojectj.andouclient.model.HotelOrderStatus;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 
 import java.io.IOException;
-
-import butterknife.BindView;
-import butterknife.OnClick;
 
 /**
  * 订单详情

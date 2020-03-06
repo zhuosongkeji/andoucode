@@ -168,17 +168,11 @@
         <activity
             android:name=".activity.VegetableMarketActivity"
             android:screenOrientation="portrait" /> <!-- 直播界面 -->
+        <!-- 外卖板块 -->
+        <!-- 在线点餐模块 -->
+       <!-- 我的发布 -->
         <activity
-            android:name=".activity.LiveActivity"
-            android:screenOrientation="portrait" /> <!-- 外卖板块 -->
-        <activity
-            android:name=".activity.BookingorderActivity"
-            android:screenOrientation="portrait" /> <!-- 在线点餐模块 -->
-        <activity
-            android:name=".activity.OnlineBookingorderActivity"
-            android:screenOrientation="portrait" /> <!-- 我的发布 -->
-        <activity
-            android:name=".activity.MywalletActivity"
+            android:name=".activity.MyWalletActivity"
             android:screenOrientation="portrait" /> <!-- 分享有礼 -->
         <activity
             android:name=".activity.InvitationActivity"

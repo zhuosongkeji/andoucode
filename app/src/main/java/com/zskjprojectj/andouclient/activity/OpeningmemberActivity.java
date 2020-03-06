@@ -2,25 +2,19 @@ package com.zskjprojectj.andouclient.activity;
 
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.tencent.mm.opensdk.modelpay.PayReq;
-import com.tencent.mm.opensdk.openapi.IWXAPI;
-import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zhuosongkj.android.library.util.ActionBarUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.adapter.mall.PayWaysAdapter;
-import com.zskjprojectj.andouclient.base.BasePresenter;
 import com.zskjprojectj.andouclient.entity.ViproteBean;
 import com.zskjprojectj.andouclient.entity.mall.MallPayWaysBean;
 import com.zskjprojectj.andouclient.http.ApiUtils;
@@ -35,7 +29,6 @@ import java.io.IOException;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 
 /**
  * 开通会员界面

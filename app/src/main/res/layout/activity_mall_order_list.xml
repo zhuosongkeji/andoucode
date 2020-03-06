@@ -10,7 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="#FFFFFF"
-        app:tl_indicator_color="#5ED3AE"
         app:tl_indicator_corner_radius="1.5dp"
         app:tl_indicator_height="3dp"
         app:tl_indicator_width_equal_title="true"

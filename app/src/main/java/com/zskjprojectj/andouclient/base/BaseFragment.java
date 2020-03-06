@@ -39,9 +39,7 @@ public abstract class BaseFragment extends Fragment {
         mUnBinder = ButterKnife.bind(this, view);
         return view;
     }
-    public <V, T> void setOnLifeCycleListener(BasePresenter listener) {
-        mListener = listener;
-    }
+
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);

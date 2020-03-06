@@ -15,7 +15,7 @@ public class WithdrawalresultsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         ActionBarUtil.setTitle(mActivity, "提现结果");
         Button btn_gotomywallet = findViewById(R.id.btn_gotomywallet);
-        btn_gotomywallet.setOnClickListener(view -> ActivityUtils.startActivity(MywalletActivity.class));
+        btn_gotomywallet.setOnClickListener(view -> ActivityUtils.startActivity(MyWalletActivity.class));
     }
 
     @Override

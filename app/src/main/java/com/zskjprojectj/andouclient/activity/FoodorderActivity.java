@@ -18,7 +18,6 @@ import com.shizhefei.view.indicator.slidebar.ColorBar;
 import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zhuosongkj.android.library.util.ActionBarUtil;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.base.BasePresenter;
 import com.zskjprojectj.andouclient.fragment.MeFoodorderCancelledFragment;
 import com.zskjprojectj.andouclient.fragment.MeFoodorderEvaluateFragment;
 import com.zskjprojectj.andouclient.fragment.MeFoodorderFragment;

@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.adapter.BalancesubsidiaryAdapter;
+import com.zskjprojectj.andouclient.adapter.AccountChangeListAdapter;
 import com.zskjprojectj.andouclient.base.BaseFragment;
 
 /**
@@ -36,7 +36,7 @@ public class WithdrawalsubsidiaryFragment extends BaseFragment {
     @Override
     protected void initData() {
 
-        BalancesubsidiaryAdapter adapter = new BalancesubsidiaryAdapter();
+        AccountChangeListAdapter adapter = new AccountChangeListAdapter();
         adapter.openLoadAnimation();
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override

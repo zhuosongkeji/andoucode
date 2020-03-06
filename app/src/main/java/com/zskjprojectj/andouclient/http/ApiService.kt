@@ -537,7 +537,9 @@ interface ApiService {
     @POST("api/wallet/index")
     @FormUrlEncoded
     fun balanceDetail(@Field("uid") uid: String,
-                      @Field("token") token: String): Observable<BaseResult<BalanceDetail>>
+                      @Field("token") token: String,
+                      @Field("page") page: Int
+    ): Observable<BaseResult<BalanceDetail>>
 
     /**
      * 余额明细
@@ -545,7 +547,9 @@ interface ApiService {
     @POST("api/wallet/cash")
     @FormUrlEncoded
     fun cashDetail(@Field("uid") uid: String,
-                   @Field("token") token: String): Observable<BaseResult<BalanceDetail>>
+                   @Field("token") token: String,
+                   @Field("page") page: Int
+    ): Observable<BaseResult<BalanceDetail>>
 
     /**
      * 余额提现

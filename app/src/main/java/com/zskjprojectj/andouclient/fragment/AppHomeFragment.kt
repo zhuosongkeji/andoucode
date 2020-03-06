@@ -19,7 +19,6 @@ import com.zhuosongkj.android.library.model.ListData
 import com.zhuosongkj.android.library.util.RequestUtil
 import com.zskjprojectj.andouclient.R
 import com.zskjprojectj.andouclient.activity.AppHomeActivity
-import com.zskjprojectj.andouclient.activity.BookingorderActivity
 import com.zskjprojectj.andouclient.activity.MallHomeActivity
 import com.zskjprojectj.andouclient.activity.QrCodeActivity
 import com.zskjprojectj.andouclient.activity.hotel.HotelDetailActivity
@@ -86,7 +85,6 @@ class AppHomeFragment : BaseFragment() {
                 "4" -> RestaurantDetailActivity.start(merchantsAdapter.getItem(position)?.id)
             }
         }
-        appointment_see_more_layout.setOnClickListener { startActivity(Intent(context, BookingorderActivity::class.java)) }
         onlinebooking_see_more_layout.setOnClickListener { ActivityUtils.startActivity(RestaurantHomeActivity::class.java) }
         loadData()
         RequestUtil.request<ListData<Restaurant>>(mActivity, true, false,

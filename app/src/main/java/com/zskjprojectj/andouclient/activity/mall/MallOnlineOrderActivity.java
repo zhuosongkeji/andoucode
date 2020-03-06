@@ -4,34 +4,25 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
-import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatCheckBox;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.blankj.utilcode.util.ActivityUtils;
-import com.tencent.mm.opensdk.modelpay.PayReq;
-import com.tencent.mm.opensdk.openapi.IWXAPI;
-import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+import com.zhuosongkj.android.library.app.BaseActivity;
+import com.zhuosongkj.android.library.util.ActionBarUtil;
+import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.activity.MyAddressActivity;
 import com.zskjprojectj.andouclient.activity.MallOrderListActivity;
+import com.zskjprojectj.andouclient.activity.MyAddressActivity;
 import com.zskjprojectj.andouclient.adapter.mall.MallBuyInfoAdapter;
 import com.zskjprojectj.andouclient.adapter.mall.PayWaysAdapter;
-import com.zskjprojectj.andouclient.base.BaseActivity;
-import com.zskjprojectj.andouclient.base.BasePresenter;
-import com.zskjprojectj.andouclient.entity.mall.MallPayWaysBean;
 import com.zskjprojectj.andouclient.entity.mall.MallSettlementBean;
 import com.zskjprojectj.andouclient.http.ApiUtils;
-import com.zskjprojectj.andouclient.http.BaseObserver;
-import com.zskjprojectj.andouclient.http.HttpRxObservable;
-import com.zskjprojectj.andouclient.model.WxPay;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 import com.zskjprojectj.andouclient.utils.PayCancle;
 import com.zskjprojectj.andouclient.utils.PaySuccessBackEvent;
@@ -43,9 +34,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -107,45 +96,87 @@ public class MallOnlineOrderActivity extends BaseActivity {
     }
 
     @Override
-    protected void setRootView() {
-        setContentView(R.layout.activity_mall_online_order);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(MallOnlineOrderActivity.this);
+        ActionBarUtil.setTitle(mActivity, "在线下单");
+        order_sn = getIntent().getStringExtra("order_sn");
+        puzzle_id = getIntent().getStringExtra("puzzle_id");
+        open_join = getIntent().getStringExtra("open_join");
+        group_id = getIntent().getStringExtra("group_id");
+        mRvInfoRecycler.setLayoutManager(new LinearLayoutManager(this));
+
+        RequestUtil.request(mActivity, true, true,
+                () -> ApiUtils.getApiService().MallSettlement(
+                        LoginInfoUtil.getUid(),
+                        LoginInfoUtil.getToken(),
+                        order_sn
+                ),
+                result -> {
+                    MallBuyInfoAdapter adapter = new MallBuyInfoAdapter(R.layout.buy_info_item, result.data.getDetails());
+                    mRvInfoRecycler.setAdapter(adapter);
+                    //收货信息
+                    MallSettlementBean.UserinfoBean userinfo = result.data.getUserinfo();
+
+                    mTvClientName.setText(userinfo.getName());
+                    mTvClientPhone.setText(userinfo.getMobile());
+
+                    String shippingAddress = userinfo.getProvince() + " " + userinfo.getCity() + " " + userinfo.getArea() + " " + userinfo.getAddress();
+                    mTvClientAddress.setText(shippingAddress);
+                    mShippingFree.setText(result.data.getShipping_free());
+
+                    mTvOrderMoney.setText("¥" + result.data.getOrder_money());
+                    mMallOrderMoney.setText("¥" + result.data.getOrder_money());
+                    int score = Integer.parseInt(result.data.getIntegral());
+                    if (score == 0) {
+                        cbSelector.setEnabled(false);
+                    }
+                    mIvIntegral.setText(result.data.getIntegral());
+
+                    cbSelector.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                            if (isChecked) {
+                                BigDecimal bigDecimal = new BigDecimal(result.data.getOrder_money());
+                                BigDecimal subtract = bigDecimal.subtract(new BigDecimal(result.data.getIntegral()));
+                                mTvOrderMoney.setText("¥" + subtract.toString());
+                                mMallOrderMoney.setText("¥" + subtract.toString());
+                                is_integral = "1";
+                            } else {
+                                mTvOrderMoney.setText("¥" + result.data.getOrder_money());
+                                mMallOrderMoney.setText("¥" + result.data.getOrder_money());
+                                is_integral = "0";
+                            }
+                        }
+                    });
+
+                });
+
+        //请求支付方式
+        RequestUtil.request(mActivity, true, true,
+                () -> ApiUtils.getApiService().getMallPayWays(),
+                result -> {
+                    PayWaysAdapter adapter = new PayWaysAdapter(R.layout.pay_ways_item, result.data);
+                    mRvPayWAys.setAdapter(adapter);
+                    adapter.setItemPayWays(new PayWaysAdapter.ItemPayWays() {
+                        @Override
+                        public void getPayWays(String payWays, int position) {
+                            payId = result.data.get(position).getId();
+                        }
+                    });
+                });
     }
 
     @Override
-    protected void initData(Bundle savedInstanceState) {
-//1、注册广播
-        EventBus.getDefault().register(MallOnlineOrderActivity.this);
-
+    public void onBackPressed() {
+        super.onBackPressed();
+        EventBus.getDefault().post(new PayCancle());
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        //2、解除注册
         EventBus.getDefault().unregister(MallOnlineOrderActivity.this);
-    }
-
-
-    @Override
-    protected void initViews() {
-        order_sn = getIntent().getStringExtra("order_sn");
-        puzzle_id = getIntent().getStringExtra("puzzle_id");
-        open_join = getIntent().getStringExtra("open_join");
-        group_id = getIntent().getStringExtra("group_id");
-        Log.d("wangbin", "initViews: " + order_sn);
-        topView.setTitle("在线下单");
-        topView.setBackOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EventBus.getDefault().post(new PayCancle());
-                finish();
-            }
-        });
-        getBarDistance(topView);
-
-        mRvInfoRecycler.setLayoutManager(new LinearLayoutManager(this));
-
-
     }
 
     public static void start(String order_sn, String puzzle_id, String open_join, String group_id) {
@@ -155,82 +186,6 @@ public class MallOnlineOrderActivity extends BaseActivity {
         bundle.putSerializable("open_join", open_join);
         bundle.putSerializable("group_id", group_id);
         ActivityUtils.startActivity(bundle, MallOnlineOrderActivity.class);
-    }
-
-    @Override
-    public void getDataFromServer() {
-
-        HttpRxObservable.getObservable(ApiUtils.getApiService().MallSettlement(
-
-                LoginInfoUtil.getUid(),
-                LoginInfoUtil.getToken(),
-                order_sn
-        )).subscribe(new BaseObserver<MallSettlementBean>(mAt) {
-            @Override
-            public void onHandleSuccess(MallSettlementBean mallSettlementBean) throws IOException {
-
-                MallBuyInfoAdapter adapter = new MallBuyInfoAdapter(R.layout.buy_info_item, mallSettlementBean.getDetails());
-                mRvInfoRecycler.setAdapter(adapter);
-                //收货信息
-                MallSettlementBean.UserinfoBean userinfo = mallSettlementBean.getUserinfo();
-
-                mTvClientName.setText(userinfo.getName());
-                mTvClientPhone.setText(userinfo.getMobile());
-
-                String shippingAddress = userinfo.getProvince() + " " + userinfo.getCity() + " " + userinfo.getArea() + " " + userinfo.getAddress();
-                mTvClientAddress.setText(shippingAddress);
-                mShippingFree.setText(mallSettlementBean.getShipping_free());
-
-                mTvOrderMoney.setText("¥" + mallSettlementBean.getOrder_money());
-                mMallOrderMoney.setText("¥" + mallSettlementBean.getOrder_money());
-                int score = Integer.parseInt(mallSettlementBean.getIntegral());
-                if (score == 0) {
-                    cbSelector.setEnabled(false);
-                }
-                mIvIntegral.setText(mallSettlementBean.getIntegral());
-
-                cbSelector.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        if (isChecked) {
-                            BigDecimal bigDecimal = new BigDecimal(mallSettlementBean.getOrder_money());
-                            BigDecimal subtract = bigDecimal.subtract(new BigDecimal(mallSettlementBean.getIntegral()));
-                            mTvOrderMoney.setText("¥" + subtract.toString());
-                            mMallOrderMoney.setText("¥" + subtract.toString());
-                            is_integral = "1";
-                        } else {
-                            mTvOrderMoney.setText("¥" + mallSettlementBean.getOrder_money());
-                            mMallOrderMoney.setText("¥" + mallSettlementBean.getOrder_money());
-                            is_integral = "0";
-                        }
-                    }
-                });
-
-            }
-        });
-
-        //请求支付方式
-        HttpRxObservable.getObservable(ApiUtils.getApiService().getMallPayWays()).subscribe(new BaseObserver<List<MallPayWaysBean>>(mAt) {
-            @Override
-            public void onHandleSuccess(List<MallPayWaysBean> mallPayWaysBeans) throws IOException {
-                mRvPayWAys.setLayoutManager(new LinearLayoutManager(mAt));
-                PayWaysAdapter adapter = new PayWaysAdapter(R.layout.pay_ways_item, mallPayWaysBeans);
-                mRvPayWAys.addItemDecoration(new DividerItemDecoration(mAt, DividerItemDecoration.VERTICAL));
-                mRvPayWAys.setAdapter(adapter);
-                adapter.setItemPayWays(new PayWaysAdapter.ItemPayWays() {
-                    @Override
-                    public void getPayWays(String payWays, int position) {
-                        payId = mallPayWaysBeans.get(position).getId();
-                    }
-                });
-            }
-        });
-
-    }
-
-    @Override
-    protected BasePresenter createPresenter() {
-        return null;
     }
 
     @OnClick(R.id.ll_buy_pay)
@@ -243,31 +198,30 @@ public class MallOnlineOrderActivity extends BaseActivity {
         int id = Integer.parseInt(payId);
         switch (id) {
             case WXPAY:
-                HttpRxObservable.getObservable(ApiUtils.getApiService().MallWXPayWays(
-                        LoginInfoUtil.getUid(),
-                        LoginInfoUtil.getToken(),
-                        order_sn,
-                        payId,
-                        is_integral,
-                        puzzle_id,
-                        open_join,
-                        group_id
-                )).subscribe(new BaseObserver<WxPay>(mAt) {
-                    @Override
-                    public void onHandleSuccess(WxPay WxPay) throws IOException {
-                        PayUtil.INSTANCE.startWXPay(mAt, WxPay);
-                    }
-                });
+                RequestUtil.request(mActivity,true,false,
+                        ()->ApiUtils.getApiService().MallWXPayWays(
+                                LoginInfoUtil.getUid(),
+                                LoginInfoUtil.getToken(),
+                                order_sn,
+                                payId,
+                                is_integral,
+                                puzzle_id,
+                                open_join,
+                                group_id
+                        ),
+                        result -> PayUtil.INSTANCE.startWXPay(mActivity, result.data));
+
                 break;
             case YUEPAY:
-                Log.d(TAG, "pintuan" + puzzle_id + "  " + open_join + "  " + group_id);
-                new AlertDialog.Builder(mAt)
+                new AlertDialog.Builder(mActivity)
                         .setTitle("温馨提示")
                         .setMessage("确定用余额支付该订单吗？")
                         .setNegativeButton("取消", null)
                         .setPositiveButton("确定",
                                 (dialog, which) -> {
-                                    HttpRxObservable.getObservable(ApiUtils.getApiService().MallWXPayWays(
+
+                            RequestUtil.request(mActivity,true,false,
+                                    ()->ApiUtils.getApiService().MallWXPayWays(
                                             LoginInfoUtil.getUid(),
                                             LoginInfoUtil.getToken(),
                                             order_sn,
@@ -276,13 +230,8 @@ public class MallOnlineOrderActivity extends BaseActivity {
                                             puzzle_id,
                                             open_join,
                                             group_id
-                                    )).subscribe(new BaseObserver<WxPay>(mAt) {
-                                        @Override
-                                        public void onHandleSuccess(WxPay WxPay) throws IOException {
-                                            Intent intent = new Intent(MallOnlineOrderActivity.this, MallPaySuccessActivity.class);
-                                            startActivity(intent);
-                                        }
-                                    });
+                                    ),
+                                    result -> ActivityUtils.startActivity(mActivity,MallPaySuccessActivity.class));
                                 })
                         .show();
 
@@ -318,8 +267,12 @@ public class MallOnlineOrderActivity extends BaseActivity {
                 mTvClientAddress.setText(address);
                 String tel = data.getStringExtra("tel");
                 mTvClientPhone.setText(tel);
-                Log.d(TAG, "onActivityResult: " + name + address + tel);
             }
         }
+    }
+
+    @Override
+    protected int getContentView() {
+        return R.layout.activity_mall_online_order;
     }
 }

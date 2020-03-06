@@ -9,6 +9,9 @@ import com.blankj.utilcode.util.ActivityUtils;
 import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zhuosongkj.android.library.util.ActionBarUtil;
 import com.zskjprojectj.andouclient.R;
+import com.zskjprojectj.andouclient.utils.PaySuccessEvent;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -35,6 +38,7 @@ public class MallPaySuccessActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        EventBus.getDefault().post(new PaySuccessEvent());
     }
 
 
