@@ -227,11 +227,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:paddingLeft="@dimen/dp_15"
-                android:paddingTop="@dimen/dp_22"
-                android:paddingRight="@dimen/dp_15"
-                android:paddingBottom="@dimen/dp_22">
+                android:layout_gravity="center_vertical">
 
 
                 <EditText
@@ -240,6 +236,10 @@
                     android:layout_height="wrap_content"
                     android:background="@null"
                     android:hint="请填写真实姓名"
+                    android:paddingLeft="@dimen/dp_15"
+                    android:paddingTop="@dimen/dp_22"
+                    android:paddingRight="@dimen/dp_15"
+                    android:paddingBottom="@dimen/dp_22"
                     android:textColor="#555555"
                     android:textColorHint="#969696"
                     android:textSize="@dimen/typeface12sp" />
@@ -255,11 +255,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:paddingLeft="@dimen/dp_15"
-                android:paddingTop="@dimen/dp_22"
-                android:paddingRight="@dimen/dp_15"
-                android:paddingBottom="@dimen/dp_22">
+                android:layout_gravity="center_vertical">
 
                 <EditText
                     android:id="@+id/tv_live_phone"
@@ -267,6 +263,10 @@
                     android:layout_height="wrap_content"
                     android:background="@null"
                     android:hint="请输入手机号"
+                    android:paddingLeft="@dimen/dp_15"
+                    android:paddingTop="@dimen/dp_22"
+                    android:paddingRight="@dimen/dp_15"
+                    android:paddingBottom="@dimen/dp_22"
                     android:textColor="#555555"
                     android:textColorHint="#969696"
                     android:textSize="@dimen/typeface12sp" />
