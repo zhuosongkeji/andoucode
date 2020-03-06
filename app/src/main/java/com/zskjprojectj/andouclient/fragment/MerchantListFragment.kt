@@ -18,7 +18,7 @@ import com.zhuosongkj.android.library.util.PageLoadUtil
 import com.zhuosongkj.android.library.util.RequestUtil
 import com.zskjprojectj.andouclient.R
 import com.zskjprojectj.andouclient.activity.hotel.HotelDetailActivity
-import com.zskjprojectj.andouclient.activity.mall.MallShoppingHomeActivity
+import com.zskjprojectj.andouclient.activity.mall.MallDetailActivity
 import com.zskjprojectj.andouclient.activity.restaurant.RestaurantDetailActivity
 import com.zskjprojectj.andouclient.adapter.MerchantAdapter
 import com.zskjprojectj.andouclient.adapter.MerchantListAdapter
@@ -40,7 +40,7 @@ class MerchantListFragment : BaseFragment() {
         recyclerView?.addItemDecoration(DividerItemDecoration(mActivity, DividerItemDecoration.VERTICAL))
         adapter.setOnItemClickListener { _, _, position ->
             when (adapter.getItem(position)?.merchant_type_id) {
-                "2" -> MallShoppingHomeActivity.start(adapter.getItem(position)?.id)
+                "2" -> MallDetailActivity.start(adapter.getItem(position)?.id)
                 "3" -> HotelDetailActivity.start(adapter.getItem(position)?.id)
                 "4" -> RestaurantDetailActivity.start(adapter.getItem(position)?.id)
             }

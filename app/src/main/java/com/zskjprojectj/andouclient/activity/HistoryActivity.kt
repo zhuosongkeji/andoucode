@@ -10,7 +10,7 @@ import com.zhuosongkj.android.library.util.PageLoadUtil
 import com.zhuosongkj.android.library.util.RequestUtil
 import com.zskjprojectj.andouclient.R
 import com.zskjprojectj.andouclient.activity.hotel.HotelDetailActivity
-import com.zskjprojectj.andouclient.activity.mall.MallShoppingHomeActivity
+import com.zskjprojectj.andouclient.activity.mall.MallDetailActivity
 import com.zskjprojectj.andouclient.activity.restaurant.RestaurantDetailActivity
 import com.zskjprojectj.andouclient.adapter.HistoryListAdapter
 import com.zskjprojectj.andouclient.http.ApiUtils
@@ -26,7 +26,7 @@ class HistoryActivity : BaseActivity() {
         adapter.setOnItemClickListener { _, _, position ->
             val item = adapter.getItem(position)
             when (item?.merchant_type_id) {
-                MERCHANT_TYPE_MALL -> MallShoppingHomeActivity.start(item.id)
+                MERCHANT_TYPE_MALL -> MallDetailActivity.start(item.id)
                 MERCHANT_TYPE_HOTEL -> HotelDetailActivity.start(item.id)
                 MERCHANT_TYPE_RESTAURTANT -> RestaurantDetailActivity.start(item.id)
             }

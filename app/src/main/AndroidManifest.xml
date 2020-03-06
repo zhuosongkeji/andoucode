@@ -111,7 +111,7 @@
             android:name=".activity.mall.MallOnlineOrderActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.mall.MallShoppingHomeActivity"
+            android:name=".activity.mall.MallDetailActivity"
             android:screenOrientation="portrait" />
 
         <meta-data

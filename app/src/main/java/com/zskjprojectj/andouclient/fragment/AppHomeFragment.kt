@@ -25,7 +25,7 @@ import com.zskjprojectj.andouclient.activity.hotel.HotelDetailActivity
 import com.zskjprojectj.andouclient.activity.hotel.HotelHomeActivity
 import com.zskjprojectj.andouclient.activity.mall.MallGoodsDetailsActivity
 import com.zskjprojectj.andouclient.activity.mall.MallSearchGoodsActivity
-import com.zskjprojectj.andouclient.activity.mall.MallShoppingHomeActivity
+import com.zskjprojectj.andouclient.activity.mall.MallDetailActivity
 import com.zskjprojectj.andouclient.activity.restaurant.RestaurantDetailActivity
 import com.zskjprojectj.andouclient.activity.restaurant.RestaurantHomeActivity
 import com.zskjprojectj.andouclient.adapter.CoverFlowAdapter
@@ -46,7 +46,6 @@ import com.zskjprojectj.andouclient.view.OnRedPacketDialogClickListener
 import com.zskjprojectj.andouclient.view.RedPacketViewHolder
 import kotlinx.android.synthetic.main.dialog_red_packet.view.*
 import kotlinx.android.synthetic.main.fragment_app_home.*
-import kotlinx.android.synthetic.main.main_make_an_appointment.*
 import kotlinx.android.synthetic.main.text_view.view.*
 import java.util.*
 
@@ -80,7 +79,7 @@ class AppHomeFragment : BaseFragment() {
         merchantsAdapter.bindToRecyclerView(rv_merchants)
         merchantsAdapter.setOnItemClickListener { _, _, position ->
             when (merchantsAdapter.getItem(position)!!.merchant_type_id) {
-                "2" -> MallShoppingHomeActivity.start(merchantsAdapter.getItem(position)?.id)
+                "2" -> MallDetailActivity.start(merchantsAdapter.getItem(position)?.id)
                 "3" -> HotelDetailActivity.start(merchantsAdapter.getItem(position)?.id)
                 "4" -> RestaurantDetailActivity.start(merchantsAdapter.getItem(position)?.id)
             }
