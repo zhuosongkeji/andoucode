@@ -228,6 +228,7 @@ public class HotelDetailActivity extends BaseActivity {
                         hotelDetailFacilityFragment.setArguments(bundle);
                         list.add(hotelDetailFacilityFragment);
                         IndicatorViewPager indicatorViewPager = new IndicatorViewPager(mIndicator, mViewPager);
+                        indicatorViewPager.setPageOffscreenLimit(4);
                         indicatorViewPager.setAdapter(adapter);
 
 

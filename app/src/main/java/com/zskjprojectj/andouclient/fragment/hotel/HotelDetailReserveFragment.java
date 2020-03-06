@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,10 +24,11 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.stx.xhb.xbanner.XBanner;
+import com.zhuosongkj.android.library.app.BaseFragment;
+import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.hotel.HotelOnlineReserveActivity;
 import com.zskjprojectj.andouclient.adapter.hotel.ReserveAdapter;
-import com.zskjprojectj.andouclient.base.BaseFragment;
 import com.zskjprojectj.andouclient.entity.XBannerBean;
 import com.zskjprojectj.andouclient.entity.hotel.HotelDetailReserveBean;
 import com.zskjprojectj.andouclient.entity.hotel.HotelHomeDetailsBean;
@@ -58,64 +60,34 @@ public class HotelDetailReserveFragment extends BaseFragment {
     private XBanner xBanner;
 
     @Override
-    protected void initViews(View view, Bundle savedInstanceState) {
-        Bundle bundle = getArguments();
-        String hotelMerchantId = bundle.getString("hotelMerchantId");
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        String hotelMerchantId = getArguments().getString("hotelMerchantId");
         hotelId = Integer.parseInt(hotelMerchantId);
-        Log.d(TAG, "getDataFromServer: " + hotelId);
-
         mRecycler = view.findViewById(R.id.recyclerView);
         mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
-    }
-
-    @Override
-    protected int getContentViewRes() {
-        return R.layout.fragment_hotel_detail_reserve;
-    }
-
-    @Override
-    protected void getDataFromServer() {
-
-
-        HttpRxObservable.getObservable(ApiUtils.getApiService().hotelDetailsHomeList(hotelId))
-                .subscribe(new BaseObserver<HotelDetailReserveBean>(mAty) {
-                    @Override
-                    public void onHandleSuccess(HotelDetailReserveBean hotelDetailReserveBeans) throws IOException {
-                        adapter.setNewData(hotelDetailReserveBeans.getHotel_room());
-                        adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-                            @Override
-                            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                                HttpRxObservable.getObservable(ApiUtils.getApiService().hotelHomeDetails(
-                                        String.valueOf(hotelDetailReserveBeans.getHotel_room().get(position).getId())
-                                )).subscribe(new BaseObserver<HotelHomeDetailsBean>(mAty) {
-                                    @Override
-                                    public void onHandleSuccess(HotelHomeDetailsBean hotelHomeDetailsBean) throws IOException {
-                                        showDialog(hotelHomeDetailsBean);
-                                    }
-                                });
-
-
-                            }
-                        });
-                    }
-                });
-    }
-
-    @Override
-    protected void initData() {
-
-
         adapter.openLoadAnimation();
         mRecycler.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
         mRecycler.setAdapter(adapter);
-
+        RequestUtil.request(mActivity, true, true,
+                () -> ApiUtils.getApiService().hotelDetailsHomeList(hotelId),
+                result -> {
+                    adapter.setNewData(result.data.getHotel_room());
+                    adapter.setOnItemChildClickListener((adapter, view, position) ->
+                            RequestUtil.request(mActivity, true, true,
+                                    () -> ApiUtils.getApiService().hotelHomeDetails(
+                                            String.valueOf(result.data.getHotel_room().get(position).getId())
+                                    ),
+                                    result1 -> {
+                                        showDialog(result1.data);
+                                    }));
+                });
 
     }
 
+
     private void showDialog(HotelHomeDetailsBean hotelHomeDetailsBean) {
-
-        bottomDialog = new Dialog(mAty, R.style.BottomDialog);
-
+        bottomDialog = new Dialog(mActivity, R.style.BottomDialog);
         Window window = bottomDialog.getWindow();
         // 把 DecorView 的默认 padding 取消，同时 DecorView 的默认大小也会取消
         window.getDecorView().setPadding(0, 0, 0, 0);
@@ -125,16 +97,13 @@ public class HotelDetailReserveFragment extends BaseFragment {
         window.setAttributes(layoutParams);
         // 给 DecorView 设置背景颜色，很重要，不然导致 Dialog 内容显示不全，有一部分内容会充当 padding，上面例子有举出
         window.getDecorView().setBackgroundColor(Color.TRANSPARENT);
-
-
         contentView = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_hotel_detail, null);
         bottomDialog.setContentView(contentView);
-
         xBanner = contentView.findViewById(R.id.bannertop);
         List<XBannerBean> urlBanner = new ArrayList<>();
         urlBanner.clear();
         List<String> img = hotelHomeDetailsBean.getImg();
-        if (img.size()!=0){
+        if (img.size() != 0) {
             for (String s : img) {
                 urlBanner.add(new XBannerBean(s));
             }
@@ -146,13 +115,13 @@ public class HotelDetailReserveFragment extends BaseFragment {
 //                加载本地图片展示
                 XBannerBean urlList = (XBannerBean) model;
                 String url = UrlUtil.INSTANCE.getImageUrl(urlList.getImageUrl());
-                Glide.with(mAty).load(url).apply(new RequestOptions()
+                Glide.with(mActivity).load(url).apply(new RequestOptions()
                         .placeholder(R.mipmap.ic_placeholder)).into((ImageView) view);
             }
         });
 
         TextView mHomeAllPrice = contentView.findViewById(R.id.tv_home_all_price);
-        mHomeAllPrice.setText("¥"+hotelHomeDetailsBean.getPrice());
+        mHomeAllPrice.setText("¥" + hotelHomeDetailsBean.getPrice());
 
         TextView mHomeName = contentView.findViewById(R.id.name);
         mHomeName.setText(hotelHomeDetailsBean.getHouse_name());
@@ -188,25 +157,20 @@ public class HotelDetailReserveFragment extends BaseFragment {
                 String homeId = String.valueOf(hotelHomeDetailsBean.getId());
                 String today = getTime(0);
                 String tomorrow = getTime(1);
-
-                HttpRxObservable.getObservable(ApiUtils.getApiService().hotelSettlement(
-                        LoginInfoUtil.getUid(),
-                        LoginInfoUtil.getToken(),
-                        today,
-                        tomorrow,
-                        homeId
-                )).subscribe(new BaseObserver<HotelSettlementBean>(mAty) {
-                    @Override
-                    public void onHandleSuccess(HotelSettlementBean hotelSettlementBean) throws IOException {
-
-                        Intent intent = new Intent(getActivity(), HotelOnlineReserveActivity.class);
-                        intent.putExtra("hotelSettlementBean", hotelSettlementBean);
-                        startActivity(intent);
-                        bottomDialog.dismiss();
-                    }
-                });
-
-
+                RequestUtil.request(mActivity, true, false,
+                        () -> ApiUtils.getApiService().hotelSettlement(
+                                LoginInfoUtil.getUid(),
+                                LoginInfoUtil.getToken(),
+                                today,
+                                tomorrow,
+                                homeId
+                        ),
+                        result -> {
+                            Intent intent = new Intent(getActivity(), HotelOnlineReserveActivity.class);
+                            intent.putExtra("hotelSettlementBean", result.data);
+                            startActivity(intent);
+                            bottomDialog.dismiss();
+                        });
             }
         });
         bottomDialog.getWindow().setGravity(Gravity.BOTTOM);
@@ -215,7 +179,6 @@ public class HotelDetailReserveFragment extends BaseFragment {
         bottomDialog.show();
     }
 
-
     private String getTime(int date) {
         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
         Calendar c = Calendar.getInstance();
@@ -223,4 +186,8 @@ public class HotelDetailReserveFragment extends BaseFragment {
         return sf.format(c.getTime());
     }
 
+    @Override
+    protected int getContentView() {
+        return R.layout.fragment_hotel_detail_reserve;
+    }
 }
