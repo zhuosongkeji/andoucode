@@ -22,7 +22,6 @@
         android:textSize="@dimen/typeface16sp" />
 
     <TextView
-        android:id="@+id/booking_details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/booking_name"
@@ -44,7 +43,6 @@
         android:textSize="@dimen/typeface16sp" />
 
     <TextView
-        android:id="@+id/booking_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/booking_pic"

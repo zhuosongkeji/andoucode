@@ -73,7 +73,6 @@
             app:srb_starWidth="14dp" />
 
         <LinearLayout
-            android:id="@+id/horizontalLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -88,7 +87,6 @@
                 tools:src="@mipmap/ic_placeholder" />
 
             <LinearLayout
-                android:id="@+id/verticalLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">

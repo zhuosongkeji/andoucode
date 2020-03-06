@@ -90,7 +90,6 @@
                         </RelativeLayout>
 
                         <View
-                            android:id="@+id/view"
                             android:layout_width="1dp"
                             android:layout_height="match_parent"
                             android:background="#E7E7E7" />
@@ -130,7 +129,6 @@
                         android:background="@color/colorGray" />
 
                     <EditText
-                        android:id="@+id/mPersonNumber"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="@dimen/dp_15"

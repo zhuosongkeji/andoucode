@@ -37,34 +37,15 @@
         <attr name="topview_righttitle" format="string" />
     </declare-styleable>
 
-    <style name="MainTitle.Big">
-        <item name="android:textSize">22sp</item>
-    </style>
-
     <style name="MainTitle">
         <item name="android:textSize">17sp</item>
-    </style>
-
-    <style name="SubTitle">
-        <item name="android:textSize">15sp</item>
-    </style>
-
-    <style name="BodyStyle">
-        <item name="android:text">14sp</item>
     </style>
 
     <style name="TipStyle">
         <item name="android:textSize">12sp</item>
     </style>
 
-    <style name="TipStyle.White" parent="TipStyle">
-        <item name="android:textColor">@color/white</item>
-    </style>
     <!--单选按钮样式-->
-    <style name="CustomRadioTheme" parent="@android:style/Widget.CompoundButton.CheckBox">
-        <item name="android:button">@drawable/radio_style</item>
-
-    </style>
 
 
     <style name="BottomDialog" parent="@style/Base.V7.Theme.AppCompat.Light.Dialog">

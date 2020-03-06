@@ -87,7 +87,6 @@
                 android:padding="@dimen/dp_10">
 
                 <TextView
-                    android:id="@+id/check_in_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignStart="@+id/start_time"
@@ -96,7 +95,6 @@
                     android:textSize="@dimen/typeface11sp" />
 
                 <TextView
-                    android:id="@+id/leave_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignStart="@+id/end_time"
@@ -227,7 +225,6 @@
 
 
             <RelativeLayout
-                android:id="@+id/rv_edt_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -256,7 +253,6 @@
 
 
             <RelativeLayout
-                android:id="@+id/rv_edt_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -283,7 +279,6 @@
                 android:background="#F7F7F7" />
 
             <RelativeLayout
-                android:id="@+id/rv_live_notice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -317,7 +312,6 @@
                 android:visibility="gone" />
 
             <RelativeLayout
-                android:id="@+id/rv_live_integral"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"

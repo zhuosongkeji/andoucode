@@ -53,41 +53,35 @@
 
 
         <LinearLayout
-            android:id="@+id/hotel_star"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:layout_alignBottom="@+id/ll_like"
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/busiess_plant1_image1"
                 android:layout_width="17dp"
                 android:layout_height="17dp"
                 android:src="@mipmap/ic_plant" />
 
             <ImageView
-                android:id="@+id/busiess_plant1_image2"
-                android:layout_width="17dp"
-                android:layout_height="17dp"
-                android:layout_marginLeft="@dimen/dp_3"
-                android:src="@mipmap/ic_plant" />
-
-            <ImageView
-                android:id="@+id/busiess_plant1_image3"
                 android:layout_width="17dp"
                 android:layout_height="17dp"
                 android:layout_marginLeft="@dimen/dp_3"
                 android:src="@mipmap/ic_plant" />
 
             <ImageView
-                android:id="@+id/busiess_plant1_image4"
                 android:layout_width="17dp"
                 android:layout_height="17dp"
                 android:layout_marginLeft="@dimen/dp_3"
                 android:src="@mipmap/ic_plant" />
 
             <ImageView
-                android:id="@+id/busiess_plant1_image5"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:layout_marginLeft="@dimen/dp_3"
+                android:src="@mipmap/ic_plant" />
+
+            <ImageView
                 android:layout_width="17dp"
                 android:layout_height="17dp"
                 android:layout_marginLeft="@dimen/dp_3"
@@ -164,7 +158,6 @@
             android:text="重庆市南岸区南坪万达广场" />
 
         <ImageView
-            android:id="@+id/iv_address"
             android:layout_width="@dimen/dp_18"
             android:layout_height="@dimen/dp_18"
             android:layout_toLeftOf="@+id/iv_phone"
@@ -189,7 +182,6 @@
             android:textColor="#252525"
             android:textSize="@dimen/typeface14sp" />
         <TextView
-            android:id="@+id/tv_start_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/tv_start"

@@ -165,7 +165,6 @@
                             android:textSize="@dimen/typeface14sp" />
 
                         <TextView
-                            android:id="@+id/tv_update"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/tv_today_new"
@@ -174,7 +173,6 @@
                             android:textSize="@dimen/typeface11sp" />
 
                         <ImageView
-                            android:id="@+id/iv_tv_today_new_image"
                             android:layout_width="@dimen/dp_80"
                             android:layout_height="107dp"
                             android:layout_alignParentEnd="true"
@@ -210,7 +208,6 @@
                                 android:textSize="@dimen/typeface14sp" />
 
                             <TextView
-                                android:id="@+id/tv_hot_this"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/tv_hot_all"
@@ -220,7 +217,6 @@
                                 android:textSize="@dimen/typeface11sp" />
 
                             <ImageView
-                                android:id="@+id/iv_hot_image"
                                 android:layout_width="91dp"
                                 android:layout_height="66dp"
                                 android:layout_alignParentEnd="true"
@@ -332,7 +328,6 @@
                         android:textSize="@dimen/typeface14sp" />
 
                     <TextView
-                        android:id="@+id/tv_recommend_english"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tv_recommend_product"
@@ -361,7 +356,6 @@
                             android:textSize="@dimen/typeface14sp" />
 
                         <ImageView
-                            android:id="@+id/iv_more"
                             android:layout_width="15dp"
                             android:layout_height="15dp"
                             android:layout_gravity="center"
@@ -403,7 +397,6 @@
                         android:textSize="@dimen/typeface14sp" />
 
                     <TextView
-                        android:id="@+id/tv_special_english"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tv_special_product"

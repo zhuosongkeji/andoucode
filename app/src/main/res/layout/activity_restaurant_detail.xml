@@ -18,7 +18,6 @@
             app:elevation="0dp">
 
             <FrameLayout
-                android:id="@+id/collapsing_toobar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
@@ -203,7 +202,6 @@
             </FrameLayout>
 
             <LinearLayout
-                android:id="@+id/tabLayoutContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
