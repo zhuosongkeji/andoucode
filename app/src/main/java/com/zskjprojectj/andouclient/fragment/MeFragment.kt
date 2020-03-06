@@ -37,8 +37,6 @@ class MeFragment : BaseFragment() {
         }
         mTitleView.setPadding(0, BarUtils.getStatusBarHeight(), 0, 0)
         img_touxiang.setOnClickListener { startActivity(Intent(context, OpeningmemberActivity::class.java)) }
-        mycenter_vegetablemarket_layout.setOnClickListener { startActivity(Intent(context, VegetableMarketActivity::class.java)) }
-        mycenter_foodorder_layout.setOnClickListener { startActivity(Intent(context, FoodorderActivity::class.java)) }
         mycenter_qrcode_layout.setOnClickListener { ToastUtil.showToast("功能暂未开通敬请期待....") }
         mycenter_myrelease_layout.setOnClickListener { ToastUtil.showToast("功能暂未开通敬请期待....") }
         mycenter_hotelorder_layout.setOnClickListener { startActivity(Intent(context, HotelorderActivity::class.java)) }
