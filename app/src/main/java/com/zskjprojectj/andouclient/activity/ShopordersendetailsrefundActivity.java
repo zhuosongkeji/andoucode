@@ -27,6 +27,7 @@ import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zhuosongkj.android.library.util.ActionBarUtil;
+import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.adapter.CauseRecyclerAdapter;
 import com.zskjprojectj.andouclient.adapter.TuiKuanAdapter;
@@ -97,15 +98,11 @@ public class ShopordersendetailsrefundActivity extends BaseActivity {
         mCause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                HttpRxObservable.getObservable(ApiUtils.getApiService().refundreason())
-                        .subscribe(new BaseObserver<List<RefundReasonBean>>(mActivity) {
-                            @Override
-                            public void onHandleSuccess(List<RefundReasonBean> refundReasonBeans) throws IOException {
-                                initBuyNow(refundReasonBeans);
-                            }
+                RequestUtil.request(mActivity, true, false,
+                        () -> ApiUtils.getApiService().refundreason(),
+                        result -> {
+                            initBuyNow(result.data);
                         });
-
-
             }
         });
     }
@@ -181,21 +178,19 @@ public class ShopordersendetailsrefundActivity extends BaseActivity {
                 if (TextUtils.isEmpty(reasonId)) {
                     ToastUtil.showToast("请选择退货理由!");
                 } else {
-                    HttpRxObservable.getObservable(ApiUtils.getApiService().mallrefund(
-                            LoginInfoUtil.getUid(),
-                            LoginInfoUtil.getToken(),
-                            orderdetail.order_id,
-                            reasonId,
-                            content,
-                            image
-                    )).subscribe(new BaseObserver<Object>(mActivity) {
-                        @Override
-                        public void onHandleSuccess(Object o) throws IOException {
-                            finish();
-                            ToastUtils.showShort("提交申请退款成功");
-                        }
-                    });
-
+                    RequestUtil.request(mActivity, true, false,
+                            () -> ApiUtils.getApiService().mallrefund(
+                                    LoginInfoUtil.getUid(),
+                                    LoginInfoUtil.getToken(),
+                                    orderdetail.order_id,
+                                    reasonId,
+                                    content,
+                                    image
+                            ),
+                            result -> {
+                                finish();
+                                ToastUtils.showShort("提交申请退款成功");
+                            });
                 }
                 break;
         }
@@ -221,18 +216,11 @@ public class ShopordersendetailsrefundActivity extends BaseActivity {
         RequestBody uid = RequestBody.create(MediaType.parse("multipart/form-data"), LoginInfoUtil.getUid());
         RequestBody token = RequestBody.create(MediaType.parse("multipart/form-data"), LoginInfoUtil.getToken());
         ImageView finalImageView = imageView;
-        HttpRxObservable.getObservable(ApiUtils.getApiService().uploadImg(uid, token, body))
-                .subscribe(new BaseObserver<String>(mActivity) {
-                    @Override
-                    public void onHandleSuccess(String s) throws IOException {
-                        image = s;
-                        Glide.with(mActivity).load(UrlUtil.INSTANCE.getImageUrl(s)).into(finalImageView);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        super.onError(e);
-                    }
+        RequestUtil.request(mActivity, true, true,
+                () -> ApiUtils.getApiService().uploadImg(uid, token, body),
+                result -> {
+                    image = result.data;
+                    Glide.with(mActivity).load(UrlUtil.INSTANCE.getImageUrl(result.data)).into(finalImageView);
                 });
     }
 

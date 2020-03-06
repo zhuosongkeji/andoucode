@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zhuosongkj.android.library.util.ActionBarUtil;
+import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.adapter.MymessageAdapter;
 import com.zskjprojectj.andouclient.entity.MymessageBean;
@@ -47,17 +48,15 @@ public class MymessageActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
-
-        HttpRxObservable.getObservable(ApiUtils.getApiService().notificationcenter(
-                LoginInfoUtil.getUid(),
-                LoginInfoUtil.getToken()))
-                .subscribe(new BaseObserver<List<MymessageBean>>(mActivity) {
-                    @Override
-                    public void onHandleSuccess(List<MymessageBean> mymessageBeans) throws IOException {
-                        adapter.setNewData(mymessageBeans);
-                    }
+        RequestUtil.request(mActivity, true, true,
+                () -> ApiUtils.getApiService().notificationcenter(
+                        LoginInfoUtil.getUid(),
+                        LoginInfoUtil.getToken()),
+                result -> {
+                    adapter.setNewData(result.data);
                 });
     }
+
     @Override
     protected void onResume() {
         super.onResume();

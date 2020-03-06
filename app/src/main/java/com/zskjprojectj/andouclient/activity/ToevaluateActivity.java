@@ -11,6 +11,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.willy.ratingbar.ScaleRatingBar;
 import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zhuosongkj.android.library.util.ActionBarUtil;
+import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
@@ -72,22 +73,19 @@ public class ToevaluateActivity extends BaseActivity {
         float rating = mSimpleRatingBar.getRating();
         ratingNum = Float.toString(rating);
         content = mAddCommentContent.getText().toString();
-        HttpRxObservable.getObservable(ApiUtils.getApiService().addcomment(
-
-                LoginInfoUtil.getUid(),
-                LoginInfoUtil.getToken(),
-                goodsId,
-                orderId,
-                merchantsId,
-                content,
-                ratingNum
-        )).subscribe(new BaseObserver<Object>(mActivity) {
-            @Override
-            public void onHandleSuccess(Object o) throws IOException {
-                startActivity(new Intent(mActivity, CommentSuccessActivity.class));
-            }
-        });
-
+        RequestUtil.request(mActivity, true, false,
+                () -> ApiUtils.getApiService().addcomment(
+                        LoginInfoUtil.getUid(),
+                        LoginInfoUtil.getToken(),
+                        goodsId,
+                        orderId,
+                        merchantsId,
+                        content,
+                        ratingNum
+                ),
+                result -> {
+                    startActivity(new Intent(mActivity, CommentSuccessActivity.class));
+                });
     }
 
     @Override

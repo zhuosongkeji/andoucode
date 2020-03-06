@@ -7,6 +7,7 @@ import android.widget.EditText;
 
 import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zhuosongkj.android.library.util.ActionBarUtil;
+import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
@@ -41,13 +42,9 @@ public class ModifythephoneActivity extends BaseActivity {
                 }
                 countDownTimer = new CountDownTimerUtils(modify_yanzhenma_button, 60000, 1000);
                 countDownTimer.start();
-                HttpRxObservable.getObservable(ApiUtils.getApiService().sendCode(mobileStr, "0"))
-                        .subscribe(new BaseObserver<Object>(mActivity) {
-                            @Override
-                            public void onHandleSuccess(Object o) throws IOException {
-                                ToastUtil.showToast("验证码短信已发送,请注意查收!");
-                            }
-                        });
+                RequestUtil.request(mActivity, true, false,
+                        () -> ApiUtils.getApiService().sendCode(mobileStr, "0"),
+                        result -> ToastUtil.showToast("验证码短信已发送,请注意查收!"));
             }
         });
         findViewById(R.id.modify_button).setOnClickListener(v -> {
@@ -66,16 +63,17 @@ public class ModifythephoneActivity extends BaseActivity {
                 ToastUtil.showToast("请输入正确的密码!");
                 return;
             }
-            HttpRxObservable.getObservable(ApiUtils.getApiService().upmodel(LoginInfoUtil.getUid(), LoginInfoUtil.getToken(),
-                    mobileStr,
-                    codeStr
-            )).subscribe(new BaseObserver<Object>(mActivity) {
-                @Override
-                public void onHandleSuccess(Object o) throws IOException {
-                    ToastUtil.showToast("修改成功,请登录!");
-                    finish();
-                }
-            });
+            RequestUtil.request(mActivity, true, false,
+                    () -> ApiUtils.getApiService().upmodel(
+                            LoginInfoUtil.getUid(),
+                            LoginInfoUtil.getToken(),
+                            mobileStr,
+                            codeStr
+                    ),
+                    result -> {
+                        ToastUtil.showToast("修改成功,请登录!");
+                        finish();
+                    });
         });
     }
 

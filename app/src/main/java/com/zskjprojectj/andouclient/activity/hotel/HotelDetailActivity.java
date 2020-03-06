@@ -22,6 +22,7 @@ import com.shizhefei.view.indicator.transition.OnTransitionTextListener;
 import com.willy.ratingbar.ScaleRatingBar;
 import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zhuosongkj.android.library.util.ActionBarUtil;
+import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 import com.zskjprojectj.andouclient.utils.MapUtil;
@@ -71,6 +72,7 @@ public class HotelDetailActivity extends BaseActivity {
     private boolean isfocuson = false;
     private String type;
     private String merchantId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -132,14 +134,14 @@ public class HotelDetailActivity extends BaseActivity {
             return fragment;
         }
     };
+
     @OnClick({R.id.collectBtn})
     public void clickView(View view) {
-        switch (view.getId())
-        {
+        switch (view.getId()) {
             case R.id.collectBtn:
                 if (!isfocuson) {
                     mtvMallMerchantsFocuson.setText("已关注");
-                    isfocuson=true;
+                    isfocuson = true;
                     ivisfocuson.setImageResource(R.mipmap.ic_heart_mall);
                     type = "1";
                 } else {
@@ -148,98 +150,83 @@ public class HotelDetailActivity extends BaseActivity {
                     type = "0";
                     isfocuson = false;
                 }
-                HttpRxObservable.getObservable(ApiUtils.getApiService().mallgoodsfollow(merchantId
-                        ,
-                        LoginInfoUtil.getUid(),
-                        LoginInfoUtil.getToken(),
-                        type
-                )).subscribe(new BaseObserver<Object>(this) {
-                    @Override
-                    public void onHandleSuccess(Object o) throws IOException {
-
-                    }
-                });
+                RequestUtil.request(mActivity, true, false,
+                        () -> ApiUtils.getApiService().mallgoodsfollow(
+                                merchantId,
+                                LoginInfoUtil.getUid(),
+                                LoginInfoUtil.getToken(),
+                                type
+                        ),
+                        result -> {
+                        });
                 break;
         }
     }
 
     private void initViews() {
-
-
         mViewPager = findViewById(R.id.viewPager);
-
-
         //商家ID
         merchantId = getIntent().getStringExtra("merchantId");
+        RequestUtil.request(mActivity, true, true,
+                () -> ApiUtils.getApiService().hotelDetails(
+                        LoginInfoUtil.getUid(),
+                        merchantId),
+                result -> {
+                    findViewById(R.id.locationBtn).setOnClickListener(v -> {
+                        MapUtil.start(result.data.getAddress(), mActivity);
+                    });
+                    //背景图片
+                    Glide.with(mActivity).load(UrlUtil.INSTANCE.getImageUrl(result.data.getDoor_img()))
+                            .apply(new RequestOptions().placeholder(R.mipmap.ic_placeholder))
+                            .into((ImageView) findViewById(R.id.iv_hotel_details_img));
+                    //酒店名字
+                    ((TextView) findViewById(R.id.hotel_name)).setText(result.data.getName());
+                    //点赞数
+                    ((TextView) findViewById(R.id.busiess_dianzancount1_textview)).setText(result.data.getPraise_num());
+                    //电话
+                    ((TextView) findViewById(R.id.mobileTxt)).setText(result.data.getTel());
+                    //地址
+                    ((TextView) findViewById(R.id.addressTxt)).setText(result.data.getAddress());
 
-        HttpRxObservable.getObservable(ApiUtils.getApiService().hotelDetails(LoginInfoUtil.getUid(), merchantId))
-                .subscribe(new BaseObserver<HotelDetailsBean>(mActivity) {
-                    @Override
-                    public void onHandleSuccess(HotelDetailsBean hotelDetailsBean) throws IOException {
-                        findViewById(R.id.locationBtn).setOnClickListener(v -> {
-                            MapUtil.start(hotelDetailsBean.getAddress(), mActivity);
-                        });
-                        //背景图片
-                        Glide.with(mActivity).load(UrlUtil.INSTANCE.getImageUrl(hotelDetailsBean.getDoor_img()))
-                                .apply(new RequestOptions().placeholder(R.mipmap.ic_placeholder))
-                                .into((ImageView) findViewById(R.id.iv_hotel_details_img));
-                        //酒店名字
-                        ((TextView) findViewById(R.id.hotel_name)).setText(hotelDetailsBean.getName());
-                        //点赞数
-                        ((TextView) findViewById(R.id.busiess_dianzancount1_textview)).setText(hotelDetailsBean.getPraise_num());
-                        //电话
-                        ((TextView) findViewById(R.id.mobileTxt)).setText(hotelDetailsBean.getTel());
-                        //地址
-                        ((TextView) findViewById(R.id.addressTxt)).setText(hotelDetailsBean.getAddress());
-
-                        String stars_all = hotelDetailsBean.getStars_all();
-                        float aFloat = Float.parseFloat(stars_all);
-                        mSimpleRatingBar.setRating(aFloat);
-                        if ("0".equals(hotelDetailsBean.getStatus())) {
-                            mtvMallMerchantsFocuson.setText("关注");
-                            isfocuson = false;
-                            ivisfocuson.setImageResource(R.mipmap.ic_restaurant_detail_collect);
-                        } else {
-                            mtvMallMerchantsFocuson.setText("已关注");
-                            isfocuson=true;
-                            ivisfocuson.setImageResource(R.mipmap.ic_heart_mall);
-                        }
-
-                        String hotelMerchantId = hotelDetailsBean.getId();
-
-                        Bundle bundle = new Bundle();
-                        bundle.putString("hotelMerchantId", hotelMerchantId);
-                        bundle.putString("desc", hotelDetailsBean.getDesc());
-                        bundle.putSerializable("facilities",hotelDetailsBean.getFacilities());
-                        hotelDetailReserveFragment.setArguments(bundle);
-                        //预订
-                        list.add(hotelDetailReserveFragment);
-
-                        //评论
-                        HotelDetailCommentFragment hotelDetailCommentFragment = new HotelDetailCommentFragment();
-                        hotelDetailCommentFragment.setArguments(bundle);
-                        list.add(hotelDetailCommentFragment);
-                        //商家
-                        HotelDetailMerchantFragment hotelDetailMerchantFragment = new HotelDetailMerchantFragment();
-                        hotelDetailMerchantFragment.setArguments(bundle);
-                        list.add(hotelDetailMerchantFragment);
-                        //环境设施
-                        HotelDetailFacilityFragment hotelDetailFacilityFragment=new HotelDetailFacilityFragment();
-                        hotelDetailFacilityFragment.setArguments(bundle);
-                        list.add(hotelDetailFacilityFragment);
-                        IndicatorViewPager indicatorViewPager = new IndicatorViewPager(mIndicator, mViewPager);
-                        indicatorViewPager.setPageOffscreenLimit(4);
-                        indicatorViewPager.setAdapter(adapter);
-
-
+                    String stars_all = result.data.getStars_all();
+                    float aFloat = Float.parseFloat(stars_all);
+                    mSimpleRatingBar.setRating(aFloat);
+                    if ("0".equals(result.data.getStatus())) {
+                        mtvMallMerchantsFocuson.setText("关注");
+                        isfocuson = false;
+                        ivisfocuson.setImageResource(R.mipmap.ic_restaurant_detail_collect);
+                    } else {
+                        mtvMallMerchantsFocuson.setText("已关注");
+                        isfocuson = true;
+                        ivisfocuson.setImageResource(R.mipmap.ic_heart_mall);
                     }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        super.onError(e);
-                    }
+                    String hotelMerchantId = result.data.getId();
+
+                    Bundle bundle = new Bundle();
+                    bundle.putString("hotelMerchantId", hotelMerchantId);
+                    bundle.putString("desc", result.data.getDesc());
+                    bundle.putSerializable("facilities", result.data.getFacilities());
+                    hotelDetailReserveFragment.setArguments(bundle);
+                    //预订
+                    list.add(hotelDetailReserveFragment);
+
+                    //评论
+                    HotelDetailCommentFragment hotelDetailCommentFragment = new HotelDetailCommentFragment();
+                    hotelDetailCommentFragment.setArguments(bundle);
+                    list.add(hotelDetailCommentFragment);
+                    //商家
+                    HotelDetailMerchantFragment hotelDetailMerchantFragment = new HotelDetailMerchantFragment();
+                    hotelDetailMerchantFragment.setArguments(bundle);
+                    list.add(hotelDetailMerchantFragment);
+                    //环境设施
+                    HotelDetailFacilityFragment hotelDetailFacilityFragment = new HotelDetailFacilityFragment();
+                    hotelDetailFacilityFragment.setArguments(bundle);
+                    list.add(hotelDetailFacilityFragment);
+                    IndicatorViewPager indicatorViewPager = new IndicatorViewPager(mIndicator, mViewPager);
+                    indicatorViewPager.setPageOffscreenLimit(4);
+                    indicatorViewPager.setAdapter(adapter);
                 });
-
     }
 
 

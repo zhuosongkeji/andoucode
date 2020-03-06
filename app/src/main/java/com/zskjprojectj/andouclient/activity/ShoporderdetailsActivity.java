@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zhuosongkj.android.library.util.ActionBarUtil;
+import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.mall.MallOnlineOrderActivity;
 import com.zskjprojectj.andouclient.http.ApiUtils;
@@ -47,17 +48,16 @@ public class ShoporderdetailsActivity extends BaseActivity {
         });
 
         Order order = (Order) getIntent().getSerializableExtra(KEY_DATA);
-        HttpRxObservable.getObservable(ApiUtils.getApiService().getOrderDetail(
-                LoginInfoUtil.getUid(),
-                LoginInfoUtil.getToken(),
-                order.order_id,
-                order.id
-        )).subscribe(new BaseObserver<OrderDetail>(mActivity) {
-            @Override
-            public void onHandleSuccess(OrderDetail orderDetail) throws IOException {
-                bindView(orderDetail);
-            }
-        });
+        RequestUtil.request(mActivity, true, true,
+                () -> ApiUtils.getApiService().getOrderDetail(
+                        LoginInfoUtil.getUid(),
+                        LoginInfoUtil.getToken(),
+                        order.order_id,
+                        order.id
+                ),
+                result -> {
+                    bindView(result.data);
+                });
     }
 
 

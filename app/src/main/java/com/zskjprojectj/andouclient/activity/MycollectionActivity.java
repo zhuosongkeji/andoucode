@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zhuosongkj.android.library.util.ActionBarUtil;
+import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.mall.MallGoodsDetailsActivity;
 import com.zskjprojectj.andouclient.adapter.MycollectionAdapter;
@@ -29,23 +30,21 @@ public class MycollectionActivity extends BaseActivity {
         ActionBarUtil.setTitle(mActivity, "商品收藏");
         RecyclerView mRecycler = findViewById(R.id.recyclerView);
         mRecycler.setLayoutManager(new LinearLayoutManager(mActivity));
-        HttpRxObservable.getObservable(ApiUtils.getApiService().usercollection(
-                LoginInfoUtil.getUid(),
-                LoginInfoUtil.getToken()))
-                .subscribe(new BaseObserver<List<MycollectionBean>>(mActivity) {
-                    @Override
-                    public void onHandleSuccess(List<MycollectionBean> mycollectionBeans) throws IOException {
-                        MycollectionAdapter adapter = new MycollectionAdapter(R.layout.item_mycollection, mycollectionBeans);
-                        adapter.openLoadAnimation();
-                        mRecycler.setAdapter(adapter);
-                        adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-                            @Override
-                            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                                //商品ID
-                                MallGoodsDetailsActivity.Companion.start(mycollectionBeans.get(position).getId(), null, null);
-                            }
-                        });
-                    }
+        RequestUtil.request(mActivity, true, true,
+                () -> ApiUtils.getApiService().usercollection(
+                        LoginInfoUtil.getUid(),
+                        LoginInfoUtil.getToken()),
+                result -> {
+                    MycollectionAdapter adapter = new MycollectionAdapter(R.layout.item_mycollection, result.data);
+                    adapter.openLoadAnimation();
+                    mRecycler.setAdapter(adapter);
+                    adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+                        @Override
+                        public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                            //商品ID
+                            MallGoodsDetailsActivity.Companion.start(result.data.get(position).getId(), null, null);
+                        }
+                    });
                 });
     }
 

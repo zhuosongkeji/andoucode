@@ -261,30 +261,30 @@ class HotelFilterActivity : BaseActivity() {
         //星级
         mStarRecycler?.layoutManager = GridLayoutManager(this, 4)
         mStarRecycler?.addItemDecoration(GridSectionAverageGapItemDecoration(10f, 10f, 0f, 10f))
+        RequestUtil.request(mActivity, true, true,
+                {
+                    ApiUtils.getApiService().hotelSearchCondition()
+                },
+                {
+                    //价格
+                    priceAdapter = HotelPriceAdapter(R.layout.item_section_content)
+                    priceAdapter?.setNewData(it.data.price_range)
+                    rv_price_recycler?.adapter = priceAdapter
+                    priceAdapter?.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
+                        priceAdapter?.onChange(position)
+                        priceAdapter?.notifyDataSetChanged()
+                    }
 
-        HttpRxObservable.getObservable(ApiUtils.getApiService().hotelSearchCondition()).subscribe(object : BaseObserver<HotelSearchConditionBean>(mActivity) {
-            @Throws(IOException::class)
-            override fun onHandleSuccess(hotelSearchConditionBean: HotelSearchConditionBean) {
-                //价格
-                priceAdapter = HotelPriceAdapter(R.layout.item_section_content)
-                priceAdapter?.setNewData(hotelSearchConditionBean.price_range)
-                rv_price_recycler?.adapter = priceAdapter
-                priceAdapter?.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
-                    priceAdapter?.onChange(position)
-                    priceAdapter?.notifyDataSetChanged()
-                }
 
-
-                //星级
-                starAdapter = HotelStarAdapter(R.layout.item_section_content)
-                starAdapter?.setNewData(hotelSearchConditionBean.star)
-                mStarRecycler?.adapter = starAdapter
-                starAdapter?.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
-                    starAdapter?.onChange(position)
-                    starAdapter?.notifyDataSetChanged()
-                }
-            }
-        })
+                    //星级
+                    starAdapter = HotelStarAdapter(R.layout.item_section_content)
+                    starAdapter?.setNewData(it.data.star)
+                    mStarRecycler?.adapter = starAdapter
+                    starAdapter?.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
+                        starAdapter?.onChange(position)
+                        starAdapter?.notifyDataSetChanged()
+                    }
+                })
         mCancle?.setOnClickListener { v ->
             priceAdapter?.cancel(-1)
             priceAdapter?.notifyDataSetChanged()

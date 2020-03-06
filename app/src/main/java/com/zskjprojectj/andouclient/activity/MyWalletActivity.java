@@ -17,6 +17,7 @@ import com.shizhefei.view.indicator.IndicatorViewPager;
 import com.shizhefei.view.indicator.slidebar.ColorBar;
 import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zhuosongkj.android.library.util.ActionBarUtil;
+import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.fragment.AccountChangeListFragment;
 import com.zskjprojectj.andouclient.http.ApiUtils;
@@ -75,16 +76,15 @@ public class MyWalletActivity extends BaseActivity {
         //设置滑动时的那一项的图形和颜色变化，ColorBar对应的是下划线的形状。
         indicator.setScrollBar(new ColorBar(getApplicationContext(), Color.parseColor("#5ed3ae"), 5));
         viewPager.setOffscreenPageLimit(1);//缓存的左右页面的个数都是1
-        HttpRxObservable.getObservable(ApiUtils.getApiService().cashDetail(
-                LoginInfoUtil.getUid(),
-                LoginInfoUtil.getToken(),
-                1
-        )).subscribe(new BaseObserver<BalanceDetail>(mActivity) {
-            @Override
-            public void onHandleSuccess(BalanceDetail balanceDetail) throws IOException {
-                ((TextView) findViewById(R.id.tv_balanceofnum)).setText("¥" + balanceDetail.money);
-            }
-        });
+        RequestUtil.request(mActivity, true, true,
+                () -> ApiUtils.getApiService().cashDetail(
+                        LoginInfoUtil.getUid(),
+                        LoginInfoUtil.getToken(),
+                        1
+                ),
+                result -> {
+                    ((TextView) findViewById(R.id.tv_balanceofnum)).setText("¥" + result.data.money);
+                });
     }
 
     public IndicatorViewPager.IndicatorFragmentPagerAdapter adapter = new IndicatorViewPager.IndicatorFragmentPagerAdapter(getSupportFragmentManager()) {

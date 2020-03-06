@@ -9,6 +9,7 @@ import android.widget.EditText;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zhuosongkj.android.library.util.ActionBarUtil;
+import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
@@ -47,12 +48,10 @@ public class WeixinbingphoneActivity extends BaseActivity {
                 }
                 CountDownTimerUtils countDownTimer = new CountDownTimerUtils(bind_yanzhenma_button, 60000, 1000);
                 countDownTimer.start();
-                HttpRxObservable.getObservable(ApiUtils.getApiService().sendCode(mobileStr, "0"))
-                        .subscribe(new BaseObserver<Object>(mActivity) {
-                            @Override
-                            public void onHandleSuccess(Object o) throws IOException {
-                                ToastUtil.showToast("验证码短信已发送,请注意查收!");
-                            }
+                RequestUtil.request(mActivity, true, false,
+                        () -> ApiUtils.getApiService().sendCode(mobileStr, "0"),
+                        result -> {
+                            ToastUtil.showToast("验证码短信已发送,请注意查收!");
                         });
             }
         });
@@ -74,17 +73,20 @@ public class WeixinbingphoneActivity extends BaseActivity {
                     ToastUtil.showToast("请输入正确的密码!");
                     return;
                 }
-
-                HttpRxObservable.getObservable(ApiUtils.getApiService().bindlogin(mobileStr, passwordStr, codeStr, nickname, useropenid, useravator))
-                        .subscribe(new BaseObserver<User>(mActivity) {
-                            @Override
-                            public void onHandleSuccess(User user) throws IOException {
-                                LoginInfoUtil.saveLoginInfo(user.id, user.token);
-                                if (!getIntent().getBooleanExtra(KEY_FOR_RESULT, false)) {
-                                    ActivityUtils.startActivity(mActivity, AppHomeActivity.class);
-                                }
-                                finish();
+                RequestUtil.request(mActivity, true, false,
+                        () -> ApiUtils.getApiService().bindlogin(
+                                mobileStr,
+                                passwordStr,
+                                codeStr,
+                                nickname,
+                                useropenid,
+                                useravator),
+                        result -> {
+                            LoginInfoUtil.saveLoginInfo(result.data.id, result.data.token);
+                            if (!getIntent().getBooleanExtra(KEY_FOR_RESULT, false)) {
+                                ActivityUtils.startActivity(mActivity, AppHomeActivity.class);
                             }
+                            finish();
                         });
             }
         });

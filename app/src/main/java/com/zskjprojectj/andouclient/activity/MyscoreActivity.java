@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zhuosongkj.android.library.util.ActionBarUtil;
+import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.adapter.MyscoreAdapter;
 import com.zskjprojectj.andouclient.http.ApiUtils;
@@ -43,16 +44,15 @@ public class MyscoreActivity extends BaseActivity {
         });
         mRecycler.addItemDecoration(new DividerItemDecoration(mActivity, DividerItemDecoration.VERTICAL));
         mRecycler.setAdapter(adapter);
-        HttpRxObservable.getObservable(ApiUtils.getApiService().integralDetail(
-                LoginInfoUtil.getUid(),
-                LoginInfoUtil.getToken()
-        )).subscribe(new BaseObserver<IntegralDetail>(mActivity) {
-            @Override
-            public void onHandleSuccess(IntegralDetail integralDetail) throws IOException {
-                ((TextView) findViewById(R.id.tv_jfnum)).setText("¥" + integralDetail.integral);
-                adapter.setNewData(integralDetail.log);
-            }
-        });
+        RequestUtil.request(mActivity, true, true,
+                () -> ApiUtils.getApiService().integralDetail(
+                        LoginInfoUtil.getUid(),
+                        LoginInfoUtil.getToken()
+                ),
+                result -> {
+                    ((TextView) findViewById(R.id.tv_jfnum)).setText("¥" + result.data.integral);
+                    adapter.setNewData(result.data.log);
+                });
 
     }
 

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zhuosongkj.android.library.util.ActionBarUtil;
+import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.adapter.mall.PayWaysAdapter;
 import com.zskjprojectj.andouclient.entity.ViproteBean;
@@ -47,40 +48,37 @@ public class OpeningmemberActivity extends BaseActivity {
         TextView tv_openprice = findViewById(R.id.tv_openprice);
         WebView wv_webview = findViewById(R.id.wv_webview);
         //请求信息
-        HttpRxObservable.getObservable(ApiUtils.getApiService().vip_rote(
-                LoginInfoUtil.getUid(),
-                LoginInfoUtil.getToken()))
-                .subscribe(new BaseObserver<ViproteBean>(mActivity) {
-                    @Override
-                    public void onHandleSuccess(ViproteBean viproteBean) throws IOException {
-                        tv_openprice.setText("¥" + viproteBean.getPrice());
-                        String details = viproteBean.getVip_rote();
-                        String htmlData = getHtmlData(details);
-                        System.out.println("tml" + htmlData);
-                        wv_webview.loadData(htmlData, "text/html", "UTF-8");
-                        wv_webview.setVerticalScrollBarEnabled(false);
-                        wv_webview.setHorizontalScrollBarEnabled(false);
-                    }
+        RequestUtil.request(mActivity, true, true,
+                () -> ApiUtils.getApiService().vip_rote(
+                        LoginInfoUtil.getUid(),
+                        LoginInfoUtil.getToken()),
+                result -> {
+                    tv_openprice.setText("¥" + result.data.getPrice());
+                    String details = result.data.getVip_rote();
+                    String htmlData = getHtmlData(details);
+                    System.out.println("tml" + htmlData);
+                    wv_webview.loadData(htmlData, "text/html", "UTF-8");
+                    wv_webview.setVerticalScrollBarEnabled(false);
+                    wv_webview.setHorizontalScrollBarEnabled(false);
                 });
+
         mRecycler.setLayoutManager(new LinearLayoutManager(mActivity));
         //请求支付方式
-        HttpRxObservable.getObservable(ApiUtils.getApiService().getWalletPayWays(
-                LoginInfoUtil.getUid(),
-                LoginInfoUtil.getToken()))
-                .subscribe(new BaseObserver<List<MallPayWaysBean>>(mActivity) {
-                    @Override
-                    public void onHandleSuccess(List<MallPayWaysBean> mallPayWaysBeans) throws IOException {
-                        mRvPayWAys.setLayoutManager(new LinearLayoutManager(mActivity));
-                        PayWaysAdapter adapter = new PayWaysAdapter(R.layout.pay_ways_item, mallPayWaysBeans);
-                        mRvPayWAys.addItemDecoration(new DividerItemDecoration(mActivity, DividerItemDecoration.VERTICAL));
-                        mRvPayWAys.setAdapter(adapter);
-                        adapter.setItemPayWays(new PayWaysAdapter.ItemPayWays() {
-                            @Override
-                            public void getPayWays(String payWays, int position) {
-                                payId = mallPayWaysBeans.get(position).getId();
-                            }
-                        });
-                    }
+        RequestUtil.request(mActivity, true, true,
+                () -> ApiUtils.getApiService().getWalletPayWays(
+                        LoginInfoUtil.getUid(),
+                        LoginInfoUtil.getToken()),
+                result1 -> {
+                    mRvPayWAys.setLayoutManager(new LinearLayoutManager(mActivity));
+                    PayWaysAdapter adapter = new PayWaysAdapter(R.layout.pay_ways_item, result1.data);
+                    mRvPayWAys.addItemDecoration(new DividerItemDecoration(mActivity, DividerItemDecoration.VERTICAL));
+                    mRvPayWAys.setAdapter(adapter);
+                    adapter.setItemPayWays(new PayWaysAdapter.ItemPayWays() {
+                        @Override
+                        public void getPayWays(String payWays, int position) {
+                            payId = result1.data.get(position).getId();
+                        }
+                    });
                 });
 
         Button btn_sure = findViewById(R.id.btn_sure);
@@ -94,17 +92,15 @@ public class OpeningmemberActivity extends BaseActivity {
                 int id = Integer.parseInt(payId);
                 switch (id) {
                     case WXPAY:
-                        HttpRxObservable.getObservable(ApiUtils.getApiService().vip_recharge(
-                                LoginInfoUtil.getUid(),
-                                LoginInfoUtil.getToken(),
-                                payId
-
-                        )).subscribe(new BaseObserver<WxPay>(mActivity) {
-                            @Override
-                            public void onHandleSuccess(WxPay wxPay) throws IOException {
-                                PayUtil.INSTANCE.startWXPay(mActivity, wxPay);
-                            }
-                        });
+                        RequestUtil.request(mActivity, true, false,
+                                () -> ApiUtils.getApiService().vip_recharge(
+                                        LoginInfoUtil.getUid(),
+                                        LoginInfoUtil.getToken(),
+                                        payId
+                                ),
+                                result -> {
+                                    PayUtil.INSTANCE.startWXPay(mActivity, result.data);
+                                });
                         break;
                 }
             }
