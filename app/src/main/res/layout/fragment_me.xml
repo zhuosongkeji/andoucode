@@ -254,7 +254,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_20"
-                    android:layout_marginBottom="@dimen/dp_15">
+                    >
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -350,8 +350,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_100"
-                    android:layout_marginBottom="@dimen/dp_15">
+                    android:layout_height="@dimen/dp_100">
 
                     <LinearLayout
                         android:id="@+id/mycenter_foodorder_layout"
