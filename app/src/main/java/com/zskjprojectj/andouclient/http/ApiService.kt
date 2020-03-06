@@ -1325,5 +1325,9 @@ interface ApiService {
                     @Field("reason") reason: String? = null
     ): Observable<BaseResult<Any>>
 
-
+    @FormUrlEncoded
+    @POST("api/users/delete_record")
+    fun delHistory(@Field("uid") uid: String,
+                   @Field("ids[]") ids: Array<Int>
+    ): Observable<BaseResult<Any>>
 }
