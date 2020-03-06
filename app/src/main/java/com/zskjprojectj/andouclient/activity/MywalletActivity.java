@@ -6,9 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
@@ -20,7 +18,6 @@ import com.shizhefei.view.indicator.slidebar.ColorBar;
 import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zhuosongkj.android.library.util.ActionBarUtil;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.base.BasePresenter;
 import com.zskjprojectj.andouclient.fragment.BalancesubsidiaryFragment;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.http.BaseObserver;
@@ -37,19 +34,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.OnClick;
-
 /**
  * 我的钱包
  */
 public class MywalletActivity extends BaseActivity {
-
-    @BindView(R.id.mTitleView)
-    RelativeLayout mTitleView;
-
-    @BindView(R.id.mHeaderTitle)
-    TextView mHeaderTitle;
 
     private FixedIndicatorView indicator;
     //碎片集合
