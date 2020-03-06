@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,6 +16,8 @@ import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.stx.xhb.xbanner.XBanner;
 import com.wihaohao.PageGridView;
+import com.zhuosongkj.android.library.app.BaseFragment;
+import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.MallGoodsListActivity;
 import com.zskjprojectj.andouclient.activity.mall.MallGoodsDetailsActivity;
@@ -23,7 +26,6 @@ import com.zskjprojectj.andouclient.activity.mall.MallSearchGoodsActivity;
 import com.zskjprojectj.andouclient.activity.mall.PinTuanActivity;
 import com.zskjprojectj.andouclient.adapter.mall.RecommendProductsAdapter;
 import com.zskjprojectj.andouclient.adapter.mall.SpecialProductsAdapter;
-import com.zskjprojectj.andouclient.base.BaseFragment;
 import com.zskjprojectj.andouclient.entity.mall.MallHomeDataBean;
 import com.zskjprojectj.andouclient.http.ApiException;
 import com.zskjprojectj.andouclient.http.ApiUtils;
@@ -38,7 +40,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 
-public class MallHomepageFragment1 extends BaseFragment {
+public class MallHomeFragment extends BaseFragment {
 
 
     @BindView(R.id.onlinebanner)
@@ -59,56 +61,33 @@ public class MallHomepageFragment1 extends BaseFragment {
     private List<MallHomeDataBean.BannerBean> banner;
 
     @Override
-    protected void initViews(View view, Bundle savedInstanceState) {
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         view.findViewById(R.id.temp4Btn).setOnClickListener(view1 -> ToastUtils.showShort("功能正在开发中..."));
-    }
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, ScreenUtil.getScreenWidth(mActivity) / 2);
+        onlinebanner.setLayoutParams(layoutParams);
+        initBanner(onlinebanner);
+        RequestUtil.request(mActivity, true, false,
+                () -> ApiUtils.getApiService().getMallInfo(),
+                result -> {
+                    banner = result.data.getBanner();
+                    //分类
+                    List<MallHomeDataBean.CategoryBean> category = result.data.getCategory();
+                    mGridView.setData(category);
+                    mGridView.setOnItemClickListener(position -> MallGoodsListActivity.Companion.start(null, null, category.get(position).getId()));
 
-    @Override
-    protected int getContentViewRes() {
-        return R.layout.activity_onlinemall1;
-    }
+                    //推荐产品
+                    List<MallHomeDataBean.RecommendGoodsBean> recommend_goods = result.data.getRecommend_goods();
+                    initRecommendAdapter(recommend_goods);
+                    //特价产品
+                    List<MallHomeDataBean.BargainGoodsBean> bargain_goods = result.data.getBargain_goods();
+                    initBargainAdapter(bargain_goods);
 
-    @Override
-    protected void getDataFromServer() {
-
-        HttpRxObservable.getObservable(ApiUtils.getApiService().getMallInfo())
-                .subscribe(new BaseObserver<MallHomeDataBean>(mAty) {
-
-                    @Override
-                    public void onHandleSuccess(MallHomeDataBean bean) {
-
-                        banner = bean.getBanner();
-                        //分类
-                        List<MallHomeDataBean.CategoryBean> category = bean.getCategory();
-//                        initCategoryRecycler(category);
-
-                        mGridView.setData(category);
-                        mGridView.setOnItemClickListener(new PageGridView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(int position) {
-                                MallGoodsListActivity.Companion.start(null, null, category.get(position).getId());
-                            }
-                        });
-
-                        //推荐产品
-                        List<MallHomeDataBean.RecommendGoodsBean> recommend_goods = bean.getRecommend_goods();
-                        initRecommendAdapter(recommend_goods);
-                        //特价产品
-                        List<MallHomeDataBean.BargainGoodsBean> bargain_goods = bean.getBargain_goods();
-                        initBargainAdapter(bargain_goods);
-
-                        //刷新数据之后，需要重新设置是否支持自动轮播
-                        onlinebanner.setAutoPlayAble(banner.size() > 1);
-                        onlinebanner.setIsClipChildrenMode(true);
-                        onlinebanner.setBannerData(banner);
-                    }
-
-                    @Override
-                    public void onHandleError(ApiException apiExc) {
-                        super.onHandleError(apiExc);
-                    }
+                    //刷新数据之后，需要重新设置是否支持自动轮播
+                    onlinebanner.setAutoPlayAble(banner.size() > 1);
+                    onlinebanner.setIsClipChildrenMode(true);
+                    onlinebanner.setBannerData(banner);
                 });
-
     }
 
 
@@ -144,17 +123,6 @@ public class MallHomepageFragment1 extends BaseFragment {
 
     }
 
-    @Override
-    protected void initData() {
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, ScreenUtil.getScreenWidth(mAty) / 2);
-        onlinebanner.setLayoutParams(layoutParams);
-        initBanner(onlinebanner);
-    }
-
-
-    /**
-     * 初始化XBanner
-     */
     private void initBanner(XBanner banner) {
         //设置广告图片点击事件
         banner.setOnItemClickListener(new XBanner.OnItemClickListener() {
@@ -181,7 +149,7 @@ public class MallHomepageFragment1 extends BaseFragment {
                 //2、返回的图片路径为Object类型，你只需要强转成你传输的类型就行，切记不要胡乱强转！
                 MallHomeDataBean.BannerBean model1 = (MallHomeDataBean.BannerBean) model;
                 String url = UrlUtil.INSTANCE.getImageUrl(model1.getImg());
-                Glide.with(mAty).load(url).apply(new RequestOptions()
+                Glide.with(mActivity).load(url).apply(new RequestOptions()
                         .placeholder(R.mipmap.ic_placeholder)).into((ImageView) view);
 
             }
@@ -198,7 +166,7 @@ public class MallHomepageFragment1 extends BaseFragment {
                 MallSearchGoodsActivity.Companion.start();
                 break;
             case R.id.img_back:
-                mAty.finish();
+                mActivity.finish();
                 break;
             //推荐
             case R.id.tv_recommend_see_more:
@@ -227,4 +195,8 @@ public class MallHomepageFragment1 extends BaseFragment {
     }
 
 
+    @Override
+    protected int getContentView() {
+        return R.layout.activity_onlinemall1;
+    }
 }

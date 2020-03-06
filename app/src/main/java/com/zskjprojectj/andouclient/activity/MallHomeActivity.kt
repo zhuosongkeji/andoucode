@@ -3,13 +3,14 @@ package com.zskjprojectj.andouclient.activity
 import android.graphics.Color
 import android.os.Bundle
 import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import com.blankj.utilcode.util.ActivityUtils
 import com.zhuosongkj.android.library.app.BaseActivity
 import com.zhuosongkj.android.library.util.ActionBarUtil
 import com.zskjprojectj.andouclient.R
 import com.zskjprojectj.andouclient.fragment.MallCategoryFragment
 import com.zskjprojectj.andouclient.fragment.MallShoppingFragment
-import com.zskjprojectj.andouclient.fragment.mall.MallHomepageFragment1
+import com.zskjprojectj.andouclient.fragment.mall.MallHomeFragment
 import com.zskjprojectj.andouclient.utils.KEY_DATA
 import kotlinx.android.synthetic.main.activity_mall_home.*
 
@@ -26,8 +27,8 @@ class MallHomeActivity : BaseActivity() {
                         R.mipmap.home_icon_check,
                         R.mipmap.classification_icon_check,
                         R.mipmap.shopping_cart_check))
-                .fragmentList(arrayListOf(
-                        MallHomepageFragment1(),
+                .fragmentList(arrayListOf<Fragment>(
+                        MallHomeFragment(),
                         MallCategoryFragment(),
                         MallShoppingFragment()))
                 .normalTextColor(Color.parseColor("#646464"))
