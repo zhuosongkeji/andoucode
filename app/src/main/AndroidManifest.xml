@@ -227,9 +227,7 @@
         <activity
             android:name=".activity.BusinessresidenceActivity"
             android:screenOrientation="portrait" /> <!-- 商家入驻 -->
-        <activity
-            android:name=".activity.RestaurantbusinessinActivity"
-            android:screenOrientation="portrait" /> <!-- 在线预订商家 -->
+        <!-- 在线预订商家 -->
         <activity
             android:name=".activity.HotelbusinessinActivity"
             android:screenOrientation="portrait" /> <!-- 酒店商家入驻 -->
