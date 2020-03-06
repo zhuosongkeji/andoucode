@@ -26,9 +26,5 @@ class TieBaFragment : BaseFragment() {
         title_view.setPadding(0, BarUtils.getStatusBarHeight(), 0, 0)
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-    }
-
     override fun getContentView() = R.layout.fragment_tiebapage
 }

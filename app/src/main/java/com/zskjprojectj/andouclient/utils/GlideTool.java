@@ -113,7 +113,7 @@ public class GlideTool {
     public static String getPath(String path, int x, int y) {
         if (TextUtils.isEmpty(path)) return "0";
         if (!TextUtils.isEmpty(path) && (path.startsWith("http://") || path.startsWith("https://"))) {
-            path = path.substring(0, path.lastIndexOf(".")) + "_" + x + "_" + y + path.substring(path.lastIndexOf("."), path.length());
+            path = path.substring(0, path.lastIndexOf(".")) + "_" + x + "_" + y + path.substring(path.lastIndexOf("."));
             return path;
         } else if (!TextUtils.isEmpty(path) && path.startsWith("file:")) {
             return path;
@@ -227,14 +227,14 @@ public class GlideTool {
         if (round != NONE) {
             if (cornerType == null) {
                 if (isCenterCrop) {
-                    requestOptions.bitmapTransform(new GlideRoundTransform(context, round, 0, GlideRoundTransform.CornerType.ALL));
+                    RequestOptions.bitmapTransform(new GlideRoundTransform(context, round, 0, GlideRoundTransform.CornerType.ALL));
                 } else
-                    requestOptions.bitmapTransform(new GlideRoundTransform(context, round, 0, GlideRoundTransform.CornerType.ALL));
+                    RequestOptions.bitmapTransform(new GlideRoundTransform(context, round, 0, GlideRoundTransform.CornerType.ALL));
             } else {
                 if (isCenterCrop) {
-                    requestOptions.bitmapTransform(new GlideRoundTransform(context, round, 0, cornerType));
+                    RequestOptions.bitmapTransform(new GlideRoundTransform(context, round, 0, cornerType));
                 } else
-                    requestOptions.bitmapTransform(new GlideRoundTransform(context, round, 0, cornerType));
+                    RequestOptions.bitmapTransform(new GlideRoundTransform(context, round, 0, cornerType));
             }
         }
         builder.apply(requestOptions);

@@ -26,7 +26,7 @@ class MessageListActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         ActionBarUtil.setTitle(mActivity, "消息列表")
         adapter.setOnItemClickListener { _, _, position ->
-            val message = adapter.getItem(position);
+            val message = adapter.getItem(position)
             RequestUtil.request(mActivity, true, false,
                     { ApiUtils.getApiService().readMessage(LoginInfoUtil.getUid(), message?.info_id.toString()) },
                     {

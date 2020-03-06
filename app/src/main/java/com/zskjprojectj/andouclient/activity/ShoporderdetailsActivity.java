@@ -78,7 +78,7 @@ public class ShoporderdetailsActivity extends BaseActivity {
         }
         ((TextView) findViewById(R.id.orderNumTxt)).setText("订单编号：" + order.order_sn);
         if (!TextUtils.isEmpty(order.pay_time)) {
-            ((TextView) findViewById(R.id.dateTxt)).setVisibility(View.VISIBLE);
+            findViewById(R.id.dateTxt).setVisibility(View.VISIBLE);
             ((TextView) findViewById(R.id.dateTxt)).setText("支付时间：" + order.pay_time);
         }
         ((TextView) findViewById(R.id.receiverName)).setText("收件人：" + order.userinfo.name);

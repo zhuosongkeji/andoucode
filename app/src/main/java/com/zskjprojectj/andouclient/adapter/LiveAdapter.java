@@ -18,6 +18,6 @@ public class LiveAdapter extends BaseQuickAdapter<TestBean.ResultBean.DataBean, 
     @Override
     protected void convert(BaseViewHolder helper, TestBean.ResultBean.DataBean item) {
         helper.setText(R.id.tv_bgtest,item.getSteps().get(1).getStep());
-          GlideTool.glide(mContext, item.getSteps().get(1).getImg(), (ImageView) helper.getView(R.id.img_bgtest));
+          GlideTool.glide(mContext, item.getSteps().get(1).getImg(), helper.getView(R.id.img_bgtest));
     }
 }

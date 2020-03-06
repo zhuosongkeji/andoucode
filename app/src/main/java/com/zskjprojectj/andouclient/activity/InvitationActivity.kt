@@ -57,7 +57,7 @@ class InvitationActivity : BaseActivity() {
                                                 }
                                             })
                                 }
-                                .show();
+                                .show()
                     }
                 })
     }

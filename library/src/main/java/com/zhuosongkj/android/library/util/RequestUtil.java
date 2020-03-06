@@ -161,7 +161,7 @@ public class RequestUtil {
         });
     }
 
-    public static interface OnLoginReqeustListener {
+    public interface OnLoginReqeustListener {
         void onLoginRequest(Activity activity);
     }
 }

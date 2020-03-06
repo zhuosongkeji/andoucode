@@ -51,7 +51,7 @@ public class MenusAdapter extends BaseAdapter {
         if (arg1 == null) {
             holder = new ViewHolder();
             arg1 = View.inflate(context, R.layout.item_menu, null);
-            holder.tv_name = (TextView) arg1.findViewById(R.id.item_name);
+            holder.tv_name = arg1.findViewById(R.id.item_name);
             arg1.setTag(holder);
         } else {
             holder = (ViewHolder) arg1.getTag();

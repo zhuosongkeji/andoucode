@@ -58,8 +58,8 @@ public class HomeAdapter extends BaseAdapter {
         if (convertView == null) {
             convertView = View.inflate(context, R.layout.item_home, null);
             viewHold = new ViewHold();
-            viewHold.gridView = (GridViewForScrollView) convertView.findViewById(R.id.gridView);
-            viewHold.blank = (TextView) convertView.findViewById(R.id.blank);
+            viewHold.gridView = convertView.findViewById(R.id.gridView);
+            viewHold.blank = convertView.findViewById(R.id.blank);
             convertView.setTag(viewHold);
         } else {
             viewHold = (ViewHold) convertView.getTag();

@@ -81,7 +81,7 @@ public class SearchAddressAdapter extends RecyclerView.Adapter<SearchAddressAdap
                     Spanned temp = Html.fromHtml(name.substring(0, index)
                             + "<font color=#19ad19>"
                             + name.substring(index, index + len) + "</font>"
-                            + name.substring(index + len, name.length()));
+                            + name.substring(index + len));
                     holder.mTvTitle.setText(temp);
                 } else {
                     holder.mTvTitle.setText(name);
@@ -121,9 +121,9 @@ public class SearchAddressAdapter extends RecyclerView.Adapter<SearchAddressAdap
 
         public MyHolder(View itemView) {
             super(itemView);
-            mTvTitle = (TextView) itemView.findViewById(R.id.tv_title);
-            mTvMessage = (TextView) itemView.findViewById(R.id.tv_message);
-            mCheckBox = (CheckBox) itemView.findViewById(R.id.checkBox);
+            mTvTitle = itemView.findViewById(R.id.tv_title);
+            mTvMessage = itemView.findViewById(R.id.tv_message);
+            mCheckBox = itemView.findViewById(R.id.checkBox);
         }
     }
 
