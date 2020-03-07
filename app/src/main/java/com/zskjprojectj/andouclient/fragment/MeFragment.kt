@@ -39,7 +39,7 @@ class MeFragment : BaseFragment() {
         img_touxiang.setOnClickListener { startActivity(Intent(context, OpeningmemberActivity::class.java)) }
         mycenter_qrcode_layout.setOnClickListener { ToastUtils.showShort("功能暂未开通敬请期待....") }
         mycenter_myrelease_layout.setOnClickListener { ToastUtils.showShort("功能暂未开通敬请期待....") }
-        mycenter_hotelorder_layout.setOnClickListener { startActivity(Intent(context, HotelorderActivity::class.java)) }
+        mycenter_hotelorder_layout.setOnClickListener { startActivity(Intent(context, HotelOrderListActivity::class.java)) }
         mycenter_shoporder_layout.setOnClickListener {
             startActivity(Intent(context, MallOrderListActivity::class.java))
         }

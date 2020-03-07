@@ -9,27 +9,13 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.utils.UrlUtil;
-import com.zskjprojectj.andouclient.base.BaseUrl;
 import com.zskjprojectj.andouclient.entity.hotel.MeHotelBean;
 import com.zskjprojectj.andouclient.model.HotelOrderStatus;
-import com.zskjprojectj.andouclient.model.OrderStatus;
-import com.zskjprojectj.andouclient.utils.UrlUtil;
 
-/**
- * 项目名称： andoucode
- * 包名：com.zskjprojectj.andouclient.adapter.hotel
- * author: Bin email:wangdabin2333@163.com
- * time: 2020/1/9 15:00
- * des:
- * 修改人：
- * 修改时间：
- * 修改备注：
- */
-public class MeHotelAdapter extends BaseQuickAdapter<MeHotelBean, BaseViewHolder> {
+public class HotelListAdapter extends BaseQuickAdapter<MeHotelBean, BaseViewHolder> {
 
-
-    public MeHotelAdapter() {
-        super(R.layout.item_fragmentmehotelorder);
+    public HotelListAdapter() {
+        super(R.layout.layout_hotel_list_item);
     }
 
     @Override

@@ -23,7 +23,7 @@ import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zhuosongkj.android.library.util.ActionBarUtil;
 import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.activity.HotelorderActivity;
+import com.zskjprojectj.andouclient.activity.HotelOrderListActivity;
 import com.zskjprojectj.andouclient.activity.mall.MallPaySuccessActivity;
 import com.zskjprojectj.andouclient.adapter.mall.PayWaysAdapter;
 import com.zskjprojectj.andouclient.entity.hotel.HotelSettlementBean;
@@ -294,7 +294,7 @@ public class HotelOnlineReserveActivity extends BaseActivity {
     //5.接收消息
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void intentEventBus(PaySuccessEvent paySuccessEvent) {
-        Intent intent = new Intent(HotelOnlineReserveActivity.this, HotelorderActivity.class);
+        Intent intent = new Intent(HotelOnlineReserveActivity.this, HotelOrderListActivity.class);
         intent.putExtra("flag", "MallPaySuccess");
         startActivity(intent);
         finish();

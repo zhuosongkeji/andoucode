@@ -13,7 +13,7 @@ import com.zhuosongkj.android.library.util.PageLoadUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.HotelorderdetailsActivity;
 import com.zskjprojectj.andouclient.activity.HotelordergotoevaluationActivity;
-import com.zskjprojectj.andouclient.adapter.hotel.MeHotelAdapter;
+import com.zskjprojectj.andouclient.adapter.hotel.HotelListAdapter;
 import com.zskjprojectj.andouclient.entity.hotel.MeHotelBean;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
@@ -30,7 +30,7 @@ import butterknife.BindView;
  * 修改时间：
  * 修改备注：
  */
-public class MeHotelFragment extends BaseFragment {
+public class HotelOrderListFragment extends BaseFragment {
 
     @BindView(R.id.recyclerView)
     RecyclerView mRvRecycler;
@@ -39,9 +39,9 @@ public class MeHotelFragment extends BaseFragment {
     SmartRefreshLayout mRefreshLayout;
 
     private String status;
-    private MeHotelAdapter adapter = new MeHotelAdapter();
+    private HotelListAdapter adapter = new HotelListAdapter();
 
-    public MeHotelFragment(String status) {
+    public HotelOrderListFragment(String status) {
 
         this.status = status;
     }

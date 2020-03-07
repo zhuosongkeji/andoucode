@@ -175,7 +175,7 @@
             android:name=".activity.MallOrderListActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.HotelorderActivity"
+            android:name=".activity.HotelOrderListActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.BalanceofprepaidActivity"
