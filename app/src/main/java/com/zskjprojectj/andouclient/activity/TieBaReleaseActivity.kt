@@ -18,6 +18,7 @@ import com.zskjprojectj.andouclient.model.TieBaType
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil
 import kotlinx.android.synthetic.main.activity_tie_ba_release.*
 import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import org.greenrobot.eventbus.EventBus
@@ -71,7 +72,7 @@ class TieBaReleaseActivity : BaseActivity() {
                     builder.addFormDataPart("top_post", if (yes.isChecked) "1" else "0")
                     adapter.selectedPics.forEach {
                         val file = File(it.path)
-                        builder.addFormDataPart("images[]", file.name, RequestBody.create(MediaType.parse("multipart/form-data"), file))
+                        builder.addFormDataPart("images[]", file.name, RequestBody.create("multipart/form-data".toMediaTypeOrNull(), file))
                     }
                     val requestBody = builder.build()
                     RequestUtil.request(mActivity, true, false,

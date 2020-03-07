@@ -23,7 +23,6 @@ import com.zskjprojectj.andouclient.http.ApiUtils
 import com.zskjprojectj.andouclient.model.AddressIn
 import com.zskjprojectj.andouclient.utils.KEY_DATA
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil
-import com.zskjprojectj.andouclient.utils.ToastUtil
 import com.zskjprojectj.andouclient.view.AddressBottomDialog
 import kotlinx.android.synthetic.main.activity_new_address.*
 import java.util.*
@@ -149,7 +148,7 @@ class NewAddressActivity : BaseActivity() {
                                     )
                                 },
                                 {
-                                    ToastUtil.showToast("保存成功!")
+                                    ToastUtils.showShort("保存成功!")
                                     setResult(Activity.RESULT_OK)
                                     finish()
                                 })
@@ -169,7 +168,7 @@ class NewAddressActivity : BaseActivity() {
                                     )
                                 },
                                 {
-                                    ToastUtil.showToast("保存成功!")
+                                    ToastUtils.showShort("保存成功!")
                                     setResult(Activity.RESULT_OK)
                                     finish()
                                 })

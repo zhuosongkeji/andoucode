@@ -5,6 +5,8 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.net.Uri;
 
+import com.blankj.utilcode.util.ToastUtils;
+
 public class MapUtil {
     public static void start(String keyword, Activity activity) {
         Intent intent;
@@ -27,7 +29,7 @@ public class MapUtil {
             }
             activity.startActivity(intent);
         } catch (Exception e) {
-            ToastUtil.showToast("地图启动失败,请检查是否安装地图!");
+            ToastUtils.showShort("地图启动失败,请检查是否安装地图!");
             e.printStackTrace();
         }
     }

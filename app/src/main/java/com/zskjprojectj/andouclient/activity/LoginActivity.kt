@@ -18,7 +18,6 @@ import com.zskjprojectj.andouclient.http.ApiUtils
 import com.zskjprojectj.andouclient.utils.KEY_FOR_RESULT
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil
 import com.zskjprojectj.andouclient.utils.REQUEST_CODE_LOGIN
-import com.zskjprojectj.andouclient.utils.ToastUtil.showToast
 import com.zskjprojectj.andouclient.utils.WEI_XIN_APP_ID
 import kotlinx.android.synthetic.main.activity_login.*
 import org.greenrobot.eventbus.EventBus
@@ -65,7 +64,7 @@ class LoginActivity : BaseActivity() {
         img_weixinlogin.setOnClickListener(View.OnClickListener {
             val api = WXAPIFactory.createWXAPI(this@LoginActivity, WEI_XIN_APP_ID, true)
             if (!api.isWXAppInstalled) {
-                showToast("您手机尚未安装微信，请安装后再登录")
+                ToastUtils.showShort("您手机尚未安装微信，请安装后再登录")
                 return@OnClickListener
             }
             api.registerApp(WEI_XIN_APP_ID)

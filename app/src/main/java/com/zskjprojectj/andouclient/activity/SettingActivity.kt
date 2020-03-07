@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.ImageView
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.AppUtils
+import com.blankj.utilcode.util.ToastUtils
 import com.bumptech.glide.Glide
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureMimeType
@@ -23,6 +24,7 @@ import com.zskjprojectj.andouclient.utils.UrlUtil.getImageUrl
 import com.zskjprojectj.andouclient.view.PromtOnlyExtraDialog
 import kotlinx.android.synthetic.main.activity_setting.*
 import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
@@ -59,7 +61,7 @@ class SettingActivity : BaseActivity() {
                     PromtOnlyExtraDialog.OnCloseListener { dialog, confirm ->
                         if (confirm) {
                             DataCleanManager.clearAllCache(mActivity)
-                            ToastUtil.showToast("清理成功!")
+                            ToastUtils.showShort("清理成功!")
                             tv_msize.text = "0kb"
                         }
                     })
@@ -102,10 +104,10 @@ class SettingActivity : BaseActivity() {
             555 -> imageView = img_setpic
         }
         val file = File(path)
-        val requestFile = RequestBody.create(MediaType.parse("image/jpg"), file)
+        val requestFile = RequestBody.create("image/jpg".toMediaTypeOrNull(), file)
         val body = MultipartBody.Part.createFormData("img", file.name, requestFile)
-        val uid = RequestBody.create(MediaType.parse("multipart/form-data"), LoginInfoUtil.getUid())
-        val token = RequestBody.create(MediaType.parse("multipart/form-data"), LoginInfoUtil.getToken())
+        val uid = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), LoginInfoUtil.getUid())
+        val token = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), LoginInfoUtil.getToken())
         val finalImageView = imageView
         RequestUtil.request(mActivity, true, false,
                 { ApiUtils.getApiService().uploadImg(uid, token, body) },

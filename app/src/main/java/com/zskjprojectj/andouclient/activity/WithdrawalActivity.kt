@@ -10,7 +10,6 @@ import com.zhuosongkj.android.library.util.RequestUtil
 import com.zskjprojectj.andouclient.R
 import com.zskjprojectj.andouclient.http.ApiUtils
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil
-import com.zskjprojectj.andouclient.utils.ToastUtil
 import kotlinx.android.synthetic.main.activity_withdrawal.*
 
 class WithdrawalActivity : BaseActivity() {
@@ -23,7 +22,7 @@ class WithdrawalActivity : BaseActivity() {
         btn_surewithdrawal.setOnClickListener {
             val amount = amountEdt.text.toString().toFloatOrNull()
             if (amount == null || amount <= 0) {
-                ToastUtil.showToast("请输入正确的提现金额")
+                ToastUtils.showShort("请输入正确的提现金额")
             } else if (!RegexUtils.isMobileSimple(phoneEdt.text.toString())) {
                 ToastUtils.showShort("请输入正确的手机号")
             } else if (accountEdt.text.toString().isEmpty()) {

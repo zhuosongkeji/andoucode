@@ -16,6 +16,7 @@ import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.TimeUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
@@ -34,7 +35,6 @@ import com.zskjprojectj.andouclient.model.Food;
 import com.zskjprojectj.andouclient.model.WxPay;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 import com.zskjprojectj.andouclient.utils.PayUtil;
-import com.zskjprojectj.andouclient.utils.ToastUtil;
 import com.zskjprojectj.andouclient.utils.UrlUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -257,11 +257,11 @@ public class RestaurantBillActivity extends BaseActivity {
         if (bill.getStatus() == 0) {
             String people = numTxt.getText().toString();
             if (TextUtils.isEmpty(dateStr)) {
-                ToastUtil.showToast("请选择预约日期");
+                ToastUtils.showShort("请选择预约日期");
             } else if (TextUtils.isEmpty(timeStr)) {
-                ToastUtil.showToast("请选择预约时间");
+                ToastUtils.showShort("请选择预约时间");
             } else if ("0".equals(people)) {
-                ToastUtil.showToast("请选择就餐人数");
+                ToastUtils.showShort("请选择就餐人数");
             } else {
                 if (getPayWay() == 4) {
                     new AlertDialog.Builder(mActivity)

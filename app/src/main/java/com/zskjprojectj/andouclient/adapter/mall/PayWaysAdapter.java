@@ -1,20 +1,17 @@
 package com.zskjprojectj.andouclient.adapter.mall;
 
-import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatCheckBox;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.zskjprojectj.andouclient.R;
-import com.zskjprojectj.andouclient.utils.UrlUtil;import com.zskjprojectj.andouclient.base.BaseUrl;
+import com.zskjprojectj.andouclient.utils.UrlUtil;
 import com.zskjprojectj.andouclient.entity.mall.MallPayWaysBean;
-import com.zskjprojectj.andouclient.utils.ToastUtil;
 
 import java.util.HashMap;
 import java.util.List;

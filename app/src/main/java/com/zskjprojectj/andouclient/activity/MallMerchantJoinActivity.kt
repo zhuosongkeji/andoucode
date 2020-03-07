@@ -5,9 +5,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
-import android.view.View
 import android.widget.ImageView
-import butterknife.OnClick
 import chihane.jdaddressselector.AddressProvider
 import chihane.jdaddressselector.AddressProvider.AddressReceiver
 import chihane.jdaddressselector.model.City
@@ -16,6 +14,7 @@ import chihane.jdaddressselector.model.Province
 import chihane.jdaddressselector.model.Street
 import com.amap.api.services.core.PoiItem
 import com.blankj.utilcode.util.ActivityUtils
+import com.blankj.utilcode.util.ToastUtils
 import com.bumptech.glide.Glide
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureMimeType
@@ -31,11 +30,11 @@ import com.zskjprojectj.andouclient.model.UserIn
 import com.zskjprojectj.andouclient.utils.GlideEngine
 import com.zskjprojectj.andouclient.utils.KEY_DATA
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil
-import com.zskjprojectj.andouclient.utils.ToastUtil
 import com.zskjprojectj.andouclient.utils.UrlUtil.getImageUrl
 import com.zskjprojectj.andouclient.view.AddressBottomDialog
 import kotlinx.android.synthetic.main.activity_mall_merchant_join.*
 import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
@@ -142,34 +141,34 @@ class MallMerchantJoinActivity : BaseActivity() {
             val description = descriptionEdt.text.toString()
             when {
                 TextUtils.isEmpty(name) -> {
-                    ToastUtil.showToast("请输入商户名称!")
+                    ToastUtils.showShort("请输入商户名称!")
                 }
                 TextUtils.isEmpty(contactName) -> {
-                    ToastUtil.showToast("请输入联系人!")
+                    ToastUtils.showShort("请输入联系人!")
                 }
                 TextUtils.isEmpty(contactMobile) -> {
-                    ToastUtil.showToast("请输入联系电话!")
+                    ToastUtils.showShort("请输入联系电话!")
                 }
                 TextUtils.isEmpty(contactMobile) -> {
-                    ToastUtil.showToast("请输入联系电话!")
+                    ToastUtils.showShort("请输入联系电话!")
                 }
                 TextUtils.isEmpty(addressStr) -> {
-                    ToastUtil.showToast("请选择店铺地址!")
+                    ToastUtils.showShort("请选择店铺地址!")
                 }
                 TextUtils.isEmpty(addressDetail) -> {
-                    ToastUtil.showToast("请选择详细地址!")
+                    ToastUtils.showShort("请选择详细地址!")
                 }
                 TextUtils.isEmpty(description) -> {
-                    ToastUtil.showToast("请选择商家简介!")
+                    ToastUtils.showShort("请选择商家简介!")
                 }
                 TextUtils.isEmpty(logoImgPath) -> {
-                    ToastUtil.showToast("请添加商家Logo图!")
+                    ToastUtils.showShort("请添加商家Logo图!")
                 }
                 TextUtils.isEmpty(bannerImgPath) -> {
-                    ToastUtil.showToast("请添加商家海报图!")
+                    ToastUtils.showShort("请添加商家海报图!")
                 }
                 TextUtils.isEmpty(licenseImgPath) -> {
-                    ToastUtil.showToast("请添加营业执照!")
+                    ToastUtils.showShort("请添加营业执照!")
                 }
                 else -> {
                     RequestUtil.request(mActivity, true, false, {
@@ -235,10 +234,10 @@ class MallMerchantJoinActivity : BaseActivity() {
                 REQUEST_CODE_SELECT_LICENSE -> imageView = licenseImg
             }
             val file = File(path)
-            val requestFile = RequestBody.create(MediaType.parse("image/jpg"), file)
+            val requestFile = RequestBody.create("image/jpg".toMediaTypeOrNull(), file)
             val body = MultipartBody.Part.createFormData("img", file.name, requestFile)
-            val uid = RequestBody.create(MediaType.parse("multipart/form-data"), LoginInfoUtil.getUid())
-            val token = RequestBody.create(MediaType.parse("multipart/form-data"), LoginInfoUtil.getToken())
+            val uid = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), LoginInfoUtil.getUid())
+            val token = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), LoginInfoUtil.getToken())
             val finalImageView = imageView
             RequestUtil.request(mActivity, true, false, {
                 ApiUtils.getApiService().uploadImg(uid, token, body)

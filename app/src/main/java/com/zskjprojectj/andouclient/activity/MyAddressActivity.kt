@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.core.os.bundleOf
 import com.blankj.utilcode.util.ActivityUtils
+import com.blankj.utilcode.util.ToastUtils
 import com.zhuosongkj.android.library.app.BaseActivity
 import com.zhuosongkj.android.library.util.ActionBarUtil
 import com.zhuosongkj.android.library.util.RequestUtil
@@ -13,7 +14,6 @@ import com.zskjprojectj.andouclient.adapter.MyAddressAdapter
 import com.zskjprojectj.andouclient.http.ApiUtils
 import com.zskjprojectj.andouclient.utils.KEY_DATA
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil
-import com.zskjprojectj.andouclient.utils.ToastUtil
 import kotlinx.android.synthetic.main.activity_my_address.*
 
 class MyAddressActivity : BaseActivity() {
@@ -38,7 +38,7 @@ class MyAddressActivity : BaseActivity() {
                             )
                         },
                         {
-                            ToastUtil.showToast("删除成功!")
+                            ToastUtils.showShort("删除成功!")
                             loadData()
                         })
             } else if (view.id == R.id.editBtn) {

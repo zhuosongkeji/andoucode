@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.BarUtils;
 import com.blankj.utilcode.util.KeyboardUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zhuosongkj.android.library.util.PageLoadUtil;
@@ -17,7 +18,6 @@ import com.zskjprojectj.andouclient.adapter.restaurant.RestaurantAdapter;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.model.Restaurant;
 import com.zskjprojectj.andouclient.model.RestaurantCategory;
-import com.zskjprojectj.andouclient.utils.ToastUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -52,7 +52,7 @@ public class RestaurantSearchActivity extends BaseActivity {
         searchEdt.setOnEditorActionListener((v, actionId, event) -> {
             String keyword = searchEdt.getText().toString();
             if (TextUtils.isEmpty(keyword)) {
-                ToastUtil.showToast("请输入关键字搜索!");
+                ToastUtils.showShort("请输入关键字搜索!");
                 return true;
             }
             load(null, pageLoadUtil);

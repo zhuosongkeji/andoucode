@@ -39,7 +39,6 @@ import com.zskjprojectj.andouclient.http.ApiUtils
 import com.zskjprojectj.andouclient.model.Restaurant
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil
 import com.zskjprojectj.andouclient.utils.ScreenUtil
-import com.zskjprojectj.andouclient.utils.ToastUtil
 import com.zskjprojectj.andouclient.utils.UrlUtil
 import com.zskjprojectj.andouclient.view.CustomDialog
 import com.zskjprojectj.andouclient.view.OnRedPacketDialogClickListener
@@ -198,7 +197,7 @@ class AppHomeFragment : BaseFragment() {
                                                 RequestUtil.request(mActivity, true, true,
                                                         { ApiUtils.getApiService().envelopes_add(LoginInfoUtil.getUid(), LoginInfoUtil.getToken()) },
                                                         {
-                                                            ToastUtil.showToast("领取成功")
+                                                            ToastUtils.showShort("领取成功")
                                                             mRedPacketDialog.dismiss()
                                                         })
                                             }

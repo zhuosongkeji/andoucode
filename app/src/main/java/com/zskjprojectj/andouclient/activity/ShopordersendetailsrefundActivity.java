@@ -36,7 +36,6 @@ import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.model.OrderDetail;
 import com.zskjprojectj.andouclient.utils.GlideEngine;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
-import com.zskjprojectj.andouclient.utils.ToastUtil;
 import com.zskjprojectj.andouclient.utils.UrlUtil;
 
 import java.io.File;
@@ -173,7 +172,7 @@ public class ShopordersendetailsrefundActivity extends BaseActivity {
             case R.id.btn_commit:
                 content = mEtDec.getText().toString().trim();
                 if (TextUtils.isEmpty(reasonId)) {
-                    ToastUtil.showToast("请选择退货理由!");
+                    ToastUtils.showShort("请选择退货理由!");
                 } else {
                     RequestUtil.request(mActivity, true, false,
                             () -> ApiUtils.getApiService().mallrefund(

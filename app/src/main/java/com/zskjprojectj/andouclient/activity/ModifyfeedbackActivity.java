@@ -6,13 +6,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zhuosongkj.android.library.util.ActionBarUtil;
 import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
-import com.zskjprojectj.andouclient.utils.ToastUtil;
 
 public class ModifyfeedbackActivity extends BaseActivity {
 
@@ -27,7 +27,7 @@ public class ModifyfeedbackActivity extends BaseActivity {
             public void onClick(View view) {
                 String content = et_context.getText().toString().trim();
                 if (TextUtils.isEmpty(content)) {
-                    ToastUtil.showToast("请输入您的意见信息");
+                    ToastUtils.showShort("请输入您的意见信息");
                     return;
                 }
                 RequestUtil.request(mActivity, true, false,
@@ -36,7 +36,7 @@ public class ModifyfeedbackActivity extends BaseActivity {
                                 LoginInfoUtil.getToken(),
                                 content),
                         result -> {
-                            ToastUtil.showToast("提交成功");
+                            ToastUtils.showShort("提交成功");
                         });
             }
         });

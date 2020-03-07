@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zhuosongkj.android.library.util.ActionBarUtil;
 import com.zhuosongkj.android.library.util.RequestUtil;
@@ -14,7 +15,6 @@ import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.utils.CountDownTimerUtils;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
-import com.zskjprojectj.andouclient.utils.ToastUtil;
 
 import static com.zskjprojectj.andouclient.utils.ConstantKt.KEY_FOR_RESULT;
 
@@ -38,7 +38,7 @@ public class WeixinbingphoneActivity extends BaseActivity {
             public void onClick(View view) {
                 String mobileStr = et_bindphonenum.getText().toString().trim();
                 if (mobileStr.isEmpty()) {
-                    ToastUtil.showToast("请输入正确的手机号码!");
+                    ToastUtils.showShort("请输入正确的手机号码!");
                     return;
                 }
                 CountDownTimerUtils countDownTimer = new CountDownTimerUtils(bind_yanzhenma_button, 60000, 1000);
@@ -46,7 +46,7 @@ public class WeixinbingphoneActivity extends BaseActivity {
                 RequestUtil.request(mActivity, true, false,
                         () -> ApiUtils.getApiService().sendCode(mobileStr, "0"),
                         result -> {
-                            ToastUtil.showToast("验证码短信已发送,请注意查收!");
+                            ToastUtils.showShort("验证码短信已发送,请注意查收!");
                         });
             }
         });
@@ -57,15 +57,15 @@ public class WeixinbingphoneActivity extends BaseActivity {
                 String codeStr = bind_inputyanzhenma_edittext.getText().toString().trim();
                 String passwordStr = bind_pwd_edittext.getText().toString();
                 if (mobileStr.isEmpty()) {
-                    ToastUtil.showToast("请输入正确的手机号码!");
+                    ToastUtils.showShort("请输入正确的手机号码!");
                     return;
                 }
                 if (codeStr.isEmpty()) {
-                    ToastUtil.showToast("请输入正确的验证码!");
+                    ToastUtils.showShort("请输入正确的验证码!");
                     return;
                 }
                 if (passwordStr.isEmpty()) {
-                    ToastUtil.showToast("请输入正确的密码!");
+                    ToastUtils.showShort("请输入正确的密码!");
                     return;
                 }
                 RequestUtil.request(mActivity, true, false,

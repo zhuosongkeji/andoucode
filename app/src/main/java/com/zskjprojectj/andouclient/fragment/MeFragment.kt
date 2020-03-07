@@ -19,7 +19,6 @@ import com.zskjprojectj.andouclient.activity.*
 import com.zskjprojectj.andouclient.http.ApiUtils
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil.isLogin
-import com.zskjprojectj.andouclient.utils.ToastUtil
 import com.zskjprojectj.andouclient.utils.UrlUtil
 import kotlinx.android.synthetic.main.fragment_me.*
 import q.rorbin.badgeview.QBadgeView
@@ -38,8 +37,8 @@ class MeFragment : BaseFragment() {
         }
         mTitleView.setPadding(0, BarUtils.getStatusBarHeight(), 0, 0)
         img_touxiang.setOnClickListener { startActivity(Intent(context, OpeningmemberActivity::class.java)) }
-        mycenter_qrcode_layout.setOnClickListener { ToastUtil.showToast("功能暂未开通敬请期待....") }
-        mycenter_myrelease_layout.setOnClickListener { ToastUtil.showToast("功能暂未开通敬请期待....") }
+        mycenter_qrcode_layout.setOnClickListener { ToastUtils.showShort("功能暂未开通敬请期待....") }
+        mycenter_myrelease_layout.setOnClickListener { ToastUtils.showShort("功能暂未开通敬请期待....") }
         mycenter_hotelorder_layout.setOnClickListener { startActivity(Intent(context, HotelorderActivity::class.java)) }
         mycenter_shoporder_layout.setOnClickListener {
             startActivity(Intent(context, MallOrderListActivity::class.java))

@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zhuosongkj.android.library.app.BaseFragment;
@@ -29,7 +30,6 @@ import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.model.Order;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 import com.zskjprojectj.andouclient.utils.PaySuccessEvent;
-import com.zskjprojectj.andouclient.utils.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -88,7 +88,7 @@ public class MallOrderListFragment extends BaseFragment {
                                         ),
                                         result -> {
                                             EventBus.getDefault().post(new OrderStateChangedEvent());
-                                            ToastUtil.showToast("确认收货成功");
+                                            ToastUtils.showShort("确认收货成功");
                                             dialog.dismiss();
                                         });
                                 break;

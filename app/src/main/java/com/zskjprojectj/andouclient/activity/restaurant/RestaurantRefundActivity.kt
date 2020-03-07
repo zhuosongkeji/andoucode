@@ -2,9 +2,6 @@ package com.zskjprojectj.andouclient.activity.restaurant
 
 import android.app.Activity
 import android.os.Bundle
-import android.widget.EditText
-import butterknife.BindView
-import butterknife.OnClick
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.zhuosongkj.android.library.app.BaseActivity
@@ -15,7 +12,6 @@ import com.zskjprojectj.andouclient.R
 import com.zskjprojectj.andouclient.http.ApiUtils
 import com.zskjprojectj.andouclient.utils.KEY_DATA
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil
-import com.zskjprojectj.andouclient.utils.ToastUtil
 import kotlinx.android.synthetic.main.activity_restaurant_refund.*
 
 class RestaurantRefundActivity : BaseActivity() {
@@ -36,7 +32,7 @@ class RestaurantRefundActivity : BaseActivity() {
                             )
                         },
                         { result: BaseResult<*> ->
-                            ToastUtil.showToast(result.msg)
+                            ToastUtils.showShort(result.msg)
                             setResult(Activity.RESULT_OK)
                             finish()
                         })

@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.willy.ratingbar.BaseRatingBar;
 import com.willy.ratingbar.ScaleRatingBar;
 import com.zhuosongkj.android.library.app.BaseActivity;
@@ -15,7 +16,6 @@ import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
-import com.zskjprojectj.andouclient.utils.ToastUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -86,7 +86,7 @@ public class HotelordergotoevaluationActivity extends BaseActivity {
                                 likeStatus
                         ),
                         result -> {
-                            ToastUtil.showToast("评价成功");
+                            ToastUtils.showShort("评价成功");
                             finish();
                         });
                 break;

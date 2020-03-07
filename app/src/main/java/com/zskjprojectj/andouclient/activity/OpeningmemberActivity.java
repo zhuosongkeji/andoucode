@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zhuosongkj.android.library.util.ActionBarUtil;
 import com.zhuosongkj.android.library.util.RequestUtil;
@@ -19,7 +20,6 @@ import com.zskjprojectj.andouclient.adapter.mall.PayWaysAdapter;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 import com.zskjprojectj.andouclient.utils.PayUtil;
-import com.zskjprojectj.andouclient.utils.ToastUtil;
 
 import butterknife.BindView;
 
@@ -78,7 +78,7 @@ public class OpeningmemberActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 if (TextUtils.isEmpty(payId)) {
-                    ToastUtil.showToast("请选择支付方式");
+                    ToastUtils.showShort("请选择支付方式");
                     return;
                 }
                 int id = Integer.parseInt(payId);

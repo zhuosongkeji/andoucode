@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.willy.ratingbar.ScaleRatingBar;
 import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zhuosongkj.android.library.util.ActionBarUtil;
@@ -15,7 +16,6 @@ import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.model.RestaurantOrder;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
-import com.zskjprojectj.andouclient.utils.ToastUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -45,7 +45,7 @@ public class RestaurantReviewActivity extends BaseActivity {
         RestaurantOrder order = (RestaurantOrder) getIntent().getSerializableExtra(KEY_DATA);
         int star = (int) ratingBar.getRating();
         if (star == 0) {
-            ToastUtil.showToast("请为该饭店评级!");
+            ToastUtils.showShort("请为该饭店评级!");
             return;
         }
         RequestUtil.request(mActivity, true, false,
@@ -57,7 +57,7 @@ public class RestaurantReviewActivity extends BaseActivity {
                         String.valueOf(star),
                         "",
                         likeBtn.isSelected() ? 1 : 0), result -> {
-                    ToastUtil.showToast(result.msg);
+                    ToastUtils.showShort(result.msg);
                     setResult(Activity.RESULT_OK);
                     finish();
                 });

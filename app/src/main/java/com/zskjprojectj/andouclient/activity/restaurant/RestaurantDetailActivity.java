@@ -37,7 +37,6 @@ import com.zskjprojectj.andouclient.model.Food;
 import com.zskjprojectj.andouclient.model.Restaurant;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 import com.zskjprojectj.andouclient.utils.MapUtil;
-import com.zskjprojectj.andouclient.utils.ToastUtil;
 import com.zskjprojectj.andouclient.utils.UrlUtil;
 
 import java.math.BigDecimal;
@@ -169,7 +168,7 @@ public class RestaurantDetailActivity extends BaseActivity {
                 .into((ImageView) findViewById(R.id.bannerImg));
         findViewById(R.id.buyBtn).setOnClickListener(v -> {
             if (cartAdapter.getData().isEmpty()) {
-                ToastUtil.showToast("~购物车空空如也~");
+                ToastUtils.showShort("~购物车空空如也~");
                 return;
             }
             RestaurantBillActivity.start(mActivity, restaurant, 666);

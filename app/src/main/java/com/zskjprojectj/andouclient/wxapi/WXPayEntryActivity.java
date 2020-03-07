@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.tencent.mm.opensdk.constants.ConstantsAPI;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
@@ -13,7 +14,6 @@ import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.zskjprojectj.andouclient.activity.mall.MallPaySuccessActivity;
 import com.zskjprojectj.andouclient.utils.ConstantKt;
-import com.zskjprojectj.andouclient.utils.ToastUtil;
 
 /**
  * 项目名称： andoucode
@@ -72,13 +72,13 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
                     startActivity(new Intent(WXPayEntryActivity.this, MallPaySuccessActivity.class));
                 }
             } else if (baseResp.errCode == -1) {
-                ToastUtil.showToast("支付错误" + baseResp.errStr);
+                ToastUtils.showShort("支付错误" + baseResp.errStr);
 
             } else if (baseResp.errCode == -2) {
-                ToastUtil.showToast("取消支付");
+                ToastUtils.showShort("取消支付");
             }
         } else {
-            ToastUtil.showToast(baseResp.errStr);
+            ToastUtils.showShort(baseResp.errStr);
         }
     }
 }

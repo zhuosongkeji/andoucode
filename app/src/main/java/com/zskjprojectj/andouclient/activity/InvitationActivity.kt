@@ -4,8 +4,6 @@ import android.app.AlertDialog
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Environment
-import android.view.View
-import android.widget.ImageView
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.FileUtils
 import com.blankj.utilcode.util.ToastUtils
@@ -18,7 +16,6 @@ import com.zhuosongkj.android.library.util.RequestUtil
 import com.zskjprojectj.andouclient.R
 import com.zskjprojectj.andouclient.http.ApiUtils
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil
-import com.zskjprojectj.andouclient.utils.ToastUtil
 import com.zskjprojectj.andouclient.utils.UrlUtil.getImageUrl
 import kotlinx.android.synthetic.main.activity_invitation.*
 import java.io.File

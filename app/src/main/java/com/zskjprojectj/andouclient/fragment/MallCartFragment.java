@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zhuosongkj.android.library.app.BaseFragment;
@@ -25,7 +26,6 @@ import com.zskjprojectj.andouclient.utils.ArrayParamUtil;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 import com.zskjprojectj.andouclient.utils.PayCancle;
 import com.zskjprojectj.andouclient.utils.PaySuccessEvent;
-import com.zskjprojectj.andouclient.utils.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -66,7 +66,7 @@ public class MallCartFragment extends BaseFragment {
                                 LoginInfoUtil.getToken(),
                                 ArrayParamUtil.getParam(new String[]{item.id})
                         ), result -> {
-                            ToastUtil.showToast("删除成功");
+                            ToastUtils.showShort("删除成功");
                             adapter.remove(position);
                             resetAmount();
                         });

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
 import androidx.recyclerview.widget.DividerItemDecoration
+import com.blankj.utilcode.util.ToastUtils
 import com.zhuosongkj.android.library.app.BaseActivity
 import com.zhuosongkj.android.library.util.ActionBarUtil
 import com.zhuosongkj.android.library.util.RequestUtil
@@ -13,7 +14,6 @@ import com.zskjprojectj.andouclient.http.ApiUtils
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil
 import com.zskjprojectj.andouclient.utils.PaySuccessEvent
 import com.zskjprojectj.andouclient.utils.PayUtil
-import com.zskjprojectj.andouclient.utils.ToastUtil
 import kotlinx.android.synthetic.main.activity_balanceofprepaid.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -33,13 +33,13 @@ class BalanceofprepaidActivity : BaseActivity() {
                     tv_phonenum.text = result.data.mobile
                     btn_confirm.setOnClickListener(View.OnClickListener {
                         if (TextUtils.isEmpty(payId)) {
-                            ToastUtil.showToast("请选择支付方式")
+                            ToastUtils.showShort("请选择支付方式")
                             return@OnClickListener
                         }
                         when (payId) {
                             "1" -> {
                                 if (TextUtils.isEmpty(et_money.text.toString())) {
-                                    ToastUtil.showToast("充值金额不能为空")
+                                    ToastUtils.showShort("充值金额不能为空")
                                     return@OnClickListener
                                 }
                                 RequestUtil.request(mActivity, true, false,

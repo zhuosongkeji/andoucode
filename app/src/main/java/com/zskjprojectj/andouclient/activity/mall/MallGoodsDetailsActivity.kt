@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.TimeUtils
+import com.blankj.utilcode.util.ToastUtils
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.zhuosongkj.android.library.app.BaseActivity
@@ -206,11 +207,11 @@ class MallGoodsDetailsActivity : BaseActivity() {
             dialog.setOnCenterItemClickListener { dialog, view ->
                 when (view.id) {
                     R.id.cancle -> dialog.dismiss()
-                    R.id.weixin -> ToastUtil.showToast("微信")
-                    R.id.friendcircle -> ToastUtil.showToast("朋友圈")
-                    R.id.qq -> ToastUtil.showToast("QQ")
-                    R.id.qqkongjian -> ToastUtil.showToast("QQ空间")
-                    R.id.weibo -> ToastUtil.showToast("微博")
+                    R.id.weixin -> ToastUtils.showShort("微信")
+                    R.id.friendcircle -> ToastUtils.showShort("朋友圈")
+                    R.id.qq -> ToastUtils.showShort("QQ")
+                    R.id.qqkongjian -> ToastUtils.showShort("QQ空间")
+                    R.id.weibo -> ToastUtils.showShort("微博")
                 }
             }
             dialog.show()
@@ -450,7 +451,7 @@ class MallGoodsDetailsActivity : BaseActivity() {
             for (i in res.indices) {
                 val info = res[i]
                 if (info.value.size <= 0) {
-                    ToastUtil.showToast("请选择" + info.name)
+                    ToastUtils.showShort("请选择" + info.name)
                     return@setOnClickListener
                 } else {
                     buffer.append(info.value[0]).append("-")
@@ -467,7 +468,7 @@ class MallGoodsDetailsActivity : BaseActivity() {
                         )
                     },
                     {
-                        ToastUtil.showToast("加入购物车成功")
+                        ToastUtils.showShort("加入购物车成功")
                         EventBus.getDefault().post(PaySuccessEvent())
                         bottomDialog?.dismiss()
                     })
@@ -479,7 +480,7 @@ class MallGoodsDetailsActivity : BaseActivity() {
             for (i in res.indices) {
                 val info = res[i]
                 if (info.value.size <= 0) {
-                    ToastUtil.showToast("请选择" + info.name)
+                    ToastUtils.showShort("请选择" + info.name)
                     return@OnClickListener
                 } else {
                     buffer.append(info.value[0]).append("-")

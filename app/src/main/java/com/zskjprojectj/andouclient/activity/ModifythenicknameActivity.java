@@ -6,13 +6,13 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zhuosongkj.android.library.util.ActionBarUtil;
 import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
-import com.zskjprojectj.andouclient.utils.ToastUtil;
 
 public class ModifythenicknameActivity extends BaseActivity {
     @Override
@@ -26,7 +26,7 @@ public class ModifythenicknameActivity extends BaseActivity {
             public void onClick(View view) {
                 String username = infoEdt.getText().toString().trim();
                 if (TextUtils.isEmpty(username)) {
-                    ToastUtil.showToast("请输入昵称");
+                    ToastUtils.showShort("请输入昵称");
                     return;
                 }
                 RequestUtil.request(mActivity, true, false,
@@ -35,7 +35,7 @@ public class ModifythenicknameActivity extends BaseActivity {
                                 LoginInfoUtil.getToken(),
                                 username),
                         result -> {
-                            ToastUtil.showToast("修改成功");
+                            ToastUtils.showShort("修改成功");
                             finish();
                         });
             }

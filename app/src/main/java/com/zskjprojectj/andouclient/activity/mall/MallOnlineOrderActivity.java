@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zhuosongkj.android.library.util.ActionBarUtil;
 import com.zhuosongkj.android.library.util.RequestUtil;
@@ -28,7 +29,6 @@ import com.zskjprojectj.andouclient.utils.PayCancle;
 import com.zskjprojectj.andouclient.utils.PaySuccessBackEvent;
 import com.zskjprojectj.andouclient.utils.PaySuccessEvent;
 import com.zskjprojectj.andouclient.utils.PayUtil;
-import com.zskjprojectj.andouclient.utils.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -191,7 +191,7 @@ public class MallOnlineOrderActivity extends BaseActivity {
     @OnClick(R.id.ll_buy_pay)
     public void clickBuyPay() {
         if (TextUtils.isEmpty(payId)) {
-            ToastUtil.showToast("请选择支付方式");
+            ToastUtils.showShort("请选择支付方式");
             return;
         }
 
