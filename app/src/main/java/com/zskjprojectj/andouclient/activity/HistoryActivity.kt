@@ -74,6 +74,7 @@ class HistoryActivity : BaseActivity() {
                                             adapter.selectedItems.map { it.id.toInt() }.toTypedArray())
                                 }, {
                             ToastUtils.showShort("删除成功!")
+                            pageLoadUtil.refresh()
                             rightActionBtn.performClick()
                         })
                     }

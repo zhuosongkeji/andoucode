@@ -104,9 +104,9 @@ public class MallDetailActivity extends BaseActivity {
     //分类id查询
     private String type_id;
     //价格排序(非必传1为倒序,0为正序)
-    private String price_sort = "0";
+    private String price_sort = "";
     //销量排序(非必传1为倒序,0为正序)
-    private String volume_sort = "0";
+    private String volume_sort = "";
     private List<MallShoppingHomeBean.TypeBean> typeBeanList;
     private boolean isfocuson = false;
     private String type;
