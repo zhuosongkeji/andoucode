@@ -21,6 +21,7 @@ import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import org.greenrobot.eventbus.EventBus
 import java.io.File
 
@@ -72,7 +73,7 @@ class TieBaReleaseActivity : BaseActivity() {
                     builder.addFormDataPart("top_post", if (yes.isChecked) "1" else "0")
                     adapter.selectedPics.forEach {
                         val file = File(it.path)
-                        builder.addFormDataPart("images[]", file.name, RequestBody.create("multipart/form-data".toMediaTypeOrNull(), file))
+                        builder.addFormDataPart("images[]", file.name, file.asRequestBody("multipart/form-data".toMediaTypeOrNull()))
                     }
                     val requestBody = builder.build()
                     RequestUtil.request(mActivity, true, false,
