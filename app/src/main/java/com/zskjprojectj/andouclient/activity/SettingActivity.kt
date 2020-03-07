@@ -27,6 +27,8 @@ import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 
 class SettingActivity : BaseActivity() {
@@ -104,10 +106,10 @@ class SettingActivity : BaseActivity() {
             555 -> imageView = img_setpic
         }
         val file = File(path)
-        val requestFile = RequestBody.create("image/jpg".toMediaTypeOrNull(), file)
+        val requestFile = file.asRequestBody("image/jpg".toMediaTypeOrNull())
         val body = MultipartBody.Part.createFormData("img", file.name, requestFile)
-        val uid = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), LoginInfoUtil.getUid())
-        val token = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), LoginInfoUtil.getToken())
+        val uid = LoginInfoUtil.getUid().toRequestBody("multipart/form-data".toMediaTypeOrNull())
+        val token = LoginInfoUtil.getToken().toRequestBody("multipart/form-data".toMediaTypeOrNull())
         val finalImageView = imageView
         RequestUtil.request(mActivity, true, false,
                 { ApiUtils.getApiService().uploadImg(uid, token, body) },
