@@ -27,10 +27,7 @@ import com.zskjprojectj.andouclient.activity.mall.PinTuanActivity;
 import com.zskjprojectj.andouclient.adapter.mall.RecommendProductsAdapter;
 import com.zskjprojectj.andouclient.adapter.mall.SpecialProductsAdapter;
 import com.zskjprojectj.andouclient.entity.mall.MallHomeDataBean;
-import com.zskjprojectj.andouclient.http.ApiException;
 import com.zskjprojectj.andouclient.http.ApiUtils;
-import com.zskjprojectj.andouclient.http.BaseObserver;
-import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.utils.ScreenUtil;
 import com.zskjprojectj.andouclient.utils.UrlUtil;
 

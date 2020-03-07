@@ -19,12 +19,8 @@ import com.zskjprojectj.andouclient.utils.UrlUtil;
 import com.zskjprojectj.andouclient.entity.hotel.MeHotelBean;
 import com.zskjprojectj.andouclient.entity.hotel.MeHotelDetailsBean;
 import com.zskjprojectj.andouclient.http.ApiUtils;
-import com.zskjprojectj.andouclient.http.BaseObserver;
-import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.model.HotelOrderStatus;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
-
-import java.io.IOException;
 
 /**
  * 订单详情

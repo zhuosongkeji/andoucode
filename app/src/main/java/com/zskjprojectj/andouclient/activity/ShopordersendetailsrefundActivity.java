@@ -33,8 +33,6 @@ import com.zskjprojectj.andouclient.adapter.CauseRecyclerAdapter;
 import com.zskjprojectj.andouclient.adapter.TuiKuanAdapter;
 import com.zskjprojectj.andouclient.entity.RefundReasonBean;
 import com.zskjprojectj.andouclient.http.ApiUtils;
-import com.zskjprojectj.andouclient.http.BaseObserver;
-import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.model.OrderDetail;
 import com.zskjprojectj.andouclient.utils.GlideEngine;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
@@ -42,7 +40,6 @@ import com.zskjprojectj.andouclient.utils.ToastUtil;
 import com.zskjprojectj.andouclient.utils.UrlUtil;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 import butterknife.BindView;

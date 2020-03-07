@@ -17,9 +17,7 @@ import com.zhuosongkj.android.library.app.BaseActivity
 import com.zhuosongkj.android.library.util.ActionBarUtil
 import com.zhuosongkj.android.library.util.RequestUtil
 import com.zskjprojectj.andouclient.R
-import com.zskjprojectj.andouclient.activity.LoginActivity
 import com.zskjprojectj.andouclient.http.ApiUtils
-import com.zskjprojectj.andouclient.http.BaseObserver
 import com.zskjprojectj.andouclient.utils.*
 import com.zskjprojectj.andouclient.utils.UrlUtil.getImageUrl
 import com.zskjprojectj.andouclient.view.PromtOnlyExtraDialog
@@ -59,12 +57,12 @@ class SettingActivity : BaseActivity() {
             val promtOnlyExtraDialog = PromtOnlyExtraDialog(mActivity,
                     R.style.dialog, "系统提示", "是否清理缓存$s", "清理",
                     PromtOnlyExtraDialog.OnCloseListener { dialog, confirm ->
-                if (confirm) {
-                    DataCleanManager.clearAllCache(mActivity)
-                    ToastUtil.showToast("清理成功!")
-                    tv_msize.text = "0kb"
-                }
-            })
+                        if (confirm) {
+                            DataCleanManager.clearAllCache(mActivity)
+                            ToastUtil.showToast("清理成功!")
+                            tv_msize.text = "0kb"
+                        }
+                    })
             promtOnlyExtraDialog.show()
         }
         protocolContainer.setOnClickListener { v: View? -> dialog = DialogUtil.showProtocolDialogNoBtns(mActivity) }
@@ -92,7 +90,7 @@ class SettingActivity : BaseActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode != Activity.RESULT_OK) return
-        if (requestCode == BaseObserver.REQUEST_CODE_LOGIN) { //            getDataFromServer();
+        if (requestCode == REQUEST_CODE_LOGIN) { //            getDataFromServer();
             return
         }
         var path = PictureSelector.obtainMultipleResult(data)[0].androidQToPath

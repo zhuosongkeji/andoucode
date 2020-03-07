@@ -15,12 +15,7 @@ import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.adapter.MyscoreAdapter;
 import com.zskjprojectj.andouclient.http.ApiUtils;
-import com.zskjprojectj.andouclient.http.BaseObserver;
-import com.zskjprojectj.andouclient.http.HttpRxObservable;
-import com.zskjprojectj.andouclient.model.IntegralDetail;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
-
-import java.io.IOException;
 
 /**
  * 我的积分

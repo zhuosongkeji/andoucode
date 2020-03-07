@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder
-import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.RegexUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.zhuosongkj.android.library.app.BaseActivity
@@ -14,7 +13,7 @@ import com.zhuosongkj.android.library.util.RequestUtil
 import com.zskjprojectj.andouclient.R
 import com.zskjprojectj.andouclient.adapter.UploadPicAdapter
 import com.zskjprojectj.andouclient.http.ApiUtils
-import com.zskjprojectj.andouclient.http.PostSuccessEvent
+import com.zskjprojectj.andouclient.event.PostSuccessEvent
 import com.zskjprojectj.andouclient.model.TieBaType
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil
 import kotlinx.android.synthetic.main.activity_tie_ba_release.*

@@ -21,12 +21,8 @@ import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.fragment.AccountChangeListFragment;
 import com.zskjprojectj.andouclient.http.ApiUtils;
-import com.zskjprojectj.andouclient.http.BaseObserver;
-import com.zskjprojectj.andouclient.http.HttpRxObservable;
-import com.zskjprojectj.andouclient.model.BalanceDetail;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 

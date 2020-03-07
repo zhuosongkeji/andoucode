@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +21,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.stx.xhb.xbanner.XBanner;
 import com.zhuosongkj.android.library.app.BaseFragment;
 import com.zhuosongkj.android.library.util.RequestUtil;
@@ -30,16 +28,11 @@ import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.hotel.HotelOnlineReserveActivity;
 import com.zskjprojectj.andouclient.adapter.hotel.ReserveAdapter;
 import com.zskjprojectj.andouclient.entity.XBannerBean;
-import com.zskjprojectj.andouclient.entity.hotel.HotelDetailReserveBean;
 import com.zskjprojectj.andouclient.entity.hotel.HotelHomeDetailsBean;
-import com.zskjprojectj.andouclient.entity.hotel.HotelSettlementBean;
 import com.zskjprojectj.andouclient.http.ApiUtils;
-import com.zskjprojectj.andouclient.http.BaseObserver;
-import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 import com.zskjprojectj.andouclient.utils.UrlUtil;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;

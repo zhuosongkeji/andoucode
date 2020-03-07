@@ -34,12 +34,9 @@ import com.zskjprojectj.andouclient.utils.CustomPartShadowPopupView;
 import com.zskjprojectj.andouclient.utils.UrlUtil;
 import com.zskjprojectj.andouclient.entity.mall.MallShoppingHomeBean;
 import com.zskjprojectj.andouclient.http.ApiUtils;
-import com.zskjprojectj.andouclient.http.BaseObserver;
-import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.utils.BarUtils;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 
-import java.io.IOException;
 import java.util.List;
 
 import butterknife.BindView;

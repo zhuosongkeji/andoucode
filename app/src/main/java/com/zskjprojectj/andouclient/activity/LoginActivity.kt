@@ -15,9 +15,9 @@ import com.zhuosongkj.android.library.util.RequestUtil
 import com.zskjprojectj.andouclient.R
 import com.zskjprojectj.andouclient.event.WeiXinLoginEvent
 import com.zskjprojectj.andouclient.http.ApiUtils
-import com.zskjprojectj.andouclient.http.BaseObserver
 import com.zskjprojectj.andouclient.utils.KEY_FOR_RESULT
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil
+import com.zskjprojectj.andouclient.utils.REQUEST_CODE_LOGIN
 import com.zskjprojectj.andouclient.utils.ToastUtil.showToast
 import com.zskjprojectj.andouclient.utils.WEI_XIN_APP_ID
 import kotlinx.android.synthetic.main.activity_login.*
@@ -111,7 +111,7 @@ class LoginActivity : BaseActivity() {
     companion object {
         private var started = false
 
-        fun start(activity: Activity, requestCode: Int = BaseObserver.REQUEST_CODE_LOGIN) {
+        fun start(activity: Activity, requestCode: Int = REQUEST_CODE_LOGIN) {
             if (started) return
             started = true
             val bundle = Bundle()

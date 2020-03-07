@@ -1,7 +1,6 @@
 package com.zskjprojectj.andouclient.http
 
 import com.google.gson.JsonElement
-import com.raizlabs.android.dbflow.sql.language.Condition
 import com.zhuosongkj.android.library.model.BaseResult
 import com.zhuosongkj.android.library.model.ListData
 import com.zskjprojectj.andouclient.entity.*

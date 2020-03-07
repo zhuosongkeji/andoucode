@@ -27,17 +27,13 @@ import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 import com.zskjprojectj.andouclient.utils.MapUtil;
 import com.zskjprojectj.andouclient.utils.UrlUtil;
-import com.zskjprojectj.andouclient.entity.hotel.HotelDetailsBean;
 import com.zskjprojectj.andouclient.fragment.hotel.HotelDetailCommentFragment;
 import com.zskjprojectj.andouclient.fragment.hotel.HotelDetailFacilityFragment;
 import com.zskjprojectj.andouclient.fragment.hotel.HotelDetailMerchantFragment;
 import com.zskjprojectj.andouclient.fragment.hotel.HotelDetailReserveFragment;
 import com.zskjprojectj.andouclient.http.ApiUtils;
-import com.zskjprojectj.andouclient.http.BaseObserver;
-import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.blankj.utilcode.util.BarUtils;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 

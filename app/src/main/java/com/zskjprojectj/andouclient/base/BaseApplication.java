@@ -12,12 +12,13 @@ import com.zskjprojectj.andouclient.BuildConfig;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.LoginActivity;
 import com.zskjprojectj.andouclient.http.ApiService;
-import com.zskjprojectj.andouclient.http.BaseObserver;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 import com.zskjprojectj.andouclient.utils.SharedPreferencesManager;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import static com.zskjprojectj.andouclient.utils.ConstantKt.REQUEST_CODE_LOGIN;
 
 
 public class BaseApplication extends Application {
@@ -33,7 +34,7 @@ public class BaseApplication extends Application {
         initHttp();
         Logger.addLogAdapter(new AndroidLogAdapter());
         RequestUtil.onLoginRequest = activity -> {
-            LoginActivity.Companion.start(activity, BaseObserver.REQUEST_CODE_LOGIN);
+            LoginActivity.Companion.start(activity, REQUEST_CODE_LOGIN);
             LoginInfoUtil.saveLoginInfo("", "");
         };
         Bugly.init(getApplicationContext(), "f184c5e735", BuildConfig.DEBUG);

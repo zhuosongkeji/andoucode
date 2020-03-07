@@ -16,8 +16,7 @@ import com.tbruyelle.rxpermissions2.RxPermissions
 import com.zhuosongkj.android.library.app.BaseActivity
 import com.zskjprojectj.andouclient.R
 import com.zskjprojectj.andouclient.fragment.*
-import com.zskjprojectj.andouclient.http.BaseObserver.REQUEST_CODE_LOGIN
-import com.zskjprojectj.andouclient.utils.LogUtil
+import com.zskjprojectj.andouclient.utils.REQUEST_CODE_LOGIN
 import kotlinx.android.synthetic.main.activity_app_home.*
 
 class AppHomeActivity : BaseActivity() {

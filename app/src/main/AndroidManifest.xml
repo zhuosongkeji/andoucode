@@ -309,9 +309,7 @@
         <activity
             android:name=".activity.ModifythenicknameActivity"
             android:screenOrientation="portrait" /> <!-- 修改昵称 -->
-        <activity
-            android:name=".activity.SearchActivity"
-            android:screenOrientation="portrait" /> <!-- 位置搜索页面 -->
+        <!-- 位置搜索页面 -->
         <activity
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"

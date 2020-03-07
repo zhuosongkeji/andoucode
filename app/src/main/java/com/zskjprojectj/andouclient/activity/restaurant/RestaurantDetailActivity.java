@@ -48,8 +48,8 @@ import java.util.Date;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-import static com.zskjprojectj.andouclient.http.BaseObserver.REQUEST_CODE_LOGIN;
 import static com.zskjprojectj.andouclient.utils.ConstantKt.KEY_DATA;
+import static com.zskjprojectj.andouclient.utils.ConstantKt.REQUEST_CODE_LOGIN;
 
 public class RestaurantDetailActivity extends BaseActivity {
 

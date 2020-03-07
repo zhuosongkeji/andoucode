@@ -1,4 +1,4 @@
-package com.zskjprojectj.andouclient.http
+package com.zskjprojectj.andouclient.model
 
 import com.zhuosongkj.android.library.model.IListData
 import java.util.ArrayList

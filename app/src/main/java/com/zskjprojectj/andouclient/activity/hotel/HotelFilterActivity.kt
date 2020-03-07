@@ -25,17 +25,13 @@ import com.zskjprojectj.andouclient.adapter.hotel.HotelPriceAdapter
 import com.zskjprojectj.andouclient.adapter.hotel.HotelResultAdapter
 import com.zskjprojectj.andouclient.adapter.hotel.HotelStarAdapter
 import com.zskjprojectj.andouclient.entity.hotel.HotelHomeBean
-import com.zskjprojectj.andouclient.entity.hotel.HotelSearchConditionBean
 import com.zskjprojectj.andouclient.http.ApiUtils
-import com.zskjprojectj.andouclient.http.BaseObserver
-import com.zskjprojectj.andouclient.http.HttpRxObservable
 import com.zskjprojectj.andouclient.model.District
 import com.zskjprojectj.andouclient.utils.BarUtils
 import com.zskjprojectj.andouclient.utils.GridSectionAverageGapItemDecoration
 import kotlinx.android.synthetic.main.activity_hotel_filter.*
 import kotlinx.android.synthetic.main.dialog_hotel_location.view.*
 import kotlinx.android.synthetic.main.dialog_hotel_star_price.view.*
-import java.io.IOException
 
 
 class HotelFilterActivity : BaseActivity() {

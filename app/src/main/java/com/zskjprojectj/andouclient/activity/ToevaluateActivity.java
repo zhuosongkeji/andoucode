@@ -14,12 +14,8 @@ import com.zhuosongkj.android.library.util.ActionBarUtil;
 import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.http.ApiUtils;
-import com.zskjprojectj.andouclient.http.BaseObserver;
-import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 import com.zskjprojectj.andouclient.utils.UrlUtil;
-
-import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.OnClick;

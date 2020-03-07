@@ -14,14 +14,8 @@ import com.zhuosongkj.android.library.util.ActionBarUtil;
 import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.adapter.MymessageAdapter;
-import com.zskjprojectj.andouclient.entity.MymessageBean;
 import com.zskjprojectj.andouclient.http.ApiUtils;
-import com.zskjprojectj.andouclient.http.BaseObserver;
-import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
-
-import java.io.IOException;
-import java.util.List;
 
 /**
  * 我的消息

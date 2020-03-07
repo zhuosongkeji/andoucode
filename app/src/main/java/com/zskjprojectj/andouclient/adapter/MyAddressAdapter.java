@@ -1,19 +1,13 @@
 package com.zskjprojectj.andouclient.adapter;
 
-import android.app.Activity;
-
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zhuosongkj.android.library.util.RequestUtil;
 import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.http.ApiUtils;
-import com.zskjprojectj.andouclient.http.BaseObserver;
-import com.zskjprojectj.andouclient.http.HttpRxObservable;
 import com.zskjprojectj.andouclient.model.Address;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
-
-import java.io.IOException;
 
 public class MyAddressAdapter extends BaseQuickAdapter<Address, BaseViewHolder> {
     public MyAddressAdapter() {

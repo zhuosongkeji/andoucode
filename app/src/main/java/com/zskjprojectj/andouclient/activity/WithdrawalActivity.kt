@@ -1,8 +1,6 @@
 package com.zskjprojectj.andouclient.activity
 
 import android.os.Bundle
-import android.view.View
-import android.widget.TextView
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.RegexUtils
 import com.blankj.utilcode.util.ToastUtils
@@ -11,13 +9,9 @@ import com.zhuosongkj.android.library.util.ActionBarUtil
 import com.zhuosongkj.android.library.util.RequestUtil
 import com.zskjprojectj.andouclient.R
 import com.zskjprojectj.andouclient.http.ApiUtils
-import com.zskjprojectj.andouclient.http.BaseObserver
-import com.zskjprojectj.andouclient.http.HttpRxObservable
-import com.zskjprojectj.andouclient.model.BalanceDetail
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil
 import com.zskjprojectj.andouclient.utils.ToastUtil
 import kotlinx.android.synthetic.main.activity_withdrawal.*
-import java.io.IOException
 
 class WithdrawalActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
