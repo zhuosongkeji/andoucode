@@ -370,6 +370,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_recommend_products"
                 android:layout_width="match_parent"
+                android:overScrollMode="never"
                 android:layout_height="wrap_content" />
 
             <LinearLayout
@@ -439,6 +440,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_special_products"
                 android:layout_width="match_parent"
+                android:overScrollMode="never"
                 android:layout_height="wrap_content" />
 
             <TextView

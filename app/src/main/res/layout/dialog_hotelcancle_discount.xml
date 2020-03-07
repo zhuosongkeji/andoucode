@@ -38,6 +38,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_cause_recycler"
+        android:overScrollMode="never"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

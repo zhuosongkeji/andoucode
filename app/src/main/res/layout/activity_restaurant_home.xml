@@ -45,6 +45,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="22dp"
+                                android:overScrollMode="never"
                                 android:paddingBottom="3dp"
                                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                                 app:spanCount="4" />
