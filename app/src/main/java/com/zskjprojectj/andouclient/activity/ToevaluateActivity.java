@@ -2,6 +2,7 @@ package com.zskjprojectj.andouclient.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -34,12 +35,16 @@ public class ToevaluateActivity extends BaseActivity {
     @BindView(R.id.et_add_comment_content)
     EditText mAddCommentContent;
 
+    @BindView(R.id.iv_like)
+    ImageView mIvLike;
+
     private String goodsId;
     private String orderId;
     private String merchantsId;
     private String img;
     private String content;
     private String ratingNum;
+    private int likeStatus = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,25 +68,39 @@ public class ToevaluateActivity extends BaseActivity {
         ActivityUtils.startActivity(bundle, ToevaluateActivity.class);
     }
 
-    @OnClick(R.id.btn_add_comment)
-    public void comment() {
-        //获得星级
-        float rating = mSimpleRatingBar.getRating();
-        ratingNum = Float.toString(rating);
-        content = mAddCommentContent.getText().toString();
-        RequestUtil.request(mActivity, true, false,
-                () -> ApiUtils.getApiService().addcomment(
-                        LoginInfoUtil.getUid(),
-                        LoginInfoUtil.getToken(),
-                        goodsId,
-                        orderId,
-                        merchantsId,
-                        content,
-                        ratingNum
-                ),
-                result -> {
-                    startActivity(new Intent(mActivity, CommentSuccessActivity.class));
-                });
+    @OnClick({R.id.iv_like,R.id.btn_add_comment})
+    public void comment(View view) {
+        switch (view.getId()) {
+            case R.id.iv_like:
+                mIvLike.setSelected(!mIvLike.isSelected());
+                if (mIvLike.isSelected()) {
+                    likeStatus = 1;
+                } else {
+                    likeStatus = 0;
+                }
+                break;
+            case R.id.btn_add_comment:
+                //获得星级
+                float rating = mSimpleRatingBar.getRating();
+                ratingNum = Float.toString(rating);
+                content = mAddCommentContent.getText().toString();
+                RequestUtil.request(mActivity, true, false,
+                        () -> ApiUtils.getApiService().addcomment(
+                                LoginInfoUtil.getUid(),
+                                LoginInfoUtil.getToken(),
+                                goodsId,
+                                orderId,
+                                merchantsId,
+                                content,
+                                ratingNum,
+                                likeStatus
+                                ),
+                        result -> {
+                            startActivity(new Intent(mActivity, CommentSuccessActivity.class));
+                        });
+                break;
+        }
+
     }
 
     @Override

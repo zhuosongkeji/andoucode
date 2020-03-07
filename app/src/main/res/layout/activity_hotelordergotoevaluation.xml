@@ -65,12 +65,13 @@
 
         <ImageView
             android:id="@+id/iv_like"
-            android:layout_width="@dimen/dp_18"
-            android:layout_height="@dimen/dp_18"
-            android:layout_alignParentRight="true"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/dp_15"
-            android:background="@drawable/like_style" />
+            android:padding="15dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/like_style" />
     </RelativeLayout>
 
     <LinearLayout

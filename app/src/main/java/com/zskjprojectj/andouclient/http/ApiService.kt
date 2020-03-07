@@ -1,6 +1,7 @@
 package com.zskjprojectj.andouclient.http
 
 import com.google.gson.JsonElement
+import com.raizlabs.android.dbflow.sql.language.Condition
 import com.zhuosongkj.android.library.model.BaseResult
 import com.zhuosongkj.android.library.model.ListData
 import com.zskjprojectj.andouclient.entity.*
@@ -656,7 +657,9 @@ interface ApiService {
                    @Field("order_id") order_id: String,
                    @Field("merchants_id") merchants_id: String,
                    @Field("content") content: String,
-                   @Field("stars") stars: String): Observable<BaseResult<Any>>
+                   @Field("stars") stars: String,
+                   @Field("vote") vote: Int
+                   ): Observable<BaseResult<Any>>
 
     /**
      * 首页

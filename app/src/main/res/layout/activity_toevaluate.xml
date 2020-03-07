@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F7F7F7"
@@ -20,7 +21,7 @@
             android:layout_height="@dimen/dp_75"
             android:adjustViewBounds="true"
             android:scaleType="fitXY"
-            android:src="@mipmap/one_test" />
+            tools:src="@mipmap/one_test" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -54,6 +55,32 @@
                 app:srb_stepSize="0.5" />
         </LinearLayout>
     </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginTop="@dimen/dp_1"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="15dp"
+            android:text="点赞商家"
+            android:textColor="#555555"
+            android:textSize="@dimen/typeface12sp" />
+
+        <ImageView
+            android:id="@+id/iv_like"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:padding="15dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/like_style" />
+    </RelativeLayout>
 
     <EditText
         android:id="@+id/et_add_comment_content"

@@ -61,13 +61,11 @@ public class HotelordergotoevaluationActivity extends BaseActivity {
     public void clickView(View view) {
         switch (view.getId()) {
             case R.id.iv_like:
+                mIvLike.setSelected(!mIvLike.isSelected());
                 if (mIvLike.isSelected()) {
-                    likeStatus = "0";
-                    mIvLike.setSelected(false);
-                } else {
-                    mIvLike.setSelected(true);
-
                     likeStatus = "1";
+                } else {
+                    likeStatus = "0";
                 }
                 break;
             case R.id.btn_evaluate:
