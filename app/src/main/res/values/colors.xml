@@ -8,15 +8,10 @@
     <color name="white">#ffffffff</color>
     <color name="lightgrey">#D3D3D3</color>
     <color name="black_28">#282828</color>
-    <color name="black_layout">#343434</color>
 
     <color name="grey_1">#8f8f8f</color>
     <color name="grey_2">#ACA8A8</color>
     <color name="line">#DDDDDD</color>
-    <color name="holo_blue_bright">#ff22c3be</color>
-    <color name="holo_green_light">#ff99cc00</color>
-    <color name="holo_orange_light">#ffffbb33</color>
-    <color name="holo_red_light">#ffff4444</color>
     <color name="check_text">#5ED3AE</color>
 
     <color name="colorNavy">#5ed3ae</color>

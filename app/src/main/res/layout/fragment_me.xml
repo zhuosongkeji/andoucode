@@ -352,7 +352,6 @@
                     android:layout_height="@dimen/dp_100">
 
                     <LinearLayout
-                        android:id="@+id/mycenter_foodorder_layout"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -396,7 +395,6 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/mycenter_vegetablemarket_layout"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"

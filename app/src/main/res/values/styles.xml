@@ -19,16 +19,6 @@
         <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
     </style>
 
-    <style name="loading_dialog" parent="@android:style/Theme.Dialog">
-        <item name="android:windowFrame">@null</item><!--边框-->
-        <item name="android:windowIsFloating">true</item><!--是否浮现在activity之上-->
-        <item name="android:windowIsTranslucent">false</item><!--半透明-->
-        <item name="android:windowTranslucentStatus">true</item>
-        <item name="android:windowNoTitle">true</item><!--无标题-->
-        <item name="android:windowBackground">@android:color/transparent
-        </item><!--背景透明   去掉背景色边框也就去掉了-->
-        <item name="android:backgroundDimEnabled">false</item><!--模糊-->
-    </style>
     <style name="MainTitle">
         <item name="android:textSize">17sp</item>
     </style>

@@ -25,7 +25,6 @@
                 android:text="TAKE OUT"/>
         </LinearLayout>
         <LinearLayout
-            android:id="@+id/appointment_see_more_layout"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:gravity="right"
