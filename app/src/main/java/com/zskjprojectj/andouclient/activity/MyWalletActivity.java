@@ -1,10 +1,6 @@
 package com.zskjprojectj.andouclient.activity;
 
-import android.graphics.Color;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -13,9 +9,6 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.flyco.tablayout.SlidingTabLayout;
-import com.shizhefei.view.indicator.FixedIndicatorView;
-import com.shizhefei.view.indicator.IndicatorViewPager;
-import com.shizhefei.view.indicator.slidebar.ColorBar;
 import com.zhuosongkj.android.library.app.BaseActivity;
 import com.zhuosongkj.android.library.util.ActionBarUtil;
 import com.zhuosongkj.android.library.util.RequestUtil;
@@ -25,7 +18,6 @@ import com.zskjprojectj.andouclient.http.ApiUtils;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MyWalletActivity extends BaseActivity {
 

@@ -44,9 +44,8 @@ android {
     }
 }
 bugtags {
-    //自动上传符号表功能配置，如果需要根据 build varint 配置，请参考帮助中心->符号表->Android 符号表->配置自动上传符号表
-    appKey "bcb6809d0785875785a9599892aceb19"  //这里是你的 appKey
-    appSecret "53896b4411df187b1876a1bce547eb49"    //这里是你的 appSecret，管理员在设置页可以查看
+    appKey "bcb6809d0785875785a9599892aceb19"
+    appSecret "53896b4411df187b1876a1bce547eb49"
     mappingUploadEnabled true
 }
 dependencies {
@@ -62,91 +61,40 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:2.4.0"
     implementation "com.squareup.retrofit2:converter-gson:2.4.0"
     implementation "com.squareup.retrofit2:adapter-rxjava2:2.4.0"
-    //底部菜单
     implementation 'q.rorbin:badgeview:1.1.0'
-    //普通版本依赖
     implementation 'com.github.xiaohaibin:XBanner:1.7.0'
-    //模拟请求数据用有数据接口替换
-    //第三方顶部菜单
-    implementation 'com.shizhefei:ViewPagerIndicator:1.1.7'
-    //悬浮窗
-    implementation 'com.github.yhaolpz:FloatWindow:1.0.6'
-    //底部菜单
     implementation 'com.github.forvv231:EasyNavigation:1.0.3'
-    //适配器
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.46'
-    implementation 'com.android.support:recyclerview-v7:28.0.0'
     implementation 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.5@aar'
-
-    //沉浸式状态栏
-    // 基础依赖包，必须要依赖
-    //分页导航
     implementation 'com.wihaohao:PageGridView:1.2.1'
-//TabLayout
-    //下拉列表
     implementation 'com.github.arcadefire:nice-spinner:1.3.1'
     implementation 'com.google.android.material:material:1.2.0-alpha02'
-    //弹窗
-    //视频播放
     implementation 'cn.jzvd:jiaozivideoplayer:7.0.5'
-    //选择框架 PickerView
     implementation 'com.contrarywind:Android-PickerView:4.1.9'
-
-    //屏幕适配 AutoSize
     implementation 'me.jessyan:autosize:1.1.2'
-    //高德地图api
-    //定位功能
     implementation 'com.amap.api:location:latest.integration'
-    //搜索功能
     implementation 'com.amap.api:search:latest.integration'
-
     implementation 'com.amap.api:3dmap:latest.integration'
-
-    //旋转木马相册
     implementation 'com.chenlittleping:recyclercoverflow:1.0.6'
-    //城市定位
-    implementation 'com.zaaach:citypicker:2.0.3'    //必选
-    //RatingBar
+    implementation 'com.zaaach:citypicker:2.0.3'
     implementation 'com.github.ome450901:SimpleRatingBar:1.4.3'
-
-    //流式布局
     implementation 'com.hyman:flowlayout-lib:1.1.2'
-
     implementation 'com.blankj:utilcodex:1.26.0'
-
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
-
-    //二维码扫描
     implementation 'com.king.zxing:zxing-lite:1.1.5-androidx'
-
-    //图片选择
     implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.4.2'
     implementation project(path: ':library')
-    //通知
     implementation 'org.greenrobot:eventbus:3.1.1'
-
-    //酒店选择日期
     implementation 'com.github.atuan07:CustomHotelCalender:V1.0.2'
-    implementation project(path: ':library')
-    //通知
-    implementation 'org.greenrobot:eventbus:3.1.1'
-
     implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
-    //地址选择器
     implementation 'com.github.chihane:JDAddressSelector:1.1.4'
-
     implementation 'com.github.SheHuan:NiceDialog:1.2.0'
-
-    implementation 'com.contrarywind:Android-PickerView:4.1.9'
     implementation 'com.lxj:xpopup:1.8.10-x'
-
     implementation 'com.azoft.carousellayoutmanager:carousel:1.2.4'
     implementation project(path: ':recycler_banner_library')
     implementation "androidx.core:core-ktx:+"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-
     implementation 'com.tencent.bugly:crashreport_upgrade:latest.release'
     implementation 'com.tencent.bugly:nativecrashreport:latest.release'
-
     implementation 'com.bugtags.library:bugtags-lib:latest.integration'
 }
