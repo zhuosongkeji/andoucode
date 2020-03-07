@@ -13,7 +13,6 @@ import com.zskjprojectj.andouclient.R;
 import com.zskjprojectj.andouclient.activity.LoginActivity;
 import com.zskjprojectj.andouclient.http.ApiService;
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
-import com.zskjprojectj.andouclient.utils.SharedPreferencesManager;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -30,7 +29,6 @@ public class BaseApplication extends Application {
     public void onCreate() {
         super.onCreate();
         application = this;
-        SharedPreferencesManager.init(application);
         initHttp();
         Logger.addLogAdapter(new AndroidLogAdapter());
         RequestUtil.onLoginRequest = activity -> {
