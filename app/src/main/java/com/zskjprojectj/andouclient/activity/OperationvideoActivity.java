@@ -27,8 +27,12 @@ public class OperationvideoActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        if (Jzvd.backPress()) {
-            return;
+        try {
+            if (Jzvd.backPress()) {
+                return;
+            }
+        } catch (Throwable e) {
+            super.onBackPressed();
         }
         super.onBackPressed();
     }
