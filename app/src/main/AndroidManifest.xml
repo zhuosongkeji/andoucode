@@ -325,7 +325,7 @@
             android:exported="true"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".activity.WeixinbingphoneActivity"
+            android:name=".activity.WeiXinBindPhoneActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".activity.ApplyforsuccessfulActivity" />
         <activity

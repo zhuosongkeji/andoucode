@@ -386,7 +386,7 @@ interface ApiService {
                     @Field("uid") uid: String,
                     @Field("token") token: String,
                     @Field("name") name: String,
-                    @Field("tel") mobile: String,
+                    @Field("mobile") mobile: String,
                     @Field("area_id") area_id: String,
                     @Field("address") address: String,
                     @Field("is_defualt") is_defualt: String): Observable<BaseResult<Any>>

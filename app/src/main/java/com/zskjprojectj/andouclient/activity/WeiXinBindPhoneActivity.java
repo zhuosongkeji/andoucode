@@ -1,5 +1,6 @@
 package com.zskjprojectj.andouclient.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -18,7 +19,7 @@ import com.zskjprojectj.andouclient.utils.LoginInfoUtil;
 
 import static com.zskjprojectj.andouclient.utils.ConstantKt.KEY_FOR_RESULT;
 
-public class WeixinbingphoneActivity extends BaseActivity {
+public class WeiXinBindPhoneActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,9 +79,7 @@ public class WeixinbingphoneActivity extends BaseActivity {
                                 useravator),
                         result -> {
                             LoginInfoUtil.saveLoginInfo(result.data.id, result.data.token);
-                            if (!getIntent().getBooleanExtra(KEY_FOR_RESULT, false)) {
-                                ActivityUtils.startActivity(mActivity, AppHomeActivity.class);
-                            }
+                            setResult(Activity.RESULT_OK);
                             finish();
                         });
             }
@@ -90,5 +89,14 @@ public class WeixinbingphoneActivity extends BaseActivity {
     @Override
     protected int getContentView() {
         return R.layout.activity_weixinbingphone;
+    }
+
+    public static void start(Activity activity, String nickname, String avatorpic, String openid) {
+        Intent intent = new Intent();
+        intent.putExtra("nickname", nickname);
+        intent.putExtra("avatorpic", avatorpic);
+        intent.putExtra("openid", openid);
+        intent.setClass(activity, WeiXinBindPhoneActivity.class);
+        activity.startActivityForResult(intent, 666);
     }
 }

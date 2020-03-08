@@ -53,6 +53,8 @@ public class RequestUtil {
                                 onLoginRequest.onLoginRequest(activity);
                             }
                             onError(new ApiException(result.code, result.msg));
+                        } else if (result.code.equals("203") && result.msg.contains("绑定")) {
+                            onSuccessListener.onSuccess(result);
                         } else {
                             onError(new ApiException(result.code, result.msg));
                         }

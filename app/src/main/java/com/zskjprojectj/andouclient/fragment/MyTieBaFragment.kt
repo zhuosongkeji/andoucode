@@ -6,9 +6,13 @@ import android.os.Bundle
 import android.view.View
 import com.zskjprojectj.andouclient.R
 import com.zskjprojectj.andouclient.activity.LoginActivity
+import com.zskjprojectj.andouclient.event.LoginSuccessEvent
 import com.zskjprojectj.andouclient.http.ApiUtils
 import com.zskjprojectj.andouclient.utils.LoginInfoUtil
 import kotlinx.android.synthetic.main.fragment_my_tieba.view.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 class MyTieBaFragment : TieBaListFragment() {
     override fun getContentView() = R.layout.fragment_my_tieba
@@ -36,5 +40,10 @@ class MyTieBaFragment : TieBaListFragment() {
         if (resultCode == Activity.RESULT_OK && requestCode == 666) {
             loadData()
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onLoginSuccess(event: LoginSuccessEvent) {
+        loadData()
     }
 }

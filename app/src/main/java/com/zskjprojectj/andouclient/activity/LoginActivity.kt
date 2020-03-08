@@ -13,6 +13,7 @@ import com.tencent.mm.opensdk.openapi.WXAPIFactory
 import com.zhuosongkj.android.library.app.BaseActivity
 import com.zhuosongkj.android.library.util.RequestUtil
 import com.zskjprojectj.andouclient.R
+import com.zskjprojectj.andouclient.event.LoginSuccessEvent
 import com.zskjprojectj.andouclient.event.WeiXinLoginEvent
 import com.zskjprojectj.andouclient.http.ApiUtils
 import com.zskjprojectj.andouclient.utils.KEY_FOR_RESULT
@@ -46,6 +47,7 @@ class LoginActivity : BaseActivity() {
                             {
                                 LoginInfoUtil.saveLoginInfo(it.data.id, it.data.token)
                                 setResult(Activity.RESULT_OK)
+                                EventBus.getDefault().post(LoginSuccessEvent())
                                 if (!intent.getBooleanExtra(KEY_FOR_RESULT, false)) {
                                     ActivityUtils.startActivity(AppHomeActivity::class.java)
                                 }
@@ -81,22 +83,33 @@ class LoginActivity : BaseActivity() {
                 { ApiUtils.getApiService().loginweixin(event.code) },
                 {
                     LoginInfoUtil.saveLoginInfo(it.data.id, it.data.token)
-                    this@LoginActivity.setResult(Activity.RESULT_OK)
                     if (it.data.token.isNotEmpty()) {
                         if (!intent.getBooleanExtra(KEY_FOR_RESULT, false)) {
                             ActivityUtils.startActivity(AppHomeActivity::class.java)
                         }
+                        EventBus.getDefault().post(LoginSuccessEvent())
+                        this@LoginActivity.setResult(Activity.RESULT_OK)
                         finish()
                     } else {
-                        val intent = Intent()
-                        intent.putExtra("nickname", it.data.name)
-                        intent.putExtra("avatorpic", it.data.avator)
-                        intent.putExtra("openid", it.data.openid)
-                        intent.setClass(mActivity, WeixinbingphoneActivity::class.java)
-                        startActivity(intent)
-                        finish()
+                        if (it.data == null) {
+                            ToastUtils.showShort("无微信登录信息!")
+                        } else {
+                            WeiXinBindPhoneActivity.start(mActivity, it.data.name, it.data.avator, it.data.openid)
+                        }
                     }
                 })
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK && requestCode == 666) {
+            setResult(Activity.RESULT_OK)
+            EventBus.getDefault().post(LoginSuccessEvent())
+            if (!intent.getBooleanExtra(KEY_FOR_RESULT, false)) {
+                ActivityUtils.startActivity(mActivity, AppHomeActivity::class.java)
+            }
+            finish()
+        }
     }
 
     override fun onDestroy() {
